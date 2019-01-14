@@ -1,0 +1,33 @@
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    @include alert-variant(alert-variation($color, "alert-bg"), alert-variation($color, "alert-border"), alert-variation($color, "alert-color"));
+  }
+
+  .badge-#{$color} {
+    @include badge-variant(badge-variation($color, "badge-bg"), badge-variation($color, "badge-color"));
+  }
+  
+  .btn-#{$color} {
+    @include button-variant(button-variation($color, "button-color"), button-variation($color, "button-bg"), button-variation($color, "button-border"), button-variation($color, "button-hover-color"), button-variation($color, "button-hover-bg"), button-variation($color, "button-hover-border"), button-variation($color, "button-active-color"), button-variation($color, "button-active-bg"), button-variation($color, "button-active-border"), button-variation($color, "button-box-shadow-color"));
+  }
+  
+  .btn-outline-#{$color} {
+    @include button-outline-variant(button-outline-variation($color, "button-outline-color"), button-outline-variation($color, "button-outline-color-hover"), button-outline-variation($color, "button-outline-box-shadow-color"));
+  }
+  
+  @include list-group-item-variant($color, list-group-item-variation($color, "list-group-item-bg"), list-group-item-variation($color, "list-group-item-color"));
+  
+  @include table-row-variant($color, table-variation($color, "table-bg"), table-variation($color, "table-border"));
+  
+  @include bg-variant(".bg-#{$color}", var(--#{$color}));
+  
+  @include text-emphasis-variant(".text-#{$color}", var(--#{$color}));
+
+  @if $enable-gradients {
+    @include bg-gradient-variant(".bg-gradient-#{$color}", var(--#{$color}));
+  }
+
+  .border-#{$color} {
+    border-color: var(--#{$color}) !important;
+  }
+}

@@ -1,0 +1,23 @@
+<scholars-pagination [page]="page" (pageChange)="onPageChange($event)">
+  <h3 class="text-primary">Users</h3>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Active</th>
+        <th scope="col">Enabled</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="users | async; let users">
+      <tr *ngFor="let user of users">
+        <td scope="row">{{user.firstName}} {{user.lastName}}</td>
+        <td scope="row">{{user.email}}</td>
+        <td scope="row">{{getRoleValue(user.role)}}</td>
+        <td scope="row">{{user.active}}</td>
+        <td scope="row">{{user.enabled}}</td>
+      </tr>
+    </tbody>
+  </table>
+</scholars-pagination>

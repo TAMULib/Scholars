@@ -1,0 +1,233 @@
+@mixin gradient-bg($color) {
+  @if $enable-gradients {
+    // NOTE: ignoring mixing color with bg-color by 15%
+    // background: $color linear-gradient(180deg, mix($body-bg, $color, 15%), $color) repeat-x;
+    background: $color linear-gradient(180deg, $body-bg, $color) repeat-x;
+  } @else {
+    background-color: $color;
+  }
+}
+
+@mixin alert-variant($background, $border, $color) {
+  color: $color;
+  @include gradient-bg($background);
+  border-color: $border;
+
+  hr {
+    border-top-color: $border;
+    -webkit-filter: brightness(95%);
+    filter: brightness(95%);
+  }
+
+  .alert-link {
+    color: $color;
+    -webkit-filter: brightness(90%);
+    filter: brightness(90%);
+  }
+}
+
+@mixin badge-variant($bg, $color) {
+  color: $color;
+  background-color: $bg;
+
+  @at-root a#{&} {
+    @include hover-focus {
+      color: $color;
+      background-color: $bg;
+      -webkit-filter: brightness(90%);
+      filter: brightness(90%);
+    }
+  }
+}
+
+@mixin button-variant($color, $background, $border, $hover-color, $hover-background, $hover-border, $active-color, $active-background, $active-border, $box-shadow-color) {
+  color: $color;
+  @include gradient-bg($background);
+  border-color: $border;
+  @include box-shadow($btn-box-shadow);
+
+  @include hover {
+    color: $hover-color;
+    @include gradient-bg($hover-background);
+    border-color: $hover-border;
+  }
+
+  &:focus,
+  &.focus {
+    // Avoid using mixin so we can pass custom focus shadow properly
+    @if $enable-shadows {
+      box-shadow: $btn-box-shadow, 0 0 0 $btn-focus-width $box-shadow-color;
+    } @else {
+      box-shadow: 0 0 0 $btn-focus-width $box-shadow-color;
+    }
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+    // Remove CSS gradients if they're enabled
+    @if $enable-gradients {
+      background-image: none;
+    }
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: $active-color;
+    background-color: $active-background;
+    @if $enable-gradients {
+      background-image: none; // Remove the gradient for the pressed/active state
+    }
+    border-color: $active-border;
+
+    &:focus {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      @if $enable-shadows {
+        box-shadow: $btn-active-box-shadow, 0 0 0 $btn-focus-width $box-shadow-color;
+      } @else {
+        box-shadow: 0 0 0 $btn-focus-width $box-shadow-color;
+      }
+    }
+  }
+}
+
+@mixin button-outline-variant($color, $color-hover, $box-shadow-color, $active-background: $color, $active-border: $color) {
+  color: $color;
+  border-color: $color;
+
+  @include hover {
+    color: $color-hover;
+    background-color: $active-background;
+    border-color: $active-border;
+  }
+
+  &:focus,
+  &.focus {
+    box-shadow: 0 0 0 $btn-focus-width $box-shadow-color;
+  }
+
+  &.disabled,
+  &:disabled {
+    color: $color;
+    background-color: transparent;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: $color-hover;
+    background-color: $active-background;
+    border-color: $active-border;
+
+    &:focus {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      @if $enable-shadows and $btn-active-box-shadow != none {
+        box-shadow: $btn-active-box-shadow, 0 0 0 $btn-focus-width $box-shadow-color;
+      } @else {
+        box-shadow: 0 0 0 $btn-focus-width $box-shadow-color;
+      }
+    }
+  }
+}
+
+@mixin list-group-item-variant($state, $background, $color) {
+  .list-group-item-#{$state} {
+    color: $color;
+    background-color: $background;
+
+    &.list-group-item-action {
+      @include hover-focus {
+        color: $color;
+        background-color: $background;
+        -webkit-filter: brightness(95%) !important;
+        filter: brightness(95%);
+      }
+
+      &.active {
+        color: $white;
+        background-color: $color;
+        border-color: $color;
+      }
+    }
+  }
+}
+
+@mixin table-row-variant($state, $background, $border: null) {
+  // Exact selectors below required to override `.table-striped` and prevent
+  // inheritance to nested tables.
+  .table-#{$state} {
+    &,
+    > th,
+    > td {
+      background-color: $background;
+    }
+
+    @if $border != null {
+      th,
+      td,
+      thead th,
+      tbody + tbody {
+        border-color: $border;
+      }
+    }
+  }
+
+  // Hover states for `.table-hover`
+  // Note: this is not available for cells or rows within `thead` or `tfoot`.
+  .table-hover {
+
+    .table-#{$state} {
+      @include hover {
+        background-color: $background;
+        -webkit-filter: brightness(95%) !important;
+        filter: brightness(95%);
+
+        > td,
+        > th {
+          background-color: $background;
+          -webkit-filter: brightness(95%) !important;
+          filter: brightness(95%);
+        }
+      }
+    }
+  }
+}
+
+@mixin bg-variant($parent, $color) {
+  #{$parent} {
+    background-color: $color !important;
+  }
+  a#{$parent},
+  button#{$parent} {
+    @include hover-focus {
+      background-color: $color !important;
+      -webkit-filter: brightness(90%) !important;
+      filter: brightness(90%) !important;
+    }
+  }
+}
+
+@mixin bg-gradient-variant($parent, $color) {
+  #{$parent} {
+    background: $color linear-gradient(180deg, $body-bg, $color) repeat-x !important;
+  }
+}
+
+@mixin text-emphasis-variant($parent, $color) {
+  #{$parent} {
+    color: $color !important;
+  }
+  a#{$parent} {
+    @include hover-focus {
+      color: $color;
+      -webkit-filter: brightness(85%) !important;
+      filter: brightness(85%) !important;
+      // NOTE: ignoring $emphasized-link-hover-darken-percentage
+      // color: darken($color, $emphasized-link-hover-darken-percentage) !important;
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@import "../../../variables";
+
+.home-main {
+  .home-content,
+  .carousel-caption {
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    display: block;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    .container {
+      padding-top: 5px;
+      @media (min-width: 376px) { padding-top: 10px; }
+      @media (min-width: 576px) { padding-top: 25px; }
+      @media (min-width: 768px) { padding-top: 50px; }
+      @media (min-width: 992px) { padding-top: 100px; }
+      .water-mark {
+          height: 150px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center center;
+          font-weight: bold;
+          font-size: 20px;
+          color: var(--hero-color);
+      }
+      .home-info {
+        margin-top: 100px;
+        p {
+          line-height: 1em;
+          font-size: 12px;
+          color: var(--hero-color);
+          a {
+            color: var(--hero-link-color);
+          }
+          a:hover {
+            color: var(--hero-link-hover-color);
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+  .home-content {
+    .home-stats {
+      margin-bottom: 120px;
+    }
+  }
+}
+.home-recent-published {
+  height: 150px;
+  .gallery-info {
+    line-height: 1em;
+    display: inline-block;
+    font-size: 12px;
+    color: #464646;
+  }
+}
+

@@ -1,0 +1,27 @@
+@import "../../../variables";
+
+:host {
+  .copyright {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--copyright-background-color);
+    color: var(--copyright-color);
+    min-height: var(--copyright-min-height);
+    font-size: var(--copyright-font-size);
+    .list-inline {
+      margin-bottom: 0px;
+      .list-inline-item {
+        margin: 0px 2px;
+        a {
+          color: var(--copyright-color);
+        }
+        a:hover {
+          color: var(--primary);
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

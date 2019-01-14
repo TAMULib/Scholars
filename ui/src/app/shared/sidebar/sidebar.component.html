@@ -1,0 +1,15 @@
+<div class="wrapper container">
+    <nav class="sidebar">
+        <div class="card bg-dark" *ngFor="let section of menu.sections">
+            <div class="card-header text-white">
+                <span>{{section.title}}</span>
+            </div>
+            <ul class="list-group list-group-flush" *ngFor="let item of section.items">
+                <li class="list-group-item list-group-item-action list-group-item-light link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" [routerLink]="item.route">{{item.label}}</li>
+            </ul>
+        </div>
+    </nav>
+    <div class="content container">
+        <ng-content></ng-content>
+    </div>
+</div>

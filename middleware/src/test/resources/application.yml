@@ -1,0 +1,82 @@
+middleware:
+  auth:
+    password:
+      duration: 180
+      min-length: 8
+      max-length: 64
+    token:
+      server-integer: 1
+      server-secret: wKFkxTX54UzKx6xCYnC8WlEI2wtOy0PR
+      pseudo-random-number-bytes: 64
+    registration-token-duration: 14
+  mail:
+    from: scholarsdiscovery@gmail.com
+    replyTo: scholarsdiscovery@gmail.com
+
+ui.url: http://localhost:4200
+
+logging:
+  file: scholars.log
+  level:
+    org:
+      springframework:
+        security: INFO
+        web: INFO
+  path:
+
+server:
+  port: 9001
+
+spring:
+  data:
+    rest:
+      authorize-hal-browser: true
+      return-body-on-create: true
+      return-body-on-update: true
+  main:
+    allow-bean-definition-overriding: true
+  messages:
+    basename: i18n/messages
+    cache-duration: 15
+    encoding: UTF-8 
+  devtools:
+    add-properties: false
+  h2:
+    console:
+      enabled: false
+      path: /h2console
+  datasource:
+    driverClassName: org.h2.Driver
+    platform: h2
+    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: scholars
+    password: scholars
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    hibernate.ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+    show-sql: false
+  mail:
+    host: smtp.gmail.com
+    username: scholarsdiscovery@gmail.com
+    password:
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          port: 587
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  profiles:
+    active: test
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always

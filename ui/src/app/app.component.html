@@ -1,0 +1,10 @@
+<div class="outer-wrapper" [attr.style]="style | async">
+  <scholars-header></scholars-header>
+  <scholars-alert [location]="location"></scholars-alert>
+  <div class="inner-wrapper">
+    <div class="main">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <scholars-footer></scholars-footer>
+</div>

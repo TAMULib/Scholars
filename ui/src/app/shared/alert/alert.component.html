@@ -1,0 +1,7 @@
+<div *ngIf="alerts | async; let alerts" [ngClass]="{'container': isMain()}">
+  <div *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" [dismissible]="alert.dismissible" (close)="close(alert)" [ngClass]="{'mb-1': isMain()}">
+      <span [innerHTML]="alert.message"></span>
+    </ngb-alert>
+  </div>
+</div>

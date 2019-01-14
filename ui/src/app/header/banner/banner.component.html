@@ -1,0 +1,8 @@
+<div class="banner">
+  <div class="container" *ngIf="banner | async; let banner">
+    <a [routerLink]="['/']">
+      <img *ngIf="banner.imageUri" src="{{banner.imageUri}}" alt="{{banner.altText}}">
+      <span *ngIf="!banner.imageUri" class="h1">{{banner.altText}}</span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<form *ngIf="isBrowserRendered()" (ngSubmit)="onSearch()" novalidate>
+  <ng-container *ngTemplateOutlet="searchForm"></ng-container>
+</form>
+
+<form *ngIf="isServerRendered()" action="/search" method="get" novalidate>
+  <ng-container *ngTemplateOutlet="searchForm"></ng-container>
+  <input type="submit" class="d-none" />
+</form>
+
+<ng-template #searchForm>
+  <div [formGroup]="form" class="form-group search-box text-center">
+    <span class="search-label d-inline-block" [style.color]="styles?.labelColor">Find Research at {{organization | async}}</span>
+    <span class="fa fa-search form-control-feedback"></span>
+    <input type="text" class="form-control" placeholder="Search..." name="query" formControlName="query" [style.box-shadow]="styles?.inputBoxShadow">
+  </div>
+</ng-template>

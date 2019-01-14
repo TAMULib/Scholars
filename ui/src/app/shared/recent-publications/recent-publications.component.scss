@@ -1,0 +1,46 @@
+@import "../../../variables";
+
+:host {
+  .scroll {
+    display: flex;
+    margin: 0px -15px;
+    .fa {
+      flex-direction: column;
+      color: #444
+    }
+    .fa:hover {
+      cursor: pointer;
+      color: var(--primary);
+    }
+    .scroll-view {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      .scroll-item {
+        flex-direction: column;
+        margin: 8px;
+        box-shadow: 2px 2px 2px 1px var(--gray);
+        img {
+          height: 100px;
+          width: 70px;
+          transition: all .35s ease-in-out;
+        }
+      }
+      .scroll-item:hover {
+        box-shadow: 2px 2px 2px 1px var(--secondary);
+        img {
+          height: 125px;
+          width: 87.5px;
+          transition: all .30s ease-in-out;
+        }
+      }
+      .scroll-item.hide {
+        display: none;
+      }
+    }
+  }
+  
+}

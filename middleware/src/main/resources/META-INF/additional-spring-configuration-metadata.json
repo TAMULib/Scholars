@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "ui.url",
+    "type": "java.lang.String",
+    "description": "A description for 'ui.url'"
+  },
+  {
+    "name": "spring.data.rest.authorize-hal-browser",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'spring.data.rest.authorize-hal-browser'"
+  }
+]}

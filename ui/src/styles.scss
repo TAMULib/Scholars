@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'variables';
+@import 'imports';
+@import 'mixins';
+@import 'overrides';
+
+body {
+  font-family: 'Lato', Calibri, Arial, sans-serif;
+  .search {
+    background-image: linear-gradient(#dbdbdb, #fff);
+  }
+  .link {
+    color: var(--primary);
+  }
+  .link:hover {
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

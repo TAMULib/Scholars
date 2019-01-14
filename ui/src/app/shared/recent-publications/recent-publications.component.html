@@ -1,0 +1,9 @@
+<div class="scroll">
+  <i class="fa fa-chevron-left my-auto mr-2" (click)="scrollLeft()"></i>
+  <div class="scroll-view mx-auto" #scrollView>
+    <div class="scroll-item" *ngFor="let item of getItems() | async" [ngClass]="{'hide': item.hidden}">
+      <a href="{{item.link}}"><img [src]="item.src" alt="{{item.alt}}" /></a>
+    </div>
+  </div>
+  <i class="fa fa-chevron-right my-auto ml-2" (click)="scrollRight()"></i>
+</div>

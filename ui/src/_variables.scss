@@ -1,0 +1,422 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+// Fonts
+
+$fa-font-path : '~font-awesome/fonts';
+
+// Scholars Theme Variables
+
+$scholars-theme: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$scholars-theme: map-merge(
+  (
+    "accent": #ffc222,
+
+    "navigation-background-color": #ededed,
+    "navigation-color": #3c0000,
+    "navigation-hover-background-color": #4d4d4d,
+    "navigation-hover-color": #ffffff,
+
+    "navbar-background-color": #3c0000,
+    "navbar-hover-background-color": #ffc222,
+    "navbar-color": #ffffff,
+    "navbar-hover-color": #3c0000,
+    "navbar-link-seperator-color": #6a0000,
+
+    "banner-border-top": 1px #8d8d8d solid,
+    "banner-background-color": #500000,
+    "banner-color": #ffffff,
+
+    "footer-border-top": 1px #8d8d8d solid,
+    "footer-background-color": #3c0000,
+    "footer-color": #ffffff,
+    "footer-min-height": 52px,
+    "footer-font-size": 14px,
+
+    "copyright-background-color": #ededed,
+    "copyright-color": #2d2d2d,
+    "copyright-min-height": 48px,
+    "copyright-font-size": 12px,
+
+    "hero-color": #f3f3f3,
+    "hero-link-color": #65a6d1,
+    "hero-link-hover-color": #ffc222
+  ),
+  $scholars-theme
+);
+
+// Bootstrap Alert Variants
+
+$alert-variations: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$alert-variations: map-merge(
+  (
+    'primary-alert-bg': theme-color-level("primary", $alert-bg-level),
+    'secondary-alert-bg': theme-color-level("secondary", $alert-bg-level),
+    'success-alert-bg': theme-color-level("success", $alert-bg-level),
+    'info-alert-bg': theme-color-level("info", $alert-bg-level),
+    'warning-alert-bg': theme-color-level("warning", $alert-bg-level),
+    'danger-alert-bg': theme-color-level("danger", $alert-bg-level),
+    'light-alert-bg': theme-color-level("light", $alert-bg-level),
+    'dark-alert-bg': theme-color-level("dark", $alert-bg-level),
+
+    'primary-alert-border': theme-color-level("primary", $alert-border-level),
+    'secondary-alert-border': theme-color-level("secondary", $alert-border-level),
+    'success-alert-border': theme-color-level("success", $alert-border-level),
+    'info-alert-border': theme-color-level("info", $alert-border-level),
+    'warning-alert-border': theme-color-level("warning", $alert-border-level),
+    'danger-alert-border': theme-color-level("danger", $alert-border-level),
+    'light-alert-border': theme-color-level("light", $alert-border-level),
+    'dark-alert-border': theme-color-level("dark", $alert-border-level),
+
+    'primary-alert-color': theme-color-level("primary", $alert-color-level),
+    'secondary-alert-color': theme-color-level("secondary", $alert-color-level),
+    'success-alert-color': theme-color-level("success", $alert-color-level),
+    'info-alert-color': theme-color-level("info", $alert-color-level),
+    'warning-alert-color': theme-color-level("warning", $alert-color-level),
+    'danger-alert-color': theme-color-level("danger", $alert-color-level),
+    'light-alert-color': theme-color-level("light", $alert-color-level),
+    'dark-alert-color': theme-color-level("dark", $alert-color-level)
+  ),
+  $alert-variations
+);
+
+// Bootstrap Badge Variants
+
+$badge-variations: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$badge-variations: map-merge(
+  (
+    'primary-badge-bg': $primary,
+    'secondary-badge-bg': $secondary,
+    'success-badge-bg': $success,
+    'info-badge-bg': $info,
+    'warning-badge-bg': $warning,
+    'danger-badge-bg': $danger,
+    'light-badge-bg': $light,
+    'dark-badge-bg': $dark,
+
+    'primary-badge-color': color-yiq($primary),
+    'secondary-badge-color': color-yiq($secondary),
+    'success-badge-color': color-yiq($success),
+    'info-badge-color': color-yiq($info),
+    'warning-badge-color': color-yiq($warning),
+    'danger-badge-color': color-yiq($danger),
+    'light-badge-color': color-yiq($light),
+    'dark-badge-color': color-yiq($dark)
+  ),
+  $badge-variations
+);
+
+// Bootstrap List Group Item Variants
+
+$list-group-item-variations: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$list-group-item-variations: map-merge(
+  (
+    'primary-list-group-item-bg': theme-color-level("primary", -9),
+    'secondary-list-group-item-bg': theme-color-level("secondary", -9),
+    'success-list-group-item-bg': theme-color-level("success", -9),
+    'info-list-group-item-bg': theme-color-level("info", -9),
+    'warning-list-group-item-bg': theme-color-level("warning", -9),
+    'danger-list-group-item-bg': theme-color-level("danger", -9),
+    'light-list-group-item-bg': theme-color-level("light", -9),
+    'dark-list-group-item-bg': theme-color-level("dark", -9),
+
+    'primary-list-group-item-color': theme-color-level("primary", 6),
+    'secondary-list-group-item-color': theme-color-level("secondary", 6),
+    'success-list-group-item-color': theme-color-level("success", 6),
+    'info-list-group-item-color': theme-color-level("info", 6),
+    'warning-list-group-item-color': theme-color-level("warning", 6),
+    'danger-list-group-item-color': theme-color-level("danger", 6),
+    'light-list-group-item-color': theme-color-level("light", 6),
+    'dark-list-group-item-color': theme-color-level("dark", 6)
+  ),
+  $list-group-item-variations
+);
+
+// Bootstrap Table Variants
+
+$table-variations: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$table-variations: map-merge(
+  (
+    'primary-table-bg': theme-color-level("primary", $table-bg-level),
+    'secondary-table-bg': theme-color-level("secondary", $table-bg-level),
+    'success-table-bg': theme-color-level("success", $table-bg-level),
+    'info-table-bg': theme-color-level("info", $table-bg-level),
+    'warning-table-bg': theme-color-level("warning", $table-bg-level),
+    'danger-table-bg': theme-color-level("danger", $table-bg-level),
+    'light-table-bg': theme-color-level("light", $table-bg-level),
+    'dark-table-bg': theme-color-level("dark", $table-bg-level),
+
+    'primary-table-border': theme-color-level("primary", $table-border-level),
+    'secondary-table-border': theme-color-level("secondary", $table-border-level),
+    'success-table-border': theme-color-level("success", $table-border-level),
+    'info-table-border': theme-color-level("info", $table-border-level),
+    'warning-table-border': theme-color-level("warning", $table-border-level),
+    'danger-table-border': theme-color-level("danger", $table-border-level),
+    'light-table-border': theme-color-level("light", $table-border-level),
+    'dark-table-border': theme-color-level("dark", $table-border-level)
+  ),
+  $table-variations
+);
+
+// Bootstrap Button Variants
+
+$button-variations: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$button-variations: map-merge(
+  (
+    'primary-button-color': color-yiq($primary),
+    'secondary-button-color': color-yiq($secondary),
+    'success-button-color': color-yiq($success),
+    'info-button-color': color-yiq($info),
+    'warning-button-color': color-yiq($warning),
+    'danger-button-color': color-yiq($danger),
+    'light-button-color': color-yiq($light),
+    'dark-button-color': color-yiq($dark),
+
+    'primary-button-bg': $primary,
+    'secondary-button-bg': $secondary,
+    'success-button-bg': $success,
+    'info-button-bg': $info,
+    'warning-button-bg': $warning,
+    'danger-button-bg': $danger,
+    'light-button-bg': $light,
+    'dark-button-bg': $dark,
+
+    'primary-button-border': $primary,
+    'secondary-button-border': $secondary,
+    'success-button-border': $success,
+    'info-button-border': $info,
+    'warning-button-border': $warning,
+    'danger-button-border': $danger,
+    'light-button-border': $light,
+    'dark-button-border': $dark,
+
+    'primary-button-hover-color': color-yiq(darken($primary, 7.5%)),
+    'secondary-button-hover-color': color-yiq(darken($secondary, 7.5%)),
+    'success-button-hover-color': color-yiq(darken($success, 7.5%)),
+    'info-button-hover-color': color-yiq(darken($info, 7.5%)),
+    'warning-button-hover-color': color-yiq(darken($warning, 7.5%)),
+    'danger-button-hover-color': color-yiq(darken($danger, 7.5%)),
+    'light-button-hover-color': color-yiq(darken($light, 7.5%)),
+    'dark-button-hover-color': color-yiq(darken($dark, 7.5%)),
+
+    'primary-button-hover-bg': darken($primary, 7.5%),
+    'secondary-button-hover-bg': darken($secondary, 7.5%),
+    'success-button-hover-bg': darken($success, 7.5%),
+    'info-button-hover-bg': darken($info, 7.5%),
+    'warning-button-hover-bg': darken($warning, 7.5%),
+    'danger-button-hover-bg': darken($danger, 7.5%),
+    'light-button-hover-bg': darken($light, 7.5%),
+    'dark-button-hover-bg': darken($dark, 7.5%),
+
+    'primary-button-hover-border': darken($primary, 10%),
+    'secondary-button-hover-border': darken($secondary, 10%),
+    'success-button-hover-border': darken($success, 10%),
+    'info-button-hover-border': darken($info, 10%),
+    'warning-button-hover-border': darken($warning, 10%),
+    'danger-button-hover-border': darken($danger, 10%),
+    'light-button-hover-border': darken($light, 10%),
+    'dark-button-hover-border': darken($dark, 10%),
+
+    'primary-button-active-color': color-yiq(darken($primary, 10%)),
+    'secondary-button-active-color': color-yiq(darken($secondary, 10%)),
+    'success-button-active-color': color-yiq(darken($success, 10%)),
+    'info-button-active-color': color-yiq(darken($info, 10%)),
+    'warning-button-active-color': color-yiq(darken($warning, 10%)),
+    'danger-button-active-color': color-yiq(darken($danger, 10%)),
+    'light-button-active-color': color-yiq(darken($light, 10%)),
+    'dark-button-active-color': color-yiq(darken($dark, 10%)),
+
+    'primary-button-active-bg': darken($primary, 10%),
+    'secondary-button-active-bg': darken($secondary, 10%),
+    'success-button-active-bg': darken($success, 10%),
+    'info-button-active-bg': darken($info, 10%),
+    'warning-button-active-bg': darken($warning, 10%),
+    'danger-button-active-bg': darken($danger, 10%),
+    'light-button-active-bg': darken($light, 10%),
+    'dark-button-active-bg': darken($dark, 10%),
+
+    'primary-button-active-border': darken($primary, 12.5%),
+    'secondary-button-active-border': darken($secondary, 12.5%),
+    'success-button-active-border': darken($success, 12.5%),
+    'info-button-active-border': darken($info, 12.5%),
+    'warning-button-active-border': darken($warning, 12.5%),
+    'danger-button-active-border': darken($danger, 12.5%),
+    'light-button-active-border': darken($light, 12.5%),
+    'dark-button-active-border': darken($dark, 12.5%),
+
+    'primary-button-box-shadow-color': rgba(mix(color-yiq($primary), $primary, 15%), .5),
+    'secondary-button-box-shadow-color': rgba(mix(color-yiq($secondary), $secondary, 15%), .5),
+    'success-button-box-shadow-color': rgba(mix(color-yiq($success), $success, 15%), .5),
+    'info-button-box-shadow-color': rgba(mix(color-yiq($info), $info, 15%), .5),
+    'warning-button-box-shadow-color': rgba(mix(color-yiq($warning), $warning, 15%), .5),
+    'danger-button-box-shadow-color': rgba(mix(color-yiq($danger), $danger, 15%), .5),
+    'light-button-box-shadow-color': rgba(mix(color-yiq($light), $light, 15%), .5),
+    'dark-button-box-shadow-color': rgba(mix(color-yiq($dark), $dark, 15%), .5)
+  ),
+  $button-variations
+);
+
+// Bootstrap Button Outline Variants
+
+$button-outline-variations: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$button-outline-variations: map-merge(
+  (
+    'primary-button-outline-color': $primary,
+    'secondary-button-outline-color': $secondary,
+    'success-button-outline-color': $success,
+    'info-button-outline-color': $info,
+    'warning-button-outline-color': $warning,
+    'danger-button-outline-color': $danger,
+    'light-button-outline-color': $light,
+    'dark-button-outline-color': $dark,
+
+    'primary-button-outline-color-hover': color-yiq($primary),
+    'secondary-button-outline-color-hover': color-yiq($secondary),
+    'success-button-outline-color-hover': color-yiq($success),
+    'info-button-outline-color-hover': color-yiq($info),
+    'warning-button-outline-color-hover': color-yiq($warning),
+    'danger-button-outline-color-hover': color-yiq($danger),
+    'light-button-outline-color-hover': color-yiq($light),
+    'dark-button-outline-color-hover': color-yiq($dark),
+
+    'primary-button-outline-box-shadow-color': rgba($primary, .5),
+    'secondary-button-outline-box-shadow-color': rgba($secondary, .5),
+    'success-button-outline-box-shadow-color': rgba($success, .5),
+    'info-button-outline-box-shadow-color': rgba($info, .5),
+    'warning-button-outline-box-shadow-color': rgba($warning, .5),
+    'danger-button-outline-box-shadow-color': rgba($danger, .5),
+    'light-button-outline-box-shadow-color': rgba($light, .5),
+    'dark-button-outline-box-shadow-color': rgba($dark, .5)
+  ),
+  $button-outline-variations
+);
+
+:root {
+
+  --yiq-contrasted-threshold:#{$yiq-contrasted-threshold};
+  --yiq-text-dark:#{$yiq-text-dark};
+  --yiq-text-light:#{$yiq-text-light};
+
+  --theme-color-interval:#{$theme-color-interval};
+
+  --alert-bg-level:#{$alert-bg-level};
+  --alert-border-level:#{$alert-border-level};
+  --alert-color-level:#{$alert-color-level};
+
+  --list-group-item-bg-level:-9;
+  --list-group-item-color-level:6;
+
+  --table-bg-level:#{$table-bg-level};
+  --table-border-level:#{$table-border-level};
+
+  --black:#{$black};
+  --white:#{$white};
+
+  @each $color, $value in $scholars-theme {
+    --#{$color}:#{$value};
+  }
+
+  @each $variation, $value in $alert-variations {
+    --#{$variation}:#{$value};
+  }
+
+  @each $variation, $value in $badge-variations {
+    --#{$variation}:#{$value};
+  }
+
+  @each $variation, $value in $list-group-item-variations {
+    --#{$variation}:#{$value};
+  }
+
+  @each $variation, $value in $table-variations {
+    --#{$variation}:#{$value};
+  }
+
+  @each $variation, $value in $button-outline-variations {
+    --#{$variation}:#{$value};
+  }
+
+  @each $variation, $value in $button-variations {
+    --#{$variation}:#{$value};
+  }
+
+  @each $color, $value in $colors {
+    --#{$color}:#{$value};
+  }
+
+  @each $color, $value in $theme-colors {
+    --#{$color}:#{$value};
+  }
+
+  @each $bp, $value in $grid-breakpoints {
+    --breakpoint-#{$bp}:#{$value};
+  }
+
+  // Use `inspect` for lists so that quoted items keep the quotes.
+  // See https://github.com/sass/sass/issues/2383#issuecomment-336349172
+  --font-family-sans-serif:#{inspect($font-family-sans-serif)};
+  --font-family-monospace:#{inspect($font-family-monospace)};
+}
+
+@each $variable, $value in $scholars-theme {
+  $scholars-theme: map-merge($scholars-theme, ($variable: var(--#{$variable})));
+}
+
+@each $variation, $value in $alert-variations {
+  $alert-variations: map-merge($alert-variations, ($variation: var(--#{$variation})));
+}
+
+@each $variation, $value in $badge-variations {
+  $badge-variations: map-merge($badge-variations, ($variation: var(--#{$variation})));
+}
+
+@each $variation, $value in $list-group-item-variations {
+  $list-group-item-variations: map-merge($list-group-item-variations, ($variation: var(--#{$variation})));
+}
+
+@each $variation, $value in $table-variations {
+  $table-variations: map-merge($table-variations, ($variation: var(--#{$variation})));
+}
+
+@each $variation, $value in $button-outline-variations {
+  $button-outline-variations: map-merge($button-outline-variations, ($variation: var(--#{$variation})));
+}
+
+@each $variation, $value in $button-variations {
+  $button-variations: map-merge($button-variations, ($variation: var(--#{$variation})));
+}
+
+@function scholars-theme($key: "accent") {
+  @return map-get($scholars-theme, $key);
+}
+
+@function alert-variation($color: "primary", $type: "alert-color") {
+  @return map-get($alert-variations, #{$color}-#{$type});
+}
+
+@function badge-variation($color: "primary", $type: "badge-color") {
+  @return map-get($badge-variations, #{$color}-#{$type});
+}
+
+@function list-group-item-variation($color: "primary", $type: "list-group-item-color") {
+  @return map-get($list-group-item-variations, #{$color}-#{$type});
+}
+
+@function table-variation($color: "primary", $type: "table-border") {
+  @return map-get($table-variations, #{$color}-#{$type});
+}
+
+@function button-outline-variation($color: "primary", $type: "button-outline-color") {
+  @return map-get($button-outline-variations, #{$color}-#{$type});
+}
+
+@function button-variation($color: "primary", $type: "button-color") {
+  @return map-get($button-variations, #{$color}-#{$type});
+}

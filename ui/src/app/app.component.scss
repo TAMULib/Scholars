@@ -1,0 +1,35 @@
+.outer-wrapper {
+  display: flex;
+  height: 100vh;
+  min-height: 100%;
+  min-width: 300px;
+  flex-direction: column;
+}
+
+.inner-wrapper {
+  flex: 1 0 auto;
+}
+
+.inner-wrapper .main {
+  display: flex;
+  flex-direction: row;
+}
+
+.outer-wrapper .alert {
+  margin-bottom: 2px;
+}
+
+@media only screen and (max-width: 480px) {
+  .inner-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .container-full {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

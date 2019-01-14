@@ -1,0 +1,35 @@
+@import "../../../variables";
+
+:host {
+  .stats-box {
+    display: inline-block;
+    background: rgba(50, 50, 50, .3);
+    border: 1px #8d8d8d solid;
+    border-radius: 5px;
+    padding: 7.5px;
+    margin: 5px;
+    @media (min-width: 576px) {
+      padding: 10px;
+      margin: 10px;
+    }
+    .stats-box-value {
+      color: var(--secondary);
+      font-size: 25px;
+      font-weight: bold;
+      @media (min-width: 576px) {
+        font-size: 30px;
+      }
+    }
+    .stats-box-value:hover {
+      color: var(--accent);
+    }
+    .stats-box-title {
+      border: none;
+      color: white;
+      font-size: 12px;
+      @media (min-width: 576px) {
+        font-size: 14px;
+      }
+    }
+  }
+}

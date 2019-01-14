@@ -1,0 +1,34 @@
+<scholars-dialog [dialog]="dialog">
+  <div [formGroup]="dialog.form" class="justify-self-center">
+    <div class="form-group">
+      <div class="input-group-lg">
+        <input type="text" class="form-control" name="firstName" placeholder="Enter first name" formControlName="firstName" [readonly]="isComplete()" [autofocus]="isSubmit()" [ngClass]="{'is-valid': isSubmit() && isValid('firstName'), 'is-invalid': isInvalid('firstName')}" />
+        <div *ngIf="isInvalid('firstName')" class="invalid-feedback">{{getErrorMessage('firstName')}}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group-lg">
+        <input type="text" class="form-control" name="lastName" placeholder="Enter last name" formControlName="lastName" [readonly]="isComplete()" [ngClass]="{'is-valid': isSubmit() && isValid('lastName'), 'is-invalid': isInvalid('lastName')}" />
+        <div *ngIf="isInvalid('lastName')" class="invalid-feedback">{{getErrorMessage('lastName')}}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group-lg">
+        <input type="text" class="form-control" name="email" placeholder="Enter email" formControlName="email" autocomplete="username" [readonly]="isComplete()" [ngClass]="{'is-valid': isSubmit() && isValid('email'), 'is-invalid': isInvalid('email')}" />
+        <div *ngIf="isInvalid('email')" class="invalid-feedback">{{getErrorMessage('email')}}</div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{'d-none': isSubmit()}">
+      <div class="input-group-lg">
+        <input type="password" class="form-control" name="password" placeholder="Enter password" formControlName="password" autofocus autocomplete="new-password" [ngClass]="{'is-valid': isValid('password'), 'is-invalid': isInvalid('password')}" />
+        <div *ngIf="isInvalid('password')" class="invalid-feedback">{{getErrorMessage('password')}}</div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{'d-none': isSubmit()}">
+      <div class="input-group-lg">
+        <input type="password" class="form-control" name="confirm" placeholder="Enter password again" formControlName="confirm" autocomplete="new-password" [ngClass]="{'is-valid': isValid('confirm'), 'is-invalid': isInvalid('confirm')}" />
+        <div *ngIf="isInvalid('confirm')" class="invalid-feedback">{{getErrorMessage('confirm')}}</div>
+      </div>
+    </div>
+  </div>
+</scholars-dialog>

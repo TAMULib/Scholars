@@ -1,0 +1,87 @@
+middleware:
+  auth:
+    password:
+      duration: 180
+      min-length: 8
+      max-length: 64
+    token:
+      server-integer: 1
+      server-secret: wKFkxTX54UzKx6xCYnC8WlEI2wtOy0PR
+      pseudo-random-number-bytes: 64
+    registration-token-duration: 14
+  mail:
+    from: noreply@library.tamu.edu
+    replyTo: helpdesk@library.tamu.edu
+
+ui.url: http://localhost:4200
+
+logging:
+  file: scholars.log
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web: DEBUG
+  path:
+
+server:
+  port: 9000
+
+spring:
+  data:
+    rest:
+      # CAUTION: leaving this on will cause server side pre-rendering to break
+      authorize-hal-browser: false
+      return-body-on-create: true
+      return-body-on-update: true
+  main:
+    allow-bean-definition-overriding: false
+  messages:
+    basename: i18n/messages
+    cache-duration: 15
+    encoding: UTF-8
+  devtools:
+    add-properties: false
+  h2:
+    console:
+      enabled: true
+      path: /h2console
+  datasource:
+    driverClassName: org.h2.Driver
+    platform: h2
+    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    # url: jdbc:h2:./h2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: scholars
+    password: scholars
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    hibernate.ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        hbm2ddl:
+          import_files: import/import-themes.sql
+    show-sql: false
+  mail:
+    host: relay.tamu.edu
+    #host: smtp.gmail.com
+    #username: scholarsdiscovery@gmail.com
+    #password:
+    #properties:
+    #  mail:
+    #    transport:
+    #      protocol: smtp
+    #    smtp:
+    #      port: 587
+    #      auth: true
+    #      starttls:
+    #        enable: true
+    #        required: true
+  profiles:
+    active: default
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always

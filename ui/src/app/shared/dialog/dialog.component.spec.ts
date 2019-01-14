@@ -1,0 +1,50 @@
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+
+import { of } from 'rxjs';
+
+import { SharedModule } from '../shared.module';
+
+import { DialogComponent } from './dialog.component';
+import { DialogButtonType } from '../../core/store/dialog/dialog.model';
+
+import { metaReducers, reducers } from '../../core/store';
+
+describe('DialogComponent', () => {
+    let component: DialogComponent;
+    let fixture: ComponentFixture<DialogComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                NoopAnimationsModule,
+                SharedModule,
+                StoreModule.forRoot(reducers, {
+                    metaReducers
+                })
+            ]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DialogComponent);
+        component = fixture.componentInstance;
+        component.dialog = {
+            title: 'Login',
+            form: undefined,
+            close: {
+                type: DialogButtonType.OUTLINE_WARNING,
+                label: 'Cancel',
+                action: () => { },
+                disabled: () => of(false)
+            }
+        };
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+
+});

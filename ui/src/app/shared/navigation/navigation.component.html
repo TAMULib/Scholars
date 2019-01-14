@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-sm navbar-light">
+  <div class="container">
+    <button class="navbar-toggler" type="button" (click)="toggleNavigation()" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="nav navbar-nav d-sm-none">
+      <button class="btn btn-outline-primary">EDIT MY PROFILE</button>
+    </div>
+    <div [ngbCollapse]="isNavigationCollapsed | async" class="collapse navbar-collapse" [ngClass]="{'expand': !(isNavigationCollapsed | async)}" id="navigation">
+      <ul class="navbar-nav">
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="['/']" (click)="toggleNavigation()">Home</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="['/people']" (click)="toggleNavigation()">People</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="['/organizations']" (click)="toggleNavigation()">Organizations</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="['/research']" (click)="toggleNavigation()">Research</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="['/about']" (click)="toggleNavigation()">About</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav navbar-nav d-none d-sm-block">
+      <a class="btn btn-outline-primary" href="#">EDIT MY PROFILE</a>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,65 @@
+@import "../../../variables";
+
+:host {
+  .navbar {
+    padding: 0;
+    background-color: var(--navigation-background-color);
+    a {
+      color: var(--navigation-color);
+    }
+    a.btn:hover {
+      color: var(--navigation-hover-color);
+    }
+    .btn {
+      white-space: nowrap;
+      padding: 5px;
+      margin: 2px;
+    }
+    .navbar-toggler {
+      padding: 3px 10px;
+      margin: 2px;
+    }
+    .nav-item.active,
+    .nav-item:hover {
+      background-color: var(--navigation-hover-background-color);
+      a {
+        color: var(--navigation-hover-color);
+      }
+    }
+    @media (min-width: 576px) {
+      .nav-link {
+        padding: 16.5px 24px;
+        font-size: 20px;
+      }
+    }
+    @media (max-width: 575.98px) {
+      .nav-link {
+        margin: 0px 5px;
+      }
+    }
+    @media (max-width: 767.98px) {
+      .container {
+        width: 100%;
+        max-width: none;
+      }
+      .nav-link {
+        margin: 0px 5px;
+        padding: 16.5px 5px;
+        font-size: 16px;
+      }
+    }
+    @media (min-width: 768px) and (max-width: 991.95px) {
+      .nav-link {
+        margin: 0px 7.5px;
+        padding: 16.5px 7.5px;
+        font-size: 17.5px;
+      }
+    }
+  }
+  .navbar-collapse,
+  .navbar-nav,
+  .nav-link,
+  .container {
+    height: 100%;
+  }
+}

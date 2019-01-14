@@ -1,0 +1,63 @@
+<div class="home-main" *ngIf="home | async; let home">
+  <ngb-carousel *ngIf="showCarousel(home)">
+    <ng-template ngbSlide *ngFor="let hero of home.heroes">
+      <div class="carousel-caption" [ngStyle]="getCarouselBackgroundImage(hero)">
+        <div class="container h-100">
+          <ng-container *ngTemplateOutlet="homeSearchBox"></ng-container>
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+              <div class="water-mark d-flex align-items-center justify-content-center" [ngStyle]="getWatermarkBackgroundImage(hero)">
+                <span class="text-center">{{hero.watermarkText}}</span>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="homeStats"></ng-container>
+          <div class="row justify-content-center align-bottom home-info" [attr.style]="getStyleVariables(hero)">
+            <div class="col-lg-7 col-md-9 col-sm-11 col-xs-12">
+              <p class="d-inline-block" [innerHTML]="hero.baseText"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+  <div *ngIf="!showCarousel(home)" class="home-content">
+    <div class="container h-100">
+      <ng-container *ngTemplateOutlet="homeSearchBox"></ng-container>
+      <ng-container *ngTemplateOutlet="homeStats"></ng-container>
+    </div>
+  </div>
+</div>
+<div class="home-recent-published" *ngIf="home | async; let home">
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col-3 my-auto text-center">
+        <span class="gallery-info">Latest published books by {{home.organization}} Faculty</span>
+      </div>
+      <div class="col-6 my-auto text-center">
+        <scholars-recent-publications></scholars-recent-publications>
+      </div>
+      <div class="col-3 my-auto text-center">
+        <span class="gallery-info">Click to see the Author faculity page</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #homeSearchBox>
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+      <scholars-search-box [styles]="getSearchStyles() | async"></scholars-search-box>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #homeStats>
+  <div class="row justify-content-center d-flex home-stats">
+    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 text-center">
+      <scholars-stats-box label="People" value="2.4k" route="/people"></scholars-stats-box>
+      <scholars-stats-box label="Organizations" value="3.1k" route="/organizations"></scholars-stats-box>
+      <scholars-stats-box label="Research" value="164k" route="/research"></scholars-stats-box>
+    </div>
+  </div>
+</ng-template>
