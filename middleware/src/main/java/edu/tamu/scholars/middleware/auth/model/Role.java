@@ -6,9 +6,9 @@ import java.util.Map;
 public enum Role {
 
     // @formatter:off
-    ROLE_SUPER_ADMIN("Super Administrator"),
+    ROLE_USER("User"),
     ROLE_ADMIN("Administrator"),
-    ROLE_USER("User");
+    ROLE_SUPER_ADMIN("Super Administrator");
     // @formatter:on
 
     private final String value;

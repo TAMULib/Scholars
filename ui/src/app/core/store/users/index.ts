@@ -16,6 +16,7 @@ export const selectUsersTotal = createSelector(selectUsersState, fromUsers.selec
 
 export const selectUsersError = createSelector(selectUsersState, fromUsers.getUsersError);
 export const selectUsersIsLoading = createSelector(selectUsersState, fromUsers.isUsersLoading);
+export const selectUserIsUpdating = createSelector(selectUsersState, fromUsers.isUserUpdating);
 
 export const selectUsersPage = createSelector(selectUsersState, fromUsers.getUsersPage);
 export const selectUsersLinks = createSelector(selectUsersState, fromUsers.getUsersLinks);

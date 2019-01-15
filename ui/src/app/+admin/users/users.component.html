@@ -8,6 +8,7 @@
         <th scope="col">Role</th>
         <th scope="col">Active</th>
         <th scope="col">Enabled</th>
+        <th scope="col">Edit</th>
       </tr>
     </thead>
     <tbody *ngIf="users | async; let users">
@@ -17,6 +18,7 @@
         <td scope="row">{{getRoleValue(user.role)}}</td>
         <td scope="row">{{user.active}}</td>
         <td scope="row">{{user.enabled}}</td>
+        <td scope="row" class="text-center" (click)="openUserEditDialog(user)"><i class="fa fa-edit"></i></td>
       </tr>
     </tbody>
   </table>

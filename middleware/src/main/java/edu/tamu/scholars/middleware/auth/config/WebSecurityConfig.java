@@ -2,6 +2,7 @@ package edu.tamu.scholars.middleware.auth.config;
 
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
 
@@ -97,7 +98,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
         configuration.setAllowedOrigins(Arrays.asList(uiUrl));
-        configuration.setAllowedMethods(Arrays.asList("GET", "DELETE", "PUT", "POST", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "DELETE", "PUT", "POST", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Origin", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**/*", configuration);
@@ -135,24 +136,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .expressionHandler(securityExpressionHandler)
-
-                .antMatchers(POST, "/themes", "/themes/{id}")
+                
+                .antMatchers(PATCH, "/users/{id}")
+                    .hasRole("ADMIN")
+                                
+                .antMatchers(POST, "/themes/{id}")
                     .hasRole("ADMIN")
                 .antMatchers(POST, "/registration")
                     .permitAll()
+                .antMatchers(POST, "/users/{id}")
+                    .denyAll()
 
                 .antMatchers(PUT, "/registration")
                     .permitAll()
-                .antMatchers(PUT, "/themes", "/themes/{id}")
+                .antMatchers(PUT, "/themes/{id}")
                     .hasRole("ADMIN")
+                .antMatchers(PUT, "/users/{id}")
+                    .denyAll()
 
                 .antMatchers(GET, "/registration", "/themes/search/active")
                     .permitAll()
                 .antMatchers(GET, "/users", "/users/{id}", "/themes", "/themes/{id}")
                     .hasRole("ADMIN")
                     
-                .antMatchers(DELETE, "/themes", "/themes/{id}")
+                .antMatchers(DELETE, "/themes/{id}")
                     .hasRole("ADMIN")
+                .antMatchers(DELETE, "/users/{id}")
+                    .hasRole("SUPER_ADMIN")
 
                 .anyRequest()
                     .authenticated()

@@ -24,12 +24,20 @@ public abstract class UserIntegrationTest {
         return userRepo.save(getMockAdmin());
     }
 
+    protected User createMockSuperAdmin() {
+        return userRepo.save(getMockSuperAdmin());
+    }
+
     protected User getMockUser() {
         return getMockUser("Bob", "Boring", "bboring@mailinator.com", "HelloWorld123!", Role.ROLE_USER);
     }
 
     protected User getMockAdmin() {
-        return getMockUser("Bob", "Boring", "bboring@mailinator.com", "HelloWorld123!", Role.ROLE_ADMIN);
+        return getMockUser("Eddie", "Exciting", "eexciting@mailinator.com", "HelloWorld123!", Role.ROLE_ADMIN);
+    }
+
+    protected User getMockSuperAdmin() {
+        return getMockUser("Super", "Admin", "superadmin@mailinator.com", "HelloWorld123!", Role.ROLE_SUPER_ADMIN);
     }
 
     protected User getMockUser(String firstName, String lastName, String email, String password, Role role) {

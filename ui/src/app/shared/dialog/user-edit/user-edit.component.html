@@ -1,0 +1,43 @@
+<scholars-dialog [dialog]="dialog">
+  <div [formGroup]="dialog.form">
+    <div class="form-group">
+      <div class="input-group-lg">
+        <input type="text" class="form-control" name="firstName" formControlName="firstName" [ngClass]="{'is-valid': isValid('firstName'), 'is-invalid': isInvalid('firstName')}" />
+        <div *ngIf="isInvalid('firstName')" class="invalid-feedback">{{getErrorMessage('firstName')}}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group-lg">
+        <input type="text" class="form-control" name="lastName" formControlName="lastName" [ngClass]="{'is-valid': isValid('lastName'), 'is-invalid': isInvalid('lastName')}" />
+        <div *ngIf="isInvalid('lastName')" class="invalid-feedback">{{getErrorMessage('lastName')}}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group-lg">
+        <input type="email" class="form-control" name="email" formControlName="email" autocomplete="username" [ngClass]="{'is-valid': isValid('email'), 'is-invalid': isInvalid('email')}" />
+        <div *ngIf="isInvalid('email')" class="invalid-feedback">{{getErrorMessage('email')}}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group-lg">
+        <label for="role">Role</label>
+        <select class="form-control" name="role" formControlName="role" [ngClass]="{'is-valid': isValid('role'), 'is-invalid': isInvalid('role')}">
+          <option *ngFor="let role of roles" [value]="role" [label]="getRoleValue(role)"></option>
+        </select>
+        <div *ngIf="isInvalid('role')" class="invalid-feedback">{{getErrorMessage('role')}}</div>
+      </div>
+    </div>
+    <div class="input-group-lg">
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="active" formControlName="active" [ngClass]="{'is-valid': isValid('active'), 'is-invalid': isInvalid('active')}" />
+        <label class="form-check-label" for="active">Active</label>
+      </div>
+    </div>
+    <div class="input-group-lg">
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="enabled" formControlName="enabled" [ngClass]="{'is-valid': isValid('enabled'), 'is-invalid': isInvalid('enabled')}" />
+        <label class="form-check-label" for="enabled">Enabled</label>
+      </div>
+    </div>
+  </div>
+</scholars-dialog>

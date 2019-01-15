@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
+import { skipWhile } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 import { Footer } from '../core/model/theme/footer';
@@ -16,7 +17,6 @@ import { selectActiveThemeFooter } from '../core/store/themes';
 
 import * as fromAuth from '../core/store/auth/auth.actions';
 import * as fromDialog from '../core/store/dialog/dialog.actions';
-import { skipWhile } from 'rxjs/operators';
 
 @Component({
     selector: 'scholars-footer',

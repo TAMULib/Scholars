@@ -59,6 +59,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
                 user: action.payload.user
             };
         case AuthActionTypes.LOGIN_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 loggingIn: false,
@@ -76,6 +77,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
                 registration: action.payload.registration
             };
         case AuthActionTypes.SUBMIT_REGISTRATION_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 submittingRegistration: false,
@@ -93,6 +95,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
                 registration: action.payload.registration
             };
         case AuthActionTypes.CONFIRM_REGISTRATION_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 confirmingRegistration: false,
@@ -110,6 +113,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
                 registration: undefined
             };
         case AuthActionTypes.COMPLETE_REGISTRATION_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 completingRegistration: false,
@@ -128,6 +132,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
                 user: action.payload.user
             };
         case AuthActionTypes.GET_USER_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 gettingUser: false,
@@ -147,6 +152,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
                 user: undefined
             };
         case AuthActionTypes.LOGOUT_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 loggingOut: false,
