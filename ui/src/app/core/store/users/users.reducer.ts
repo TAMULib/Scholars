@@ -10,6 +10,7 @@ export interface UsersState extends EntityState<User> {
     page: SdrPage;
     links: SdrCollectionLinks;
     loading: boolean;
+    updating: boolean;
     error: any;
 }
 
@@ -21,6 +22,7 @@ export const initialState: UsersState = adapter.getInitialState({
     page: undefined,
     links: undefined,
     loading: false,
+    updating: false,
     error: undefined
 });
 
@@ -41,9 +43,29 @@ export function reducer(state = initialState, action: UsersActions): UsersState 
                 error: undefined
             });
         case UsersActionTypes.LOAD_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 loading: false,
+                error: action.payload.response.error
+            };
+        case UsersActionTypes.UPDATE:
+            return {
+                ...state,
+                updating: true,
+                error: undefined
+            };
+        case UsersActionTypes.UPDATE_SUCCESS:
+            return {
+                ...state,
+                updating: false,
+                error: undefined
+            };
+        case UsersActionTypes.UPDATE_FAILURE:
+            console.error(action);
+            return {
+                ...state,
+                updating: false,
                 error: action.payload.response.error
             };
         case UsersActionTypes.CLEAR:
@@ -64,6 +86,7 @@ export const selectAllUsers = selectAll;
 export const selectUsersTotal = selectTotal;
 
 export const isUsersLoading = (state: UsersState) => state.loading;
+export const isUserUpdating = (state: UsersState) => state.loading;
 export const getUsersError = (state: UsersState) => state.error;
 
 export const getUsersPage = (state: UsersState) => state.page;

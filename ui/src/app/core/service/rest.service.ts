@@ -52,6 +52,13 @@ export class RestService {
         });
     }
 
+    public patch<T>(url: string, body: any = {}, options: any = {}): Observable<T> {
+        // tslint:disable-next-line:no-shadowed-variable
+        return this.processRequestWithData<T>(url, body, options, (url: string, body: any, options: any): any => {
+            return this.http.patch<T>(url, body, options);
+        });
+    }
+
     public delete<T>(url: string, options: any = {}): Observable<T> {
         // tslint:disable-next-line:no-shadowed-variable
         return this.processRequest<T>(url, options, (url: string, options: any): any => {

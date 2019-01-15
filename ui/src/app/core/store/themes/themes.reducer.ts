@@ -49,6 +49,7 @@ export function reducer(state = initialState, action: ThemesActions): ThemesStat
                 error: undefined
             };
         case ThemesActionTypes.LOAD_ACTIVE_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 loadingActive: false,
@@ -68,6 +69,7 @@ export function reducer(state = initialState, action: ThemesActions): ThemesStat
                 error: undefined
             };
         case ThemesActionTypes.APPLY_ACTIVE_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 applyingActive: false,
@@ -88,6 +90,7 @@ export function reducer(state = initialState, action: ThemesActions): ThemesStat
                 error: undefined
             });
         case ThemesActionTypes.LOAD_FAILURE:
+            console.error(action);
             return {
                 ...state,
                 loading: false,

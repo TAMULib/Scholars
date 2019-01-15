@@ -14,6 +14,7 @@ import { RecentPublicationsComponent } from './recent-publications/recent-public
 import { RegistrationComponent } from './dialog/registration/registration.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { UserEditComponent } from './dialog/user-edit/user-edit.component';
 
 const MODULES = [
     CommonModule,
@@ -42,7 +43,8 @@ const COMPONENTS = [
 
 const ENTRY_COMPONENTS = [
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    UserEditComponent
 ];
 
 @NgModule({

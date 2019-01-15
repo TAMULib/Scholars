@@ -52,7 +52,15 @@ export class AuthEffects {
         switchMap(([action, redirect]) => {
             const actions: any = [
                 new fromDialog.CloseDialogAction(),
-                new fromAlerts.AddMainSuccessAlertAction('Login success.')
+                new fromAlerts.AddAlertAction({
+                    alert: {
+                        location: AlertLocation.MAIN,
+                        type: AlertType.SUCCESS,
+                        message: 'Login success.',
+                        dismissible: true,
+                        timer: 10000
+                    }
+                })
             ];
             if (redirect !== undefined) {
                 actions.push(new fromRouter.Go(redirect));
@@ -92,7 +100,15 @@ export class AuthEffects {
         map((payload: { registration: RegistrationRequest }) => payload.registration),
         switchMap((registration: RegistrationRequest) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlerts.AddMainSuccessAlertAction('Confirm email to complete registration.')
+            new fromAlerts.AddAlertAction({
+                alert: {
+                    location: AlertLocation.MAIN,
+                    type: AlertType.SUCCESS,
+                    message: `Confirm email to complete registration.`,
+                    dismissible: true,
+                    timer: 15000
+                }
+            })
         ])
     );
 
@@ -166,7 +182,15 @@ export class AuthEffects {
         map((action: fromAuth.ConfirmRegistrationFailureAction) => action.payload),
         switchMap((payload: { response: any }) => [
             new fromRouter.Go({ path: ['/'] }),
-            new fromAlerts.AddMainErrorAlertAction(payload)
+            new fromAlerts.AddAlertAction({
+                alert: {
+                    location: AlertLocation.MAIN,
+                    type: AlertType.DANGER,
+                    message: payload.response.error,
+                    dismissible: true,
+                    timer: 10000
+                }
+            })
         ])
     );
 
@@ -187,7 +211,15 @@ export class AuthEffects {
         map((payload: { user: User }) => payload.user),
         switchMap((user: User) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlerts.AddMainSuccessAlertAction('Registration complete. You can now login.')
+            new fromAlerts.AddAlertAction({
+                alert: {
+                    location: AlertLocation.MAIN,
+                    type: AlertType.SUCCESS,
+                    message: `Registration complete. You can now login.`,
+                    dismissible: true,
+                    timer: 15000
+                }
+            })
         ])
     );
 

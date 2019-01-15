@@ -17,12 +17,4 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @RestResource(exported = false)
     public boolean existsByEmail(String email);
 
-    @Override
-    @RestResource(exported = false)
-    public <S extends User> S save(S user);
-
-    @Override
-    @RestResource(exported = false)
-    public void delete(User user);
-
 }

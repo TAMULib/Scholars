@@ -47,13 +47,29 @@ export class ThemesEffects {
     @Effect() loadActiveThemeFailure = this.actions.pipe(
         ofType(fromThemes.ThemesActionTypes.LOAD_ACTIVE_FAILURE),
         map((action: fromThemes.LoadActiveThemeFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlerts.AddMainErrorAlertAction(payload))
+        map((payload: { response: any }) => new fromAlerts.AddAlertAction({
+            alert: {
+                location: AlertLocation.MAIN,
+                type: AlertType.DANGER,
+                message: payload.response.error,
+                dismissible: true,
+                timer: 15000
+            }
+        }))
     );
 
     @Effect() applyActiveThemeFailure = this.actions.pipe(
         ofType(fromThemes.ThemesActionTypes.APPLY_ACTIVE_FAILURE),
         map((action: fromThemes.ApplyActiveThemeFailureAction) => action.payload),
-        map((payload: { error: string }) => new fromAlerts.AddMainErrorAlertAction(payload))
+        map((payload: { error: string }) => new fromAlerts.AddAlertAction({
+            alert: {
+                location: AlertLocation.MAIN,
+                type: AlertType.DANGER,
+                message: payload.error,
+                dismissible: true,
+                timer: 15000
+            }
+        }))
     );
 
     @Effect() loadThemes = this.actions.pipe(
@@ -71,7 +87,15 @@ export class ThemesEffects {
     @Effect() loadThemesFailure = this.actions.pipe(
         ofType(fromThemes.ThemesActionTypes.LOAD_ACTIVE_FAILURE),
         map((action: fromThemes.LoadThemesFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlerts.AddMainErrorAlertAction(payload))
+        map((payload: { response: any }) => new fromAlerts.AddAlertAction({
+            alert: {
+                location: AlertLocation.MAIN,
+                type: AlertType.DANGER,
+                message: payload.response.error,
+                dismissible: true,
+                timer: 15000
+            }
+        }))
     );
 
     @Effect() clearThemes = this.actions.pipe(
