@@ -24,7 +24,7 @@ export class AlertComponent implements OnInit {
 
     @HostBinding('style.width') width;
 
-    @HostBinding('style.bottom') bottom;
+    @HostBinding('style.top') top;
 
     @HostBinding('style.z-index') zIndex;
 
@@ -42,7 +42,7 @@ export class AlertComponent implements OnInit {
             this.position = 'fixed';
             this.display = 'flex';
             this.width = '100%';
-            this.bottom = '5%';
+            this.top = '7.5%';
             this.zIndex = 1;
         }
     }

@@ -14,6 +14,7 @@ import { DialogEffects } from './dialog/dialog.effects';
 import { LayoutEffects } from './layout/layout.effects';
 import { UsersEffects } from './users/users.effects';
 import { ThemesEffects } from './themes/themes.effects';
+import { StompEffects } from './stomp/stomp.effects';
 import { RouterEffects } from './router/router.effects';
 import { RootStoreEffects } from './root-store.effects';
 
@@ -31,6 +32,7 @@ import { environment } from '../../../environments/environment';
         EffectsModule.forRoot([
             RootStoreEffects,
             RouterEffects,
+            StompEffects,
             ThemesEffects,
             UsersEffects,
             LayoutEffects,

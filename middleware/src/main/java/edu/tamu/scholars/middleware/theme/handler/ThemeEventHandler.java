@@ -20,21 +20,21 @@ public class ThemeEventHandler {
 
     @Transactional
     @HandleBeforeSave
-    public void handleThemeSave(Theme theme) {
+    public void handleBeforeThemeSave(Theme theme) {
         if (theme.isActive()) {
             themeRepo.deactivate();
         }
     }
 
     @HandleBeforeCreate
-    public void handleThemeCreate(Theme theme) throws CreateActiveThemeException {
+    public void handleBeforeThemeCreate(Theme theme) throws CreateActiveThemeException {
         if (theme.isActive()) {
             throw new CreateActiveThemeException("You cannot create an active theme!");
         }
     }
 
     @HandleBeforeDelete
-    public void handleThemeDelete(Theme theme) throws DeleteActiveThemeException {
+    public void handleBeforeThemeDelete(Theme theme) throws DeleteActiveThemeException {
         if (theme.isActive()) {
             throw new DeleteActiveThemeException("You cannot delete the active theme!");
         }

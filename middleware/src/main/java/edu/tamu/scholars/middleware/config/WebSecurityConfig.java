@@ -1,4 +1,4 @@
-package edu.tamu.scholars.middleware.auth.config;
+package edu.tamu.scholars.middleware.config;
 
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
@@ -35,6 +35,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.tamu.scholars.middleware.auth.config.TokenConfig;
 import edu.tamu.scholars.middleware.auth.handler.CustomAccessDeniedExceptionHandler;
 import edu.tamu.scholars.middleware.auth.handler.CustomAuthenticationEntryPoint;
 import edu.tamu.scholars.middleware.auth.handler.CustomAuthenticationFailureHandler;
@@ -136,7 +137,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .expressionHandler(securityExpressionHandler)
-                
+
+                .antMatchers("/connect/**")
+                    .permitAll()
+
                 .antMatchers(PATCH, "/users/{id}")
                     .hasRole("ADMIN")
                                 
