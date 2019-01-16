@@ -7,3 +7,4 @@ export { Banner } from '../theme/banner';
 export { Link } from '../theme/link';
 export { Style } from '../theme/style';
 export { Theme } from '../theme/theme';
+export { ThemeRepo } from './repo/theme.repo';

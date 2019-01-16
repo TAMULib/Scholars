@@ -9,10 +9,10 @@ import { AppState } from '../../../core/store';
 import { DialogButtonType, DialogControl } from '../../../core/store/dialog/dialog.model';
 import { Role, User } from '../../../core/model/user';
 
-import { selectUserIsUpdating } from '../../../core/store/users';
+import { selectReousrceIsUpdating } from '../../../core/store/sdr';
 
 import * as fromDialog from '../../../core/store/dialog/dialog.actions';
-import * as fromUsers from '../../../core/store/users/users.actions';
+import * as fromSdr from '../../../core/store/sdr/sdr.actions';
 
 @Component({
     selector: 'scholars-user-edit',
@@ -63,18 +63,18 @@ export class UserEditComponent implements OnInit {
                 type: DialogButtonType.OUTLINE_WARNING,
                 label: 'Cancel',
                 action: () => this.store.dispatch(new fromDialog.CloseDialogAction()),
-                disabled: () => this.store.pipe(select(selectUserIsUpdating))
+                disabled: () => this.store.pipe(select(selectReousrceIsUpdating<User>('users')))
             },
             submit: {
                 type: DialogButtonType.OUTLINE_PRIMARY,
                 label: 'Update',
-                action: () => this.store.dispatch(new fromUsers.UpdateUserAction({
-                    user: Object.assign(this.user, this.dialog.form.value)
+                action: () => this.store.dispatch(new fromSdr.PatchResourceAction('users', {
+                    resource: Object.assign(this.user, this.dialog.form.value)
                 })),
                 disabled: () => combineLatest(
                     of(this.dialog.form.invalid),
                     of(this.dialog.form.pristine),
-                    this.store.pipe(select(selectUserIsUpdating))
+                    this.store.pipe(select(selectReousrceIsUpdating<User>('users')))
                 ).pipe(map(results => results[0] || results[1] || results[2]))
             }
         };

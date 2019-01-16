@@ -6,7 +6,6 @@ import { Observable, of } from 'rxjs';
 
 import { RestService } from './rest.service';
 
-import { SdrCollection, SdrPageRequest } from '../model/sdr';
 import { Theme, Style } from '../model/theme';
 
 import { hexToRgb, luminance, mix, yiq } from '../../shared/utilities/color.utility';
@@ -16,7 +15,7 @@ import { environment } from '../../../environments/environment';
 @Injectable({
     providedIn: 'root',
 })
-export class ThemesService {
+export class ThemeService {
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: string,
@@ -25,12 +24,6 @@ export class ThemesService {
         private restService: RestService
     ) {
 
-    }
-
-    public getPage(page: SdrPageRequest): Observable<SdrCollection> {
-        return this.restService.get<SdrCollection>(environment.service + `/themes?page=${page.number - 1}&size=${page.size}`, {
-            withCredentials: true
-        });
     }
 
     public getActiveTheme(): Observable<Theme> {

@@ -22,6 +22,7 @@ import * as fromAuth from './auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
 import * as fromAlerts from '../alert/alert.actions';
 import * as fromRouter from '../router/router.actions';
+import * as fromSdr from '../sdr/sdr.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -249,7 +250,11 @@ export class AuthEffects {
 
     @Effect() logoutSuccess = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.LOGOUT_SUCCESS),
-        map(() => new fromRouter.Go({ path: ['/'] }))
+        switchMap(() => [
+            new fromSdr.ClearResourcesAction('Theme'),
+            new fromSdr.ClearResourcesAction('User'),
+            new fromRouter.Go({ path: ['/'] })
+        ])
     );
 
     @Effect() getUser = this.actions.pipe(

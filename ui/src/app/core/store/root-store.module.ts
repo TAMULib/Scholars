@@ -16,9 +16,9 @@ import { MetadataEffects } from './metadata/metadata.effects';
 import { RootStoreEffects } from './root-store.effects';
 import { RouterEffects } from './router/router.effects';
 import { SidebarEffects } from './sidebar/sidebar.effects';
+import { SdrEffects } from './sdr/sdr.effects';
 import { StompEffects } from './stomp/stomp.effects';
-import { ThemesEffects } from './themes/themes.effects';
-import { UsersEffects } from './users/users.effects';
+import { ThemeEffects } from './theme/theme.effects';
 
 import { reducerProvider, metaReducers, reducerToken } from './';
 
@@ -34,9 +34,9 @@ import { environment } from '../../../environments/environment';
         EffectsModule.forRoot([
             RootStoreEffects,
             RouterEffects,
-            UsersEffects,
-            ThemesEffects,
+            ThemeEffects,
             StompEffects,
+            SdrEffects,
             SidebarEffects,
             MetadataEffects,
             LayoutEffects,

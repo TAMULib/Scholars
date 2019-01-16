@@ -13,7 +13,7 @@ import { Home, Hero } from '../../core/model/theme';
 
 import { SearchBoxStyles } from '../../shared/search-box/search-box.component';
 
-import { selectActiveThemeHome } from '../../core/store/themes';
+import { selectActiveThemeHome } from '../../core/store/theme';
 
 import * as fromAuth from '../../core/store/auth/auth.actions';
 

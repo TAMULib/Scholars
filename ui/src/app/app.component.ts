@@ -9,7 +9,7 @@ import { AppState } from './core/store';
 
 import { AlertLocation } from './core/store/alert/alert.model';
 
-import { selectStyle } from './core/store/themes';
+import { selectStyle } from './core/store/theme';
 
 import * as fromMetadata from './core/store/metadata/metadata.actions';
 
