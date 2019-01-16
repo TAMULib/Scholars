@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import 'variables';
-@import 'imports';
-@import 'mixins';
-@import 'overrides';
+@import 'styles/variables';
+@import 'styles/imports';
+@import 'styles/mixins';
+@import 'styles/overrides';
 
 body {
   font-family: 'Lato', Calibri, Arial, sans-serif;

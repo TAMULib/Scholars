@@ -24,79 +24,57 @@ export class ConnectAction implements Action {
 
 export class ConnectSuccessAction implements Action {
     type = StompActionTypes.CONNECT_SUCCESS;
-    constructor(public payload?: any) {
-
-    }
+    constructor(public payload?: any) { }
 }
 
 export class ConnectFailureAction implements Action {
     type = StompActionTypes.CONNECT_FAILURE;
-    constructor(public payload: any) {
-
-    }
+    constructor(public payload: { response: any }) { }
 }
 
 export class DisconnectAction implements Action {
     type = StompActionTypes.DISCONNECT;
-    constructor(public payload?: any) {
-
-    }
+    constructor(public payload?: any) { }
 }
 
 export class DisconnectSuccessAction implements Action {
     type = StompActionTypes.DISCONNECT_SUCCESS;
-    constructor(public payload?: any) {
-
-    }
+    constructor(public payload?: any) { }
 }
 
 export class DisconnectFailureAction implements Action {
     type = StompActionTypes.DISCONNECT_FAILURE;
-    constructor(public payload: any) {
-
-    }
+    constructor(public payload: any) { }
 }
 
 export class SubscribeAction implements Action {
     type = StompActionTypes.SUBSCRIBE;
-    constructor(public payload: string) {
-
-    }
+    constructor(public payload: string) { }
 }
 
 export class SubscribeSuccessAction implements Action {
     type = StompActionTypes.SUBSCRIBE_SUCCESS;
-    constructor(public payload: any) {
-
-    }
+    constructor(public payload: any) { }
 }
 
 export class SubscribeFailureAction implements Action {
     type = StompActionTypes.SUBSCRIBE_FAILURE;
-    constructor(public payload: any) {
-
-    }
+    constructor(public payload: { response: any }) { }
 }
 
 export class UnsubscribeAction implements Action {
     type = StompActionTypes.UNSUBSCRIBE;
-    constructor(public payload: string) {
-
-    }
+    constructor(public payload: string) { }
 }
 
 export class UnsubscribeSuccessAction implements Action {
     type = StompActionTypes.UNSUBSCRIBE_SUCCESS;
-    constructor(public payload?: any) {
-
-    }
+    constructor(public payload?: any) { }
 }
 
 export class UnsubscribeFailureAction implements Action {
     type = StompActionTypes.UNSUBSCRIBE_FAILURE;
-    constructor(public payload: any) {
-
-    }
+    constructor(public payload: any) { }
 }
 
 export type StompActions =

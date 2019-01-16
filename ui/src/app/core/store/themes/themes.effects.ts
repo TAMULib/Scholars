@@ -51,7 +51,7 @@ export class ThemesEffects {
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
-                message: payload.response.error,
+                message: payload.response.message,
                 dismissible: true,
                 timer: 15000
             }
@@ -85,7 +85,7 @@ export class ThemesEffects {
     );
 
     @Effect() loadThemesFailure = this.actions.pipe(
-        ofType(fromThemes.ThemesActionTypes.LOAD_ACTIVE_FAILURE),
+        ofType(fromThemes.ThemesActionTypes.LOAD_FAILURE),
         map((action: fromThemes.LoadThemesFailureAction) => action.payload),
         map((payload: { response: any }) => new fromAlerts.AddAlertAction({
             alert: {
