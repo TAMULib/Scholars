@@ -6,6 +6,8 @@ import { AuthService } from './service/auth.service';
 import { RestService } from './service/rest.service';
 import { ThemesService } from './service/themes.service';
 import { UsersService } from './service/users.service';
+import { StompService } from './service/stomp.service';
+import { MetadataService } from './service/metadata.service';
 
 const MODULES = [
     CommonModule
@@ -18,7 +20,9 @@ const COMPONENTS = [
 const PROVIDERS = [
     AuthGuard,
     AuthService,
+    MetadataService,
     RestService,
+    StompService,
     ThemesService,
     UsersService
 ];

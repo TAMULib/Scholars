@@ -11,6 +11,8 @@ import { AlertLocation } from './core/store/alert/alert.model';
 
 import { selectStyle } from './core/store/themes';
 
+import * as fromMetadata from './core/store/metadata/metadata.actions';
+
 @Component({
     selector: 'scholars-root',
     templateUrl: 'app.component.html',
@@ -31,6 +33,11 @@ export class AppComponent implements OnInit {
             select(selectStyle),
             skipWhile((style: SafeStyle) => style === undefined)
         );
+        this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
+            tags: [{
+                name: 'title', content: 'Scholars'
+            }]
+        }));
     }
 
 }

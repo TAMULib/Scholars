@@ -21,6 +21,7 @@ import { RootStoreEffects } from './root-store.effects';
 import { reducerProvider, metaReducers, reducerToken } from './';
 
 import { environment } from '../../../environments/environment';
+import { MetadataEffects } from './metadata/metadata.effects';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import { environment } from '../../../environments/environment';
         EffectsModule.forRoot([
             RootStoreEffects,
             RouterEffects,
+            MetadataEffects,
             StompEffects,
             ThemesEffects,
             UsersEffects,

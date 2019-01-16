@@ -1,12 +1,12 @@
 import { StompActions, StompActionTypes } from './stomp.actions';
 
-export interface StompState {
+export type StompState = Readonly<{
     connecting: boolean;
     connected: boolean;
     subscriptions: Map<string, any>;
-}
+}>;
 
-const initialState: StompState = {
+export const initialState: StompState = {
     connecting: false,
     connected: false,
     subscriptions: new Map<string, any>()

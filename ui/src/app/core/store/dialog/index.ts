@@ -8,3 +8,4 @@ export const selectDialogIsOpened = createSelector(selectDialogState, fromDialog
 export const selectDialogIsOpening = createSelector(selectDialogState, fromDialog.isDialogOpening);
 export const selectDialogIsClosed = createSelector(selectDialogState, fromDialog.isDialogClosed);
 export const selectDialogIsClosing = createSelector(selectDialogState, fromDialog.isDialogClosing);
+export const selectDialog = createSelector(selectDialogState, fromDialog.getDialog);

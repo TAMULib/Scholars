@@ -1,15 +1,18 @@
 import { DialogActions, DialogActionTypes } from './dialog.actions';
+import { Dialog } from './dialog.model';
 
 export type DialogState = Readonly<{
     opened: boolean;
     opening: boolean;
     closing: boolean;
+    dialog: Dialog;
 }>;
 
 export const initialState: DialogState = {
     opened: false,
     opening: false,
-    closing: false
+    closing: false,
+    dialog: undefined
 };
 
 export function reducer(state = initialState, action: DialogActions): DialogState {
@@ -17,7 +20,8 @@ export function reducer(state = initialState, action: DialogActions): DialogStat
         case DialogActionTypes.OPEN_DIALOG:
             return {
                 ...state,
-                opening: true
+                opening: true,
+                dialog: action.payload.dialog
             };
         case DialogActionTypes.DIALOG_OPENED:
             return {
@@ -34,7 +38,8 @@ export function reducer(state = initialState, action: DialogActions): DialogStat
             return {
                 ...state,
                 opened: false,
-                closing: false
+                closing: false,
+                dialog: undefined
             };
         default:
             return state;
@@ -45,4 +50,4 @@ export const isDialogOpened = (state: DialogState) => state.opened;
 export const isDialogOpening = (state: DialogState) => state.opening;
 export const isDialogClosed = (state: DialogState) => !state.opened;
 export const isDialogClosing = (state: DialogState) => state.closing;
-
+export const getDialog = (state: DialogState) => state.dialog;

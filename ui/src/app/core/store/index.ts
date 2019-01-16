@@ -8,6 +8,7 @@ import * as fromAlert from './alert/alert.reducer';
 import * as fromAuth from './auth/auth.reducer';
 import * as fromDialog from './dialog/dialog.reducer';
 import * as fromLayout from './layout/layout.reducer';
+import * as fromMetadata from './metadata/metadata.reducer';
 import * as fromStomp from './stomp/stomp.reducer';
 import * as fromThemes from './themes/themes.reducer';
 import * as fromUsers from './users/users.reducer';
@@ -18,6 +19,7 @@ export interface AppState {
   auth: fromAuth.AuthState;
   dialog: fromDialog.DialogState;
   layout: fromLayout.LayoutState;
+  metadata: fromMetadata.MetadataState;
   stomp: fromStomp.StompState;
   themes: fromThemes.ThemesState;
   users: fromUsers.UsersState;
@@ -29,6 +31,7 @@ export const reducers: ActionReducerMap<AppState> = {
   auth: fromAuth.reducer,
   dialog: fromDialog.reducer,
   layout: fromLayout.reducer,
+  metadata: fromMetadata.reducer,
   stomp: fromStomp.reducer,
   themes: fromThemes.reducer,
   users: fromUsers.reducer,
