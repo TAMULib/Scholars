@@ -1,32 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
+import { SidebarMenu } from '../../core/store/sidebar/sidebar.model';
 
 import { selectIsSidebarCollapsed } from '../../core/store/layout';
+import { selectMenu } from '../../core/store/sidebar';
 
 import * as fromLayout from '../../core/store/layout/layout.actions';
-
-export interface SidebarItem {
-    label: string;
-    route: string[];
-    additionalClass?: string;
-}
-
-export interface SidebarSection {
-    title: string;
-    items: SidebarItem[];
-    additionalClass?: string;
-    collapsible: boolean;
-}
-
-export interface SidebarMenu {
-    sections: SidebarSection[];
-    collapsible: boolean;
-    additionalClass?: string;
-}
 
 @Component({
     selector: 'scholars-sidebar',
@@ -35,7 +18,7 @@ export interface SidebarMenu {
 })
 export class SidebarComponent implements OnInit {
 
-    @Input() menu: SidebarMenu;
+    public menu: Observable<SidebarMenu>;
 
     public isSidebarCollapsed: Observable<boolean>;
 
@@ -44,6 +27,7 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.menu = this.store.pipe(select(selectMenu));
         this.isSidebarCollapsed = this.store.pipe(select(selectIsSidebarCollapsed));
     }
 

@@ -31,10 +31,6 @@ describe('SidebarComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(SidebarComponent);
         component = fixture.componentInstance;
-        component.menu = {
-            sections: [],
-            collapsible: false
-        };
         fixture.detectChanges();
     });
 

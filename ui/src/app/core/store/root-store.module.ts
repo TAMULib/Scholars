@@ -12,16 +12,17 @@ import { AlertEffects } from './alert/alert.effects';
 import { AuthEffects } from './auth/auth.effects';
 import { DialogEffects } from './dialog/dialog.effects';
 import { LayoutEffects } from './layout/layout.effects';
-import { UsersEffects } from './users/users.effects';
-import { ThemesEffects } from './themes/themes.effects';
-import { StompEffects } from './stomp/stomp.effects';
-import { RouterEffects } from './router/router.effects';
+import { MetadataEffects } from './metadata/metadata.effects';
 import { RootStoreEffects } from './root-store.effects';
+import { RouterEffects } from './router/router.effects';
+import { SidebarEffects } from './sidebar/sidebar.effects';
+import { StompEffects } from './stomp/stomp.effects';
+import { ThemesEffects } from './themes/themes.effects';
+import { UsersEffects } from './users/users.effects';
 
 import { reducerProvider, metaReducers, reducerToken } from './';
 
 import { environment } from '../../../environments/environment';
-import { MetadataEffects } from './metadata/metadata.effects';
 
 @NgModule({
     imports: [
@@ -33,10 +34,11 @@ import { MetadataEffects } from './metadata/metadata.effects';
         EffectsModule.forRoot([
             RootStoreEffects,
             RouterEffects,
-            MetadataEffects,
-            StompEffects,
-            ThemesEffects,
             UsersEffects,
+            ThemesEffects,
+            StompEffects,
+            SidebarEffects,
+            MetadataEffects,
             LayoutEffects,
             DialogEffects,
             AuthEffects,

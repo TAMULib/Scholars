@@ -1,5 +1,5 @@
 <div class="wrapper container">
-    <nav class="sidebar">
+    <nav class="sidebar" *ngIf="menu | async; let menu">
         <div class="card bg-dark" *ngFor="let section of menu.sections">
             <div class="card-header text-white">
                 <span>{{section.title}}</span>

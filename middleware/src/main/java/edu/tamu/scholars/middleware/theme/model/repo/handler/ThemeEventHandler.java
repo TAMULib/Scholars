@@ -22,6 +22,8 @@ import edu.tamu.scholars.middleware.theme.model.repo.ThemeRepo;
 @RepositoryEventHandler(Theme.class)
 public class ThemeEventHandler {
 
+    private static final String CHANNEL = "/queue/themes";
+
     @Autowired
     private ThemeRepo themeRepo;
 
@@ -52,21 +54,17 @@ public class ThemeEventHandler {
 
     @HandleAfterCreate
     public void broadcastThemeCreate(Theme theme) {
-        simpMessageTemplate.convertAndSend(channel(), new CreateEntityMessage<Theme>(theme));
+        simpMessageTemplate.convertAndSend(CHANNEL, new CreateEntityMessage<Theme>(theme));
     }
 
     @HandleAfterSave
     public void broadcastThemeUpdate(Theme theme) {
-        simpMessageTemplate.convertAndSend(channel(), new UpdateEntityMessage<Theme>(theme));
+        simpMessageTemplate.convertAndSend(CHANNEL, new UpdateEntityMessage<Theme>(theme));
     }
 
     @HandleAfterDelete
     public void broadcastThemeDelete(Theme theme) {
-        simpMessageTemplate.convertAndSend(channel(), new DeleteEntityMessage<String>(theme.getName()));
-    }
-
-    private String channel() {
-        return "/queue/themes";
+        simpMessageTemplate.convertAndSend(CHANNEL, new DeleteEntityMessage<String>(theme.getName()));
     }
 
 }
