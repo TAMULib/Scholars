@@ -54,10 +54,9 @@ export class StompService {
         });
     }
 
-    public unsubscribe(subscription: any): Observable<boolean> {
+    public unsubscribe(subscription: { id: string, unsubscribe: Function }): Observable<boolean> {
         return Observable.create((observer) => {
-            subscription.unsubscribe();
-            observer.next(true);
+            observer.next(subscription.unsubscribe());
             observer.complete();
         });
     }

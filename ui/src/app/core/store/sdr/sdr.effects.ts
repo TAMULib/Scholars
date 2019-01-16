@@ -1,17 +1,22 @@
 import { Injectable, Injector } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Store, select } from '@ngrx/store';
 
-import { of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { of, timer } from 'rxjs';
+import { map, switchMap, catchError, withLatestFrom, skipUntil, last, skipWhile, takeUntil, distinctUntilChanged, debounce } from 'rxjs/operators';
 
+import { AppState } from '..';
 import { AlertLocation, AlertType } from '../alert/alert.model';
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 import { SdrResource, SdrCollection } from '../../model/sdr';
 
 import { injectable, repos } from '../../model/repos';
 
+import { selectIsDisconnected } from '../stomp';
+
 import * as fromAlerts from '../alert/alert.actions';
 import * as fromDialog from '../dialog/dialog.actions';
+import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from './sdr.actions';
 
 @Injectable()
@@ -21,6 +26,7 @@ export class SdrEffects {
 
     constructor(
         private actions: Actions,
+        private store: Store<AppState>,
         private injector: Injector
     ) {
         this.repos = new Map<string, AbstractSdrRepo<SdrResource>>();
@@ -37,6 +43,28 @@ export class SdrEffects {
                 catchError((response) => of(new fromSdr.PageResourcesFailureAction(action.name, { response })))
             )
         )
+    );
+
+    @Effect({ dispatch: false }) pageSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE_SUCCESS)),
+        map((action: fromSdr.PageResourcesSuccessAction) => action),
+        withLatestFrom(this.store),
+        debounce(([action, store]) => timer(store.stomp.connected ? 0 : 1000)),
+        map(([action, store]) => {
+            if (!store.stomp.subscriptions.has(`/queue/${action.name}`)) {
+                console.log('subscribe');
+                this.store.dispatch(new fromStomp.SubscribeAction({
+                    channel: `/queue/${action.name}`,
+                    handle: (message: any) => {
+                        // TODO: prevent page refresh if updating or loading
+                        console.log(message);
+                        this.store.dispatch(new fromSdr.PageResourcesAction(action.name, { page: store[action.name].page }));
+                    }
+                }));
+            } else {
+                console.log('already subscribed');
+            }
+        })
     );
 
     @Effect() pageFailure = this.actions.pipe(

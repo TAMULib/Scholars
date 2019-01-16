@@ -1,15 +1,16 @@
 import { StompActions, StompActionTypes } from './stomp.actions';
+import { Channel } from './stomp.model';
 
 export type StompState = Readonly<{
     connecting: boolean;
     connected: boolean;
-    subscriptions: Map<string, any>;
+    subscriptions: Map<string, Channel>;
 }>;
 
 export const initialState: StompState = {
     connecting: false,
     connected: false,
-    subscriptions: new Map<string, any>()
+    subscriptions: new Map<string, Channel>()
 };
 
 export function reducer(state = initialState, action: StompActions): StompState {
@@ -38,9 +39,10 @@ export function reducer(state = initialState, action: StompActions): StompState 
                 connected: false
             };
         case StompActionTypes.SUBSCRIBE:
+            state.subscriptions.set(action.payload.channel, { handle: action.payload.handle });
             return state;
         case StompActionTypes.SUBSCRIBE_SUCCESS:
-            state.subscriptions.set(action.payload.channel, action.payload.subscription);
+            state.subscriptions.set(action.payload.channel, Object.assign(state.subscriptions.get(action.payload.channel), { subscription: action.payload.subscription }));
             return state;
         case StompActionTypes.SUBSCRIBE_FAILURE:
             console.log(action);
@@ -54,4 +56,5 @@ export function reducer(state = initialState, action: StompActions): StompState 
 }
 
 export const isConnected = (state: StompState) => state.connected;
+export const isDisconnected = (state: StompState) => !state.connected;
 export const getSubscriptions = (state: StompState) => state.subscriptions;
