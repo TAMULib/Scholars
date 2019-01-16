@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.style = this.store.pipe(
             select(selectStyle),
             skipWhile((style: SafeStyle) => style === undefined)

@@ -76,7 +76,7 @@ export class AuthGuard implements CanActivate {
                 if (!authenticated) {
                     this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
                     if (isPlatformBrowser(this.platformId)) {
-                        this.store.dispatch(new fromAuth.SetLoginRedirectAction({ path: [url] }));
+                        this.store.dispatch(new fromAuth.SetLoginRedirectAction({ navigation: { path: [url] } }));
                         this.store.dispatch(new fromDialog.OpenDialogAction({
                             dialog: {
                                 ref: {

@@ -14,7 +14,7 @@ export const initialState: LayoutState = {
 
 export function reducer(state = initialState, action: LayoutActions): LayoutState {
     switch (action.type) {
-        case LayoutActionTypes.TOGGLE_NAVAR:
+        case LayoutActionTypes.TOGGLE_NAVBAR:
             return {
                 ...state,
                 navbarCollapsed: !state.navbarCollapsed

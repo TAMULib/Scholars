@@ -3,8 +3,7 @@ import { Alert, AlertLocation, AlertType } from './alert.model';
 
 export enum AlertActionTypes {
     ADD_ALERT = '[Alert] add alert',
-    DISMISS_ALERT = '[Alert] dismiss alert',
-    DISMISS_ALL_ALERTS_BY_LOCATION = '[Alert] dismiss all alerts by location'
+    DISMISS_ALERT = '[Alert] dismiss alert'
 }
 
 export class AddAlertAction implements Action {

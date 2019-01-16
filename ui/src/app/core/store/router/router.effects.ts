@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { filter, map, withLatestFrom, skipWhile } from 'rxjs/operators';
 
 import { AppState } from '../';
 
@@ -23,7 +23,7 @@ export class RouterEffects {
         private location: Location,
         private store: Store<AppState>
     ) {
-
+        this.listenToRouter();
     }
 
     @Effect({ dispatch: false }) navigate = this.actions.pipe(
@@ -47,11 +47,17 @@ export class RouterEffects {
     );
 
     @Effect() navigation = this.actions.pipe(
-        ofType('ROUTER_NAVIGATION'),
+        ofType(fromRouter.RouterActionTypes.CHANGED),
         withLatestFrom(this.store.pipe(select(selectLoginRedirect))),
         map(([action, navigation]) => navigation),
-        filter((navigation: fromRouter.RouterNavigation) => navigation !== undefined),
+        skipWhile((navigation: fromRouter.RouterNavigation) => navigation === undefined),
         map(() => new fromAuth.UnsetLoginRedirectAction())
     );
+
+    private listenToRouter() {
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd)
+        ).subscribe(() => this.store.dispatch(new fromRouter.Changed()));
+    }
 
 }

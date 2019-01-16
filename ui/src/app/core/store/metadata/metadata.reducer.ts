@@ -10,6 +10,16 @@ export const initialState: MetadataState = {
 };
 
 export function reducer(state = initialState, action: MetadataActions): MetadataState {
+    const remove = (tag: MetaDefinition) => {
+        for (const i in state.tags) {
+            if (state.tags.hasOwnProperty(i)) {
+                if (state.tags[i].name === tag.name) {
+                    state.tags[i] = tag;
+                    break;
+                }
+            }
+        }
+    };
     switch (action.type) {
         case MetadataActionTypes.ADD_TAGS:
             return {
@@ -17,9 +27,9 @@ export function reducer(state = initialState, action: MetadataActions): Metadata
                 tags: action.payload.tags
             };
         case MetadataActionTypes.REMOVE_TAGS:
+            action.payload.tags.forEach((tag: MetaDefinition) => remove(tag));
             return {
-                ...state,
-                tags: []
+                ...state
             };
         case MetadataActionTypes.ADD_TAG:
             state.tags.push(action.payload.tag);
@@ -32,14 +42,7 @@ export function reducer(state = initialState, action: MetadataActions): Metadata
                 tags: state.tags.filter(tag => tag.name !== action.payload.selector)
             };
         case MetadataActionTypes.UPDATE_TAG:
-            for (const i in state.tags) {
-                if (state.tags.hasOwnProperty(i)) {
-                    if (state.tags[i].name === action.payload.tag.name) {
-                        state.tags[i] = action.payload.tag;
-                        break;
-                    }
-                }
-            }
+            remove(action.payload.tag);
             return {
                 ...state
             };

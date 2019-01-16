@@ -25,6 +25,13 @@ export class MetadataEffects {
         map((tags: MetaDefinition[]) => this.metadataService.addTags(tags))
     );
 
+    @Effect({ dispatch: false }) removeTags = this.actions.pipe(
+        ofType(fromMetadata.MetadataActionTypes.REMOVE_TAGS),
+        map((action: fromMetadata.RemoveMetadataTagsAction) => action.payload),
+        map((payload: { tags: MetaDefinition[] }) => payload.tags),
+        map((tags: MetaDefinition[]) => this.metadataService.removeTags(tags))
+    );
+
     @Effect({ dispatch: false }) addTag = this.actions.pipe(
         ofType(fromMetadata.MetadataActionTypes.ADD_TAG),
         map((action: fromMetadata.AddMetadataTagAction) => action.payload),

@@ -14,6 +14,10 @@ export class MetadataService {
         this.meta.addTags(tags);
     }
 
+    public removeTags(tags: MetaDefinition[]): void {
+        tags.forEach((tag: MetaDefinition) => this.removeTag(`name='${tag.name}'`));
+    }
+
     public addTag(tag: MetaDefinition): void {
         this.meta.addTag(tag);
     }

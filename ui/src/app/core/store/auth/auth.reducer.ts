@@ -161,7 +161,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
         case AuthActionTypes.SET_LOGIN_REDIRECT:
             return {
                 ...state,
-                redirect: action.payload
+                redirect: action.payload.navigation
             };
         case AuthActionTypes.UNSET_LOGIN_REDIRECT:
             return {
