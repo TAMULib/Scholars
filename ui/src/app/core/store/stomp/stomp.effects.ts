@@ -41,24 +41,24 @@ export class StompEffects {
         ofType(fromStomp.StompActionTypes.CONNECT),
         switchMap((action: fromStomp.StompActions) =>
             this.stomp.connect().pipe(
-                map((connected: boolean) => new fromStomp.ConnectSuccessAction()),
-                catchError((response) => of(new fromStomp.ConnectFailureAction(response)))
+                map(() => new fromStomp.ConnectSuccessAction()),
+                catchError((response) => of(new fromStomp.ConnectFailureAction({ response })))
             )
         )
     );
 
     @Effect() connectSuccess = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.CONNECT_SUCCESS),
-        map((action: fromStomp.StompActions) => new fromStomp.SubscribeAction(this.public))
+        map(() => new fromStomp.SubscribeAction({ channel: this.public }))
     );
 
     @Effect() connectFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.CONNECT_FAILURE),
-        map((action: fromStomp.StompActions) => new fromAlerts.AddAlertAction({
+        map((action: fromStomp.ConnectFailureAction) => new fromAlerts.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
-                message: action.payload.response.error.message,
+                message: 'Failed to connect.',
                 dismissible: true,
                 timer: 15000
             }
@@ -75,15 +75,15 @@ export class StompEffects {
             });
             observables.push(this.stomp.disconnect());
             return concat(observables).pipe(
-                map((disconnected: boolean) => new fromStomp.DisconnectSuccessAction()),
-                catchError((response) => of(new fromStomp.DisconnectFailureAction(response)))
+                map(() => new fromStomp.DisconnectSuccessAction()),
+                catchError((response) => of(new fromStomp.DisconnectFailureAction({ response })))
             );
         })
     );
 
     @Effect() disconnectFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.DISCONNECT_FAILURE),
-        map((action: fromStomp.StompActions) => new fromAlerts.AddAlertAction({
+        map((action: fromStomp.DisconnectFailureAction) => new fromAlerts.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -96,40 +96,41 @@ export class StompEffects {
 
     @Effect() subscribe = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.SUBSCRIBE),
-        map((action: fromStomp.StompActions) => action.payload),
-        switchMap((channel: string) =>
-            this.stomp.subscribe(channel, this.callback(channel)).pipe(
-                map((subscription: any) => new fromStomp.SubscribeSuccessAction({ channel, subscription })),
-                catchError((response) => of(new fromStomp.SubscribeFailureAction(response)))
+        map((action: fromStomp.SubscribeAction) => action.payload),
+        switchMap((payload: { channel: string }) =>
+            this.stomp.subscribe(payload.channel, this.callback(payload.channel)).pipe(
+                map((subscription: any) => new fromStomp.SubscribeSuccessAction({ channel: payload.channel, subscription })),
+                catchError((response) => of(new fromStomp.SubscribeFailureAction({ response })))
             )
         )
     );
 
     @Effect() unsubscribe = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.UNSUBSCRIBE),
-        map((action: fromStomp.StompActions) => action.payload),
+        map((action: fromStomp.UnsubscribeAction) => action.payload),
+        map((payload: { channel: string }) => payload.channel),
         switchMap((channel: string) =>
             this.stomp.unsubscribe(this.callbacks.get(channel)).pipe(
-                map((unsubscribed: boolean) => new fromStomp.UnsubscribeSuccessAction(channel)),
-                catchError((response) => of(new fromStomp.UnsubscribeFailureAction(response)))
+                map(() => new fromStomp.UnsubscribeSuccessAction({ channel })),
+                catchError((response) => of(new fromStomp.UnsubscribeFailureAction({ response })))
             )
         )
     );
 
     @Effect({ dispatch: false }) unsubscribeSuccess = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.UNSUBSCRIBE_SUCCESS),
-        map((action: fromStomp.StompActions) => {
-            this.callbacks.delete(action.payload);
+        map((action: fromStomp.UnsubscribeSuccessAction) => {
+            this.callbacks.delete(action.payload.channel);
         })
     );
 
     @Effect() unsubscribeFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.UNSUBSCRIBE_FAILURE),
-        map((action: fromStomp.StompActions) => new fromAlerts.AddAlertAction({
+        map((action: fromStomp.UnsubscribeFailureAction) => new fromAlerts.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
-                message: action.payload.response.error.message,
+                message: 'Failed to unsubscribe.',
                 dismissible: true,
                 timer: 15000
             }

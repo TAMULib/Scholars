@@ -46,7 +46,7 @@ export function reducer(state = initialState, action: StompActions): StompState 
             console.log(action);
             return state;
         case StompActionTypes.UNSUBSCRIBE_SUCCESS:
-            state.subscriptions.delete(action.payload);
+            state.subscriptions.delete(action.payload.channel);
             return state;
         default:
             return state;

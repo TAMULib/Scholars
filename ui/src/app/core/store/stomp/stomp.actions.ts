@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 export enum StompActionTypes {
     CONNECT = '[Stomp] connect',
@@ -17,12 +18,10 @@ export enum StompActionTypes {
 
 export class ConnectAction implements Action {
     readonly type = StompActionTypes.CONNECT;
-    constructor(public payload?: any) { }
 }
 
 export class ConnectSuccessAction implements Action {
     readonly type = StompActionTypes.CONNECT_SUCCESS;
-    constructor(public payload?: any) { }
 }
 
 export class ConnectFailureAction implements Action {
@@ -32,27 +31,25 @@ export class ConnectFailureAction implements Action {
 
 export class DisconnectAction implements Action {
     readonly type = StompActionTypes.DISCONNECT;
-    constructor(public payload?: any) { }
 }
 
 export class DisconnectSuccessAction implements Action {
     readonly type = StompActionTypes.DISCONNECT_SUCCESS;
-    constructor(public payload?: any) { }
 }
 
 export class DisconnectFailureAction implements Action {
     readonly type = StompActionTypes.DISCONNECT_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: { response: any }) { }
 }
 
 export class SubscribeAction implements Action {
     readonly type = StompActionTypes.SUBSCRIBE;
-    constructor(public payload: string) { }
+    constructor(public payload: { channel: string }) { }
 }
 
 export class SubscribeSuccessAction implements Action {
     readonly type = StompActionTypes.SUBSCRIBE_SUCCESS;
-    constructor(public payload: any) { }
+    constructor(public payload: { channel: string, subscription: Subscription }) { }
 }
 
 export class SubscribeFailureAction implements Action {
@@ -62,17 +59,17 @@ export class SubscribeFailureAction implements Action {
 
 export class UnsubscribeAction implements Action {
     readonly type = StompActionTypes.UNSUBSCRIBE;
-    constructor(public payload: string) { }
+    constructor(public payload: { channel: string }) { }
 }
 
 export class UnsubscribeSuccessAction implements Action {
     readonly type = StompActionTypes.UNSUBSCRIBE_SUCCESS;
-    constructor(public payload?: any) { }
+    constructor(public payload: { channel: string }) { }
 }
 
 export class UnsubscribeFailureAction implements Action {
     readonly type = StompActionTypes.UNSUBSCRIBE_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: { response: any }) { }
 }
 
 export type StompActions =
