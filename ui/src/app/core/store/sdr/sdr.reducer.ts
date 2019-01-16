@@ -39,7 +39,6 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     error: undefined
                 };
             case getSdrAction(SdrActionTypes.PAGE_SUCCESS, name):
-                console.log(action);
                 return getSdrAdapter<R>(keys[name]).addAll(action.payload.collection._embedded[name], {
                     ...state,
                     page: Object.assign(action.payload.collection.page, { number: action.payload.collection.page.number + 1 }),

@@ -47,7 +47,6 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
     }
 
     public patch(resource: R): Observable<R> {
-        console.log(resource);
         return this.restService.patch<R>(resource._links.self.href, resource, { withCredentials: true });
     }
 

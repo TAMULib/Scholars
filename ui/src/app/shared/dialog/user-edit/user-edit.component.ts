@@ -69,6 +69,7 @@ export class UserEditComponent implements OnInit {
                 type: DialogButtonType.OUTLINE_PRIMARY,
                 label: 'Update',
                 action: () => this.store.dispatch(new fromSdr.PatchResourceAction('users', {
+                    // TODO: come up with strategy to strip off disabled properies during patch, requires HATEOS self links
                     resource: Object.assign(this.user, this.dialog.form.value)
                 })),
                 disabled: () => combineLatest(
