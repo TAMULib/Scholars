@@ -93,7 +93,7 @@
     "@types/lodash": "4.14.119",
     "@types/node": "10.12.18",
     "codelyzer": "4.5.0",
-    "coveralls": "3.0.2",
+    "coveralls": "git+https://github.com/myfintech/node-coveralls.git",
     "http-server": "0.11.1",
     "jasmine-core": "3.3.0",
     "jasmine-spec-reporter": "4.2.1",

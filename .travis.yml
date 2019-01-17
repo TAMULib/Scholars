@@ -16,7 +16,7 @@ matrix:
       - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       - mvn clean test cobertura:cobertura jacoco:report
     after_success:
-      - mvn coveralls:report -DserviceName="travis-ci" -DserviceBuildNumber=$TRAVIS_BUILD_NUMBER
+      - mvn coveralls:report -DserviceName="travis-ci" -DserviceBuildNumber=$TRAVIS_BUILD_ID
 
   - name: "UI Tests"
     language: node_js

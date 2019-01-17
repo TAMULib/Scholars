@@ -1950,10 +1950,9 @@ cosmiconfig@^4.0.0:
     parse-json "^4.0.0"
     require-from-string "^2.0.1"
 
-coveralls@3.0.2:
+"coveralls@git+https://github.com/myfintech/node-coveralls.git":
   version "3.0.2"
-  resolved "https://registry.yarnpkg.com/coveralls/-/coveralls-3.0.2.tgz#f5a0bcd90ca4e64e088b710fa8dda640aea4884f"
-  integrity sha512-Tv0LKe/MkBOilH2v7WBiTBdudg2ChfGbdXafc/s330djpF3zKOmuehTeRwjXWc7pzfj9FrDUTA7tEx6Div8NFw==
+  resolved "git+https://github.com/myfintech/node-coveralls.git#b6cdfd104afb6a2d8c8297a6c2feda9f30d1f26d"
   dependencies:
     growl "~> 1.10.0"
     js-yaml "^3.11.0"
