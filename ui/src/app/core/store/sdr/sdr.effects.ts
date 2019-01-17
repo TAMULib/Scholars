@@ -1,18 +1,16 @@
 import { Injectable, Injector } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import { of, timer } from 'rxjs';
-import { map, switchMap, catchError, withLatestFrom, skipUntil, last, skipWhile, takeUntil, distinctUntilChanged, debounce } from 'rxjs/operators';
+import { map, switchMap, catchError, withLatestFrom, debounce } from 'rxjs/operators';
 
-import { AppState } from '..';
-import { AlertLocation, AlertType } from '../alert/alert.model';
+import { AppState } from '../';
+import { AlertLocation, AlertType } from '../alert';
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 import { SdrResource, SdrCollection } from '../../model/sdr';
 
 import { injectable, repos } from '../../model/repos';
-
-import { selectIsDisconnected } from '../stomp';
 
 import * as fromAlerts from '../alert/alert.actions';
 import * as fromDialog from '../dialog/dialog.actions';
@@ -49,20 +47,18 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE_SUCCESS)),
         map((action: fromSdr.PageResourcesSuccessAction) => action),
         withLatestFrom(this.store),
-        debounce(([action, store]) => timer(store.stomp.connected ? 0 : 1000)),
+        debounce(([action, store]) => timer(store.stomp.connected ? 0 : 2500)),
         map(([action, store]) => {
             if (!store.stomp.subscriptions.has(`/queue/${action.name}`)) {
-                console.log('subscribe');
                 this.store.dispatch(new fromStomp.SubscribeAction({
                     channel: `/queue/${action.name}`,
-                    handle: (message: any) => {
-                        // TODO: prevent page refresh if updating or loading
-                        console.log(message);
-                        this.store.dispatch(new fromSdr.PageResourcesAction(action.name, { page: store[action.name].page }));
+                    handle: (frame: any) => {
+                        // TODO: consider prevent page request if loading, updating, or editing
+                        if (frame.command === 'MESSAGE') {
+                            this.store.dispatch(new fromSdr.PageResourcesAction(action.name, { page: store[action.name].page }));
+                        }
                     }
                 }));
-            } else {
-                console.log('already subscribed');
             }
         })
     );

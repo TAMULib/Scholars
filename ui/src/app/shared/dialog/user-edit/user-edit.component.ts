@@ -6,7 +6,7 @@ import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
-import { DialogButtonType, DialogControl } from '../../../core/store/dialog/dialog.model';
+import { DialogButtonType, DialogControl } from '../../../core/store/dialog';
 import { Role, User } from '../../../core/model/user';
 
 import { selectReousrceIsUpdating } from '../../../core/store/sdr';

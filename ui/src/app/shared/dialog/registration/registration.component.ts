@@ -6,7 +6,7 @@ import { combineLatest, of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
-import { DialogButtonType, DialogControl } from '../../../core/store/dialog/dialog.model';
+import { DialogButtonType, DialogControl } from '../../../core/store/dialog';
 import { RegistrationRequest } from '../../../core/model/request/registration.request';
 
 import { selectIsSubmittingRegistration, selectIsCompletingRegistration } from '../../../core/store/auth';

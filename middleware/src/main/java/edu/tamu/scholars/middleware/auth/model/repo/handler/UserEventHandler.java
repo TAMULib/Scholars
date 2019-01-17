@@ -13,21 +13,21 @@ import edu.tamu.scholars.middleware.messaging.UpdateEntityMessage;
 @RepositoryEventHandler(User.class)
 public class UserEventHandler {
 
-    private static final String CHANNEL = "/queue/users";
+    public static final String USERS_CHANNEL = "/queue/users";
 
     @Autowired
     private SimpMessagingTemplate simpMessageTemplate;
 
     @HandleAfterSave
     public void broadcastUserUpdate(User user) {
-        simpMessageTemplate.convertAndSend(CHANNEL, new UpdateEntityMessage<User>(user));
-        simpMessageTemplate.convertAndSendToUser(user.getEmail(), CHANNEL, new UpdateEntityMessage<User>(user));
+        simpMessageTemplate.convertAndSend(USERS_CHANNEL, new UpdateEntityMessage<User>(user));
+        simpMessageTemplate.convertAndSendToUser(user.getEmail(), USERS_CHANNEL, new UpdateEntityMessage<User>(user));
     }
 
     @HandleAfterDelete
     public void broadcastUserDelete(User user) {
-        simpMessageTemplate.convertAndSend(CHANNEL, new DeleteEntityMessage<String>(user.getEmail()));
-        simpMessageTemplate.convertAndSendToUser(user.getEmail(), CHANNEL, new DeleteEntityMessage<String>(user.getEmail()));
+        simpMessageTemplate.convertAndSend(USERS_CHANNEL, new DeleteEntityMessage<String>(user.getEmail()));
+        simpMessageTemplate.convertAndSendToUser(user.getEmail(), USERS_CHANNEL, new DeleteEntityMessage<String>(user.getEmail()));
     }
 
 }

@@ -1,5 +1,7 @@
 package edu.tamu.scholars.middleware.auth.service;
 
+import static edu.tamu.scholars.middleware.auth.model.repo.handler.UserEventHandler.USERS_CHANNEL;
+
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -8,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.token.Token;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +27,7 @@ import edu.tamu.scholars.middleware.auth.controller.request.Registration;
 import edu.tamu.scholars.middleware.auth.model.Role;
 import edu.tamu.scholars.middleware.auth.model.User;
 import edu.tamu.scholars.middleware.auth.model.repo.UserRepo;
+import edu.tamu.scholars.middleware.messaging.CreateEntityMessage;
 import edu.tamu.scholars.middleware.service.EmailService;
 import edu.tamu.scholars.middleware.service.TemplateService;
 
@@ -53,6 +57,9 @@ public class RegistrationService {
 
     @Autowired
     protected BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private SimpMessagingTemplate simpMessageTemplate;
 
     public Registration submit(Registration registration) throws JsonProcessingException {
         String registrationJson = objectMapper.writeValueAsString(registration);
@@ -102,7 +109,8 @@ public class RegistrationService {
         } else {
             user.setRole(Role.ROLE_USER);
         }
-        userRepo.save(user);
+        user = userRepo.save(user);
+        simpMessageTemplate.convertAndSend(USERS_CHANNEL, new CreateEntityMessage<User>(user));
     }
 
     private boolean isUserNotConfirmed(User user) {

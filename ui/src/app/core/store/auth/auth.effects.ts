@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
-import { defer, of } from 'rxjs';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { defer, of, timer } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom, debounce } from 'rxjs/operators';
 
 import { AppState } from '../';
 
-import { AlertType, AlertLocation } from '../alert/alert.model';
+import { AlertType, AlertLocation } from '../alert';
 import { User } from '../../model/user';
-import { LoginRequest } from '../../model/request/login.request';
-import { RegistrationRequest } from '../../model/request/registration.request';
+import { LoginRequest, RegistrationRequest } from '../../model/request';
 
 import { RegistrationComponent, RegistrationStep } from '../../../shared/dialog/registration/registration.component';
 
@@ -22,6 +21,7 @@ import * as fromAuth from './auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
 import * as fromAlerts from '../alert/alert.actions';
 import * as fromRouter from '../router/router.actions';
+import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from '../sdr/sdr.actions';
 
 @Injectable()
@@ -265,6 +265,22 @@ export class AuthEffects {
                 catchError((response) => of(new fromAuth.GetUserFailureAction({ response })))
             )
         )
+    );
+
+    @Effect() getUserSuccess = this.actions.pipe(
+        ofType(fromAuth.AuthActionTypes.GET_USER_SUCCESS),
+        withLatestFrom(this.store),
+        debounce(([action, store]) => timer(store.stomp.connected ? 0 : 2500)),
+        map(() => new fromStomp.SubscribeAction({
+            channel: `/user/queue/users`,
+            handle: (frame: any) => {
+                console.log(frame.command);
+                if (frame.command === 'MESSAGE') {
+                    const body = JSON.parse(frame.body);
+                    console.log(body);
+                }
+            }
+        }))
     );
 
     @Effect({ dispatch: false }) getUserFailure = this.actions.pipe(

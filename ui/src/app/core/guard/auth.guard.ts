@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
 import { AppState } from '../store';
-import { AlertLocation, AlertType } from '../store/alert/alert.model';
+import { AlertLocation, AlertType } from '../store/alert';
 import { Role, User } from '../model/user';
 
 import { LoginComponent } from '../../shared/dialog/login/login.component';

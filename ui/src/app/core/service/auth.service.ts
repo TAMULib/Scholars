@@ -4,8 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { User } from '../model/user';
-import { LoginRequest } from '../model/request/login.request';
-import { RegistrationRequest } from '../model/request/registration.request';
+import { LoginRequest, RegistrationRequest } from '../model/request';
 
 import { RestService } from './rest.service';
 

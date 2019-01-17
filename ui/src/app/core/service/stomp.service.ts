@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+
+import { StompSubscription } from '../store/stomp';
 
 import { environment } from '../../../environments/environment';
 
@@ -14,12 +17,17 @@ export class StompService {
 
     private client: any;
 
+    constructor(@Inject(PLATFORM_ID) private platformId: string) {
+
+    }
+
     public connect(): Observable<boolean> {
+        if (isPlatformServer(this.platformId)) {
+            return of(false);
+        }
         const socket = new SockJS(environment.service + '/connect');
         this.client = Stomp.over(socket);
-        this.client.debug = (frame) => {
-            // console.info(frame);
-        };
+        this.client.debug = this.debug;
         const headers = {};
         return Observable.create((observer) => {
             this.client.connect(headers, () => {
@@ -34,6 +42,9 @@ export class StompService {
     }
 
     public disconnect(): Observable<boolean> {
+        if (isPlatformServer(this.platformId)) {
+            return of(false);
+        }
         return Observable.create((observer) => {
             if (this.client !== undefined) {
                 this.client.disconnect(() => {
@@ -48,17 +59,24 @@ export class StompService {
     }
 
     public subscribe(channel: string, callback: Function): Observable<any> {
-        return Observable.create((observer) => {
-            observer.next(this.client.subscribe(channel, callback));
-            observer.complete();
-        });
+        if (isPlatformServer(this.platformId)) {
+            return of(false);
+        }
+        return of(this.client.subscribe(channel, callback));
     }
 
-    public unsubscribe(subscription: { id: string, unsubscribe: Function }): Observable<boolean> {
-        return Observable.create((observer) => {
-            observer.next(subscription.unsubscribe());
-            observer.complete();
-        });
+    public unsubscribe(subscription: StompSubscription): Observable<boolean> {
+        if (isPlatformServer(this.platformId)) {
+            return of(false);
+        }
+        subscription.unsubscribe();
+        return of(true);
+    }
+
+    private debug(frame: any): void {
+        if (environment.stompDebug) {
+            console.log(frame);
+        }
     }
 
 }

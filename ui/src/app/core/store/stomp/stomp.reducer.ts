@@ -1,16 +1,16 @@
 import { StompActions, StompActionTypes } from './stomp.actions';
-import { Channel } from './stomp.model';
+import { StompChannel } from './stomp.model';
 
 export type StompState = Readonly<{
     connecting: boolean;
     connected: boolean;
-    subscriptions: Map<string, Channel>;
+    subscriptions: Map<string, StompChannel>;
 }>;
 
 export const initialState: StompState = {
     connecting: false,
     connected: false,
-    subscriptions: new Map<string, Channel>()
+    subscriptions: new Map<string, StompChannel>()
 };
 
 export function reducer(state = initialState, action: StompActions): StompState {

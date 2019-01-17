@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 
+import { StompSubscription } from './';
+
 export enum StompActionTypes {
     CONNECT = '[Stomp] connect',
     CONNECT_SUCCESS = '[Stomp] connected successfully',
@@ -48,7 +50,7 @@ export class SubscribeAction implements Action {
 
 export class SubscribeSuccessAction implements Action {
     readonly type = StompActionTypes.SUBSCRIBE_SUCCESS;
-    constructor(public payload: { channel: string, subscription: { id: string, unsubscribe: Function } }) { }
+    constructor(public payload: { channel: string, subscription: StompSubscription }) { }
 }
 
 export class SubscribeFailureAction implements Action {
@@ -58,7 +60,7 @@ export class SubscribeFailureAction implements Action {
 
 export class UnsubscribeAction implements Action {
     readonly type = StompActionTypes.UNSUBSCRIBE;
-    constructor(public payload: { channel: string, subscription: { id: string, unsubscribe: Function } }) { }
+    constructor(public payload: { channel: string, subscription: StompSubscription }) { }
 }
 
 export class UnsubscribeSuccessAction implements Action {

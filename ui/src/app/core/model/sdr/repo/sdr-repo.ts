@@ -1,4 +1,4 @@
-import { SdrResource } from '..';
+import { SdrResource } from '../';
 import { SdrPageRequest } from '../sdr-page';
 import { Observable } from 'rxjs';
 import { SdrCollection } from '../sdr-collection';

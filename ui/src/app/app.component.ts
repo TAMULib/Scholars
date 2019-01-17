@@ -7,7 +7,7 @@ import { skipWhile } from 'rxjs/operators';
 
 import { AppState } from './core/store';
 
-import { AlertLocation } from './core/store/alert/alert.model';
+import { AlertLocation } from './core/store/alert';
 
 import { selectStyle } from './core/store/theme';
 

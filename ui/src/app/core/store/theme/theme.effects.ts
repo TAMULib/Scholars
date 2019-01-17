@@ -7,7 +7,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { ThemeService } from '../../service/theme.service';
 
-import { AlertLocation, AlertType } from '../alert/alert.model';
+import { AlertLocation, AlertType } from '../alert';
 import { Theme } from '../../model/theme';
 
 import * as fromThemes from './theme.actions';

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
 
-import { Alert, AlertLocation } from '../../core/store/alert/alert.model';
+import { Alert, AlertLocation } from '../../core/store/alert';
 
 import { selectAlertsByLocation } from '../../core/store/alert';
 
