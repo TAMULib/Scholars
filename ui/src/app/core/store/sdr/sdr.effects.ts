@@ -2,8 +2,8 @@ import { Injectable, Injector } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
-import { of, timer } from 'rxjs';
-import { map, switchMap, catchError, withLatestFrom, debounce } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { map, switchMap, catchError, withLatestFrom, debounceTime } from 'rxjs/operators';
 
 import { AppState } from '../';
 import { AlertLocation, AlertType } from '../alert';
@@ -47,7 +47,7 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE_SUCCESS)),
         map((action: fromSdr.PageResourcesSuccessAction) => action),
         withLatestFrom(this.store),
-        debounce(([action, store]) => timer(store.stomp.connected ? 0 : 2500)),
+        debounceTime(2500),
         map(([action, store]) => {
             if (!store.stomp.subscriptions.has(`/queue/${action.name}`)) {
                 this.store.dispatch(new fromStomp.SubscribeAction({

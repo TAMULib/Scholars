@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
-import { defer, of, timer } from 'rxjs';
-import { catchError, map, switchMap, withLatestFrom, debounce } from 'rxjs/operators';
+import { defer, of } from 'rxjs';
+import { catchError, debounceTime, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { AppState } from '../';
 
@@ -53,6 +53,7 @@ export class AuthEffects {
         withLatestFrom(this.store.select(selectLoginRedirect)),
         switchMap(([action, redirect]) => {
             const actions: any = [
+                new fromAuth.GetUserSuccessAction({ user: action.user }),
                 new fromDialog.CloseDialogAction(),
                 new fromAlerts.AddAlertAction({
                     alert: {
@@ -271,7 +272,7 @@ export class AuthEffects {
     @Effect() getUserSuccess = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.GET_USER_SUCCESS),
         withLatestFrom(this.store),
-        debounce(([action, store]) => timer(store.stomp.connected ? 0 : 2500)),
+        debounceTime(2500),
         map(([action, store]) => new fromStomp.SubscribeAction({
             channel: `/user/queue/users`,
             handle: (frame: any) => {
@@ -297,26 +298,11 @@ export class AuthEffects {
                             }));
                             break;
                         case 'UPDATE':
-                            if (!body.entity.enabled) {
-                                this.store.dispatch(new fromAuth.LogoutAction());
-                                this.store.dispatch(new fromDialog.OpenDialogAction({
-                                    dialog: {
-                                        ref: {
-                                            component: NotificationComponent,
-                                            inputs: {
-                                                text: 'Your account has been disabled!'
-                                            }
-                                        },
-                                        options: {
-                                            centered: false,
-                                            backdrop: 'static',
-                                            ariaLabelledBy: 'Notification dialog'
-                                        }
-                                    }
-                                }));
-                            } else {
+                            console.log('update', body.entity);
+                            if (body.entity.enabled) {
                                 this.store.dispatch(new fromAuth.GetUserSuccessAction({ user: body.entity }));
                                 const roles = Object.keys(Role);
+                                console.log(roles, roles.indexOf(body.entity.role), roles.indexOf(store.auth.user.role));
                                 if (roles.indexOf(body.entity.role) < roles.indexOf(store.auth.user.role)) {
                                     this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
                                     this.store.dispatch(new fromDialog.OpenDialogAction({
@@ -351,6 +337,23 @@ export class AuthEffects {
                                         }
                                     }));
                                 }
+                            } else {
+                                this.store.dispatch(new fromAuth.LogoutAction());
+                                this.store.dispatch(new fromDialog.OpenDialogAction({
+                                    dialog: {
+                                        ref: {
+                                            component: NotificationComponent,
+                                            inputs: {
+                                                text: 'Your account has been disabled!'
+                                            }
+                                        },
+                                        options: {
+                                            centered: false,
+                                            backdrop: 'static',
+                                            ariaLabelledBy: 'Notification dialog'
+                                        }
+                                    }
+                                }));
                             }
                             break;
                         default:

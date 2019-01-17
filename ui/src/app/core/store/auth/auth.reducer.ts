@@ -55,8 +55,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
             return {
                 ...state,
                 loggingIn: false,
-                authenticated: true,
-                user: action.payload.user
+                authenticated: true
             };
         case AuthActionTypes.LOGIN_FAILURE:
             console.error(action);
