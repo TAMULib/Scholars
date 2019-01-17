@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { concat, defer, of } from 'rxjs';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, switchMap, withLatestFrom, skipWhile } from 'rxjs/operators';
 
 import { AppState } from '../';
 import { AlertLocation, AlertType } from '../alert';
@@ -99,10 +99,12 @@ export class StompEffects {
 
     @Effect() unsubscribe = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.UNSUBSCRIBE),
-        map((action: fromStomp.UnsubscribeAction) => action.payload),
-        switchMap((payload: { channel: string, subscription: StompSubscription }) =>
-            this.stomp.unsubscribe(payload.subscription).pipe(
-                map(() => new fromStomp.UnsubscribeSuccessAction({ channel: payload.channel })),
+        map((action: fromStomp.UnsubscribeAction) => action),
+        withLatestFrom(this.store),
+        skipWhile(([action, store]) => !store.stomp.subscriptions.has(action.payload.channel)),
+        switchMap(([action, store]) =>
+            this.stomp.unsubscribe(store.stomp.subscriptions.get(action.payload.channel).id).pipe(
+                map(() => new fromStomp.UnsubscribeSuccessAction({ channel: action.payload.channel })),
                 catchError((response) => of(new fromStomp.UnsubscribeFailureAction({ response })))
             )
         )

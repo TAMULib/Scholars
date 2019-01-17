@@ -41,6 +41,9 @@ import 'classlist.js';  // Run `npm install --save classlist.js`.
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 
+/** To display Maps in Redux DevTools **/
+import 'core-js/es7/map';
+
 
 /**
  * Required to support Web Animations `@angular/animation`.

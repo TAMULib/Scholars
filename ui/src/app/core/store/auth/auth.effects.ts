@@ -100,7 +100,7 @@ export class AuthEffects {
         ofType(fromAuth.AuthActionTypes.SUBMIT_REGISTRATION_SUCCESS),
         map((action: fromAuth.SubmitRegistrationSuccessAction) => action.payload),
         map((payload: { registration: RegistrationRequest }) => payload.registration),
-        switchMap((registration: RegistrationRequest) => [
+        switchMap(() => [
             new fromDialog.CloseDialogAction(),
             new fromAlerts.AddAlertAction({
                 alert: {

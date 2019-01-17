@@ -59,8 +59,8 @@ export class StompService {
         return of(this.client.subscribe(channel, callback));
     }
 
-    public unsubscribe(subscription: StompSubscription): Observable<boolean> {
-        subscription.unsubscribe();
+    public unsubscribe(id: string): Observable<boolean> {
+        this.client.unsubscribe(id);
         return of(true);
     }
 

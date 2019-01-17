@@ -121,14 +121,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http
                 .authorizeRequests()
                     .antMatchers("/**")
-                        .access("hasIpAddress('0:0:0:0:0:0:0:1')");
+                        .access("hasIpAddress('127.0.0.1') OR hasIpAddress('0:0:0:0:0:0:0:1')");
         }
         if(enableH2Console()) {
             // NOTE: localhost has full access to h2console
             http
                 .authorizeRequests()
                     .antMatchers("/h2console/**")
-                        .access("hasIpAddress('0:0:0:0:0:0:0:1')")
+                        .access("hasIpAddress('127.0.0.1') OR hasIpAddress('0:0:0:0:0:0:0:1')")
                 .and()
                     .headers()
                         .frameOptions()
