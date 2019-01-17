@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { MetaDefinition } from '@angular/platform-browser';
+import { Router, ActivationStart } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
+
+import { AppState } from '..';
 
 import { MetadataService } from '../../service/metadata.service';
 
@@ -13,9 +17,11 @@ export class MetadataEffects {
 
     constructor(
         private actions: Actions,
+        private router: Router,
+        private store: Store<AppState>,
         private metadataService: MetadataService
     ) {
-
+        this.listenForRouteDataTags();
     }
 
     @Effect({ dispatch: false }) addTags = this.actions.pipe(
@@ -52,5 +58,17 @@ export class MetadataEffects {
         map((payload: { tag: MetaDefinition }) => payload.tag),
         map((tag: MetaDefinition) => this.metadataService.updateTag(tag))
     );
+
+    private listenForRouteDataTags() {
+        this.router.events.pipe(
+            filter(event => event instanceof ActivationStart)
+        ).subscribe((event: ActivationStart) => {
+            if (event.snapshot.data.tags) {
+                event.snapshot.data.tags.forEach((tag: MetaDefinition) => {
+                    this.store.dispatch(new fromMetadata.UpdateMetadataTagAction({ tag }));
+                });
+            }
+        });
+    }
 
 }

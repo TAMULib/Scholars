@@ -7,8 +7,16 @@ import { UsersComponent } from './users/users.component';
 export const routes: Routes = [
     {
         path: '', component: AdminComponent, children: [
-            { path: 'themes', component: ThemesComponent },
-            { path: 'users', component: UsersComponent },
+            {
+                path: 'themes', component: ThemesComponent, data: {
+                    tags: [{ name: 'view', content: 'Scholars Administration - Themes' }]
+                }
+            },
+            {
+                path: 'users', component: UsersComponent, data: {
+                    tags: [{ name: 'view', content: 'Scholars Administration - Users' }]
+                }
+            },
             { path: '**', redirectTo: 'themes' }
         ]
     }

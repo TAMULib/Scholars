@@ -23,7 +23,7 @@ export class RouterEffects {
         private location: Location,
         private store: Store<AppState>
     ) {
-        this.listenToRouter();
+        this.listenForRouteChange();
     }
 
     @Effect({ dispatch: false }) navigate = this.actions.pipe(
@@ -54,10 +54,12 @@ export class RouterEffects {
         map(() => new fromAuth.UnsetLoginRedirectAction())
     );
 
-    private listenToRouter() {
+    private listenForRouteChange() {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
-        ).subscribe(() => this.store.dispatch(new fromRouter.Changed()));
+        ).subscribe(() => {
+            this.store.dispatch(new fromRouter.Changed());
+        });
     }
 
 }
