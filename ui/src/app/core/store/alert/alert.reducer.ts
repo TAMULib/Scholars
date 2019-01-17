@@ -1,5 +1,5 @@
 import { AlertActions, AlertActionTypes } from './alert.actions';
-import { Alert, AlertLocation } from './';
+import { Alert, AlertLocation } from './alert.model';
 
 export interface AlertState {
     alerts: Map<AlertLocation, Alert[]>;

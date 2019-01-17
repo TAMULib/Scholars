@@ -27,9 +27,7 @@ export class StompService {
         }
         const socket = new SockJS(environment.service + '/connect');
         this.client = Stomp.over(socket);
-        if (environment.stompDebug) {
-            this.client.debug = (frame: any) => console.log(frame);
-        }
+        this.client.debug = this.debug;
         const headers = {};
         return Observable.create((observer) => {
             this.client.connect(headers, () => {
@@ -64,6 +62,12 @@ export class StompService {
     public unsubscribe(subscription: StompSubscription): Observable<boolean> {
         subscription.unsubscribe();
         return of(true);
+    }
+
+    private debug(frame: any): void {
+        if (environment.stompDebug) {
+            console.log(frame);
+        }
     }
 
 }

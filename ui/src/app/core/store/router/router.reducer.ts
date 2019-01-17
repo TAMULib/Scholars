@@ -2,12 +2,12 @@ import { RouterStateSnapshot, Params } from '@angular/router';
 
 import * as fromRouter from '@ngrx/router-store';
 
-export interface CustomRouterState {
+export type CustomRouterState = Readonly<{
     url: string;
     params: Params;
     queryParams: Params;
     data: any;
-}
+}>;
 
 export class CustomRouterStateSerializer implements fromRouter.RouterStateSerializer<CustomRouterState> {
     serialize(routerState: RouterStateSnapshot): CustomRouterState {

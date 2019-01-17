@@ -33,7 +33,7 @@ export type DialogButton = Readonly<{
 
 export type DialogControl = Readonly<{
     title: string;
-    form: FormGroup;
+    form?: FormGroup;
     close: DialogButton;
     submit?: DialogButton;
 }>;

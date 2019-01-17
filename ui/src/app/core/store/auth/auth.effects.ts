@@ -8,9 +8,10 @@ import { catchError, map, switchMap, withLatestFrom, debounce } from 'rxjs/opera
 import { AppState } from '../';
 
 import { AlertType, AlertLocation } from '../alert';
-import { User } from '../../model/user';
+import { User, Role } from '../../model/user';
 import { LoginRequest, RegistrationRequest } from '../../model/request';
 
+import { NotificationComponent } from '../../../shared/dialog/notification/notification.component';
 import { RegistrationComponent, RegistrationStep } from '../../../shared/dialog/registration/registration.component';
 
 import { AuthService } from '../../service/auth.service';
@@ -271,13 +272,89 @@ export class AuthEffects {
         ofType(fromAuth.AuthActionTypes.GET_USER_SUCCESS),
         withLatestFrom(this.store),
         debounce(([action, store]) => timer(store.stomp.connected ? 0 : 2500)),
-        map(() => new fromStomp.SubscribeAction({
+        map(([action, store]) => new fromStomp.SubscribeAction({
             channel: `/user/queue/users`,
             handle: (frame: any) => {
-                console.log(frame.command);
                 if (frame.command === 'MESSAGE') {
                     const body = JSON.parse(frame.body);
-                    console.log(body);
+                    switch (body.action) {
+                        case 'DELETE':
+                            this.store.dispatch(new fromAuth.LogoutAction());
+                            this.store.dispatch(new fromDialog.OpenDialogAction({
+                                dialog: {
+                                    ref: {
+                                        component: NotificationComponent,
+                                        inputs: {
+                                            text: 'Your account has been deleted!'
+                                        }
+                                    },
+                                    options: {
+                                        centered: false,
+                                        backdrop: 'static',
+                                        ariaLabelledBy: 'Notification dialog'
+                                    }
+                                }
+                            }));
+                            break;
+                        case 'UPDATE':
+                            if (!body.entity.enabled) {
+                                this.store.dispatch(new fromAuth.LogoutAction());
+                                this.store.dispatch(new fromDialog.OpenDialogAction({
+                                    dialog: {
+                                        ref: {
+                                            component: NotificationComponent,
+                                            inputs: {
+                                                text: 'Your account has been disabled!'
+                                            }
+                                        },
+                                        options: {
+                                            centered: false,
+                                            backdrop: 'static',
+                                            ariaLabelledBy: 'Notification dialog'
+                                        }
+                                    }
+                                }));
+                            } else {
+                                this.store.dispatch(new fromAuth.GetUserSuccessAction({ user: body.entity }));
+                                const roles = Object.keys(Role);
+                                if (roles.indexOf(body.entity.role) < roles.indexOf(store.auth.user.role)) {
+                                    this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
+                                    this.store.dispatch(new fromDialog.OpenDialogAction({
+                                        dialog: {
+                                            ref: {
+                                                component: NotificationComponent,
+                                                inputs: {
+                                                    text: 'Your permissions have been reduced!'
+                                                }
+                                            },
+                                            options: {
+                                                centered: false,
+                                                backdrop: 'static',
+                                                ariaLabelledBy: 'Notification dialog'
+                                            }
+                                        }
+                                    }));
+                                } else if (roles.indexOf(body.entity.role) > roles.indexOf(store.auth.user.role)) {
+                                    this.store.dispatch(new fromDialog.OpenDialogAction({
+                                        dialog: {
+                                            ref: {
+                                                component: NotificationComponent,
+                                                inputs: {
+                                                    text: 'Your permissions have been elevated!'
+                                                }
+                                            },
+                                            options: {
+                                                centered: false,
+                                                backdrop: 'static',
+                                                ariaLabelledBy: 'Notification dialog'
+                                            }
+                                        }
+                                    }));
+                                }
+                            }
+                            break;
+                        default:
+                    }
                 }
             }
         }))
