@@ -22,7 +22,7 @@
       <div class="input-group-lg">
         <label for="role">Role</label>
         <select class="form-control" name="role" formControlName="role" [ngClass]="{'is-valid': isValid('role'), 'is-invalid': isInvalid('role')}">
-          <option *ngFor="let role of roles" [ngValue]="role">{{getRoleValue(role)}}</option>
+          <option *ngFor="let role of roles" [value]="role">{{getRoleValue(role)}}</option>
         </select>
         <div *ngIf="isInvalid('role')" class="invalid-feedback">{{getErrorMessage('role')}}</div>
       </div>

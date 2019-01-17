@@ -1,6 +1,6 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
-import { Alert, AlertLocation } from './';
+import { AlertLocation, AlertType, Alert } from './alert.model';
 
 import * as fromAlert from './alert.reducer';
 
@@ -12,4 +12,4 @@ export const selectAlertsByLocation = (location: AlertLocation) => createSelecto
     return alerts.get(location);
 });
 
-export { AlertLocation, AlertType, Alert } from './alert.model';
+export { AlertLocation, AlertType, Alert };

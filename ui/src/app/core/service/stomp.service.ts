@@ -27,7 +27,9 @@ export class StompService {
         }
         const socket = new SockJS(environment.service + '/connect');
         this.client = Stomp.over(socket);
-        this.client.debug = this.debug;
+        if (environment.stompDebug) {
+            this.client.debug = (frame: any) => console.log(frame);
+        }
         const headers = {};
         return Observable.create((observer) => {
             this.client.connect(headers, () => {
@@ -42,9 +44,6 @@ export class StompService {
     }
 
     public disconnect(): Observable<boolean> {
-        if (isPlatformServer(this.platformId)) {
-            return of(false);
-        }
         return Observable.create((observer) => {
             if (this.client !== undefined) {
                 this.client.disconnect(() => {
@@ -59,24 +58,12 @@ export class StompService {
     }
 
     public subscribe(channel: string, callback: Function): Observable<any> {
-        if (isPlatformServer(this.platformId)) {
-            return of(false);
-        }
         return of(this.client.subscribe(channel, callback));
     }
 
     public unsubscribe(subscription: StompSubscription): Observable<boolean> {
-        if (isPlatformServer(this.platformId)) {
-            return of(false);
-        }
         subscription.unsubscribe();
         return of(true);
-    }
-
-    private debug(frame: any): void {
-        if (environment.stompDebug) {
-            console.log(frame);
-        }
     }
 
 }
