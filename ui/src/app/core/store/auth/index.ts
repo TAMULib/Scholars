@@ -31,7 +31,7 @@ export const selectHasRole = (role: Role) => createSelector(selectUser, (user: U
             }
             index++;
         });
-        return userRoleIndex <= requiredRoleIndex;
+        return userRoleIndex >= requiredRoleIndex;
     }
     return false;
 });

@@ -8,7 +8,7 @@ import { AppState } from '../../core/store';
 import { Navbar } from '../../core/model/theme/navbar';
 
 import { selectIsNavbarCollapsed } from '../../core/store/layout';
-import { selectActiveThemeHeaderNavbar } from '../../core/store/themes';
+import { selectActiveThemeHeaderNavbar } from '../../core/store/theme';
 
 import * as fromLayout from '../../core/store/layout/layout.actions';
 

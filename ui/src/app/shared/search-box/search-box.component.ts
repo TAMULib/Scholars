@@ -8,7 +8,7 @@ import { skipWhile, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { AppState } from '../../core/store';
 
-import { selectActiveThemeOrganization } from '../../core/store/themes';
+import { selectActiveThemeOrganization } from '../../core/store/theme';
 import { selectRouterSearchQuery } from '../../core/store/router';
 
 import * as fromRouter from '../../core/store/router/router.actions';

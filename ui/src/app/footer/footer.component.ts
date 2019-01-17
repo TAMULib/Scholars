@@ -13,7 +13,7 @@ import { LoginComponent } from '../shared/dialog/login/login.component';
 import { RegistrationComponent, RegistrationStep } from '../shared/dialog/registration/registration.component';
 
 import { selectIsAuthenticated, selectUser, selectHasRole } from '../core/store/auth';
-import { selectActiveThemeFooter } from '../core/store/themes';
+import { selectActiveThemeFooter } from '../core/store/theme';
 
 import * as fromAuth from '../core/store/auth/auth.actions';
 import * as fromDialog from '../core/store/dialog/dialog.actions';

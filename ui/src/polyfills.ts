@@ -41,6 +41,9 @@ import 'classlist.js';  // Run `npm install --save classlist.js`.
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 
+/** To display Maps in Redux DevTools **/
+import 'core-js/es7/map';
+
 
 /**
  * Required to support Web Animations `@angular/animation`.
@@ -70,3 +73,6 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * Need to import at least one locale-data with intl.
  */
 // import 'intl/locale-data/jsonp/en';
+
+// Add global to window, assigning the value of window itself.
+(window as any).global = window;

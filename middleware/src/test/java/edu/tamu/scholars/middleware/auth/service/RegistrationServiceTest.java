@@ -26,6 +26,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.token.KeyBasedPersistenceTokenService;
 import org.springframework.security.core.token.Token;
 import org.springframework.security.core.token.TokenService;
@@ -104,6 +107,16 @@ public class RegistrationServiceTest extends RegistrationIntegrationTest {
         @Bean
         public BCryptPasswordEncoder bCryptPasswordEncoder() {
             return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        public SimpMessagingTemplate simpMessageTemplate() {
+            return new SimpMessagingTemplate(new MessageChannel() {
+                @Override
+                public boolean send(Message<?> message, long timeout) {
+                    return true;
+                }
+            });
         }
 
     }

@@ -12,10 +12,13 @@ import { AlertEffects } from './alert/alert.effects';
 import { AuthEffects } from './auth/auth.effects';
 import { DialogEffects } from './dialog/dialog.effects';
 import { LayoutEffects } from './layout/layout.effects';
-import { UsersEffects } from './users/users.effects';
-import { ThemesEffects } from './themes/themes.effects';
-import { RouterEffects } from './router/router.effects';
+import { MetadataEffects } from './metadata/metadata.effects';
 import { RootStoreEffects } from './root-store.effects';
+import { RouterEffects } from './router/router.effects';
+import { SidebarEffects } from './sidebar/sidebar.effects';
+import { SdrEffects } from './sdr/sdr.effects';
+import { StompEffects } from './stomp/stomp.effects';
+import { ThemeEffects } from './theme/theme.effects';
 
 import { reducerProvider, metaReducers, reducerToken } from './';
 
@@ -31,8 +34,11 @@ import { environment } from '../../../environments/environment';
         EffectsModule.forRoot([
             RootStoreEffects,
             RouterEffects,
-            ThemesEffects,
-            UsersEffects,
+            ThemeEffects,
+            StompEffects,
+            SdrEffects,
+            SidebarEffects,
+            MetadataEffects,
             LayoutEffects,
             DialogEffects,
             AuthEffects,

@@ -7,9 +7,11 @@ import { skipWhile } from 'rxjs/operators';
 
 import { AppState } from './core/store';
 
-import { AlertLocation } from './core/store/alert/alert.model';
+import { AlertLocation } from './core/store/alert';
 
-import { selectStyle } from './core/store/themes';
+import { selectStyle } from './core/store/theme';
+
+import * as fromMetadata from './core/store/metadata/metadata.actions';
 
 @Component({
     selector: 'scholars-root',
@@ -26,11 +28,16 @@ export class AppComponent implements OnInit {
 
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.style = this.store.pipe(
             select(selectStyle),
             skipWhile((style: SafeStyle) => style === undefined)
         );
+        this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
+            tags: [{
+                name: 'title', content: 'Scholars'
+            }]
+        }));
     }
 
 }

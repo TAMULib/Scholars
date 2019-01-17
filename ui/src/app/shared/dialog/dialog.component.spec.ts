@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { SharedModule } from '../shared.module';
 
 import { DialogComponent } from './dialog.component';
-import { DialogButtonType } from '../../core/store/dialog/dialog.model';
+import { DialogButtonType } from '../../core/store/dialog';
 
 import { metaReducers, reducers } from '../../core/store';
 

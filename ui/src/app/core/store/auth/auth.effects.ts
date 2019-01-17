@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
-import { of, defer } from 'rxjs';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { defer, of, timer } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom, debounce } from 'rxjs/operators';
 
 import { AppState } from '../';
 
-import { AlertType, AlertLocation } from '../alert/alert.model';
-import { User } from '../../model/user';
-import { LoginRequest } from '../../model/request/login.request';
-import { RegistrationRequest } from '../../model/request/registration.request';
+import { AlertType, AlertLocation } from '../alert';
+import { User, Role } from '../../model/user';
+import { LoginRequest, RegistrationRequest } from '../../model/request';
 
+import { NotificationComponent } from '../../../shared/dialog/notification/notification.component';
 import { RegistrationComponent, RegistrationStep } from '../../../shared/dialog/registration/registration.component';
 
 import { AuthService } from '../../service/auth.service';
@@ -22,6 +22,8 @@ import * as fromAuth from './auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
 import * as fromAlerts from '../alert/alert.actions';
 import * as fromRouter from '../router/router.actions';
+import * as fromStomp from '../stomp/stomp.actions';
+import * as fromSdr from '../sdr/sdr.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -98,7 +100,7 @@ export class AuthEffects {
         ofType(fromAuth.AuthActionTypes.SUBMIT_REGISTRATION_SUCCESS),
         map((action: fromAuth.SubmitRegistrationSuccessAction) => action.payload),
         map((payload: { registration: RegistrationRequest }) => payload.registration),
-        switchMap((registration: RegistrationRequest) => [
+        switchMap(() => [
             new fromDialog.CloseDialogAction(),
             new fromAlerts.AddAlertAction({
                 alert: {
@@ -249,7 +251,11 @@ export class AuthEffects {
 
     @Effect() logoutSuccess = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.LOGOUT_SUCCESS),
-        map(() => new fromRouter.Go({ path: ['/'] }))
+        switchMap(() => [
+            new fromSdr.ClearResourcesAction('Theme'),
+            new fromSdr.ClearResourcesAction('User'),
+            new fromRouter.Go({ path: ['/'] })
+        ])
     );
 
     @Effect() getUser = this.actions.pipe(
@@ -260,6 +266,98 @@ export class AuthEffects {
                 catchError((response) => of(new fromAuth.GetUserFailureAction({ response })))
             )
         )
+    );
+
+    @Effect() getUserSuccess = this.actions.pipe(
+        ofType(fromAuth.AuthActionTypes.GET_USER_SUCCESS),
+        withLatestFrom(this.store),
+        debounce(([action, store]) => timer(store.stomp.connected ? 0 : 2500)),
+        map(([action, store]) => new fromStomp.SubscribeAction({
+            channel: `/user/queue/users`,
+            handle: (frame: any) => {
+                if (frame.command === 'MESSAGE') {
+                    const body = JSON.parse(frame.body);
+                    switch (body.action) {
+                        case 'DELETE':
+                            this.store.dispatch(new fromAuth.LogoutAction());
+                            this.store.dispatch(new fromDialog.OpenDialogAction({
+                                dialog: {
+                                    ref: {
+                                        component: NotificationComponent,
+                                        inputs: {
+                                            text: 'Your account has been deleted!'
+                                        }
+                                    },
+                                    options: {
+                                        centered: false,
+                                        backdrop: 'static',
+                                        ariaLabelledBy: 'Notification dialog'
+                                    }
+                                }
+                            }));
+                            break;
+                        case 'UPDATE':
+                            if (!body.entity.enabled) {
+                                this.store.dispatch(new fromAuth.LogoutAction());
+                                this.store.dispatch(new fromDialog.OpenDialogAction({
+                                    dialog: {
+                                        ref: {
+                                            component: NotificationComponent,
+                                            inputs: {
+                                                text: 'Your account has been disabled!'
+                                            }
+                                        },
+                                        options: {
+                                            centered: false,
+                                            backdrop: 'static',
+                                            ariaLabelledBy: 'Notification dialog'
+                                        }
+                                    }
+                                }));
+                            } else {
+                                this.store.dispatch(new fromAuth.GetUserSuccessAction({ user: body.entity }));
+                                const roles = Object.keys(Role);
+                                if (roles.indexOf(body.entity.role) < roles.indexOf(store.auth.user.role)) {
+                                    this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
+                                    this.store.dispatch(new fromDialog.OpenDialogAction({
+                                        dialog: {
+                                            ref: {
+                                                component: NotificationComponent,
+                                                inputs: {
+                                                    text: 'Your permissions have been reduced!'
+                                                }
+                                            },
+                                            options: {
+                                                centered: false,
+                                                backdrop: 'static',
+                                                ariaLabelledBy: 'Notification dialog'
+                                            }
+                                        }
+                                    }));
+                                } else if (roles.indexOf(body.entity.role) > roles.indexOf(store.auth.user.role)) {
+                                    this.store.dispatch(new fromDialog.OpenDialogAction({
+                                        dialog: {
+                                            ref: {
+                                                component: NotificationComponent,
+                                                inputs: {
+                                                    text: 'Your permissions have been elevated!'
+                                                }
+                                            },
+                                            options: {
+                                                centered: false,
+                                                backdrop: 'static',
+                                                ariaLabelledBy: 'Notification dialog'
+                                            }
+                                        }
+                                    }));
+                                }
+                            }
+                            break;
+                        default:
+                    }
+                }
+            }
+        }))
     );
 
     @Effect({ dispatch: false }) getUserFailure = this.actions.pipe(

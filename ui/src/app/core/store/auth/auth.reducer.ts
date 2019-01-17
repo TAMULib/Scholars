@@ -1,7 +1,7 @@
 import { AuthActions, AuthActionTypes } from './auth.actions';
 import { RouterNavigation } from '../router/router.actions';
 import { User } from '../../model/user';
-import { RegistrationRequest } from '../../model/request/registration.request';
+import { RegistrationRequest } from '../../model/request';
 
 export interface AuthState {
     checkingSession: boolean;
@@ -161,7 +161,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
         case AuthActionTypes.SET_LOGIN_REDIRECT:
             return {
                 ...state,
-                redirect: action.payload
+                redirect: action.payload.navigation
             };
         case AuthActionTypes.UNSET_LOGIN_REDIRECT:
             return {

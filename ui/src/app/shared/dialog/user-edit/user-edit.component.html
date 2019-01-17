@@ -22,20 +22,20 @@
       <div class="input-group-lg">
         <label for="role">Role</label>
         <select class="form-control" name="role" formControlName="role" [ngClass]="{'is-valid': isValid('role'), 'is-invalid': isInvalid('role')}">
-          <option *ngFor="let role of roles" [value]="role" [label]="getRoleValue(role)"></option>
+          <option *ngFor="let role of roles" [value]="role">{{getRoleValue(role)}}</option>
         </select>
         <div *ngIf="isInvalid('role')" class="invalid-feedback">{{getErrorMessage('role')}}</div>
       </div>
     </div>
     <div class="input-group-lg">
       <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="active" formControlName="active" [ngClass]="{'is-valid': isValid('active'), 'is-invalid': isInvalid('active')}" />
+        <input id="active" type="checkbox" class="form-check-input" name="active" formControlName="active" [ngClass]="{'is-valid': isValid('active'), 'is-invalid': isInvalid('active')}" />
         <label class="form-check-label" for="active">Active</label>
       </div>
     </div>
     <div class="input-group-lg">
       <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="enabled" formControlName="enabled" [ngClass]="{'is-valid': isValid('enabled'), 'is-invalid': isInvalid('enabled')}" />
+        <input id="enabled" type="checkbox" class="form-check-input" name="enabled" formControlName="enabled" [ngClass]="{'is-valid': isValid('enabled'), 'is-invalid': isInvalid('enabled')}" />
         <label class="form-check-label" for="enabled">Enabled</label>
       </div>
     </div>

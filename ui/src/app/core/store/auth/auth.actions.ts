@@ -2,8 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { RouterNavigation } from '../router/router.actions';
 import { User } from '../../model/user';
-import { RegistrationRequest } from '../../model/request/registration.request';
-import { LoginRequest } from '../../model/request/login.request';
+import { LoginRequest, RegistrationRequest } from '../../model/request';
 
 export enum AuthActionTypes {
     LOGIN = '[Auth] login',
@@ -129,7 +128,7 @@ export class SessionStatusAction implements Action {
 
 export class SetLoginRedirectAction implements Action {
     readonly type = AuthActionTypes.SET_LOGIN_REDIRECT;
-    constructor(public payload: RouterNavigation) { }
+    constructor(public payload: { navigation: RouterNavigation }) { }
 }
 
 export class UnsetLoginRedirectAction implements Action {

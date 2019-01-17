@@ -7,5 +7,6 @@ export const environment = {
     production: true,
     hmr: false,
     hasStoreDevTools: false,
+    stompDebug: false,
     service: 'http://localhost:9000'
 };

@@ -6,7 +6,7 @@ import { map, withLatestFrom } from 'rxjs/operators';
 
 import { AppState } from '../';
 
-import { Alert, AlertLocation } from './alert.model';
+import { Alert, AlertLocation } from './';
 
 import { selectAlertsByLocation } from './';
 

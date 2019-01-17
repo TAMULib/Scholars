@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
 import { AppState } from '../store';
-import { AlertLocation, AlertType } from '../store/alert/alert.model';
+import { AlertLocation, AlertType } from '../store/alert';
 import { Role, User } from '../model/user';
 
 import { LoginComponent } from '../../shared/dialog/login/login.component';
@@ -76,7 +76,7 @@ export class AuthGuard implements CanActivate {
                 if (!authenticated) {
                     this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
                     if (isPlatformBrowser(this.platformId)) {
-                        this.store.dispatch(new fromAuth.SetLoginRedirectAction({ path: [url] }));
+                        this.store.dispatch(new fromAuth.SetLoginRedirectAction({ navigation: { path: [url] } }));
                         this.store.dispatch(new fromDialog.OpenDialogAction({
                             dialog: {
                                 ref: {

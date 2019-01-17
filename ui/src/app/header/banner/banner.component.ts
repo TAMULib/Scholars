@@ -7,7 +7,7 @@ import { skipWhile } from 'rxjs/operators';
 import { AppState } from '../../core/store';
 import { Banner } from '../../core/model/theme/banner';
 
-import { selectActiveThemeHeaderBanner } from '../../core/store/themes';
+import { selectActiveThemeHeaderBanner } from '../../core/store/theme';
 
 
 @Component({

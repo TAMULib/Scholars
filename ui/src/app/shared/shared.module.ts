@@ -9,6 +9,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { StatsBoxComponent } from './stats-box/stats-box.component';
 import { LoginComponent } from './dialog/login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { NotificationComponent } from './dialog/notification/notification.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { RecentPublicationsComponent } from './recent-publications/recent-publications.component';
 import { RegistrationComponent } from './dialog/registration/registration.component';
@@ -44,6 +45,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [
     LoginComponent,
     RegistrationComponent,
+    NotificationComponent,
     UserEditComponent
 ];
 

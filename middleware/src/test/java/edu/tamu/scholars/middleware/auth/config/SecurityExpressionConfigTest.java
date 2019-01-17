@@ -13,6 +13,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import edu.tamu.scholars.middleware.config.SecurityExpressionConfig;
+
 @RunWith(SpringRunner.class)
 public class SecurityExpressionConfigTest {
 

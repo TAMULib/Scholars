@@ -4,8 +4,12 @@ import { CommonModule } from '@angular/common';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthService } from './service/auth.service';
 import { RestService } from './service/rest.service';
-import { ThemesService } from './service/themes.service';
-import { UsersService } from './service/users.service';
+import { ThemeService } from './service/theme.service';
+import { StompService } from './service/stomp.service';
+import { MetadataService } from './service/metadata.service';
+
+import { ThemeRepo } from './model/theme/repo/theme.repo';
+import { UserRepo } from './model/user/repo/user.repo';
 
 const MODULES = [
     CommonModule
@@ -18,9 +22,12 @@ const COMPONENTS = [
 const PROVIDERS = [
     AuthGuard,
     AuthService,
+    MetadataService,
     RestService,
-    ThemesService,
-    UsersService
+    StompService,
+    ThemeService,
+    ThemeRepo,
+    UserRepo
 ];
 
 @NgModule({
