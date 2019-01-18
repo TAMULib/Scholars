@@ -274,7 +274,7 @@ export class AuthEffects {
         withLatestFrom(this.store),
         debounceTime(2500),
         map(([action, store]) => new fromStomp.SubscribeAction({
-            channel: '/user/queue/users-test',
+            channel: '/user/queue/users',
             handle: (frame: any) => {
                 const notifyDialogAction = (text: string) => new fromDialog.OpenDialogAction({
                     dialog: {
@@ -297,16 +297,17 @@ export class AuthEffects {
                             this.store.dispatch(notifyDialogAction('Your account has been deleted!'));
                             break;
                         case 'UPDATE':
-                            console.log('update', body.entity);
                             if (body.entity.enabled) {
                                 this.store.dispatch(new fromAuth.GetUserSuccessAction({ user: body.entity }));
                                 const roles = Object.keys(Role);
-                                console.log(roles, roles.indexOf(body.entity.role), roles.indexOf(store.auth.user.role));
                                 if (roles.indexOf(body.entity.role) < roles.indexOf(store.auth.user.role)) {
-                                    this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
-                                    this.store.dispatch(notifyDialogAction('Your permissions have been reduced!'));
+                                    // TODO: request new session to avoid logging out
+                                    this.store.dispatch(new fromAuth.LogoutAction());
+                                    this.store.dispatch(notifyDialogAction('Your permissions have been reduced! Unfortunately, you must log in again.'));
                                 } else if (roles.indexOf(body.entity.role) > roles.indexOf(store.auth.user.role)) {
-                                    this.store.dispatch(notifyDialogAction('Your permissions have been elevated!'));
+                                    // TODO: request new session to avoid logging out
+                                    this.store.dispatch(new fromAuth.LogoutAction());
+                                    this.store.dispatch(notifyDialogAction('Your permissions have been elevated! Unfortunately, you must log in again.'));
                                 }
                             } else {
                                 this.store.dispatch(new fromAuth.LogoutAction());

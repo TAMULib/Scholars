@@ -18,20 +18,8 @@ export const selectError = createSelector(selectAuthState, fromAuth.getError);
 
 export const selectHasRole = (role: Role) => createSelector(selectUser, (user: User) => {
     if (user) {
-        const roles = Object.keys(Role);
-        let userRoleIndex = roles.length;
-        let requiredRoleIndex = 0;
-        let index = 0;
-        roles.forEach(r => {
-            if (Role[r] === role) {
-                requiredRoleIndex = Number(index);
-            }
-            if (Role[r] === Role[user.role]) {
-                userRoleIndex = Number(index);
-            }
-            index++;
-        });
-        return userRoleIndex >= requiredRoleIndex;
+        const roles = Object.values(Role);
+        return roles.indexOf(Role[user.role]) >= roles.indexOf(role);
     }
     return false;
 });

@@ -1,10 +1,12 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-import { Observable, of } from 'rxjs';
+import { Observable, Observer, of } from 'rxjs';
 
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+
+import { StompSubscription } from '../store/stomp';
 
 import { environment } from '../../../environments/environment';
 
@@ -15,55 +17,86 @@ export class StompService {
 
     private client: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: string) {
+    private pending: Map<string, { observer: Observer<StompSubscription>, subscription: StompSubscription }>;
 
+    constructor(@Inject(PLATFORM_ID) private platformId: string) {
+        this.pending = new Map<string, { observer: Observer<StompSubscription>, subscription: StompSubscription }>();
     }
 
-    public connect(): Observable<boolean> {
+    public connect(): Observable<any> {
         if (isPlatformServer(this.platformId)) {
             return of(false);
         }
         const socket = new SockJS(environment.service + '/connect');
         this.client = Stomp.over(socket);
-        this.client.debug = this.debug;
+
+        this.client.onreceipt = (receipt: any): void => {
+            if (typeof receipt === 'object') {
+                if (receipt.headers.destination) {
+                    const channel = receipt.headers.destination;
+                    const pending = this.pending.get(channel);
+                    pending.observer.next(pending.subscription);
+                    pending.observer.complete();
+                    this.pending.delete(channel);
+                }
+            }
+        };
+
+        this.client.debug = (frame: any): void => {
+            if (environment.stompDebug) {
+                console.log(frame);
+            }
+        };
+
         const headers = {};
         return Observable.create((observer) => {
-            this.client.connect(headers, () => {
-                observer.next(true);
+            this.client.connect(headers, (frame) => {
+                observer.next(frame);
                 observer.complete();
             }, (error) => {
-                console.error(error);
+                if (typeof error === 'object') {
+                    if (error.headers.destination) {
+                        const channel = error.headers.destination;
+                        const pending = this.pending.get(channel);
+                        pending.observer.error(error);
+                        pending.observer.complete();
+                        this.pending.delete(channel);
+                    }
+                }
             });
         });
     }
 
-    public disconnect(): Observable<boolean> {
+    public disconnect(): Observable<any> {
         return Observable.create((observer) => {
             if (this.client !== undefined) {
-                this.client.disconnect(() => {
-                    observer.next(true);
+                this.client.disconnect((frame) => {
+                    observer.next(frame);
+                    observer.complete();
+                }, (error) => {
+                    observer.error(error);
                     observer.complete();
                 });
             } else {
-                observer.next(true);
+                observer.next('Not connected!');
                 observer.complete();
             }
         });
     }
 
     public subscribe(channel: string, callback: Function): Observable<any> {
-        return of(this.client.subscribe(channel, callback));
+        return Observable.create((observer) => {
+            this.pending.set(channel, {
+                observer: observer,
+                subscription: this.client.subscribe(channel, callback, {
+                    receipt: `receipt-${Object.keys(this.pending).length}`
+                })
+            });
+        });
     }
 
-    public unsubscribe(id: string): Observable<boolean> {
-        this.client.unsubscribe(id);
-        return of(true);
-    }
-
-    private debug(frame: any): void {
-        if (environment.stompDebug) {
-            console.log(frame);
-        }
+    public unsubscribe(id: string): Observable<any> {
+        return of(this.client.unsubscribe(id));
     }
 
 }

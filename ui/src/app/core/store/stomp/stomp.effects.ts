@@ -62,7 +62,6 @@ export class StompEffects {
         withLatestFrom(this.store),
         switchMap(([action, state]) => {
             state.stomp.subscriptions.forEach((subscription: StompSubscription, channel: string) => {
-                console.log(subscription, channel);
                 subscription.unsubscribe();
             });
             return this.stomp.disconnect().pipe(

@@ -41,18 +41,14 @@ export function reducer(state = initialState, action: StompActions): StompState 
                 connected: false
             };
         case StompActionTypes.SUBSCRIBE:
-            console.log(action.payload);
             state.handles.set(action.payload.channel, action.payload.handle);
             return state;
         case StompActionTypes.SUBSCRIBE_SUCCESS:
-            console.log(action.payload);
             state.subscriptions.set(action.payload.channel, action.payload.subscription);
             return state;
         case StompActionTypes.SUBSCRIBE_FAILURE:
             console.log(action);
-            console.log('before', state.handles);
             state.handles.delete(action.payload.channel);
-            console.log('after', state.handles);
             return state;
         case StompActionTypes.UNSUBSCRIBE_SUCCESS:
             state.handles.delete(action.payload.channel);
