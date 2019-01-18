@@ -454,10 +454,10 @@
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.5.tgz#3738ffbf34dffae9ecaac4503d7d969744f0e1d7"
   integrity sha512-LJtc52O1PNUffMvH6Q3fS0BOhQWYlkh3SVu/Jc4GoPgJkUytk5Y6YPbw+6lZK2mWWvG62BtVyOFw0ih7r8STsw==
 
-"@types/jasmine@3.3.6":
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.6.tgz#6d84212a0db569666f20a83abc22be8608ca16c7"
-  integrity sha512-gTUdNF4imreXYPyXDr+Ebq+JXGbTW+Xyw4k6HVrxj6HZlwv9Y+zurgRhzuQT3OFQNiVomiXc7GX1Xr2UPuUsoQ==
+"@types/jasmine@3.3.7":
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.7.tgz#52f2bfe8d2995d4756585d2328c97fbb0fec66e3"
+  integrity sha512-TuXyEBYWWrjBZAC4h3YY5NcrgC9HaLO5FogvkY5FOfAyjrk3wWABoH/3p7ooFfA8BHjc2BeQCDvvQBLb+9q1rA==
 
 "@types/jasminewd2@2.0.6":
   version "2.0.6"
@@ -1955,9 +1955,10 @@ cosmiconfig@^4.0.0:
     parse-json "^4.0.0"
     require-from-string "^2.0.1"
 
-"coveralls@git+https://github.com/myfintech/node-coveralls.git":
+coveralls@3.0.2:
   version "3.0.2"
-  resolved "git+https://github.com/myfintech/node-coveralls.git#b6cdfd104afb6a2d8c8297a6c2feda9f30d1f26d"
+  resolved "https://registry.yarnpkg.com/coveralls/-/coveralls-3.0.2.tgz#f5a0bcd90ca4e64e088b710fa8dda640aea4884f"
+  integrity sha512-Tv0LKe/MkBOilH2v7WBiTBdudg2ChfGbdXafc/s330djpF3zKOmuehTeRwjXWc7pzfj9FrDUTA7tEx6Div8NFw==
   dependencies:
     growl "~> 1.10.0"
     js-yaml "^3.11.0"
