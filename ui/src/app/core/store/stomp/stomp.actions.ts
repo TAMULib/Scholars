@@ -55,7 +55,7 @@ export class SubscribeSuccessAction implements Action {
 
 export class SubscribeFailureAction implements Action {
     readonly type = StompActionTypes.SUBSCRIBE_FAILURE;
-    constructor(public payload: { response: any }) { }
+    constructor(public payload: { channel: string, response: any }) { }
 }
 
 export class UnsubscribeAction implements Action {
