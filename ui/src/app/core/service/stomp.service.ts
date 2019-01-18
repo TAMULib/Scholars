@@ -6,8 +6,6 @@ import { Observable, of } from 'rxjs';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
-import { StompSubscription } from '../store/stomp';
-
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -35,8 +33,6 @@ export class StompService {
                 observer.complete();
             }, (error) => {
                 console.error(error);
-                observer.next(false);
-                observer.complete();
             });
         });
     }

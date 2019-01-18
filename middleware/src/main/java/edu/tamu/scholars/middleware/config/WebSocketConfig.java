@@ -9,6 +9,8 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
+import edu.tamu.scholars.middleware.messaging.handler.CustomStompSubProtocolErrorHandler;
+
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Session> {
@@ -19,6 +21,7 @@ public class WebSocketConfig extends AbstractSessionWebSocketMessageBrokerConfig
     @Override
     protected void configureStompEndpoints(StompEndpointRegistry registry) {
         // @formatter:off
+        registry.setErrorHandler(new CustomStompSubProtocolErrorHandler());
         registry
             .addEndpoint("/connect")
             .setAllowedOrigins(uiUrl).withSockJS()

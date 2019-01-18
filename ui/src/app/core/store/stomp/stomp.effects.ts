@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
-import { concat, defer, of } from 'rxjs';
+import { defer, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom, skipWhile } from 'rxjs/operators';
 
 import { AppState } from '../';
@@ -61,12 +61,11 @@ export class StompEffects {
         ofType(fromStomp.StompActionTypes.DISCONNECT),
         withLatestFrom(this.store),
         switchMap(([action, state]) => {
-            const observables = [];
-            state.stomp.subscriptions.forEach((value: any, channel: string) => {
-                observables.push(value.subscription.unsubscribe());
+            state.stomp.subscriptions.forEach((subscription: StompSubscription, channel: string) => {
+                console.log(subscription, channel);
+                subscription.unsubscribe();
             });
-            observables.push(this.stomp.disconnect());
-            return concat(observables).pipe(
+            return this.stomp.disconnect().pipe(
                 map(() => new fromStomp.DisconnectSuccessAction()),
                 catchError((response) => of(new fromStomp.DisconnectFailureAction({ response })))
             );
@@ -89,10 +88,10 @@ export class StompEffects {
     @Effect() subscribe = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.SUBSCRIBE),
         map((action: fromStomp.SubscribeAction) => action.payload),
-        switchMap((payload: { channel: string, handle: (message: any) => void }) =>
+        switchMap((payload: { channel: string, handle: Function }) =>
             this.stomp.subscribe(payload.channel, payload.handle).pipe(
                 map((subscription: StompSubscription) => new fromStomp.SubscribeSuccessAction({ channel: payload.channel, subscription })),
-                catchError((response) => of(new fromStomp.SubscribeFailureAction({ response })))
+                catchError((response) => of(new fromStomp.SubscribeFailureAction({ channel: payload.channel, response })))
             )
         )
     );
@@ -103,7 +102,7 @@ export class StompEffects {
         withLatestFrom(this.store),
         skipWhile(([action, store]) => !store.stomp.subscriptions.has(action.payload.channel)),
         switchMap(([action, store]) =>
-            this.stomp.unsubscribe(store.stomp.subscriptions.get(action.payload.channel).id).pipe(
+            store.stomp.subscriptions.get(action.payload.channel).unsubscribe().pipe(
                 map(() => new fromStomp.UnsubscribeSuccessAction({ channel: action.payload.channel })),
                 catchError((response) => of(new fromStomp.UnsubscribeFailureAction({ response })))
             )

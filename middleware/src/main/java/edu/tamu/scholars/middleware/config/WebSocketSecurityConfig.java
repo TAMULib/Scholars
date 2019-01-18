@@ -37,9 +37,9 @@ public class WebSocketSecurityConfig extends AbstractSecurityWebSocketMessageBro
                 .denyAll()
             .anyMessage()
                 .denyAll();
-        // @formatter:off
+        // @formatter:on
     }
-    
+
     @Override
     protected boolean sameOriginDisabled() {
         return true;

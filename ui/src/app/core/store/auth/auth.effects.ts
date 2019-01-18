@@ -274,28 +274,27 @@ export class AuthEffects {
         withLatestFrom(this.store),
         debounceTime(2500),
         map(([action, store]) => new fromStomp.SubscribeAction({
-            channel: `/user/queue/users`,
+            channel: '/user/queue/users-test',
             handle: (frame: any) => {
+                const notifyDialogAction = (text: string) => new fromDialog.OpenDialogAction({
+                    dialog: {
+                        ref: {
+                            component: NotificationComponent,
+                            inputs: { text }
+                        },
+                        options: {
+                            centered: false,
+                            backdrop: 'static',
+                            ariaLabelledBy: 'Notification dialog'
+                        }
+                    }
+                });
                 if (frame.command === 'MESSAGE') {
                     const body = JSON.parse(frame.body);
                     switch (body.action) {
                         case 'DELETE':
                             this.store.dispatch(new fromAuth.LogoutAction());
-                            this.store.dispatch(new fromDialog.OpenDialogAction({
-                                dialog: {
-                                    ref: {
-                                        component: NotificationComponent,
-                                        inputs: {
-                                            text: 'Your account has been deleted!'
-                                        }
-                                    },
-                                    options: {
-                                        centered: false,
-                                        backdrop: 'static',
-                                        ariaLabelledBy: 'Notification dialog'
-                                    }
-                                }
-                            }));
+                            this.store.dispatch(notifyDialogAction('Your account has been deleted!'));
                             break;
                         case 'UPDATE':
                             console.log('update', body.entity);
@@ -305,55 +304,13 @@ export class AuthEffects {
                                 console.log(roles, roles.indexOf(body.entity.role), roles.indexOf(store.auth.user.role));
                                 if (roles.indexOf(body.entity.role) < roles.indexOf(store.auth.user.role)) {
                                     this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
-                                    this.store.dispatch(new fromDialog.OpenDialogAction({
-                                        dialog: {
-                                            ref: {
-                                                component: NotificationComponent,
-                                                inputs: {
-                                                    text: 'Your permissions have been reduced!'
-                                                }
-                                            },
-                                            options: {
-                                                centered: false,
-                                                backdrop: 'static',
-                                                ariaLabelledBy: 'Notification dialog'
-                                            }
-                                        }
-                                    }));
+                                    this.store.dispatch(notifyDialogAction('Your permissions have been reduced!'));
                                 } else if (roles.indexOf(body.entity.role) > roles.indexOf(store.auth.user.role)) {
-                                    this.store.dispatch(new fromDialog.OpenDialogAction({
-                                        dialog: {
-                                            ref: {
-                                                component: NotificationComponent,
-                                                inputs: {
-                                                    text: 'Your permissions have been elevated!'
-                                                }
-                                            },
-                                            options: {
-                                                centered: false,
-                                                backdrop: 'static',
-                                                ariaLabelledBy: 'Notification dialog'
-                                            }
-                                        }
-                                    }));
+                                    this.store.dispatch(notifyDialogAction('Your permissions have been elevated!'));
                                 }
                             } else {
                                 this.store.dispatch(new fromAuth.LogoutAction());
-                                this.store.dispatch(new fromDialog.OpenDialogAction({
-                                    dialog: {
-                                        ref: {
-                                            component: NotificationComponent,
-                                            inputs: {
-                                                text: 'Your account has been disabled!'
-                                            }
-                                        },
-                                        options: {
-                                            centered: false,
-                                            backdrop: 'static',
-                                            ariaLabelledBy: 'Notification dialog'
-                                        }
-                                    }
-                                }));
+                                this.store.dispatch(notifyDialogAction('Your account has been disabled!'));
                             }
                             break;
                         default:

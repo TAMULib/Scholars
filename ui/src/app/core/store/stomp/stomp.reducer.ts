@@ -1,16 +1,18 @@
 import { StompActions, StompActionTypes } from './stomp.actions';
-import { StompChannel } from './stomp.model';
+import { StompSubscription } from './stomp.model';
 
 export type StompState = Readonly<{
     connecting: boolean;
     connected: boolean;
-    subscriptions: Map<string, StompChannel>;
+    handles: Map<string, (message: any) => void>;
+    subscriptions: Map<string, StompSubscription>;
 }>;
 
 export const initialState: StompState = {
     connecting: false,
     connected: false,
-    subscriptions: new Map<string, StompChannel>()
+    handles: new Map<string, (message: any) => void>(),
+    subscriptions: new Map<string, StompSubscription>()
 };
 
 export function reducer(state = initialState, action: StompActions): StompState {
@@ -39,15 +41,21 @@ export function reducer(state = initialState, action: StompActions): StompState 
                 connected: false
             };
         case StompActionTypes.SUBSCRIBE:
-            state.subscriptions.set(action.payload.channel, { handle: action.payload.handle });
+            console.log(action.payload);
+            state.handles.set(action.payload.channel, action.payload.handle);
             return state;
         case StompActionTypes.SUBSCRIBE_SUCCESS:
-            state.subscriptions.set(action.payload.channel, Object.assign(state.subscriptions.get(action.payload.channel), { subscription: action.payload.subscription }));
+            console.log(action.payload);
+            state.subscriptions.set(action.payload.channel, action.payload.subscription);
             return state;
         case StompActionTypes.SUBSCRIBE_FAILURE:
             console.log(action);
+            console.log('before', state.handles);
+            state.handles.delete(action.payload.channel);
+            console.log('after', state.handles);
             return state;
         case StompActionTypes.UNSUBSCRIBE_SUCCESS:
+            state.handles.delete(action.payload.channel);
             state.subscriptions.delete(action.payload.channel);
             return state;
         default:

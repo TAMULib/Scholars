@@ -11,4 +11,4 @@ export const selectIsConnected = createSelector(selectStompState, fromStomp.isCo
 export const selectIsDisconnected = createSelector(selectStompState, fromStomp.isDisconnected);
 export const selectSubscriptions = createSelector(selectStompState, fromStomp.getSubscriptions);
 
-export { StompChannel, StompSubscription } from './stomp.model';
+export { StompSubscription } from './stomp.model';
