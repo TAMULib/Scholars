@@ -1,9 +1,10 @@
 package edu.tamu.scholars.middleware.messaging.listener;
 
+import static org.springframework.messaging.simp.stomp.StompCommand.RECEIPT;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.AbstractSubscribableChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -23,7 +24,7 @@ public class SubscriptionListener implements ApplicationListener<SessionSubscrib
         Message<byte[]> message = event.getMessage();
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
         if (accessor.getReceipt() != null) {
-            StompHeaderAccessor receipt = StompHeaderAccessor.create(StompCommand.RECEIPT);
+            StompHeaderAccessor receipt = StompHeaderAccessor.create(RECEIPT);
             receipt.setReceipt(accessor.getReceipt());
             receipt.setSubscriptionId(accessor.getSubscriptionId());
             receipt.setDestination(accessor.getDestination());
