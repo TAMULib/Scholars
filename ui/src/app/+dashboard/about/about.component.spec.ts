@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AboutComponent } from './about.component';
 
@@ -11,6 +12,9 @@ describe('AboutComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AboutComponent
+            ],
+            imports: [
+                TranslateModule.forRoot()
             ],
             schemas: [
                 CUSTOM_ELEMENTS_SCHEMA
