@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
-import { defer, of } from 'rxjs';
-import { catchError, debounceTime, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { defer, of, combineLatest } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom, skipWhile, take } from 'rxjs/operators';
 
 import { AppState } from '../';
 
@@ -16,7 +16,7 @@ import { RegistrationComponent, RegistrationStep } from '../../../shared/dialog/
 
 import { AuthService } from '../../service/auth.service';
 
-import { selectLoginRedirect } from './';
+import { selectLoginRedirect, selectUser } from './';
 
 import * as fromAuth from './auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
@@ -24,6 +24,7 @@ import * as fromAlert from '../alert/alert.actions';
 import * as fromRouter from '../router/router.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from '../sdr/sdr.actions';
+import { selectIsStompConnected } from '../stomp';
 
 @Injectable()
 export class AuthEffects {
@@ -276,9 +277,18 @@ export class AuthEffects {
 
     @Effect() getUserSuccess = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.GET_USER_SUCCESS),
-        withLatestFrom(this.store),
-        debounceTime(2500),
-        map(([action, store]) => new fromStomp.SubscribeAction({
+        switchMap(() => combineLatest(
+            this.store.pipe(
+                select(selectUser),
+                take(1)
+            ),
+            this.store.pipe(
+                select(selectIsStompConnected),
+                skipWhile((connected: boolean) => !connected),
+                take(1)
+            )
+        )),
+        map(([user]) => new fromStomp.SubscribeAction({
             channel: '/user/queue/users',
             handle: (frame: any) => {
                 const notifyDialogAction = (text: string) => new fromDialog.OpenDialogAction({
@@ -305,11 +315,11 @@ export class AuthEffects {
                             if (body.entity.enabled) {
                                 this.store.dispatch(new fromAuth.GetUserSuccessAction({ user: body.entity }));
                                 const roles = Object.keys(Role);
-                                if (roles.indexOf(body.entity.role) < roles.indexOf(store.auth.user.role)) {
+                                if (roles.indexOf(body.entity.role) < roles.indexOf(user.role)) {
                                     // TODO: request new session to avoid logging out
                                     this.store.dispatch(new fromAuth.LogoutAction());
                                     this.store.dispatch(notifyDialogAction('Your permissions have been reduced! Unfortunately, you must log in again.'));
-                                } else if (roles.indexOf(body.entity.role) > roles.indexOf(store.auth.user.role)) {
+                                } else if (roles.indexOf(body.entity.role) > roles.indexOf(user.role)) {
                                     // TODO: request new session to avoid logging out
                                     this.store.dispatch(new fromAuth.LogoutAction());
                                     this.store.dispatch(notifyDialogAction('Your permissions have been elevated! Unfortunately, you must log in again.'));

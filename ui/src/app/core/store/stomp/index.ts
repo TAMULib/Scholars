@@ -7,8 +7,8 @@ import * as fromStomp from './stomp.reducer';
 
 export const selectStompState = createFeatureSelector<fromStomp.StompState>('stomp');
 
-export const selectIsConnected = createSelector(selectStompState, fromStomp.isConnected);
-export const selectIsDisconnected = createSelector(selectStompState, fromStomp.isDisconnected);
-export const selectSubscriptions = createSelector(selectStompState, fromStomp.getSubscriptions);
+export const selectIsStompConnected = createSelector(selectStompState, fromStomp.isConnected);
+export const selectIsStompDisconnected = createSelector(selectStompState, fromStomp.isDisconnected);
+export const selectStompSubscriptions = createSelector(selectStompState, fromStomp.getSubscriptions);
 
 export { StompSubscription } from './stomp.model';
