@@ -64,6 +64,24 @@
     },
     "SEARCH_BOX": {
       "LABEL": "Find Research at {{organization}}"
+    },
+    "DIALOG": {
+      "LOGIN": {
+        "EMAIL": "Enter email",
+        "PASSWORD": "Enter password"
+      },
+      "REGISTRATION": {
+        "FIRST_NAME": "Enter email",
+        "LAST_NAME": "Enter first name",
+        "EMAIL": "Enter last name",
+        "PASSWORD": "Enter password",
+        "CONFIRM": "Enter password again"
+      },
+      "USER_EDIT": {
+        "ROLE": "Role",
+        "ACTIVE": "Active",
+        "ENABLED": "Enabled"
+      }
     }
   }
 }

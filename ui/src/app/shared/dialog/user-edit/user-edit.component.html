@@ -20,7 +20,7 @@
     </div>
     <div class="form-group">
       <div class="input-group-lg">
-        <label for="role">Role</label>
+        <label for="role">{{ 'SHARED.DIALOG.USER_EDIT.ROLE' | translate }}</label>
         <select class="form-control" name="role" formControlName="role" [ngClass]="{'is-valid': isValid('role'), 'is-invalid': isInvalid('role')}">
           <option *ngFor="let role of roles" [value]="role">{{getRoleValue(role)}}</option>
         </select>
@@ -30,13 +30,13 @@
     <div class="input-group-lg">
       <div class="form-check">
         <input id="active" type="checkbox" class="form-check-input" name="active" formControlName="active" [ngClass]="{'is-valid': isValid('active'), 'is-invalid': isInvalid('active')}" />
-        <label class="form-check-label" for="active">Active</label>
+        <label class="form-check-label" for="active">{{ 'SHARED.DIALOG.USER_EDIT.ACTIVE' | translate }}</label>
       </div>
     </div>
     <div class="input-group-lg">
       <div class="form-check">
         <input id="enabled" type="checkbox" class="form-check-input" name="enabled" formControlName="enabled" [ngClass]="{'is-valid': isValid('enabled'), 'is-invalid': isInvalid('enabled')}" />
-        <label class="form-check-label" for="enabled">Enabled</label>
+        <label class="form-check-label" for="enabled">{{ 'SHARED.DIALOG.USER_EDIT.ENABLED' | translate }}</label>
       </div>
     </div>
   </div>
