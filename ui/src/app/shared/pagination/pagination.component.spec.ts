@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SharedModule } from '../shared.module';
 
@@ -16,6 +17,7 @@ describe('PaginationComponent', () => {
             imports: [
                 NoopAnimationsModule,
                 SharedModule,
+                TranslateModule.forRoot(),
                 RouterTestingModule.withRoutes([])
             ],
             schemas: [

@@ -1,5 +1,6 @@
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 
 import { of } from 'rxjs';
@@ -22,7 +23,8 @@ describe('DialogComponent', () => {
                 SharedModule,
                 StoreModule.forRoot(reducers, {
                     metaReducers
-                })
+                }),
+                TranslateModule.forRoot()
             ]
         }).compileComponents();
     }));

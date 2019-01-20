@@ -49,5 +49,21 @@
       "POWERED_BY": "Powered by VIVO",
       "DATE_UPDATED": "Data update last {{date}}"
     }
+  },
+  "SHARED": {
+    "NAVIGATION": {
+      "EDIT_PROFILE": "EDIT MY PROFILE",
+      "HOME": "Home",
+      "PEOPLE": "People",
+      "ORGANIZATIONS": "Organizations",
+      "RESEARCH": "Research",
+      "ABOUT": "About"
+    },
+    "PAGINATION": {
+      "PAGE_SIZE": "Page Size"
+    },
+    "SEARCH_BOX": {
+      "LABEL": "Find Research at {{organization}}"
+    }
   }
 }
