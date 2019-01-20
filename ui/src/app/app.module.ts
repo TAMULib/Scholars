@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TransferHttpCacheModule } from '@nguniversal/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ export const NGRX_STATE = makeStateKey('NGRX_STATE');
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+        TranslateModule.forRoot(),
         CoreModule.forRoot(),
         NgbModule,
         SharedModule,

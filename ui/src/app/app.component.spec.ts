@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from './shared/shared.module';
@@ -30,6 +31,7 @@ describe('AppComponent', () => {
                     metaReducers
                 }),
                 NoopAnimationsModule,
+                TranslateModule.forRoot(),
                 RouterTestingModule.withRoutes(routes)
             ]
         }).compileComponents();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SafeStyle } from '@angular/platform-browser';
 import { Store, select } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
@@ -24,8 +25,12 @@ export class AppComponent implements OnInit {
 
     public location = AlertLocation.MAIN;
 
-    constructor(private store: Store<AppState>) {
-
+    constructor(
+        private store: Store<AppState>,
+        private translate: TranslateService
+    ) {
+        this.translate.setDefaultLang('en');
+        this.translate.use('en');
     }
 
     ngOnInit(): void {
