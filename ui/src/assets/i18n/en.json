@@ -82,6 +82,13 @@
         "ACTIVE": "Active",
         "ENABLED": "Enabled"
       }
+    },
+    "SIDEBAR": {
+      "ADMINISTRATION": {
+        "TITLE": "Administration",
+        "THEMES": "Themes",
+        "USERS": "Users"
+      }
     }
   }
 }

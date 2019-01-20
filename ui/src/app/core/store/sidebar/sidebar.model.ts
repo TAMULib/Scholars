@@ -1,11 +1,13 @@
+import { Observable } from "rxjs";
+
 export interface SidebarItem {
-    label: string;
+    label: Observable<string>;
     route: string[];
     additionalClass?: string;
 }
 
 export interface SidebarSection {
-    title: string;
+    title: Observable<string>;
     items: SidebarItem[];
     additionalClass?: string;
     collapsible: boolean;

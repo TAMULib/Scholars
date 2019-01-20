@@ -2,10 +2,10 @@
     <nav class="sidebar" *ngIf="menu | async; let menu">
         <div class="card bg-dark" *ngFor="let section of menu.sections">
             <div class="card-header text-white">
-                <span>{{section.title}}</span>
+                <span>{{section.title | async}}</span>
             </div>
             <ul class="list-group list-group-flush" *ngFor="let item of section.items">
-                <li class="list-group-item list-group-item-action list-group-item-light link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" [routerLink]="item.route">{{item.label}}</li>
+                <li class="list-group-item list-group-item-action list-group-item-light link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" [routerLink]="item.route">{{item.label | async}}</li>
             </ul>
         </div>
     </nav>
