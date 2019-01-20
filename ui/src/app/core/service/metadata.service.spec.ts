@@ -3,7 +3,7 @@ import { Meta } from '@angular/platform-browser';
 
 import { MetadataService } from './metadata.service';
 
-describe('UserService', () => {
+describe('MetadataService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({

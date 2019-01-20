@@ -9,6 +9,7 @@ import { AppState } from '../';
 import { AlertLocation, AlertType } from '../alert';
 import { StompSubscription } from './';
 
+import { AlertService } from '../../service/alert.service';
 import { StompService } from '../../service/stomp.service';
 
 import * as fromStomp from './stomp.actions';
@@ -20,7 +21,8 @@ export class StompEffects {
     constructor(
         private actions: Actions,
         private store: Store<AppState>,
-        private stomp: StompService
+        private stomp: StompService,
+        private alert: AlertService
     ) {
 
     }

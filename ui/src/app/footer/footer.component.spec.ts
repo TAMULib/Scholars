@@ -4,6 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 
+import { DialogService } from '../core/service/dialog.service';
+
 import { FooterComponent } from './footer.component';
 
 import { metaReducers, reducers } from '../core/store';
@@ -16,6 +18,9 @@ describe('FooterComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 FooterComponent
+            ],
+            providers: [
+                DialogService
             ],
             imports: [
                 StoreModule.forRoot(reducers, {

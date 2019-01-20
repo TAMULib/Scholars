@@ -5,8 +5,9 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { StoreModule } from '@ngrx/store';
 
-import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
+
+import { DialogService } from '../../core/service/dialog.service';
 
 import { UsersComponent } from './users.component';
 
@@ -21,9 +22,11 @@ describe('UsersComponent', () => {
             declarations: [
                 UsersComponent
             ],
+            providers: [
+                DialogService
+            ],
             imports: [
                 NoopAnimationsModule,
-                CoreModule,
                 SharedModule,
                 StoreModule.forRoot(reducers, {
                     metaReducers

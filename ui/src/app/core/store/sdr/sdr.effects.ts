@@ -5,6 +5,8 @@ import { Store, select } from '@ngrx/store';
 import { of, combineLatest } from 'rxjs';
 import { map, switchMap, catchError, withLatestFrom, skipWhile, take } from 'rxjs/operators';
 
+import { AlertService } from '../../service/alert.service';
+
 import { AppState } from '../';
 import { AlertLocation, AlertType } from '../alert';
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
@@ -26,8 +28,9 @@ export class SdrEffects {
 
     constructor(
         private actions: Actions,
+        private injector: Injector,
         private store: Store<AppState>,
-        private injector: Injector
+        private alert: AlertService
     ) {
         this.repos = new Map<string, AbstractSdrRepo<SdrResource>>();
         this.injectRepos();

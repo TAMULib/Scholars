@@ -5,6 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of, defer } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
+import { AlertService } from '../../service/alert.service';
 import { ThemeService } from '../../service/theme.service';
 
 import { AlertLocation, AlertType } from '../alert';
@@ -16,7 +17,11 @@ import * as fromAlert from '../alert/alert.actions';
 @Injectable()
 export class ThemeEffects {
 
-    constructor(private actions: Actions, private themeService: ThemeService) {
+    constructor(
+        private actions: Actions,
+        private themeService: ThemeService,
+        private alertService: AlertService
+    ) {
 
     }
 

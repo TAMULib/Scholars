@@ -68,19 +68,25 @@
     "DIALOG": {
       "LOGIN": {
         "EMAIL": "Enter email",
-        "PASSWORD": "Enter password"
+        "PASSWORD": "Enter password",
+        "ARIA_LABELLED_BY": "Login dialog"
       },
       "REGISTRATION": {
         "FIRST_NAME": "Enter email",
         "LAST_NAME": "Enter first name",
         "EMAIL": "Enter last name",
         "PASSWORD": "Enter password",
-        "CONFIRM": "Enter password again"
+        "CONFIRM": "Enter password again",
+        "ARIA_LABELLED_BY": "Registration dialog"
       },
       "USER_EDIT": {
         "ROLE": "Role",
         "ACTIVE": "Active",
-        "ENABLED": "Enabled"
+        "ENABLED": "Enabled",
+        "ARIA_LABELLED_BY": "User edit dialog"
+      },
+      "NOTIFICATION": {
+        "ARIA_LABELLED_BY": "Notification dialog"
       }
     },
     "SIDEBAR": {

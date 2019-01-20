@@ -14,9 +14,12 @@ import { LoginRequest, RegistrationRequest } from '../../model/request';
 import { NotificationComponent } from '../../../shared/dialog/notification/notification.component';
 import { RegistrationComponent, RegistrationStep } from '../../../shared/dialog/registration/registration.component';
 
+import { AlertService } from '../../service/alert.service';
 import { AuthService } from '../../service/auth.service';
+import { DialogService } from '../../service/dialog.service';
 
 import { selectLoginRedirect, selectUser } from './';
+import { selectIsStompConnected } from '../stomp';
 
 import * as fromAuth from './auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
@@ -24,7 +27,6 @@ import * as fromAlert from '../alert/alert.actions';
 import * as fromRouter from '../router/router.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from '../sdr/sdr.actions';
-import { selectIsStompConnected } from '../stomp';
 
 @Injectable()
 export class AuthEffects {
@@ -32,7 +34,9 @@ export class AuthEffects {
     constructor(
         private actions: Actions,
         private store: Store<AppState>,
-        private authService: AuthService
+        private alert: AlertService,
+        private authService: AuthService,
+        private dialog: DialogService
     ) {
 
     }
@@ -166,23 +170,8 @@ export class AuthEffects {
             return [
                 new fromDialog.CloseDialogAction(),
                 new fromRouter.Go({ path: ['/'] }),
-                new fromDialog.OpenDialogAction({
-                    dialog: {
-                        ref: {
-                            component: RegistrationComponent,
-                            inputs: {
-                                step: RegistrationStep.COMPLETE,
-                                registration
-                            }
-                        },
-                        options: {
-                            centered: false,
-                            backdrop: 'static',
-                            ariaLabelledBy: 'Complete registration dialog'
-                        }
-                    }
-                })];
-
+                this.dialog.registrationDialog(RegistrationStep.COMPLETE, registration)
+            ];
         })
     );
 
@@ -291,25 +280,12 @@ export class AuthEffects {
         map(([user]) => new fromStomp.SubscribeAction({
             channel: '/user/queue/users',
             handle: (frame: any) => {
-                const notifyDialogAction = (text: string) => new fromDialog.OpenDialogAction({
-                    dialog: {
-                        ref: {
-                            component: NotificationComponent,
-                            inputs: { text }
-                        },
-                        options: {
-                            centered: false,
-                            backdrop: 'static',
-                            ariaLabelledBy: 'Notification dialog'
-                        }
-                    }
-                });
                 if (frame.command === 'MESSAGE') {
                     const body = JSON.parse(frame.body);
                     switch (body.action) {
                         case 'DELETE':
                             this.store.dispatch(new fromAuth.LogoutAction());
-                            this.store.dispatch(notifyDialogAction('Your account has been deleted!'));
+                            this.store.dispatch(this.dialog.notificationDialog('Your account has been deleted!'));
                             break;
                         case 'UPDATE':
                             if (body.entity.enabled) {
@@ -318,15 +294,15 @@ export class AuthEffects {
                                 if (roles.indexOf(body.entity.role) < roles.indexOf(user.role)) {
                                     // TODO: request new session to avoid logging out
                                     this.store.dispatch(new fromAuth.LogoutAction());
-                                    this.store.dispatch(notifyDialogAction('Your permissions have been reduced! Unfortunately, you must log in again.'));
+                                    this.store.dispatch(this.dialog.notificationDialog('Your permissions have been reduced! Unfortunately, you must log in again.'));
                                 } else if (roles.indexOf(body.entity.role) > roles.indexOf(user.role)) {
                                     // TODO: request new session to avoid logging out
                                     this.store.dispatch(new fromAuth.LogoutAction());
-                                    this.store.dispatch(notifyDialogAction('Your permissions have been elevated! Unfortunately, you must log in again.'));
+                                    this.store.dispatch(this.dialog.notificationDialog('Your permissions have been elevated! Unfortunately, you must log in again.'));
                                 }
                             } else {
                                 this.store.dispatch(new fromAuth.LogoutAction());
-                                this.store.dispatch(notifyDialogAction('Your account has been disabled!'));
+                                this.store.dispatch(this.dialog.notificationDialog('Your account has been disabled!'));
                             }
                             break;
                         default:

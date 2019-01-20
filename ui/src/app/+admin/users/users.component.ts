@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { UserEditComponent } from '../../shared/dialog/user-edit/user-edit.component';
+import { DialogService } from '../../core/service/dialog.service';
 
 import { AppState } from '../../core/store';
 import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
@@ -11,7 +11,6 @@ import { User, Role } from '../../core/model/user';
 
 import { selectAllResources, selectReousrcesPage } from '../../core/store/sdr';
 
-import * as fromDialog from '../../core/store/dialog/dialog.actions';
 import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
 @Component({
@@ -26,7 +25,10 @@ export class UsersComponent implements OnInit {
 
     public page: Observable<SdrPage>;
 
-    constructor(private store: Store<AppState>) {
+    constructor(
+        private store: Store<AppState>,
+        private dialog: DialogService
+    ) {
 
     }
 
@@ -36,19 +38,7 @@ export class UsersComponent implements OnInit {
     }
 
     public openUserEditDialog(user: User): void {
-        this.store.dispatch(new fromDialog.OpenDialogAction({
-            dialog: {
-                ref: {
-                    component: UserEditComponent,
-                    inputs: { user }
-                },
-                options: {
-                    centered: false,
-                    backdrop: 'static',
-                    ariaLabelledBy: 'User edit dialog'
-                }
-            }
-        }));
+        this.store.dispatch(this.dialog.userEditDialog(user));
     }
 
     public getRoleValue(role: Role): string {
