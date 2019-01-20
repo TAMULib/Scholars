@@ -19,6 +19,24 @@
   "DASHBOARD": {
     "ABOUT": {
       "TITLE": "About"
+    },
+    "DIRECTORY": {
+      "ORGANIZATIONS": {
+        "TITLE": "Organizations"
+      },
+      "PEOPLE": {
+        "TITLE": "People"
+      },
+      "RESEARCH": {
+        "TITLE": "Research"
+      }
+    },
+    "HOME": {
+      "LATEST_PUBLICATIONS_TEXT": "Latest published books by {{organization}} faculty",
+      "CLICK_PUBLICATION_TEXT": "Click to see the author faculty page"
+    },
+    "SEARCH": {
+      "TITLE": "Search"
     }
   }
 }
