@@ -32,12 +32,12 @@ export function reducer(state = initialState, action: StompActions): StompState 
             console.log(action);
             return {
                 ...state,
-                connecting: false,
-                connected: false
+                connecting: false
             };
         case StompActionTypes.DISCONNECT_SUCCESS:
             return {
                 ...state,
+                connecting: action.payload.reconnect ? true : false,
                 connected: false
             };
         case StompActionTypes.SUBSCRIBE:

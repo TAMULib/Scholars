@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { map } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 
+import { AppState } from '..';
 import { Dialog } from './dialog.model';
 
+import { selectAlertsByLocation, AlertLocation } from '../alert';
+
 import * as fromDialog from './dialog.actions';
+import * as fromAlert from '../alert/alert.actions';
 
 @Injectable()
 export class DialogEffects {
 
     constructor(
         private actions: Actions,
+        private store: Store<AppState>,
         private modalService: NgbModal
     ) {
 
@@ -38,6 +45,16 @@ export class DialogEffects {
         map(() => {
             this.modalService.dismissAll();
             return new fromDialog.DialogClosedAction();
+        })
+    );
+
+    @Effect({ dispatch: false }) dismissDialogAlerts = this.actions.pipe(
+        ofType(fromDialog.DialogActionTypes.DIALOG_CLOSED),
+        withLatestFrom(this.store.select(selectAlertsByLocation(AlertLocation.DIALOG))),
+        map(([action, alerts]) => {
+            alerts.forEach(alert => {
+                this.store.dispatch(new fromAlert.DismissAlertAction({ alert }));
+            });
         })
     );
 

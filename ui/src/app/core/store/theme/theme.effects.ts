@@ -10,8 +10,8 @@ import { ThemeService } from '../../service/theme.service';
 import { AlertLocation, AlertType } from '../alert';
 import { Theme } from '../../model/theme';
 
-import * as fromThemes from './theme.actions';
-import * as fromAlerts from '../alert/alert.actions';
+import * as fromTheme from './theme.actions';
+import * as fromAlert from '../alert/alert.actions';
 
 @Injectable()
 export class ThemeEffects {
@@ -21,30 +21,30 @@ export class ThemeEffects {
     }
 
     @Effect() loadActiveTheme = this.actions.pipe(
-        ofType(fromThemes.ThemeActionTypes.LOAD_ACTIVE),
+        ofType(fromTheme.ThemeActionTypes.LOAD_ACTIVE),
         switchMap(() =>
             this.themeService.getActiveTheme().pipe(
-                map((theme: Theme) => new fromThemes.LoadActiveThemeSuccessAction({ theme })),
-                catchError((response) => of(new fromThemes.LoadActiveThemeFailureAction({ response })))
+                map((theme: Theme) => new fromTheme.LoadActiveThemeSuccessAction({ theme })),
+                catchError((response) => of(new fromTheme.LoadActiveThemeFailureAction({ response })))
             )
         )
     );
 
     @Effect() loadActiveThemeSuccess = this.actions.pipe(
-        ofType(fromThemes.ThemeActionTypes.LOAD_ACTIVE_SUCCESS),
-        map((action: fromThemes.LoadActiveThemeSuccessAction) => action.payload.theme),
+        ofType(fromTheme.ThemeActionTypes.LOAD_ACTIVE_SUCCESS),
+        map((action: fromTheme.LoadActiveThemeSuccessAction) => action.payload.theme),
         switchMap((theme: Theme) =>
             this.themeService.applyActiveTheme(theme).pipe(
-                map((style: SafeStyle) => new fromThemes.ApplyActiveThemeSuccessAction({ style })),
-                catchError((error) => of(new fromThemes.ApplyActiveThemeFailureAction({ error })))
+                map((style: SafeStyle) => new fromTheme.ApplyActiveThemeSuccessAction({ style })),
+                catchError((error) => of(new fromTheme.ApplyActiveThemeFailureAction({ error })))
             )
         )
     );
 
     @Effect() loadActiveThemeFailure = this.actions.pipe(
-        ofType(fromThemes.ThemeActionTypes.LOAD_ACTIVE_FAILURE),
-        map((action: fromThemes.LoadActiveThemeFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlerts.AddAlertAction({
+        ofType(fromTheme.ThemeActionTypes.LOAD_ACTIVE_FAILURE),
+        map((action: fromTheme.LoadActiveThemeFailureAction) => action.payload),
+        map((payload: { response: any }) => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -56,9 +56,9 @@ export class ThemeEffects {
     );
 
     @Effect() applyActiveThemeFailure = this.actions.pipe(
-        ofType(fromThemes.ThemeActionTypes.APPLY_ACTIVE_FAILURE),
-        map((action: fromThemes.ApplyActiveThemeFailureAction) => action.payload),
-        map((payload: { error: string }) => new fromAlerts.AddAlertAction({
+        ofType(fromTheme.ThemeActionTypes.APPLY_ACTIVE_FAILURE),
+        map((action: fromTheme.ApplyActiveThemeFailureAction) => action.payload),
+        map((payload: { error: string }) => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -70,7 +70,7 @@ export class ThemeEffects {
     );
 
     @Effect() init = defer(() => {
-        return of(new fromThemes.LoadActiveThemeAction());
+        return of(new fromTheme.LoadActiveThemeAction());
     });
 
 }

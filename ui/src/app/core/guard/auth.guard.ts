@@ -14,7 +14,7 @@ import { LoginComponent } from '../../shared/dialog/login/login.component';
 
 import { selectIsAuthenticated, selectUser } from '../store/auth';
 
-import * as fromAlerts from '../store/alert/alert.actions';
+import * as fromAlert from '../store/alert/alert.actions';
 import * as fromAuth from '../store/auth/auth.actions';
 import * as fromDialog from '../store/dialog/dialog.actions';
 import * as fromRouter from '../store/router/router.actions';
@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate {
                     if (!authorized) {
                         this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
                         if (isPlatformBrowser(this.platformId)) {
-                            this.store.dispatch(new fromAlerts.AddAlertAction({
+                            this.store.dispatch(new fromAlert.AddAlertAction({
                                 alert: {
                                     location: AlertLocation.MAIN,
                                     type: AlertType.DANGER,
@@ -90,7 +90,7 @@ export class AuthGuard implements CanActivate {
                                 }
                             }
                         }));
-                        this.store.dispatch(new fromAlerts.AddAlertAction({
+                        this.store.dispatch(new fromAlert.AddAlertAction({
                             alert: {
                                 location: AlertLocation.DIALOG,
                                 type: AlertType.WARNING,

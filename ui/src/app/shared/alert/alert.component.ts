@@ -9,7 +9,7 @@ import { Alert, AlertLocation } from '../../core/store/alert';
 
 import { selectAlertsByLocation } from '../../core/store/alert';
 
-import * as fromAlerts from '../../core/store/alert/alert.actions';
+import * as fromAlert from '../../core/store/alert/alert.actions';
 
 @Component({
     selector: 'scholars-alert',
@@ -31,7 +31,7 @@ export class AlertComponent implements OnInit {
     }
 
     public close(alert: Alert): void {
-        this.store.dispatch(new fromAlerts.DismissAlertAction({ alert }));
+        this.store.dispatch(new fromAlert.DismissAlertAction({ alert }));
     }
 
     public isMain(): boolean {

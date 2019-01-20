@@ -12,7 +12,7 @@ import { SdrResource, SdrCollection } from '../../model/sdr';
 
 import { injectable, repos } from '../../model/repos';
 
-import * as fromAlerts from '../alert/alert.actions';
+import * as fromAlert from '../alert/alert.actions';
 import * as fromDialog from '../dialog/dialog.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from './sdr.actions';
@@ -66,7 +66,7 @@ export class SdrEffects {
     @Effect() pageFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE_FAILURE)),
         map((action: fromSdr.PageResourcesFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlerts.AddAlertAction({
+        map((payload: { response: any }) => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -96,7 +96,7 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.POST_SUCCESS)),
         switchMap((action: fromSdr.PostResourceSuccessAction) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlerts.AddAlertAction({
+            new fromAlert.AddAlertAction({
                 alert: {
                     location: AlertLocation.MAIN,
                     type: AlertType.SUCCESS,
@@ -111,7 +111,7 @@ export class SdrEffects {
     @Effect() postFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.POST_FAILURE)),
         map((action: fromSdr.PostResourceFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlerts.AddAlertAction({
+        map((payload: { response: any }) => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -136,7 +136,7 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PUT_SUCCESS)),
         switchMap((action: fromSdr.PutResourceSuccessAction) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlerts.AddAlertAction({
+            new fromAlert.AddAlertAction({
                 alert: {
                     location: AlertLocation.MAIN,
                     type: AlertType.SUCCESS,
@@ -151,7 +151,7 @@ export class SdrEffects {
     @Effect() putFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PUT_FAILURE)),
         map((action: fromSdr.PutResourceFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlerts.AddAlertAction({
+        map((payload: { response: any }) => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -176,7 +176,7 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PATCH_SUCCESS)),
         switchMap((action: fromSdr.PatchResourceSuccessAction) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlerts.AddAlertAction({
+            new fromAlert.AddAlertAction({
                 alert: {
                     location: AlertLocation.MAIN,
                     type: AlertType.SUCCESS,
@@ -191,7 +191,7 @@ export class SdrEffects {
     @Effect() patchFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PATCH_FAILURE)),
         map((action: fromSdr.PatchResourceFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlerts.AddAlertAction({
+        map((payload: { response: any }) => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -216,7 +216,7 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.DELETE_SUCCESS)),
         switchMap((action: fromSdr.DeleteResourceSuccessAction) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlerts.AddAlertAction({
+            new fromAlert.AddAlertAction({
                 alert: {
                     location: AlertLocation.MAIN,
                     type: AlertType.SUCCESS,
@@ -231,7 +231,7 @@ export class SdrEffects {
     @Effect() deleteFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.DELETE_FAILURE)),
         map((action: fromSdr.DeleteResourceFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlerts.AddAlertAction({
+        map((payload: { response: any }) => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,

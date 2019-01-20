@@ -12,8 +12,7 @@ import { StompSubscription } from './';
 import { StompService } from '../../service/stomp.service';
 
 import * as fromStomp from './stomp.actions';
-import * as fromAlerts from '../alert/alert.actions';
-import * as fromAuth from '../auth/auth.actions';
+import * as fromAlert from '../alert/alert.actions';
 
 @Injectable()
 export class StompEffects {
@@ -25,14 +24,6 @@ export class StompEffects {
     ) {
 
     }
-
-    @Effect() reconnect = this.actions.pipe(
-        ofType(fromAuth.AuthActionTypes.LOGIN_SUCCESS, fromAuth.AuthActionTypes.LOGOUT_SUCCESS),
-        switchMap(() => [
-            new fromStomp.DisconnectAction(),
-            new fromStomp.ConnectAction()
-        ])
-    );
 
     @Effect() connect = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.CONNECT),
@@ -46,7 +37,7 @@ export class StompEffects {
 
     @Effect() connectFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.CONNECT_FAILURE),
-        map(() => new fromAlerts.AddAlertAction({
+        map(() => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -59,21 +50,30 @@ export class StompEffects {
 
     @Effect() disconnect = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.DISCONNECT),
+        map((action: fromStomp.DisconnectAction) => action.payload),
         withLatestFrom(this.store),
-        switchMap(([action, state]) => {
+        switchMap(([payload, state]) => {
+            const reconnect = payload.reconnect;
             state.stomp.subscriptions.forEach((subscription: StompSubscription, channel: string) => {
                 subscription.unsubscribe();
             });
             return this.stomp.disconnect().pipe(
-                map(() => new fromStomp.DisconnectSuccessAction()),
+                map(() => new fromStomp.DisconnectSuccessAction({ reconnect })),
                 catchError((response) => of(new fromStomp.DisconnectFailureAction({ response })))
             );
         })
     );
 
+    @Effect() disconnectSuccess = this.actions.pipe(
+        ofType(fromStomp.StompActionTypes.DISCONNECT_SUCCESS),
+        map((action: fromStomp.DisconnectSuccessAction) => action.payload),
+        skipWhile((payload: { reconnect: boolean }) => !payload.reconnect),
+        map(() => new fromStomp.ConnectAction()),
+    );
+
     @Effect() disconnectFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.DISCONNECT_FAILURE),
-        map(() => new fromAlerts.AddAlertAction({
+        map(() => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,
@@ -110,7 +110,7 @@ export class StompEffects {
 
     @Effect() unsubscribeFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.UNSUBSCRIBE_FAILURE),
-        map(() => new fromAlerts.AddAlertAction({
+        map(() => new fromAlert.AddAlertAction({
             alert: {
                 location: AlertLocation.MAIN,
                 type: AlertType.DANGER,

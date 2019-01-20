@@ -32,10 +32,12 @@ export class ConnectFailureAction implements Action {
 
 export class DisconnectAction implements Action {
     readonly type = StompActionTypes.DISCONNECT;
+    constructor(public payload?: { reconnect: boolean }) { }
 }
 
 export class DisconnectSuccessAction implements Action {
     readonly type = StompActionTypes.DISCONNECT_SUCCESS;
+    constructor(public payload?: { reconnect: boolean }) { }
 }
 
 export class DisconnectFailureAction implements Action {
