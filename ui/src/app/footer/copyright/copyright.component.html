@@ -2,11 +2,11 @@
   <ul class="list-inline text-center">
     <li class="list-inline-item"><span>© Texas A&M University Libraries</span></li>
     <li class="list-inline-item"><span>|</span></li>
-    <li class="list-inline-item"><a href="#">Terms Of Use</a></li>
+    <li class="list-inline-item"><a href="#">{{ 'FOOTER.COPYRIGHT.TERMS' | translate }}</a></li>
     <li class="list-inline-item"><span>|</span></li>
-    <li class="list-inline-item"><a href="#">Powered by VIVO</a></li>
+    <li class="list-inline-item"><a href="#">{{ 'FOOTER.COPYRIGHT.POWERED_BY' | translate }}</a></li>
   </ul>
   <ul class="list-inline text-center">
-    <li class="list-inline-item"><span>Data update last {{updated | date: 'medium' }}</span></li>
+    <li class="list-inline-item"><span>{{ 'FOOTER.COPYRIGHT.DATE_UPDATED' | translate:{date: (updated | date:'medium')} }}</span></li>
   </ul>
 </div>

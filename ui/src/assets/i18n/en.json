@@ -34,9 +34,20 @@
     "HOME": {
       "LATEST_PUBLICATIONS_TEXT": "Latest published books by {{organization}} faculty",
       "CLICK_PUBLICATION_TEXT": "Click to see the author faculty page"
-    },
-    "SEARCH": {
-      "TITLE": "Search"
+    }
+  },
+  "SEARCH": {
+    "TITLE": "Search"
+  },
+  "FOOTER": {
+    "ADMINISTRATION": "Administration",
+    "REGISTRATION": "Sign Up",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "COPYRIGHT": {
+      "TERMS": "Terms of Use",
+      "POWERED_BY": "Powered by VIVO",
+      "DATE_UPDATED": "Data update last {{date}}"
     }
   }
 }
