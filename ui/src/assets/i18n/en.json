@@ -1,1 +1,24 @@
-{}
+{
+  "ADMIN": {
+    "THEMES": {
+      "TITLE": "Themes",
+      "NAME": "Name",
+      "ACTIVE": "Active",
+      "ORGANIZATION": "Organization"
+    },
+    "USERS": {
+      "TITLE": "Users",
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "ROLE": "Role",
+      "ACTIVE": "Active",
+      "ENABLED": "Enabled",
+      "EDIT": "Edit"
+    }
+  },
+  "DASHBOARD": {
+    "ABOUT": {
+      "TITLE": "About"
+    }
+  }
+}
