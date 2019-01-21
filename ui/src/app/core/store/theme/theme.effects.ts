@@ -8,11 +8,9 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { AlertService } from '../../service/alert.service';
 import { ThemeService } from '../../service/theme.service';
 
-import { AlertLocation, AlertType } from '../alert';
 import { Theme } from '../../model/theme';
 
 import * as fromTheme from './theme.actions';
-import * as fromAlert from '../alert/alert.actions';
 
 @Injectable()
 export class ThemeEffects {
@@ -20,7 +18,7 @@ export class ThemeEffects {
     constructor(
         private actions: Actions,
         private themeService: ThemeService,
-        private alertService: AlertService
+        private alert: AlertService
     ) {
 
     }
@@ -48,30 +46,12 @@ export class ThemeEffects {
 
     @Effect() loadActiveThemeFailure = this.actions.pipe(
         ofType(fromTheme.ThemeActionTypes.LOAD_ACTIVE_FAILURE),
-        map((action: fromTheme.LoadActiveThemeFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: payload.response.message,
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map((action: fromTheme.LoadActiveThemeFailureAction) => this.alert.loadActiveThemeFailureAlert(action.payload))
     );
 
     @Effect() applyActiveThemeFailure = this.actions.pipe(
         ofType(fromTheme.ThemeActionTypes.APPLY_ACTIVE_FAILURE),
-        map((action: fromTheme.ApplyActiveThemeFailureAction) => action.payload),
-        map((payload: { error: string }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: payload.error,
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map((action: fromTheme.ApplyActiveThemeFailureAction) => this.alert.applyActiveThemeFailureAlert(action.payload))
     );
 
     @Effect() init = defer(() => {

@@ -6,14 +6,12 @@ import { defer, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom, skipWhile } from 'rxjs/operators';
 
 import { AppState } from '../';
-import { AlertLocation, AlertType } from '../alert';
 import { StompSubscription } from './';
 
 import { AlertService } from '../../service/alert.service';
 import { StompService } from '../../service/stomp.service';
 
 import * as fromStomp from './stomp.actions';
-import * as fromAlert from '../alert/alert.actions';
 
 @Injectable()
 export class StompEffects {
@@ -39,15 +37,7 @@ export class StompEffects {
 
     @Effect() connectFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.CONNECT_FAILURE),
-        map(() => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: 'Failed to connect.',
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map(() => this.alert.connectFailureAlert())
     );
 
     @Effect() disconnect = this.actions.pipe(
@@ -75,15 +65,7 @@ export class StompEffects {
 
     @Effect() disconnectFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.DISCONNECT_FAILURE),
-        map(() => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: 'Failed to disconnected.',
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map(() => this.alert.disconnectFailureAlert())
     );
 
     @Effect() subscribe = this.actions.pipe(
@@ -112,15 +94,7 @@ export class StompEffects {
 
     @Effect() unsubscribeFailure = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.UNSUBSCRIBE_FAILURE),
-        map(() => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: 'Failed to unsubscribe.',
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map(() => this.alert.unsubscribeFailureAlert())
     );
 
     @Effect() init = defer(() => {

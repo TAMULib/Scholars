@@ -7,12 +7,10 @@ import { catchError, map, switchMap, withLatestFrom, skipWhile, take } from 'rxj
 
 import { AppState } from '../';
 
-import { AlertType, AlertLocation } from '../alert';
 import { User, Role } from '../../model/user';
 import { LoginRequest, RegistrationRequest } from '../../model/request';
 
-import { NotificationComponent } from '../../../shared/dialog/notification/notification.component';
-import { RegistrationComponent, RegistrationStep } from '../../../shared/dialog/registration/registration.component';
+import { RegistrationStep } from '../../../shared/dialog/registration/registration.component';
 
 import { AlertService } from '../../service/alert.service';
 import { AuthService } from '../../service/auth.service';
@@ -23,7 +21,6 @@ import { selectIsStompConnected } from '../stomp';
 
 import * as fromAuth from './auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
-import * as fromAlert from '../alert/alert.actions';
 import * as fromRouter from '../router/router.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from '../sdr/sdr.actions';
@@ -65,15 +62,7 @@ export class AuthEffects {
             const actions: any = [
                 new fromAuth.GetUserSuccessAction({ user: action.user }),
                 new fromDialog.CloseDialogAction(),
-                new fromAlert.AddAlertAction({
-                    alert: {
-                        location: AlertLocation.MAIN,
-                        type: AlertType.SUCCESS,
-                        message: 'Login success.',
-                        dismissible: true,
-                        timer: 10000
-                    }
-                })
+                this.alert.loginSuccessAlert()
             ];
             if (redirect !== undefined) {
                 actions.push(new fromRouter.Go(redirect));
@@ -84,16 +73,7 @@ export class AuthEffects {
 
     @Effect() loginFailure = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.LOGIN_FAILURE),
-        map((action: fromAuth.LoginFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.DIALOG,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 10000
-            }
-        }))
+        map((action: fromAuth.LoginFailureAction) => this.alert.loginFailureAlert(action.payload))
     );
 
     @Effect() submitRegistration = this.actions.pipe(
@@ -113,30 +93,13 @@ export class AuthEffects {
         map((payload: { registration: RegistrationRequest }) => payload.registration),
         switchMap(() => [
             new fromDialog.CloseDialogAction(),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.SUCCESS,
-                    message: `Confirm email to complete registration.`,
-                    dismissible: true,
-                    timer: 15000
-                }
-            })
+            this.alert.submitRegistrationSuccessAlert()
         ])
     );
 
     @Effect() submitRegistrationFailure = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.SUBMIT_REGISTRATION_FAILURE),
-        map((action: fromAuth.SubmitRegistrationFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.DIALOG,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 10000
-            }
-        }))
+        map((action: fromAuth.SubmitRegistrationFailureAction) => this.alert.submitRegistrationFailureAlert(action.payload))
     );
 
     @Effect() confirmRegistration = this.actions.pipe(
@@ -155,22 +118,11 @@ export class AuthEffects {
         map((action: fromAuth.ConfirmRegistrationSuccessAction) => action.payload),
         map((payload: { registration: RegistrationRequest }) => payload.registration),
         switchMap((registration: RegistrationRequest) => {
-            setTimeout(
-                () => this.store.dispatch(
-                    new fromAlert.AddAlertAction({
-                        alert: {
-                            location: AlertLocation.DIALOG,
-                            type: AlertType.SUCCESS,
-                            message: `Set password to complete registration.`,
-                            dismissible: false
-                        }
-                    })
-                )
-            );
             return [
                 new fromDialog.CloseDialogAction(),
                 new fromRouter.Go({ path: ['/'] }),
-                this.dialog.registrationDialog(RegistrationStep.COMPLETE, registration)
+                this.dialog.registrationDialog(RegistrationStep.COMPLETE, registration),
+                this.store.dispatch(this.alert.confirmRegistrationSuccessAlert())
             ];
         })
     );
@@ -180,15 +132,7 @@ export class AuthEffects {
         map((action: fromAuth.ConfirmRegistrationFailureAction) => action.payload),
         switchMap((payload: { response: any }) => [
             new fromRouter.Go({ path: ['/'] }),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.DANGER,
-                    message: payload.response.error,
-                    dismissible: true,
-                    timer: 10000
-                }
-            })
+            this.alert.confirmRegistrationFailureAlert(payload)
         ])
     );
 
@@ -207,32 +151,15 @@ export class AuthEffects {
         ofType(fromAuth.AuthActionTypes.COMPLETE_REGISTRATION_SUCCESS),
         map((action: fromAuth.CompleteRegistrationSuccessAction) => action.payload),
         map((payload: { user: User }) => payload.user),
-        switchMap((user: User) => [
+        switchMap(() => [
             new fromDialog.CloseDialogAction(),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.SUCCESS,
-                    message: `Registration complete. You can now login.`,
-                    dismissible: true,
-                    timer: 15000
-                }
-            })
+            this.alert.completeRegistrationSuccessAlert()
         ])
     );
 
     @Effect() completeRegistrationFailure = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.COMPLETE_REGISTRATION_FAILURE),
-        map((action: fromAuth.CompleteRegistrationFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.DIALOG,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 10000
-            }
-        }))
+        map((action: fromAuth.CompleteRegistrationFailureAction) => this.alert.completeRegistrationFailureAlert(action.payload))
     );
 
     @Effect() logout = this.actions.pipe(

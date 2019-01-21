@@ -95,6 +95,21 @@
         "THEMES": "Themes",
         "USERS": "Users"
       }
+    },
+    "ALERT": {
+      "LOGIN_SUCCESS": "Login success.",
+      "SUBMIT_REGISTRATION_SUCCESS": "Confirm email to complete registration.",
+      "CONFIRM_REGISTRATION_SUCCESS": "Set password to complete registration.",
+      "COMPLETE_REGISTRATION_SUCCESS": "Registration complete. You can now login.",
+      "UNAUTHORIZED": "Unauthorized!",
+      "FORBIDDEN": "Forbidden! You must be logged in to access.",
+      "CONNECT_FAILED": "Failed to connect.",
+      "DISCONNECT_FAILED": "Failed to disconnect.",
+      "UNSUBSCRIBE_FAILED": "Failed to unsubscribe.",
+      "POST_SUCCESS": "Post successful.",
+      "PUT_SUCCESS": "Put successful.",
+      "PATCH_SUCCESS": "Patch successful.",
+      "DELETE_SUCCESS": "Delete successful."
     }
   }
 }
