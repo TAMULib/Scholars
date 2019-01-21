@@ -14,12 +14,12 @@ export class SetLanguageAction implements Action {
 
 export class SetLanguageSuccessAction implements Action {
     readonly type = LanguageActionTypes.SET_LANGUAGE_SUCCESS;
-    constructor(public payload: { response: any }) { }
+    constructor(public payload: { result: any }) { }
 }
 
 export class SetLanguageFailureAction implements Action {
     readonly type = LanguageActionTypes.SET_LANGUAGE_FAILURE;
-    constructor(public payload: { response: any }) { }
+    constructor(public payload: { error: any }) { }
 }
 
 export class ResetLanguageToDefaultAction implements Action {

@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { map, withLatestFrom } from 'rxjs/operators';
 
-import { AppState } from '..';
+import { AppState } from '../';
 import { Dialog } from './dialog.model';
 
 import { selectAlertsByLocation, AlertLocation } from '../alert';

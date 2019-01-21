@@ -17,6 +17,14 @@ export class AlertService {
 
     // NOTE: using translate.instant requires the translation json be loaded before
 
+    public setLanguageSuccessAlert(payload: { result: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.SUCCESS, payload.result, true, 10000);
+    }
+
+    public setLanguageFailureAlert(payload: { error: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.error, true, 15000);
+    }
+
     public loginSuccessAlert(): fromAlert.AddAlertAction {
         return this.alert(AlertLocation.MAIN, AlertType.SUCCESS, this.translate.instant('SHARED.ALERT.LOGIN_SUCCESS'), true, 10000);
     }

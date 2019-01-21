@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import { filter, map } from 'rxjs/operators';
 
-import { AppState } from '..';
+import { AppState } from '../';
 
 import { MetadataService } from '../../service/metadata.service';
 
