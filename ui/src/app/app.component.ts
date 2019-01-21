@@ -13,6 +13,7 @@ import { AlertLocation } from './core/store/alert';
 import { selectStyle } from './core/store/theme';
 
 import * as fromMetadata from './core/store/metadata/metadata.actions';
+import { environment } from '../environments/environment';
 
 @Component({
     selector: 'scholars-root',
@@ -29,8 +30,8 @@ export class AppComponent implements OnInit {
         private store: Store<AppState>,
         private translate: TranslateService
     ) {
-        this.translate.setDefaultLang('en');
-        this.translate.use('en');
+        this.translate.setDefaultLang(environment.language);
+        this.translate.use(environment.language);
     }
 
     ngOnInit(): void {

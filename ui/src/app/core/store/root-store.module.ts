@@ -11,6 +11,7 @@ import { CustomRouterStateSerializer } from './router/router.reducer';
 import { AlertEffects } from './alert/alert.effects';
 import { AuthEffects } from './auth/auth.effects';
 import { DialogEffects } from './dialog/dialog.effects';
+import { LanguageEffects } from './language/language.effects';
 import { LayoutEffects } from './layout/layout.effects';
 import { MetadataEffects } from './metadata/metadata.effects';
 import { RootStoreEffects } from './root-store.effects';
@@ -40,6 +41,7 @@ import { environment } from '../../../environments/environment';
             SidebarEffects,
             MetadataEffects,
             LayoutEffects,
+            LanguageEffects,
             DialogEffects,
             AuthEffects,
             AlertEffects

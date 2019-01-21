@@ -10,6 +10,7 @@ import * as fromRouter from '@ngrx/router-store';
 import * as fromAlert from './alert/alert.reducer';
 import * as fromAuth from './auth/auth.reducer';
 import * as fromDialog from './dialog/dialog.reducer';
+import * as fromLanguage from './language/language.reducer';
 import * as fromLayout from './layout/layout.reducer';
 import * as fromMetadata from './metadata/metadata.reducer';
 import * as fromSidebar from './sidebar/sidebar.reducer';
@@ -22,6 +23,7 @@ export interface AppState {
   alert: fromAlert.AlertState;
   auth: fromAuth.AuthState;
   dialog: fromDialog.DialogState;
+  language: fromLanguage.LanguageState;
   layout: fromLayout.LayoutState;
   metadata: fromMetadata.MetadataState;
   sidebar: fromSidebar.SidebarState;
@@ -36,6 +38,7 @@ export const reducers: ActionReducerMap<AppState> = {
   alert: fromAlert.reducer,
   auth: fromAuth.reducer,
   dialog: fromDialog.reducer,
+  language: fromLanguage.reducer,
   layout: fromLayout.reducer,
   metadata: fromMetadata.reducer,
   sidebar: fromSidebar.reducer,
