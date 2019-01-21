@@ -69,7 +69,10 @@
       "LOGIN": {
         "EMAIL": "Enter email",
         "PASSWORD": "Enter password",
-        "ARIA_LABELLED_BY": "Login dialog"
+        "ARIA_LABELLED_BY": "Login dialog",
+        "TITLE": "Login",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Login"
       },
       "REGISTRATION": {
         "FIRST_NAME": "Enter email",
@@ -77,16 +80,31 @@
         "EMAIL": "Enter last name",
         "PASSWORD": "Enter password",
         "CONFIRM": "Enter password again",
-        "ARIA_LABELLED_BY": "Registration dialog"
+        "ARIA_LABELLED_BY": "Registration dialog",
+        "TITLE": "Registration",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Sign Up"
       },
       "USER_EDIT": {
         "ROLE": "Role",
         "ACTIVE": "Active",
         "ENABLED": "Enabled",
-        "ARIA_LABELLED_BY": "User edit dialog"
+        "ARIA_LABELLED_BY": "User edit dialog",
+        "TITLE": "Edit User",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Update"
       },
       "NOTIFICATION": {
-        "ARIA_LABELLED_BY": "Notification dialog"
+        "ARIA_LABELLED_BY": "Notification dialog",
+        "TITLE": "Notification",
+        "CANCEL": "Close"
+      },
+      "VALIDATION": {
+        "REQUIRED": "{{field}} is required",
+        "EMAIL": "{{field}} must be a valid email",
+        "MIN_LEANGTH": "{{field}} mest be at least {{min}}",
+        "MAX_LENGTH": "{{field}} must be less than {{max}}",
+        "CONFIRM_PASSWORD": "{{field}} must match password"
       }
     },
     "SIDEBAR": {

@@ -1,6 +1,6 @@
 <form (ngSubmit)="dialog.submit.action()" novalidate>
   <div class="modal-header">
-    <h4 class="modal-title text-primary" id="modal-basic-title">{{dialog.title}}</h4>
+    <h4 class="modal-title text-primary" id="modal-basic-title">{{dialog.title | async}}</h4>
     <button type="button" class="close text-primary" aria-label="Close" (click)="dialog.close.action()" [disabled]="dialog.close.disabled() | async">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -10,7 +10,7 @@
     <ng-content></ng-content>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn {{dialog.close.type}}" (click)="dialog.close.action()" [disabled]="dialog.close.disabled() | async">{{dialog.close.label}}</button>
-    <button *ngIf="dialog.submit" type="submit" class="btn {{dialog.submit.type}}" [disabled]="dialog.submit.disabled() | async">{{dialog.submit.label}}</button>
+    <button type="button" class="btn {{dialog.close.type}}" (click)="dialog.close.action()" [disabled]="dialog.close.disabled() | async">{{dialog.close.label | async}}</button>
+    <button *ngIf="dialog.submit" type="submit" class="btn {{dialog.submit.type}}" [disabled]="dialog.submit.disabled() | async">{{dialog.submit.label | async}}</button>
   </div>
 </form>

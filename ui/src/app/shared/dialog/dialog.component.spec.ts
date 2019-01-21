@@ -33,11 +33,11 @@ describe('DialogComponent', () => {
         fixture = TestBed.createComponent(DialogComponent);
         component = fixture.componentInstance;
         component.dialog = {
-            title: 'Login',
+            title: of('Login'),
             form: undefined,
             close: {
                 type: DialogButtonType.OUTLINE_WARNING,
-                label: 'Cancel',
+                label: of('Cancel'),
                 action: () => { },
                 disabled: () => of(false)
             }

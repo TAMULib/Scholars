@@ -3,19 +3,19 @@
     <div class="form-group">
       <div class="input-group-lg">
         <input type="text" class="form-control" name="firstName" formControlName="firstName" [ngClass]="{'is-valid': isValid('firstName'), 'is-invalid': isInvalid('firstName')}" />
-        <div *ngIf="isInvalid('firstName')" class="invalid-feedback">{{getErrorMessage('firstName')}}</div>
+        <div *ngIf="isInvalid('firstName')" class="invalid-feedback">{{getErrorMessage('firstName') | async}}</div>
       </div>
     </div>
     <div class="form-group">
       <div class="input-group-lg">
         <input type="text" class="form-control" name="lastName" formControlName="lastName" [ngClass]="{'is-valid': isValid('lastName'), 'is-invalid': isInvalid('lastName')}" />
-        <div *ngIf="isInvalid('lastName')" class="invalid-feedback">{{getErrorMessage('lastName')}}</div>
+        <div *ngIf="isInvalid('lastName')" class="invalid-feedback">{{getErrorMessage('lastName') | async}}</div>
       </div>
     </div>
     <div class="form-group">
       <div class="input-group-lg">
         <input type="email" class="form-control" name="email" formControlName="email" autocomplete="username" [ngClass]="{'is-valid': isValid('email'), 'is-invalid': isInvalid('email')}" />
-        <div *ngIf="isInvalid('email')" class="invalid-feedback">{{getErrorMessage('email')}}</div>
+        <div *ngIf="isInvalid('email')" class="invalid-feedback">{{getErrorMessage('email') | async}}</div>
       </div>
     </div>
     <div class="form-group">
@@ -24,7 +24,7 @@
         <select class="form-control" name="role" formControlName="role" [ngClass]="{'is-valid': isValid('role'), 'is-invalid': isInvalid('role')}">
           <option *ngFor="let role of roles" [value]="role">{{getRoleValue(role)}}</option>
         </select>
-        <div *ngIf="isInvalid('role')" class="invalid-feedback">{{getErrorMessage('role')}}</div>
+        <div *ngIf="isInvalid('role')" class="invalid-feedback">{{getErrorMessage('role') | async}}</div>
       </div>
     </div>
     <div class="input-group-lg">

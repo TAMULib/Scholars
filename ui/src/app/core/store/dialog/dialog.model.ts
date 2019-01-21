@@ -26,13 +26,13 @@ export enum DialogButtonType {
 
 export type DialogButton = Readonly<{
     type: DialogButtonType;
-    label: string;
+    label: Observable<string>;
     action: () => any;
     disabled: () => Observable<boolean>;
 }>;
 
 export type DialogControl = Readonly<{
-    title: string;
+    title: Observable<string>;
     form?: FormGroup;
     close: DialogButton;
     submit?: DialogButton;

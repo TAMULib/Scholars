@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
 import { of } from 'rxjs';
@@ -19,16 +20,19 @@ export class NotificationComponent implements OnInit {
 
     public dialog: DialogControl;
 
-    constructor(private store: Store<AppState>) {
+    constructor(
+        private translate: TranslateService,
+        private store: Store<AppState>
+    ) {
 
     }
 
     ngOnInit() {
         this.dialog = {
-            title: 'Notification',
+            title: this.translate.get('SHARED.DIALOG.NOTIFICATION.TITLE'),
             close: {
                 type: DialogButtonType.OUTLINE_WARNING,
-                label: 'Close',
+                label: this.translate.get('SHARED.DIALOG.NOTIFICATION.CLOSE'),
                 action: () => this.store.dispatch(new fromDialog.CloseDialogAction()),
                 disabled: () => of(false)
             }
