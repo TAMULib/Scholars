@@ -5,18 +5,18 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
 
+import { DialogService } from '../core/service/dialog.service';
+
 import { AppState } from '../core/store';
 import { Footer } from '../core/model/theme/footer';
 import { User, Role } from '../core/model/user';
 
-import { LoginComponent } from '../shared/dialog/login/login.component';
-import { RegistrationComponent, RegistrationStep } from '../shared/dialog/registration/registration.component';
+import { RegistrationStep } from '../shared/dialog/registration/registration.component';
 
 import { selectIsAuthenticated, selectUser, selectHasRole } from '../core/store/auth';
 import { selectActiveThemeFooter } from '../core/store/theme';
 
 import * as fromAuth from '../core/store/auth/auth.actions';
-import * as fromDialog from '../core/store/dialog/dialog.actions';
 
 @Component({
     selector: 'scholars-footer',
@@ -33,7 +33,10 @@ export class FooterComponent implements OnInit {
 
     public footer: Observable<Footer>;
 
-    constructor(private store: Store<AppState>) {
+    constructor(
+        private store: Store<AppState>,
+        private dialog: DialogService
+    ) {
 
     }
 
@@ -48,36 +51,14 @@ export class FooterComponent implements OnInit {
     }
 
     public openLoginDialog(): void {
-        this.store.dispatch(new fromDialog.OpenDialogAction({
-            dialog: {
-                ref: {
-                    component: LoginComponent,
-                    inputs: {}
-                },
-                options: {
-                    centered: false,
-                    backdrop: 'static',
-                    ariaLabelledBy: 'Login dialog'
-                }
-            }
-        }));
+        this.store.dispatch(this.dialog.loginDialog());
     }
 
     public openRegistrationDialog(): void {
-        this.store.dispatch(new fromDialog.OpenDialogAction({
-            dialog: {
-                ref: {
-                    component: RegistrationComponent,
-                    inputs: {
-                        step: RegistrationStep.SUBMIT
-                    }
-                },
-                options: {
-                    centered: false,
-                    backdrop: 'static',
-                    ariaLabelledBy: 'Registration dialog'
-                }
-            }
+        this.store.dispatch(this.dialog.registrationDialog(RegistrationStep.SUBMIT, {
+            firstName: '',
+            lastName: '',
+            email: ''
         }));
     }
 

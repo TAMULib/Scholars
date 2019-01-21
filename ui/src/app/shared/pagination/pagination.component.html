@@ -6,7 +6,7 @@
         <ngb-pagination [(collectionSize)]="page.totalElements" [(page)]="page.number" [(pageSize)]="page.size" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
       </div>
       <div class="col-sm-2 d-flex justify-content-end">
-        <label for="pageSize" class="col-form-label">Page Size</label>
+        <label for="pageSize" class="col-form-label">{{ 'SHARED.PAGINATION.PAGE_SIZE' | translate }}</label>
       </div>
       <div class="col-sm-2">
         <select name="pageSize" class="form-control" [(ngModel)]="page.size" (ngModelChange)="onPageChange(page)">

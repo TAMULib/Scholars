@@ -5,8 +5,9 @@ import { Store, select } from '@ngrx/store';
 import { of, combineLatest } from 'rxjs';
 import { map, switchMap, catchError, withLatestFrom, skipWhile, take } from 'rxjs/operators';
 
+import { AlertService } from '../../service/alert.service';
+
 import { AppState } from '../';
-import { AlertLocation, AlertType } from '../alert';
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 import { SdrResource, SdrCollection } from '../../model/sdr';
 
@@ -14,7 +15,6 @@ import { injectable, repos } from '../../model/repos';
 
 import { selectIsStompConnected } from '../stomp';
 
-import * as fromAlert from '../alert/alert.actions';
 import * as fromDialog from '../dialog/dialog.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from './sdr.actions';
@@ -26,8 +26,9 @@ export class SdrEffects {
 
     constructor(
         private actions: Actions,
+        private injector: Injector,
         private store: Store<AppState>,
-        private injector: Injector
+        private alert: AlertService
     ) {
         this.repos = new Map<string, AbstractSdrRepo<SdrResource>>();
         this.injectRepos();
@@ -74,16 +75,7 @@ export class SdrEffects {
 
     @Effect() pageFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE_FAILURE)),
-        map((action: fromSdr.PageResourcesFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map((action: fromSdr.PageResourcesFailureAction) => this.alert.pageFailureAlert(action.payload))
     );
 
     @Effect() clearResourceSubscription = this.actions.pipe(
@@ -105,30 +97,13 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.POST_SUCCESS)),
         switchMap((action: fromSdr.PostResourceSuccessAction) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.SUCCESS,
-                    message: `Successfully posted ${action.name}.`,
-                    dismissible: true,
-                    timer: 10000
-                }
-            })
+            this.alert.postSuccessAlert(action)
         ])
     );
 
     @Effect() postFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.POST_FAILURE)),
-        map((action: fromSdr.PostResourceFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map((action: fromSdr.PostResourceFailureAction) => this.alert.postFailureAlert(action.payload))
     );
 
     @Effect() put = this.actions.pipe(
@@ -145,30 +120,13 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PUT_SUCCESS)),
         switchMap((action: fromSdr.PutResourceSuccessAction) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.SUCCESS,
-                    message: `Successfully put ${action.name}.`,
-                    dismissible: true,
-                    timer: 10000
-                }
-            })
+            this.alert.putSuccessAlert(action)
         ])
     );
 
     @Effect() putFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PUT_FAILURE)),
-        map((action: fromSdr.PutResourceFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map((action: fromSdr.PutResourceFailureAction) => this.alert.putFailureAlert(action.payload))
     );
 
     @Effect() patch = this.actions.pipe(
@@ -185,30 +143,13 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PATCH_SUCCESS)),
         switchMap((action: fromSdr.PatchResourceSuccessAction) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.SUCCESS,
-                    message: `Successfully patched ${action.name}.`,
-                    dismissible: true,
-                    timer: 10000
-                }
-            })
+            this.alert.patchSuccessAlert(action)
         ])
     );
 
     @Effect() patchFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PATCH_FAILURE)),
-        map((action: fromSdr.PatchResourceFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map((action: fromSdr.PatchResourceFailureAction) => this.alert.patchFailureAlert(action.payload))
     );
 
     @Effect() delete = this.actions.pipe(
@@ -225,30 +166,13 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.DELETE_SUCCESS)),
         switchMap((action: fromSdr.DeleteResourceSuccessAction) => [
             new fromDialog.CloseDialogAction(),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.SUCCESS,
-                    message: `Successfully deleted ${action.name}.`,
-                    dismissible: true,
-                    timer: 10000
-                }
-            })
+            this.alert.deleteSuccessAlert(action)
         ])
     );
 
     @Effect() deleteFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.DELETE_FAILURE)),
-        map((action: fromSdr.DeleteResourceFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.MAIN,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 15000
-            }
-        }))
+        map((action: fromSdr.DeleteResourceFailureAction) => this.alert.deleteFailureAlert(action.payload))
     );
 
     private buildActions(actionType: fromSdr.SdrActionTypes): string[] {

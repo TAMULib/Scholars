@@ -10,6 +10,8 @@ import { MetadataService } from './service/metadata.service';
 
 import { ThemeRepo } from './model/theme/repo/theme.repo';
 import { UserRepo } from './model/user/repo/user.repo';
+import { AlertService } from './service/alert.service';
+import { DialogService } from './service/dialog.service';
 
 const MODULES = [
     CommonModule
@@ -21,7 +23,9 @@ const COMPONENTS = [
 
 const PROVIDERS = [
     AuthGuard,
+    AlertService,
     AuthService,
+    DialogService,
     MetadataService,
     RestService,
     StompService,

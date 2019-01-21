@@ -7,24 +7,23 @@ import { catchError, map, switchMap, withLatestFrom, skipWhile, take } from 'rxj
 
 import { AppState } from '../';
 
-import { AlertType, AlertLocation } from '../alert';
 import { User, Role } from '../../model/user';
 import { LoginRequest, RegistrationRequest } from '../../model/request';
 
-import { NotificationComponent } from '../../../shared/dialog/notification/notification.component';
-import { RegistrationComponent, RegistrationStep } from '../../../shared/dialog/registration/registration.component';
+import { RegistrationStep } from '../../../shared/dialog/registration/registration.component';
 
+import { AlertService } from '../../service/alert.service';
 import { AuthService } from '../../service/auth.service';
+import { DialogService } from '../../service/dialog.service';
 
 import { selectLoginRedirect, selectUser } from './';
+import { selectIsStompConnected } from '../stomp';
 
 import * as fromAuth from './auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
-import * as fromAlert from '../alert/alert.actions';
 import * as fromRouter from '../router/router.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from '../sdr/sdr.actions';
-import { selectIsStompConnected } from '../stomp';
 
 @Injectable()
 export class AuthEffects {
@@ -32,7 +31,9 @@ export class AuthEffects {
     constructor(
         private actions: Actions,
         private store: Store<AppState>,
-        private authService: AuthService
+        private alert: AlertService,
+        private authService: AuthService,
+        private dialog: DialogService
     ) {
 
     }
@@ -61,15 +62,7 @@ export class AuthEffects {
             const actions: any = [
                 new fromAuth.GetUserSuccessAction({ user: action.user }),
                 new fromDialog.CloseDialogAction(),
-                new fromAlert.AddAlertAction({
-                    alert: {
-                        location: AlertLocation.MAIN,
-                        type: AlertType.SUCCESS,
-                        message: 'Login success.',
-                        dismissible: true,
-                        timer: 10000
-                    }
-                })
+                this.alert.loginSuccessAlert()
             ];
             if (redirect !== undefined) {
                 actions.push(new fromRouter.Go(redirect));
@@ -80,16 +73,7 @@ export class AuthEffects {
 
     @Effect() loginFailure = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.LOGIN_FAILURE),
-        map((action: fromAuth.LoginFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.DIALOG,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 10000
-            }
-        }))
+        map((action: fromAuth.LoginFailureAction) => this.alert.loginFailureAlert(action.payload))
     );
 
     @Effect() submitRegistration = this.actions.pipe(
@@ -109,30 +93,13 @@ export class AuthEffects {
         map((payload: { registration: RegistrationRequest }) => payload.registration),
         switchMap(() => [
             new fromDialog.CloseDialogAction(),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.SUCCESS,
-                    message: `Confirm email to complete registration.`,
-                    dismissible: true,
-                    timer: 15000
-                }
-            })
+            this.alert.submitRegistrationSuccessAlert()
         ])
     );
 
     @Effect() submitRegistrationFailure = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.SUBMIT_REGISTRATION_FAILURE),
-        map((action: fromAuth.SubmitRegistrationFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.DIALOG,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 10000
-            }
-        }))
+        map((action: fromAuth.SubmitRegistrationFailureAction) => this.alert.submitRegistrationFailureAlert(action.payload))
     );
 
     @Effect() confirmRegistration = this.actions.pipe(
@@ -151,38 +118,12 @@ export class AuthEffects {
         map((action: fromAuth.ConfirmRegistrationSuccessAction) => action.payload),
         map((payload: { registration: RegistrationRequest }) => payload.registration),
         switchMap((registration: RegistrationRequest) => {
-            setTimeout(
-                () => this.store.dispatch(
-                    new fromAlert.AddAlertAction({
-                        alert: {
-                            location: AlertLocation.DIALOG,
-                            type: AlertType.SUCCESS,
-                            message: `Set password to complete registration.`,
-                            dismissible: false
-                        }
-                    })
-                )
-            );
             return [
                 new fromDialog.CloseDialogAction(),
                 new fromRouter.Go({ path: ['/'] }),
-                new fromDialog.OpenDialogAction({
-                    dialog: {
-                        ref: {
-                            component: RegistrationComponent,
-                            inputs: {
-                                step: RegistrationStep.COMPLETE,
-                                registration
-                            }
-                        },
-                        options: {
-                            centered: false,
-                            backdrop: 'static',
-                            ariaLabelledBy: 'Complete registration dialog'
-                        }
-                    }
-                })];
-
+                this.dialog.registrationDialog(RegistrationStep.COMPLETE, registration),
+                this.store.dispatch(this.alert.confirmRegistrationSuccessAlert())
+            ];
         })
     );
 
@@ -191,15 +132,7 @@ export class AuthEffects {
         map((action: fromAuth.ConfirmRegistrationFailureAction) => action.payload),
         switchMap((payload: { response: any }) => [
             new fromRouter.Go({ path: ['/'] }),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.DANGER,
-                    message: payload.response.error,
-                    dismissible: true,
-                    timer: 10000
-                }
-            })
+            this.alert.confirmRegistrationFailureAlert(payload)
         ])
     );
 
@@ -218,32 +151,15 @@ export class AuthEffects {
         ofType(fromAuth.AuthActionTypes.COMPLETE_REGISTRATION_SUCCESS),
         map((action: fromAuth.CompleteRegistrationSuccessAction) => action.payload),
         map((payload: { user: User }) => payload.user),
-        switchMap((user: User) => [
+        switchMap(() => [
             new fromDialog.CloseDialogAction(),
-            new fromAlert.AddAlertAction({
-                alert: {
-                    location: AlertLocation.MAIN,
-                    type: AlertType.SUCCESS,
-                    message: `Registration complete. You can now login.`,
-                    dismissible: true,
-                    timer: 15000
-                }
-            })
+            this.alert.completeRegistrationSuccessAlert()
         ])
     );
 
     @Effect() completeRegistrationFailure = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.COMPLETE_REGISTRATION_FAILURE),
-        map((action: fromAuth.CompleteRegistrationFailureAction) => action.payload),
-        map((payload: { response: any }) => new fromAlert.AddAlertAction({
-            alert: {
-                location: AlertLocation.DIALOG,
-                type: AlertType.DANGER,
-                message: payload.response.error,
-                dismissible: true,
-                timer: 10000
-            }
-        }))
+        map((action: fromAuth.CompleteRegistrationFailureAction) => this.alert.completeRegistrationFailureAlert(action.payload))
     );
 
     @Effect() logout = this.actions.pipe(
@@ -291,25 +207,12 @@ export class AuthEffects {
         map(([user]) => new fromStomp.SubscribeAction({
             channel: '/user/queue/users',
             handle: (frame: any) => {
-                const notifyDialogAction = (text: string) => new fromDialog.OpenDialogAction({
-                    dialog: {
-                        ref: {
-                            component: NotificationComponent,
-                            inputs: { text }
-                        },
-                        options: {
-                            centered: false,
-                            backdrop: 'static',
-                            ariaLabelledBy: 'Notification dialog'
-                        }
-                    }
-                });
                 if (frame.command === 'MESSAGE') {
                     const body = JSON.parse(frame.body);
                     switch (body.action) {
                         case 'DELETE':
                             this.store.dispatch(new fromAuth.LogoutAction());
-                            this.store.dispatch(notifyDialogAction('Your account has been deleted!'));
+                            this.store.dispatch(this.dialog.notificationDialog('Your account has been deleted!'));
                             break;
                         case 'UPDATE':
                             if (body.entity.enabled) {
@@ -318,15 +221,15 @@ export class AuthEffects {
                                 if (roles.indexOf(body.entity.role) < roles.indexOf(user.role)) {
                                     // TODO: request new session to avoid logging out
                                     this.store.dispatch(new fromAuth.LogoutAction());
-                                    this.store.dispatch(notifyDialogAction('Your permissions have been reduced! Unfortunately, you must log in again.'));
+                                    this.store.dispatch(this.dialog.notificationDialog('Your permissions have been reduced! Unfortunately, you must log in again.'));
                                 } else if (roles.indexOf(body.entity.role) > roles.indexOf(user.role)) {
                                     // TODO: request new session to avoid logging out
                                     this.store.dispatch(new fromAuth.LogoutAction());
-                                    this.store.dispatch(notifyDialogAction('Your permissions have been elevated! Unfortunately, you must log in again.'));
+                                    this.store.dispatch(this.dialog.notificationDialog('Your permissions have been elevated! Unfortunately, you must log in again.'));
                                 }
                             } else {
                                 this.store.dispatch(new fromAuth.LogoutAction());
-                                this.store.dispatch(notifyDialogAction('Your account has been disabled!'));
+                                this.store.dispatch(this.dialog.notificationDialog('Your account has been disabled!'));
                             }
                             break;
                         default:

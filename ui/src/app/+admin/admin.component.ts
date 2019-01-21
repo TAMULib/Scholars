@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../core/store';
@@ -12,7 +13,10 @@ import * as fromSidebar from '../core/store/sidebar/sidebar.actions';
 })
 export class AdminComponent implements OnInit {
 
-    constructor(private store: Store<AppState>) {
+    constructor(
+        private store: Store<AppState>,
+        private translate: TranslateService
+    ) {
 
     }
 
@@ -21,14 +25,14 @@ export class AdminComponent implements OnInit {
             menu: {
                 sections: [
                     {
-                        title: 'Administration',
+                        title: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.TITLE'),
                         items: [
                             {
-                                label: 'Themes',
+                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.THEMES'),
                                 route: ['/admin/themes'],
                             },
                             {
-                                label: 'Users',
+                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.USERS'),
                                 route: ['/admin/users'],
                             }
                         ],

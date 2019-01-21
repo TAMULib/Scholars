@@ -18,7 +18,6 @@ export class ToggleSidebarAction implements Action {
     readonly type = LayoutActionTypes.TOGGLE_SIDEBAR;
 }
 
-
 export type LayoutActions =
     ToggleNavbarAction |
     ToggleNavigationAction |

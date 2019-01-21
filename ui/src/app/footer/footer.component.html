@@ -3,16 +3,16 @@
   <ul class="list-inline text-center" *ngIf="footer | async; let footer">
     <li class="list-inline-item" *ngFor="let link of footer.links"><a href="{{link.uri}}">{{link.label}}</a></li>
     <li class="list-inline-item" *ngIf="(isAdmin | async)">
-      <a [routerLink]="['/admin']">Administration</a>
+      <a [routerLink]="['/admin']">{{ 'FOOTER.ADMINISTRATION' | translate }}</a>
     </li>
     <li class="list-inline-item" *ngIf="!(isAuthenticated | async)">
-      <a class="link" (click)="openRegistrationDialog()">Sign Up</a>
+      <a class="link" (click)="openRegistrationDialog()">{{ 'FOOTER.REGISTRATION' | translate }}</a>
     </li>
     <li class="list-inline-item" *ngIf="!(isAuthenticated | async)">
-      <a class="link" (click)="openLoginDialog()">Login</a>
+      <a class="link" (click)="openLoginDialog()">{{ 'FOOTER.LOGIN' | translate }}</a>
     </li>
     <li class="list-inline-item" *ngIf="(isAuthenticated | async)">
-      <a class="link" (click)="logout()">Logout</a>
+      <a class="link" (click)="logout()">{{ 'FOOTER.LOGOUT' | translate }}</a>
     </li>
     <li class="list-inline-item" *ngIf="user | async; let user">
       <span>{{user.email}}</span>

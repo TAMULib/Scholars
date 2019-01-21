@@ -6,17 +6,15 @@ import { Store, select } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
-import { AppState } from '../store';
-import { AlertLocation, AlertType } from '../store/alert';
-import { Role, User } from '../model/user';
+import { AlertService } from '../service/alert.service';
+import { DialogService } from '../service/dialog.service';
 
-import { LoginComponent } from '../../shared/dialog/login/login.component';
+import { AppState } from '../store';
+import { Role, User } from '../model/user';
 
 import { selectIsAuthenticated, selectUser } from '../store/auth';
 
-import * as fromAlert from '../store/alert/alert.actions';
 import * as fromAuth from '../store/auth/auth.actions';
-import * as fromDialog from '../store/dialog/dialog.actions';
 import * as fromRouter from '../store/router/router.actions';
 
 @Injectable()
@@ -24,6 +22,8 @@ export class AuthGuard implements CanActivate {
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: string,
+        private alert: AlertService,
+        private dialog: DialogService,
         private store: Store<AppState>
     ) {
 
@@ -52,15 +52,7 @@ export class AuthGuard implements CanActivate {
                     if (!authorized) {
                         this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
                         if (isPlatformBrowser(this.platformId)) {
-                            this.store.dispatch(new fromAlert.AddAlertAction({
-                                alert: {
-                                    location: AlertLocation.MAIN,
-                                    type: AlertType.DANGER,
-                                    message: 'Unauthorized!',
-                                    dismissible: true,
-                                    timer: 10000
-                                }
-                            }));
+                            this.store.dispatch(this.alert.unsubscribeFailureAlert());
                         }
                     }
                     return authorized;
@@ -77,27 +69,8 @@ export class AuthGuard implements CanActivate {
                     this.store.dispatch(new fromRouter.Go({ path: ['/'] }));
                     if (isPlatformBrowser(this.platformId)) {
                         this.store.dispatch(new fromAuth.SetLoginRedirectAction({ navigation: { path: [url] } }));
-                        this.store.dispatch(new fromDialog.OpenDialogAction({
-                            dialog: {
-                                ref: {
-                                    component: LoginComponent,
-                                    inputs: {}
-                                },
-                                options: {
-                                    centered: false,
-                                    backdrop: 'static',
-                                    ariaLabelledBy: 'Login dialog'
-                                }
-                            }
-                        }));
-                        this.store.dispatch(new fromAlert.AddAlertAction({
-                            alert: {
-                                location: AlertLocation.DIALOG,
-                                type: AlertType.WARNING,
-                                message: 'Forbidden! You must be logged in to access.',
-                                dismissible: false
-                            }
-                        }));
+                        this.store.dispatch(this.dialog.loginDialog());
+                        this.store.dispatch(this.alert.forbiddenAlert());
                     }
                 }
                 return authenticated;

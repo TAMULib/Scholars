@@ -13,7 +13,7 @@ import { Home, Hero } from '../../core/model/theme';
 
 import { SearchBoxStyles } from '../../shared/search-box/search-box.component';
 
-import { selectActiveThemeHome } from '../../core/store/theme';
+import { selectActiveThemeHome, selectActiveThemeOrganization } from '../../core/store/theme';
 
 import * as fromAuth from '../../core/store/auth/auth.actions';
 
@@ -26,6 +26,8 @@ import * as fromAuth from '../../core/store/auth/auth.actions';
 export class HomeComponent implements OnInit, OnDestroy {
 
     public home: Observable<Home>;
+
+    public organization: Observable<string>;
 
     public searchStyles: BehaviorSubject<SearchBoxStyles>;
 
@@ -44,6 +46,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.home = this.store.pipe(
             select(selectActiveThemeHome),
             skipWhile((home: Home) => home === undefined)
+        );
+        this.organization = this.store.pipe(
+            select(selectActiveThemeOrganization),
+            skipWhile((organization: string) => organization === undefined)
         );
         this.subscriptions.push(this.route.queryParams.subscribe((params: Params) => {
             if (params.key !== undefined) {

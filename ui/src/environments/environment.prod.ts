@@ -5,6 +5,7 @@
 
 export const environment = {
     production: true,
+    language: 'en',
     hmr: false,
     hasStoreDevTools: false,
     stompDebug: false,

@@ -2,7 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 
 import { StompService } from './stomp.service';
 
-describe('UserService', () => {
+describe('StompService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({

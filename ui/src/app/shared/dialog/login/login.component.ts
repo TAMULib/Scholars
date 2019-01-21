@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
 
-import { combineLatest, of } from 'rxjs';
+import { combineLatest, of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private builder: FormBuilder,
+        private translate: TranslateService,
         private store: Store<AppState>
     ) {
 
@@ -31,7 +33,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.dialog = {
-            title: 'Login',
+            title: this.translate.get('SHARED.DIALOG.LOGIN.TITLE'),
             form: this.builder.group({
                 email: new FormControl('', [
                     Validators.required,
@@ -43,13 +45,13 @@ export class LoginComponent implements OnInit {
             }),
             close: {
                 type: DialogButtonType.OUTLINE_WARNING,
-                label: 'Cancel',
+                label: this.translate.get('SHARED.DIALOG.LOGIN.CANCEL'),
                 action: () => this.store.dispatch(new fromDialog.CloseDialogAction()),
                 disabled: () => this.store.pipe(select(selectIsLoggingIn))
             },
             submit: {
                 type: DialogButtonType.OUTLINE_PRIMARY,
-                label: 'Login',
+                label: this.translate.get('SHARED.DIALOG.LOGIN.SUBMIT'),
                 action: () => this.store.dispatch(new fromAuth.LoginAction({ login: this.dialog.form.value })),
                 disabled: () => combineLatest(
                     of(this.dialog.form.invalid),
@@ -70,14 +72,14 @@ export class LoginComponent implements OnInit {
         return formControl.dirty && formControl.invalid;
     }
 
-    public getErrorMessage(field: string): string {
+    public getErrorMessage(field: string): Observable<string> {
         const errors = this.dialog.form.controls[field].errors;
         for (const validation in errors) {
             if (errors.hasOwnProperty(validation)) {
                 switch (validation) {
-                    case 'required': return `${field} is required`;
-                    case 'email': return `${field} must be a valid email`;
-                    default: return 'unknown error';
+                    case 'required': return this.translate.get('SHARED.DIALOG.VALIDATION.REQUIRED', { field });
+                    case 'email': return this.translate.get('SHARED.DIALOG.VALIDATION.EMAIL', { field });
+                    default: return of('unknown error');
                 }
             }
         }

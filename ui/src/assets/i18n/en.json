@@ -1,1 +1,133 @@
-{}
+{
+  "ADMIN": {
+    "THEMES": {
+      "TITLE": "Themes",
+      "NAME": "Name",
+      "ACTIVE": "Active",
+      "ORGANIZATION": "Organization"
+    },
+    "USERS": {
+      "TITLE": "Users",
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "ROLE": "Role",
+      "ACTIVE": "Active",
+      "ENABLED": "Enabled",
+      "EDIT": "Edit"
+    }
+  },
+  "DASHBOARD": {
+    "ABOUT": {
+      "TITLE": "About"
+    },
+    "DIRECTORY": {
+      "ORGANIZATIONS": {
+        "TITLE": "Organizations"
+      },
+      "PEOPLE": {
+        "TITLE": "People"
+      },
+      "RESEARCH": {
+        "TITLE": "Research"
+      }
+    },
+    "HOME": {
+      "LATEST_PUBLICATIONS_TEXT": "Latest published books by {{organization}} faculty",
+      "CLICK_PUBLICATION_TEXT": "Click to see the author faculty page"
+    }
+  },
+  "SEARCH": {
+    "TITLE": "Search"
+  },
+  "FOOTER": {
+    "ADMINISTRATION": "Administration",
+    "REGISTRATION": "Sign Up",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "COPYRIGHT": {
+      "TERMS": "Terms of Use",
+      "POWERED_BY": "Powered by VIVO",
+      "DATE_UPDATED": "Data update last {{date}}"
+    }
+  },
+  "SHARED": {
+    "NAVIGATION": {
+      "EDIT_PROFILE": "EDIT MY PROFILE",
+      "HOME": "Home",
+      "PEOPLE": "People",
+      "ORGANIZATIONS": "Organizations",
+      "RESEARCH": "Research",
+      "ABOUT": "About"
+    },
+    "PAGINATION": {
+      "PAGE_SIZE": "Page Size"
+    },
+    "SEARCH_BOX": {
+      "LABEL": "Find Research at {{organization}}"
+    },
+    "DIALOG": {
+      "LOGIN": {
+        "EMAIL": "Enter email",
+        "PASSWORD": "Enter password",
+        "ARIA_LABELLED_BY": "Login dialog",
+        "TITLE": "Login",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Login"
+      },
+      "REGISTRATION": {
+        "FIRST_NAME": "Enter email",
+        "LAST_NAME": "Enter first name",
+        "EMAIL": "Enter last name",
+        "PASSWORD": "Enter password",
+        "CONFIRM": "Enter password again",
+        "ARIA_LABELLED_BY": "Registration dialog",
+        "TITLE": "Registration",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Sign Up"
+      },
+      "USER_EDIT": {
+        "ROLE": "Role",
+        "ACTIVE": "Active",
+        "ENABLED": "Enabled",
+        "ARIA_LABELLED_BY": "User edit dialog",
+        "TITLE": "Edit User",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Update"
+      },
+      "NOTIFICATION": {
+        "ARIA_LABELLED_BY": "Notification dialog",
+        "TITLE": "Notification",
+        "CANCEL": "Close"
+      },
+      "VALIDATION": {
+        "REQUIRED": "{{field}} is required",
+        "EMAIL": "{{field}} must be a valid email",
+        "MIN_LEANGTH": "{{field}} mest be at least {{min}}",
+        "MAX_LENGTH": "{{field}} must be less than {{max}}",
+        "CONFIRM_PASSWORD": "{{field}} must match password"
+      }
+    },
+    "SIDEBAR": {
+      "ADMINISTRATION": {
+        "TITLE": "Administration",
+        "THEMES": "Themes",
+        "USERS": "Users"
+      }
+    },
+    "ALERT": {
+      "LOGIN_SUCCESS": "Login success.",
+      "SUBMIT_REGISTRATION_SUCCESS": "Confirm email to complete registration.",
+      "CONFIRM_REGISTRATION_SUCCESS": "Set password to complete registration.",
+      "COMPLETE_REGISTRATION_SUCCESS": "Registration complete. You can now login.",
+      "UNAUTHORIZED": "Unauthorized!",
+      "FORBIDDEN": "Forbidden! You must be logged in to access.",
+      "CONNECT_FAILED": "Failed to connect.",
+      "DISCONNECT_FAILED": "Failed to disconnect.",
+      "UNSUBSCRIBE_FAILED": "Failed to unsubscribe.",
+      "POST_SUCCESS": "Post successful.",
+      "PUT_SUCCESS": "Put successful.",
+      "PATCH_SUCCESS": "Patch successful.",
+      "DELETE_SUCCESS": "Delete successful."
+    }
+  }
+}

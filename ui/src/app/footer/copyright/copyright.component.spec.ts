@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CopyrightComponent } from './copyright.component';
 
@@ -11,6 +12,9 @@ describe('CopyrightComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 CopyrightComponent
+            ],
+            imports: [
+                TranslateModule.forRoot()
             ],
             schemas: [
                 CUSTOM_ELEMENTS_SCHEMA

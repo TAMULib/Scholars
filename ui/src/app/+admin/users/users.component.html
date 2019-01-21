@@ -1,14 +1,14 @@
 <scholars-pagination [page]="page" (pageChange)="onPageChange($event)">
-  <h3 class="text-primary">Users</h3>
+  <h3 class="text-primary">{{ 'ADMIN.USERS.TITLE' | translate }}</h3>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Role</th>
-        <th scope="col">Active</th>
-        <th scope="col">Enabled</th>
-        <th scope="col">Edit</th>
+        <th scope="col">{{ 'ADMIN.USERS.NAME' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.USERS.EMAIL' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.USERS.ROLE' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.USERS.ACTIVE' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.USERS.ENABLED' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.USERS.EDIT' | translate }}</th>
       </tr>
     </thead>
     <tbody *ngIf="users | async; let users">

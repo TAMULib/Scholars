@@ -32,13 +32,13 @@
   <div class="container h-100">
     <div class="row h-100">
       <div class="col-3 my-auto text-center">
-        <span class="gallery-info">Latest published books by {{home.organization}} Faculty</span>
+        <span class="gallery-info">{{ 'DASHBOARD.HOME.LATEST_PUBLICATIONS_TEXT' | translate:{organization: (organization|async)} }}</span>
       </div>
       <div class="col-6 my-auto text-center">
         <scholars-recent-publications></scholars-recent-publications>
       </div>
       <div class="col-3 my-auto text-center">
-        <span class="gallery-info">Click to see the Author faculity page</span>
+        <span class="gallery-info">{{ 'DASHBOARD.HOME.CLICK_PUBLICATION_TEXT' | translate }}</span>
       </div>
     </div>
   </div>
