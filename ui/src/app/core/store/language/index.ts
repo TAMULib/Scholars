@@ -9,3 +9,4 @@ export const selectLanguageState = createFeatureSelector<fromLanguage.LanguageSt
 
 export const selectLanguage = createSelector(selectLanguageState, fromLanguage.getLanguage);
 export const selectDefaultLanguage = createSelector(selectLanguageState, fromLanguage.getDefaultLanguage);
+export const selectIsSettingLanguage = createSelector(selectLanguageState, fromLanguage.isSettingLanguage);

@@ -129,5 +129,11 @@
       "PATCH_SUCCESS": "Patch successful.",
       "DELETE_SUCCESS": "Delete successful."
     }
+  },
+  "LANGUAGE": {
+    "SET": {
+      "SUCCESS": "Succeffully set language to {{language}}.",
+      "FAILURE": "Failed to set language to {{language}}"
+    }
   }
 }

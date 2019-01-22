@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, SystemJsNgModuleLoader } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
 import { Observable, Observer, of } from 'rxjs';
