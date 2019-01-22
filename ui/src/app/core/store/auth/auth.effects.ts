@@ -122,7 +122,7 @@ export class AuthEffects {
                 new fromDialog.CloseDialogAction(),
                 new fromRouter.Go({ path: ['/'] }),
                 this.dialog.registrationDialog(RegistrationStep.COMPLETE, registration),
-                this.store.dispatch(this.alert.confirmRegistrationSuccessAlert())
+                this.alert.confirmRegistrationSuccessAlert()
             ];
         })
     );
