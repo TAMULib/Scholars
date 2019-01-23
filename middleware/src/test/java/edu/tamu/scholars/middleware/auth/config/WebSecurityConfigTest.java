@@ -7,10 +7,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import edu.tamu.scholars.middleware.config.SolrTestConfig;
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = { "spring.profiles.active=default", "spring.h2.console.enabled=true" })
+@SpringBootTest(properties = { "spring.profiles.active=default", "spring.h2.console.enabled=true", "spring.data.solr.host=", "spring.data.solr.repositories.enabled=false" })
+@ContextConfiguration(classes = SolrTestConfig.class)
 public class WebSecurityConfigTest {
 
     @Value("${spring.profiles.active:default}")

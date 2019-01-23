@@ -41,6 +41,8 @@ spring:
     encoding: UTF-8 
   devtools:
     add-properties: false
+    restart:
+      exclude: src/main/resources,target
   h2:
     console:
       enabled: false

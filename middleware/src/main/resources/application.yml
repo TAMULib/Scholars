@@ -34,6 +34,10 @@ spring:
       authorize-hal-browser: false
       return-body-on-create: true
       return-body-on-update: true
+    solr:
+      host: http://localhost:8983/solr
+      repositories:
+        enabled: true
   main:
     allow-bean-definition-overriding: false
   messages:
@@ -42,6 +46,8 @@ spring:
     encoding: UTF-8
   devtools:
     add-properties: false
+    restart:
+      exclude: src/main/resources,target
   h2:
     console:
       enabled: true

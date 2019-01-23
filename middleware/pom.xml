@@ -17,6 +17,7 @@
 
   <properties>
     <java.version>1.8</java.version>
+    <dropwizard-metrics.version>3.2.6</dropwizard-metrics.version>
   </properties>
 
   <dependencies>
@@ -79,6 +80,25 @@
       <artifactId>spring-data-rest-hal-browser</artifactId>
     </dependency>
 
+
+    <dependency>
+      <groupId>org.apache.solr</groupId>
+      <artifactId>solr-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-slf4j-impl</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>io.dropwizard.metrics</groupId>
+      <artifactId>metrics-core</artifactId>
+      <version>${dropwizard-metrics.version}</version><!--$NO-MVN-MAN-VER$ -->
+    </dependency>
+
+
     <dependency>
       <groupId>org.passay</groupId>
       <artifactId>passay</artifactId>
@@ -119,6 +139,7 @@
       <artifactId>spring-security-test</artifactId>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>
