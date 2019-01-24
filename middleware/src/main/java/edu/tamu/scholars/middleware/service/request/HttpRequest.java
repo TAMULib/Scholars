@@ -46,15 +46,7 @@ public class HttpRequest {
 
     public static HttpRequest linkedOpenDataRdf(String url, String id) {
         HttpRequest request = new HttpRequest();
-
-        List<Header> headers = new ArrayList<Header>();
-        headers.add(new BasicHeader("Accept", "application/rdf+xml"));
-
-        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-
-        request.setUrl(url + "/" + id);
-        request.setHeaders(headers);
-        request.setParameters(parameters);
+        request.setUrl(url + "/" + id + "/" + id + ".rdf");
         return request;
     }
 
@@ -73,6 +65,25 @@ public class HttpRequest {
         return request;
     }
 
+    // NOTE: VIVO sparql endpoint only provides rdf for CONSTRUCT and DESCRIBE queries
+    public static HttpRequest sparqlRdf(String url, String username, String password, String query) {
+        HttpRequest request = new HttpRequest();
+
+        List<Header> headers = new ArrayList<Header>();
+        headers.add(new BasicHeader("Accept", "application/rdf+xml"));
+
+        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        parameters.add(new BasicNameValuePair("email", username));
+        parameters.add(new BasicNameValuePair("password", password));
+        parameters.add(new BasicNameValuePair("query", query));
+
+        request.setUrl(url);
+        request.setHeaders(headers);
+        request.setParameters(parameters);
+        return request;
+    }
+
+    // NOTE: VIVO sparql endpoint only provides json for SELECT queries
     public static HttpRequest sparqlJson(String url, String username, String password, String query) {
         HttpRequest request = new HttpRequest();
 
