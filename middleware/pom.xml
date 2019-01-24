@@ -18,6 +18,7 @@
   <properties>
     <java.version>1.8</java.version>
     <dropwizard-metrics.version>3.2.6</dropwizard-metrics.version>
+    <jena-libs.version>3.2.0</jena-libs.version>
   </properties>
 
   <dependencies>
@@ -112,6 +113,13 @@
       <groupId>io.dropwizard.metrics</groupId>
       <artifactId>metrics-core</artifactId>
       <version>${dropwizard-metrics.version}</version><!--$NO-MVN-MAN-VER$ -->
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>apache-jena-libs</artifactId>
+      <type>pom</type>
+      <version>${jena-libs.version}</version>
     </dependency>
 
 

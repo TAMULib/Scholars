@@ -12,8 +12,22 @@ middleware:
   mail:
     from: scholarsdiscovery@gmail.com
     replyTo: scholarsdiscovery@gmail.com
+  http:
+    timeout: 60000
+    time-to-live: 60000
+    request-timeout: 30000
+    socket-timeout: 60000
 
-ui.url: http://localhost:4200
+ui:
+  url: http://localhost:4200
+
+vivo:
+  email: vivo_root@school.edu
+  password: rootPassword
+  base-url: http://localhost:8080/vivo
+  linked-open-data-endpoint: /individual
+  list-rdf-endpoint: /listrdf
+  sparql-query-endpoint: /api/sparqlQuery
 
 logging:
   file: scholars.log

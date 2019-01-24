@@ -13,6 +13,8 @@ public class MiddlewareConfig {
 
     private MailConfig mail = new MailConfig();
 
+    private HttpConfig http = new HttpConfig();
+
     public MiddlewareConfig() {
 
     }
@@ -31,6 +33,14 @@ public class MiddlewareConfig {
 
     public void setMail(MailConfig mail) {
         this.mail = mail;
+    }
+
+    public HttpConfig getHttp() {
+        return http;
+    }
+
+    public void setHttp(HttpConfig http) {
+        this.http = http;
     }
 
 }

@@ -75,4 +75,20 @@ public class MiddlewareConfigTest {
         assertEquals("eexciting@mailinator.com", mailConfig.getReplyTo());
     }
 
+    @Test
+    public void testHttpGetterSetter() {
+        MiddlewareConfig middlewareConfig = new MiddlewareConfig();
+        HttpConfig newHttpConfig = new HttpConfig();
+        newHttpConfig.setTimeout(120000);
+        newHttpConfig.setTimeToLive(90000);
+        newHttpConfig.setRequestTimeout(15000);
+        newHttpConfig.setSocketTimeout(450000);
+        middlewareConfig.setHttp(newHttpConfig);
+        HttpConfig httpConfig = middlewareConfig.getHttp();
+        assertEquals(120000, httpConfig.getTimeout());
+        assertEquals(90000, httpConfig.getTimeToLive());
+        assertEquals(15000, httpConfig.getRequestTimeout());
+        assertEquals(450000, httpConfig.getSocketTimeout());
+    }
+
 }
