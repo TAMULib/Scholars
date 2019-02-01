@@ -1,8 +1,11 @@
 package edu.tamu.scholars.middleware.discovery.service;
 
-import org.springframework.stereotype.Service;
+import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 
-@Service
-public class SolrIndexService {
+public interface SolrIndexService<D extends AbstractSolrDocument> {
+
+    public <S extends D> S index(S document);
+
+    public Class<?> type();
 
 }

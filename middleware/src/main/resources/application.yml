@@ -17,6 +17,9 @@ middleware:
     time-to-live: 60000
     request-timeout: 30000
     socket-timeout: 60000
+  harvest:
+    fixedDelay: 86400000
+    initialDelay: 2500
 
 ui:
   url: http://localhost:4200
@@ -32,10 +35,14 @@ vivo:
 logging:
   file: scholars.log
   level:
+    edu:
+      tamu:
+        scholars:
+          middleware: INFO
     org:
       springframework:
-        security: DEBUG
-        web: DEBUG
+        security: INFO
+        web: INFO
   path:
 
 server:
@@ -50,8 +57,6 @@ spring:
       return-body-on-update: true
     solr:
       host: http://localhost:8983/solr
-      repositories:
-        enabled: true
   main:
     allow-bean-definition-overriding: false
   messages:
@@ -101,6 +106,7 @@ spring:
     #        required: true
   profiles:
     active: default
+    include: person
   session:
     store-type: jdbc
     jdbc:

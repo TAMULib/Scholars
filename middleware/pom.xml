@@ -11,7 +11,7 @@
   </parent>
   <groupId>edu.tamu.scholars</groupId>
   <artifactId>middleware</artifactId>
-  <version>0.0.4-SNAPSHOT</version>
+  <version>0.0.5-SNAPSHOT</version>
   <name>middleware</name>
   <description>VIVO Scholars Middleware</description>
 
@@ -128,12 +128,6 @@
       <artifactId>apache-jena-libs</artifactId>
       <type>pom</type>
       <version>${jena-libs.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xerces</groupId>
-          <artifactId>xercesImpl</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
 
