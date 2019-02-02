@@ -106,7 +106,7 @@ spring:
     #        required: true
   profiles:
     active: default
-    include: person
+    include: person,publication
   session:
     store-type: jdbc
     jdbc:

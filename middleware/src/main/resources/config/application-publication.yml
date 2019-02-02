@@ -2,7 +2,7 @@ publication:
   class: "http://purl.org/ontology/bibo/AcademicArticle"
 
   abstract: "http://purl.org/ontology/bibo/abstract"
-  authorships:
+  authors:
     title: "http://www.w3.org/2000/01/rdf-schema#label"
     orcId: "http://www.w3.org/2000/01/rdf-schema#label"
   bookTitleForChapter: "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter"
