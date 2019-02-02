@@ -14,8 +14,6 @@ public @interface Source {
 
     String key();
 
-    Property[] properties() default {};
-
     Sparql[] sparql() default {};
 
     @Target({ TYPE })

@@ -16,52 +16,44 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
 // @formatter:off
 @Source(
     key = "person.class",
-    properties = {
-        @Source.Property(name = "uid", key = "person.uid"),
-        @Source.Property(name = "firstName", key = "person.firstName"),
-        @Source.Property(name = "lastName", key = "person.lastName"),
-        @Source.Property(name = "overview", key = "person.overview")
-    },
     sparql = {
         @Source.Sparql(
-            template = "person/orcid",
+            template = "person/person",
             properties = {
-                @Source.Property(name = "orcid", key = "person.orcid", parse = true)
+                @Source.Property(name = "uid", key = "person.uid"),
+                @Source.Property(name = "name", key = "person.name"),
+                @Source.Property(name = "firstName", key = "person.firstName"),
+                @Source.Property(name = "middleName", key = "person.middleName"),
+                @Source.Property(name = "lastName", key = "person.lastName"),
+                @Source.Property(name = "title", key = "person.title"),
+                @Source.Property(name = "email", key = "person.email"),
+                @Source.Property(name = "overview", key = "person.overview"),
+                @Source.Property(name = "researcherId", key = "person.researcherId"),
+                @Source.Property(name = "scopusId", key = "person.scopusId"),
+                @Source.Property(name = "orcidId", key = "person.orcidId", parse = true)
             }
         ),
         @Source.Sparql(
             template = "person/address",
             properties = {
-                @Source.Property(name = "postalCode", key = "person.vcard.address.postalCode"),
-                @Source.Property(name = "region", key = "person.vcard.address.region"),
-                @Source.Property(name = "streetAddress", key = "person.vcard.address.streetAddress"),
-                @Source.Property(name = "locality", key = "person.vcard.address.locality"),
-                @Source.Property(name = "country", key = "person.vcard.address.country")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/title",
-            properties = {
-                @Source.Property(name = "title", key = "person.vcard.title")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/email",
-            properties = {
-                @Source.Property(name = "email", key = "person.vcard.email")
+                @Source.Property(name = "postalCode", key = "person.address.postalCode"),
+                @Source.Property(name = "region", key = "person.address.region"),
+                @Source.Property(name = "streetAddress", key = "person.address.streetAddress"),
+                @Source.Property(name = "locality", key = "person.address.locality"),
+                @Source.Property(name = "country", key = "person.address.country")
             }
         ),
         @Source.Sparql(
             template = "person/phone",
             properties = {
-                @Source.Property(name = "phone", key = "person.vcard.phone")
+                @Source.Property(name = "phone", key = "person.phone")
             }
         ),
         @Source.Sparql(
             template = "person/url",
             properties = {
-                @Source.Property(name = "linkUrl", key = "person.vcard.link.url"),
-                @Source.Property(name = "linkLabel", key = "person.vcard.link.label")
+                @Source.Property(name = "linkUrl", key = "person.link.url"),
+                @Source.Property(name = "linkLabel", key = "person.link.label")
             }
         ),
         @Source.Sparql(
@@ -99,9 +91,9 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
             }
         ),
         @Source.Sparql(
-            template = "person/courses",
+            template = "person/teachings",
             properties = {
-                @Source.Property(name = "courses", key = "person.courses", id = "courseIds")
+                @Source.Property(name = "teachings", key = "person.teachings", id = "teachingIds")
             }
         ),
         @Source.Sparql(
@@ -164,7 +156,13 @@ public class Person extends AbstractSolrDocument {
     private String uid;
 
     @Indexed
+    private String name;
+
+    @Indexed
     private String firstName;
+
+    @Indexed
+    private String middleName;
 
     @Indexed
     private String lastName;
@@ -173,7 +171,13 @@ public class Person extends AbstractSolrDocument {
     private String overview;
 
     @Indexed
-    private String orcid;
+    private String orcidId;
+
+    @Indexed
+    private String researcherId;
+
+    @Indexed
+    private String scopusId;
 
     @Indexed
     private String title;
@@ -242,10 +246,10 @@ public class Person extends AbstractSolrDocument {
     private List<String> organizationIds;
 
     @Indexed
-    private List<String> courses;
+    private List<String> teachings;
 
     @Indexed
-    private List<String> courseIds;
+    private List<String> teachingIds;
 
     @Indexed
     private List<String> degrees;
@@ -322,8 +326,8 @@ public class Person extends AbstractSolrDocument {
         this.positionIds = new ArrayList<String>();
         this.organizations = new ArrayList<String>();
         this.organizationIds = new ArrayList<String>();
-        this.courses = new ArrayList<String>();
-        this.courseIds = new ArrayList<String>();
+        this.teachings = new ArrayList<String>();
+        this.teachingIds = new ArrayList<String>();
         this.degrees = new ArrayList<String>();
         this.degreeFields = new ArrayList<String>();
         this.degreeDates = new ArrayList<String>();
@@ -356,12 +360,28 @@ public class Person extends AbstractSolrDocument {
         this.uid = uid;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getLastName() {
@@ -380,12 +400,28 @@ public class Person extends AbstractSolrDocument {
         this.overview = overview;
     }
 
-    public String getOrcid() {
-        return orcid;
+    public String getResearcherId() {
+        return researcherId;
     }
 
-    public void setOrcid(String orcid) {
-        this.orcid = orcid;
+    public void setResearcherId(String researcherId) {
+        this.researcherId = researcherId;
+    }
+
+    public String getScopusId() {
+        return scopusId;
+    }
+
+    public void setScopusId(String scopusId) {
+        this.scopusId = scopusId;
+    }
+
+    public String getOrcidId() {
+        return orcidId;
+    }
+
+    public void setOrcidId(String orcidId) {
+        this.orcidId = orcidId;
     }
 
     public String getTitle() {
@@ -564,20 +600,20 @@ public class Person extends AbstractSolrDocument {
         this.organizationIds = organizationIds;
     }
 
-    public List<String> getCourses() {
-        return courses;
+    public List<String> getTeachings() {
+        return teachings;
     }
 
-    public void setCourses(List<String> courses) {
-        this.courses = courses;
+    public void setTeachings(List<String> teachings) {
+        this.teachings = teachings;
     }
 
-    public List<String> getCourseIds() {
-        return courseIds;
+    public List<String> getTeachingIds() {
+        return teachingIds;
     }
 
-    public void setCourseIds(List<String> courseIds) {
-        this.courseIds = courseIds;
+    public void setTeachingIds(List<String> teachingIds) {
+        this.teachingIds = teachingIds;
     }
 
     public List<String> getDegrees() {

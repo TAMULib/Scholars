@@ -2,25 +2,29 @@ person:
   class: "http://xmlns.com/foaf/0.1/Person"
 
   uid: "http://vivo.library.tamu.edu/ontology/TAMU#UID"
+  name: "http://www.w3.org/2000/01/rdf-schema#label"
   firstName: "http://www.w3.org/2006/vcard/ns#givenName"
+  middleName: "http://vivoweb.org/ontology/core#middleName"
   lastName: "http://www.w3.org/2006/vcard/ns#familyName"
   overview: "http://vivoweb.org/ontology/core#overview"
+  title: "http://vivoweb.org/ontology/core#hrJobTitle"
+  email: "http://www.w3.org/2006/vcard/ns#email"
+  researcherId: "http://vivoweb.org/ontology/core#researcherId"
+  scopusId: "http://vivoweb.org/ontology/core#scopusId"
+  orcidId: "http://vivoweb.org/ontology/core#orcidId"
 
-  orcid: "http://vivoweb.org/ontology/core#orcidId"
+  phone: "http://www.w3.org/2006/vcard/ns#telephone"
 
-  vcard:
-    title: "http://www.w3.org/2006/vcard/ns#title"
-    email: "http://www.w3.org/2006/vcard/ns#email"
-    phone: "http://www.w3.org/2006/vcard/ns#telephone"
-    link:
-      url: "http://www.w3.org/2006/vcard/ns#url"
-      label: "http://www.w3.org/2000/01/rdf-schema#label"
-    address:
-      postalCode: "http://www.w3.org/2006/vcard/ns#postalCode"
-      region: "http://www.w3.org/2006/vcard/ns#region"
-      streetAddress: "http://www.w3.org/2006/vcard/ns#streetAddress"
-      locality: "http://www.w3.org/2006/vcard/ns#locality"
-      country: "http://www.w3.org/2006/vcard/ns#country"
+  link:
+    url: "http://www.w3.org/2006/vcard/ns#url"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+
+  address:
+    postalCode: "http://www.w3.org/2006/vcard/ns#postalCode"
+    region: "http://www.w3.org/2006/vcard/ns#region"
+    streetAddress: "http://www.w3.org/2006/vcard/ns#streetAddress"
+    locality: "http://www.w3.org/2006/vcard/ns#locality"
+    country: "http://www.w3.org/2006/vcard/ns#country"
 
   image:
     filename: "http://vitro.mannlib.cornell.edu/ns/vitro/public#filename"

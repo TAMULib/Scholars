@@ -67,7 +67,8 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
             Statement statement = stmtIterator.next();
             String subject = statement.getSubject().toString();
             try {
-                indexer.index(createDocument(subject));
+                D document = createDocument(subject);
+                indexer.index(document);
                 logger.info(String.format("%s %s indexed in %f seconds", name(), parse(subject), Duration.between(start, Instant.now()).toMillis() / 1000.0));
                 // System.exit(0);
             } catch (NullPointerException e) {
@@ -88,7 +89,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         return indexer.type().getSimpleName();
     }
 
-    private Model list(String predicate) {
+    protected Model list(String predicate) {
         String response = httpService.get(HttpRequest.listRdf(vivoConfig.getListRdfEndpointUrl(), predicate));
         logger.debug("Listing");
         logger.debug("   predicate: " + predicate);
@@ -96,7 +97,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         return toRdfModel(response);
     }
 
-    private Model individual(String id) {
+    protected Model individual(String id) {
         String response = httpService.get(HttpRequest.linkedOpenDataRdf(vivoConfig.getLinkedOpenDataEndpointUrl(), id));
         logger.debug("Getting individual");
         logger.debug("   id: " + id);
@@ -104,7 +105,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         return toRdfModel(response);
     }
 
-    private Model construct(String query) {
+    protected Model construct(String query) {
         String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
         logger.debug("Constructing");
         logger.debug("   query: " + query);
@@ -113,23 +114,16 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     }
 
     private D createDocument(String subject) throws Exception {
-        // NOTE: may be more efficient to build a SparQL
-        Model model = individual(parse(subject));
-
         D document = construct();
 
-        // set id field
         Field idField = field(ID);
         idField.setAccessible(true);
         idField.set(document, parse(subject));
 
-        // process type level source
         Source source = indexer.type().getAnnotation(Source.class);
-
-        SolrDocumentBuilder builder = SolrDocumentBuilder.of(subject, source, model);
+        SolrDocumentBuilder builder = SolrDocumentBuilder.of(subject, source);
 
         lookup(builder);
-
         populate(document, builder);
 
         return document;
@@ -137,9 +131,6 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
 
     private void lookup(SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
         Source source = builder.getSource();
-        for (Source.Property property : source.properties()) {
-            lookup(builder, property);
-        }
         for (Source.Sparql sparql : source.sparql()) {
             String query = templateService.templateSparql(sparql.template(), builder.getSubject());
             // NOTE: model response of a SparQL query must be homogeneous subjects, i.e. only one subject defined in the CONSTRUCT
