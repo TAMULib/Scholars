@@ -143,7 +143,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(PATCH, "/users/{id}")
                     .hasRole("ADMIN")
-                                
+
                 .antMatchers(POST, "/themes/{id}")
                     .hasRole("ADMIN")
                 .antMatchers(POST, "/registration")
@@ -158,11 +158,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PUT, "/users/{id}")
                     .denyAll()
 
-                .antMatchers(GET, "/registration", "/themes/search/active", "/persons", "/persons/{id}")
+                .antMatchers(GET, "/registration", "/themes/search/active", "/persons", "/persons/{id}", "/publications", "/publications/{id}")
                     .permitAll()
                 .antMatchers(GET, "/users", "/users/{id}", "/themes", "/themes/{id}")
                     .hasRole("ADMIN")
-                    
+
                 .antMatchers(DELETE, "/themes/{id}")
                     .hasRole("ADMIN")
                 .antMatchers(DELETE, "/users/{id}")

@@ -1,0 +1,13 @@
+PREFIX core: <http://vivoweb.org/ontology/core#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+
+CONSTRUCT {
+    ?title ?property ?object .
+    ?email ?property ?object .
+    ?phone ?property ?object .
+} WHERE {
+    <[(${uri})]> core:Publisher ?vcard .
+    ?title ?property ?object .
+    OPTIONAL { ?email ?property ?object . }
+    OPTIONAL { ?phone ?property ?object . }
+}
