@@ -18,7 +18,7 @@ import { CustomMissingTranslationHandler } from './core/handler/custom-missing-t
 export function createUniversalTranslateLoader(): TranslateLoader {
     return {
         getTranslation: (lang: string) => {
-            return Observable.create((observer: Observer<any>) => {
+            return new Observable((observer: Observer<any>) => {
                 observer.next(JSON.parse(readFileSync(`./dist/browser/assets/i18n/${lang}.json`, 'utf8')));
                 observer.complete();
             });
