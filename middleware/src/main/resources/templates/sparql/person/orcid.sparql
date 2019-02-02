@@ -1,8 +1,0 @@
-PREFIX core: <http://vivoweb.org/ontology/core#>
-
-CONSTRUCT {
-    ?subject ?property ?orcid .
-} WHERE {
-    ?orcid core:confirmedOrcidId <[(${uri})]> .
-    ?subject ?property ?orcid .
-}

@@ -24,20 +24,13 @@ public class SolrDocumentBuilder {
 
     private String[] predicates;
 
-    public SolrDocumentBuilder(String subject, Source source, Model model) {
+    public SolrDocumentBuilder(String subject, Source source) {
 
         this.subject = subject;
         this.source = source;
-        this.model = model;
 
         this.collections = new HashMap<String, List<String>>();
 
-        for (Source.Property property : source.properties()) {
-            this.collections.put(property.name(), new ArrayList<String>());
-            if (!property.id().isEmpty()) {
-                this.collections.put(property.id(), new ArrayList<String>());
-            }
-        }
         for (Source.Sparql sparql : source.sparql()) {
             for (Source.Property property : sparql.properties()) {
                 this.collections.put(property.name(), new ArrayList<String>());
@@ -93,8 +86,8 @@ public class SolrDocumentBuilder {
         this.predicates = predicates;
     }
 
-    public static SolrDocumentBuilder of(String subject, Source source, Model model) {
-        return new SolrDocumentBuilder(subject, source, model);
+    public static SolrDocumentBuilder of(String subject, Source source) {
+        return new SolrDocumentBuilder(subject, source);
     }
 
 }
