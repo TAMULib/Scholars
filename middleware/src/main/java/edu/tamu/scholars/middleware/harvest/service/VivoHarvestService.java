@@ -23,12 +23,12 @@ public class VivoHarvestService {
     @Scheduled(fixedDelayString = "${middleware.harvest.fixedDelay}", initialDelayString = "${middleware.harvest.initialDelay}")
     public void harvest() {
         Instant allHarvsetStart = Instant.now();
-        harvesters.stream().parallel().forEach(harvester -> {
+        for(HarvestService harvester : harvesters) {
             logger.info(String.format("Harvesting %s", harvester.name()));
             Instant start = Instant.now();
             harvester.harvest();
             logger.info(String.format("Harvesting %s finished. %f seconds", harvester.name(), Duration.between(start, Instant.now()).toMillis() / 1000.0));
-        });
+        }
         logger.info(String.format("Harvest finished. %s seconds", Duration.between(allHarvsetStart, Instant.now()).toMillis() / 1000.0));
     }
 

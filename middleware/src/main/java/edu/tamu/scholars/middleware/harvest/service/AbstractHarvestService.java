@@ -10,6 +10,8 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -59,29 +61,31 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         Source source = indexer.type().getAnnotation(Source.class);
         Model listModel = list(resolve(source.key()));
         StmtIterator stmtIterator = listModel.listStatements();
-        if (!stmtIterator.hasNext()) {
+        if (stmtIterator.hasNext()) {
+            Iterable<Statement> stmtIterable = () -> stmtIterator;
+            Stream<Statement> stmtStream = StreamSupport.stream(stmtIterable.spliterator(), false);
+            stmtStream.parallel().forEach(statement -> {
+                Instant start = Instant.now();
+                String subject = statement.getSubject().toString();
+                try {
+                    D document = createDocument(subject);
+                    indexer.index(document);
+                    logger.info(String.format("%s %s indexed in %f seconds", name(), parse(subject), Duration.between(start, Instant.now()).toMillis() / 1000.0));
+                    // System.exit(0);
+                } catch (NullPointerException e) {
+                    if (logger.isDebugEnabled()) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    logger.error(String.format("Unable to index %s: %s", name(), parse(subject)));
+                    logger.error(String.format("Error: %s", e.getMessage()));
+                    if (logger.isDebugEnabled()) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } else {
             logger.warn(String.format("No %s found!", name()));
-        }
-        while (stmtIterator.hasNext()) {
-            Instant start = Instant.now();
-            Statement statement = stmtIterator.next();
-            String subject = statement.getSubject().toString();
-            try {
-                D document = createDocument(subject);
-                indexer.index(document);
-                logger.info(String.format("%s %s indexed in %f seconds", name(), parse(subject), Duration.between(start, Instant.now()).toMillis() / 1000.0));
-                // System.exit(0);
-            } catch (NullPointerException e) {
-                if (logger.isDebugEnabled()) {
-                    e.printStackTrace();
-                }
-            } catch (Exception e) {
-                logger.error(String.format("Unable to index %s: %s", name(), parse(subject)));
-                logger.error(String.format("Error: %s", e.getMessage()));
-                if (logger.isDebugEnabled()) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
