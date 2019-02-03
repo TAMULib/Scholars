@@ -15,7 +15,7 @@ person:
 
   phone: "http://www.w3.org/2006/vcard/ns#telephone"
 
-  link:
+  links:
     url: "http://www.w3.org/2006/vcard/ns#url"
     label: "http://www.w3.org/2000/01/rdf-schema#label"
 

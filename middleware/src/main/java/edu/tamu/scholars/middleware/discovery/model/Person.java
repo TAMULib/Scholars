@@ -50,10 +50,10 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
             }
         ),
         @Source.Sparql(
-            template = "person/url",
+            template = "person/links",
             properties = {
-                @Source.Property(name = "linkUrl", key = "person.link.url"),
-                @Source.Property(name = "linkLabel", key = "person.link.label")
+                @Source.Property(name = "linkUrls", key = "person.links.url"),
+                @Source.Property(name = "linkLabels", key = "person.links.label")
             }
         ),
         @Source.Sparql(
@@ -189,10 +189,10 @@ public class Person extends AbstractSolrDocument {
     private String phone;
 
     @Indexed
-    private List<String> linkUrl;
+    private List<String> linkUrls;
 
     @Indexed
-    private List<String> linkLabel;
+    private List<String> linkLabels;
 
     @Indexed
     private String postalCode;
@@ -318,8 +318,8 @@ public class Person extends AbstractSolrDocument {
     private List<String> workByStudentIds;
 
     public Person() {
-        this.linkUrl = new ArrayList<String>();
-        this.linkLabel = new ArrayList<String>();
+        this.linkUrls = new ArrayList<String>();
+        this.linkLabels = new ArrayList<String>();
         this.researchAreas = new ArrayList<String>();
         this.researchAreaIds = new ArrayList<String>();
         this.positions = new ArrayList<String>();
@@ -448,20 +448,20 @@ public class Person extends AbstractSolrDocument {
         this.phone = phone;
     }
 
-    public List<String> getLinkUrl() {
-        return linkUrl;
+    public List<String> getLinkUrls() {
+        return linkUrls;
     }
 
-    public void setLinkUrl(List<String> linkUrl) {
-        this.linkUrl = linkUrl;
+    public void setLinkUrls(List<String> linkUrls) {
+        this.linkUrls = linkUrls;
     }
 
-    public List<String> getLinkLabel() {
-        return linkLabel;
+    public List<String> getLinkLabels() {
+        return linkLabels;
     }
 
-    public void setLinkLabel(List<String> linkLabel) {
-        this.linkLabel = linkLabel;
+    public void setLinkLabels(List<String> linkLabels) {
+        this.linkLabels = linkLabels;
     }
 
     public String getPostalCode() {

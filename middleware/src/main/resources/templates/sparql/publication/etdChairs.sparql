@@ -1,13 +1,8 @@
 PREFIX tamu: <http://vivo.library.tamu.edu/ontology/TAMU#>
-PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
 CONSTRUCT {
-    ?vcard ?title ?object .
-    ?vcard ?email ?object .
-    ?vcard ?phone ?object .
+    ?chair ?property ?object .
 } WHERE {
-    <[(${uri})]> tamu:ETDChairedBy ?vcard .
-    ?vcard ?title ?object .
-    OPTIONAL { ?vcard ?email ?object . }
-    OPTIONAL { ?vcard ?phone ?object . }
+    <[(${uri})]> tamu:ETDChairedBy ?chair .
+    ?chair ?property ?object .
 }

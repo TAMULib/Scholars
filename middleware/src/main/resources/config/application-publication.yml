@@ -1,42 +1,49 @@
 publication:
   class: "http://purl.org/ontology/bibo/AcademicArticle"
 
-  abstract: "http://purl.org/ontology/bibo/abstract"
-  authors:
-    title: "http://www.w3.org/2000/01/rdf-schema#label"
-    orcId: "http://www.w3.org/2000/01/rdf-schema#label"
-  bookTitleForChapter: "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter"
-  etdChairs:
-    title: "http://www.w3.org/2006/vcard/ns#title"
-    email: "http://www.w3.org/2006/vcard/ns#email"
-    phone: "http://www.w3.org/2006/vcard/ns#telephone"
-  contacts:
-    title: "http://www.w3.org/2006/vcard/ns#title"
-    email: "http://www.w3.org/2006/vcard/ns#email"
-    phone: "http://www.w3.org/2006/vcard/ns#telephone"
-  doi: "http://purl.org/ontology/bibo/doi"
-  freetextKeyword: "http://vivoweb.org/ontology/core#freetextKeyword"
-  fullAuthorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList"
-  fullEditorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullEditorList"
-  identifier: "http://purl.org/ontology/bibo/identifier"
-  isbn10: "http://purl.org/ontology/bibo/isbn10"
-  isbn13: "http://purl.org/ontology/bibo/isbn13"
-  issn: "http://purl.org/ontology/bibo/issn"
-  issue: "http://purl.org/ontology/bibo/issue"
-  pcmid: "http://vivo.library.tamu.edu/ontology/TAMU#pcmid"
-  publishers:
-    title: "http://www.w3.org/2006/vcard/ns#title"
-    email: "http://www.w3.org/2006/vcard/ns#email"
-    phone: "http://www.w3.org/2006/vcard/ns#telephone"
-  title:
-    value: "http://www.w3.org/2000/01/rdf-schema#label"
-    schema: "http://scholars.library.tamu.edu/vivo/"
   type:
     value: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     schema: "http://purl.org/ontology/bibo/"
+  identifier: "http://purl.org/ontology/bibo/identifier"
+
+  title:
+    value: "http://www.w3.org/2000/01/rdf-schema#label"
+    schema: "http://scholars.library.tamu.edu/vivo/"
+
+  issue: "http://purl.org/ontology/bibo/issue"
+  volume: "http://purl.org/ontology/bibo/volume"
+  doi: "http://purl.org/ontology/bibo/doi"
+  isbn10: "http://purl.org/ontology/bibo/isbn10"
+  isbn13: "http://purl.org/ontology/bibo/isbn13"
+  issn: "http://purl.org/ontology/bibo/issn"
+  pcmid: "http://vivo.library.tamu.edu/ontology/TAMU#pcmid"
+  abstract: "http://purl.org/ontology/bibo/abstract"
+  bookTitleForChapter: "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter"
+  freetextKeyword: "http://vivoweb.org/ontology/core#freetextKeyword"
+  fullAuthorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList"
+  fullEditorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullEditorList"
   pageEnd: "http://purl.org/ontology/bibo/pageEnd"
   pageStart: "http://purl.org/ontology/bibo/pageStart"
   uri: "http://purl.org/ontology/bibo/uri"
-  volume: "http://purl.org/ontology/bibo/volume"
+
+  date: "http://vivoweb.org/ontology/core#dateTime"
+
+  authors: "http://www.w3.org/2000/01/rdf-schema#label"
+
+  journal:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    issn: "http://purl.org/ontology/bibo/issn"
+
+  publisher: "http://www.w3.org/2000/01/rdf-schema#label"
+
+  links:
+    url: "http://www.w3.org/2006/vcard/ns#url"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+
+  grants:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+
+  etdChairs: "http://www.w3.org/2000/01/rdf-schema#label"
   researchAreas: "http://www.w3.org/2000/01/rdf-schema#label"
   subjectAreas: "http://www.w3.org/2000/01/rdf-schema#label"
