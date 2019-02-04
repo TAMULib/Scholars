@@ -24,6 +24,8 @@
 /nbdist/
 /.nb-gradle/
 
+/bin/
+
 *.mv.db
 *.trace.db
 
