@@ -49,7 +49,7 @@ export class StompService {
         };
 
         const headers = {};
-        return Observable.create((observer) => {
+        return new Observable((observer) => {
             this.client.connect(headers, (frame) => {
                 observer.next(frame);
                 observer.complete();
@@ -68,7 +68,7 @@ export class StompService {
     }
 
     public disconnect(): Observable<any> {
-        return Observable.create((observer) => {
+        return new Observable((observer) => {
             if (this.client !== undefined) {
                 this.client.disconnect((frame) => {
                     observer.next(frame);
@@ -85,7 +85,7 @@ export class StompService {
     }
 
     public subscribe(channel: string, callback: Function): Observable<any> {
-        return Observable.create((observer) => {
+        return new Observable((observer) => {
             this.pending.set(channel, {
                 observer: observer,
                 subscription: this.client.subscribe(channel, callback, {
