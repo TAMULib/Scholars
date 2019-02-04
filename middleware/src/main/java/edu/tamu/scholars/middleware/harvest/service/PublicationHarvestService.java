@@ -8,9 +8,4 @@ import edu.tamu.scholars.middleware.discovery.service.PublicationIndexService;
 @Service
 public class PublicationHarvestService extends AbstractHarvestService<Publication, PublicationIndexService> {
 
-    @Override
-    public void harvest() {
-
-    }
-
 }
