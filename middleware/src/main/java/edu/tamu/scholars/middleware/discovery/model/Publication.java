@@ -78,6 +78,13 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
             }
         ),
         @Source.Sparql(
+            template = "person/links",
+            properties = {
+                @Source.Property(name = "linkUrls", key = "person.links.url"),
+                @Source.Property(name = "linkLabels", key = "person.links.label")
+            }
+        ),
+        @Source.Sparql(
             template = "publication/grants",
             properties = {
                 @Source.Property(name = "grants", key = "publication.grants.title", id = "grantIds"),
@@ -177,50 +184,58 @@ public class Publication extends AbstractSolrDocument {
     private String publisherId;
 
     @Indexed
-    private List < String > authors;
+    private List<String> authors;
 
     @Indexed
-    private List < String > authorIds;
+    private List<String> authorIds;
 
     @Indexed
-    private List < String > etdChairs;
+    private List<String> etdChairs;
 
     @Indexed
-    private List < String > etdChairIds;
+    private List<String> etdChairIds;
 
     @Indexed
-    private List < String > grants;
+    private List<String> linkUrls;
 
     @Indexed
-    private List < String > grantDates;
+    private List<String> linkLabels;
 
     @Indexed
-    private List < String > grantIds;
+    private List<String> grants;
 
     @Indexed
-    private List < String > subjectAreas;
+    private List<String> grantDates;
 
     @Indexed
-    private List < String > subjectAreasIds;
+    private List<String> grantIds;
 
     @Indexed
-    private List < String > researchAreas;
+    private List<String> subjectAreas;
 
     @Indexed
-    private List < String > researchAreasIds;
+    private List<String> subjectAreasIds;
+
+    @Indexed
+    private List<String> researchAreas;
+
+    @Indexed
+    private List<String> researchAreasIds;
 
     public Publication() {
-        this.authors = new ArrayList < String > ();
-        this.authorIds = new ArrayList < String > ();
-        this.etdChairs = new ArrayList < String > ();
-        this.etdChairIds = new ArrayList < String > ();
-        this.grants = new ArrayList < String > ();
-        this.grantDates = new ArrayList < String > ();
-        this.grantIds = new ArrayList < String > ();
-        this.subjectAreas = new ArrayList < String > ();
-        this.subjectAreasIds = new ArrayList < String > ();
-        this.researchAreas = new ArrayList < String > ();
-        this.researchAreasIds = new ArrayList < String > ();
+        this.authors = new ArrayList<String>();
+        this.authorIds = new ArrayList<String>();
+        this.etdChairs = new ArrayList<String>();
+        this.etdChairIds = new ArrayList<String>();
+        this.linkUrls = new ArrayList<String>();
+        this.linkLabels = new ArrayList<String>();
+        this.grants = new ArrayList<String>();
+        this.grantDates = new ArrayList<String>();
+        this.grantIds = new ArrayList<String>();
+        this.subjectAreas = new ArrayList<String>();
+        this.subjectAreasIds = new ArrayList<String>();
+        this.researchAreas = new ArrayList<String>();
+        this.researchAreasIds = new ArrayList<String>();
     }
 
     public String getType() {
@@ -415,91 +430,107 @@ public class Publication extends AbstractSolrDocument {
         this.publisherId = publisherId;
     }
 
-    public List < String > getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List < String > authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
 
-    public List < String > getAuthorIds() {
+    public List<String> getAuthorIds() {
         return authorIds;
     }
 
-    public void setAuthorIds(List < String > authorIds) {
+    public void setAuthorIds(List<String> authorIds) {
         this.authorIds = authorIds;
     }
 
-    public List < String > getEtdChairs() {
+    public List<String> getEtdChairs() {
         return etdChairs;
     }
 
-    public void setEtdChairs(List < String > etdChairs) {
+    public void setEtdChairs(List<String> etdChairs) {
         this.etdChairs = etdChairs;
     }
 
-    public List < String > getEtdChairIds() {
+    public List<String> getEtdChairIds() {
         return etdChairIds;
     }
 
-    public void setEtdChairIds(List < String > etdChairIds) {
+    public void setEtdChairIds(List<String> etdChairIds) {
         this.etdChairIds = etdChairIds;
     }
 
-    public List < String > getGrants() {
+    public List<String> getLinkUrls() {
+        return linkUrls;
+    }
+
+    public void setLinkUrls(List<String> linkUrls) {
+        this.linkUrls = linkUrls;
+    }
+
+    public List<String> getLinkLabels() {
+        return linkLabels;
+    }
+
+    public void setLinkLabels(List<String> linkLabels) {
+        this.linkLabels = linkLabels;
+    }
+
+    public List<String> getGrants() {
         return grants;
     }
 
-    public void setGrants(List < String > grants) {
+    public void setGrants(List<String> grants) {
         this.grants = grants;
     }
 
-    public List < String > getGrantDates() {
+    public List<String> getGrantDates() {
         return grantDates;
     }
 
-    public void setGrantDates(List < String > grantDates) {
+    public void setGrantDates(List<String> grantDates) {
         this.grantDates = grantDates;
     }
 
-    public List < String > getGrantIds() {
+    public List<String> getGrantIds() {
         return grantIds;
     }
 
-    public void setGrantIds(List < String > grantIds) {
+    public void setGrantIds(List<String> grantIds) {
         this.grantIds = grantIds;
     }
 
-    public List < String > getSubjectAreas() {
+    public List<String> getSubjectAreas() {
         return subjectAreas;
     }
 
-    public void setSubjectAreas(List < String > subjectAreas) {
+    public void setSubjectAreas(List<String> subjectAreas) {
         this.subjectAreas = subjectAreas;
     }
 
-    public List < String > getSubjectAreasIds() {
+    public List<String> getSubjectAreasIds() {
         return subjectAreasIds;
     }
 
-    public void setSubjectAreasIds(List < String > subjectAreasIds) {
+    public void setSubjectAreasIds(List<String> subjectAreasIds) {
         this.subjectAreasIds = subjectAreasIds;
     }
 
-    public List < String > getResearchAreas() {
+    public List<String> getResearchAreas() {
         return researchAreas;
     }
 
-    public void setResearchAreas(List < String > researchAreas) {
+    public void setResearchAreas(List<String> researchAreas) {
         this.researchAreas = researchAreas;
     }
 
-    public List < String > getResearchAreasIds() {
+    public List<String> getResearchAreasIds() {
         return researchAreasIds;
     }
 
-    public void setResearchAreasIds(List < String > researchAreasIds) {
+    public void setResearchAreasIds(List<String> researchAreasIds) {
         this.researchAreasIds = researchAreasIds;
     }
 

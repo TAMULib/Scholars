@@ -1,13 +1,10 @@
+PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX core: <http://vivoweb.org/ontology/core#>
-PREFIX obo: <http://purl.obolibrary.org/obo/>
 
 CONSTRUCT {
     ?date core:dateTime ?dateTime .
 } WHERE {
-    <[(${uri})]> core:relatedBy ?authorship .
-    ?authorship a core:Authorship .
-    ?authorship core:relates ?publication .
-    ?publication a obo:IAO_0000030 .
+    <[(${uri})]> bibo:* ?publication .
     ?publication core:dateTimeValue ?date .
     ?date core:dateTime ?dateTime .
 }

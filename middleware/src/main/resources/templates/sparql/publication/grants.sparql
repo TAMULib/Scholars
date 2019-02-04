@@ -1,15 +1,12 @@
+PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX core: <http://vivoweb.org/ontology/core#>
-PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
     ?grant rdfs:label ?label .
     ?grant core:dateTime ?dateTime .
 } WHERE {
-    <[(${uri})]> core:relatedBy ?authorship .
-    ?authorship a core:Authorship .
-    ?authorship core:relates ?publication .
-    ?publication a obo:IAO_0000030 .
+    <[(${uri})]> bibo:* ?publication .
     ?publication core:supportedInformationResource ?grant .
     ?grant a core:Grant .
     ?grant rdfs:label ?label .

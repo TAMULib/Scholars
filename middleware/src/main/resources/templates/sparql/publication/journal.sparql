@@ -1,5 +1,4 @@
 PREFIX bibo: <http://purl.org/ontology/bibo/>
-PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX core: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
@@ -7,10 +6,7 @@ CONSTRUCT {
     ?journal rdfs:label ?title .
     ?journal bibo:issn ?issn .
 } WHERE {
-    <[(${uri})]> core:relatedBy ?authorship .
-    ?authorship a core:Authorship .
-    ?authorship core:relates ?publication .
-    ?publication a obo:IAO_0000030 .
+    <[(${uri})]>  bibo:* ?publication .
     ?publication core:hasPublicationVenue ?journal .
     ?journal rdfs:label ?title .
     ?journal bibo:issn ?issn .
