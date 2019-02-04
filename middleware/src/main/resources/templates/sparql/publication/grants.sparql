@@ -1,4 +1,3 @@
-PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX core: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
@@ -6,8 +5,7 @@ CONSTRUCT {
     ?grant rdfs:label ?label .
     ?grant core:dateTime ?dateTime .
 } WHERE {
-    <[(${uri})]> bibo:* ?publication .
-    ?publication core:supportedInformationResource ?grant .
+    <[(${uri})]> core:supportedInformationResource ?grant .
     ?grant a core:Grant .
     ?grant rdfs:label ?label .
     ?grant core:dateTimeInterval ?dateTimeInterval .
