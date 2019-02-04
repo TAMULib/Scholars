@@ -99,7 +99,7 @@ spring:
             required: true
   profiles:
     active: test
-    include: person
+    include: person,publication
   session:
     store-type: jdbc
     jdbc:

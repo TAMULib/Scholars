@@ -36,6 +36,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     private final static String RDF_XML_LANG = "RDF/XML";
 
     private final static String FORWARD_SLASH = "/";
+
     private final static String HASH_TAG = "#";
 
     private final static String ID = "id";
