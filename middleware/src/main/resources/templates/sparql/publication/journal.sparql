@@ -6,8 +6,7 @@ CONSTRUCT {
     ?journal rdfs:label ?title .
     ?journal bibo:issn ?issn .
 } WHERE {
-    <[(${uri})]>  bibo:* ?publication .
-    ?publication core:hasPublicationVenue ?journal .
+    <[(${uri})]> core:hasPublicationVenue ?journal .
     ?journal rdfs:label ?title .
     ?journal bibo:issn ?issn .
 }
