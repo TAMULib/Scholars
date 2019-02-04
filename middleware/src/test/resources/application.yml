@@ -63,6 +63,7 @@ spring:
   devtools:
     add-properties: false
     restart:
+      enabled: false
       exclude: src/main/resources,target
   h2:
     console:
