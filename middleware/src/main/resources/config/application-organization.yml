@@ -1,0 +1,11 @@
+organization:
+  class: "http://xmlns.com/foaf/0.1/Organization"
+
+  type:
+    value: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    schema: "http://vivoweb.org/ontology/core#"
+    alternativeSchema: "http://vivo.library.tamu.edu/ontology/TAMU#"
+
+  identifier: "http://vivo.library.tamu.edu/ontology/TAMU#OrgID"
+
+  name: "http://www.w3.org/2000/01/rdf-schema#label"

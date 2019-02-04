@@ -27,7 +27,7 @@ ui:
 vivo:
   email: vivoadmin@library.tamu.edu
   password:
-  base-url: http://localhost:8080/vivo
+  base-url: http://localhost:8080:/vivo
   linked-open-data-endpoint: /individual
   list-rdf-endpoint: /listrdf
   sparql-query-endpoint: /api/sparqlQuery
@@ -107,7 +107,7 @@ spring:
     #        required: true
   profiles:
     active: default
-    include: person,publication
+    include: person,publication,organization
   session:
     store-type: jdbc
     jdbc:
