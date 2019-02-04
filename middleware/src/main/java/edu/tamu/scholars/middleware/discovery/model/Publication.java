@@ -24,7 +24,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
             properties = {
                 @Source.Property(name = "type", key = "publication.type.value", schema = "publication.type.schema", parse = true),
                 @Source.Property(name = "identifier", key = "publication.identifier"),
-                @Source.Property(name = "title", key = "publication.title.value", schema = "publication.title.schema", parse = false),
+                @Source.Property(name = "title", key = "publication.title"),
                 @Source.Property(name = "issue", key = "publication.issue"),
                 @Source.Property(name = "volume", key = "publication.volume"),
                 @Source.Property(name = "doi", key = "publication.doi"),

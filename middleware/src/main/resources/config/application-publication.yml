@@ -6,9 +6,7 @@ publication:
     schema: "http://purl.org/ontology/bibo/"
   identifier: "http://purl.org/ontology/bibo/identifier"
 
-  title:
-    value: "http://www.w3.org/2000/01/rdf-schema#label"
-    schema: "http://scholars.library.tamu.edu/vivo/"
+  title: "http://www.w3.org/2000/01/rdf-schema#label"
 
   issue: "http://purl.org/ontology/bibo/issue"
   volume: "http://purl.org/ontology/bibo/volume"
