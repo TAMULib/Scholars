@@ -26,4 +26,10 @@ public class TemplateService {
         return templateEngine.process("confirm-registration", ctx);
     }
 
+    public String templateSparql(String template, String uri) {
+        Context ctx = new Context(Locale.getDefault());
+        ctx.setVariable("uri", uri);
+        return templateEngine.process(template, ctx);
+    }
+
 }

@@ -17,6 +17,9 @@ middleware:
     time-to-live: 60000
     request-timeout: 30000
     socket-timeout: 60000
+  harvest:
+    fixedDelay: 86400000
+    initialDelay: 5000
 
 ui:
   url: http://localhost:4200
@@ -32,6 +35,10 @@ vivo:
 logging:
   file: scholars.log
   level:
+    edu:
+      tamu:
+        scholars:
+          middleware: INFO
     org:
       springframework:
         security: INFO
@@ -92,6 +99,7 @@ spring:
             required: true
   profiles:
     active: test
+    include: person
   session:
     store-type: jdbc
     jdbc:

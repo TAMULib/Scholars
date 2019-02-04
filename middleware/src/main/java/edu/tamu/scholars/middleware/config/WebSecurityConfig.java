@@ -158,7 +158,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PUT, "/users/{id}")
                     .denyAll()
 
-                .antMatchers(GET, "/registration", "/themes/search/active")
+                .antMatchers(GET, "/registration", "/themes/search/active", "/persons", "/persons/{id}")
                     .permitAll()
                 .antMatchers(GET, "/users", "/users/{id}", "/themes", "/themes/{id}")
                     .hasRole("ADMIN")

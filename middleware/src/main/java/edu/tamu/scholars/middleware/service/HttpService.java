@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -62,9 +63,10 @@ public class HttpService {
     }
 
     @PreDestroy
-    private void cleanUp() throws IOException {
+    private void shutdown() throws IOException {
         httpClient.close();
         connectionManager.close();
+        connectionManager.shutdown();
     }
 
     public String get(HttpRequest request) {
@@ -72,12 +74,23 @@ public class HttpService {
         try (CloseableHttpResponse response = request(craftGet(request))) {
             body = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
             response.close();
+            if (!Normalizer.isNormalized(body, Normalizer.Form.NFC)) {
+                body = Normalizer.normalize(body, Normalizer.Form.NFC);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
             logger.warn("Error performing GET request: " + request.getUrl());
+            if (logger.isDebugEnabled()) {
+                e.printStackTrace();
+            }
         } catch (URISyntaxException e) {
-            e.printStackTrace();
             logger.warn("Invalid URI: " + request.getUrl());
+            if (logger.isDebugEnabled()) {
+                e.printStackTrace();
+            }
+        } catch (IllegalStateException e) {
+            if (logger.isDebugEnabled()) {
+                e.printStackTrace();
+            }
         }
         return body;
     }

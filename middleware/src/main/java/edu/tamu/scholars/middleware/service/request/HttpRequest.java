@@ -17,7 +17,8 @@ public class HttpRequest {
     private List<Header> headers;
 
     public HttpRequest() {
-
+        parameters = new ArrayList<NameValuePair>();
+        headers = new ArrayList<Header>();
     }
 
     public String getUrl() {
