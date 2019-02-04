@@ -189,12 +189,6 @@ public class Person extends AbstractSolrDocument {
     private String phone;
 
     @Indexed
-    private List<String> linkUrls;
-
-    @Indexed
-    private List<String> linkLabels;
-
-    @Indexed
     private String postalCode;
 
     @Indexed
@@ -226,6 +220,12 @@ public class Person extends AbstractSolrDocument {
 
     @Indexed
     private String thumbnailId;
+
+    @Indexed
+    private List<String> linkUrls;
+
+    @Indexed
+    private List<String> linkLabels;
 
     @Indexed
     private List<String> researchAreas;
@@ -400,6 +400,14 @@ public class Person extends AbstractSolrDocument {
         this.overview = overview;
     }
 
+    public String getOrcidId() {
+        return orcidId;
+    }
+
+    public void setOrcidId(String orcidId) {
+        this.orcidId = orcidId;
+    }
+
     public String getResearcherId() {
         return researcherId;
     }
@@ -414,14 +422,6 @@ public class Person extends AbstractSolrDocument {
 
     public void setScopusId(String scopusId) {
         this.scopusId = scopusId;
-    }
-
-    public String getOrcidId() {
-        return orcidId;
-    }
-
-    public void setOrcidId(String orcidId) {
-        this.orcidId = orcidId;
     }
 
     public String getTitle() {
@@ -446,22 +446,6 @@ public class Person extends AbstractSolrDocument {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public List<String> getLinkUrls() {
-        return linkUrls;
-    }
-
-    public void setLinkUrls(List<String> linkUrls) {
-        this.linkUrls = linkUrls;
-    }
-
-    public List<String> getLinkLabels() {
-        return linkLabels;
-    }
-
-    public void setLinkLabels(List<String> linkLabels) {
-        this.linkLabels = linkLabels;
     }
 
     public String getPostalCode() {
@@ -550,6 +534,22 @@ public class Person extends AbstractSolrDocument {
 
     public void setThumbnailId(String thumbnailId) {
         this.thumbnailId = thumbnailId;
+    }
+
+    public List<String> getLinkUrls() {
+        return linkUrls;
+    }
+
+    public void setLinkUrls(List<String> linkUrls) {
+        this.linkUrls = linkUrls;
+    }
+
+    public List<String> getLinkLabels() {
+        return linkLabels;
+    }
+
+    public void setLinkLabels(List<String> linkLabels) {
+        this.linkLabels = linkLabels;
     }
 
     public List<String> getResearchAreas() {
