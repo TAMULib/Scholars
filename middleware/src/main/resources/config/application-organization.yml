@@ -1,9 +1,7 @@
 organization:
   class: "http://xmlns.com/foaf/0.1/Organization"
 
-  type:
-    value: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
-    schema: "http://vivoweb.org/ontology/core#"
+  type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
 
   identifier: "http://vivo.library.tamu.edu/ontology/TAMU#OrgID"
 

@@ -20,7 +20,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
       @Source.Sparql(
           template = "organization/organization",
           properties = {
-              @Source.Property(name = "type", key = "organization.type.value", schema = "organization.type.schema", parse = true),
+              @Source.Property(name = "type", key = "organization.type", parse = true),
               @Source.Property(name = "name", key = "organization.name"),
               @Source.Property(name = "abbreviation", key = "organization.abbreviation"),
               @Source.Property(name = "overview", key = "organization.overview")
@@ -195,7 +195,6 @@ public class Organization extends AbstractSolrDocument {
     private List<String> hasPartIds;
 
     public Organization() {
-        this.type = "Organization";
         this.linkUrls = new ArrayList<String>();
         this.linkLabels = new ArrayList<String>();
         this.hasParts = new ArrayList<String>();

@@ -22,7 +22,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
         @Source.Sparql(
             template = "publication/publication",
             properties = {
-                @Source.Property(name = "type", key = "publication.type.value", schema = "publication.type.schema", parse = true),
+                @Source.Property(name = "type", key = "publication.type", parse = true),
                 @Source.Property(name = "identifier", key = "publication.identifier"),
                 @Source.Property(name = "title", key = "publication.title"),
                 @Source.Property(name = "issue", key = "publication.issue"),

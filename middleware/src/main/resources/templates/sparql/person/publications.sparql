@@ -16,4 +16,5 @@ CONSTRUCT {
     ?publication vitro:mostSpecificType ?type .
     ?publication ?dateTimeValue ?date .
     ?date core:dateTime ?dateTime .
+    FILTER (contains(str(?type), "http://purl.org/ontology/bibo/"))
 }

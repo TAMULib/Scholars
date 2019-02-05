@@ -1,13 +1,16 @@
 PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX core: <http://vivoweb.org/ontology/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
     ?publication ?property ?object .
 } WHERE {
     <[(${uri})]> bibo:* ?publication .
     ?publication ?property ?object .
+    ?publication vitro:mostSpecificType $type .
     FILTER (?property != core:dateTimeValue)
     FILTER (?property != core:hasPublicationVenue)
     FILTER (?property != rdf:type)
+    FILTER (contains(str(?type), "http://purl.org/ontology/bibo/"))
 }

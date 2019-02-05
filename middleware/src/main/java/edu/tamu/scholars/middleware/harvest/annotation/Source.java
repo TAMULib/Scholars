@@ -37,8 +37,6 @@ public @interface Source {
         String key();
 
         String id() default "";
-        
-        String schema() default "";
 
         boolean parse() default false;
 

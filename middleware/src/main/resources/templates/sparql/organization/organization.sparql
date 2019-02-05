@@ -14,4 +14,5 @@ CONSTRUCT {
     ?organization vitro:mostSpecificType ?type .
     OPTIONAL { ?organization core:abbreviation ?abbreviation . }
     OPTIONAL { ?organization core:overview ?overview . }
+    FILTER (contains(str(?type), "http://vivoweb.org/ontology/core#"))
 }

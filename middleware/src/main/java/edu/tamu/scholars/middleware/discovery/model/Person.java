@@ -109,7 +109,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
             properties = {
                 @Source.Property(name = "publications", key = "person.publications.label", id = "publicationIds"),
                 @Source.Property(name = "publicationDates", key = "person.publications.date"),
-                @Source.Property(name = "publicationTypes", key = "person.publications.type.value", schema = "person.publications.type.schema", parse = true)
+                @Source.Property(name = "publicationTypes", key = "person.publications.type", parse = true)
             }
         ),
         @Source.Sparql(
