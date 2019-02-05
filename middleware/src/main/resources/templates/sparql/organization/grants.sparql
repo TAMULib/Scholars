@@ -1,0 +1,9 @@
+PREFIX core: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?grant rdfs:label ?name .
+} WHERE {
+    <[(${uri})]> core:assigns ?grant .
+    ?grant rdfs:label ?name .
+}

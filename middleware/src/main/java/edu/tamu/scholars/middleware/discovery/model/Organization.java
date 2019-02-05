@@ -20,10 +20,10 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
       @Source.Sparql(
           template = "organization/organization",
           properties = {
-              @Source.Property(name = "type", key = "organization.type", parse = true),
               @Source.Property(name = "name", key = "organization.name"),
               @Source.Property(name = "abbreviation", key = "organization.abbreviation"),
-              @Source.Property(name = "overview", key = "organization.overview")
+              @Source.Property(name = "overview", key = "organization.overview"),
+              @Source.Property(name = "type", key = "organization.type", parse = true)
           }
       ),
       @Source.Sparql(
@@ -82,11 +82,31 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
           }
       ),
       @Source.Sparql(
+          template = "organization/researchAreas",
+          properties = {
+              @Source.Property(name = "researchAreas", key = "organization.researchAreas", id = "researchAreaIds")
+          }
+      ),
+      @Source.Sparql(
+          template = "organization/grants",
+          properties = {
+              @Source.Property(name = "grants", key = "organization.grants", id = "grantIds")
+          }
+      ),
+      @Source.Sparql(
           template = "organization/degrees",
           properties = {
-              @Source.Property(name = "degrees", key = "organization.degrees.label", id = "degreeIds"),
+              @Source.Property(name = "degrees", key = "organization.degrees.name", id = "degreeIds"),
               @Source.Property(name = "degreeFields", key = "organization.degrees.field"),
               @Source.Property(name = "degreeDates", key = "organization.degrees.date")
+          }
+      ),
+      @Source.Sparql(
+          template = "organization/faculty",
+          properties = {
+              @Source.Property(name = "faculty", key = "organization.faculty.name", id = "facultyIds"),
+              @Source.Property(name = "facultyTitles", key = "organization.faculty.title"),
+              @Source.Property(name = "facultyTypes", key = "organization.faculty.type", parse = true)
           }
       ),
       @Source.Sparql(
@@ -177,6 +197,18 @@ public class Organization extends AbstractSolrDocument {
     private List<String> linkLabels;
 
     @Indexed
+    private List<String> researchAreas;
+
+    @Indexed
+    private List<String> researchAreaIds;
+
+    @Indexed
+    private List<String> grants;
+
+    @Indexed
+    private List<String> grantIds;
+
+    @Indexed
     private List<String> degrees;
 
     @Indexed
@@ -189,6 +221,18 @@ public class Organization extends AbstractSolrDocument {
     private List<String> degreeIds;
 
     @Indexed
+    private List<String> faculty;
+
+    @Indexed
+    private List<String> facultyTitles;
+
+    @Indexed
+    private List<String> facultyTypes;
+
+    @Indexed
+    private List<String> facultyIds;
+
+    @Indexed
     private List<String> hasParts;
 
     @Indexed
@@ -197,6 +241,18 @@ public class Organization extends AbstractSolrDocument {
     public Organization() {
         this.linkUrls = new ArrayList<String>();
         this.linkLabels = new ArrayList<String>();
+        this.grants = new ArrayList<String>();
+        this.grantIds = new ArrayList<String>();
+        this.researchAreas = new ArrayList<String>();
+        this.researchAreaIds = new ArrayList<String>();
+        this.degrees = new ArrayList<String>();
+        this.degreeFields = new ArrayList<String>();
+        this.degreeDates = new ArrayList<String>();
+        this.degreeIds = new ArrayList<String>();
+        this.faculty = new ArrayList<String>();
+        this.facultyTitles = new ArrayList<String>();
+        this.facultyTypes = new ArrayList<String>();
+        this.facultyIds = new ArrayList<String>();
         this.hasParts = new ArrayList<String>();
         this.hasPartIds = new ArrayList<String>();
     }
@@ -385,6 +441,38 @@ public class Organization extends AbstractSolrDocument {
         this.linkLabels = linkLabels;
     }
 
+    public List<String> getResearchAreas() {
+        return researchAreas;
+    }
+
+    public void setResearchAreas(List<String> researchAreas) {
+        this.researchAreas = researchAreas;
+    }
+
+    public List<String> getResearchAreaIds() {
+        return researchAreaIds;
+    }
+
+    public void setResearchAreaIds(List<String> researchAreaIds) {
+        this.researchAreaIds = researchAreaIds;
+    }
+
+    public List<String> getGrants() {
+        return grants;
+    }
+
+    public void setGrants(List<String> grants) {
+        this.grants = grants;
+    }
+
+    public List<String> getGrantIds() {
+        return grantIds;
+    }
+
+    public void setGrantIds(List<String> grantIds) {
+        this.grantIds = grantIds;
+    }
+
     public List<String> getDegrees() {
         return degrees;
     }
@@ -415,6 +503,38 @@ public class Organization extends AbstractSolrDocument {
 
     public void setDegreeIds(List<String> degreeIds) {
         this.degreeIds = degreeIds;
+    }
+
+    public List<String> getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(List<String> faculty) {
+        this.faculty = faculty;
+    }
+
+    public List<String> getFacultyTitles() {
+        return facultyTitles;
+    }
+
+    public void setFacultyTitles(List<String> facultyTitles) {
+        this.facultyTitles = facultyTitles;
+    }
+
+    public List<String> getFacultyTypes() {
+        return facultyTypes;
+    }
+
+    public void setFacultyTypes(List<String> facultyTypes) {
+        this.facultyTypes = facultyTypes;
+    }
+
+    public List<String> getFacultyIds() {
+        return facultyIds;
+    }
+
+    public void setFacultyIds(List<String> facultyIds) {
+        this.facultyIds = facultyIds;
     }
 
     public List<String> getHasParts() {

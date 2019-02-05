@@ -95,25 +95,25 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     }
 
     protected Model list(String predicate) {
-        String response = httpService.get(HttpRequest.listRdf(vivoConfig.getListRdfEndpointUrl(), predicate));
         logger.debug("Listing");
         logger.debug("   predicate: " + predicate);
+        String response = httpService.get(HttpRequest.listRdf(vivoConfig.getListRdfEndpointUrl(), predicate));
         logger.debug("   response:\n" + response);
         return toRdfModel(response);
     }
 
     protected Model individual(String id) {
-        String response = httpService.get(HttpRequest.linkedOpenDataRdf(vivoConfig.getLinkedOpenDataEndpointUrl(), id));
         logger.debug("Getting individual");
         logger.debug("   id: " + id);
+        String response = httpService.get(HttpRequest.linkedOpenDataRdf(vivoConfig.getLinkedOpenDataEndpointUrl(), id));
         logger.debug("   response:\n" + response);
         return toRdfModel(response);
     }
 
     protected Model construct(String query) {
-        String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
         logger.debug("Constructing");
         logger.debug("   query: " + query);
+        String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
         logger.debug("   response:\n" + response);
         return toRdfModel(response);
     }

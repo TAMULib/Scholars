@@ -14,5 +14,5 @@ CONSTRUCT {
     ?organization vitro:mostSpecificType ?type .
     OPTIONAL { ?organization core:abbreviation ?abbreviation . }
     OPTIONAL { ?organization core:overview ?overview . }
-    FILTER (contains(str(?type), "http://vivoweb.org/ontology/core#"))
+    FILTER (contains(str(?type), "http://vivoweb.org/ontology/core#") || contains(str(?type), "http://vivo.library.tamu.edu/ontology/TAMU#") || contains(str(?type), "http://xmlns.com/foaf/0.1/"))
 }
