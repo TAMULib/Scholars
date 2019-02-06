@@ -1,18 +1,17 @@
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX core: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?organization rdfs:label ?name .
-    ?organization vitro:mostSpecificType ?type .
-    ?organization core:abbreviation ?abbreviation .
-    ?organization core:overview ?overview .
+    <[(${uri})]> rdfs:label ?name ;
+    vitro:mostSpecificType ?type ;
+    core:abbreviation ?abbreviation ;
+    core:overview ?overview .
 } WHERE {
-    <[(${uri})]> foaf:* ?organization .
-    ?organization rdfs:label ?name .
-    ?organization vitro:mostSpecificType ?type .
-    OPTIONAL { ?organization core:abbreviation ?abbreviation . }
-    OPTIONAL { ?organization core:overview ?overview . }
+    <[(${uri})]> ?property ?object ;
+    rdfs:label ?name ;
+    vitro:mostSpecificType ?type .
+    OPTIONAL { ?object core:abbreviation ?abbreviation . }
+    OPTIONAL { ?object core:overview ?overview . }
     FILTER (contains(str(?type), "http://vivoweb.org/ontology/core#") || contains(str(?type), "http://vivo.library.tamu.edu/ontology/TAMU#") || contains(str(?type), "http://xmlns.com/foaf/0.1/"))
 }

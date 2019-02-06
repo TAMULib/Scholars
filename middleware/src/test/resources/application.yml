@@ -100,7 +100,7 @@ spring:
             required: true
   profiles:
     active: test
-    include: person,publication,organization
+    include: organization,person,document
   session:
     store-type: jdbc
     jdbc:
