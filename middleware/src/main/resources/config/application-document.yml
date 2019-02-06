@@ -1,5 +1,5 @@
-publication:
-  class: "http://purl.org/ontology/bibo/AcademicArticle"
+document:
+  class: "http://purl.org/ontology/bibo/Document"
 
   type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
   identifier: "http://purl.org/ontology/bibo/identifier"

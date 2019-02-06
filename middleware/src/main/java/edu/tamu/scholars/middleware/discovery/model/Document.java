@@ -17,64 +17,64 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
 @JsonInclude(NON_EMPTY)
 //@formatter:off
 @Source(
-    key = "publication.class",
+    key = "document.class",
     sparql = {
         @Source.Sparql(
-            template = "publication/publication",
+            template = "document/document",
             properties = {
-                @Source.Property(name = "type", key = "publication.type", parse = true),
-                @Source.Property(name = "identifier", key = "publication.identifier"),
-                @Source.Property(name = "title", key = "publication.title"),
-                @Source.Property(name = "issue", key = "publication.issue"),
-                @Source.Property(name = "volume", key = "publication.volume"),
-                @Source.Property(name = "doi", key = "publication.doi"),
-                @Source.Property(name = "isbn10", key = "publication.isbn10"),
-                @Source.Property(name = "isbn13", key = "publication.isbn13"),
-                @Source.Property(name = "issn", key = "publication.issn"),
-                @Source.Property(name = "pcmid", key = "publication.pcmid"),
-                @Source.Property(name = "abstractText", key = "publication.abstract"),
-                @Source.Property(name = "bookTitleForChapter", key = "publication.bookTitleForChapter"),
-                @Source.Property(name = "freetextKeyword", key = "publication.freetextKeyword"),
-                @Source.Property(name = "fullAuthorList", key = "publication.fullAuthorList"),
-                @Source.Property(name = "fullEditorList", key = "publication.fullEditorList"),
-                @Source.Property(name = "pageEnd", key = "publication.pageEnd"),
-                @Source.Property(name = "pageStart", key = "publication.pageStart"),
-                @Source.Property(name = "uri", key = "publication.uri")
+                @Source.Property(name = "type", key = "document.type", parse = true),
+                @Source.Property(name = "identifier", key = "document.identifier"),
+                @Source.Property(name = "title", key = "document.title"),
+                @Source.Property(name = "issue", key = "document.issue"),
+                @Source.Property(name = "volume", key = "document.volume"),
+                @Source.Property(name = "doi", key = "document.doi"),
+                @Source.Property(name = "isbn10", key = "document.isbn10"),
+                @Source.Property(name = "isbn13", key = "document.isbn13"),
+                @Source.Property(name = "issn", key = "document.issn"),
+                @Source.Property(name = "pcmid", key = "document.pcmid"),
+                @Source.Property(name = "abstractText", key = "document.abstract"),
+                @Source.Property(name = "bookTitleForChapter", key = "document.bookTitleForChapter"),
+                @Source.Property(name = "freetextKeyword", key = "document.freetextKeyword"),
+                @Source.Property(name = "fullAuthorList", key = "document.fullAuthorList"),
+                @Source.Property(name = "fullEditorList", key = "document.fullEditorList"),
+                @Source.Property(name = "pageEnd", key = "document.pageEnd"),
+                @Source.Property(name = "pageStart", key = "document.pageStart"),
+                @Source.Property(name = "uri", key = "document.uri")
             }
         ),
         @Source.Sparql(
-            template = "publication/date",
+            template = "document/date",
             properties = {
-                @Source.Property(name = "date", key = "publication.date")
+                @Source.Property(name = "date", key = "document.date")
             }
         ),
         @Source.Sparql(
-            template = "publication/authors",
+            template = "document/authors",
             properties = {
-                @Source.Property(name = "authors", key = "publication.authors", id = "authorIds")
+                @Source.Property(name = "authors", key = "document.authors", id = "authorIds")
             }
         ),
         @Source.Sparql(
-            template = "publication/journal",
+            template = "document/journal",
             properties = {
-                @Source.Property(name = "journal", key = "publication.journal.title", id = "journalId"),
-                @Source.Property(name = "journalIssn", key = "publication.journal.issn")
+                @Source.Property(name = "journal", key = "document.journal.title", id = "journalId"),
+                @Source.Property(name = "journalIssn", key = "document.journal.issn")
             }),
         @Source.Sparql(
-            template = "publication/publisher",
+            template = "document/publisher",
             properties = {
-                @Source.Property(name = "publisher", key = "publication.publisher", id = "publisherId")
+                @Source.Property(name = "publisher", key = "document.publisher", id = "publisherId")
             }
         ),
         @Source.Sparql(
-            template = "publication/publisherOfJournal", properties = {
-                @Source.Property(name = "publisher", key = "publication.publisher", id = "publisherId")
+            template = "document/publisherOfJournal", properties = {
+                @Source.Property(name = "publisher", key = "document.publisher", id = "publisherId")
             }
         ),
         @Source.Sparql(
-            template = "publication/etdChairs",
+            template = "document/etdChairs",
             properties = {
-                @Source.Property(name = "etdChairs", key = "publication.etdChairs", id = "etdChairIds")
+                @Source.Property(name = "etdChairs", key = "document.etdChairs", id = "etdChairIds")
             }
         ),
         @Source.Sparql(
@@ -85,29 +85,29 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
             }
         ),
         @Source.Sparql(
-            template = "publication/grants",
+            template = "document/grants",
             properties = {
-                @Source.Property(name = "grants", key = "publication.grants.title", id = "grantIds"),
-                @Source.Property(name = "grantDates", key = "publication.grants.date")
+                @Source.Property(name = "grants", key = "document.grants.title", id = "grantIds"),
+                @Source.Property(name = "grantDates", key = "document.grants.date")
             }
         ),
         @Source.Sparql(
-            template = "publication/researchAreas",
+            template = "document/researchAreas",
             properties = {
-                @Source.Property(name = "researchAreas", key = "publication.researchAreas", id = "researchAreaIds")
+                @Source.Property(name = "researchAreas", key = "document.researchAreas", id = "researchAreaIds")
             }
         ),
         @Source.Sparql(
-            template = "publication/subjectAreas",
+            template = "document/subjectAreas",
             properties = {
-                @Source.Property(name = "subjectAreas", key = "publication.subjectAreas", id = "subjectAreaIds")
+                @Source.Property(name = "subjectAreas", key = "document.subjectAreas", id = "subjectAreaIds")
             }
         )
     }
 )
 //@formatter:on
-@SolrDocument(collection = "publications")
-public class Publication extends AbstractSolrDocument {
+@SolrDocument(collection = "documents")
+public class Document extends AbstractSolrDocument {
 
     @Indexed
     private String type;
@@ -222,7 +222,7 @@ public class Publication extends AbstractSolrDocument {
     @Indexed
     private List<String> researchAreasIds;
 
-    public Publication() {
+    public Document() {
         this.authors = new ArrayList<String>();
         this.authorIds = new ArrayList<String>();
         this.etdChairs = new ArrayList<String>();
