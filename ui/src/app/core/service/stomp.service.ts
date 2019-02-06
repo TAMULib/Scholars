@@ -68,6 +68,9 @@ export class StompService {
     }
 
     public disconnect(): Observable<any> {
+        if (isPlatformServer(this.platformId)) {
+            return of(false);
+        }
         return new Observable((observer) => {
             if (this.client !== undefined) {
                 this.client.disconnect((frame) => {
@@ -85,6 +88,9 @@ export class StompService {
     }
 
     public subscribe(channel: string, callback: Function): Observable<any> {
+        if (isPlatformServer(this.platformId)) {
+            return of(false);
+        }
         return new Observable((observer) => {
             this.pending.set(channel, {
                 observer: observer,

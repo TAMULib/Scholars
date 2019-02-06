@@ -1,0 +1,8 @@
+PREFIX core: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?date core:dateTime ?dateTime .
+} WHERE {
+    <[(${uri})]> core:dateTimeValue ?date .
+    ?date core:dateTime ?dateTime .
+}

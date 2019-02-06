@@ -53,9 +53,7 @@ person:
   publications:
     label: "http://www.w3.org/2000/01/rdf-schema#label"
     date: "http://vivoweb.org/ontology/core#dateTime"
-    type:
-      value: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
-      schema: "http://purl.org/ontology/bibo/"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
 
   grants:
     label: "http://www.w3.org/2000/01/rdf-schema#label"

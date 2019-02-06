@@ -95,25 +95,25 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     }
 
     protected Model list(String predicate) {
-        String response = httpService.get(HttpRequest.listRdf(vivoConfig.getListRdfEndpointUrl(), predicate));
         logger.debug("Listing");
         logger.debug("   predicate: " + predicate);
+        String response = httpService.get(HttpRequest.listRdf(vivoConfig.getListRdfEndpointUrl(), predicate));
         logger.debug("   response:\n" + response);
         return toRdfModel(response);
     }
 
     protected Model individual(String id) {
-        String response = httpService.get(HttpRequest.linkedOpenDataRdf(vivoConfig.getLinkedOpenDataEndpointUrl(), id));
         logger.debug("Getting individual");
         logger.debug("   id: " + id);
+        String response = httpService.get(HttpRequest.linkedOpenDataRdf(vivoConfig.getLinkedOpenDataEndpointUrl(), id));
         logger.debug("   response:\n" + response);
         return toRdfModel(response);
     }
 
     protected Model construct(String query) {
-        String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
         logger.debug("Constructing");
         logger.debug("   query: " + query);
+        String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
         logger.debug("   response:\n" + response);
         return toRdfModel(response);
     }
@@ -149,8 +149,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
 
     private void lookup(SolrDocumentBuilder builder, Source.Property property) {
         String name = property.name();
-        String targetPredicate = resolve(property.key());
-        String schema = property.schema().isEmpty() ? null : resolve(property.schema());
+        String predicate = resolve(property.key());
         Model model = builder.getModel();
         // NOTE: this could be more efficient if the resource and property are known
         StmtIterator statements = model.listStatements();
@@ -158,13 +157,8 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
             Statement statement = statements.next();
             // System.out.println(statement);
             if (statement != null) {
-                String predicate = statement.getPredicate().toString();
                 String object = statement.getObject().toString();
-                boolean schemaMatch = true;
-                if (schema != null) {
-                    schemaMatch = object.startsWith(schema);
-                }
-                if (schemaMatch && predicate.equals(targetPredicate)) {
+                if (statement.getPredicate().toString().equals(predicate)) {
                     builder.add(name, property.parse() ? parse(object) : object);
                     if (!property.id().isEmpty()) {
                         String subject = statement.getSubject().toString();
