@@ -12,16 +12,37 @@ middleware:
   mail:
     from: noreply@library.tamu.edu
     replyTo: helpdesk@library.tamu.edu
+  http:
+    timeout: 60000
+    time-to-live: 60000
+    request-timeout: 30000
+    socket-timeout: 60000
+  harvest:
+    fixedDelay: 86400000
+    initialDelay: 2500
 
-ui.url: http://localhost:4200
+ui:
+  url: http://localhost:4200
+
+vivo:
+  email: vivoadmin@library.tamu.edu
+  password:
+  base-url: http://localhost:8080/vivo
+  linked-open-data-endpoint: /individual
+  list-rdf-endpoint: /listrdf
+  sparql-query-endpoint: /api/sparqlQuery
 
 logging:
   file: scholars.log
   level:
+    edu:
+      tamu:
+        scholars:
+          middleware: INFO
     org:
       springframework:
-        security: DEBUG
-        web: DEBUG
+        security: INFO
+        web: INFO
   path:
 
 server:
@@ -34,6 +55,8 @@ spring:
       authorize-hal-browser: false
       return-body-on-create: true
       return-body-on-update: true
+    solr:
+      host: http://localhost:8983/solr
   main:
     allow-bean-definition-overriding: false
   messages:
@@ -42,6 +65,9 @@ spring:
     encoding: UTF-8
   devtools:
     add-properties: false
+    restart:
+      enabled: true
+      exclude: src/main/resources,target
   h2:
     console:
       enabled: true
@@ -81,6 +107,7 @@ spring:
     #        required: true
   profiles:
     active: default
+    include: person,publication,organization
   session:
     store-type: jdbc
     jdbc:

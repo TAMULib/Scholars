@@ -1,6 +1,7 @@
 package edu.tamu.scholars.middleware.service;
 
 import static edu.tamu.scholars.middleware.auth.RegistrationTestUtility.getMockRegistration;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 import edu.tamu.scholars.middleware.auth.controller.request.Registration;
 
@@ -34,19 +36,37 @@ public class TemplateServiceTest {
 
         @Bean
         public SpringTemplateEngine templateEngine() {
-            SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-            templateEngine.setTemplateResolver(templateResolver());
+            final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+            templateEngine.addTemplateResolver(htmlTemplateResolver());
+            templateEngine.addTemplateResolver(sparqlTemplateResolver());
             templateEngine.setMessageSource(messageSource());
             return templateEngine;
         }
 
         @Bean
-        public SpringResourceTemplateResolver templateResolver() {
-            SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-            templateResolver.setPrefix("classpath:templates/");
-            templateResolver.setSuffix(".html");
-            templateResolver.setTemplateMode("HTML5");
-            return templateResolver;
+        public SpringResourceTemplateResolver htmlTemplateResolver() {
+            SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+            resolver.setOrder(Integer.valueOf(1));
+            resolver.setPrefix("classpath:/templates/emails/");
+            resolver.setSuffix(".html");
+            resolver.setTemplateMode(TemplateMode.HTML);
+            resolver.setCharacterEncoding(UTF_8.name());
+            resolver.setCheckExistence(true);
+            resolver.setCacheable(false);
+            return resolver;
+        }
+
+        @Bean
+        public SpringResourceTemplateResolver sparqlTemplateResolver() {
+            SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+            resolver.setOrder(Integer.valueOf(2));
+            resolver.setPrefix("classpath:/templates/sparql/");
+            resolver.setSuffix(".sparql");
+            resolver.setTemplateMode(TemplateMode.TEXT);
+            resolver.setCharacterEncoding(UTF_8.name());
+            resolver.setCheckExistence(true);
+            resolver.setCacheable(false);
+            return resolver;
         }
 
         @Bean

@@ -102,7 +102,7 @@
       "VALIDATION": {
         "REQUIRED": "{{field}} is required",
         "EMAIL": "{{field}} must be a valid email",
-        "MIN_LEANGTH": "{{field}} mest be at least {{min}}",
+        "MIN_LENGTH": "{{field}} mest be at least {{min}}",
         "MAX_LENGTH": "{{field}} must be less than {{max}}",
         "CONFIRM_PASSWORD": "{{field}} must match password"
       }

@@ -11,12 +11,14 @@
   </parent>
   <groupId>edu.tamu.scholars</groupId>
   <artifactId>middleware</artifactId>
-  <version>0.0.4-SNAPSHOT</version>
+  <version>0.0.5-SNAPSHOT</version>
   <name>middleware</name>
   <description>VIVO Scholars Middleware</description>
 
   <properties>
     <java.version>1.8</java.version>
+    <dropwizard-metrics.version>3.2.6</dropwizard-metrics.version>
+    <jena-libs.version>3.2.0</jena-libs.version>
   </properties>
 
   <dependencies>
@@ -79,6 +81,56 @@
       <artifactId>spring-data-rest-hal-browser</artifactId>
     </dependency>
 
+
+    <dependency>
+      <groupId>org.apache.solr</groupId>
+      <artifactId>solr-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-slf4j-impl</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-http</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.hadoop</groupId>
+          <artifactId>hadoop-common</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.zookeeper</groupId>
+          <artifactId>zookeeper</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jline</groupId>
+          <artifactId>jline</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>io.dropwizard.metrics</groupId>
+      <artifactId>metrics-core</artifactId>
+      <version>${dropwizard-metrics.version}</version><!--$NO-MVN-MAN-VER$ -->
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>apache-jena-libs</artifactId>
+      <type>pom</type>
+      <version>${jena-libs.version}</version>
+    </dependency>
+
+
     <dependency>
       <groupId>org.passay</groupId>
       <artifactId>passay</artifactId>
@@ -119,6 +171,7 @@
       <artifactId>spring-security-test</artifactId>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>
