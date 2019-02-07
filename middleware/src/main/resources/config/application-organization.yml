@@ -18,28 +18,18 @@ organization:
     country: "http://www.w3.org/2006/vcard/ns#country"
 
   email: "http://www.w3.org/2006/vcard/ns#email"
-  geo: "http://www.w3.org/2006/vcard/ns#geo"
+  geographicLocation: "http://www.w3.org/2006/vcard/ns#geo"
 
-  links:
+  website:
     url: "http://www.w3.org/2006/vcard/ns#url"
     label: "http://www.w3.org/2000/01/rdf-schema#label"
 
-  researchAreas: "http://www.w3.org/2000/01/rdf-schema#label"
+  researchArea: "http://www.w3.org/2000/01/rdf-schema#label"
 
-  grants: "http://www.w3.org/2000/01/rdf-schema#label"
+  successorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
+  predecessorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
 
-  successor: "http://www.w3.org/2000/01/rdf-schema#label"
-  predecessor: "http://www.w3.org/2000/01/rdf-schema#label"
-
-  degrees:
-    name: "http://www.w3.org/2000/01/rdf-schema#label"
-    field: "http://vivoweb.org/ontology/core#majorField"
-    date: "http://vivoweb.org/ontology/core#dateTime"
-
-  faculty:
+  people:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     title: "http://vivoweb.org/ontology/core#hrJobTitle"
-
-  partOf: "http://www.w3.org/2000/01/rdf-schema#label"
-  hasParts: "http://www.w3.org/2000/01/rdf-schema#label"
