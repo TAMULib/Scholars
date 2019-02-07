@@ -128,9 +128,6 @@ import edu.tamu.scholars.middleware.harvest.annotation.Source;
 public class Organization extends AbstractSolrDocument {
 
     @Indexed
-    private String type;
-
-    @Indexed
     private String name;
 
     @Indexed
@@ -191,6 +188,9 @@ public class Organization extends AbstractSolrDocument {
     private String partOfId;
 
     @Indexed
+    private List<String> type;
+
+    @Indexed
     private List<String> linkUrls;
 
     @Indexed
@@ -239,6 +239,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> hasPartIds;
 
     public Organization() {
+        this.type = new ArrayList<String>();
         this.linkUrls = new ArrayList<String>();
         this.linkLabels = new ArrayList<String>();
         this.grants = new ArrayList<String>();
@@ -255,14 +256,6 @@ public class Organization extends AbstractSolrDocument {
         this.facultyIds = new ArrayList<String>();
         this.hasParts = new ArrayList<String>();
         this.hasPartIds = new ArrayList<String>();
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getName() {
@@ -423,6 +416,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setPartOfId(String partOfId) {
         this.partOfId = partOfId;
+    }
+
+    public List<String> getType() {
+        return type;
+    }
+
+    public void setType(List<String> type) {
+        this.type = type;
     }
 
     public List<String> getLinkUrls() {
