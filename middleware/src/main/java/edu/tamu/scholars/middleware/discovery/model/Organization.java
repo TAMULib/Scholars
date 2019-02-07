@@ -9,95 +9,12 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import edu.tamu.scholars.middleware.harvest.annotation.Source;
+import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
-//@formatter:off
-@Source(
-  key = "organization.class",
-  sparql = {
-      @Source.Sparql(
-          template = "organization/organization",
-          properties = {
-              @Source.Property(name = "name", key = "organization.name"),
-              @Source.Property(name = "abbreviation", key = "organization.abbreviation"),
-              @Source.Property(name = "type", key = "organization.type", parse = true),
-              @Source.Property(name = "overview", key = "organization.overview")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/website",
-          properties = {
-              @Source.Property(name = "websiteUrl", key = "organization.website.url"),
-              @Source.Property(name = "websiteLabel", key = "organization.website.label")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/date",
-          properties = {
-              @Source.Property(name = "date", key = "organization.date")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/image",
-          properties = {
-              @Source.Property(name = "imageFilename", key = "organization.image.filename"),
-              @Source.Property(name = "imageMimeType", key = "organization.image.mimeType"),
-              @Source.Property(name = "imageId", key = "organization.image.downloadLocation", parse = true)
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/address",
-          properties = {
-              @Source.Property(name = "postalCode", key = "organization.address.postalCode"),
-              @Source.Property(name = "region", key = "organization.address.region"),
-              @Source.Property(name = "streetAddress", key = "organization.address.streetAddress"),
-              @Source.Property(name = "locality", key = "organization.address.locality"),
-              @Source.Property(name = "country", key = "organization.address.country")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/email",
-          properties = {
-              @Source.Property(name = "email", key = "organization.email")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/geographicLocation",
-          properties = {
-              @Source.Property(name = "geographicLocation", key = "organization.geographicLocation")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/successorOrganization",
-          properties = {
-              @Source.Property(name = "successorOrganization", key = "organization.successorOrganization", id = "successorOrganizationId")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/predecessorOrganization",
-          properties = {
-              @Source.Property(name = "predecessorOrganization", key = "organization.predecessorOrganization", id = "predecessorOrganizationId")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/researchArea",
-          properties = {
-              @Source.Property(name = "researchArea", key = "organization.researchArea", id = "researchAreaId")
-          }
-      ),
-      @Source.Sparql(
-          template = "organization/people",
-          properties = {
-              @Source.Property(name = "people", key = "organization.people.name", id = "peopleId"),
-              @Source.Property(name = "peopleTitle", key = "organization.people.title"),
-              @Source.Property(name = "peopleType", key = "organization.people.type", parse = true)
-          }
-      )
-  }
-)
-//@formatter:on
 @SolrDocument(collection = "organizations")
+@CollectionSource(key = "organization.class")
 public class Organization extends AbstractSolrDocument {
 
     @Indexed
@@ -110,9 +27,11 @@ public class Organization extends AbstractSolrDocument {
     private String imageId;
 
     @Indexed
+    @PropertySource(template = "organization/organization", key = "organization.name")
     private String name;
 
     @Indexed
+    @PropertySource(template = "organization/type", key = "organization.type", parse = true)
     private List<String> type;
 
     @Indexed
@@ -167,6 +86,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> organizationForTrainingId;
 
     @Indexed
+    @PropertySource(template = "organization/people", key = "organization.people.name", id = "peopleId")
     private List<String> people;
 
     @Indexed
@@ -346,8 +266,15 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private String country;
 
+    // NOTE: websiteUrl, fax, emailAddress, StreetAddress, locality, region, postalCode, and country belong to this vcard
+    @Indexed
+    private String vcardId;
+
     @Indexed(type = "location")
     private String geographicLocation;
+
+    @Indexed
+    private String geographicLocationId;
 
     @Indexed
     private List<String> locatedAtFacility;

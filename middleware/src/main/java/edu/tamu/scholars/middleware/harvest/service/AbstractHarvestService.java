@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Statement;
@@ -25,7 +26,8 @@ import org.springframework.core.env.Environment;
 import edu.tamu.scholars.middleware.config.VivoConfig;
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 import edu.tamu.scholars.middleware.discovery.service.SolrIndexService;
-import edu.tamu.scholars.middleware.harvest.annotation.Source;
+import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 import edu.tamu.scholars.middleware.harvest.service.helper.SolrDocumentBuilder;
 import edu.tamu.scholars.middleware.service.HttpService;
 import edu.tamu.scholars.middleware.service.TemplateService;
@@ -59,7 +61,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     private S indexer;
 
     public void harvest() {
-        Source source = indexer.type().getAnnotation(Source.class);
+        CollectionSource source = indexer.type().getAnnotation(CollectionSource.class);
         Model listModel = list(resolve(source.key()));
         StmtIterator stmtIterator = listModel.listStatements();
         if (stmtIterator.hasNext()) {
@@ -120,36 +122,30 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
 
     private D createDocument(String subject) throws Exception {
         D document = construct();
-
         Field idField = field(ID);
         idField.setAccessible(true);
         idField.set(document, parse(subject));
-
-        Source source = indexer.type().getAnnotation(Source.class);
-        SolrDocumentBuilder builder = SolrDocumentBuilder.of(subject, source);
-
-        lookup(builder);
+        SolrDocumentBuilder builder = SolrDocumentBuilder.of(subject, indexer.type());
+        lookupProperties(builder);
         populate(document, builder);
-
         return document;
     }
 
-    private void lookup(SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
-        Source source = builder.getSource();
-        for (Source.Sparql sparql : source.sparql()) {
-            String query = templateService.templateSparql(sparql.template(), builder.getSubject());
-            // NOTE: model response of a SparQL query must be homogeneous subjects, i.e. only one subject defined in the CONSTRUCT
+    private void lookupProperties(SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException {
+        builder.getFields().forEach(field -> {
+            PropertySource source = field.getAnnotation(PropertySource.class);
+            String query = templateService.templateSparql(source.template(), builder.getSubject());
             Model model = construct(query);
+            builder.setField(field);
             builder.setModel(model);
-            for (Source.Property property : sparql.properties()) {
-                lookup(builder, property);
-            }
-        }
+            lookupProperty(builder);
+        });
     }
 
-    private void lookup(SolrDocumentBuilder builder, Source.Property property) {
-        String name = property.name();
-        String predicate = resolve(property.key());
+    private void lookupProperty(SolrDocumentBuilder builder) {
+        String name = builder.getPropertyName();
+        PropertySource source = builder.getPropertySource();
+        String predicate = resolve(source.key());
         Model model = builder.getModel();
         // NOTE: this could be more efficient if the resource and property are known
         StmtIterator statements = model.listStatements();
@@ -159,17 +155,17 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
             if (statement != null) {
                 String object = statement.getObject().toString();
                 if (statement.getPredicate().toString().equals(predicate)) {
-                    builder.add(name, property.parse() ? parse(object) : object);
-                    if (!property.id().isEmpty()) {
+                    builder.add(name, source.parse() ? parse(object) : object);
+                    if (!source.id().isEmpty()) {
                         String subject = statement.getSubject().toString();
-                        builder.add(property.id(), parse(subject));
+                        builder.add(source.id(), parse(subject));
                     }
                 }
             }
         }
     }
 
-    private void populate(D document, SolrDocumentBuilder builder) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    private void populate(D document, SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException {
         for (Map.Entry<String, List<String>> entry : builder.getCollections().entrySet()) {
             List<String> values = entry.getValue();
             if (values.isEmpty()) {
@@ -206,24 +202,8 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         return (D) indexer.type().getConstructor().newInstance(new Object[0]);
     }
 
-    private Field field(String name) throws NoSuchFieldException, SecurityException {
-        return getField(indexer.type(), name);
-    }
-
-    private Field getField(Class<?> clazz, String name) throws NoSuchFieldException, SecurityException {
-        Field field = null;
-        try {
-            field = clazz.getDeclaredField(name);
-        } catch (NoSuchFieldException e) {
-            // do nothing
-        }
-        if (field != null) {
-            return field;
-        } else if (clazz.getSuperclass() != null) {
-            return getField(clazz.getSuperclass(), name);
-        } else {
-            throw new NoSuchFieldException(String.format("Unabled to find %s", name));
-        }
+    private Field field(String name) {
+        return FieldUtils.getField(indexer.type(), name, true);
     }
 
 }

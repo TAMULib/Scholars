@@ -10,144 +10,145 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import edu.tamu.scholars.middleware.harvest.annotation.Source;
+import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
 
 @JsonInclude(NON_EMPTY)
+@CollectionSource(key = "person.class")
 // @formatter:off
-@Source(
-    key = "person.class",
-    sparql = {
-        @Source.Sparql(
-            template = "person/person",
-            properties = {
-                @Source.Property(name = "uid", key = "person.uid"),
-                @Source.Property(name = "name", key = "person.name"),
-                @Source.Property(name = "firstName", key = "person.firstName"),
-                @Source.Property(name = "middleName", key = "person.middleName"),
-                @Source.Property(name = "lastName", key = "person.lastName"),
-                @Source.Property(name = "title", key = "person.title"),
-                @Source.Property(name = "email", key = "person.email"),
-                @Source.Property(name = "overview", key = "person.overview"),
-                @Source.Property(name = "researcherId", key = "person.researcherId"),
-                @Source.Property(name = "scopusId", key = "person.scopusId"),
-                @Source.Property(name = "orcidId", key = "person.orcidId", parse = true)
-            }
-        ),
-        @Source.Sparql(
-            template = "person/address",
-            properties = {
-                @Source.Property(name = "postalCode", key = "person.address.postalCode"),
-                @Source.Property(name = "region", key = "person.address.region"),
-                @Source.Property(name = "streetAddress", key = "person.address.streetAddress"),
-                @Source.Property(name = "locality", key = "person.address.locality"),
-                @Source.Property(name = "country", key = "person.address.country")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/phone",
-            properties = {
-                @Source.Property(name = "phone", key = "person.phone")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/links",
-            properties = {
-                @Source.Property(name = "linkUrls", key = "person.links.url"),
-                @Source.Property(name = "linkLabels", key = "person.links.label")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/image",
-            properties = {
-                @Source.Property(name = "imageFilename", key = "person.image.filename"),
-                @Source.Property(name = "imageMimeType", key = "person.image.mimeType"),
-                @Source.Property(name = "imageId", key = "person.image.downloadLocation", parse = true)
-            }
-        ),
-        @Source.Sparql(
-            template = "person/thumbnail",
-            properties = {
-                @Source.Property(name = "thumbnailFilename", key = "person.thumbnail.filename"),
-                @Source.Property(name = "thumbnailMimeType", key = "person.thumbnail.mimeType"),
-                @Source.Property(name = "thumbnailId", key = "person.thumbnail.downloadLocation", parse = true)
-            }
-        ),
-        @Source.Sparql(
-            template = "person/researchAreas",
-            properties = {
-                @Source.Property(name = "researchAreas", key = "person.researchAreas", id = "researchAreaIds")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/positions",
-            properties = {
-                @Source.Property(name = "positions", key = "person.positions", id = "positionIds")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/organizations",
-            properties = {
-                @Source.Property(name = "organizations", key = "person.organizations", id = "organizationIds")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/teachings",
-            properties = {
-                @Source.Property(name = "teachings", key = "person.teachings", id = "teachingIds")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/degrees",
-            properties = {
-                @Source.Property(name = "degrees", key = "person.degrees.label", id = "degreeIds"),
-                @Source.Property(name = "degreeFields", key = "person.degrees.field"),
-                @Source.Property(name = "degreeDates", key = "person.degrees.date")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/publications",
-            properties = {
-                @Source.Property(name = "publications", key = "person.publications.label", id = "publicationIds"),
-                @Source.Property(name = "publicationDates", key = "person.publications.date"),
-                @Source.Property(name = "publicationTypes", key = "person.publications.type", parse = true)
-            }
-        ),
-        @Source.Sparql(
-            template = "person/grants",
-            properties = {
-                @Source.Property(name = "grants", key = "person.grants.label", id = "grantIds"),
-                @Source.Property(name = "grantDates", key = "person.grants.date")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/awards",
-            properties = {
-                @Source.Property(name = "awards", key = "person.awards.label", id = "awardIds"),
-                @Source.Property(name = "awardDates", key = "person.awards.date")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/memberships",
-            properties = {
-                @Source.Property(name = "memberships", key = "person.memberships.label", id = "membershipIds"),
-                @Source.Property(name = "membershipDates", key = "person.memberships.date")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/advisings",
-            properties = {
-                @Source.Property(name = "advisings", key = "person.advisings.label", id = "advisingIds"),
-                @Source.Property(name = "advisingDates", key = "person.advisings.date")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/workByStudents",
-            properties = {
-                @Source.Property(name = "workByStudents", key = "person.workByStudents", id = "workByStudentIds")
-            }
-        )
-    }
-)
+//@PropertySource(
+//    key = "person.class",
+//    sparql = {
+//        @PropertySource.Sparql(
+//            template = "person/person",
+//            properties = {
+//                @PropertySource.Property(name = "uid", key = "person.uid"),
+//                @PropertySource.Property(name = "name", key = "person.name"),
+//                @PropertySource.Property(name = "firstName", key = "person.firstName"),
+//                @PropertySource.Property(name = "middleName", key = "person.middleName"),
+//                @PropertySource.Property(name = "lastName", key = "person.lastName"),
+//                @PropertySource.Property(name = "title", key = "person.title"),
+//                @PropertySource.Property(name = "email", key = "person.email"),
+//                @PropertySource.Property(name = "overview", key = "person.overview"),
+//                @PropertySource.Property(name = "researcherId", key = "person.researcherId"),
+//                @PropertySource.Property(name = "scopusId", key = "person.scopusId"),
+//                @PropertySource.Property(name = "orcidId", key = "person.orcidId", parse = true)
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/address",
+//            properties = {
+//                @PropertySource.Property(name = "postalCode", key = "person.address.postalCode"),
+//                @PropertySource.Property(name = "region", key = "person.address.region"),
+//                @PropertySource.Property(name = "streetAddress", key = "person.address.streetAddress"),
+//                @PropertySource.Property(name = "locality", key = "person.address.locality"),
+//                @PropertySource.Property(name = "country", key = "person.address.country")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/phone",
+//            properties = {
+//                @PropertySource.Property(name = "phone", key = "person.phone")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/links",
+//            properties = {
+//                @PropertySource.Property(name = "linkUrls", key = "person.links.url"),
+//                @PropertySource.Property(name = "linkLabels", key = "person.links.label")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/image",
+//            properties = {
+//                @PropertySource.Property(name = "imageFilename", key = "person.image.filename"),
+//                @PropertySource.Property(name = "imageMimeType", key = "person.image.mimeType"),
+//                @PropertySource.Property(name = "imageId", key = "person.image.downloadLocation", parse = true)
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/thumbnail",
+//            properties = {
+//                @PropertySource.Property(name = "thumbnailFilename", key = "person.thumbnail.filename"),
+//                @PropertySource.Property(name = "thumbnailMimeType", key = "person.thumbnail.mimeType"),
+//                @PropertySource.Property(name = "thumbnailId", key = "person.thumbnail.downloadLocation", parse = true)
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/researchAreas",
+//            properties = {
+//                @PropertySource.Property(name = "researchAreas", key = "person.researchAreas", id = "researchAreaIds")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/positions",
+//            properties = {
+//                @PropertySource.Property(name = "positions", key = "person.positions", id = "positionIds")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/organizations",
+//            properties = {
+//                @PropertySource.Property(name = "organizations", key = "person.organizations", id = "organizationIds")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/teachings",
+//            properties = {
+//                @PropertySource.Property(name = "teachings", key = "person.teachings", id = "teachingIds")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/degrees",
+//            properties = {
+//                @PropertySource.Property(name = "degrees", key = "person.degrees.label", id = "degreeIds"),
+//                @PropertySource.Property(name = "degreeFields", key = "person.degrees.field"),
+//                @PropertySource.Property(name = "degreeDates", key = "person.degrees.date")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/publications",
+//            properties = {
+//                @PropertySource.Property(name = "publications", key = "person.publications.label", id = "publicationIds"),
+//                @PropertySource.Property(name = "publicationDates", key = "person.publications.date"),
+//                @PropertySource.Property(name = "publicationTypes", key = "person.publications.type", parse = true)
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/grants",
+//            properties = {
+//                @PropertySource.Property(name = "grants", key = "person.grants.label", id = "grantIds"),
+//                @PropertySource.Property(name = "grantDates", key = "person.grants.date")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/awards",
+//            properties = {
+//                @PropertySource.Property(name = "awards", key = "person.awards.label", id = "awardIds"),
+//                @PropertySource.Property(name = "awardDates", key = "person.awards.date")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/memberships",
+//            properties = {
+//                @PropertySource.Property(name = "memberships", key = "person.memberships.label", id = "membershipIds"),
+//                @PropertySource.Property(name = "membershipDates", key = "person.memberships.date")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/advisings",
+//            properties = {
+//                @PropertySource.Property(name = "advisings", key = "person.advisings.label", id = "advisingIds"),
+//                @PropertySource.Property(name = "advisingDates", key = "person.advisings.date")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/workByStudents",
+//            properties = {
+//                @PropertySource.Property(name = "workByStudents", key = "person.workByStudents", id = "workByStudentIds")
+//            }
+//        )
+//    }
+//)
 // @formatter:on
 @SolrDocument(collection = "persons")
 public class Person extends AbstractSolrDocument {

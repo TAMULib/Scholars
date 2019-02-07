@@ -12,99 +12,100 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import edu.tamu.scholars.middleware.harvest.annotation.Source;
+import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
 
 @JsonInclude(NON_EMPTY)
+@CollectionSource(key = "document.class")
 //@formatter:off
-@Source(
-    key = "document.class",
-    sparql = {
-        @Source.Sparql(
-            template = "document/document",
-            properties = {
-                @Source.Property(name = "type", key = "document.type", parse = true),
-                @Source.Property(name = "identifier", key = "document.identifier"),
-                @Source.Property(name = "title", key = "document.title"),
-                @Source.Property(name = "issue", key = "document.issue"),
-                @Source.Property(name = "volume", key = "document.volume"),
-                @Source.Property(name = "doi", key = "document.doi"),
-                @Source.Property(name = "isbn10", key = "document.isbn10"),
-                @Source.Property(name = "isbn13", key = "document.isbn13"),
-                @Source.Property(name = "issn", key = "document.issn"),
-                @Source.Property(name = "pcmid", key = "document.pcmid"),
-                @Source.Property(name = "abstractText", key = "document.abstract"),
-                @Source.Property(name = "bookTitleForChapter", key = "document.bookTitleForChapter"),
-                @Source.Property(name = "freetextKeyword", key = "document.freetextKeyword"),
-                @Source.Property(name = "fullAuthorList", key = "document.fullAuthorList"),
-                @Source.Property(name = "fullEditorList", key = "document.fullEditorList"),
-                @Source.Property(name = "pageEnd", key = "document.pageEnd"),
-                @Source.Property(name = "pageStart", key = "document.pageStart"),
-                @Source.Property(name = "uri", key = "document.uri")
-            }
-        ),
-        @Source.Sparql(
-            template = "document/date",
-            properties = {
-                @Source.Property(name = "date", key = "document.date")
-            }
-        ),
-        @Source.Sparql(
-            template = "document/authors",
-            properties = {
-                @Source.Property(name = "authors", key = "document.authors", id = "authorIds")
-            }
-        ),
-        @Source.Sparql(
-            template = "document/journal",
-            properties = {
-                @Source.Property(name = "journal", key = "document.journal.title", id = "journalId"),
-                @Source.Property(name = "journalIssn", key = "document.journal.issn")
-            }),
-        @Source.Sparql(
-            template = "document/publisher",
-            properties = {
-                @Source.Property(name = "publisher", key = "document.publisher", id = "publisherId")
-            }
-        ),
-        @Source.Sparql(
-            template = "document/publisherOfJournal", properties = {
-                @Source.Property(name = "publisher", key = "document.publisher", id = "publisherId")
-            }
-        ),
-        @Source.Sparql(
-            template = "document/etdChairs",
-            properties = {
-                @Source.Property(name = "etdChairs", key = "document.etdChairs", id = "etdChairIds")
-            }
-        ),
-        @Source.Sparql(
-            template = "person/links",
-            properties = {
-                @Source.Property(name = "linkUrls", key = "person.links.url"),
-                @Source.Property(name = "linkLabels", key = "person.links.label")
-            }
-        ),
-        @Source.Sparql(
-            template = "document/grants",
-            properties = {
-                @Source.Property(name = "grants", key = "document.grants.title", id = "grantIds"),
-                @Source.Property(name = "grantDates", key = "document.grants.date")
-            }
-        ),
-        @Source.Sparql(
-            template = "document/researchAreas",
-            properties = {
-                @Source.Property(name = "researchAreas", key = "document.researchAreas", id = "researchAreaIds")
-            }
-        ),
-        @Source.Sparql(
-            template = "document/subjectAreas",
-            properties = {
-                @Source.Property(name = "subjectAreas", key = "document.subjectAreas", id = "subjectAreaIds")
-            }
-        )
-    }
-)
+//@PropertySource(
+//    key = "document.class",
+//    sparql = {
+//        @PropertySource.Sparql(
+//            template = "document/document",
+//            properties = {
+//                @PropertySource.Property(name = "type", key = "document.type", parse = true),
+//                @PropertySource.Property(name = "identifier", key = "document.identifier"),
+//                @PropertySource.Property(name = "title", key = "document.title"),
+//                @PropertySource.Property(name = "issue", key = "document.issue"),
+//                @PropertySource.Property(name = "volume", key = "document.volume"),
+//                @PropertySource.Property(name = "doi", key = "document.doi"),
+//                @PropertySource.Property(name = "isbn10", key = "document.isbn10"),
+//                @PropertySource.Property(name = "isbn13", key = "document.isbn13"),
+//                @PropertySource.Property(name = "issn", key = "document.issn"),
+//                @PropertySource.Property(name = "pcmid", key = "document.pcmid"),
+//                @PropertySource.Property(name = "abstractText", key = "document.abstract"),
+//                @PropertySource.Property(name = "bookTitleForChapter", key = "document.bookTitleForChapter"),
+//                @PropertySource.Property(name = "freetextKeyword", key = "document.freetextKeyword"),
+//                @PropertySource.Property(name = "fullAuthorList", key = "document.fullAuthorList"),
+//                @PropertySource.Property(name = "fullEditorList", key = "document.fullEditorList"),
+//                @PropertySource.Property(name = "pageEnd", key = "document.pageEnd"),
+//                @PropertySource.Property(name = "pageStart", key = "document.pageStart"),
+//                @PropertySource.Property(name = "uri", key = "document.uri")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "document/date",
+//            properties = {
+//                @PropertySource.Property(name = "date", key = "document.date")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "document/authors",
+//            properties = {
+//                @PropertySource.Property(name = "authors", key = "document.authors", id = "authorIds")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "document/journal",
+//            properties = {
+//                @PropertySource.Property(name = "journal", key = "document.journal.title", id = "journalId"),
+//                @PropertySource.Property(name = "journalIssn", key = "document.journal.issn")
+//            }),
+//        @PropertySource.Sparql(
+//            template = "document/publisher",
+//            properties = {
+//                @PropertySource.Property(name = "publisher", key = "document.publisher", id = "publisherId")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "document/publisherOfJournal", properties = {
+//                @PropertySource.Property(name = "publisher", key = "document.publisher", id = "publisherId")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "document/etdChairs",
+//            properties = {
+//                @PropertySource.Property(name = "etdChairs", key = "document.etdChairs", id = "etdChairIds")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "person/links",
+//            properties = {
+//                @PropertySource.Property(name = "linkUrls", key = "person.links.url"),
+//                @PropertySource.Property(name = "linkLabels", key = "person.links.label")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "document/grants",
+//            properties = {
+//                @PropertySource.Property(name = "grants", key = "document.grants.title", id = "grantIds"),
+//                @PropertySource.Property(name = "grantDates", key = "document.grants.date")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "document/researchAreas",
+//            properties = {
+//                @PropertySource.Property(name = "researchAreas", key = "document.researchAreas", id = "researchAreaIds")
+//            }
+//        ),
+//        @PropertySource.Sparql(
+//            template = "document/subjectAreas",
+//            properties = {
+//                @PropertySource.Property(name = "subjectAreas", key = "document.subjectAreas", id = "subjectAreaIds")
+//            }
+//        )
+//    }
+//)
 //@formatter:on
 @SolrDocument(collection = "documents")
 public class Document extends AbstractSolrDocument {
