@@ -17,8 +17,6 @@ organization:
 
   orgId: "http://vivo.library.tamu.edu/ontology/TAMU#OrgID"
 
-  
-
   address:
     postalCode: "http://www.w3.org/2006/vcard/ns#postalCode"
     region: "http://www.w3.org/2006/vcard/ns#region"

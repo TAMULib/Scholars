@@ -13,16 +13,32 @@ import java.util.Map;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.jena.query.Dataset;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.sdb.SDB;
+import org.apache.jena.sdb.SDBFactory;
+import org.apache.jena.sdb.Store;
+import org.apache.jena.sdb.StoreDesc;
+import org.apache.jena.sdb.sql.JDBC;
+import org.apache.jena.sdb.sql.SDBConnection;
+import org.apache.jena.sdb.store.DatabaseType;
+import org.apache.jena.sdb.store.LayoutType;
+import org.apache.jena.shared.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
+import edu.tamu.scholars.middleware.config.TriplestoreConfig;
 import edu.tamu.scholars.middleware.config.VivoConfig;
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 import edu.tamu.scholars.middleware.discovery.service.SolrIndexService;
@@ -59,6 +75,33 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
 
     @Autowired
     private S indexer;
+
+    private Store store;
+
+    private Dataset dataset;
+
+    @PostConstruct
+    public void connect() {
+        // NOTE: only supporting SDB with MySQL for now
+        if (vivoConfig.isDirectSparQL()) {
+            TriplestoreConfig tripleStoreConfig = vivoConfig.getTriplestore();
+            SDB.getContext().set(SDB.unionDefaultGraph, true);
+            StoreDesc storeDesc = new StoreDesc(LayoutType.fetch(tripleStoreConfig.getLayoutType()), DatabaseType.fetch(tripleStoreConfig.getDatabaseType()));
+            JDBC.loadDriverMySQL();
+            SDBConnection conn = new SDBConnection(tripleStoreConfig.getDatasourceUrl(), tripleStoreConfig.getUsername(), tripleStoreConfig.getPassword());
+            Store store = SDBFactory.connectStore(conn, storeDesc);
+            dataset = SDBFactory.connectDataset(store);
+        }
+    }
+
+    @PreDestroy
+    public void disconnect() {
+        if (vivoConfig.isDirectSparQL()) {
+            dataset.close();
+            store.getConnection().close();
+            store.close();
+        }
+    }
 
     public void harvest() {
         CollectionSource source = indexer.type().getAnnotation(CollectionSource.class);
@@ -115,9 +158,18 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     protected Model construct(String query) {
         logger.debug("Constructing");
         logger.debug("   query: " + query);
-        String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
-        logger.debug("   response:\n" + response);
-        return toRdfModel(response);
+        if (vivoConfig.isDirectSparQL()) {
+            dataset.getLock().enterCriticalSection(Lock.READ);
+            try (QueryExecution qe = QueryExecutionFactory.create(query, dataset)) {
+                return qe.execConstruct();
+            } finally {
+                dataset.getLock().leaveCriticalSection();
+            }
+        } else {
+            String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
+            logger.debug(" response:\n" + response);
+            return toRdfModel(response);
+        }
     }
 
     private D createDocument(String subject) throws Exception {
