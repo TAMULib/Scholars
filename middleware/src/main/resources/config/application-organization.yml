@@ -1,14 +1,23 @@
 organization:
   class: "http://xmlns.com/foaf/0.1/Organization"
 
-  type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
-
-  identifier: "http://vivo.library.tamu.edu/ontology/TAMU#OrgID"
-
   name: "http://www.w3.org/2000/01/rdf-schema#label"
-
-  abbreviation: "http://vivoweb.org/ontology/core#abbreviation"
+  type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#downloadLocation"
+  website:
+    url: "http://www.w3.org/2006/vcard/ns#url"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
   overview: "http://vivoweb.org/ontology/core#overview"
+  offersDegree:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    field: "http://vivoweb.org/ontology/core#majorField"
+  abbreviation: "http://vivoweb.org/ontology/core#abbreviation"
+
+  date: "http://vivoweb.org/ontology/core#dateTime"
+
+  orgId: "http://vivo.library.tamu.edu/ontology/TAMU#OrgID"
+
+  
 
   address:
     postalCode: "http://www.w3.org/2006/vcard/ns#postalCode"
@@ -20,16 +29,12 @@ organization:
   email: "http://www.w3.org/2006/vcard/ns#email"
   geographicLocation: "http://www.w3.org/2006/vcard/ns#geo"
 
-  website:
-    url: "http://www.w3.org/2006/vcard/ns#url"
-    label: "http://www.w3.org/2000/01/rdf-schema#label"
-
-  researchArea: "http://www.w3.org/2000/01/rdf-schema#label"
-
-  successorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
   predecessorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
+  successorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
 
   people:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     title: "http://vivoweb.org/ontology/core#hrJobTitle"
+
+  hasResearchArea: "http://www.w3.org/2000/01/rdf-schema#label"

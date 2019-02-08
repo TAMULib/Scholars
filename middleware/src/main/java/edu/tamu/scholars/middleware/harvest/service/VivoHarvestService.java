@@ -23,7 +23,7 @@ public class VivoHarvestService {
     @Scheduled(fixedDelayString = "${middleware.harvest.fixedDelay}", initialDelayString = "${middleware.harvest.initialDelay}")
     public void harvest() {
         Instant allHarvsetStart = Instant.now();
-        for(HarvestService harvester : harvesters) {
+        for (HarvestService harvester : harvesters) {
             logger.info(String.format("Harvesting %s", harvester.name()));
             Instant start = Instant.now();
             harvester.harvest();

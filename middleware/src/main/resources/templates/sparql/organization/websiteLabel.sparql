@@ -1,10 +1,11 @@
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?url ?property ?object .
+    ?hasURL rdfs:label ?label .
 } WHERE {
     <[(${uri})]> obo:ARG_2000028 ?vcard .
-    ?vcard vcard:hasURL ?url .
-    ?url ?property ?object .
+    ?vcard vcard:hasURL ?hasURL .
+    ?hasURL rdfs:label ?label .
 }
