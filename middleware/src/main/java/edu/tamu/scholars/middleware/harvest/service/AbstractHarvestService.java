@@ -13,9 +13,6 @@ import java.util.Map;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.jena.query.Dataset;
 import org.apache.jena.query.QueryExecution;
@@ -28,7 +25,6 @@ import org.apache.jena.sdb.SDB;
 import org.apache.jena.sdb.SDBFactory;
 import org.apache.jena.sdb.Store;
 import org.apache.jena.sdb.StoreDesc;
-import org.apache.jena.sdb.sql.JDBC;
 import org.apache.jena.sdb.sql.SDBConnection;
 import org.apache.jena.sdb.store.DatabaseType;
 import org.apache.jena.sdb.store.LayoutType;
@@ -80,33 +76,12 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
 
     private Dataset dataset;
 
-    @PostConstruct
-    public void connect() {
-        // NOTE: only supporting SDB with MySQL for now
-        if (vivoConfig.isDirectSparQL()) {
-            TriplestoreConfig tripleStoreConfig = vivoConfig.getTriplestore();
-            SDB.getContext().set(SDB.unionDefaultGraph, true);
-            StoreDesc storeDesc = new StoreDesc(LayoutType.fetch(tripleStoreConfig.getLayoutType()), DatabaseType.fetch(tripleStoreConfig.getDatabaseType()));
-            JDBC.loadDriverMySQL();
-            SDBConnection conn = new SDBConnection(tripleStoreConfig.getDatasourceUrl(), tripleStoreConfig.getUsername(), tripleStoreConfig.getPassword());
-            Store store = SDBFactory.connectStore(conn, storeDesc);
-            dataset = SDBFactory.connectDataset(store);
-        }
-    }
-
-    @PreDestroy
-    public void disconnect() {
-        if (vivoConfig.isDirectSparQL()) {
-            dataset.close();
-            store.getConnection().close();
-            store.close();
-        }
-    }
-
     public void harvest() {
+        openTriplestore();
         CollectionSource source = indexer.type().getAnnotation(CollectionSource.class);
         Model listModel = list(resolve(source.key()));
         StmtIterator stmtIterator = listModel.listStatements();
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "16");
         if (stmtIterator.hasNext()) {
             Iterable<Statement> stmtIterable = () -> stmtIterator;
             Stream<Statement> stmtStream = StreamSupport.stream(stmtIterable.spliterator(), false);
@@ -133,6 +108,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         } else {
             logger.warn(String.format("No %s found!", name()));
         }
+        closeTriplestore();
     }
 
     public String name() {
@@ -169,6 +145,26 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
             String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
             logger.debug(" response:\n" + response);
             return toRdfModel(response);
+        }
+    }
+
+    private void openTriplestore() {
+        // NOTE: only supporting SDB with MySQL for now
+        if (vivoConfig.isDirectSparQL()) {
+            TriplestoreConfig tripleStoreConfig = vivoConfig.getTriplestore();
+            SDB.getContext().set(SDB.unionDefaultGraph, true);
+            StoreDesc storeDesc = new StoreDesc(LayoutType.fetch(tripleStoreConfig.getLayoutType()), DatabaseType.fetch(tripleStoreConfig.getDatabaseType()));
+            SDBConnection conn = new SDBConnection(tripleStoreConfig.getDatasourceUrl(), tripleStoreConfig.getUsername(), tripleStoreConfig.getPassword());
+            store = SDBFactory.connectStore(conn, storeDesc);
+            dataset = SDBFactory.connectDataset(store);
+        }
+    }
+
+    private void closeTriplestore() {
+        if (vivoConfig.isDirectSparQL()) {
+            store.getConnection().close();
+            store.close();
+            dataset.close();
         }
     }
 
