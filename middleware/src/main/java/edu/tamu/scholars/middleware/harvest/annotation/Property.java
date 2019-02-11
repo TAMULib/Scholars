@@ -10,12 +10,15 @@ import java.lang.annotation.Target;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Documented
-public @interface CollectionSource {
+public @interface Property {
 
-    String template();
+    String name();
 
     String key();
 
-    Property[] properties() default {};
+    String id() default "";
+
+    // NOTE: extracts identifier from url, after last / or #
+    boolean parse() default false;
 
 }

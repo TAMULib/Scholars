@@ -4,8 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "vivo.tirplestore")
+@ConfigurationProperties(prefix = "vivo.triplestore")
 public class TriplestoreConfig {
+
+    private TriplestoreType type = TriplestoreType.SDB;
 
     private String layoutType = "layout2/hash";
 
@@ -17,8 +19,26 @@ public class TriplestoreConfig {
 
     private String password;
 
+    private boolean unionDefaultGraph = true;
+
+    private boolean jdbcStream = true;
+
+    private int jdbcFetchSize = 512;
+
+    private boolean streamGraphAPI = true;
+
+    private boolean annotateGeneratedSQL = true;
+
     public TriplestoreConfig() {
 
+    }
+
+    public TriplestoreType getType() {
+        return type;
+    }
+
+    public void setType(TriplestoreType type) {
+        this.type = type;
     }
 
     public String getLayoutType() {
@@ -59,6 +79,50 @@ public class TriplestoreConfig {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isUnionDefaultGraph() {
+        return unionDefaultGraph;
+    }
+
+    public void setUnionDefaultGraph(boolean unionDefaultGraph) {
+        this.unionDefaultGraph = unionDefaultGraph;
+    }
+
+    public boolean isJdbcStream() {
+        return jdbcStream;
+    }
+
+    public void setJdbcStream(boolean jdbcStream) {
+        this.jdbcStream = jdbcStream;
+    }
+
+    public int getJdbcFetchSize() {
+        return jdbcFetchSize;
+    }
+
+    public void setJdbcFetchSize(int jdbcFetchSize) {
+        this.jdbcFetchSize = jdbcFetchSize;
+    }
+
+    public boolean isStreamGraphAPI() {
+        return streamGraphAPI;
+    }
+
+    public void setStreamGraphAPI(boolean streamGraphAPI) {
+        this.streamGraphAPI = streamGraphAPI;
+    }
+
+    public boolean isAnnotateGeneratedSQL() {
+        return annotateGeneratedSQL;
+    }
+
+    public void setAnnotateGeneratedSQL(boolean annotateGeneratedSQL) {
+        this.annotateGeneratedSQL = annotateGeneratedSQL;
+    }
+
+    public enum TriplestoreType {
+        SDB, TDB
     }
 
 }

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
 
 @JsonInclude(NON_EMPTY)
-@CollectionSource(key = "document.class")
+@CollectionSource(template = "document/documents", key = "document.class")
 //@formatter:off
 //@PropertySource(
 //    key = "document.class",

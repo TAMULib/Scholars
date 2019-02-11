@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
 
 @JsonInclude(NON_EMPTY)
-@CollectionSource(key = "person.class")
+@CollectionSource(template = "person/persons", key = "person.class")
 // @formatter:off
 //@PropertySource(
 //    key = "person.class",

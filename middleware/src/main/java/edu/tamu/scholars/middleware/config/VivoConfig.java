@@ -19,8 +19,6 @@ public class VivoConfig {
 
     private String sparqlQueryEndpoint = "/api/sparqlQuery";
 
-    private boolean directSparQL = false;
-
     private TriplestoreConfig triplestore;
 
     public VivoConfig() {
@@ -85,14 +83,6 @@ public class VivoConfig {
 
     public void setSparqlQueryEndpoint(String sparqlQueryEndpoint) {
         this.sparqlQueryEndpoint = sparqlQueryEndpoint;
-    }
-
-    public boolean isDirectSparQL() {
-        return directSparQL;
-    }
-
-    public void setDirectSparQL(boolean directSparQL) {
-        this.directSparQL = directSparQL;
     }
 
     public TriplestoreConfig getTriplestore() {
