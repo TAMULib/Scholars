@@ -9,6 +9,8 @@ public class TriplestoreConfig {
 
     private TriplestoreType type = TriplestoreType.SDB;
 
+    private String directory;
+
     private String layoutType = "layout2/hash";
 
     private String databaseType = "MySQL";
@@ -18,8 +20,6 @@ public class TriplestoreConfig {
     private String username;
 
     private String password;
-
-    private boolean unionDefaultGraph = true;
 
     private boolean jdbcStream = true;
 
@@ -39,6 +39,14 @@ public class TriplestoreConfig {
 
     public void setType(TriplestoreType type) {
         this.type = type;
+    }
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(String directory) {
+        this.directory = directory;
     }
 
     public String getLayoutType() {
@@ -79,14 +87,6 @@ public class TriplestoreConfig {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isUnionDefaultGraph() {
-        return unionDefaultGraph;
-    }
-
-    public void setUnionDefaultGraph(boolean unionDefaultGraph) {
-        this.unionDefaultGraph = unionDefaultGraph;
     }
 
     public boolean isJdbcStream() {

@@ -23,7 +23,7 @@ public class SDBTriplestore implements Triplestore {
 
     @Override
     public void open() {
-        SDB.getContext().set(SDB.unionDefaultGraph, triplestoreConfig.isUnionDefaultGraph());
+        SDB.getContext().setTrue(SDB.unionDefaultGraph);
         SDB.getContext().set(SDB.jdbcStream, triplestoreConfig.isJdbcStream());
         SDB.getContext().set(SDB.jdbcFetchSize, triplestoreConfig.getJdbcFetchSize());
         SDB.getContext().set(SDB.streamGraphAPI, triplestoreConfig.isStreamGraphAPI());
@@ -32,11 +32,6 @@ public class SDBTriplestore implements Triplestore {
         SDBConnection conn = new SDBConnection(triplestoreConfig.getDatasourceUrl(), triplestoreConfig.getUsername(), triplestoreConfig.getPassword());
         store = SDBFactory.connectStore(conn, storeDesc);
         dataset = SDBFactory.connectDataset(store);
-    }
-
-    @Override
-    public Store store() {
-        return store;
     }
 
     @Override

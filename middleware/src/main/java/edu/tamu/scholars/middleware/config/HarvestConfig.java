@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import edu.tamu.scholars.middleware.service.SDBTriplestore;
+import edu.tamu.scholars.middleware.service.TDBTriplestore;
 import edu.tamu.scholars.middleware.service.Triplestore;
 
 @Configuration
@@ -23,9 +24,9 @@ public class HarvestConfig {
         case SDB:
             return new SDBTriplestore();
         case TDB:
-            throw new Exception("TDB is not yet supported!");
+            return new TDBTriplestore();
         default:
-            throw new Exception("Unknown triplestore type!");
+            throw new Exception(String.format("%s is not a valid triplestore type!", triplestoreConfig.getType()));
         }
     }
 
