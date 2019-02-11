@@ -19,6 +19,7 @@ public class TDBTriplestore implements Triplestore {
 
     @PostConstruct
     public void open() {
+        // TODO: handle missing configurations
         TDB.getContext().setTrue(TDB.symUnionDefaultGraph);
         dataset = TDBFactory.createDataset(triplestoreConfig.getDirectory());
     }

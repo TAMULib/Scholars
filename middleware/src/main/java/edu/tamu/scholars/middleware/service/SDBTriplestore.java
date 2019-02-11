@@ -26,6 +26,7 @@ public class SDBTriplestore implements Triplestore {
 
     @PostConstruct
     public void open() {
+        // TODO: handle missing configurations
         SDB.getContext().setTrue(SDB.unionDefaultGraph);
         SDB.getContext().set(SDB.jdbcStream, triplestoreConfig.isJdbcStream());
         SDB.getContext().set(SDB.jdbcFetchSize, triplestoreConfig.getJdbcFetchSize());
