@@ -49,7 +49,6 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     private S indexer;
 
     public void harvest() {
-        triplestore.open();
         CollectionSource source = indexer.type().getAnnotation(CollectionSource.class);
         String query = templateService.templateSparql(source.template(), resolve(source.key()));
         triplestore.dataset().getLock().enterCriticalSection(Lock.READ);
@@ -66,7 +65,6 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         } finally {
             triplestore.dataset().getLock().leaveCriticalSection();
         }
-        triplestore.close();
     }
 
     public String name() {
