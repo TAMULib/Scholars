@@ -22,7 +22,7 @@ middleware:
     initialDelay: 2500
 
 ui:
-  url: http://caerus.library.tamu.edu:3000
+  url: http://localhost:4200
 
 vivo:
   email: vivoadmin@library.tamu.edu
