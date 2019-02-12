@@ -1,7 +1,7 @@
-PREFIX core: <http://vivoweb.org/ontology/core#>
+PREFIX vivo: <http://vivoweb.org/ontology/vivo#>
 
 CONSTRUCT {
-    <[(${uri})]> core:overview ?overview .
+    <[(${uri})]> vivo:overview ?overview .
 } WHERE {
-    <[(${uri})]> core:overview ?overview .
+    <[(${uri})]> vivo:overview ?overview .
 }

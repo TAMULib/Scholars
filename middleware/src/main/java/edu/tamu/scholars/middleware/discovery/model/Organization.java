@@ -83,6 +83,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> awardOrHonorReceivedId;
 
     @Indexed
+    @PropertySource(template = "organization/keyword", key = "organization.keyword")
     private List<String> keyword;
 
     @Indexed
