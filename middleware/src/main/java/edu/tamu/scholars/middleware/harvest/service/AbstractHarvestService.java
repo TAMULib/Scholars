@@ -1,10 +1,9 @@
 package edu.tamu.scholars.middleware.harvest.service;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import static edu.tamu.scholars.middleware.harvest.service.helper.SolrDocumentBuilder.parse;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Collection;
@@ -13,33 +12,28 @@ import java.util.Map;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.rdf.model.ResIterator;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.shared.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
-import edu.tamu.scholars.middleware.config.VivoConfig;
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 import edu.tamu.scholars.middleware.discovery.service.SolrIndexService;
-import edu.tamu.scholars.middleware.harvest.annotation.Source;
+import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.harvest.annotation.Property;
+import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 import edu.tamu.scholars.middleware.harvest.service.helper.SolrDocumentBuilder;
-import edu.tamu.scholars.middleware.service.HttpService;
 import edu.tamu.scholars.middleware.service.TemplateService;
-import edu.tamu.scholars.middleware.service.request.HttpRequest;
+import edu.tamu.scholars.middleware.service.Triplestore;
 
 public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S extends SolrIndexService<D>> implements HarvestService {
-
-    private final static String RDF_XML_LANG = "RDF/XML";
-
-    private final static String FORWARD_SLASH = "/";
-
-    private final static String HASH_TAG = "#";
-
-    private final static String ID = "id";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -50,43 +44,27 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     private TemplateService templateService;
 
     @Autowired
-    private HttpService httpService;
-
-    @Autowired
-    private VivoConfig vivoConfig;
+    private Triplestore triplestore;
 
     @Autowired
     private S indexer;
 
     public void harvest() {
-        Source source = indexer.type().getAnnotation(Source.class);
-        Model listModel = list(resolve(source.key()));
-        StmtIterator stmtIterator = listModel.listStatements();
-        if (stmtIterator.hasNext()) {
-            Iterable<Statement> stmtIterable = () -> stmtIterator;
-            Stream<Statement> stmtStream = StreamSupport.stream(stmtIterable.spliterator(), false);
-            stmtStream.parallel().forEach(statement -> {
-                Instant start = Instant.now();
-                String subject = statement.getSubject().toString();
-                try {
-                    D document = createDocument(subject);
-                    indexer.index(document);
-                    logger.info(String.format("%s %s indexed in %f seconds", name(), parse(subject), Duration.between(start, Instant.now()).toMillis() / 1000.0));
-                    // System.exit(0);
-                } catch (NullPointerException e) {
-                    if (logger.isDebugEnabled()) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
-                    logger.error(String.format("Unable to index %s: %s", name(), parse(subject)));
-                    logger.error(String.format("Error: %s", e.getMessage()));
-                    if (logger.isDebugEnabled()) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        } else {
-            logger.warn(String.format("No %s found!", name()));
+        CollectionSource source = indexer.type().getAnnotation(CollectionSource.class);
+        String query = templateService.templateSparql(source.template(), resolve(source.key()));
+        triplestore.dataset().getLock().enterCriticalSection(Lock.READ);
+        try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
+            Model collection = qe.execConstruct();
+            ResIterator resources = collection.listSubjects();
+            if (resources.hasNext()) {
+                Iterable<Resource> resourceIterable = () -> resources;
+                Stream<Resource> resourceStream = StreamSupport.stream(resourceIterable.spliterator(), true);
+                resourceStream.forEach(resource -> harvest(SolrDocumentBuilder.of(collection, resource, indexer.type())));
+            } else {
+                logger.warn(String.format("No %s found!", name()));
+            }
+        } finally {
+            triplestore.dataset().getLock().leaveCriticalSection();
         }
     }
 
@@ -94,82 +72,55 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         return indexer.type().getSimpleName();
     }
 
-    protected Model list(String predicate) {
-        logger.debug("Listing");
-        logger.debug("   predicate: " + predicate);
-        String response = httpService.get(HttpRequest.listRdf(vivoConfig.getListRdfEndpointUrl(), predicate));
-        logger.debug("   response:\n" + response);
-        return toRdfModel(response);
-    }
-
-    protected Model individual(String id) {
-        logger.debug("Getting individual");
-        logger.debug("   id: " + id);
-        String response = httpService.get(HttpRequest.linkedOpenDataRdf(vivoConfig.getLinkedOpenDataEndpointUrl(), id));
-        logger.debug("   response:\n" + response);
-        return toRdfModel(response);
-    }
-
-    protected Model construct(String query) {
-        logger.debug("Constructing");
-        logger.debug("   query: " + query);
-        String response = httpService.get(HttpRequest.sparqlRdf(vivoConfig.getSparqlQueryEndpointUrl(), vivoConfig.getEmail(), vivoConfig.getPassword(), query));
-        logger.debug("   response:\n" + response);
-        return toRdfModel(response);
-    }
-
-    private D createDocument(String subject) throws Exception {
-        D document = construct();
-
-        Field idField = field(ID);
-        idField.setAccessible(true);
-        idField.set(document, parse(subject));
-
-        Source source = indexer.type().getAnnotation(Source.class);
-        SolrDocumentBuilder builder = SolrDocumentBuilder.of(subject, source);
-
-        lookup(builder);
-        populate(document, builder);
-
-        return document;
-    }
-
-    private void lookup(SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
-        Source source = builder.getSource();
-        for (Source.Sparql sparql : source.sparql()) {
-            String query = templateService.templateSparql(sparql.template(), builder.getSubject());
-            // NOTE: model response of a SparQL query must be homogeneous subjects, i.e. only one subject defined in the CONSTRUCT
-            Model model = construct(query);
-            builder.setModel(model);
-            for (Source.Property property : sparql.properties()) {
-                lookup(builder, property);
+    private void harvest(SolrDocumentBuilder builder) {
+        Instant start = Instant.now();
+        try {
+            D document = createDocument(builder);
+            indexer.index(document);
+            logger.info(String.format("%s %s indexed in %f seconds", name(), parse(builder.getSubject()), Duration.between(start, Instant.now()).toMillis() / 1000.0));
+            // System.exit(0);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            logger.error(String.format("Unable to index %s: %s", name(), parse(builder.getSubject())));
+            logger.error(String.format("Error: %s", e.getMessage()));
+            if (logger.isDebugEnabled()) {
+                e.printStackTrace();
+            }
+        } catch (NullPointerException e) {
+            if (logger.isDebugEnabled()) {
+                e.printStackTrace();
             }
         }
     }
 
-    private void lookup(SolrDocumentBuilder builder, Source.Property property) {
-        String name = property.name();
-        String predicate = resolve(property.key());
-        Model model = builder.getModel();
-        // NOTE: this could be more efficient if the resource and property are known
-        StmtIterator statements = model.listStatements();
-        while (statements.hasNext()) {
-            Statement statement = statements.next();
-            // System.out.println(statement);
-            if (statement != null) {
-                String object = statement.getObject().toString();
-                if (statement.getPredicate().toString().equals(predicate)) {
-                    builder.add(name, property.parse() ? parse(object) : object);
-                    if (!property.id().isEmpty()) {
-                        String subject = statement.getSubject().toString();
-                        builder.add(property.id(), parse(subject));
-                    }
+    private D createDocument(SolrDocumentBuilder builder) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        D document = construct();
+        lookupProperties(builder);
+        populate(document, builder);
+        return document;
+    }
+
+    private void lookupProperties(SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException {
+        for (Property property : builder.getCollectionSource().properties()) {
+            builder.lookupProperty(property, resolve(property.key()));
+        }
+        for (Field field : builder.getFields()) {
+            builder.setField(field);
+            PropertySource source = field.getAnnotation(PropertySource.class);
+            String query = templateService.templateSparql(source.template(), builder.getSubject());
+            try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
+                Model model = qe.execConstruct();
+                builder.setModel(model);
+                String predicate = resolve(source.key());
+                ResIterator resources = model.listSubjects();
+                while (resources.hasNext()) {
+                    builder.setResource(resources.next());
+                    builder.lookupProperty(source, predicate);
                 }
             }
         }
     }
 
-    private void populate(D document, SolrDocumentBuilder builder) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    private void populate(D document, SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException {
         for (Map.Entry<String, List<String>> entry : builder.getCollections().entrySet()) {
             List<String> values = entry.getValue();
             if (values.isEmpty()) {
@@ -186,44 +137,21 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         }
     }
 
-    private Model toRdfModel(String rdf) {
-        InputStream stream = new ByteArrayInputStream(rdf.getBytes(UTF_8));
-        Model model = ModelFactory.createDefaultModel();
-        model.read(stream, null, RDF_XML_LANG);
-        return model;
-    }
-
-    private String parse(String uri) {
-        return uri.substring(uri.lastIndexOf(uri.contains(HASH_TAG) ? HASH_TAG : FORWARD_SLASH) + 1);
-    }
-
     private String resolve(String key) {
         return environment.getProperty(key);
     }
 
     @SuppressWarnings("unchecked")
-    private D construct() throws Exception {
+    private D construct() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         return (D) indexer.type().getConstructor().newInstance(new Object[0]);
     }
 
-    private Field field(String name) throws NoSuchFieldException, SecurityException {
-        return getField(indexer.type(), name);
-    }
-
-    private Field getField(Class<?> clazz, String name) throws NoSuchFieldException, SecurityException {
-        Field field = null;
-        try {
-            field = clazz.getDeclaredField(name);
-        } catch (NoSuchFieldException e) {
-            // do nothing
-        }
+    private Field field(String name) {
+        Field field = FieldUtils.getField(indexer.type(), name, true);
         if (field != null) {
             return field;
-        } else if (clazz.getSuperclass() != null) {
-            return getField(clazz.getSuperclass(), name);
-        } else {
-            throw new NoSuchFieldException(String.format("Unabled to find %s", name));
         }
+        throw new RuntimeException(String.format("%s does not have property %s!", name(), name));
     }
 
 }

@@ -19,6 +19,8 @@ public class VivoConfig {
 
     private String sparqlQueryEndpoint = "/api/sparqlQuery";
 
+    private TriplestoreConfig triplestore;
+
     public VivoConfig() {
 
     }
@@ -81,6 +83,14 @@ public class VivoConfig {
 
     public void setSparqlQueryEndpoint(String sparqlQueryEndpoint) {
         this.sparqlQueryEndpoint = sparqlQueryEndpoint;
+    }
+
+    public TriplestoreConfig getTriplestore() {
+        return triplestore;
+    }
+
+    public void setTriplestore(TriplestoreConfig triplestore) {
+        this.triplestore = triplestore;
     }
 
 }
