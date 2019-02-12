@@ -52,9 +52,15 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     public void harvest() {
         CollectionSource source = indexer.type().getAnnotation(CollectionSource.class);
         String query = templateService.templateSparql(source.template(), resolve(source.key()));
+        if (logger.isDebugEnabled()) {
+            logger.debug(String.format("%s:\n%s", source.template(), query));
+        }
         triplestore.dataset().getLock().enterCriticalSection(Lock.READ);
         try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
             Model collection = qe.execConstruct();
+            if (logger.isDebugEnabled()) {
+                collection.write(System.out, "RDF/XML");
+            }
             ResIterator resources = collection.listSubjects();
             if (resources.hasNext()) {
                 Iterable<Resource> resourceIterable = () -> resources;
@@ -103,12 +109,18 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         for (Property property : builder.getCollectionSource().properties()) {
             builder.lookupProperty(property, resolve(property.key()));
         }
-        for (Field field : builder.getFields()) {
+        for (Field field : builder.getPropertySourceFields()) {
             builder.setField(field);
             PropertySource source = field.getAnnotation(PropertySource.class);
             String query = templateService.templateSparql(source.template(), builder.getSubject());
+            if (logger.isDebugEnabled()) {
+                logger.debug(String.format("%s:\n%s", source.template(), query));
+            }
             try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
                 Model model = qe.execConstruct();
+                if (logger.isDebugEnabled()) {
+                    model.write(System.out, "RDF/XML");
+                }
                 builder.setModel(model);
                 String predicate = resolve(source.key());
                 ResIterator resources = model.listSubjects();
@@ -124,7 +136,9 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         for (Map.Entry<String, List<String>> entry : builder.getCollections().entrySet()) {
             List<String> values = entry.getValue();
             if (values.isEmpty()) {
-                logger.debug(String.format("Could not find values for %s", entry.getKey()));
+                if (logger.isDebugEnabled()) {
+                    logger.debug(String.format("Could not find values for %s", entry.getKey()));
+                }
             } else {
                 Field field = field(entry.getKey());
                 field.setAccessible(true);

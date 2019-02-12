@@ -1,6 +1,6 @@
-PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>
- 
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
 CONSTRUCT {
     ?educationalProcess vivo:majorField ?major .
 } WHERE {

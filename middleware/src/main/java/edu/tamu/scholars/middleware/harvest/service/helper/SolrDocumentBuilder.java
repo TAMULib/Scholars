@@ -42,7 +42,7 @@ public class SolrDocumentBuilder {
         this.subject = subject;
         this.type = type;
         this.collections = new HashMap<String, List<String>>();
-        for (Field field : getFields()) {
+        for (Field field : getPropertySourceFields()) {
             PropertySource source = field.getAnnotation(PropertySource.class);
             this.collections.put(field.getName(), new ArrayList<String>());
             if (!source.id().isEmpty()) {
@@ -121,7 +121,7 @@ public class SolrDocumentBuilder {
         return field.getAnnotation(PropertySource.class);
     }
 
-    public List<Field> getFields() {
+    public List<Field> getPropertySourceFields() {
         return FieldUtils.getFieldsListWithAnnotation(type, PropertySource.class);
     }
 

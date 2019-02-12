@@ -2,8 +2,9 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?patent rdfs:label ?name .
+    ?date vivo:dateTime ?dateTime .
 } WHERE {
     <[(${uri})]> vivo:assigneeFor ?patent .
-    ?patent rdfs:label ?name .
+    ?patent vivo:dateTimeValue ?date .
+    ?date vivo:dateTime ?dateTime .
 }

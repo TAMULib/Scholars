@@ -6,5 +6,4 @@ CONSTRUCT {
 } WHERE {
     <[(${uri})]> vivo:hasCollaborator ?agent .
     ?agent rdfs:label ?name .
-    FILTER (lang(?name) = '')
 }

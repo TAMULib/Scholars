@@ -1,4 +1,4 @@
-PREFIX vivo: <http://vivoweb.org/ontology/vivo#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
     ?date vivo:dateTime ?dateTime .
