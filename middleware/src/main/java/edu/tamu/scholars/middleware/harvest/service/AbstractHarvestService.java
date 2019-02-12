@@ -146,7 +146,11 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     }
 
     private Field field(String name) {
-        return FieldUtils.getField(indexer.type(), name, true);
+        Field field = FieldUtils.getField(indexer.type(), name, true);
+        if (field != null) {
+            return field;
+        }
+        throw new RuntimeException(String.format("%s does not have property %s!", name(), name));
     }
 
 }
