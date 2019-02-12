@@ -11,6 +11,9 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.shared.InvalidPropertyURIException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
 import edu.tamu.scholars.middleware.harvest.annotation.Property;
@@ -23,6 +26,8 @@ public class SolrDocumentBuilder {
     private final static String HASH_TAG = "#";
 
     private final static String ID = "id";
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final Map<String, List<String>> collections;
 
@@ -136,7 +141,15 @@ public class SolrDocumentBuilder {
     public void lookupProperty(PropertyLookup lookup) {
         Model model = getModel();
         Resource resource = getResource();
-        StmtIterator statements = resource.listProperties(model.createProperty(lookup.getPredicate()));
+        StmtIterator statements = null;
+
+        try {
+            statements = resource.listProperties(model.createProperty(lookup.getPredicate()));
+        } catch (InvalidPropertyURIException e) {
+            logger.info(String.format("Property not defined for field: %s.", field.getName()));
+            throw e;
+        }
+
         while (statements.hasNext()) {
             Statement statement = statements.next();
             String object = statement.getObject().toString();
