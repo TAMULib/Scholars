@@ -3,6 +3,7 @@ package edu.tamu.scholars.middleware.harvest.service;
 import static edu.tamu.scholars.middleware.harvest.service.helper.SolrDocumentBuilder.parse;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Collection;
@@ -78,20 +79,20 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
             indexer.index(document);
             logger.info(String.format("%s %s indexed in %f seconds", name(), parse(builder.getSubject()), Duration.between(start, Instant.now()).toMillis() / 1000.0));
             // System.exit(0);
-        } catch (NullPointerException e) {
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            logger.error(String.format("Unable to index %s: %s", name(), parse(builder.getSubject())));
+            logger.error(String.format("Error: %s", e.getMessage()));
             if (logger.isDebugEnabled()) {
                 e.printStackTrace();
             }
-        } catch (Exception e) {
-            logger.error(String.format("Unable to index %s: %s", name(), parse(builder.getSubject())));
-            logger.error(String.format("Error: %s", e.getMessage()));
+        } catch (NullPointerException e) {
             if (logger.isDebugEnabled()) {
                 e.printStackTrace();
             }
         }
     }
 
-    private D createDocument(SolrDocumentBuilder builder) throws Exception {
+    private D createDocument(SolrDocumentBuilder builder) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         D document = construct();
         lookupProperties(builder);
         populate(document, builder);
@@ -141,12 +142,16 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     }
 
     @SuppressWarnings("unchecked")
-    private D construct() throws Exception {
+    private D construct() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         return (D) indexer.type().getConstructor().newInstance(new Object[0]);
     }
 
     private Field field(String name) {
-        return FieldUtils.getField(indexer.type(), name, true);
+        Field field = FieldUtils.getField(indexer.type(), name, true);
+        if (field != null) {
+            return field;
+        }
+        throw new RuntimeException(String.format("%s does not have property %s!", name(), name));
     }
 
 }
