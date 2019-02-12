@@ -65,18 +65,21 @@ public class Organization extends AbstractSolrDocument {
     private List<String> date;
 
     @Indexed
+    @PropertySource(template = "organization/sponsorsAwardOrHonor", key = "organization.sponsorsAwardOrHonor", id = "sponsorsAwardOrHonorId")
     private List<String> sponsorsAwardOrHonor;
 
     @Indexed
     private List<String> sponsorsAwardOrHonorId;
 
     @Indexed
+    @PropertySource(template = "organization/awardOrHonorGiven", key = "organization.awardOrHonorGiven", id = "awardOrHonorGivenId")
     private List<String> awardOrHonorGiven;
 
     @Indexed
     private List<String> awardOrHonorGivenId;
 
     @Indexed
+    @PropertySource(template = "organization/awardOrHonorReceived", key = "organization.awardOrHonorReceived", id = "awardOrHonorReceivedId")
     private List<String> awardOrHonorReceived;
 
     @Indexed
@@ -87,6 +90,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> keyword;
 
     @Indexed
+    @PropertySource(template = "organization/organizationForTraining", key = "organization.organizationForTraining", id = "organizationForTrainingId")
     private List<String> organizationForTraining;
 
     @Indexed
@@ -108,30 +112,35 @@ public class Organization extends AbstractSolrDocument {
     private List<String> peopleId;
 
     @Indexed
+    @PropertySource(template = "organization/hasSubOrganization", key = "organization.hasSubOrganization", id = "hasSubOrganizationId")
     private List<String> hasSubOrganization;
 
     @Indexed
     private List<String> hasSubOrganizationId;
 
     @Indexed
+    @PropertySource(template = "organization/organizationWithin", key = "organization.organizationWithin", id = "organizationWithinId")
     private List<String> organizationWithin;
 
     @Indexed
     private List<String> organizationWithinId;
 
     @Indexed
+    @PropertySource(template = "organization/leadOrganizationOf", key = "organization.leadOrganizationOf", id = "leadOrganizationOfId")
     private List<String> leadOrganizationOf;
 
     @Indexed
     private List<String> leadOrganizationOfId;
 
     @Indexed
-    private List<String> hasCollaboratingOrganizatgionOrGroup;
+    @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", key = "organization.hasCollaboratingOrganizationOrGroup", id = "hasCollaboratingOrganizationOrGroupId")
+    private List<String> hasCollaboratingOrganizationOrGroup;
 
     @Indexed
-    private List<String> hasCollaboratingOrganizatgionOrGroupId;
+    private List<String> hasCollaboratingOrganizationOrGroupId;
 
     @Indexed
+    @PropertySource(template = "organization/hasAffiliatedOrganization", key = "organization.hasAffiliatedOrganization", id = "hasAffiliatedOrganizationId")
     private List<String> hasAffiliatedOrganization;
 
     @Indexed
@@ -556,20 +565,20 @@ public class Organization extends AbstractSolrDocument {
         this.leadOrganizationOfId = leadOrganizationOfId;
     }
 
-    public List<String> getHasCollaboratingOrganizatgionOrGroup() {
-        return hasCollaboratingOrganizatgionOrGroup;
+    public List<String> getHasCollaboratingOrganizationOrGroup() {
+        return hasCollaboratingOrganizationOrGroup;
     }
 
-    public void setHasCollaboratingOrganizatgionOrGroup(List<String> hasCollaboratingOrganizatgionOrGroup) {
-        this.hasCollaboratingOrganizatgionOrGroup = hasCollaboratingOrganizatgionOrGroup;
+    public void setHasCollaboratingOrganizationOrGroup(List<String> hasCollaboratingOrganizationOrGroup) {
+        this.hasCollaboratingOrganizationOrGroup = hasCollaboratingOrganizationOrGroup;
     }
 
-    public List<String> getHasCollaboratingOrganizatgionOrGroupId() {
-        return hasCollaboratingOrganizatgionOrGroupId;
+    public List<String> getHasCollaboratingOrganizationOrGroupId() {
+        return hasCollaboratingOrganizationOrGroupId;
     }
 
-    public void setHasCollaboratingOrganizatgionOrGroupId(List<String> hasCollaboratingOrganizatgionOrGroupId) {
-        this.hasCollaboratingOrganizatgionOrGroupId = hasCollaboratingOrganizatgionOrGroupId;
+    public void setHasCollaboratingOrganizationOrGroupId(List<String> hasCollaboratingOrganizationOrGroupId) {
+        this.hasCollaboratingOrganizationOrGroupId = hasCollaboratingOrganizationOrGroupId;
     }
 
     public List<String> getHasAffiliatedOrganization() {

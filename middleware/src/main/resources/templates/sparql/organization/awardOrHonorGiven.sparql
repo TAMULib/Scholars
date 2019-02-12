@@ -1,0 +1,10 @@
+PREFIX vivo: <http://vivoweb.org/ontology/vivo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?award rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> vivo:assigns ?award .
+    ?award a vivo:Award .
+    ?award rdfs:label ?label .
+}

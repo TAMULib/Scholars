@@ -1,0 +1,13 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?object rdfs:label ?name .
+} WHERE {
+    <[(${uri})]> obo:BFO_0000053 ?leaderRole .
+    ?leaderRole a vivo:LeaderRole .
+    ?leaderRole obo:BFO_0000054 ?object .
+    ?object rdfs:label ?name .
+    FILTER (lang(?name) = '')
+}
