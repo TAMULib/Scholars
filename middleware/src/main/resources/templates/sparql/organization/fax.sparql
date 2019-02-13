@@ -1,0 +1,10 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+
+CONSTRUCT {
+    ?hasFax vcard:fax ?fax .
+} WHERE {
+    <[(${uri})]> obo:ARG_2000028 ?vcard .
+    ?vcard vcard:hasFax ?hasFax .
+    ?hasFax vcard:fax ?fax .
+}

@@ -9,4 +9,5 @@ CONSTRUCT {
     ?organization a <[(${uri})]> .
     ?organization rdfs:label ?name .
     ?organization vitro:mostSpecificType ?type .
+    FILTER (lang(?name) = '')
 }

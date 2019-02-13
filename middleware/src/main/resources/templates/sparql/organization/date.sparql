@@ -1,8 +1,8 @@
-PREFIX core: <http://vivoweb.org/ontology/core#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?date core:dateTime ?dateTime .
+    ?date vivo:dateTime ?dateTime .
 } WHERE {
-    <[(${uri})]> core:dateTimeValue ?date .
-    ?date core:dateTime ?dateTime .
+    <[(${uri})]> vivo:dateTimeValue ?date .
+    ?date vivo:dateTime ?dateTime .
 }

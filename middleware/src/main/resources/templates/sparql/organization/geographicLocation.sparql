@@ -1,9 +1,11 @@
 PREFIX obo: <http://purl.obolibrary.org/obo/>
-PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?vcard vcard:geo ?geo .
+    ?location rdfs:label ?name .
 } WHERE {
-    <[(${uri})]> obo:ARG_2000028 ?vcard .
-    ?vcard vcard:geo ?geo .
+    <[(${uri})]> obo:RO_0001025 ?location .
+    ?location a vivo:GeographicLocation .
+    ?location rdfs:label ?name .
 }
