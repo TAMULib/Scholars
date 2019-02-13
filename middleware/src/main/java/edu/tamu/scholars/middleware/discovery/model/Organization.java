@@ -242,11 +242,11 @@ public class Organization extends AbstractSolrDocument {
     private List<String> translatorOf;
     
     @Indexed
-    @PropertySource(template = "organization/translatorOfType", key = "organization.translatorOfType.type", parse = true)
+    @PropertySource(template = "organization/translatorOfType", key = "organization.translatorOf.type", parse = true)
     private List<String> translatorOfType;
 
     @Indexed
-    @PropertySource(template = "organization/translatorOfDate", key = "organization.translatorOfDate.date")
+    @PropertySource(template = "organization/translatorOfDate", key = "organization.translatorOf.date")
     private List<String> translatorOfDate;
 
     @Indexed
