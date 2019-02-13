@@ -44,9 +44,12 @@ organization:
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     date: "http://vivoweb.org/ontology/core#dateTime"
   assigneeForPatent:
-    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
     date: "http://vivoweb.org/ontology/core#dateTime"
-  translatorOf: "http://www.w3.org/2000/01/rdf-schema#label"
+  translatorOf:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    date: "http://vivoweb.org/ontology/core#dateTime"
   awardsGrant: "http://www.w3.org/2000/01/rdf-schema#label"
   administersGrant: "http://www.w3.org/2000/01/rdf-schema#label"
   subcontractsGrant: "http://www.w3.org/2000/01/rdf-schema#label"

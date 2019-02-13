@@ -179,7 +179,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> selectedPublication;
 
     @Indexed
-    @PropertySource(template = "organization/selectedPublicationType", key = "organization.selectedPublication.type", parse = true)
+    @PropertySource(template = "organization/selectedPublicationType", key = "organization.selectedPublication.type") //, parse = true)
     private List<String> selectedPublicationType;
 
     @Indexed
@@ -227,7 +227,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> featuredInId;
 
     @Indexed
-    @PropertySource(template = "organization/assigneeForPatent", key = "organization.assigneeForPatent.title", id = "assigneeForPatentId")
+    @PropertySource(template = "organization/assigneeForPatent", key = "organization.assigneeForPatent.name", id = "assigneeForPatentId")
     private List<String> assigneeForPatent;
 
     @Indexed
@@ -238,8 +238,16 @@ public class Organization extends AbstractSolrDocument {
     private List<String> assigneeForPatentId;
 
     @Indexed
-    @PropertySource(template = "organization/translatorOf", key = "organization.translatorOf", id = "translatorOfId")
+    @PropertySource(template = "organization/translatorOf", key = "organization.translatorOf.title", id = "translatorOfId")
     private List<String> translatorOf;
+    
+    @Indexed
+    @PropertySource(template = "organization/translatorOfType", key = "organization.translatorOfType.type", parse = true)
+    private List<String> translatorOfType;
+
+    @Indexed
+    @PropertySource(template = "organization/translatorOfDate", key = "organization.translatorOfDate.date")
+    private List<String> translatorOfDate;
 
     @Indexed
     private List<String> translatorOfId;
@@ -853,6 +861,22 @@ public class Organization extends AbstractSolrDocument {
 
     public void setTranslatorOf(List<String> translatorOf) {
         this.translatorOf = translatorOf;
+    }
+
+    public List<String> getTranslatorOfType() {
+        return translatorOfType;
+    }
+
+    public void setTranslatorOfType(List<String> translatorOfType) {
+        this.translatorOfType = translatorOfType;
+    }
+
+    public List<String> getTranslatorOfDate() {
+        return translatorOfDate;
+    }
+
+    public void setTranslatorOfDate(List<String> translatorOfDate) {
+        this.translatorOfDate = translatorOfDate;
     }
 
     public List<String> getTranslatorOfId() {

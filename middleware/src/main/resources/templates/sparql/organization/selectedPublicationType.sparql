@@ -10,4 +10,5 @@ CONSTRUCT {
     ?authorship vivo:relates ?publication .
     ?publication a obo:IAO_0000030 .
     ?publication vitro:mostSpecificType ?type .
+    FILTER (str(?type) != "http://vivoweb.org/ontology/core#DateTimeValue")
 }
