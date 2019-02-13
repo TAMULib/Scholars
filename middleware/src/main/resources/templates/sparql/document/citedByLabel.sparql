@@ -1,0 +1,14 @@
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?citedBy rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> bibo:citedBy ?citedBy .
+    ?citedBy rdfs:label ?label .
+    ?citedBy vitro:mostSpecificType ?mostSpecificType .
+
+    FILTER (?mostSpecificType != vivo:DateTimeValue) .
+}

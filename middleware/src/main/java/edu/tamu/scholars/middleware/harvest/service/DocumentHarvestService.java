@@ -8,9 +8,4 @@ import edu.tamu.scholars.middleware.discovery.service.DocumentIndexService;
 @Service
 public class DocumentHarvestService extends AbstractHarvestService<Document, DocumentIndexService> {
 
-    @Override
-    public void harvest() {
-
-    }
-
 }

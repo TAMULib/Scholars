@@ -1,0 +1,14 @@
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    <[(${uri})]> rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> ?property ?document ;
+      rdfs:label ?label ;
+      #rdf:type ?type .
+    #FILTER (?type = bibo:Document)
+    #FILTER (?document != vivo:DateTimeValue)
+}

@@ -1,9 +1,0 @@
-PREFIX core: <http://vivoweb.org/ontology/core#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
-CONSTRUCT {
-    ?publisher rdfs:label ?name .
-} WHERE {
-    <[(${uri})]> core:publisher ?publisher . 
-    ?publisher rdfs:label ?name .
-}
