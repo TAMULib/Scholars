@@ -179,7 +179,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> selectedPublication;
 
     @Indexed
-    @PropertySource(template = "organization/selectedPublicationType", key = "organization.selectedPublication.type") //, parse = true)
+    @PropertySource(template = "organization/selectedPublicationType", key = "organization.selectedPublication.type", parse = true)
     private List<String> selectedPublicationType;
 
     @Indexed
