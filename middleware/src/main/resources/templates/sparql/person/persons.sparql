@@ -1,5 +1,5 @@
 CONSTRUCT {
-    ?subject a <[(${uri})]> .
+    ?person a <[(${uri})]> .
 } WHERE {
-    ?subject a <[(${uri})]> .
+    ?person a <[(${uri})]> .
 }

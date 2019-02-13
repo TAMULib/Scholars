@@ -92,4 +92,4 @@ organization:
   predecessorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
   successorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
   governingAuthorityFor: "http://www.w3.org/2000/01/rdf-schema#label"
-  hasResearchArea: "http://www.w3.org/2000/01/rdf-schema#label"
+  affiliatedResearchArea: "http://www.w3.org/2000/01/rdf-schema#label"

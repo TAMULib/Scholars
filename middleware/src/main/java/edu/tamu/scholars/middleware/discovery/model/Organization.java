@@ -38,6 +38,9 @@ public class Organization extends AbstractSolrDocument {
     private String image;
 
     @Indexed
+    private String thumbnail;
+
+    @Indexed
     @PropertySource(template = "organization/websiteUrl", key = "organization.website.url")
     private List<String> websiteUrl;
 
@@ -421,11 +424,11 @@ public class Organization extends AbstractSolrDocument {
 
     // NOTE: unidirectional from Concept vivo:researchAreaOf
     @Indexed
-    @PropertySource(template = "organization/hasResearchArea", key = "organization.hasResearchArea", id = "hasResearchAreaId")
-    private List<String> hasResearchArea;
+    @PropertySource(template = "organization/affiliatedResearchArea", key = "organization.affiliatedResearchArea", id = "affiliatedResearchAreaId")
+    private List<String> affiliatedResearchArea;
 
     @Indexed
-    private List<String> hasResearchAreaId;
+    private List<String> affiliatedResearchAreaId;
 
     public Organization() {
 
@@ -453,6 +456,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public List<String> getWebsiteUrl() {
@@ -1287,20 +1298,20 @@ public class Organization extends AbstractSolrDocument {
         this.governingAuthorityForId = governingAuthorityForId;
     }
 
-    public List<String> getHasResearchArea() {
-        return hasResearchArea;
+    public List<String> getAffiliatedResearchArea() {
+        return affiliatedResearchArea;
     }
 
-    public void setHasResearchArea(List<String> hasResearchArea) {
-        this.hasResearchArea = hasResearchArea;
+    public void setAffiliatedResearchArea(List<String> affiliatedResearchArea) {
+        this.affiliatedResearchArea = affiliatedResearchArea;
     }
 
-    public List<String> getHasResearchAreaId() {
-        return hasResearchAreaId;
+    public List<String> getAffiliatedResearchAreaId() {
+        return affiliatedResearchAreaId;
     }
 
-    public void setHasResearchAreaId(List<String> hasResearchAreaId) {
-        this.hasResearchAreaId = hasResearchAreaId;
+    public void setAffiliatedResearchAreaId(List<String> affiliatedResearchAreaId) {
+        this.affiliatedResearchAreaId = affiliatedResearchAreaId;
     }
 
 }
