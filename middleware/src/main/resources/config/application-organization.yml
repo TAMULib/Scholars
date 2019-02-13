@@ -12,9 +12,15 @@ organization:
     field: "http://vivoweb.org/ontology/core#majorField"
   abbreviation: "http://vivoweb.org/ontology/core#abbreviation"
   date: "http://vivoweb.org/ontology/core#dateTime"
-  sponsorsAwardOrHonor: "http://www.w3.org/2000/01/rdf-schema#label"
-  awardOrHonorGiven: "http://www.w3.org/2000/01/rdf-schema#label"
-  awardOrHonorReceived: "http://www.w3.org/2000/01/rdf-schema#label"
+  sponsorsAwardOrHonor:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  awardOrHonorGiven:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  awardOrHonorReceived:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
   keyword: "http://vivoweb.org/ontology/core#freetextKeyword"
   organizationForTraining: "http://vivoweb.org/ontology/core#majorField"
   people:
@@ -28,8 +34,12 @@ organization:
   hasAffiliatedOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
   memberOf: "http://www.w3.org/2000/01/rdf-schema#label"
   clinicalActivity: "http://www.w3.org/2000/01/rdf-schema#label"
-  convenerOfEvent: "http://www.w3.org/2000/01/rdf-schema#label"
-  attendedEvent: "http://www.w3.org/2000/01/rdf-schema#label"
+  convenerOfEvent:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  attendedEvent:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
   selectedPublication:
     title: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
@@ -38,7 +48,10 @@ organization:
     title: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     date: "http://vivoweb.org/ontology/core#dateTime"
-  presentation: "http://www.w3.org/2000/01/rdf-schema#label"
+  presentation:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    event: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
   featuredIn:
     title: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
@@ -50,9 +63,15 @@ organization:
     title: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     date: "http://vivoweb.org/ontology/core#dateTime"
-  awardsGrant: "http://www.w3.org/2000/01/rdf-schema#label"
-  administersGrant: "http://www.w3.org/2000/01/rdf-schema#label"
-  subcontractsGrant: "http://www.w3.org/2000/01/rdf-schema#label"
+  awardsGrant:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  administersGrant:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  subcontractsGrant:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
   performsHumanStudy: "http://www.w3.org/2000/01/rdf-schema#label"
   contractOrProviderForService: "http://www.w3.org/2000/01/rdf-schema#label"
   outreachAndCommunityServiceActivity: "http://www.w3.org/2000/01/rdf-schema#label"

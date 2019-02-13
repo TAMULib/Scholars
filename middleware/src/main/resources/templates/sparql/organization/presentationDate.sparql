@@ -1,0 +1,12 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?presentation vivo:dateTime ?dateTime .
+} WHERE {
+    <[(${uri})]> obo:RO_0000053 ?role .
+    ?role a vivo:PresenterRole .
+    ?role vivo:relatedBy ?presentation .
+    ?presentation vivo:dateTimeValue ?date .
+    ?date vivo:dateTime ?dateTime .
+}

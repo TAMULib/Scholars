@@ -65,22 +65,34 @@ public class Organization extends AbstractSolrDocument {
     private List<String> date;
 
     @Indexed
-    @PropertySource(template = "organization/sponsorsAwardOrHonor", key = "organization.sponsorsAwardOrHonor", id = "sponsorsAwardOrHonorId")
+    @PropertySource(template = "organization/sponsorsAwardOrHonor", key = "organization.sponsorsAwardOrHonor.name", id = "sponsorsAwardOrHonorId")
     private List<String> sponsorsAwardOrHonor;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/sponsorsAwardOrHonorDate", key = "organization.sponsorsAwardOrHonor.date")
+    private List<String> sponsorsAwardOrHonorDate;
 
     @Indexed
     private List<String> sponsorsAwardOrHonorId;
 
     @Indexed
-    @PropertySource(template = "organization/awardOrHonorGiven", key = "organization.awardOrHonorGiven", id = "awardOrHonorGivenId")
+    @PropertySource(template = "organization/awardOrHonorGiven", key = "organization.awardOrHonorGiven.name", id = "awardOrHonorGivenId")
     private List<String> awardOrHonorGiven;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/awardOrHonorGivenDate", key = "organization.awardOrHonorGiven.date")
+    private List<String> awardOrHonorGivenDate;
 
     @Indexed
     private List<String> awardOrHonorGivenId;
 
     @Indexed
-    @PropertySource(template = "organization/awardOrHonorReceived", key = "organization.awardOrHonorReceived", id = "awardOrHonorReceivedId")
+    @PropertySource(template = "organization/awardOrHonorReceived", key = "organization.awardOrHonorReceived.name", id = "awardOrHonorReceivedId")
     private List<String> awardOrHonorReceived;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/awardOrHonorReceivedDate", key = "organization.awardOrHonorReceived.date")
+    private List<String> awardOrHonorReceivedDate;
 
     @Indexed
     private List<String> awardOrHonorReceivedId;
@@ -161,15 +173,23 @@ public class Organization extends AbstractSolrDocument {
     private List<String> clinicalActivityId;
 
     @Indexed
-    @PropertySource(template = "organization/convenerOfEvent", key = "organization.convenerOfEvent", id = "convenerOfEventId")
+    @PropertySource(template = "organization/convenerOfEvent", key = "organization.convenerOfEvent.name", id = "convenerOfEventId")
     private List<String> convenerOfEvent;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/convenerOfEventDate", key = "organization.convenerOfEvent.date")
+    private List<String> convenerOfEventDate;
 
     @Indexed
     private List<String> convenerOfEventId;
 
     @Indexed
-    @PropertySource(template = "organization/attendedEvent", key = "organization.attendedEvent", id = "attendedEventId")
+    @PropertySource(template = "organization/attendedEvent", key = "organization.attendedEvent.name", id = "attendedEventId")
     private List<String> attendedEvent;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/attendedEventDate", key = "organization.attendedEvent.date")
+    private List<String> attendedEventDate;
 
     @Indexed
     private List<String> attendedEventId;
@@ -182,7 +202,7 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/selectedPublicationType", key = "organization.selectedPublication.type", parse = true)
     private List<String> selectedPublicationType;
 
-    @Indexed
+    @Indexed(type = "pdate")
     @PropertySource(template = "organization/selectedPublicationDate", key = "organization.selectedPublication.date")
     private List<String> selectedPublicationDate;
 
@@ -197,7 +217,7 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/publisherOfType", key = "organization.publisherOf.type", parse = true)
     private List<String> publisherOfType;
 
-    @Indexed
+    @Indexed(type = "pdate")
     @PropertySource(template = "organization/publisherOfDate", key = "organization.publisherOf.date")
     private List<String> publisherOfDate;
 
@@ -205,8 +225,16 @@ public class Organization extends AbstractSolrDocument {
     private List<String> publisherOfId;
 
     @Indexed
-    @PropertySource(template = "organization/presentation", key = "organization.presentation", id = "presentationId")
+    @PropertySource(template = "organization/presentation", key = "organization.presentation.title", id = "presentationId")
     private List<String> presentation;
+
+    @Indexed
+    @PropertySource(template = "organization/presentationEvent", key = "organization.presentation.event")
+    private List<String> presentationEvent;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/presentationDate", key = "organization.presentation.date")
+    private List<String> presentationDate;
 
     @Indexed
     private List<String> presentationId;
@@ -219,7 +247,7 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/featuredInType", key = "organization.featuredIn.type", parse = true)
     private List<String> featuredInType;
 
-    @Indexed
+    @Indexed(type = "pdate")
     @PropertySource(template = "organization/featuredInDate", key = "organization.featuredIn.date")
     private List<String> featuredInDate;
 
@@ -230,7 +258,7 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/assigneeForPatent", key = "organization.assigneeForPatent.name", id = "assigneeForPatentId")
     private List<String> assigneeForPatent;
 
-    @Indexed
+    @Indexed(type = "pdate")
     @PropertySource(template = "organization/assigneeForPatentDate", key = "organization.assigneeForPatent.date")
     private List<String> assigneeForPatentDate;
 
@@ -240,12 +268,12 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     @PropertySource(template = "organization/translatorOf", key = "organization.translatorOf.title", id = "translatorOfId")
     private List<String> translatorOf;
-    
+
     @Indexed
     @PropertySource(template = "organization/translatorOfType", key = "organization.translatorOf.type", parse = true)
     private List<String> translatorOfType;
 
-    @Indexed
+    @Indexed(type = "pdate")
     @PropertySource(template = "organization/translatorOfDate", key = "organization.translatorOf.date")
     private List<String> translatorOfDate;
 
@@ -253,22 +281,34 @@ public class Organization extends AbstractSolrDocument {
     private List<String> translatorOfId;
 
     @Indexed
-    @PropertySource(template = "organization/awardsGrant", key = "organization.awardsGrant", id = "awardsGrantId")
+    @PropertySource(template = "organization/awardsGrant", key = "organization.awardsGrant.name", id = "awardsGrantId")
     private List<String> awardsGrant;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/awardsGrantDate", key = "organization.awardsGrant.date")
+    private List<String> awardsGrantDate;
 
     @Indexed
     private List<String> awardsGrantId;
 
     @Indexed
-    @PropertySource(template = "organization/administersGrant", key = "organization.administersGrant", id = "administersGrantId")
+    @PropertySource(template = "organization/administersGrant", key = "organization.administersGrant.name", id = "administersGrantId")
     private List<String> administersGrant;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/administersGrantDate", key = "organization.administersGrant.date")
+    private List<String> administersGrantDate;
 
     @Indexed
     private List<String> administersGrantId;
 
     @Indexed
-    @PropertySource(template = "organization/subcontractsGrant", key = "organization.subcontractsGrant", id = "subcontractsGrantId")
+    @PropertySource(template = "organization/subcontractsGrant", key = "organization.subcontractsGrant.name", id = "subcontractsGrantId")
     private List<String> subcontractsGrant;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/subcontractsGrantDate", key = "organization.subcontractsGrant.date")
+    private List<String> subcontractsGrantDate;
 
     @Indexed
     private List<String> subcontractsGrantId;
@@ -479,6 +519,14 @@ public class Organization extends AbstractSolrDocument {
         this.sponsorsAwardOrHonor = sponsorsAwardOrHonor;
     }
 
+    public List<String> getSponsorsAwardOrHonorDate() {
+        return sponsorsAwardOrHonorDate;
+    }
+
+    public void setSponsorsAwardOrHonorDate(List<String> sponsorsAwardOrHonorDate) {
+        this.sponsorsAwardOrHonorDate = sponsorsAwardOrHonorDate;
+    }
+
     public List<String> getSponsorsAwardOrHonorId() {
         return sponsorsAwardOrHonorId;
     }
@@ -495,6 +543,14 @@ public class Organization extends AbstractSolrDocument {
         this.awardOrHonorGiven = awardOrHonorGiven;
     }
 
+    public List<String> getAwardOrHonorGivenDate() {
+        return awardOrHonorGivenDate;
+    }
+
+    public void setAwardOrHonorGivenDate(List<String> awardOrHonorGivenDate) {
+        this.awardOrHonorGivenDate = awardOrHonorGivenDate;
+    }
+
     public List<String> getAwardOrHonorGivenId() {
         return awardOrHonorGivenId;
     }
@@ -509,6 +565,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAwardOrHonorReceived(List<String> awardOrHonorReceived) {
         this.awardOrHonorReceived = awardOrHonorReceived;
+    }
+
+    public List<String> getAwardOrHonorReceivedDate() {
+        return awardOrHonorReceivedDate;
+    }
+
+    public void setAwardOrHonorReceivedDate(List<String> awardOrHonorReceivedDate) {
+        this.awardOrHonorReceivedDate = awardOrHonorReceivedDate;
     }
 
     public List<String> getAwardOrHonorReceivedId() {
@@ -695,6 +759,14 @@ public class Organization extends AbstractSolrDocument {
         this.convenerOfEvent = convenerOfEvent;
     }
 
+    public List<String> getConvenerOfEventDate() {
+        return convenerOfEventDate;
+    }
+
+    public void setConvenerOfEventDate(List<String> convenerOfEventDate) {
+        this.convenerOfEventDate = convenerOfEventDate;
+    }
+
     public List<String> getConvenerOfEventId() {
         return convenerOfEventId;
     }
@@ -709,6 +781,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAttendedEvent(List<String> attendedEvent) {
         this.attendedEvent = attendedEvent;
+    }
+
+    public List<String> getAttendedEventDate() {
+        return attendedEventDate;
+    }
+
+    public void setAttendedEventDate(List<String> attendedEventDate) {
+        this.attendedEventDate = attendedEventDate;
     }
 
     public List<String> getAttendedEventId() {
@@ -789,6 +869,22 @@ public class Organization extends AbstractSolrDocument {
 
     public void setPresentation(List<String> presentation) {
         this.presentation = presentation;
+    }
+
+    public List<String> getPresentationEvent() {
+        return presentationEvent;
+    }
+
+    public void setPresentationEvent(List<String> presentationEvent) {
+        this.presentationEvent = presentationEvent;
+    }
+
+    public List<String> getPresentationDate() {
+        return presentationDate;
+    }
+
+    public void setPresentationDate(List<String> presentationDate) {
+        this.presentationDate = presentationDate;
     }
 
     public List<String> getPresentationId() {
@@ -895,6 +991,14 @@ public class Organization extends AbstractSolrDocument {
         this.awardsGrant = awardsGrant;
     }
 
+    public List<String> getAwardsGrantDate() {
+        return awardsGrantDate;
+    }
+
+    public void setAwardsGrantDate(List<String> awardsGrantDate) {
+        this.awardsGrantDate = awardsGrantDate;
+    }
+
     public List<String> getAwardsGrantId() {
         return awardsGrantId;
     }
@@ -911,6 +1015,14 @@ public class Organization extends AbstractSolrDocument {
         this.administersGrant = administersGrant;
     }
 
+    public List<String> getAdministersGrantDate() {
+        return administersGrantDate;
+    }
+
+    public void setAdministersGrantDate(List<String> administersGrantDate) {
+        this.administersGrantDate = administersGrantDate;
+    }
+
     public List<String> getAdministersGrantId() {
         return administersGrantId;
     }
@@ -925,6 +1037,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setSubcontractsGrant(List<String> subcontractsGrant) {
         this.subcontractsGrant = subcontractsGrant;
+    }
+
+    public List<String> getSubcontractsGrantDate() {
+        return subcontractsGrantDate;
+    }
+
+    public void setSubcontractsGrantDate(List<String> subcontractsGrantDate) {
+        this.subcontractsGrantDate = subcontractsGrantDate;
     }
 
     public List<String> getSubcontractsGrantId() {

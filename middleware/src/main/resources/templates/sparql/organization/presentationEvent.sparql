@@ -3,11 +3,11 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?grant rdfs:label ?name .
+    ?event rdfs:label ?name .
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
-    ?role a vivo:AdministratorRole .
-    ?role vivo:relatedBy ?grant .
-    ?grant a vivo:Grant .
-    ?grant rdfs:label ?name .
+    ?role a vivo:PresenterRole .
+    ?role vivo:relatedBy ?presentation .
+    ?presentation obo:BFO_0000050 ?event .
+    ?event rdfs:label ?name
 }
