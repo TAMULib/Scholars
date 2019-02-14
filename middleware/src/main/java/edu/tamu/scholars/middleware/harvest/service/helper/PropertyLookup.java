@@ -13,11 +13,14 @@ public class PropertyLookup {
 
     private final boolean parse;
 
-    public PropertyLookup(String predicate, String name, String id, boolean parse) {
+    private final boolean unique;
+
+    public PropertyLookup(String predicate, String name, String id, boolean parse, boolean unique) {
         this.predicate = predicate;
         this.name = name;
         this.id = id;
         this.parse = parse;
+        this.unique = unique;
     }
 
     public String getPredicate() {
@@ -40,12 +43,16 @@ public class PropertyLookup {
         return parse;
     }
 
+    public boolean isUnique() {
+        return unique;
+    }
+
     public static PropertyLookup of(String predicate, String propertyName, PropertySource source) {
-        return new PropertyLookup(predicate, propertyName, source.id(), source.parse());
+        return new PropertyLookup(predicate, propertyName, source.id(), source.parse(), source.unique());
     }
 
     public static PropertyLookup of(String predicate, Property property) {
-        return new PropertyLookup(predicate, property.name(), property.id(), property.parse());
+        return new PropertyLookup(predicate, property.name(), property.id(), property.parse(), property.unique());
     }
 
 }

@@ -1,6 +1,6 @@
 PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-#PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
     ?reproducedIn vitro:mostSpecificType ?mostSpecificType .
@@ -8,5 +8,5 @@ CONSTRUCT {
     <[(${uri})]> bibo:reproducedIn ?reproducedIn .
     ?reproducedIn vitro:mostSpecificType ?mostSpecificType .
 
-#    FILTER (?mostSpecificType != vivo:DateTimeValue) .
+    FILTER (?mostSpecificType != vivo:DateTimeValue) .
 }

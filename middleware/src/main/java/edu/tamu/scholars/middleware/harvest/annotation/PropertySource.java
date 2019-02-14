@@ -21,4 +21,6 @@ public @interface PropertySource {
     // NOTE: extracts identifier from url, after last / or #
     boolean parse() default false;
 
+    boolean unique() default false;
+
 }

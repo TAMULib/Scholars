@@ -214,7 +214,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> selectedPublicationId;
 
     @Indexed
-    @PropertySource(template = "organization/publisherOf", key = "organization.publisherOf.title", id = "publisherOfId")
+    @PropertySource(template = "organization/publisherOf", key = "organization.publisherOf.title", id = "publisherOfId", unique = true)
     private List<String> publisherOf;
 
     @Indexed
@@ -436,7 +436,7 @@ public class Organization extends AbstractSolrDocument {
 
     // NOTE: unidirectional from Concept vivo:researchAreaOf
     @Indexed
-    @PropertySource(template = "organization/affiliatedResearchArea", key = "organization.affiliatedResearchArea", id = "affiliatedResearchAreaId")
+    @PropertySource(template = "organization/affiliatedResearchArea", key = "organization.affiliatedResearchArea", id = "affiliatedResearchAreaId", unique = true)
     private List<String> affiliatedResearchArea;
 
     @Indexed

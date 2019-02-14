@@ -7,5 +7,5 @@ CONSTRUCT {
     <[(${uri})]> vivo:hasTranslation ?translation .
     ?translation vitro:mostSpecificType ?mostSpecificType .
 
-#    FILTER (?mostSpecificType != vivo:DateTimeValue) .
+    FILTER (?mostSpecificType != vivo:DateTimeValue) .
 }

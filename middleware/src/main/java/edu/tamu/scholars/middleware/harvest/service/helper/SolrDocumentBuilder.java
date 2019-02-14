@@ -11,12 +11,16 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
 import edu.tamu.scholars.middleware.harvest.annotation.Property;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 public class SolrDocumentBuilder {
+
+    private final static Logger logger = LoggerFactory.getLogger(SolrDocumentBuilder.class);
 
     private final static String FORWARD_SLASH = "/";
 
@@ -56,7 +60,7 @@ public class SolrDocumentBuilder {
             }
         }
         this.collections.put(ID, new ArrayList<String>());
-        add(ID, parse(subject));
+        add(ID, parse(subject), true);
     }
 
     public SolrDocumentBuilder(Model model, Resource resource, Class<?> type) {
@@ -136,25 +140,37 @@ public class SolrDocumentBuilder {
     public void lookupProperty(PropertyLookup lookup) {
         Model model = getModel();
         Resource resource = getResource();
+        if (logger.isDebugEnabled()) {
+            logger.debug(String.format("%s lookup by %s", lookup.getName(), lookup.getPredicate()));
+        }
         StmtIterator statements = resource.listProperties(model.createProperty(lookup.getPredicate()));
         while (statements.hasNext()) {
             Statement statement = statements.next();
             String object = statement.getObject().toString();
-            add(lookup.getName(), lookup.isParse() ? parse(object) : object);
-            if (lookup.hasId()) {
-                String subject = statement.getSubject().toString();
-                add(lookup.getId(), parse(subject));
+            String value = lookup.isParse() ? parse(object) : object;
+            if (add(lookup.getName(), value, lookup.isUnique())) {
+                if (lookup.hasId()) {
+                    String subject = statement.getSubject().toString();
+                    add(lookup.getId(), parse(subject), false);
+                }
             }
         }
     }
 
-    public void add(String property, String value) {
+    public boolean add(String property, String value, boolean unique) {
         if (this.collections.containsKey(property)) {
             if (value.contains("^^")) {
                 value = value.substring(0, value.indexOf("^^"));
             }
-            this.collections.get(property).add(value);
+            List<String> values = this.collections.get(property);
+            if (unique && values.stream().anyMatch(value::equalsIgnoreCase)) {
+                logger.warn(String.format("%s has duplicate value %s", property, value));
+            } else {
+                values.add(value);
+                return true;
+            }
         }
+        return false;
     }
 
     public static String parse(String uri) {

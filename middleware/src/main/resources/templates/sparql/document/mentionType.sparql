@@ -1,6 +1,6 @@
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
-#PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
     ?mention vitro:mostSpecificType ?mostSpecificType .
@@ -8,5 +8,5 @@ CONSTRUCT {
     <[(${uri})]> obo:IAO_0000142 ?mention .
     ?mention vitro:mostSpecificType ?mostSpecificType .
 
-#    FILTER (?mostSpecificType != vivo:DateTimeValue) .
+    FILTER (?mostSpecificType != vivo:DateTimeValue) .
 }

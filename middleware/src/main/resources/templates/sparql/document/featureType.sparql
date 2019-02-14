@@ -6,6 +6,4 @@ CONSTRUCT {
 } WHERE {
     <[(${uri})]> vivo:features ?feature .
     ?feature vitro:mostSpecificType ?mostSpecificType .
-
-#    FILTER (?mostSpecificType != vivo:DateTimeValue) .
 }

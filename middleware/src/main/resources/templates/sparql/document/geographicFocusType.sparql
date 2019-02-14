@@ -7,5 +7,5 @@ CONSTRUCT {
     <[(${uri})]> vivo:geographicFocus ?geographicFocus .
     ?geographicFocus vitro:mostSpecificType ?mostSpecificType .
     
-#    FILTER (STRSTARTS (str(?mostSpecificType), str(vivo:))) .
+    FILTER (STRSTARTS (str(?mostSpecificType), str(vivo:))) .
 }

@@ -92,7 +92,7 @@ public class Document extends AbstractSolrDocument {
     private String abbreviation;
 
     @Indexed
-    @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue.title", id = "publicationVenueId")
+    @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue.title", id = "publicationVenueId", unique = true)
     private List<String> publicationVenue;
 
     @Indexed
@@ -103,7 +103,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> publicationVenueId;
 
     @Indexed
-    @PropertySource(template = "document/publicationVenueFor", key = "document.publicationVenueFor.title", id = "publicationVenueForId")
+    @PropertySource(template = "document/publicationVenueFor", key = "document.publicationVenueFor", id = "publicationVenueForId", unique = true)
     private List<String> publicationVenueFor;
 
     @Indexed
@@ -182,11 +182,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> statusId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "document/publicationDate", key = "document.publicationDate", id = "publicationDateId")
-    private List<String> publicationDate;
-
-    @Indexed
-    private List<String> publicationDateId;
+    @PropertySource(template = "document/publicationDate", key = "document.publicationDate")
+    private String publicationDate;
 
     @Indexed
     @PropertySource(template = "document/publisher", key = "document.publisher.name", id = "publisherId")
@@ -789,20 +786,12 @@ public class Document extends AbstractSolrDocument {
         this.statusId = statusId;
     }
 
-    public List<String> getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(List<String> publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
-    }
-
-    public List<String> getPublicationDateId() {
-        return publicationDateId;
-    }
-
-    public void setPublicationDateId(List<String> publicationDateId) {
-        this.publicationDateId = publicationDateId;
     }
 
     public List<String> getPublisher() {
