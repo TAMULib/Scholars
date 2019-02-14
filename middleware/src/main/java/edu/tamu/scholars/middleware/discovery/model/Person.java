@@ -379,6 +379,15 @@ public class Person extends AbstractSolrDocument {
     private String youtube;
 
     @Indexed
+    private List<String> sameAs;
+
+    @Indexed
+    private List<String> sameAsType;
+
+    @Indexed
+    private List<String> sameAsId;
+
+    @Indexed
     private String eRACommonsId;
 
     @Indexed
@@ -439,9 +448,9 @@ public class Person extends AbstractSolrDocument {
     private List<String> etdChairOf;
 
     @Indexed
-    private List<String> etdChairOfPerson;
+    private List<String> etdChairOfTitle;
 
-    @Indexed
+    @Indexed(type = "pdate")
     private List<String> etdChairOfDate;
 
     @Indexed
@@ -1395,6 +1404,30 @@ public class Person extends AbstractSolrDocument {
         this.youtube = youtube;
     }
 
+    public List<String> getSameAs() {
+        return sameAs;
+    }
+
+    public void setSameAs(List<String> sameAs) {
+        this.sameAs = sameAs;
+    }
+
+    public List<String> getSameAsType() {
+        return sameAsType;
+    }
+
+    public void setSameAsType(List<String> sameAsType) {
+        this.sameAsType = sameAsType;
+    }
+
+    public List<String> getSameAsId() {
+        return sameAsId;
+    }
+
+    public void setSameAsId(List<String> sameAsId) {
+        this.sameAsId = sameAsId;
+    }
+
     public String geteRACommonsId() {
         return eRACommonsId;
     }
@@ -1555,12 +1588,12 @@ public class Person extends AbstractSolrDocument {
         this.etdChairOf = etdChairOf;
     }
 
-    public List<String> getEtdChairOfPerson() {
-        return etdChairOfPerson;
+    public List<String> getEtdChairOfTitle() {
+        return etdChairOfTitle;
     }
 
-    public void setEtdChairOfPerson(List<String> etdChairOfPerson) {
-        this.etdChairOfPerson = etdChairOfPerson;
+    public void setEtdChairOfTitle(List<String> etdChairOfTitle) {
+        this.etdChairOfTitle = etdChairOfTitle;
     }
 
     public List<String> getEtdChairOfDate() {

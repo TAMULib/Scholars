@@ -38,6 +38,7 @@ public class Organization extends AbstractSolrDocument {
     private String image;
 
     @Indexed
+    @PropertySource(template = "organization/thumbnail", key = "organization.thumbnail")
     private String thumbnail;
 
     @Indexed
@@ -354,6 +355,17 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     @PropertySource(template = "organization/orgId", key = "organization.orgId")
     private String orgId;
+
+    @Indexed
+    @PropertySource(template = "organization/sameAs", key = "organization.sameAs.label", id = "sameAsId")
+    private List<String> sameAs;
+
+    @Indexed
+    @PropertySource(template = "organization/sameAsType", key = "organization.sameAs.type", parse = true)
+    private List<String> sameAsType;
+
+    @Indexed
+    private List<String> sameAsId;
 
     @Indexed
     @PropertySource(template = "organization/phone", key = "organization.phone")
@@ -1152,6 +1164,30 @@ public class Organization extends AbstractSolrDocument {
 
     public void setOrgId(String orgId) {
         this.orgId = orgId;
+    }
+
+    public List<String> getSameAs() {
+        return sameAs;
+    }
+
+    public void setSameAs(List<String> sameAs) {
+        this.sameAs = sameAs;
+    }
+
+    public List<String> getSameAsType() {
+        return sameAsType;
+    }
+
+    public void setSameAsType(List<String> sameAsType) {
+        this.sameAsType = sameAsType;
+    }
+
+    public List<String> getSameAsId() {
+        return sameAsId;
+    }
+
+    public void setSameAsId(List<String> sameAsId) {
+        this.sameAsId = sameAsId;
     }
 
     public String getPhone() {

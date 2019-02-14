@@ -3,6 +3,7 @@ organization:
   name: "http://www.w3.org/2000/01/rdf-schema#label"
   type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
   image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#downloadLocation"
+  thumbnail: "http://vitro.mannlib.cornell.edu/ns/vitro/public#downloadLocation"
   website:
     url: "http://www.w3.org/2006/vcard/ns#url"
     label: "http://www.w3.org/2000/01/rdf-schema#label"
@@ -78,6 +79,9 @@ organization:
   hasEquipment: "http://www.w3.org/2000/01/rdf-schema#label"
   offersCourse: "http://www.w3.org/2000/01/rdf-schema#label"
   orgId: "http://vivo.library.tamu.edu/ontology/TAMU#OrgID"
+  sameAs:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
   phone: "http://www.w3.org/2006/vcard/ns#telephone"
   fax: "http://www.w3.org/2006/vcard/ns#fax"
   emailAddress: "http://www.w3.org/2006/vcard/ns#email"

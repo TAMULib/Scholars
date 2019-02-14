@@ -102,6 +102,9 @@ person:
   uid: "http://vivo.library.tamu.edu/ontology/TAMU#UID"
   uin: "http://vivo.library.tamu.edu/ontology/TAMU#UIN"
   youtube: "http://vivo.library.tamu.edu/ontology/TAMU#youtube"
+  sameAs:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
   eRACommonsId: "http://vivoweb.org/ontology/core#eRACommonsId"
   isiResearcherId: "http://vivoweb.org/ontology/core#researcherId"
   scopusId: "http://vivoweb.org/ontology/core#scopusId"
@@ -121,6 +124,6 @@ person:
   locatedInFacility: "http://www.w3.org/2000/01/rdf-schema#label"
   fax: "http://www.w3.org/2006/vcard/ns#fax"
   etdChairOf:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
     title: "http://www.w3.org/2000/01/rdf-schema#label"
-    person: "http://www.w3.org/2000/01/rdf-schema#label"
     date: "http://vivoweb.org/ontology/core#dateTime"
