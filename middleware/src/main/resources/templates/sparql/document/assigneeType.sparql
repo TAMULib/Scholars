@@ -1,0 +1,9 @@
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?assignee vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> vivo:assignee ?assignee .
+    ?assignee vitro:mostSpecificType ?mostSpecificType .
+}

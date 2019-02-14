@@ -1,8 +1,9 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tamu: <http://vivo.library.tamu.edu/ontology/TAMU#>
 
 CONSTRUCT {
-    ?chair ?property ?object .
+    ?chair rdfs:label ?label .
 } WHERE {
     <[(${uri})]> tamu:ETDChairedBy ?chair .
-    ?chair ?property ?object .
+    ?chair rdfs:label ?label .
 }

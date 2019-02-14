@@ -1,9 +1,9 @@
-PREFIX core: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
     ?subjectArea rdfs:label ?label .
 } WHERE {
-    <[(${uri})]> core:hasSubjectArea ?subjectArea .
+    <[(${uri})]> vivo:hasSubjectArea ?subjectArea .
     ?subjectArea rdfs:label ?label .
 }

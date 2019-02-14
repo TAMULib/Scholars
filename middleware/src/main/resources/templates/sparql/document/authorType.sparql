@@ -1,0 +1,13 @@
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?author vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?relatedBy .
+    ?relatedBy a vivo:Authorship .
+    ?relatedBy vivo:relates ?author .
+    ?author vitro:mostSpecificType ?mostSpecificType .
+
+    FILTER (?author != <[(${uri})]>) .
+}

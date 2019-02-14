@@ -1,0 +1,9 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?publicationVenue rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> vivo:hasPublicationVenueFor ?publicationVenue .
+    ?publicationVenue rdfs:label ?label .
+}

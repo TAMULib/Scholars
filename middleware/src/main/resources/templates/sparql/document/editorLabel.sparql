@@ -1,0 +1,14 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?editor rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?relatedBy .
+    ?relatedBy a vivo:Editorship .
+    ?relatedBy vivo:relates ?editor .
+    ?editor rdfs:label ?label .
+
+    FILTER (?editor != <[(${uri})]>) .
+}
