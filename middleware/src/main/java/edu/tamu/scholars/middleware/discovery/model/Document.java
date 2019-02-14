@@ -183,7 +183,7 @@ public class Document extends AbstractSolrDocument {
 
     @Indexed(type = "pdate")
     @PropertySource(template = "document/publicationDate", key = "document.publicationDate")
-    private String publicationDate;
+    private List<String> publicationDate;
 
     @Indexed
     @PropertySource(template = "document/publisher", key = "document.publisher.name", id = "publisherId")
@@ -786,11 +786,11 @@ public class Document extends AbstractSolrDocument {
         this.statusId = statusId;
     }
 
-    public String getPublicationDate() {
+    public List<String> getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(String publicationDate) {
+    public void setPublicationDate(List<String> publicationDate) {
         this.publicationDate = publicationDate;
     }
 
