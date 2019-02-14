@@ -84,7 +84,6 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
             D document = createDocument(builder);
             indexer.index(document);
             logger.info(String.format("%s %s indexed in %f seconds", name(), parse(builder.getSubject()), Duration.between(start, Instant.now()).toMillis() / 1000.0));
-            // System.exit(0);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             logger.error(String.format("Unable to index %s: %s", name(), parse(builder.getSubject())));
             logger.error(String.format("Error: %s", e.getMessage()));

@@ -7,5 +7,5 @@ CONSTRUCT {
     <[(${uri})]> vivo:informationResourceSupportedBy ?informationResource .
     ?informationResource vitro:mostSpecificType ?mostSpecificType .
 
-    FILTER (?mostSpecificType != vivo:DateTimeValue) .
+#    FILTER (?mostSpecificType != vivo:DateTimeValue) .
 }
