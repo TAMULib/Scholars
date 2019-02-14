@@ -11,6 +11,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.shared.InvalidPropertyURIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -140,10 +141,13 @@ public class SolrDocumentBuilder {
     public void lookupProperty(PropertyLookup lookup) {
         Model model = getModel();
         Resource resource = getResource();
-        if (logger.isDebugEnabled()) {
-            logger.debug(String.format("%s lookup by %s", lookup.getName(), lookup.getPredicate()));
+        StmtIterator statements;
+        try {
+            statements = resource.listProperties(model.createProperty(lookup.getPredicate()));
+        } catch (InvalidPropertyURIException exception) {
+            logger.error(String.format("%s lookup by %s", lookup.getName(), lookup.getPredicate()));
+            throw exception;
         }
-        StmtIterator statements = resource.listProperties(model.createProperty(lookup.getPredicate()));
         while (statements.hasNext()) {
             Statement statement = statements.next();
             String object = statement.getObject().toString();
