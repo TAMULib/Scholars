@@ -28,7 +28,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
         @Property(name = "abbreviation", key = "document.abbreviation"),
         @Property(name = "authorList", key = "document.authorList"),
         @Property(name = "editorList", key = "document.editorList"),
-        @Property(name = "bookTitle", key = "document.bookTitleForChapter"),
+        @Property(name = "bookTitle", key = "document.bookTitle"),
         @Property(name = "restriction", key = "document.restriction"),
         @Property(name = "chapter", key = "document.chapter"),
         @Property(name = "edition", key = "document.edition"),
@@ -48,13 +48,13 @@ import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
         @Property(name = "eissn", key = "document.eissn"),
         @Property(name = "uri", key = "document.uri"),
         @Property(name = "iclCode", key = "document.iclCode"),
-        @Property(name = "numberOfPages", key = "document.numPages"),
+        @Property(name = "numberOfPages", key = "document.numberOfPages"),
         @Property(name = "pageStart", key = "document.pageStart"),
         @Property(name = "pageEnd", key = "document.pageEnd"),
         @Property(name = "volume", key = "document.volume"),
         @Property(name = "issue", key = "document.issue"),
         @Property(name = "placeOfPublication", key = "document.placeOfPublication"),
-        @Property(name = "isTemplate", key = "document.ARG_0000001"),
+        @Property(name = "isTemplate", key = "document.isTemplate"),
         @Property(name = "modTime", key = "document.modTime"),
     }
 )
@@ -68,35 +68,19 @@ public class Document extends AbstractSolrDocument {
     private List<String> type;
 
     @Indexed
-    @PropertySource(template = "document/imageDirectDownloadUrl", key = "document.file.directDownloadUrl")
-    private String imageDirectDownloadUrl;
+    @PropertySource(template = "document/image", key = "document.image")
+    private String image;
 
     @Indexed
-    @PropertySource(template = "document/imageFilename", key = "document.file.filename")
-    private String imageFilename;
+    @PropertySource(template = "document/thumbnail", key = "document.thumbnail")
+    private String thumbnail;
 
     @Indexed
-    @PropertySource(template = "document/imageMimeType", key = "document.file.mimeType")
-    private String imageMimeType;
-
-    @Indexed
-    @PropertySource(template = "document/thumbnailDirectDownloadUrl", key = "document.file.directDownloadUrl")
-    private String thumbnailDirectDownloadUrl;
-
-    @Indexed
-    @PropertySource(template = "document/thumbnailFilename", key = "document.file.filename")
-    private String thumbnailFilename;
-
-    @Indexed
-    @PropertySource(template = "document/thumbnailMimeType", key = "document.file.mimeType")
-    private String thumbnailMimeType;
-
-    @Indexed
-    @PropertySource(template = "document/website", key = "document.website.url")
+    @PropertySource(template = "document/websiteUrl", key = "document.website.url")
     private List<String> websiteUrl;
 
     @Indexed
-    @PropertySource(template = "document/website", key = "document.website.label")
+    @PropertySource(template = "document/websiteLabel", key = "document.website.label")
     private List<String> websiteLabel;
 
     @Field("abstract")
@@ -108,40 +92,48 @@ public class Document extends AbstractSolrDocument {
     private String abbreviation;
 
     @Indexed
-    @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue.label", id = "publicationVenueId")
+    @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue.title", id = "publicationVenueId")
     private List<String> publicationVenue;
+
+    @Indexed
+    @PropertySource(template = "document/publicationVenueIssn", key = "document.publicationVenue.issn")
+    private List<String> publicationVenueIssn;
 
     @Indexed
     private List<String> publicationVenueId;
 
     @Indexed
-    @PropertySource(template = "document/publicationVenueFor", key = "document.publicationVenue.label", id = "publicationVenueForId")
+    @PropertySource(template = "document/publicationVenueFor", key = "document.publicationVenueFor.title", id = "publicationVenueForId")
     private List<String> publicationVenueFor;
+
+    @Indexed
+    @PropertySource(template = "document/publicationVenueForIssn", key = "document.publicationVenueFor.issn")
+    private List<String> publicationVenueForIssn;
 
     @Indexed
     private List<String> publicationVenueForId;
 
     @Indexed
-    @PropertySource(template = "document/etdChairedBy", key = "document.person.label", id = "etdChairedById")
+    @PropertySource(template = "document/etdChairedBy", key = "document.etdChairedBy.name", id = "etdChairedById")
     private List<String> etdChairedBy;
 
     @Indexed
-    @PropertySource(template = "document/etdChairedByEmail", key = "document.person.email")
+    @PropertySource(template = "document/etdChairedByEmail", key = "document.etdChairedBy.email")
     private List<String> etdChairedByEmail;
 
     @Indexed
     private List<String> etdChairedById;
 
     @Indexed
-    @PropertySource(template = "document/author", key = "document.person.label", id = "authorId")
+    @PropertySource(template = "document/author", key = "document.author.name", id = "authorId")
     private List<String> author;
 
     @Indexed
-    @PropertySource(template = "document/authorType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/authorType", key = "document.author.type", parse = true)
     private List<String> authorType;
 
     @Indexed
-    @PropertySource(template = "document/authorRank", key = "document.person.rank")
+    @PropertySource(template = "document/authorRank", key = "document.author.rank")
     private List<String> authorRank;
 
     @Indexed
@@ -151,61 +143,57 @@ public class Document extends AbstractSolrDocument {
     private List<String> authorList;
 
     @Indexed
-    private List<String> editorList;
-
-    @Indexed
-    @PropertySource(template = "document/editor", key = "document.person.label", id = "editorId")
+    @PropertySource(template = "document/editor", key = "document.editor.name", id = "editorId")
     private List<String> editor;
 
     @Indexed
-    @PropertySource(template = "document/editorType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/editorType", key = "document.editor.type", parse = true)
     private List<String> editorType;
 
     @Indexed
-    @PropertySource(template = "document/editorRank", key = "document.person.rank")
+    @PropertySource(template = "document/editorRank", key = "document.editor.rank")
     private List<String> editorRank;
 
     @Indexed
     private List<String> editorId;
 
     @Indexed
+    private List<String> editorList;
+
+    @Indexed
     private String bookTitle;
 
     @Indexed
-    @PropertySource(template = "document/translator", key = "document.thing.label", id = "translatorId")
+    @PropertySource(template = "document/translator", key = "document.translator.name", id = "translatorId")
     private List<String> translator;
 
     @Indexed
-    @PropertySource(template = "document/translatorType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/translatorType", key = "document.translator.type", parse = true)
     private List<String> translatorType;
 
     @Indexed
     private List<String> translatorId;
 
     @Indexed
-    @PropertySource(template = "document/status", key = "document.thing.label", id = "statusId")
+    @PropertySource(template = "document/status", key = "document.status", id = "statusId")
     private List<String> status;
 
     @Indexed
     private List<String> statusId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "document/publicationDate", key = "document.date.dateTime", id = "publicationDateId")
+    @PropertySource(template = "document/publicationDate", key = "document.publicationDate", id = "publicationDateId")
     private List<String> publicationDate;
-
-    @Indexed
-    @PropertySource(template = "document/publicationDatePrecision", key = "document.date.dateTimePrecision", parse = true)
-    private List<String> publicationDatePrecision;
 
     @Indexed
     private List<String> publicationDateId;
 
     @Indexed
-    @PropertySource(template = "document/publisher", key = "document.thing.label", id = "publisherId")
+    @PropertySource(template = "document/publisher", key = "document.publisher.name", id = "publisherId")
     private List<String> publisher;
 
     @Indexed
-    @PropertySource(template = "document/publisherType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/publisherType", key = "document.publisher.type", parse = true)
     private List<String> publisherType;
 
     @Indexed
@@ -220,7 +208,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> dateIssued;
 
     @Indexed
-    @PropertySource(template = "document/subjectArea", key = "document.thing.label", id = "subjectAreaId")
+    @PropertySource(template = "document/subjectArea", key = "document.subjectArea", id = "subjectAreaId")
     private List<String> subjectArea;
 
     @Indexed
@@ -230,11 +218,11 @@ public class Document extends AbstractSolrDocument {
     private List<String> restriction;
 
     @Indexed
-    @PropertySource(template = "document/documentPart", key = "document.thing.label", id = "documentPartId")
+    @PropertySource(template = "document/documentPart", key = "document.documentPart.name", id = "documentPartId")
     private List<String> documentPart;
 
     @Indexed
-    @PropertySource(template = "document/documentPartType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/documentPartType", key = "document.documentPart.type", parse = true)
     private List<String> documentPartType;
 
     @Indexed
@@ -244,11 +232,11 @@ public class Document extends AbstractSolrDocument {
     private String chapter;
 
     @Indexed
-    @PropertySource(template = "document/feature", key = "document.thing.label", id = "featureId")
+    @PropertySource(template = "document/feature", key = "document.feature.name", id = "featureId")
     private List<String> feature;
 
     @Indexed
-    @PropertySource(template = "document/featureType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/featureType", key = "document.feature.type", parse = true)
     private List<String> featureType;
 
     @Indexed
@@ -258,44 +246,44 @@ public class Document extends AbstractSolrDocument {
     private String edition;
 
     @Indexed
-    @PropertySource(template = "document/geographicFocus", key = "document.thing.label", id = "geographicFocusId")
+    @PropertySource(template = "document/geographicFocus", key = "document.geographicFocus.name", id = "geographicFocusId")
     private List<String> geographicFocus;
 
     @Indexed
-    @PropertySource(template = "document/geographicFocusType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/geographicFocusType", key = "document.geographicFocus.type", parse = true)
     private List<String> geographicFocusType;
 
     @Indexed
     private List<String> geographicFocusId;
 
     @Indexed
-    @PropertySource(template = "document/documentationForProjectOrResource", key = "document.thing.label", id = "documentationForProjectOrResourceId")
+    @PropertySource(template = "document/documentationForProjectOrResource", key = "document.documentationForProjectOrResource.name", id = "documentationForProjectOrResourceId")
     private List<String> documentationForProjectOrResource;
 
     @Indexed
-    @PropertySource(template = "document/documentationForProjectOrResourceType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/documentationForProjectOrResourceType", key = "document.documentationForProjectOrResource.type", parse = true)
     private List<String> documentationForProjectOrResourceType;
 
     @Indexed
     private List<String> documentationForProjectOrResourceId;
 
     @Indexed
-    @PropertySource(template = "document/outputOfProcessOrEvent", key = "document.thing.label", id = "outputOfProcessOrEventId")
+    @PropertySource(template = "document/outputOfProcessOrEvent", key = "document.outputOfProcessOrEvent.name", id = "outputOfProcessOrEventId")
     private List<String> outputOfProcessOrEvent;
 
     @Indexed
-    @PropertySource(template = "document/outputOfProcessOrEventType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/outputOfProcessOrEventType", key = "document.outputOfProcessOrEvent.type", parse = true)
     private List<String> outputOfProcessOrEventType;
 
     @Indexed
     private List<String> outputOfProcessOrEventId;
 
     @Indexed
-    @PropertySource(template = "document/presentedAt", key = "document.thing.label", id = "presentedAtId")
+    @PropertySource(template = "document/presentedAt", key = "document.presentedAt.name", id = "presentedAtId")
     private List<String> presentedAt;
 
     @Indexed
-    @PropertySource(template = "document/presentedAtType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/presentedAtType", key = "document.presentedAt.type", parse = true)
     private List<String> presentedAtType;
 
     @Indexed
@@ -320,11 +308,11 @@ public class Document extends AbstractSolrDocument {
     private List<String> patentNumber;
 
     @Indexed
-    @PropertySource(template = "document/sameAs", key = "document.thing.label", id = "sameAsId")
+    @PropertySource(template = "document/sameAs", key = "document.sameAs.label", id = "sameAsId")
     private List<String> sameAs;
 
     @Indexed
-    @PropertySource(template = "document/sameAsType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/sameAsType", key = "document.sameAs.type", parse = true)
     private List<String> sameAsType;
 
     @Indexed
@@ -358,62 +346,62 @@ public class Document extends AbstractSolrDocument {
     private List<String> uri;
 
     @Indexed
-    @PropertySource(template = "document/citedBy", key = "document.thing.label", id = "citedById")
+    @PropertySource(template = "document/citedBy", key = "document.citedBy.title", id = "citedById")
     private List<String> citedBy;
 
     @Indexed
-    @PropertySource(template = "document/citedByType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/citedByType", key = "document.citedBy.type", parse = true)
     private List<String> citedByType;
 
     @Indexed
     private List<String> citedById;
 
     @Indexed
-    @PropertySource(template = "document/citation", key = "document.thing.label", id = "citationId")
+    @PropertySource(template = "document/citation", key = "document.citation.text", id = "citationId")
     private List<String> citation;
 
     @Indexed
-    @PropertySource(template = "document/citationType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/citationType", key = "document.citation.type", parse = true)
     private List<String> citationType;
 
     @Indexed
     private List<String> citationId;
 
     @Indexed
-    @PropertySource(template = "document/citesAsDataSource", key = "document.thing.label", id = "citesAsDataSourceId")
+    @PropertySource(template = "document/citesAsDataSource", key = "document.citesAsDataSource.label", id = "citesAsDataSourceId")
     private List<String> citesAsDataSource;
 
     @Indexed
-    @PropertySource(template = "document/citesAsDataSourceType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/citesAsDataSourceType", key = "document.citesAsDataSource.type", parse = true)
     private List<String> citesAsDataSourceType;
 
     @Indexed
     private List<String> citesAsDataSourceId;
 
     @Indexed
-    @PropertySource(template = "document/translation", key = "document.thing.label", id = "translationId")
+    @PropertySource(template = "document/translation", key = "document.translation.title", id = "translationId")
     private List<String> translation;
 
     @Indexed
-    @PropertySource(template = "document/translationType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/translationType", key = "document.translation.type", parse = true)
     private List<String> translationType;
 
     @Indexed
     private List<String> translationId;
 
     @Indexed
-    @PropertySource(template = "document/translationOf", key = "document.thing.label", id = "translationOfId")
+    @PropertySource(template = "document/translationOf", key = "document.translationOf.title", id = "translationOfId")
     private List<String> translationOf;
 
     @Indexed
-    @PropertySource(template = "document/translationOfType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/translationOfType", key = "document.translationOf.type", parse = true)
     private List<String> translationOfType;
 
     @Indexed
     private List<String> translationOfId;
 
     @Indexed
-    @PropertySource(template = "document/globalCitationFrequency", key = "document.thing.label", id = "globalCitationFrequencyId")
+    @PropertySource(template = "document/globalCitationFrequency", key = "document.globalCitationFrequency", id = "globalCitationFrequencyId")
     private List<String> globalCitationFrequency;
 
     @Indexed
@@ -438,54 +426,54 @@ public class Document extends AbstractSolrDocument {
     private String issue;
 
     @Indexed
-    private String placeOfPublication;
+    private List<String> placeOfPublication;
 
     @Indexed
-    @PropertySource(template = "document/assignee", key = "document.thing.label", id = "assigneeId")
+    @PropertySource(template = "document/assignee", key = "document.assignee.name", id = "assigneeId")
     private List<String> assignee;
 
     @Indexed
-    @PropertySource(template = "document/assigneeType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/assigneeType", key = "document.assignee.type", parse = true)
     private List<String> assigneeType;
 
     @Indexed
     private List<String> assigneeId;
 
     @Indexed
-    @PropertySource(template = "document/reproducedIn", key = "document.thing.label", id = "reproducedInId")
+    @PropertySource(template = "document/reproducedIn", key = "document.reproducedIn", id = "reproducedInId")
     private List<String> reproducedIn;
 
     @Indexed
     private List<String> reproducedInId;
 
     @Indexed
-    @PropertySource(template = "document/reproduces", key = "document.thing.label", id = "reproducesId")
+    @PropertySource(template = "document/reproduces", key = "document.reproduces.title", id = "reproducesId")
     private List<String> reproduces;
 
     @Indexed
-    @PropertySource(template = "document/reproducesType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/reproducesType", key = "document.reproduces.type", parse = true)
     private List<String> reproducesType;
 
     @Indexed
     private List<String> reproducesId;
 
     @Indexed
-    @PropertySource(template = "document/isAbout", key = "document.thing.label", id = "isAboutId")
+    @PropertySource(template = "document/isAbout", key = "document.isAbout.label", id = "isAboutId")
     private List<String> isAbout;
 
     @Indexed
-    @PropertySource(template = "document/isAboutType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/isAboutType", key = "document.isAbout.type", parse = true)
     private List<String> isAboutType;
 
     @Indexed
     private List<String> isAboutId;
 
     @Indexed
-    @PropertySource(template = "document/specifiedOutputOf", key = "document.thing.label", id = "specifiedOutputOfId")
+    @PropertySource(template = "document/specifiedOutputOf", key = "document.specifiedOutputOf.name", id = "specifiedOutputOfId")
     private List<String> specifiedOutputOf;
 
     @Indexed
-    @PropertySource(template = "document/specifiedOutputOfType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/specifiedOutputOfType", key = "document.specifiedOutputOf.type", parse = true)
     private List<String> specifiedOutputOfType;
 
     @Indexed
@@ -495,29 +483,29 @@ public class Document extends AbstractSolrDocument {
     private List<String> isTemplate;
 
     @Indexed
-    @PropertySource(template = "document/mention", key = "document.thing.label", id = "mentionId")
+    @PropertySource(template = "document/mention", key = "document.mention.name", id = "mentionId")
     private List<String> mention;
 
     @Indexed
-    @PropertySource(template = "document/mentionType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/mentionType", key = "document.mention.type", parse = true)
     private List<String> mentionType;
 
     @Indexed
     private List<String> mentionId;
 
     @Indexed
-    @PropertySource(template = "document/participatesIn", key = "document.thing.label", id = "participatesInId")
+    @PropertySource(template = "document/participatesIn", key = "document.participatesIn", id = "participatesInId")
     private List<String> participatesIn;
 
     @Indexed
     private List<String> participatesInId;
 
     @Indexed
-    @PropertySource(template = "document/supportedBy", key = "document.thing.label", id = "supportedById")
+    @PropertySource(template = "document/supportedBy", key = "document.supportedBy.name", id = "supportedById")
     private List<String> supportedBy;
 
     @Indexed
-    @PropertySource(template = "document/supportedByType", key = "document.thing.type", parse = true)
+    @PropertySource(template = "document/supportedByType", key = "document.supportedBy.type", parse = true)
     private List<String> supportedByType;
 
     @Indexed
@@ -527,7 +515,7 @@ public class Document extends AbstractSolrDocument {
     private String modTime;
 
     @Indexed
-    @PropertySource(template = "document/receipt", key = "document.thing.label", id = "receiptId")
+    @PropertySource(template = "document/receipt", key = "document.receipt", id = "receiptId")
     private List<String> receipt;
 
     @Indexed
@@ -553,52 +541,20 @@ public class Document extends AbstractSolrDocument {
         this.type = type;
     }
 
-    public String getImageDirectDownloadUrl() {
-        return imageDirectDownloadUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageDirectDownloadUrl(String imageDirectDownloadUrl) {
-        this.imageDirectDownloadUrl = imageDirectDownloadUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getImageFilename() {
-        return imageFilename;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setImageFilename(String imageFilename) {
-        this.imageFilename = imageFilename;
-    }
-
-    public String getImageMimeType() {
-        return imageMimeType;
-    }
-
-    public void setImageMimeType(String imageMimeType) {
-        this.imageMimeType = imageMimeType;
-    }
-
-    public String getThumbnailDirectDownloadUrl() {
-        return thumbnailDirectDownloadUrl;
-    }
-
-    public void setThumbnailDirectDownloadUrl(String thumbnailDirectDownloadUrl) {
-        this.thumbnailDirectDownloadUrl = thumbnailDirectDownloadUrl;
-    }
-
-    public String getThumbnailFilename() {
-        return thumbnailFilename;
-    }
-
-    public void setThumbnailFilename(String thumbnailFilename) {
-        this.thumbnailFilename = thumbnailFilename;
-    }
-
-    public String getThumbnailMimeType() {
-        return thumbnailMimeType;
-    }
-
-    public void setThumbnailMimeType(String thumbnailMimeType) {
-        this.thumbnailMimeType = thumbnailMimeType;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public List<String> getWebsiteUrl() {
@@ -641,6 +597,14 @@ public class Document extends AbstractSolrDocument {
         this.publicationVenue = publicationVenue;
     }
 
+    public List<String> getPublicationVenueIssn() {
+        return publicationVenueIssn;
+    }
+
+    public void setPublicationVenueIssn(List<String> publicationVenueIssn) {
+        this.publicationVenueIssn = publicationVenueIssn;
+    }
+
     public List<String> getPublicationVenueId() {
         return publicationVenueId;
     }
@@ -655,6 +619,14 @@ public class Document extends AbstractSolrDocument {
 
     public void setPublicationVenueFor(List<String> publicationVenueFor) {
         this.publicationVenueFor = publicationVenueFor;
+    }
+
+    public List<String> getPublicationVenueForIssn() {
+        return publicationVenueForIssn;
+    }
+
+    public void setPublicationVenueForIssn(List<String> publicationVenueForIssn) {
+        this.publicationVenueForIssn = publicationVenueForIssn;
     }
 
     public List<String> getPublicationVenueForId() {
@@ -729,14 +701,6 @@ public class Document extends AbstractSolrDocument {
         this.authorList = authorList;
     }
 
-    public List<String> getEditorList() {
-        return editorList;
-    }
-
-    public void setEditorList(List<String> editorList) {
-        this.editorList = editorList;
-    }
-
     public List<String> getEditor() {
         return editor;
     }
@@ -767,6 +731,14 @@ public class Document extends AbstractSolrDocument {
 
     public void setEditorId(List<String> editorId) {
         this.editorId = editorId;
+    }
+
+    public List<String> getEditorList() {
+        return editorList;
+    }
+
+    public void setEditorList(List<String> editorList) {
+        this.editorList = editorList;
     }
 
     public String getBookTitle() {
@@ -823,14 +795,6 @@ public class Document extends AbstractSolrDocument {
 
     public void setPublicationDate(List<String> publicationDate) {
         this.publicationDate = publicationDate;
-    }
-
-    public List<String> getPublicationDatePrecision() {
-        return publicationDatePrecision;
-    }
-
-    public void setPublicationDatePrecision(List<String> publicationDatePrecision) {
-        this.publicationDatePrecision = publicationDatePrecision;
     }
 
     public List<String> getPublicationDateId() {
@@ -1393,11 +1357,11 @@ public class Document extends AbstractSolrDocument {
         this.issue = issue;
     }
 
-    public String getPlaceOfPublication() {
+    public List<String> getPlaceOfPublication() {
         return placeOfPublication;
     }
 
-    public void setPlaceOfPublication(String placeOfPublication) {
+    public void setPlaceOfPublication(List<String> placeOfPublication) {
         this.placeOfPublication = placeOfPublication;
     }
 

@@ -442,6 +442,10 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> affiliatedResearchAreaId;
 
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/modTime", key = "organization.modTime")
+    private String modTime;
+
     public Organization() {
 
     }
@@ -1348,6 +1352,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAffiliatedResearchAreaId(List<String> affiliatedResearchAreaId) {
         this.affiliatedResearchAreaId = affiliatedResearchAreaId;
+    }
+
+    public String getModTime() {
+        return modTime;
+    }
+
+    public void setModTime(String modTime) {
+        this.modTime = modTime;
     }
 
 }

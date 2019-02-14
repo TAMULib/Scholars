@@ -1,22 +1,75 @@
 document:
   class: "http://purl.org/ontology/bibo/Document"
-
   title: "http://www.w3.org/2000/01/rdf-schema#label"
   type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+  thumbnail: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+  website:
+    url: "http://www.w3.org/2006/vcard/ns#url"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
   abstract: "http://purl.org/ontology/bibo/abstract"
   abbreviation: "http://vivoweb.org/ontology/core#abbreviation"
+  publicationVenue:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    issn: "http://purl.org/ontology/bibo/issn"
+  publicationVenueFor:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    issn: "http://purl.org/ontology/bibo/issn"
+  etdChairedBy:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    email: "http://www.w3.org/2006/vcard/ns#email"
+  author:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    rank: "http://vivoweb.org/ontology/core#rank"
   authorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList"
+  editor:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    rank: "http://vivoweb.org/ontology/core#rank"
   editorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullEditorList"
-  bookTitleForChapter: "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter"
+  bookTitle: "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter"
+  translator:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  status: "http://www.w3.org/2000/01/rdf-schema#label"
+  publicationDate: "http://vivoweb.org/ontology/core#dateTime"
+  publisher:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  dateFiled: "http://vivoweb.org/ontology/core#dateTime"
+  dateIssued: "http://vivoweb.org/ontology/core#dateTime"
+  subjectArea: "http://www.w3.org/2000/01/rdf-schema#label"
   restriction: "http://purl.obolibrary.org/obo/ERO_0000045"
+  documentPart:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
   chapter: "http://purl.org/ontology/bibo/chapter"
+  feature:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
   edition: "http://purl.org/ontology/bibo/edition"
+  geographicFocus:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  documentationForProjectOrResource:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  outputOfProcessOrEvent:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  presentedAt:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
   keyword: "http://vivoweb.org/ontology/core#freetextKeyword"
   eanucc13: "http://purl.org/ontology/bibo/eanucc13"
   nihmsid: "http://purl.org/ontology/bibo/nihmsid"
   pmcid: "http://vivo.library.tamu.edu/ontology/TAMU#pcmid"
   identifier: "http://purl.org/ontology/bibo/identifier"
   patentNumber: "http://vivoweb.org/ontology/core#patentNumber"
+  sameAs:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
   doi: "http://purl.org/ontology/bibo/doi"
   oclcnum: "http://purl.org/ontology/bibo/oclcnum"
   isbn10: "http://purl.org/ontology/bibo/isbn10"
@@ -26,43 +79,49 @@ document:
   issn: "http://purl.org/ontology/bibo/issn"
   eissn: "http://purl.org/ontology/bibo/eissn"
   uri: "http://purl.org/ontology/bibo/uri"
+  citedBy:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  citation:
+    text: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  citesAsDataSource:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  translation:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  translationOf:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  globalCitationFrequency: "http://www.w3.org/2000/01/rdf-schema#label"
   iclCode: "http://purl.org/ontology/bibo/iclCode"
-  numPages: "http://purl.org/ontology/bibo/numPages"
+  numberOfPages: "http://purl.org/ontology/bibo/numPages"
   pageStart: "http://purl.org/ontology/bibo/pageStart"
   pageEnd: "http://purl.org/ontology/bibo/pageEnd"
   volume: "http://purl.org/ontology/bibo/volume"
   issue: "http://purl.org/ontology/bibo/issue"
   placeOfPublication: "http://vivoweb.org/ontology/core#placeOfPublication"
-  ARG_0000001: "http://purl.obolibrary.org/obo/ARG_0000001"
-  modTime: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime"
-
-  thing:
+  assignee:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  reproducedIn: "http://www.w3.org/2000/01/rdf-schema#label"
+  reproduces:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  isAbout:
     label: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
-
-  website:
-    url: "http://www.w3.org/2006/vcard/ns#url"
-    label: "http://www.w3.org/2000/01/rdf-schema#label"
-
-  file:
-    directDownloadUrl: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
-    filename: "http://vitro.mannlib.cornell.edu/ns/vitro/public#filename"
-    mimeType: "http://vitro.mannlib.cornell.edu/ns/vitro/public#mimeType"
-
-  publicationVenue:
-    label: "http://www.w3.org/2000/01/rdf-schema#label"
-    issn: "http://purl.org/ontology/bibo/issn"
-
-  person:
-    label: "http://www.w3.org/2000/01/rdf-schema#label"
-    email: "http://www.w3.org/2006/vcard/ns#email"
-    rank: "http://vivoweb.org/ontology/core#rank"
-
-  journal:
-    dateFiled: "http://vivoweb.org/ontology/core#dateFiled"
-    dateIssued: "http://vivoweb.org/ontology/core#dateIssued"
-
-  date:
-    dateTime: "http://vivoweb.org/ontology/core#dateTime"
-    dateTimePrecision: "http://vivoweb.org/ontology/core#dateTimePrecision"
-
+  specifiedOutputOf:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  isTemplate: "http://purl.obolibrary.org/obo/ARG_0000001"
+  mention:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  participatesIn: "http://www.w3.org/2000/01/rdf-schema#label"
+  supportedBy:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  modTime: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime"
+  receipt: "http://www.w3.org/2000/01/rdf-schema#label"

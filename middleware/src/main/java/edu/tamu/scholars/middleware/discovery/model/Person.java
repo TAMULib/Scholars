@@ -10,6 +10,7 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 //@formatter:off
@@ -455,6 +456,10 @@ public class Person extends AbstractSolrDocument {
 
     @Indexed
     private List<String> etdChairOfId;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/modTime", key = "organization.modTime")
+    private String modTime;
 
     public Person() {
 
@@ -1610,6 +1615,14 @@ public class Person extends AbstractSolrDocument {
 
     public void setEtdChairOfId(List<String> etdChairOfId) {
         this.etdChairOfId = etdChairOfId;
+    }
+
+    public String getModTime() {
+        return modTime;
+    }
+
+    public void setModTime(String modTime) {
+        this.modTime = modTime;
     }
 
 }

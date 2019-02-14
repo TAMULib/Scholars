@@ -1,8 +1,0 @@
-PREFIX vivo: <http://vivoweb.org/ontology/core#>
-
-CONSTRUCT {
-    ?publicationDate vivo:dateTimePrecision ?dateTimePrecision .
-} WHERE {
-    <[(${uri})]> vivo:dateTimeValue ?publicationDate .
-    ?publicationDate vivo:dateTimePrecision ?dateTimePrecision .
-}

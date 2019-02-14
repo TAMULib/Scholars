@@ -2,8 +2,8 @@ organization:
   class: "http://xmlns.com/foaf/0.1/Organization"
   name: "http://www.w3.org/2000/01/rdf-schema#label"
   type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
-  image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#downloadLocation"
-  thumbnail: "http://vitro.mannlib.cornell.edu/ns/vitro/public#downloadLocation"
+  image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+  thumbnail: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
   website:
     url: "http://www.w3.org/2006/vcard/ns#url"
     label: "http://www.w3.org/2000/01/rdf-schema#label"
@@ -97,3 +97,4 @@ organization:
   successorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
   governingAuthorityFor: "http://www.w3.org/2000/01/rdf-schema#label"
   affiliatedResearchArea: "http://www.w3.org/2000/01/rdf-schema#label"
+  modTime: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime"

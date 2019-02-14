@@ -1,4 +1,5 @@
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
 CONSTRUCT {
     ?relatedBy vivo:rank ?rank .
@@ -6,7 +7,6 @@ CONSTRUCT {
     <[(${uri})]> vivo:relatedBy ?relatedBy .
     ?relatedBy a vivo:Editorship .
     ?relatedBy vivo:relates ?editor .
+    ?editor a foaf:Person .
     ?relatedBy vivo:rank ?rank .
-
-    FILTER (?editor != <[(${uri})]>) .
 }

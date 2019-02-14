@@ -1,13 +1,9 @@
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
     ?geographicFocus rdfs:label ?label .
 } WHERE {
     <[(${uri})]> vivo:geographicFocus ?geographicFocus .
     ?geographicFocus rdfs:label ?label .
-    ?geographicFocus vitro:mostSpecificType ?mostSpecificType .
-    
-    FILTER (STRSTARTS (str(?mostSpecificType), str(vivo:))) .
 }
