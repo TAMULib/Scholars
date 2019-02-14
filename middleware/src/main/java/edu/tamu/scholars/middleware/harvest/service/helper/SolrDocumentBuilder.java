@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.Property;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 public class SolrDocumentBuilder {
@@ -54,20 +53,8 @@ public class SolrDocumentBuilder {
                 this.collections.put(source.id(), new ArrayList<String>());
             }
         }
-        for (Property property : getCollectionSource().properties()) {
-            this.collections.put(property.name(), new ArrayList<String>());
-            if (!property.id().isEmpty()) {
-                this.collections.put(property.id(), new ArrayList<String>());
-            }
-        }
         this.collections.put(ID, new ArrayList<String>());
         add(ID, parse(subject), true);
-    }
-
-    public SolrDocumentBuilder(Model model, Resource resource, Class<?> type) {
-        this(resource.getURI(), type);
-        this.model = model;
-        this.resource = resource;
     }
 
     public Field getField() {
@@ -130,10 +117,6 @@ public class SolrDocumentBuilder {
         return FieldUtils.getFieldsListWithAnnotation(type, PropertySource.class);
     }
 
-    public void lookupProperty(Property property, String predicate) {
-        lookupProperty(PropertyLookup.of(predicate, property));
-    }
-
     public void lookupProperty(PropertySource source, String predicate) {
         lookupProperty(PropertyLookup.of(predicate, field.getName(), source));
     }
@@ -181,10 +164,6 @@ public class SolrDocumentBuilder {
 
     public static String parse(String uri) {
         return uri.substring(uri.lastIndexOf(uri.contains(HASH_TAG) ? HASH_TAG : FORWARD_SLASH) + 1);
-    }
-
-    public static SolrDocumentBuilder of(Model model, Resource resource, Class<?> type) {
-        return new SolrDocumentBuilder(model, resource, type);
     }
 
     public static SolrDocumentBuilder of(String subject, Class<?> type) {

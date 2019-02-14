@@ -1,6 +1,5 @@
 package edu.tamu.scholars.middleware.harvest.service.helper;
 
-import edu.tamu.scholars.middleware.harvest.annotation.Property;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 public class PropertyLookup {
@@ -49,10 +48,6 @@ public class PropertyLookup {
 
     public static PropertyLookup of(String predicate, String propertyName, PropertySource source) {
         return new PropertyLookup(predicate, propertyName, source.id(), source.parse(), source.unique());
-    }
-
-    public static PropertyLookup of(String predicate, Property property) {
-        return new PropertyLookup(predicate, property.name(), property.id(), property.parse(), property.unique());
     }
 
 }

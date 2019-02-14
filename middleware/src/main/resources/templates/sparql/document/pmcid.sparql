@@ -1,0 +1,7 @@
+PREFIX tamu: <http://vivo.library.tamu.edu/ontology/TAMU#>
+
+CONSTRUCT {
+    <[(${uri})]> tamu:pcmid ?pcmid .
+} WHERE {
+    <[(${uri})]> tamu:pcmid ?pcmid .
+}

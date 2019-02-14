@@ -10,27 +10,19 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.Property;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "organizations")
-//@formatter:off
-@CollectionSource(
-    template = "organization/organizations",
-    key = "organization.class",
-    properties = {
-        @Property(name = "name", key = "organization.name"),
-        @Property(name = "type", key = "organization.type", parse = true)
-    }
-)
-//@formatter:on
+@CollectionSource(key = "organization.class")
 public class Organization extends AbstractSolrDocument {
 
     @Indexed
+    @PropertySource(template = "organization/name", key = "organization.name")
     private String name;
 
     @Indexed
+    @PropertySource(template = "organization/type", key = "organization.type")
     private List<String> type;
 
     @Indexed

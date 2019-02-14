@@ -12,59 +12,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.Property;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "documents")
-// @formatter:off
-@CollectionSource(
-    template = "document/documents",
-    key = "document.class",
-    properties = {
-        @Property(name = "title", key = "document.title"),
-        @Property(name = "type", key = "document.type", parse = true),
-        @Property(name = "abstractText", key = "document.abstract"),
-        @Property(name = "abbreviation", key = "document.abbreviation"),
-        @Property(name = "authorList", key = "document.authorList"),
-        @Property(name = "editorList", key = "document.editorList"),
-        @Property(name = "bookTitle", key = "document.bookTitle"),
-        @Property(name = "restriction", key = "document.restriction"),
-        @Property(name = "chapter", key = "document.chapter"),
-        @Property(name = "edition", key = "document.edition"),
-        @Property(name = "keyword", key = "document.keyword"),
-        @Property(name = "eanucc13", key = "document.eanucc13"),
-        @Property(name = "nihmsid", key = "document.nihmsid"),
-        @Property(name = "pmcid", key = "document.pmcid"),
-        @Property(name = "identifier", key = "document.identifier"),
-        @Property(name = "patentNumber", key = "document.patentNumber"),
-        @Property(name = "doi", key = "document.doi"),
-        @Property(name = "oclcnum", key = "document.oclcnum"),
-        @Property(name = "isbn10", key = "document.isbn10"),
-        @Property(name = "isbn13", key = "document.isbn13"),
-        @Property(name = "pmid", key = "document.pmid"),
-        @Property(name = "lccn", key = "document.lccn"),
-        @Property(name = "issn", key = "document.issn"),
-        @Property(name = "eissn", key = "document.eissn"),
-        @Property(name = "uri", key = "document.uri"),
-        @Property(name = "iclCode", key = "document.iclCode"),
-        @Property(name = "numberOfPages", key = "document.numberOfPages"),
-        @Property(name = "pageStart", key = "document.pageStart"),
-        @Property(name = "pageEnd", key = "document.pageEnd"),
-        @Property(name = "volume", key = "document.volume"),
-        @Property(name = "issue", key = "document.issue"),
-        @Property(name = "placeOfPublication", key = "document.placeOfPublication"),
-        @Property(name = "isTemplate", key = "document.isTemplate"),
-        @Property(name = "modTime", key = "document.modTime"),
-    }
-)
-// @formatter:on
+@CollectionSource(key = "document.class")
 public class Document extends AbstractSolrDocument {
 
     @Indexed
+    @PropertySource(template = "document/title", key = "document.title")
     private String title;
 
     @Indexed
+    @PropertySource(template = "document/type", key = "document.type", parse = true)
     private List<String> type;
 
     @Indexed
@@ -86,18 +46,16 @@ public class Document extends AbstractSolrDocument {
     @Field("abstract")
     @Indexed("abstract")
     @JsonProperty("abstract")
+    @PropertySource(template = "document/abstract", key = "document.abstract")
     private String abstractText;
 
     @Indexed
+    @PropertySource(template = "document/abbreviation", key = "document.abbreviation")
     private String abbreviation;
 
     @Indexed
-    @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue.title", id = "publicationVenueId", unique = true)
+    @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue", id = "publicationVenueId", unique = true)
     private List<String> publicationVenue;
-
-    @Indexed
-    @PropertySource(template = "document/publicationVenueIssn", key = "document.publicationVenue.issn")
-    private List<String> publicationVenueIssn;
 
     @Indexed
     private List<String> publicationVenueId;
@@ -105,10 +63,6 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     @PropertySource(template = "document/publicationVenueFor", key = "document.publicationVenueFor", id = "publicationVenueForId", unique = true)
     private List<String> publicationVenueFor;
-
-    @Indexed
-    @PropertySource(template = "document/publicationVenueForIssn", key = "document.publicationVenueFor.issn")
-    private List<String> publicationVenueForIssn;
 
     @Indexed
     private List<String> publicationVenueForId;
@@ -140,6 +94,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> authorId;
 
     @Indexed
+    @PropertySource(template = "document/authorList", key = "document.authorList")
     private List<String> authorList;
 
     @Indexed
@@ -158,9 +113,11 @@ public class Document extends AbstractSolrDocument {
     private List<String> editorId;
 
     @Indexed
+    @PropertySource(template = "document/editorList", key = "document.editorList")
     private List<String> editorList;
 
     @Indexed
+    @PropertySource(template = "document/bookTitle", key = "document.bookTitle")
     private String bookTitle;
 
     @Indexed
@@ -186,7 +143,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> publicationDate;
 
     @Indexed
-    @PropertySource(template = "document/publisher", key = "document.publisher.name", id = "publisherId")
+    @PropertySource(template = "document/publisher", key = "document.publisher.name", id = "publisherId", unique = true)
     private List<String> publisher;
 
     @Indexed
@@ -212,6 +169,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> subjectAreaId;
 
     @Indexed
+    @PropertySource(template = "document/restriction", key = "document.restriction")
     private List<String> restriction;
 
     @Indexed
@@ -226,6 +184,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> documentPartId;
 
     @Indexed
+    @PropertySource(template = "document/chapter", key = "document.chapter")
     private String chapter;
 
     @Indexed
@@ -240,6 +199,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> featureId;
 
     @Indexed
+    @PropertySource(template = "document/edition", key = "document.edition")
     private String edition;
 
     @Indexed
@@ -287,21 +247,27 @@ public class Document extends AbstractSolrDocument {
     private List<String> presentedAtId;
 
     @Indexed
+    @PropertySource(template = "document/keyword", key = "document.keyword")
     private List<String> keyword;
 
     @Indexed
+    @PropertySource(template = "document/eanucc13", key = "document.eanucc13")
     private String eanucc13;
 
     @Indexed
+    @PropertySource(template = "document/nihmsid", key = "document.nihmsid")
     private String nihmsid;
 
     @Indexed
+    @PropertySource(template = "document/pmcid", key = "document.pmcid")
     private String pmcid;
 
     @Indexed
+    @PropertySource(template = "document/identifier", key = "document.identifier")
     private String identifier;
 
     @Indexed
+    @PropertySource(template = "document/patentNumber", key = "document.patentNumber")
     private List<String> patentNumber;
 
     @Indexed
@@ -316,30 +282,39 @@ public class Document extends AbstractSolrDocument {
     private List<String> sameAsId;
 
     @Indexed
+    @PropertySource(template = "document/doi", key = "document.doi")
     private String doi;
 
     @Indexed
+    @PropertySource(template = "document/oclcnum", key = "document.oclcnum")
     private String oclcnum;
 
     @Indexed
+    @PropertySource(template = "document/isbn10", key = "document.isbn10")
     private String isbn10;
 
     @Indexed
+    @PropertySource(template = "document/isbn13", key = "document.isbn13")
     private String isbn13;
 
     @Indexed
+    @PropertySource(template = "document/pmid", key = "document.pmid")
     private String pmid;
 
     @Indexed
+    @PropertySource(template = "document/lccn", key = "document.lccn")
     private String lccn;
 
     @Indexed
+    @PropertySource(template = "document/issn", key = "document.issn")
     private String issn;
 
     @Indexed
+    @PropertySource(template = "document/eissn", key = "document.eissn")
     private String eissn;
 
     @Indexed
+    @PropertySource(template = "document/uri", key = "document.uri")
     private List<String> uri;
 
     @Indexed
@@ -405,24 +380,31 @@ public class Document extends AbstractSolrDocument {
     private List<String> globalCitationFrequencyId;
 
     @Indexed
+    @PropertySource(template = "document/iclCode", key = "document.iclCode")
     private String iclCode;
 
     @Indexed
+    @PropertySource(template = "document/numberOfPages", key = "document.numberOfPages")
     private String numberOfPages;
 
     @Indexed
+    @PropertySource(template = "document/pageStart", key = "document.pageStart")
     private String pageStart;
 
     @Indexed
+    @PropertySource(template = "document/pageEnd", key = "document.pageEnd")
     private String pageEnd;
 
     @Indexed
+    @PropertySource(template = "document/volume", key = "document.volume")
     private String volume;
 
     @Indexed
+    @PropertySource(template = "document/issue", key = "document.issue")
     private String issue;
 
     @Indexed
+    @PropertySource(template = "document/placeOfPublication", key = "document.placeOfPublication")
     private List<String> placeOfPublication;
 
     @Indexed
@@ -477,6 +459,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> specifiedOutputOfId;
 
     @Indexed
+    @PropertySource(template = "document/isTemplate", key = "document.isTemplate")
     private List<String> isTemplate;
 
     @Indexed
@@ -509,6 +492,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> supportedById;
 
     @Indexed(type = "pdate")
+    @PropertySource(template = "document/modTime", key = "document.modTime")
     private String modTime;
 
     @Indexed
@@ -594,14 +578,6 @@ public class Document extends AbstractSolrDocument {
         this.publicationVenue = publicationVenue;
     }
 
-    public List<String> getPublicationVenueIssn() {
-        return publicationVenueIssn;
-    }
-
-    public void setPublicationVenueIssn(List<String> publicationVenueIssn) {
-        this.publicationVenueIssn = publicationVenueIssn;
-    }
-
     public List<String> getPublicationVenueId() {
         return publicationVenueId;
     }
@@ -616,14 +592,6 @@ public class Document extends AbstractSolrDocument {
 
     public void setPublicationVenueFor(List<String> publicationVenueFor) {
         this.publicationVenueFor = publicationVenueFor;
-    }
-
-    public List<String> getPublicationVenueForIssn() {
-        return publicationVenueForIssn;
-    }
-
-    public void setPublicationVenueForIssn(List<String> publicationVenueForIssn) {
-        this.publicationVenueForIssn = publicationVenueForIssn;
     }
 
     public List<String> getPublicationVenueForId() {

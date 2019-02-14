@@ -1,0 +1,7 @@
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+
+CONSTRUCT {
+    <[(${uri})]> bibo:edition ?edition .
+} WHERE {
+    <[(${uri})]> bibo:edition ?edition .
+}

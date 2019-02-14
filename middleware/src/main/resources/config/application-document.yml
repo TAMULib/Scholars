@@ -9,12 +9,8 @@ document:
     label: "http://www.w3.org/2000/01/rdf-schema#label"
   abstract: "http://purl.org/ontology/bibo/abstract"
   abbreviation: "http://vivoweb.org/ontology/core#abbreviation"
-  publicationVenue:
-    title: "http://www.w3.org/2000/01/rdf-schema#label"
-    issn: "http://purl.org/ontology/bibo/issn"
-  publicationVenueFor:
-    title: "http://www.w3.org/2000/01/rdf-schema#label"
-    issn: "http://purl.org/ontology/bibo/issn"
+  publicationVenue: "http://www.w3.org/2000/01/rdf-schema#label"
+  publicationVenueFor: "http://www.w3.org/2000/01/rdf-schema#label"
   etdChairedBy:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
     email: "http://www.w3.org/2006/vcard/ns#email"

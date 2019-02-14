@@ -13,16 +13,8 @@ import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
-//@formatter:off
-@CollectionSource(
-    template = "person/persons",
-    key = "person.class",
-    properties = {
-        
-    }
-)
-// @formatter:on
 @SolrDocument(collection = "persons")
+@CollectionSource(key = "person.class")
 public class Person extends AbstractSolrDocument {
 
     @Indexed

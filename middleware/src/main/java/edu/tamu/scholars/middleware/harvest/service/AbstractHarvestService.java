@@ -7,18 +7,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.jena.graph.Triple;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ResIterator;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.shared.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +27,14 @@ import org.springframework.core.env.Environment;
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 import edu.tamu.scholars.middleware.discovery.service.SolrIndexService;
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.Property;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 import edu.tamu.scholars.middleware.harvest.service.helper.SolrDocumentBuilder;
 import edu.tamu.scholars.middleware.service.TemplateService;
 import edu.tamu.scholars.middleware.service.Triplestore;
 
 public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S extends SolrIndexService<D>> implements HarvestService {
+
+    private final static String COLLECTION_SPARQL_TEMPLATE = "collection";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -51,26 +52,19 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
 
     public void harvest() {
         CollectionSource source = indexer.type().getAnnotation(CollectionSource.class);
-        String query = templateService.templateSparql(source.template(), resolve(source.key()));
+        String query = templateService.templateSparql(COLLECTION_SPARQL_TEMPLATE, resolve(source.key()));
         if (logger.isDebugEnabled()) {
-            logger.debug(String.format("%s:\n%s", source.template(), query));
+            logger.debug(String.format("%s:\n%s", COLLECTION_SPARQL_TEMPLATE, query));
         }
-        triplestore.dataset().getLock().enterCriticalSection(Lock.READ);
         try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
-            Model collection = qe.execConstruct();
-            if (logger.isDebugEnabled()) {
-                collection.write(System.out, "RDF/XML");
-            }
-            ResIterator resources = collection.listSubjects();
-            if (resources.hasNext()) {
-                Iterable<Resource> resourceIterable = () -> resources;
-                Stream<Resource> resourceStream = StreamSupport.stream(resourceIterable.spliterator(), true);
-                resourceStream.forEach(resource -> harvest(SolrDocumentBuilder.of(collection, resource, indexer.type())));
+            Iterator<Triple> tripleIterator = qe.execConstructTriples();
+            if (tripleIterator.hasNext()) {
+                Iterable<Triple> tirpleIterable = () -> tripleIterator;
+                Stream<Triple> tripleStream = StreamSupport.stream(tirpleIterable.spliterator(), true);
+                tripleStream.forEach(triple -> harvest(triple));
             } else {
                 logger.warn(String.format("No %s found!", name()));
             }
-        } finally {
-            triplestore.dataset().getLock().leaveCriticalSection();
         }
     }
 
@@ -78,14 +72,15 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         return indexer.type().getSimpleName();
     }
 
-    private void harvest(SolrDocumentBuilder builder) {
+    private void harvest(Triple triple) {
+        String subject = triple.getSubject().toString();
         Instant start = Instant.now();
         try {
-            D document = createDocument(builder);
+            D document = createDocument(SolrDocumentBuilder.of(subject, indexer.type()));
             indexer.index(document);
-            logger.info(String.format("%s %s indexed in %f seconds", name(), parse(builder.getSubject()), Duration.between(start, Instant.now()).toMillis() / 1000.0));
+            logger.info(String.format("%s %s indexed in %f seconds", name(), parse(subject), Duration.between(start, Instant.now()).toMillis() / 1000.0));
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            logger.error(String.format("Unable to index %s: %s", name(), parse(builder.getSubject())));
+            logger.error(String.format("Unable to index %s: %s", name(), parse(subject)));
             logger.error(String.format("Error: %s", e.getMessage()));
             if (logger.isDebugEnabled()) {
                 e.printStackTrace();
@@ -105,9 +100,6 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
     }
 
     private void lookupProperties(SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException {
-        for (Property property : builder.getCollectionSource().properties()) {
-            builder.lookupProperty(property, resolve(property.key()));
-        }
         for (Field field : builder.getPropertySourceFields()) {
             builder.setField(field);
             PropertySource source = field.getAnnotation(PropertySource.class);
