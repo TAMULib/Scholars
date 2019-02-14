@@ -17,6 +17,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "documents")
+// @formatter:off
 @CollectionSource(
     template = "document/documents",
     key = "document.class",
@@ -57,6 +58,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
         @Property(name = "modTime", key = "document.modTime"),
     }
 )
+// @formatter:on
 public class Document extends AbstractSolrDocument {
 
     @Indexed
@@ -106,22 +108,22 @@ public class Document extends AbstractSolrDocument {
     private List<String> abbreviation;
 
     @Indexed
-    @PropertySource(template = "document/publicationVenueLabel", key = "document.publicationVenue.label", id = "publicationVenueId")
-    private List<String> publicationVenueLabel;
+    @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue.label", id = "publicationVenueId")
+    private List<String> publicationVenue;
 
     @Indexed
     private List<String> publicationVenueId;
 
     @Indexed
-    @PropertySource(template = "document/publicationVenueForLabel", key = "document.publicationVenue.label", id = "publicationVenueForId")
-    private List<String> publicationVenueForLabel;
+    @PropertySource(template = "document/publicationVenueFor", key = "document.publicationVenue.label", id = "publicationVenueForId")
+    private List<String> publicationVenueFor;
 
     @Indexed
     private List<String> publicationVenueForId;
 
     @Indexed
-    @PropertySource(template = "document/etdChairedByLabel", key = "document.person.label", id = "etdChairedById")
-    private List<String> etdChairedByLabel;
+    @PropertySource(template = "document/etdChairedBy", key = "document.person.label", id = "etdChairedById")
+    private List<String> etdChairedBy;
 
     @Indexed
     @PropertySource(template = "document/etdChairedByEmail", key = "document.person.email")
@@ -131,8 +133,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> etdChairedById;
 
     @Indexed
-    @PropertySource(template = "document/authorLabel", key = "document.person.label", id = "authorId")
-    private List<String> authorLabel;
+    @PropertySource(template = "document/author", key = "document.person.label", id = "authorId")
+    private List<String> author;
 
     @Indexed
     @PropertySource(template = "document/authorType", key = "document.thing.type", parse = true)
@@ -152,8 +154,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> editorList;
 
     @Indexed
-    @PropertySource(template = "document/editorLabel", key = "document.person.label", id = "editorId")
-    private List<String> editorLabel;
+    @PropertySource(template = "document/editor", key = "document.person.label", id = "editorId")
+    private List<String> editor;
 
     @Indexed
     @PropertySource(template = "document/editorType", key = "document.thing.type", parse = true)
@@ -170,8 +172,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> bookTitle;
 
     @Indexed
-    @PropertySource(template = "document/translatorLabel", key = "document.thing.label", id = "translatorId")
-    private List<String> translatorLabel;
+    @PropertySource(template = "document/translator", key = "document.thing.label", id = "translatorId")
+    private List<String> translator;
 
     @Indexed
     @PropertySource(template = "document/translatorType", key = "document.thing.type", parse = true)
@@ -182,25 +184,25 @@ public class Document extends AbstractSolrDocument {
 
     @Indexed
     @PropertySource(template = "document/status", key = "document.thing.label", id = "statusId")
-    private List<String> statusLabel;
+    private List<String> status;
 
     @Indexed
     private List<String> statusId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "document/publicationDateDateTime", key = "document.date.dateTime", id = "publicationDateId")
+    @PropertySource(template = "document/publicationDate", key = "document.date.dateTime", id = "publicationDateId")
     private List<String> publicationDate;
 
     @Indexed
-    @PropertySource(template = "document/publicationDateDateTimePrecision", key = "document.date.dateTimePrecision", parse = true)
+    @PropertySource(template = "document/publicationDatePrecision", key = "document.date.dateTimePrecision", parse = true)
     private List<String> publicationDatePrecision;
 
     @Indexed
     private List<String> publicationDateId;
 
     @Indexed
-    @PropertySource(template = "document/publisherLabel", key = "document.thing.label", id = "publisherId")
-    private List<String> publisherLabel;
+    @PropertySource(template = "document/publisher", key = "document.thing.label", id = "publisherId")
+    private List<String> publisher;
 
     @Indexed
     @PropertySource(template = "document/publisherType", key = "document.thing.type", parse = true)
@@ -218,8 +220,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> dateIssued;
 
     @Indexed
-    @PropertySource(template = "document/subjectAreaLabel", key = "document.thing.label", id = "subjectAreaId")
-    private List<String> subjectAreaLabel;
+    @PropertySource(template = "document/subjectArea", key = "document.thing.label", id = "subjectAreaId")
+    private List<String> subjectArea;
 
     @Indexed
     private List<String> subjectAreaId;
@@ -228,8 +230,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> restriction;
 
     @Indexed
-    @PropertySource(template = "document/documentPartLabel", key = "document.thing.label", id = "documentPartId")
-    private List<String> documentPartLabel;
+    @PropertySource(template = "document/documentPart", key = "document.thing.label", id = "documentPartId")
+    private List<String> documentPart;
 
     @Indexed
     @PropertySource(template = "document/documentPartType", key = "document.thing.type", parse = true)
@@ -242,8 +244,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> chapter;
 
     @Indexed
-    @PropertySource(template = "document/featureLabel", key = "document.thing.label", id = "featureId")
-    private List<String> featureLabel;
+    @PropertySource(template = "document/feature", key = "document.thing.label", id = "featureId")
+    private List<String> feature;
 
     @Indexed
     @PropertySource(template = "document/featureType", key = "document.thing.type", parse = true)
@@ -256,8 +258,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> edition;
 
     @Indexed
-    @PropertySource(template = "document/geographicFocusLabel", key = "document.thing.label", id = "geographicFocusId")
-    private List<String> geographicFocusLabel;
+    @PropertySource(template = "document/geographicFocus", key = "document.thing.label", id = "geographicFocusId")
+    private List<String> geographicFocus;
 
     @Indexed
     @PropertySource(template = "document/geographicFocusType", key = "document.thing.type", parse = true)
@@ -267,8 +269,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> geographicFocusId;
 
     @Indexed
-    @PropertySource(template = "document/documentationForProjectOrResourceLabel", key = "document.thing.label", id = "documentationForProjectOrResourceId")
-    private List<String> documentationForProjectOrResourceLabel;
+    @PropertySource(template = "document/documentationForProjectOrResource", key = "document.thing.label", id = "documentationForProjectOrResourceId")
+    private List<String> documentationForProjectOrResource;
 
     @Indexed
     @PropertySource(template = "document/documentationForProjectOrResourceType", key = "document.thing.type", parse = true)
@@ -278,8 +280,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> documentationForProjectOrResourceId;
 
     @Indexed
-    @PropertySource(template = "document/outputOfProcessOrEventLabel", key = "document.thing.label", id = "outputOfProcessOrEventId")
-    private List<String> outputOfProcessOrEventLabel;
+    @PropertySource(template = "document/outputOfProcessOrEvent", key = "document.thing.label", id = "outputOfProcessOrEventId")
+    private List<String> outputOfProcessOrEvent;
 
     @Indexed
     @PropertySource(template = "document/outputOfProcessOrEventType", key = "document.thing.type", parse = true)
@@ -289,8 +291,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> outputOfProcessOrEventId;
 
     @Indexed
-    @PropertySource(template = "document/presentedAtLabel", key = "document.thing.label", id = "presentedAtId")
-    private List<String> presentedAtLabel;
+    @PropertySource(template = "document/presentedAt", key = "document.thing.label", id = "presentedAtId")
+    private List<String> presentedAt;
 
     @Indexed
     @PropertySource(template = "document/presentedAtType", key = "document.thing.type", parse = true)
@@ -318,8 +320,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> patentNumber;
 
     @Indexed
-    @PropertySource(template = "document/sameAsLabel", key = "document.thing.label", id = "sameAsId")
-    private List<String> sameAsLabel;
+    @PropertySource(template = "document/sameAs", key = "document.thing.label", id = "sameAsId")
+    private List<String> sameAs;
 
     @Indexed
     @PropertySource(template = "document/sameAsType", key = "document.thing.type", parse = true)
@@ -356,8 +358,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> uri;
 
     @Indexed
-    @PropertySource(template = "document/citedByLabel", key = "document.thing.label", id = "citedById")
-    private List<String> citedByLabel;
+    @PropertySource(template = "document/citedBy", key = "document.thing.label", id = "citedById")
+    private List<String> citedBy;
 
     @Indexed
     @PropertySource(template = "document/citedByType", key = "document.thing.type", parse = true)
@@ -367,8 +369,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> citedById;
 
     @Indexed
-    @PropertySource(template = "document/citationLabel", key = "document.thing.label", id = "citationId")
-    private List<String> citationLabel;
+    @PropertySource(template = "document/citation", key = "document.thing.label", id = "citationId")
+    private List<String> citation;
 
     @Indexed
     @PropertySource(template = "document/citationType", key = "document.thing.type", parse = true)
@@ -378,8 +380,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> citationId;
 
     @Indexed
-    @PropertySource(template = "document/citesAsDataSourceLabel", key = "document.thing.label", id = "citesAsDataSourceId")
-    private List<String> citesAsDataSourceLabel;
+    @PropertySource(template = "document/citesAsDataSource", key = "document.thing.label", id = "citesAsDataSourceId")
+    private List<String> citesAsDataSource;
 
     @Indexed
     @PropertySource(template = "document/citesAsDataSourceType", key = "document.thing.type", parse = true)
@@ -389,8 +391,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> citesAsDataSourceId;
 
     @Indexed
-    @PropertySource(template = "document/translationLabel", key = "document.thing.label", id = "translationId")
-    private List<String> translationLabel;
+    @PropertySource(template = "document/translation", key = "document.thing.label", id = "translationId")
+    private List<String> translation;
 
     @Indexed
     @PropertySource(template = "document/translationType", key = "document.thing.type", parse = true)
@@ -400,8 +402,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> translationId;
 
     @Indexed
-    @PropertySource(template = "document/translationOfLabel", key = "document.thing.label", id = "translationOfId")
-    private List<String> translationOfLabel;
+    @PropertySource(template = "document/translationOf", key = "document.thing.label", id = "translationOfId")
+    private List<String> translationOf;
 
     @Indexed
     @PropertySource(template = "document/translationOfType", key = "document.thing.type", parse = true)
@@ -411,8 +413,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> translationOfId;
 
     @Indexed
-    @PropertySource(template = "document/globalCitationFrequencyLabel", key = "document.thing.label", id = "globalCitationFrequencyId")
-    private List<String> globalCitationFrequencyLabel;
+    @PropertySource(template = "document/globalCitationFrequency", key = "document.thing.label", id = "globalCitationFrequencyId")
+    private List<String> globalCitationFrequency;
 
     @Indexed
     private List<String> globalCitationFrequencyId;
@@ -439,8 +441,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> placeOfPublication;
 
     @Indexed
-    @PropertySource(template = "document/assigneeLabel", key = "document.thing.label", id = "assigneeId")
-    private List<String> assigneeLabel;
+    @PropertySource(template = "document/assignee", key = "document.thing.label", id = "assigneeId")
+    private List<String> assignee;
 
     @Indexed
     @PropertySource(template = "document/assigneeType", key = "document.thing.type", parse = true)
@@ -450,15 +452,15 @@ public class Document extends AbstractSolrDocument {
     private List<String> assigneeId;
 
     @Indexed
-    @PropertySource(template = "document/reproducedInLabel", key = "document.thing.label", id = "reproducedInId")
-    private List<String> reproducedInLabel;
+    @PropertySource(template = "document/reproducedIn", key = "document.thing.label", id = "reproducedInId")
+    private List<String> reproducedIn;
 
     @Indexed
     private List<String> reproducedInId;
 
     @Indexed
-    @PropertySource(template = "document/reproducesLabel", key = "document.thing.label", id = "reproducesId")
-    private List<String> reproducesLabel;
+    @PropertySource(template = "document/reproduces", key = "document.thing.label", id = "reproducesId")
+    private List<String> reproduces;
 
     @Indexed
     @PropertySource(template = "document/reproducesType", key = "document.thing.type", parse = true)
@@ -468,8 +470,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> reproducesId;
 
     @Indexed
-    @PropertySource(template = "document/isAboutLabel", key = "document.thing.label", id = "isAboutId")
-    private List<String> isAboutLabel;
+    @PropertySource(template = "document/isAbout", key = "document.thing.label", id = "isAboutId")
+    private List<String> isAbout;
 
     @Indexed
     @PropertySource(template = "document/isAboutType", key = "document.thing.type", parse = true)
@@ -479,8 +481,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> isAboutId;
 
     @Indexed
-    @PropertySource(template = "document/specifiedOutputOfLabel", key = "document.thing.label", id = "specifiedOutputOfId")
-    private List<String> specifiedOutputOfLabel;
+    @PropertySource(template = "document/specifiedOutputOf", key = "document.thing.label", id = "specifiedOutputOfId")
+    private List<String> specifiedOutputOf;
 
     @Indexed
     @PropertySource(template = "document/specifiedOutputOfType", key = "document.thing.type", parse = true)
@@ -493,8 +495,8 @@ public class Document extends AbstractSolrDocument {
     private List<String> isTemplate;
 
     @Indexed
-    @PropertySource(template = "document/mentionLabel", key = "document.thing.label", id = "mentionId")
-    private List<String> mentionLabel;
+    @PropertySource(template = "document/mention", key = "document.thing.label", id = "mentionId")
+    private List<String> mention;
 
     @Indexed
     @PropertySource(template = "document/mentionType", key = "document.thing.type", parse = true)
@@ -504,15 +506,15 @@ public class Document extends AbstractSolrDocument {
     private List<String> mentionId;
 
     @Indexed
-    @PropertySource(template = "document/participatesInLabel", key = "document.thing.label", id = "participatesInId")
-    private List<String> participatesInLabel;
+    @PropertySource(template = "document/participatesIn", key = "document.thing.label", id = "participatesInId")
+    private List<String> participatesIn;
 
     @Indexed
     private List<String> participatesInId;
 
     @Indexed
-    @PropertySource(template = "document/supportedByLabel", key = "document.thing.label", id = "supportedById")
-    private List<String> supportedByLabel;
+    @PropertySource(template = "document/supportedBy", key = "document.thing.label", id = "supportedById")
+    private List<String> supportedBy;
 
     @Indexed
     @PropertySource(template = "document/supportedByType", key = "document.thing.type", parse = true)
@@ -525,9 +527,1086 @@ public class Document extends AbstractSolrDocument {
     private String modTime;
 
     @Indexed
-    @PropertySource(template = "document/receiptLabel", key = "document.thing.label", id = "receiptId")
-    private List<String> receiptLabel;
+    @PropertySource(template = "document/receipt", key = "document.thing.label", id = "receiptId")
+    private List<String> receipt;
 
     @Indexed
     private List<String> receiptId;
+
+    public Document() {
+
+    }
+
+    public String getImageDirectDownloadUrl() {
+        return imageDirectDownloadUrl;
+    }
+
+    public void setImageDirectDownloadUrl(String imageDirectDownloadUrl) {
+        this.imageDirectDownloadUrl = imageDirectDownloadUrl;
+    }
+
+    public String getImageFilename() {
+        return imageFilename;
+    }
+
+    public void setImageFilename(String imageFilename) {
+        this.imageFilename = imageFilename;
+    }
+
+    public String getImageMimeType() {
+        return imageMimeType;
+    }
+
+    public void setImageMimeType(String imageMimeType) {
+        this.imageMimeType = imageMimeType;
+    }
+
+    public String getThumbnailDirectDownloadUrl() {
+        return thumbnailDirectDownloadUrl;
+    }
+
+    public void setThumbnailDirectDownloadUrl(String thumbnailDirectDownloadUrl) {
+        this.thumbnailDirectDownloadUrl = thumbnailDirectDownloadUrl;
+    }
+
+    public String getThumbnailFilename() {
+        return thumbnailFilename;
+    }
+
+    public void setThumbnailFilename(String thumbnailFilename) {
+        this.thumbnailFilename = thumbnailFilename;
+    }
+
+    public String getThumbnailMimeType() {
+        return thumbnailMimeType;
+    }
+
+    public void setThumbnailMimeType(String thumbnailMimeType) {
+        this.thumbnailMimeType = thumbnailMimeType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getType() {
+        return type;
+    }
+
+    public void setType(List<String> type) {
+        this.type = type;
+    }
+
+    public List<String> getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    public void setWebsiteUrl(List<String> websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public List<String> getWebsiteLabel() {
+        return websiteLabel;
+    }
+
+    public void setWebsiteLabel(List<String> websiteLabel) {
+        this.websiteLabel = websiteLabel;
+    }
+
+    public List<String> getAbstractText() {
+        return abstractText;
+    }
+
+    public void setAbstractText(List<String> abstractText) {
+        this.abstractText = abstractText;
+    }
+
+    public List<String> getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(List<String> abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+    public List<String> getPublicationVenue() {
+        return publicationVenue;
+    }
+
+    public void setPublicationVenue(List<String> publicationVenue) {
+        this.publicationVenue = publicationVenue;
+    }
+
+    public List<String> getPublicationVenueId() {
+        return publicationVenueId;
+    }
+
+    public void setPublicationVenueId(List<String> publicationVenueId) {
+        this.publicationVenueId = publicationVenueId;
+    }
+
+    public List<String> getPublicationVenueFor() {
+        return publicationVenueFor;
+    }
+
+    public void setPublicationVenueFor(List<String> publicationVenueFor) {
+        this.publicationVenueFor = publicationVenueFor;
+    }
+
+    public List<String> getPublicationVenueForId() {
+        return publicationVenueForId;
+    }
+
+    public void setPublicationVenueForId(List<String> publicationVenueForId) {
+        this.publicationVenueForId = publicationVenueForId;
+    }
+
+    public List<String> getEtdChairedBy() {
+        return etdChairedBy;
+    }
+
+    public void setEtdChairedBy(List<String> etdChairedBy) {
+        this.etdChairedBy = etdChairedBy;
+    }
+
+    public List<String> getEtdChairedByEmail() {
+        return etdChairedByEmail;
+    }
+
+    public void setEtdChairedByEmail(List<String> etdChairedByEmail) {
+        this.etdChairedByEmail = etdChairedByEmail;
+    }
+
+    public List<String> getEtdChairedById() {
+        return etdChairedById;
+    }
+
+    public void setEtdChairedById(List<String> etdChairedById) {
+        this.etdChairedById = etdChairedById;
+    }
+
+    public List<String> getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(List<String> author) {
+        this.author = author;
+    }
+
+    public List<String> getAuthorType() {
+        return authorType;
+    }
+
+    public void setAuthorType(List<String> authorType) {
+        this.authorType = authorType;
+    }
+
+    public List<String> getAuthorRank() {
+        return authorRank;
+    }
+
+    public void setAuthorRank(List<String> authorRank) {
+        this.authorRank = authorRank;
+    }
+
+    public List<String> getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(List<String> authorId) {
+        this.authorId = authorId;
+    }
+
+    public List<String> getAuthorList() {
+        return authorList;
+    }
+
+    public void setAuthorList(List<String> authorList) {
+        this.authorList = authorList;
+    }
+
+    public List<String> getEditorList() {
+        return editorList;
+    }
+
+    public void setEditorList(List<String> editorList) {
+        this.editorList = editorList;
+    }
+
+    public List<String> getEditor() {
+        return editor;
+    }
+
+    public void setEditor(List<String> editor) {
+        this.editor = editor;
+    }
+
+    public List<String> getEditorType() {
+        return editorType;
+    }
+
+    public void setEditorType(List<String> editorType) {
+        this.editorType = editorType;
+    }
+
+    public List<String> getEditorRank() {
+        return editorRank;
+    }
+
+    public void setEditorRank(List<String> editorRank) {
+        this.editorRank = editorRank;
+    }
+
+    public List<String> getEditorId() {
+        return editorId;
+    }
+
+    public void setEditorId(List<String> editorId) {
+        this.editorId = editorId;
+    }
+
+    public List<String> getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(List<String> bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public List<String> getTranslator() {
+        return translator;
+    }
+
+    public void setTranslator(List<String> translator) {
+        this.translator = translator;
+    }
+
+    public List<String> getTranslatorType() {
+        return translatorType;
+    }
+
+    public void setTranslatorType(List<String> translatorType) {
+        this.translatorType = translatorType;
+    }
+
+    public List<String> getTranslatorId() {
+        return translatorId;
+    }
+
+    public void setTranslatorId(List<String> translatorId) {
+        this.translatorId = translatorId;
+    }
+
+    public List<String> getStatus() {
+        return status;
+    }
+
+    public void setStatus(List<String> status) {
+        this.status = status;
+    }
+
+    public List<String> getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(List<String> statusId) {
+        this.statusId = statusId;
+    }
+
+    public List<String> getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(List<String> publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public List<String> getPublicationDatePrecision() {
+        return publicationDatePrecision;
+    }
+
+    public void setPublicationDatePrecision(List<String> publicationDatePrecision) {
+        this.publicationDatePrecision = publicationDatePrecision;
+    }
+
+    public List<String> getPublicationDateId() {
+        return publicationDateId;
+    }
+
+    public void setPublicationDateId(List<String> publicationDateId) {
+        this.publicationDateId = publicationDateId;
+    }
+
+    public List<String> getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(List<String> publisher) {
+        this.publisher = publisher;
+    }
+
+    public List<String> getPublisherType() {
+        return publisherType;
+    }
+
+    public void setPublisherType(List<String> publisherType) {
+        this.publisherType = publisherType;
+    }
+
+    public List<String> getPublisherId() {
+        return publisherId;
+    }
+
+    public void setPublisherId(List<String> publisherId) {
+        this.publisherId = publisherId;
+    }
+
+    public List<String> getDateFiled() {
+        return dateFiled;
+    }
+
+    public void setDateFiled(List<String> dateFiled) {
+        this.dateFiled = dateFiled;
+    }
+
+    public List<String> getDateIssued() {
+        return dateIssued;
+    }
+
+    public void setDateIssued(List<String> dateIssued) {
+        this.dateIssued = dateIssued;
+    }
+
+    public List<String> getSubjectArea() {
+        return subjectArea;
+    }
+
+    public void setSubjectArea(List<String> subjectArea) {
+        this.subjectArea = subjectArea;
+    }
+
+    public List<String> getSubjectAreaId() {
+        return subjectAreaId;
+    }
+
+    public void setSubjectAreaId(List<String> subjectAreaId) {
+        this.subjectAreaId = subjectAreaId;
+    }
+
+    public List<String> getRestriction() {
+        return restriction;
+    }
+
+    public void setRestriction(List<String> restriction) {
+        this.restriction = restriction;
+    }
+
+    public List<String> getDocumentPart() {
+        return documentPart;
+    }
+
+    public void setDocumentPart(List<String> documentPart) {
+        this.documentPart = documentPart;
+    }
+
+    public List<String> getDocumentPartType() {
+        return documentPartType;
+    }
+
+    public void setDocumentPartType(List<String> documentPartType) {
+        this.documentPartType = documentPartType;
+    }
+
+    public List<String> getDocumentPartId() {
+        return documentPartId;
+    }
+
+    public void setDocumentPartId(List<String> documentPartId) {
+        this.documentPartId = documentPartId;
+    }
+
+    public List<String> getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(List<String> chapter) {
+        this.chapter = chapter;
+    }
+
+    public List<String> getFeature() {
+        return feature;
+    }
+
+    public void setFeature(List<String> feature) {
+        this.feature = feature;
+    }
+
+    public List<String> getFeatureType() {
+        return featureType;
+    }
+
+    public void setFeatureType(List<String> featureType) {
+        this.featureType = featureType;
+    }
+
+    public List<String> getFeatureId() {
+        return featureId;
+    }
+
+    public void setFeatureId(List<String> featureId) {
+        this.featureId = featureId;
+    }
+
+    public List<String> getEdition() {
+        return edition;
+    }
+
+    public void setEdition(List<String> edition) {
+        this.edition = edition;
+    }
+
+    public List<String> getGeographicFocus() {
+        return geographicFocus;
+    }
+
+    public void setGeographicFocus(List<String> geographicFocus) {
+        this.geographicFocus = geographicFocus;
+    }
+
+    public List<String> getGeographicFocusType() {
+        return geographicFocusType;
+    }
+
+    public void setGeographicFocusType(List<String> geographicFocusType) {
+        this.geographicFocusType = geographicFocusType;
+    }
+
+    public List<String> getGeographicFocusId() {
+        return geographicFocusId;
+    }
+
+    public void setGeographicFocusId(List<String> geographicFocusId) {
+        this.geographicFocusId = geographicFocusId;
+    }
+
+    public List<String> getDocumentationForProjectOrResource() {
+        return documentationForProjectOrResource;
+    }
+
+    public void setDocumentationForProjectOrResource(List<String> documentationForProjectOrResource) {
+        this.documentationForProjectOrResource = documentationForProjectOrResource;
+    }
+
+    public List<String> getDocumentationForProjectOrResourceType() {
+        return documentationForProjectOrResourceType;
+    }
+
+    public void setDocumentationForProjectOrResourceType(List<String> documentationForProjectOrResourceType) {
+        this.documentationForProjectOrResourceType = documentationForProjectOrResourceType;
+    }
+
+    public List<String> getDocumentationForProjectOrResourceId() {
+        return documentationForProjectOrResourceId;
+    }
+
+    public void setDocumentationForProjectOrResourceId(List<String> documentationForProjectOrResourceId) {
+        this.documentationForProjectOrResourceId = documentationForProjectOrResourceId;
+    }
+
+    public List<String> getOutputOfProcessOrEvent() {
+        return outputOfProcessOrEvent;
+    }
+
+    public void setOutputOfProcessOrEvent(List<String> outputOfProcessOrEvent) {
+        this.outputOfProcessOrEvent = outputOfProcessOrEvent;
+    }
+
+    public List<String> getOutputOfProcessOrEventType() {
+        return outputOfProcessOrEventType;
+    }
+
+    public void setOutputOfProcessOrEventType(List<String> outputOfProcessOrEventType) {
+        this.outputOfProcessOrEventType = outputOfProcessOrEventType;
+    }
+
+    public List<String> getOutputOfProcessOrEventId() {
+        return outputOfProcessOrEventId;
+    }
+
+    public void setOutputOfProcessOrEventId(List<String> outputOfProcessOrEventId) {
+        this.outputOfProcessOrEventId = outputOfProcessOrEventId;
+    }
+
+    public List<String> getPresentedAt() {
+        return presentedAt;
+    }
+
+    public void setPresentedAt(List<String> presentedAt) {
+        this.presentedAt = presentedAt;
+    }
+
+    public List<String> getPresentedAtType() {
+        return presentedAtType;
+    }
+
+    public void setPresentedAtType(List<String> presentedAtType) {
+        this.presentedAtType = presentedAtType;
+    }
+
+    public List<String> getPresentedAtId() {
+        return presentedAtId;
+    }
+
+    public void setPresentedAtId(List<String> presentedAtId) {
+        this.presentedAtId = presentedAtId;
+    }
+
+    public List<String> getFreetextKeyword() {
+        return freetextKeyword;
+    }
+
+    public void setFreetextKeyword(List<String> freetextKeyword) {
+        this.freetextKeyword = freetextKeyword;
+    }
+
+    public List<String> getEanucc13() {
+        return eanucc13;
+    }
+
+    public void setEanucc13(List<String> eanucc13) {
+        this.eanucc13 = eanucc13;
+    }
+
+    public List<String> getNihmsid() {
+        return nihmsid;
+    }
+
+    public void setNihmsid(List<String> nihmsid) {
+        this.nihmsid = nihmsid;
+    }
+
+    public List<String> getPmcid() {
+        return pmcid;
+    }
+
+    public void setPmcid(List<String> pmcid) {
+        this.pmcid = pmcid;
+    }
+
+    public List<String> getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(List<String> identifier) {
+        this.identifier = identifier;
+    }
+
+    public List<String> getPatentNumber() {
+        return patentNumber;
+    }
+
+    public void setPatentNumber(List<String> patentNumber) {
+        this.patentNumber = patentNumber;
+    }
+
+    public List<String> getSameAs() {
+        return sameAs;
+    }
+
+    public void setSameAs(List<String> sameAs) {
+        this.sameAs = sameAs;
+    }
+
+    public List<String> getSameAsType() {
+        return sameAsType;
+    }
+
+    public void setSameAsType(List<String> sameAsType) {
+        this.sameAsType = sameAsType;
+    }
+
+    public List<String> getSameAsId() {
+        return sameAsId;
+    }
+
+    public void setSameAsId(List<String> sameAsId) {
+        this.sameAsId = sameAsId;
+    }
+
+    public List<String> getDoi() {
+        return doi;
+    }
+
+    public void setDoi(List<String> doi) {
+        this.doi = doi;
+    }
+
+    public List<String> getOclcnum() {
+        return oclcnum;
+    }
+
+    public void setOclcnum(List<String> oclcnum) {
+        this.oclcnum = oclcnum;
+    }
+
+    public List<String> getIsbn10() {
+        return isbn10;
+    }
+
+    public void setIsbn10(List<String> isbn10) {
+        this.isbn10 = isbn10;
+    }
+
+    public List<String> getIsbn13() {
+        return isbn13;
+    }
+
+    public void setIsbn13(List<String> isbn13) {
+        this.isbn13 = isbn13;
+    }
+
+    public List<String> getPmid() {
+        return pmid;
+    }
+
+    public void setPmid(List<String> pmid) {
+        this.pmid = pmid;
+    }
+
+    public List<String> getLccn() {
+        return lccn;
+    }
+
+    public void setLccn(List<String> lccn) {
+        this.lccn = lccn;
+    }
+
+    public List<String> getIssn() {
+        return issn;
+    }
+
+    public void setIssn(List<String> issn) {
+        this.issn = issn;
+    }
+
+    public List<String> getEissn() {
+        return eissn;
+    }
+
+    public void setEissn(List<String> eissn) {
+        this.eissn = eissn;
+    }
+
+    public List<String> getUri() {
+        return uri;
+    }
+
+    public void setUri(List<String> uri) {
+        this.uri = uri;
+    }
+
+    public List<String> getCitedBy() {
+        return citedBy;
+    }
+
+    public void setCitedBy(List<String> citedBy) {
+        this.citedBy = citedBy;
+    }
+
+    public List<String> getCitedByType() {
+        return citedByType;
+    }
+
+    public void setCitedByType(List<String> citedByType) {
+        this.citedByType = citedByType;
+    }
+
+    public List<String> getCitedById() {
+        return citedById;
+    }
+
+    public void setCitedById(List<String> citedById) {
+        this.citedById = citedById;
+    }
+
+    public List<String> getCitation() {
+        return citation;
+    }
+
+    public void setCitation(List<String> citation) {
+        this.citation = citation;
+    }
+
+    public List<String> getCitationType() {
+        return citationType;
+    }
+
+    public void setCitationType(List<String> citationType) {
+        this.citationType = citationType;
+    }
+
+    public List<String> getCitationId() {
+        return citationId;
+    }
+
+    public void setCitationId(List<String> citationId) {
+        this.citationId = citationId;
+    }
+
+    public List<String> getCitesAsDataSource() {
+        return citesAsDataSource;
+    }
+
+    public void setCitesAsDataSource(List<String> citesAsDataSource) {
+        this.citesAsDataSource = citesAsDataSource;
+    }
+
+    public List<String> getCitesAsDataSourceType() {
+        return citesAsDataSourceType;
+    }
+
+    public void setCitesAsDataSourceType(List<String> citesAsDataSourceType) {
+        this.citesAsDataSourceType = citesAsDataSourceType;
+    }
+
+    public List<String> getCitesAsDataSourceId() {
+        return citesAsDataSourceId;
+    }
+
+    public void setCitesAsDataSourceId(List<String> citesAsDataSourceId) {
+        this.citesAsDataSourceId = citesAsDataSourceId;
+    }
+
+    public List<String> getTranslation() {
+        return translation;
+    }
+
+    public void setTranslation(List<String> translation) {
+        this.translation = translation;
+    }
+
+    public List<String> getTranslationType() {
+        return translationType;
+    }
+
+    public void setTranslationType(List<String> translationType) {
+        this.translationType = translationType;
+    }
+
+    public List<String> getTranslationId() {
+        return translationId;
+    }
+
+    public void setTranslationId(List<String> translationId) {
+        this.translationId = translationId;
+    }
+
+    public List<String> getTranslationOf() {
+        return translationOf;
+    }
+
+    public void setTranslationOf(List<String> translationOf) {
+        this.translationOf = translationOf;
+    }
+
+    public List<String> getTranslationOfType() {
+        return translationOfType;
+    }
+
+    public void setTranslationOfType(List<String> translationOfType) {
+        this.translationOfType = translationOfType;
+    }
+
+    public List<String> getTranslationOfId() {
+        return translationOfId;
+    }
+
+    public void setTranslationOfId(List<String> translationOfId) {
+        this.translationOfId = translationOfId;
+    }
+
+    public List<String> getGlobalCitationFrequency() {
+        return globalCitationFrequency;
+    }
+
+    public void setGlobalCitationFrequency(List<String> globalCitationFrequency) {
+        this.globalCitationFrequency = globalCitationFrequency;
+    }
+
+    public List<String> getGlobalCitationFrequencyId() {
+        return globalCitationFrequencyId;
+    }
+
+    public void setGlobalCitationFrequencyId(List<String> globalCitationFrequencyId) {
+        this.globalCitationFrequencyId = globalCitationFrequencyId;
+    }
+
+    public List<String> getIclCode() {
+        return iclCode;
+    }
+
+    public void setIclCode(List<String> iclCode) {
+        this.iclCode = iclCode;
+    }
+
+    public List<String> getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(List<String> numberOfPages) {
+        this.numberOfPages = numberOfPages;
+    }
+
+    public List<String> getPageStart() {
+        return pageStart;
+    }
+
+    public void setPageStart(List<String> pageStart) {
+        this.pageStart = pageStart;
+    }
+
+    public List<String> getPageEnd() {
+        return pageEnd;
+    }
+
+    public void setPageEnd(List<String> pageEnd) {
+        this.pageEnd = pageEnd;
+    }
+
+    public List<String> getVolume() {
+        return volume;
+    }
+
+    public void setVolume(List<String> volume) {
+        this.volume = volume;
+    }
+
+    public List<String> getIssue() {
+        return issue;
+    }
+
+    public void setIssue(List<String> issue) {
+        this.issue = issue;
+    }
+
+    public List<String> getPlaceOfPublication() {
+        return placeOfPublication;
+    }
+
+    public void setPlaceOfPublication(List<String> placeOfPublication) {
+        this.placeOfPublication = placeOfPublication;
+    }
+
+    public List<String> getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(List<String> assignee) {
+        this.assignee = assignee;
+    }
+
+    public List<String> getAssigneeType() {
+        return assigneeType;
+    }
+
+    public void setAssigneeType(List<String> assigneeType) {
+        this.assigneeType = assigneeType;
+    }
+
+    public List<String> getAssigneeId() {
+        return assigneeId;
+    }
+
+    public void setAssigneeId(List<String> assigneeId) {
+        this.assigneeId = assigneeId;
+    }
+
+    public List<String> getReproducedIn() {
+        return reproducedIn;
+    }
+
+    public void setReproducedIn(List<String> reproducedIn) {
+        this.reproducedIn = reproducedIn;
+    }
+
+    public List<String> getReproducedInId() {
+        return reproducedInId;
+    }
+
+    public void setReproducedInId(List<String> reproducedInId) {
+        this.reproducedInId = reproducedInId;
+    }
+
+    public List<String> getReproduces() {
+        return reproduces;
+    }
+
+    public void setReproduces(List<String> reproduces) {
+        this.reproduces = reproduces;
+    }
+
+    public List<String> getReproducesType() {
+        return reproducesType;
+    }
+
+    public void setReproducesType(List<String> reproducesType) {
+        this.reproducesType = reproducesType;
+    }
+
+    public List<String> getReproducesId() {
+        return reproducesId;
+    }
+
+    public void setReproducesId(List<String> reproducesId) {
+        this.reproducesId = reproducesId;
+    }
+
+    public List<String> getIsAbout() {
+        return isAbout;
+    }
+
+    public void setIsAbout(List<String> isAbout) {
+        this.isAbout = isAbout;
+    }
+
+    public List<String> getIsAboutType() {
+        return isAboutType;
+    }
+
+    public void setIsAboutType(List<String> isAboutType) {
+        this.isAboutType = isAboutType;
+    }
+
+    public List<String> getIsAboutId() {
+        return isAboutId;
+    }
+
+    public void setIsAboutId(List<String> isAboutId) {
+        this.isAboutId = isAboutId;
+    }
+
+    public List<String> getSpecifiedOutputOf() {
+        return specifiedOutputOf;
+    }
+
+    public void setSpecifiedOutputOf(List<String> specifiedOutputOf) {
+        this.specifiedOutputOf = specifiedOutputOf;
+    }
+
+    public List<String> getSpecifiedOutputOfType() {
+        return specifiedOutputOfType;
+    }
+
+    public void setSpecifiedOutputOfType(List<String> specifiedOutputOfType) {
+        this.specifiedOutputOfType = specifiedOutputOfType;
+    }
+
+    public List<String> getSpecifiedOutputOfId() {
+        return specifiedOutputOfId;
+    }
+
+    public void setSpecifiedOutputOfId(List<String> specifiedOutputOfId) {
+        this.specifiedOutputOfId = specifiedOutputOfId;
+    }
+
+    public List<String> getIsTemplate() {
+        return isTemplate;
+    }
+
+    public void setIsTemplate(List<String> isTemplate) {
+        this.isTemplate = isTemplate;
+    }
+
+    public List<String> getMention() {
+        return mention;
+    }
+
+    public void setMention(List<String> mention) {
+        this.mention = mention;
+    }
+
+    public List<String> getMentionType() {
+        return mentionType;
+    }
+
+    public void setMentionType(List<String> mentionType) {
+        this.mentionType = mentionType;
+    }
+
+    public List<String> getMentionId() {
+        return mentionId;
+    }
+
+    public void setMentionId(List<String> mentionId) {
+        this.mentionId = mentionId;
+    }
+
+    public List<String> getParticipatesIn() {
+        return participatesIn;
+    }
+
+    public void setParticipatesIn(List<String> participatesIn) {
+        this.participatesIn = participatesIn;
+    }
+
+    public List<String> getParticipatesInId() {
+        return participatesInId;
+    }
+
+    public void setParticipatesInId(List<String> participatesInId) {
+        this.participatesInId = participatesInId;
+    }
+
+    public List<String> getSupportedBy() {
+        return supportedBy;
+    }
+
+    public void setSupportedBy(List<String> supportedBy) {
+        this.supportedBy = supportedBy;
+    }
+
+    public List<String> getSupportedByType() {
+        return supportedByType;
+    }
+
+    public void setSupportedByType(List<String> supportedByType) {
+        this.supportedByType = supportedByType;
+    }
+
+    public List<String> getSupportedById() {
+        return supportedById;
+    }
+
+    public void setSupportedById(List<String> supportedById) {
+        this.supportedById = supportedById;
+    }
+
+    public String getModTime() {
+        return modTime;
+    }
+
+    public void setModTime(String modTime) {
+        this.modTime = modTime;
+    }
+
+    public List<String> getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(List<String> receipt) {
+        this.receipt = receipt;
+    }
+
+    public List<String> getReceiptId() {
+        return receiptId;
+    }
+
+    public void setReceiptId(List<String> receiptId) {
+        this.receiptId = receiptId;
+    }
+
 }
