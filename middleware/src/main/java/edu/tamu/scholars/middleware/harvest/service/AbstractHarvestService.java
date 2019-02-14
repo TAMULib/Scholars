@@ -65,7 +65,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
             if (resources.hasNext()) {
                 Iterable<Resource> resourceIterable = () -> resources;
                 Stream<Resource> resourceStream = StreamSupport.stream(resourceIterable.spliterator(), true);
-                resourceStream.limit(100).forEach(resource -> harvest(SolrDocumentBuilder.of(collection, resource, indexer.type())));
+                resourceStream.forEach(resource -> harvest(SolrDocumentBuilder.of(collection, resource, indexer.type())));
             } else {
                 logger.warn(String.format("No %s found!", name()));
             }
