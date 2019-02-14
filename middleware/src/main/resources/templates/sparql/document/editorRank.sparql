@@ -1,0 +1,12 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?relatedBy vivo:rank ?rank .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?relatedBy .
+    ?relatedBy a vivo:Editorship .
+    ?relatedBy vivo:relates ?editor .
+    ?relatedBy vivo:rank ?rank .
+
+    FILTER (?editor != <[(${uri})]>) .
+}

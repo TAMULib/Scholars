@@ -1,0 +1,12 @@
+PREFIX cito: <http://purl.org/spar/cito/>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?dataSource vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> cito:citesAsDataSource ?dataSource .
+    ?dataSource vitro:mostSpecificType ?mostSpecificType .
+
+    FILTER (?mostSpecificType != vivo:DateTimeValue) .
+}

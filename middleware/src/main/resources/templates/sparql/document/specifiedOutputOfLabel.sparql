@@ -1,0 +1,14 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?specifiedOutputOf rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> obo:OBI_0000312 ?specifiedOutputOf .
+    ?specifiedOutputOf rdfs:label ?label .
+    ?specifiedOutputOf vitro:mostSpecificType ?mostSpecificType .
+
+    FILTER (?mostSpecificType != vivo:DateTimeValue) .
+}

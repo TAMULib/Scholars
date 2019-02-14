@@ -1,0 +1,13 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?author rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?relatedBy .
+    ?relatedBy a vivo:Authorship .
+    ?relatedBy vivo:relates ?author .
+    ?author rdfs:label ?label .
+
+    FILTER (?author != <[(${uri})]>) .
+}

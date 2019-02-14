@@ -1,45 +1,68 @@
 document:
   class: "http://purl.org/ontology/bibo/Document"
 
+  label: "http://www.w3.org/2000/01/rdf-schema#label"
   type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  abstract: "http://purl.org/ontology/bibo/abstract"
+  abbreviation: "http://vivoweb.org/ontology/core#abbreviation"
+  authorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList"
+  editorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullEditorList"
+  bookTitleForChapter: "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter"
+  restriction: "http://purl.obolibrary.org/obo/ERO_0000045"
+  chapter: "http://purl.org/ontology/bibo/chapter"
+  edition: "http://purl.org/ontology/bibo/edition"
+  freetextKeyword: "http://vivoweb.org/ontology/core#freetextKeyword"
+  eanucc13: "http://purl.org/ontology/bibo/eanucc13"
+  nihmsid: "http://purl.org/ontology/bibo/nihmsid"
+  pmcid: "http://vivo.library.tamu.edu/ontology/TAMU#pcmid"
   identifier: "http://purl.org/ontology/bibo/identifier"
-
-  title: "http://www.w3.org/2000/01/rdf-schema#label"
-
-  issue: "http://purl.org/ontology/bibo/issue"
-  volume: "http://purl.org/ontology/bibo/volume"
+  patentNumber: "http://vivoweb.org/ontology/core#patentNumber"
   doi: "http://purl.org/ontology/bibo/doi"
+  oclcnum: "http://purl.org/ontology/bibo/oclcnum"
   isbn10: "http://purl.org/ontology/bibo/isbn10"
   isbn13: "http://purl.org/ontology/bibo/isbn13"
+  pmid: "http://purl.org/ontology/bibo/pmid"
+  lccn: "http://purl.org/ontology/bibo/lccn"
   issn: "http://purl.org/ontology/bibo/issn"
-  pcmid: "http://vivo.library.tamu.edu/ontology/TAMU#pcmid"
-  abstract: "http://purl.org/ontology/bibo/abstract"
-  bookTitleForChapter: "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter"
-  freetextKeyword: "http://vivoweb.org/ontology/core#freetextKeyword"
-  fullAuthorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList"
-  fullEditorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullEditorList"
-  pageEnd: "http://purl.org/ontology/bibo/pageEnd"
-  pageStart: "http://purl.org/ontology/bibo/pageStart"
+  eissn: "http://purl.org/ontology/bibo/eissn"
   uri: "http://purl.org/ontology/bibo/uri"
+  iclCode: "http://purl.org/ontology/bibo/iclCode"
+  numPages: "http://purl.org/ontology/bibo/numPages"
+  pageStart: "http://purl.org/ontology/bibo/pageStart"
+  pageEnd: "http://purl.org/ontology/bibo/pageEnd"
+  volume: "http://purl.org/ontology/bibo/volume"
+  issue: "http://purl.org/ontology/bibo/issue"
+  placeOfPublication: "http://vivoweb.org/ontology/core#placeOfPublication"
+  ARG_0000001: "http://purl.obolibrary.org/obo/ARG_0000001"
+  modTime: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime"
 
-  date: "http://vivoweb.org/ontology/core#dateTime"
+  thing:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
 
-  authors: "http://www.w3.org/2000/01/rdf-schema#label"
-
-  journal:
-    title: "http://www.w3.org/2000/01/rdf-schema#label"
-    issn: "http://purl.org/ontology/bibo/issn"
-
-  publisher: "http://www.w3.org/2000/01/rdf-schema#label"
-
-  links:
+  website:
     url: "http://www.w3.org/2006/vcard/ns#url"
     label: "http://www.w3.org/2000/01/rdf-schema#label"
 
-  grants:
-    title: "http://www.w3.org/2000/01/rdf-schema#label"
-    date: "http://vivoweb.org/ontology/core#dateTime"
+  file:
+    directDownloadUrl: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+    filename: "http://vitro.mannlib.cornell.edu/ns/vitro/public#filename"
+    mimeType: "http://vitro.mannlib.cornell.edu/ns/vitro/public#mimeType"
 
-  etdChairs: "http://www.w3.org/2000/01/rdf-schema#label"
-  researchAreas: "http://www.w3.org/2000/01/rdf-schema#label"
-  subjectAreas: "http://www.w3.org/2000/01/rdf-schema#label"
+  publicationVenue:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    issn: "http://purl.org/ontology/bibo/issn"
+
+  person:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    email: "http://www.w3.org/2006/vcard/ns#email"
+    rank: "http://vivoweb.org/ontology/core#rank"
+
+  journal:
+    dateFiled: "http://vivoweb.org/ontology/core#dateFiled"
+    dateIssued: "http://vivoweb.org/ontology/core#dateIssued"
+
+  date:
+    dateTime: "http://vivoweb.org/ontology/core#dateTime"
+    dateTimePrecision: "http://vivoweb.org/ontology/core#dateTimePrecision"
+

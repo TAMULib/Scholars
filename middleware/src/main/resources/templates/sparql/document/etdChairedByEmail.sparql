@@ -1,0 +1,9 @@
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX tamu: <http://vivo.library.tamu.edu/ontology/TAMU#>
+
+CONSTRUCT {
+    ?chair vcard:email ?email .
+} WHERE {
+    <[(${uri})]> tamu:ETDChairedBy ?chair .
+    ?chair vcard:email ?email .
+}
