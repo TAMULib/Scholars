@@ -22,7 +22,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
     template = "document/documents",
     key = "document.class",
     properties = {
-        @Property(name = "name", key = "document.label"),
+        @Property(name = "title", key = "document.title"),
         @Property(name = "type", key = "document.type", parse = true),
         @Property(name = "abstractText", key = "document.abstract"),
         @Property(name = "abbreviation", key = "document.abbreviation"),
@@ -32,7 +32,7 @@ import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
         @Property(name = "restriction", key = "document.restriction"),
         @Property(name = "chapter", key = "document.chapter"),
         @Property(name = "edition", key = "document.edition"),
-        @Property(name = "freetextKeyword", key = "document.freetextKeyword"),
+        @Property(name = "keyword", key = "document.keyword"),
         @Property(name = "eanucc13", key = "document.eanucc13"),
         @Property(name = "nihmsid", key = "document.nihmsid"),
         @Property(name = "pmcid", key = "document.pmcid"),
@@ -62,6 +62,12 @@ import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 public class Document extends AbstractSolrDocument {
 
     @Indexed
+    private String title;
+
+    @Indexed
+    private List<String> type;
+
+    @Indexed
     @PropertySource(template = "document/imageDirectDownloadUrl", key = "document.file.directDownloadUrl")
     private String imageDirectDownloadUrl;
 
@@ -86,12 +92,6 @@ public class Document extends AbstractSolrDocument {
     private String thumbnailMimeType;
 
     @Indexed
-    private String name;
-
-    @Indexed
-    private List<String> type;
-
-    @Indexed
     @PropertySource(template = "document/website", key = "document.website.url")
     private List<String> websiteUrl;
 
@@ -102,10 +102,10 @@ public class Document extends AbstractSolrDocument {
     @Field("abstract")
     @Indexed("abstract")
     @JsonProperty("abstract")
-    private List<String> abstractText;
+    private String abstractText;
 
     @Indexed
-    private List<String> abbreviation;
+    private String abbreviation;
 
     @Indexed
     @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue.label", id = "publicationVenueId")
@@ -169,7 +169,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> editorId;
 
     @Indexed
-    private List<String> bookTitle;
+    private String bookTitle;
 
     @Indexed
     @PropertySource(template = "document/translator", key = "document.thing.label", id = "translatorId")
@@ -241,7 +241,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> documentPartId;
 
     @Indexed
-    private List<String> chapter;
+    private String chapter;
 
     @Indexed
     @PropertySource(template = "document/feature", key = "document.thing.label", id = "featureId")
@@ -255,7 +255,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> featureId;
 
     @Indexed
-    private List<String> edition;
+    private String edition;
 
     @Indexed
     @PropertySource(template = "document/geographicFocus", key = "document.thing.label", id = "geographicFocusId")
@@ -302,19 +302,19 @@ public class Document extends AbstractSolrDocument {
     private List<String> presentedAtId;
 
     @Indexed
-    private List<String> freetextKeyword;
+    private List<String> keyword;
 
     @Indexed
-    private List<String> eanucc13;
+    private String eanucc13;
 
     @Indexed
-    private List<String> nihmsid;
+    private String nihmsid;
 
     @Indexed
-    private List<String> pmcid;
+    private String pmcid;
 
     @Indexed
-    private List<String> identifier;
+    private String identifier;
 
     @Indexed
     private List<String> patentNumber;
@@ -331,28 +331,28 @@ public class Document extends AbstractSolrDocument {
     private List<String> sameAsId;
 
     @Indexed
-    private List<String> doi;
+    private String doi;
 
     @Indexed
-    private List<String> oclcnum;
+    private String oclcnum;
 
     @Indexed
-    private List<String> isbn10;
+    private String isbn10;
 
     @Indexed
-    private List<String> isbn13;
+    private String isbn13;
 
     @Indexed
-    private List<String> pmid;
+    private String pmid;
 
     @Indexed
-    private List<String> lccn;
+    private String lccn;
 
     @Indexed
-    private List<String> issn;
+    private String issn;
 
     @Indexed
-    private List<String> eissn;
+    private String eissn;
 
     @Indexed
     private List<String> uri;
@@ -420,25 +420,25 @@ public class Document extends AbstractSolrDocument {
     private List<String> globalCitationFrequencyId;
 
     @Indexed
-    private List<String> iclCode;
+    private String iclCode;
 
     @Indexed
-    private List<String> numberOfPages;
+    private String numberOfPages;
 
     @Indexed
-    private List<String> pageStart;
+    private String pageStart;
 
     @Indexed
-    private List<String> pageEnd;
+    private String pageEnd;
 
     @Indexed
-    private List<String> volume;
+    private String volume;
 
     @Indexed
-    private List<String> issue;
+    private String issue;
 
     @Indexed
-    private List<String> placeOfPublication;
+    private String placeOfPublication;
 
     @Indexed
     @PropertySource(template = "document/assignee", key = "document.thing.label", id = "assigneeId")
@@ -537,6 +537,22 @@ public class Document extends AbstractSolrDocument {
 
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public List<String> getType() {
+        return type;
+    }
+
+    public void setType(List<String> type) {
+        this.type = type;
+    }
+
     public String getImageDirectDownloadUrl() {
         return imageDirectDownloadUrl;
     }
@@ -585,22 +601,6 @@ public class Document extends AbstractSolrDocument {
         this.thumbnailMimeType = thumbnailMimeType;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<String> getType() {
-        return type;
-    }
-
-    public void setType(List<String> type) {
-        this.type = type;
-    }
-
     public List<String> getWebsiteUrl() {
         return websiteUrl;
     }
@@ -617,19 +617,19 @@ public class Document extends AbstractSolrDocument {
         this.websiteLabel = websiteLabel;
     }
 
-    public List<String> getAbstractText() {
+    public String getAbstractText() {
         return abstractText;
     }
 
-    public void setAbstractText(List<String> abstractText) {
+    public void setAbstractText(String abstractText) {
         this.abstractText = abstractText;
     }
 
-    public List<String> getAbbreviation() {
+    public String getAbbreviation() {
         return abbreviation;
     }
 
-    public void setAbbreviation(List<String> abbreviation) {
+    public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
     }
 
@@ -769,11 +769,11 @@ public class Document extends AbstractSolrDocument {
         this.editorId = editorId;
     }
 
-    public List<String> getBookTitle() {
+    public String getBookTitle() {
         return bookTitle;
     }
 
-    public void setBookTitle(List<String> bookTitle) {
+    public void setBookTitle(String bookTitle) {
         this.bookTitle = bookTitle;
     }
 
@@ -929,11 +929,11 @@ public class Document extends AbstractSolrDocument {
         this.documentPartId = documentPartId;
     }
 
-    public List<String> getChapter() {
+    public String getChapter() {
         return chapter;
     }
 
-    public void setChapter(List<String> chapter) {
+    public void setChapter(String chapter) {
         this.chapter = chapter;
     }
 
@@ -961,11 +961,11 @@ public class Document extends AbstractSolrDocument {
         this.featureId = featureId;
     }
 
-    public List<String> getEdition() {
+    public String getEdition() {
         return edition;
     }
 
-    public void setEdition(List<String> edition) {
+    public void setEdition(String edition) {
         this.edition = edition;
     }
 
@@ -1065,43 +1065,43 @@ public class Document extends AbstractSolrDocument {
         this.presentedAtId = presentedAtId;
     }
 
-    public List<String> getFreetextKeyword() {
-        return freetextKeyword;
+    public List<String> getKeyword() {
+        return keyword;
     }
 
-    public void setFreetextKeyword(List<String> freetextKeyword) {
-        this.freetextKeyword = freetextKeyword;
+    public void setKeyword(List<String> keyword) {
+        this.keyword = keyword;
     }
 
-    public List<String> getEanucc13() {
+    public String getEanucc13() {
         return eanucc13;
     }
 
-    public void setEanucc13(List<String> eanucc13) {
+    public void setEanucc13(String eanucc13) {
         this.eanucc13 = eanucc13;
     }
 
-    public List<String> getNihmsid() {
+    public String getNihmsid() {
         return nihmsid;
     }
 
-    public void setNihmsid(List<String> nihmsid) {
+    public void setNihmsid(String nihmsid) {
         this.nihmsid = nihmsid;
     }
 
-    public List<String> getPmcid() {
+    public String getPmcid() {
         return pmcid;
     }
 
-    public void setPmcid(List<String> pmcid) {
+    public void setPmcid(String pmcid) {
         this.pmcid = pmcid;
     }
 
-    public List<String> getIdentifier() {
+    public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(List<String> identifier) {
+    public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
 
@@ -1137,67 +1137,67 @@ public class Document extends AbstractSolrDocument {
         this.sameAsId = sameAsId;
     }
 
-    public List<String> getDoi() {
+    public String getDoi() {
         return doi;
     }
 
-    public void setDoi(List<String> doi) {
+    public void setDoi(String doi) {
         this.doi = doi;
     }
 
-    public List<String> getOclcnum() {
+    public String getOclcnum() {
         return oclcnum;
     }
 
-    public void setOclcnum(List<String> oclcnum) {
+    public void setOclcnum(String oclcnum) {
         this.oclcnum = oclcnum;
     }
 
-    public List<String> getIsbn10() {
+    public String getIsbn10() {
         return isbn10;
     }
 
-    public void setIsbn10(List<String> isbn10) {
+    public void setIsbn10(String isbn10) {
         this.isbn10 = isbn10;
     }
 
-    public List<String> getIsbn13() {
+    public String getIsbn13() {
         return isbn13;
     }
 
-    public void setIsbn13(List<String> isbn13) {
+    public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
     }
 
-    public List<String> getPmid() {
+    public String getPmid() {
         return pmid;
     }
 
-    public void setPmid(List<String> pmid) {
+    public void setPmid(String pmid) {
         this.pmid = pmid;
     }
 
-    public List<String> getLccn() {
+    public String getLccn() {
         return lccn;
     }
 
-    public void setLccn(List<String> lccn) {
+    public void setLccn(String lccn) {
         this.lccn = lccn;
     }
 
-    public List<String> getIssn() {
+    public String getIssn() {
         return issn;
     }
 
-    public void setIssn(List<String> issn) {
+    public void setIssn(String issn) {
         this.issn = issn;
     }
 
-    public List<String> getEissn() {
+    public String getEissn() {
         return eissn;
     }
 
-    public void setEissn(List<String> eissn) {
+    public void setEissn(String eissn) {
         this.eissn = eissn;
     }
 
@@ -1345,59 +1345,59 @@ public class Document extends AbstractSolrDocument {
         this.globalCitationFrequencyId = globalCitationFrequencyId;
     }
 
-    public List<String> getIclCode() {
+    public String getIclCode() {
         return iclCode;
     }
 
-    public void setIclCode(List<String> iclCode) {
+    public void setIclCode(String iclCode) {
         this.iclCode = iclCode;
     }
 
-    public List<String> getNumberOfPages() {
+    public String getNumberOfPages() {
         return numberOfPages;
     }
 
-    public void setNumberOfPages(List<String> numberOfPages) {
+    public void setNumberOfPages(String numberOfPages) {
         this.numberOfPages = numberOfPages;
     }
 
-    public List<String> getPageStart() {
+    public String getPageStart() {
         return pageStart;
     }
 
-    public void setPageStart(List<String> pageStart) {
+    public void setPageStart(String pageStart) {
         this.pageStart = pageStart;
     }
 
-    public List<String> getPageEnd() {
+    public String getPageEnd() {
         return pageEnd;
     }
 
-    public void setPageEnd(List<String> pageEnd) {
+    public void setPageEnd(String pageEnd) {
         this.pageEnd = pageEnd;
     }
 
-    public List<String> getVolume() {
+    public String getVolume() {
         return volume;
     }
 
-    public void setVolume(List<String> volume) {
+    public void setVolume(String volume) {
         this.volume = volume;
     }
 
-    public List<String> getIssue() {
+    public String getIssue() {
         return issue;
     }
 
-    public void setIssue(List<String> issue) {
+    public void setIssue(String issue) {
         this.issue = issue;
     }
 
-    public List<String> getPlaceOfPublication() {
+    public String getPlaceOfPublication() {
         return placeOfPublication;
     }
 
-    public void setPlaceOfPublication(List<String> placeOfPublication) {
+    public void setPlaceOfPublication(String placeOfPublication) {
         this.placeOfPublication = placeOfPublication;
     }
 
