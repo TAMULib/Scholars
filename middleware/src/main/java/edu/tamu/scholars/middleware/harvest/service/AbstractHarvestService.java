@@ -10,8 +10,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.jena.graph.Triple;
@@ -59,9 +57,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
             Iterator<Triple> tripleIterator = qe.execConstructTriples();
             if (tripleIterator.hasNext()) {
-                Iterable<Triple> tirpleIterable = () -> tripleIterator;
-                Stream<Triple> tripleStream = StreamSupport.stream(tirpleIterable.spliterator(), true);
-                tripleStream.forEach(triple -> harvest(triple));
+                tripleIterator.forEachRemaining(triple -> harvest(triple));
             } else {
                 logger.warn(String.format("No %s found!", name()));
             }
