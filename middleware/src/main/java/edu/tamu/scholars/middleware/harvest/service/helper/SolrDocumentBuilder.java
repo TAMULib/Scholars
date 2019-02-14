@@ -164,7 +164,9 @@ public class SolrDocumentBuilder {
             }
             List<String> values = this.collections.get(property);
             if (unique && values.stream().anyMatch(value::equalsIgnoreCase)) {
-                logger.warn(String.format("%s has duplicate value %s", property, value));
+                if (logger.isDebugEnabled()) {
+                    logger.debug(String.format("%s has duplicate value %s", property, value));
+                }
             } else {
                 values.add(value);
                 return true;
