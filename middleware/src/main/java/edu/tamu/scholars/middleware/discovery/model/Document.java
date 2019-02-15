@@ -405,7 +405,7 @@ public class Document extends AbstractSolrDocument {
 
     @Indexed
     @PropertySource(template = "document/placeOfPublication", key = "document.placeOfPublication")
-    private List<String> placeOfPublication;
+    private String placeOfPublication;
 
     @Indexed
     @PropertySource(template = "document/assignee", key = "document.assignee.name", id = "assigneeId")
@@ -1314,11 +1314,11 @@ public class Document extends AbstractSolrDocument {
         this.issue = issue;
     }
 
-    public List<String> getPlaceOfPublication() {
+    public String getPlaceOfPublication() {
         return placeOfPublication;
     }
 
-    public void setPlaceOfPublication(List<String> placeOfPublication) {
+    public void setPlaceOfPublication(String placeOfPublication) {
         this.placeOfPublication = placeOfPublication;
     }
 

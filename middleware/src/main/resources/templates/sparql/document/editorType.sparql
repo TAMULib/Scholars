@@ -1,5 +1,6 @@
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
@@ -8,6 +9,7 @@ CONSTRUCT {
     <[(${uri})]> vivo:relatedBy ?relatedBy .
     ?relatedBy a vivo:Editorship .
     ?relatedBy vivo:relates ?editor .
-    ?editor a foaf:Person .
+    ?editor rdf:type ?type .
     ?editor vitro:mostSpecificType ?mostSpecificType .
+    FILTER(?type = foaf:Person || ?type = foaf:Organization)
 }
