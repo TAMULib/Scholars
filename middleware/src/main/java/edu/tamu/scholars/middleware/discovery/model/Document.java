@@ -460,7 +460,7 @@ public class Document extends AbstractSolrDocument {
 
     @Indexed
     @PropertySource(template = "document/isTemplate", key = "document.isTemplate")
-    private List<String> isTemplate;
+    private String isTemplate;
 
     @Indexed
     @PropertySource(template = "document/mention", key = "document.mention.name", id = "mentionId")
@@ -1434,11 +1434,11 @@ public class Document extends AbstractSolrDocument {
         this.specifiedOutputOfId = specifiedOutputOfId;
     }
 
-    public List<String> getIsTemplate() {
+    public String getIsTemplate() {
         return isTemplate;
     }
 
-    public void setIsTemplate(List<String> isTemplate) {
+    public void setIsTemplate(String isTemplate) {
         this.isTemplate = isTemplate;
     }
 
