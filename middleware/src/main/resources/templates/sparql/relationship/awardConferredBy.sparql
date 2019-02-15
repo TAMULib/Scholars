@@ -1,0 +1,11 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?assignedBy rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> vivo:assignedBy ?assignedBy ; a vivo:AwardReceipt .
+    ?assignedBy a foaf:Organization .
+    ?assignedBy rdfs:label ?label .
+}
