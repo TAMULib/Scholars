@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.jena.graph.Triple;
@@ -21,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataAccessResourceFailureException;
 
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 import edu.tamu.scholars.middleware.discovery.service.SolrIndexService;
@@ -57,7 +60,9 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
         try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
             Iterator<Triple> tripleIterator = qe.execConstructTriples();
             if (tripleIterator.hasNext()) {
-                tripleIterator.forEachRemaining(triple -> harvest(triple));
+                Iterable<Triple> tripleIterable = () -> tripleIterator;
+                Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), true);
+                tripleStream.forEach(triple -> harvest(triple));
             } else {
                 logger.warn(String.format("No %s found!", name()));
             }
@@ -75,7 +80,7 @@ public abstract class AbstractHarvestService<D extends AbstractSolrDocument, S e
             D document = createDocument(SolrDocumentBuilder.of(subject, indexer.type()));
             indexer.index(document);
             logger.info(String.format("%s %s indexed in %f seconds", name(), parse(subject), Duration.between(start, Instant.now()).toMillis() / 1000.0));
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+        } catch (DataAccessResourceFailureException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             logger.error(String.format("Unable to index %s: %s", name(), parse(subject)));
             logger.error(String.format("Error: %s", e.getMessage()));
             if (logger.isDebugEnabled()) {
