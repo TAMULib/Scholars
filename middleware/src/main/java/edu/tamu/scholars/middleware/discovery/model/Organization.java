@@ -10,32 +10,28 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.Property;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "organizations")
-//@formatter:off
-@CollectionSource(
-    template = "organization/organizations",
-    key = "organization.class",
-    properties = {
-        @Property(name = "name", key = "organization.name"),
-        @Property(name = "type", key = "organization.type", parse = true)
-    }
-)
-//@formatter:on
+@CollectionSource(key = "organization.class")
 public class Organization extends AbstractSolrDocument {
 
     @Indexed
+    @PropertySource(template = "organization/name", key = "organization.name")
     private String name;
 
     @Indexed
+    @PropertySource(template = "organization/type", key = "organization.type")
     private List<String> type;
 
     @Indexed
     @PropertySource(template = "organization/image", key = "organization.image")
     private String image;
+
+    @Indexed
+    @PropertySource(template = "organization/thumbnail", key = "organization.thumbnail")
+    private String thumbnail;
 
     @Indexed
     @PropertySource(template = "organization/websiteUrl", key = "organization.website.url")
@@ -210,7 +206,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> selectedPublicationId;
 
     @Indexed
-    @PropertySource(template = "organization/publisherOf", key = "organization.publisherOf.title", id = "publisherOfId")
+    @PropertySource(template = "organization/publisherOf", key = "organization.publisherOf.title", id = "publisherOfId", unique = true)
     private List<String> publisherOf;
 
     @Indexed
@@ -353,6 +349,17 @@ public class Organization extends AbstractSolrDocument {
     private String orgId;
 
     @Indexed
+    @PropertySource(template = "organization/sameAs", key = "organization.sameAs.label", id = "sameAsId")
+    private List<String> sameAs;
+
+    @Indexed
+    @PropertySource(template = "organization/sameAsType", key = "organization.sameAs.type", parse = true)
+    private List<String> sameAsType;
+
+    @Indexed
+    private List<String> sameAsId;
+
+    @Indexed
     @PropertySource(template = "organization/phone", key = "organization.phone")
     private String phone;
 
@@ -421,11 +428,15 @@ public class Organization extends AbstractSolrDocument {
 
     // NOTE: unidirectional from Concept vivo:researchAreaOf
     @Indexed
-    @PropertySource(template = "organization/hasResearchArea", key = "organization.hasResearchArea", id = "hasResearchAreaId")
-    private List<String> hasResearchArea;
+    @PropertySource(template = "organization/affiliatedResearchArea", key = "organization.affiliatedResearchArea", id = "affiliatedResearchAreaId", unique = true)
+    private List<String> affiliatedResearchArea;
 
     @Indexed
-    private List<String> hasResearchAreaId;
+    private List<String> affiliatedResearchAreaId;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/modTime", key = "organization.modTime")
+    private String modTime;
 
     public Organization() {
 
@@ -453,6 +464,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public List<String> getWebsiteUrl() {
@@ -1143,6 +1162,30 @@ public class Organization extends AbstractSolrDocument {
         this.orgId = orgId;
     }
 
+    public List<String> getSameAs() {
+        return sameAs;
+    }
+
+    public void setSameAs(List<String> sameAs) {
+        this.sameAs = sameAs;
+    }
+
+    public List<String> getSameAsType() {
+        return sameAsType;
+    }
+
+    public void setSameAsType(List<String> sameAsType) {
+        this.sameAsType = sameAsType;
+    }
+
+    public List<String> getSameAsId() {
+        return sameAsId;
+    }
+
+    public void setSameAsId(List<String> sameAsId) {
+        this.sameAsId = sameAsId;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -1287,20 +1330,28 @@ public class Organization extends AbstractSolrDocument {
         this.governingAuthorityForId = governingAuthorityForId;
     }
 
-    public List<String> getHasResearchArea() {
-        return hasResearchArea;
+    public List<String> getAffiliatedResearchArea() {
+        return affiliatedResearchArea;
     }
 
-    public void setHasResearchArea(List<String> hasResearchArea) {
-        this.hasResearchArea = hasResearchArea;
+    public void setAffiliatedResearchArea(List<String> affiliatedResearchArea) {
+        this.affiliatedResearchArea = affiliatedResearchArea;
     }
 
-    public List<String> getHasResearchAreaId() {
-        return hasResearchAreaId;
+    public List<String> getAffiliatedResearchAreaId() {
+        return affiliatedResearchAreaId;
     }
 
-    public void setHasResearchAreaId(List<String> hasResearchAreaId) {
-        this.hasResearchAreaId = hasResearchAreaId;
+    public void setAffiliatedResearchAreaId(List<String> affiliatedResearchAreaId) {
+        this.affiliatedResearchAreaId = affiliatedResearchAreaId;
+    }
+
+    public String getModTime() {
+        return modTime;
+    }
+
+    public void setModTime(String modTime) {
+        this.modTime = modTime;
     }
 
 }

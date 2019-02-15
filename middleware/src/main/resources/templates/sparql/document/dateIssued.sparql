@@ -1,8 +1,9 @@
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?dateFile vivo:dateIssued ?value .
+    ?dateIssued vivo:dateTime ?dateTime .
 } WHERE {
-    <[(${uri})]> vivo:dateFiled ?dateFile .
-    ?dateFile vivo:dateIssued ?value .
+    <[(${uri})]> vivo:dateIssued ?dateIssued .
+    ?dateIssued vivo:dateTimeValue ?date .
+    ?date vivo:dateTime ?dateTime .
 }

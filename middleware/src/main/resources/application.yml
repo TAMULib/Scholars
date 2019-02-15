@@ -32,7 +32,8 @@ vivo:
   list-rdf-endpoint: /listrdf
   sparql-query-endpoint: /api/sparqlQuery
   triplestore:
-    type: SDB
+    type: TDB
+    directory:
     datasourceUrl: jdbc:mysql://localhost/vivo
     username:
     password:

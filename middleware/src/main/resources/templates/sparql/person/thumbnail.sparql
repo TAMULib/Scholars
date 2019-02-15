@@ -1,9 +1,0 @@
-PREFIX vitro-public: <http://vitro.mannlib.cornell.edu/ns/vitro/public#>
-
-CONSTRUCT {
-    ?image ?property ?object .
-} WHERE {
-    <[(${uri})]> vitro-public:mainImage ?image .
-    ?image vitro-public:thumbnailImage ?thumbnail .
-    ?thumbnail ?property ?object .
-}

@@ -1,0 +1,7 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+
+CONSTRUCT {
+    <[(${uri})]> obo:ARG_0000001 ?isTemplate .
+} WHERE {
+    <[(${uri})]> obo:ARG_0000001 ?isTemplate .
+}

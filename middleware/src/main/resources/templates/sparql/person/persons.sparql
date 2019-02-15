@@ -1,5 +1,0 @@
-CONSTRUCT {
-    ?subject a <[(${uri})]> .
-} WHERE {
-    ?subject a <[(${uri})]> .
-}

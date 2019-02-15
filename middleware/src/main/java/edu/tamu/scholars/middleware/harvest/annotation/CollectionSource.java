@@ -12,10 +12,6 @@ import java.lang.annotation.Target;
 @Documented
 public @interface CollectionSource {
 
-    String template();
-
     String key();
-
-    Property[] properties() default {};
 
 }

@@ -16,18 +16,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.Property;
 import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 
 public class SolrDocumentBuilder {
+
+    private final static Logger logger = LoggerFactory.getLogger(SolrDocumentBuilder.class);
 
     private final static String FORWARD_SLASH = "/";
 
     private final static String HASH_TAG = "#";
 
     private final static String ID = "id";
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final Map<String, List<String>> collections;
 
@@ -54,20 +53,8 @@ public class SolrDocumentBuilder {
                 this.collections.put(source.id(), new ArrayList<String>());
             }
         }
-        for (Property property : getCollectionSource().properties()) {
-            this.collections.put(property.name(), new ArrayList<String>());
-            if (!property.id().isEmpty()) {
-                this.collections.put(property.id(), new ArrayList<String>());
-            }
-        }
         this.collections.put(ID, new ArrayList<String>());
-        add(ID, parse(subject));
-    }
-
-    public SolrDocumentBuilder(Model model, Resource resource, Class<?> type) {
-        this(resource.getURI(), type);
-        this.model = model;
-        this.resource = resource;
+        add(ID, parse(subject), true);
     }
 
     public Field getField() {
@@ -130,10 +117,6 @@ public class SolrDocumentBuilder {
         return FieldUtils.getFieldsListWithAnnotation(type, PropertySource.class);
     }
 
-    public void lookupProperty(Property property, String predicate) {
-        lookupProperty(PropertyLookup.of(predicate, property));
-    }
-
     public void lookupProperty(PropertySource source, String predicate) {
         lookupProperty(PropertyLookup.of(predicate, field.getName(), source));
     }
@@ -141,41 +124,46 @@ public class SolrDocumentBuilder {
     public void lookupProperty(PropertyLookup lookup) {
         Model model = getModel();
         Resource resource = getResource();
-        StmtIterator statements = null;
-
+        StmtIterator statements;
         try {
             statements = resource.listProperties(model.createProperty(lookup.getPredicate()));
-        } catch (InvalidPropertyURIException e) {
-            logger.info(String.format("Property not defined for field: %s.", field.getName()));
-            throw e;
+        } catch (InvalidPropertyURIException exception) {
+            logger.error(String.format("%s lookup by %s", lookup.getName(), lookup.getPredicate()));
+            throw exception;
         }
-
         while (statements.hasNext()) {
             Statement statement = statements.next();
             String object = statement.getObject().toString();
-            add(lookup.getName(), lookup.isParse() ? parse(object) : object);
-            if (lookup.hasId()) {
-                String subject = statement.getSubject().toString();
-                add(lookup.getId(), parse(subject));
+            String value = lookup.isParse() ? parse(object) : object;
+            if (add(lookup.getName(), value, lookup.isUnique())) {
+                if (lookup.hasId()) {
+                    String subject = statement.getSubject().toString();
+                    add(lookup.getId(), parse(subject), false);
+                }
             }
         }
     }
 
-    public void add(String property, String value) {
+    public boolean add(String property, String value, boolean unique) {
         if (this.collections.containsKey(property)) {
             if (value.contains("^^")) {
                 value = value.substring(0, value.indexOf("^^"));
             }
-            this.collections.get(property).add(value);
+            List<String> values = this.collections.get(property);
+            if (unique && values.stream().anyMatch(value::equalsIgnoreCase)) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug(String.format("%s has duplicate value %s", property, value));
+                }
+            } else {
+                values.add(value);
+                return true;
+            }
         }
+        return false;
     }
 
     public static String parse(String uri) {
         return uri.substring(uri.lastIndexOf(uri.contains(HASH_TAG) ? HASH_TAG : FORWARD_SLASH) + 1);
-    }
-
-    public static SolrDocumentBuilder of(Model model, Resource resource, Class<?> type) {
-        return new SolrDocumentBuilder(model, resource, type);
     }
 
     public static SolrDocumentBuilder of(String subject, Class<?> type) {
