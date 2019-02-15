@@ -1,7 +1,7 @@
-PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    <[(${uri})]> bibo:nihmsid ?nihmsid .
+    <[(${uri})]> vivo:nihmsid ?nihmsid .
 } WHERE {
-    <[(${uri})]> bibo:nihmsid ?nihmsid .
+    <[(${uri})]> vivo:nihmsid ?nihmsid .
 }
