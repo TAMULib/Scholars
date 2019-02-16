@@ -1,11 +1,13 @@
 package edu.tamu.scholars.middleware.discovery.service;
 
-import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
+public interface SolrIndexService {
 
-public interface SolrIndexService<D extends AbstractSolrDocument> {
+    public void index();
 
-    public <S extends D> S index(S document);
+    public void index(String subject);
 
     public Class<?> type();
+
+    public String name();
 
 }

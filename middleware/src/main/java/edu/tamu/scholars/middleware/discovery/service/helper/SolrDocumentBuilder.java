@@ -1,4 +1,4 @@
-package edu.tamu.scholars.middleware.harvest.service.helper;
+package edu.tamu.scholars.middleware.discovery.service.helper;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -15,8 +15,8 @@ import org.apache.jena.shared.InvalidPropertyURIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
+import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 public class SolrDocumentBuilder {
 

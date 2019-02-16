@@ -1,6 +1,6 @@
-package edu.tamu.scholars.middleware.harvest.service.helper;
+package edu.tamu.scholars.middleware.discovery.service.helper;
 
-import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
+import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 public class PropertyLookup {
 
