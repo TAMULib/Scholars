@@ -1,9 +1,0 @@
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
-CONSTRUCT {
-    ?concept a <http://www.w3.org/2004/02/skos/core#Concept> .
-    ?concept rdfs:label ?label .
-} WHERE {
-    ?concept a <http://www.w3.org/2004/02/skos/core#Concept> .
-    ?concept rdfs:label ?label .
-}
