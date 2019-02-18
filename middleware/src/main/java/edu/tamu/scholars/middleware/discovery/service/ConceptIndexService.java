@@ -6,11 +6,11 @@ import edu.tamu.scholars.middleware.discovery.model.Concept;
 import edu.tamu.scholars.middleware.discovery.model.repo.ConceptRepo;
 
 @Service
-public class ConceptIndexService extends AbstractSolrIndexService<Concept, ConceptRepo>{
+public class ConceptIndexService extends AbstractSolrIndexService<Concept, ConceptRepo> {
 
-	@Override
-	public Class<?> type() {
-		return Concept.class;
-	}
+    @Override
+    public Class<?> type() {
+        return Concept.class;
+    }
 
 }
