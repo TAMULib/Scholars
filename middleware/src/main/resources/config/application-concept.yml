@@ -7,6 +7,7 @@ concept:
   website:
     url: "http://www.w3.org/2006/vcard/ns#url"
     label: "http://www.w3.org/2000/01/rdf-schema#label"
+  associatedDepartment: "http://www.w3.org/2000/01/rdf-schema#label"
   researchAreaOf:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
     title: "http://vivoweb.org/ontology/core#hrJobTitle"

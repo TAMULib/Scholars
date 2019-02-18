@@ -42,7 +42,7 @@ public class Concept extends AbstractSolrDocument {
     private List<String> websiteLabel;
 
     @Indexed
-    // @PropertySource(template = "concept/associatedDepartment", key = "concept.associatedDepartment", id = "associatedDepartmentId")
+    @PropertySource(template = "concept/associatedDepartment", key = "concept.associatedDepartment", id = "associatedDepartmentId")
     private List<String> associatedDepartment;
 
     @Indexed
