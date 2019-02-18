@@ -17,7 +17,7 @@ middleware:
     time-to-live: 60000
     request-timeout: 30000
     socket-timeout: 60000
-  harvest:
+  index:
     fixedDelay: 86400000
     initialDelay: 5000
 

@@ -1,4 +1,4 @@
-package edu.tamu.scholars.middleware.harvest.annotation;
+package edu.tamu.scholars.middleware.discovery.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

@@ -9,8 +9,8 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
+import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "persons")
@@ -18,36 +18,47 @@ import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
 public class Person extends AbstractSolrDocument {
 
     @Indexed
+    @PropertySource(template = "person/name", key = "person.name")
     private String name;
 
     @Indexed
+    @PropertySource(template = "person/type", key = "person.type", parse = true)
     private List<String> type;
 
     @Indexed
+    @PropertySource(template = "person/image", key = "person.image")
     private String image;
 
     @Indexed
+    @PropertySource(template = "person/thumbnail", key = "person.thumbnail")
     private String thumbnail;
 
     @Indexed
+    @PropertySource(template = "person/primaryEmail", key = "person.primaryEmail")
     private String primaryEmail;
 
     @Indexed
+    @PropertySource(template = "person/additionalEmail", key = "person.additionalEmail")
     private List<String> additionalEmail;
 
     @Indexed
+    @PropertySource(template = "person/phone", key = "person.phone")
     private String phone;
 
     @Indexed
+    @PropertySource(template = "person/websiteUrl", key = "person.website.url")
     private List<String> websiteUrl;
 
     @Indexed
+    @PropertySource(template = "person/websiteLabel", key = "person.website.label")
     private List<String> websiteLabel;
 
     @Indexed
+    @PropertySource(template = "person/orcidId", key = "person.orcidId", parse = true)
     private String orcidId;
 
     @Indexed
+    @PropertySource(template = "person/preferredTitle", key = "person.preferredTitle")
     private String preferredTitle;
 
     @Indexed
@@ -63,6 +74,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> positionId;
 
     @Indexed
+    @PropertySource(template = "person/overview", key = "person.overview")
     private String overview;
 
     @Indexed
@@ -273,7 +285,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> investigatorOnDate;
 
     @Indexed
-    private List<String> iInvestigatorOnId;
+    private List<String> investigatorOnId;
 
     @Indexed
     private List<String> otherResearchActivity;
@@ -372,9 +384,11 @@ public class Person extends AbstractSolrDocument {
     private String youtube;
 
     @Indexed
+    @PropertySource(template = "person/sameAs", key = "person.sameAs.label", id = "sameAsId")
     private List<String> sameAs;
 
     @Indexed
+    @PropertySource(template = "person/sameAsType", key = "person.sameAs.type", parse = true)
     private List<String> sameAsType;
 
     @Indexed
@@ -450,7 +464,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> etdChairOfId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/modTime", key = "organization.modTime")
+    @PropertySource(template = "person/modTime", key = "person.modTime")
     private String modTime;
 
     public Person() {
@@ -1138,11 +1152,11 @@ public class Person extends AbstractSolrDocument {
     }
 
     public List<String> getiInvestigatorOnId() {
-        return iInvestigatorOnId;
+        return investigatorOnId;
     }
 
     public void setiInvestigatorOnId(List<String> iInvestigatorOnId) {
-        this.iInvestigatorOnId = iInvestigatorOnId;
+        this.investigatorOnId = iInvestigatorOnId;
     }
 
     public List<String> getOtherResearchActivity() {

@@ -11,7 +11,7 @@ person:
     url: "http://www.w3.org/2006/vcard/ns#url"
     label: "http://www.w3.org/2000/01/rdf-schema#label"
   orcidId: "http://vivoweb.org/ontology/core#orcidId"
-  preferredTitle: "http://www.w3.org/2000/01/rdf-schema#label"
+  preferredTitle: "http://www.w3.org/2006/vcard/ns#title"
   position:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
     title: "http://www.w3.org/2000/01/rdf-schema#label"
