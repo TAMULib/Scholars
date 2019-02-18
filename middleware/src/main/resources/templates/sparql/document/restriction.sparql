@@ -1,0 +1,7 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+
+CONSTRUCT {
+    <[(${uri})]> obo:ERO_0000045 ?restriction .
+} WHERE {
+    <[(${uri})]> obo:ERO_0000045 ?restriction .
+}

@@ -9,33 +9,29 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import edu.tamu.scholars.middleware.harvest.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.harvest.annotation.Property;
-import edu.tamu.scholars.middleware.harvest.annotation.PropertySource;
+import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "organizations")
-//@formatter:off
-@CollectionSource(
-    template = "organization/organizations",
-    key = "organization.class",
-    properties = {
-        @Property(name = "name", key = "organization.name"),
-        @Property(name = "type", key = "organization.type", parse = true)
-    }
-)
-//@formatter:on
+@CollectionSource(key = "organization.class")
 public class Organization extends AbstractSolrDocument {
 
     @Indexed
+    @PropertySource(template = "organization/name", key = "organization.name")
     private String name;
 
     @Indexed
+    @PropertySource(template = "organization/type", key = "organization.type")
     private List<String> type;
 
     @Indexed
     @PropertySource(template = "organization/image", key = "organization.image")
     private String image;
+
+    @Indexed
+    @PropertySource(template = "organization/thumbnail", key = "organization.thumbnail")
+    private String thumbnail;
 
     @Indexed
     @PropertySource(template = "organization/websiteUrl", key = "organization.website.url")
@@ -65,27 +61,44 @@ public class Organization extends AbstractSolrDocument {
     private List<String> date;
 
     @Indexed
+    @PropertySource(template = "organization/sponsorsAwardOrHonor", key = "organization.sponsorsAwardOrHonor.name", id = "sponsorsAwardOrHonorId")
     private List<String> sponsorsAwardOrHonor;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/sponsorsAwardOrHonorDate", key = "organization.sponsorsAwardOrHonor.date")
+    private List<String> sponsorsAwardOrHonorDate;
 
     @Indexed
     private List<String> sponsorsAwardOrHonorId;
 
     @Indexed
+    @PropertySource(template = "organization/awardOrHonorGiven", key = "organization.awardOrHonorGiven.name", id = "awardOrHonorGivenId")
     private List<String> awardOrHonorGiven;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/awardOrHonorGivenDate", key = "organization.awardOrHonorGiven.date")
+    private List<String> awardOrHonorGivenDate;
 
     @Indexed
     private List<String> awardOrHonorGivenId;
 
     @Indexed
+    @PropertySource(template = "organization/awardOrHonorReceived", key = "organization.awardOrHonorReceived.name", id = "awardOrHonorReceivedId")
     private List<String> awardOrHonorReceived;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/awardOrHonorReceivedDate", key = "organization.awardOrHonorReceived.date")
+    private List<String> awardOrHonorReceivedDate;
 
     @Indexed
     private List<String> awardOrHonorReceivedId;
 
     @Indexed
+    @PropertySource(template = "organization/keyword", key = "organization.keyword")
     private List<String> keyword;
 
     @Indexed
+    @PropertySource(template = "organization/organizationForTraining", key = "organization.organizationForTraining", id = "organizationForTrainingId")
     private List<String> organizationForTraining;
 
     @Indexed
@@ -107,176 +120,276 @@ public class Organization extends AbstractSolrDocument {
     private List<String> peopleId;
 
     @Indexed
+    @PropertySource(template = "organization/hasSubOrganization", key = "organization.hasSubOrganization", id = "hasSubOrganizationId")
     private List<String> hasSubOrganization;
 
     @Indexed
     private List<String> hasSubOrganizationId;
 
     @Indexed
+    @PropertySource(template = "organization/organizationWithin", key = "organization.organizationWithin", id = "organizationWithinId")
     private List<String> organizationWithin;
 
     @Indexed
     private List<String> organizationWithinId;
 
     @Indexed
+    @PropertySource(template = "organization/leadOrganizationOf", key = "organization.leadOrganizationOf", id = "leadOrganizationOfId")
     private List<String> leadOrganizationOf;
 
     @Indexed
     private List<String> leadOrganizationOfId;
 
     @Indexed
-    private List<String> hasCollaboratingOrganizatgionOrGroup;
+    @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", key = "organization.hasCollaboratingOrganizationOrGroup", id = "hasCollaboratingOrganizationOrGroupId")
+    private List<String> hasCollaboratingOrganizationOrGroup;
 
     @Indexed
-    private List<String> hasCollaboratingOrganizatgionOrGroupId;
+    private List<String> hasCollaboratingOrganizationOrGroupId;
 
     @Indexed
+    @PropertySource(template = "organization/hasAffiliatedOrganization", key = "organization.hasAffiliatedOrganization", id = "hasAffiliatedOrganizationId")
     private List<String> hasAffiliatedOrganization;
 
     @Indexed
     private List<String> hasAffiliatedOrganizationId;
 
     @Indexed
+    @PropertySource(template = "organization/memberOf", key = "organization.memberOf", id = "memberOfId")
     private List<String> memberOf;
 
     @Indexed
     private List<String> memberOfId;
 
     @Indexed
+    @PropertySource(template = "organization/clinicalActivity", key = "organization.clinicalActivity", id = "clinicalActivityId")
     private List<String> clinicalActivity;
 
     @Indexed
     private List<String> clinicalActivityId;
 
     @Indexed
+    @PropertySource(template = "organization/convenerOfEvent", key = "organization.convenerOfEvent.name", id = "convenerOfEventId")
     private List<String> convenerOfEvent;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/convenerOfEventDate", key = "organization.convenerOfEvent.date")
+    private List<String> convenerOfEventDate;
 
     @Indexed
     private List<String> convenerOfEventId;
 
     @Indexed
+    @PropertySource(template = "organization/attendedEvent", key = "organization.attendedEvent.name", id = "attendedEventId")
     private List<String> attendedEvent;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/attendedEventDate", key = "organization.attendedEvent.date")
+    private List<String> attendedEventDate;
 
     @Indexed
     private List<String> attendedEventId;
 
     @Indexed
+    @PropertySource(template = "organization/selectedPublication", key = "organization.selectedPublication.title", id = "selectedPublicationId")
     private List<String> selectedPublication;
+
+    @Indexed
+    @PropertySource(template = "organization/selectedPublicationType", key = "organization.selectedPublication.type", parse = true)
+    private List<String> selectedPublicationType;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/selectedPublicationDate", key = "organization.selectedPublication.date")
+    private List<String> selectedPublicationDate;
 
     @Indexed
     private List<String> selectedPublicationId;
 
     @Indexed
+    @PropertySource(template = "organization/publisherOf", key = "organization.publisherOf.title", id = "publisherOfId", unique = true)
     private List<String> publisherOf;
+
+    @Indexed
+    @PropertySource(template = "organization/publisherOfType", key = "organization.publisherOf.type", parse = true)
+    private List<String> publisherOfType;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/publisherOfDate", key = "organization.publisherOf.date")
+    private List<String> publisherOfDate;
 
     @Indexed
     private List<String> publisherOfId;
 
     @Indexed
+    @PropertySource(template = "organization/presentation", key = "organization.presentation.title", id = "presentationId")
     private List<String> presentation;
+
+    @Indexed
+    @PropertySource(template = "organization/presentationEvent", key = "organization.presentation.event")
+    private List<String> presentationEvent;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/presentationDate", key = "organization.presentation.date")
+    private List<String> presentationDate;
 
     @Indexed
     private List<String> presentationId;
 
     @Indexed
+    @PropertySource(template = "organization/featuredIn", key = "organization.featuredIn.title", id = "featuredInId")
     private List<String> featuredIn;
+
+    @Indexed
+    @PropertySource(template = "organization/featuredInType", key = "organization.featuredIn.type", parse = true)
+    private List<String> featuredInType;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/featuredInDate", key = "organization.featuredIn.date")
+    private List<String> featuredInDate;
 
     @Indexed
     private List<String> featuredInId;
 
     @Indexed
+    @PropertySource(template = "organization/assigneeForPatent", key = "organization.assigneeForPatent.name", id = "assigneeForPatentId")
     private List<String> assigneeForPatent;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/assigneeForPatentDate", key = "organization.assigneeForPatent.date")
+    private List<String> assigneeForPatentDate;
 
     @Indexed
     private List<String> assigneeForPatentId;
 
     @Indexed
+    @PropertySource(template = "organization/translatorOf", key = "organization.translatorOf.title", id = "translatorOfId")
     private List<String> translatorOf;
+
+    @Indexed
+    @PropertySource(template = "organization/translatorOfType", key = "organization.translatorOf.type", parse = true)
+    private List<String> translatorOfType;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/translatorOfDate", key = "organization.translatorOf.date")
+    private List<String> translatorOfDate;
 
     @Indexed
     private List<String> translatorOfId;
 
     @Indexed
+    @PropertySource(template = "organization/awardsGrant", key = "organization.awardsGrant.name", id = "awardsGrantId")
     private List<String> awardsGrant;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/awardsGrantDate", key = "organization.awardsGrant.date")
+    private List<String> awardsGrantDate;
 
     @Indexed
     private List<String> awardsGrantId;
 
     @Indexed
+    @PropertySource(template = "organization/administersGrant", key = "organization.administersGrant.name", id = "administersGrantId")
     private List<String> administersGrant;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/administersGrantDate", key = "organization.administersGrant.date")
+    private List<String> administersGrantDate;
 
     @Indexed
     private List<String> administersGrantId;
 
     @Indexed
+    @PropertySource(template = "organization/subcontractsGrant", key = "organization.subcontractsGrant.name", id = "subcontractsGrantId")
     private List<String> subcontractsGrant;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/subcontractsGrantDate", key = "organization.subcontractsGrant.date")
+    private List<String> subcontractsGrantDate;
 
     @Indexed
     private List<String> subcontractsGrantId;
 
     @Indexed
+    @PropertySource(template = "organization/performsHumanStudy", key = "organization.performsHumanStudy", id = "performsHumanStudyId")
     private List<String> performsHumanStudy;
 
     @Indexed
     private List<String> performsHumanStudyId;
 
     @Indexed
+    @PropertySource(template = "organization/contractOrProviderForService", key = "organization.contractOrProviderForService", id = "contractOrProviderForServiceId")
     private List<String> contractOrProviderForService;
 
     @Indexed
     private List<String> contractOrProviderForServiceId;
 
     @Indexed
+    @PropertySource(template = "organization/outreachAndCommunityServiceActivity", key = "organization.outreachAndCommunityServiceActivity", id = "outreachAndCommunityServiceActivityId")
     private List<String> outreachAndCommunityServiceActivity;
 
     @Indexed
     private List<String> outreachAndCommunityServiceActivityId;
 
     @Indexed
+    @PropertySource(template = "organization/hasEquipment", key = "organization.hasEquipment", id = "hasEquipmentId")
     private List<String> hasEquipment;
 
     @Indexed
     private List<String> hasEquipmentId;
 
     @Indexed
+    @PropertySource(template = "organization/offersCourse", key = "organization.offersCourse", id = "offersCourseId")
     private List<String> offersCourse;
 
     @Indexed
     private List<String> offersCourseId;
 
     @Indexed
+    @PropertySource(template = "organization/orgId", key = "organization.orgId")
     private String orgId;
 
     @Indexed
+    @PropertySource(template = "organization/sameAs", key = "organization.sameAs.label", id = "sameAsId")
     private List<String> sameAs;
 
     @Indexed
+    @PropertySource(template = "organization/sameAsType", key = "organization.sameAs.type", parse = true)
+    private List<String> sameAsType;
+
+    @Indexed
+    private List<String> sameAsId;
+
+    @Indexed
+    @PropertySource(template = "organization/phone", key = "organization.phone")
     private String phone;
 
     @Indexed
+    @PropertySource(template = "organization/fax", key = "organization.fax")
     private String fax;
 
     @Indexed
+    @PropertySource(template = "organization/emailAddress", key = "organization.emailAddress")
     private String emailAddress;
 
     @Indexed
+    @PropertySource(template = "organization/streetAddress", key = "organization.streetAddress")
     private String streetAddress;
 
     @Indexed
+    @PropertySource(template = "organization/locality", key = "organization.locality")
     private String locality;
 
     @Indexed
+    @PropertySource(template = "organization/region", key = "organization.region")
     private String region;
 
     @Indexed
+    @PropertySource(template = "organization/postalCode", key = "organization.postalCode")
     private String postalCode;
 
     @Indexed
+    @PropertySource(template = "organization/country", key = "organization.country")
     private String country;
-
-    // NOTE: websiteUrl, fax, emailAddress, StreetAddress, locality, region, postalCode, and country belong to this vcard
-    @Indexed
-    private String vcardId;
 
     @Indexed(type = "location")
     @PropertySource(template = "organization/geographicLocation", key = "organization.geographicLocation", id = "geographicLocationId")
@@ -286,6 +399,7 @@ public class Organization extends AbstractSolrDocument {
     private String geographicLocationId;
 
     @Indexed
+    @PropertySource(template = "organization/locatedAtFacility", key = "organization.locatedAtFacility", id = "locatedAtFacilityId")
     private List<String> locatedAtFacility;
 
     @Indexed
@@ -306,6 +420,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> successorOrganizationId;
 
     @Indexed
+    @PropertySource(template = "organization/governingAuthorityFor", key = "organization.governingAuthorityFor", id = "governingAuthorityForId")
     private List<String> governingAuthorityFor;
 
     @Indexed
@@ -313,11 +428,15 @@ public class Organization extends AbstractSolrDocument {
 
     // NOTE: unidirectional from Concept vivo:researchAreaOf
     @Indexed
-    @PropertySource(template = "organization/hasResearchArea", key = "organization.hasResearchArea", id = "hasResearchAreaId")
-    private List<String> hasResearchArea;
+    @PropertySource(template = "organization/affiliatedResearchArea", key = "organization.affiliatedResearchArea", id = "affiliatedResearchAreaId", unique = true)
+    private List<String> affiliatedResearchArea;
 
     @Indexed
-    private List<String> hasResearchAreaId;
+    private List<String> affiliatedResearchAreaId;
+
+    @Indexed(type = "pdate")
+    @PropertySource(template = "organization/modTime", key = "organization.modTime")
+    private String modTime;
 
     public Organization() {
 
@@ -345,6 +464,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public List<String> getWebsiteUrl() {
@@ -411,6 +538,14 @@ public class Organization extends AbstractSolrDocument {
         this.sponsorsAwardOrHonor = sponsorsAwardOrHonor;
     }
 
+    public List<String> getSponsorsAwardOrHonorDate() {
+        return sponsorsAwardOrHonorDate;
+    }
+
+    public void setSponsorsAwardOrHonorDate(List<String> sponsorsAwardOrHonorDate) {
+        this.sponsorsAwardOrHonorDate = sponsorsAwardOrHonorDate;
+    }
+
     public List<String> getSponsorsAwardOrHonorId() {
         return sponsorsAwardOrHonorId;
     }
@@ -427,6 +562,14 @@ public class Organization extends AbstractSolrDocument {
         this.awardOrHonorGiven = awardOrHonorGiven;
     }
 
+    public List<String> getAwardOrHonorGivenDate() {
+        return awardOrHonorGivenDate;
+    }
+
+    public void setAwardOrHonorGivenDate(List<String> awardOrHonorGivenDate) {
+        this.awardOrHonorGivenDate = awardOrHonorGivenDate;
+    }
+
     public List<String> getAwardOrHonorGivenId() {
         return awardOrHonorGivenId;
     }
@@ -441,6 +584,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAwardOrHonorReceived(List<String> awardOrHonorReceived) {
         this.awardOrHonorReceived = awardOrHonorReceived;
+    }
+
+    public List<String> getAwardOrHonorReceivedDate() {
+        return awardOrHonorReceivedDate;
+    }
+
+    public void setAwardOrHonorReceivedDate(List<String> awardOrHonorReceivedDate) {
+        this.awardOrHonorReceivedDate = awardOrHonorReceivedDate;
     }
 
     public List<String> getAwardOrHonorReceivedId() {
@@ -555,20 +706,20 @@ public class Organization extends AbstractSolrDocument {
         this.leadOrganizationOfId = leadOrganizationOfId;
     }
 
-    public List<String> getHasCollaboratingOrganizatgionOrGroup() {
-        return hasCollaboratingOrganizatgionOrGroup;
+    public List<String> getHasCollaboratingOrganizationOrGroup() {
+        return hasCollaboratingOrganizationOrGroup;
     }
 
-    public void setHasCollaboratingOrganizatgionOrGroup(List<String> hasCollaboratingOrganizatgionOrGroup) {
-        this.hasCollaboratingOrganizatgionOrGroup = hasCollaboratingOrganizatgionOrGroup;
+    public void setHasCollaboratingOrganizationOrGroup(List<String> hasCollaboratingOrganizationOrGroup) {
+        this.hasCollaboratingOrganizationOrGroup = hasCollaboratingOrganizationOrGroup;
     }
 
-    public List<String> getHasCollaboratingOrganizatgionOrGroupId() {
-        return hasCollaboratingOrganizatgionOrGroupId;
+    public List<String> getHasCollaboratingOrganizationOrGroupId() {
+        return hasCollaboratingOrganizationOrGroupId;
     }
 
-    public void setHasCollaboratingOrganizatgionOrGroupId(List<String> hasCollaboratingOrganizatgionOrGroupId) {
-        this.hasCollaboratingOrganizatgionOrGroupId = hasCollaboratingOrganizatgionOrGroupId;
+    public void setHasCollaboratingOrganizationOrGroupId(List<String> hasCollaboratingOrganizationOrGroupId) {
+        this.hasCollaboratingOrganizationOrGroupId = hasCollaboratingOrganizationOrGroupId;
     }
 
     public List<String> getHasAffiliatedOrganization() {
@@ -627,6 +778,14 @@ public class Organization extends AbstractSolrDocument {
         this.convenerOfEvent = convenerOfEvent;
     }
 
+    public List<String> getConvenerOfEventDate() {
+        return convenerOfEventDate;
+    }
+
+    public void setConvenerOfEventDate(List<String> convenerOfEventDate) {
+        this.convenerOfEventDate = convenerOfEventDate;
+    }
+
     public List<String> getConvenerOfEventId() {
         return convenerOfEventId;
     }
@@ -641,6 +800,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAttendedEvent(List<String> attendedEvent) {
         this.attendedEvent = attendedEvent;
+    }
+
+    public List<String> getAttendedEventDate() {
+        return attendedEventDate;
+    }
+
+    public void setAttendedEventDate(List<String> attendedEventDate) {
+        this.attendedEventDate = attendedEventDate;
     }
 
     public List<String> getAttendedEventId() {
@@ -659,6 +826,22 @@ public class Organization extends AbstractSolrDocument {
         this.selectedPublication = selectedPublication;
     }
 
+    public List<String> getSelectedPublicationType() {
+        return selectedPublicationType;
+    }
+
+    public void setSelectedPublicationType(List<String> selectedPublicationType) {
+        this.selectedPublicationType = selectedPublicationType;
+    }
+
+    public List<String> getSelectedPublicationDate() {
+        return selectedPublicationDate;
+    }
+
+    public void setSelectedPublicationDate(List<String> selectedPublicationDate) {
+        this.selectedPublicationDate = selectedPublicationDate;
+    }
+
     public List<String> getSelectedPublicationId() {
         return selectedPublicationId;
     }
@@ -673,6 +856,22 @@ public class Organization extends AbstractSolrDocument {
 
     public void setPublisherOf(List<String> publisherOf) {
         this.publisherOf = publisherOf;
+    }
+
+    public List<String> getPublisherOfType() {
+        return publisherOfType;
+    }
+
+    public void setPublisherOfType(List<String> publisherOfType) {
+        this.publisherOfType = publisherOfType;
+    }
+
+    public List<String> getPublisherOfDate() {
+        return publisherOfDate;
+    }
+
+    public void setPublisherOfDate(List<String> publisherOfDate) {
+        this.publisherOfDate = publisherOfDate;
     }
 
     public List<String> getPublisherOfId() {
@@ -691,6 +890,22 @@ public class Organization extends AbstractSolrDocument {
         this.presentation = presentation;
     }
 
+    public List<String> getPresentationEvent() {
+        return presentationEvent;
+    }
+
+    public void setPresentationEvent(List<String> presentationEvent) {
+        this.presentationEvent = presentationEvent;
+    }
+
+    public List<String> getPresentationDate() {
+        return presentationDate;
+    }
+
+    public void setPresentationDate(List<String> presentationDate) {
+        this.presentationDate = presentationDate;
+    }
+
     public List<String> getPresentationId() {
         return presentationId;
     }
@@ -705,6 +920,22 @@ public class Organization extends AbstractSolrDocument {
 
     public void setFeaturedIn(List<String> featuredIn) {
         this.featuredIn = featuredIn;
+    }
+
+    public List<String> getFeaturedInType() {
+        return featuredInType;
+    }
+
+    public void setFeaturedInType(List<String> featuredInType) {
+        this.featuredInType = featuredInType;
+    }
+
+    public List<String> getFeaturedInDate() {
+        return featuredInDate;
+    }
+
+    public void setFeaturedInDate(List<String> featuredInDate) {
+        this.featuredInDate = featuredInDate;
     }
 
     public List<String> getFeaturedInId() {
@@ -723,6 +954,14 @@ public class Organization extends AbstractSolrDocument {
         this.assigneeForPatent = assigneeForPatent;
     }
 
+    public List<String> getAssigneeForPatentDate() {
+        return assigneeForPatentDate;
+    }
+
+    public void setAssigneeForPatentDate(List<String> assigneeForPatentDate) {
+        this.assigneeForPatentDate = assigneeForPatentDate;
+    }
+
     public List<String> getAssigneeForPatentId() {
         return assigneeForPatentId;
     }
@@ -737,6 +976,22 @@ public class Organization extends AbstractSolrDocument {
 
     public void setTranslatorOf(List<String> translatorOf) {
         this.translatorOf = translatorOf;
+    }
+
+    public List<String> getTranslatorOfType() {
+        return translatorOfType;
+    }
+
+    public void setTranslatorOfType(List<String> translatorOfType) {
+        this.translatorOfType = translatorOfType;
+    }
+
+    public List<String> getTranslatorOfDate() {
+        return translatorOfDate;
+    }
+
+    public void setTranslatorOfDate(List<String> translatorOfDate) {
+        this.translatorOfDate = translatorOfDate;
     }
 
     public List<String> getTranslatorOfId() {
@@ -755,6 +1010,14 @@ public class Organization extends AbstractSolrDocument {
         this.awardsGrant = awardsGrant;
     }
 
+    public List<String> getAwardsGrantDate() {
+        return awardsGrantDate;
+    }
+
+    public void setAwardsGrantDate(List<String> awardsGrantDate) {
+        this.awardsGrantDate = awardsGrantDate;
+    }
+
     public List<String> getAwardsGrantId() {
         return awardsGrantId;
     }
@@ -771,6 +1034,14 @@ public class Organization extends AbstractSolrDocument {
         this.administersGrant = administersGrant;
     }
 
+    public List<String> getAdministersGrantDate() {
+        return administersGrantDate;
+    }
+
+    public void setAdministersGrantDate(List<String> administersGrantDate) {
+        this.administersGrantDate = administersGrantDate;
+    }
+
     public List<String> getAdministersGrantId() {
         return administersGrantId;
     }
@@ -785,6 +1056,14 @@ public class Organization extends AbstractSolrDocument {
 
     public void setSubcontractsGrant(List<String> subcontractsGrant) {
         this.subcontractsGrant = subcontractsGrant;
+    }
+
+    public List<String> getSubcontractsGrantDate() {
+        return subcontractsGrantDate;
+    }
+
+    public void setSubcontractsGrantDate(List<String> subcontractsGrantDate) {
+        this.subcontractsGrantDate = subcontractsGrantDate;
     }
 
     public List<String> getSubcontractsGrantId() {
@@ -891,6 +1170,22 @@ public class Organization extends AbstractSolrDocument {
         this.sameAs = sameAs;
     }
 
+    public List<String> getSameAsType() {
+        return sameAsType;
+    }
+
+    public void setSameAsType(List<String> sameAsType) {
+        this.sameAsType = sameAsType;
+    }
+
+    public List<String> getSameAsId() {
+        return sameAsId;
+    }
+
+    public void setSameAsId(List<String> sameAsId) {
+        this.sameAsId = sameAsId;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -953,14 +1248,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public String getVcardId() {
-        return vcardId;
-    }
-
-    public void setVcardId(String vcardId) {
-        this.vcardId = vcardId;
     }
 
     public String getGeographicLocation() {
@@ -1043,20 +1330,28 @@ public class Organization extends AbstractSolrDocument {
         this.governingAuthorityForId = governingAuthorityForId;
     }
 
-    public List<String> getHasResearchArea() {
-        return hasResearchArea;
+    public List<String> getAffiliatedResearchArea() {
+        return affiliatedResearchArea;
     }
 
-    public void setHasResearchArea(List<String> hasResearchArea) {
-        this.hasResearchArea = hasResearchArea;
+    public void setAffiliatedResearchArea(List<String> affiliatedResearchArea) {
+        this.affiliatedResearchArea = affiliatedResearchArea;
     }
 
-    public List<String> getHasResearchAreaId() {
-        return hasResearchAreaId;
+    public List<String> getAffiliatedResearchAreaId() {
+        return affiliatedResearchAreaId;
     }
 
-    public void setHasResearchAreaId(List<String> hasResearchAreaId) {
-        this.hasResearchAreaId = hasResearchAreaId;
+    public void setAffiliatedResearchAreaId(List<String> affiliatedResearchAreaId) {
+        this.affiliatedResearchAreaId = affiliatedResearchAreaId;
+    }
+
+    public String getModTime() {
+        return modTime;
+    }
+
+    public void setModTime(String modTime) {
+        this.modTime = modTime;
     }
 
 }

@@ -1,9 +1,9 @@
 organization:
   class: "http://xmlns.com/foaf/0.1/Organization"
-
   name: "http://www.w3.org/2000/01/rdf-schema#label"
   type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
-  image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#downloadLocation"
+  image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+  thumbnail: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
   website:
     url: "http://www.w3.org/2006/vcard/ns#url"
     label: "http://www.w3.org/2000/01/rdf-schema#label"
@@ -12,27 +12,89 @@ organization:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
     field: "http://vivoweb.org/ontology/core#majorField"
   abbreviation: "http://vivoweb.org/ontology/core#abbreviation"
-
   date: "http://vivoweb.org/ontology/core#dateTime"
-
-  orgId: "http://vivo.library.tamu.edu/ontology/TAMU#OrgID"
-
-  address:
-    postalCode: "http://www.w3.org/2006/vcard/ns#postalCode"
-    region: "http://www.w3.org/2006/vcard/ns#region"
-    streetAddress: "http://www.w3.org/2006/vcard/ns#streetAddress"
-    locality: "http://www.w3.org/2006/vcard/ns#locality"
-    country: "http://www.w3.org/2006/vcard/ns#country"
-
-  email: "http://www.w3.org/2006/vcard/ns#email"
-  geographicLocation: "http://www.w3.org/2006/vcard/ns#geo"
-
-  predecessorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
-  successorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
-
+  sponsorsAwardOrHonor:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  awardOrHonorGiven:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  awardOrHonorReceived:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  keyword: "http://vivoweb.org/ontology/core#freetextKeyword"
+  organizationForTraining: "http://vivoweb.org/ontology/core#majorField"
   people:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     title: "http://vivoweb.org/ontology/core#hrJobTitle"
-
-  hasResearchArea: "http://www.w3.org/2000/01/rdf-schema#label"
+  hasSubOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
+  organizationWithin: "http://www.w3.org/2000/01/rdf-schema#label"
+  leadOrganizationOf: "http://www.w3.org/2000/01/rdf-schema#label"
+  hasCollaboratingOrganizationOrGroup: "http://www.w3.org/2000/01/rdf-schema#label"
+  hasAffiliatedOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
+  memberOf: "http://www.w3.org/2000/01/rdf-schema#label"
+  clinicalActivity: "http://www.w3.org/2000/01/rdf-schema#label"
+  convenerOfEvent:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  attendedEvent:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  selectedPublication:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  publisherOf:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  presentation:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    event: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  featuredIn:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  assigneeForPatent:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  translatorOf:
+    title: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  awardsGrant:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  administersGrant:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  subcontractsGrant:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    date: "http://vivoweb.org/ontology/core#dateTime"
+  performsHumanStudy: "http://www.w3.org/2000/01/rdf-schema#label"
+  contractOrProviderForService: "http://www.w3.org/2000/01/rdf-schema#label"
+  outreachAndCommunityServiceActivity: "http://www.w3.org/2000/01/rdf-schema#label"
+  hasEquipment: "http://www.w3.org/2000/01/rdf-schema#label"
+  offersCourse: "http://www.w3.org/2000/01/rdf-schema#label"
+  orgId: "http://vivo.library.tamu.edu/ontology/TAMU#OrgID"
+  sameAs:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  phone: "http://www.w3.org/2006/vcard/ns#telephone"
+  fax: "http://www.w3.org/2006/vcard/ns#fax"
+  emailAddress: "http://www.w3.org/2006/vcard/ns#email"
+  address:
+    streetAddress: "http://www.w3.org/2006/vcard/ns#streetAddress"
+    locality: "http://www.w3.org/2006/vcard/ns#locality"
+    region: "http://www.w3.org/2006/vcard/ns#region"
+    postalCode: "http://www.w3.org/2006/vcard/ns#postalCode"
+    country: "http://www.w3.org/2006/vcard/ns#country"
+  geographicLocation: "http://www.w3.org/2000/01/rdf-schema#label"
+  locatedAtFacility: "http://www.w3.org/2000/01/rdf-schema#label"
+  predecessorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
+  successorOrganization: "http://www.w3.org/2000/01/rdf-schema#label"
+  governingAuthorityFor: "http://www.w3.org/2000/01/rdf-schema#label"
+  affiliatedResearchArea: "http://www.w3.org/2000/01/rdf-schema#label"
+  modTime: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime"

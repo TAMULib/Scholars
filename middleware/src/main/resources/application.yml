@@ -17,7 +17,7 @@ middleware:
     time-to-live: 60000
     request-timeout: 30000
     socket-timeout: 60000
-  harvest:
+  index:
     fixedDelay: 86400000
     initialDelay: 2500
 
@@ -32,7 +32,8 @@ vivo:
   list-rdf-endpoint: /listrdf
   sparql-query-endpoint: /api/sparqlQuery
   triplestore:
-    type: SDB
+    type: TDB
+    directory:
     datasourceUrl: jdbc:mysql://localhost/vivo
     username:
     password:

@@ -23,7 +23,7 @@ public class TriplestoreConfig {
 
     private boolean jdbcStream = true;
 
-    private int jdbcFetchSize = 512;
+    private int jdbcFetchSize = 16;
 
     private boolean streamGraphAPI = true;
 

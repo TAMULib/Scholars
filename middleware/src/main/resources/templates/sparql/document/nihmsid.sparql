@@ -1,0 +1,7 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    <[(${uri})]> vivo:nihmsid ?nihmsid .
+} WHERE {
+    <[(${uri})]> vivo:nihmsid ?nihmsid .
+}

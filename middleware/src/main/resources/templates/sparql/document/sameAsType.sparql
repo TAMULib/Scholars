@@ -1,0 +1,9 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+CONSTRUCT {
+    ?sameAs vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> vivo:sameAs ?sameAs .
+    ?sameAs vitro:mostSpecificType ?mostSpecificType .
+}

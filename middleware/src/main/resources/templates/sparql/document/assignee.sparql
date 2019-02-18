@@ -1,0 +1,9 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?assignee rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> vivo:assignee ?assignee .
+    ?assignee rdfs:label ?label .
+}
