@@ -1,0 +1,7 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    <[(${uri})]> vivo:localAwardId ?localAwardId .
+} WHERE {
+    <[(${uri})]> vivo:localAwardId ?localAwardId .
+}

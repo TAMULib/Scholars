@@ -1,0 +1,9 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?geographicFocus rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> vivo:geographicFocus ?geographicFocus ; a vivo:Grant .
+    ?geographicFocus rdfs:label ?label ; a vivo:GeographicRegion .
+}

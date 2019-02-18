@@ -7,6 +7,4 @@ CONSTRUCT {
 } WHERE {
     <[(${uri})]> obo:RO_0000052 ?inheresInType .
     ?inheresInType vitro:mostSpecificType ?mostSpecificType .
-
-    FILTER (?mostSpecificType != vivo:DateTimeValue) .
 }

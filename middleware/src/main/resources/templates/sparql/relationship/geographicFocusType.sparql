@@ -1,0 +1,10 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?geographicFocus vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> vivo:geographicFocus ?geographicFocus ; a vivo:Grant .
+    ?geographicFocus vitro:mostSpecificType ?mostSpecificType ; a vivo:GeographicRegion .
+}
