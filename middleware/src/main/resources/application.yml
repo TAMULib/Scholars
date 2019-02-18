@@ -112,7 +112,7 @@ spring:
     #        required: true
   profiles:
     active: default
-    include: organization,person,document
+    include: organization,person,document,concept
   session:
     store-type: jdbc
     jdbc:

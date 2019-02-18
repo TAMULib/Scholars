@@ -1,0 +1,8 @@
+PREFIX vitro-public: <http://vitro.mannlib.cornell.edu/ns/vitro/public#>
+
+CONSTRUCT {
+    ?image vitro-public:downloadLocation ?downloadLocation .
+} WHERE {
+    <[(${uri})]> vitro-public:mainImage ?image .
+    ?image vitro-public:downloadLocation ?downloadLocation .
+}
