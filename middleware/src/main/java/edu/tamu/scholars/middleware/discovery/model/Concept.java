@@ -64,33 +64,33 @@ public class Concept extends AbstractSolrDocument {
     private List<String> researchAreaOfId;
 
     @Indexed
-    // @PropertySource(template = "concept/broaderConcept", key = "concept.broaderConcept.label", id = "broaderConceptId")
+    @PropertySource(template = "concept/broaderConcept", key = "concept.broaderConcept.label", id = "broaderConceptId")
     private List<String> broaderConcept;
 
     @Indexed
-    // @PropertySource(template = "concept/broaderConceptType", key = "concept.broaderConcept.type", parse = true)
+    @PropertySource(template = "concept/broaderConceptType", key = "concept.broaderConcept.type", parse = true)
     private List<String> broaderConceptType;
 
     @Indexed
     private List<String> broaderConceptId;
 
     @Indexed
-    // @PropertySource(template = "concept/narrowerConcept", key = "concept.narrowerConcept.label", id = "narrowerConceptId")
+    @PropertySource(template = "concept/narrowerConcept", key = "concept.narrowerConcept.label", id = "narrowerConceptId")
     private List<String> narrowerConcept;
 
     @Indexed
-    // @PropertySource(template = "concept/narrowerConceptType", key = "concept.narrowerConcept.type", parse = true)
+    @PropertySource(template = "concept/narrowerConceptType", key = "concept.narrowerConcept.type", parse = true)
     private List<String> narrowerConceptType;
 
     @Indexed
     private List<String> narrowerConceptId;
 
     @Indexed
-    // @PropertySource(template = "concept/relatedConcept", key = "concept.relatedConcept.label", id = "relatedConceptId")
+    @PropertySource(template = "concept/relatedConcept", key = "concept.relatedConcept.label", id = "relatedConceptId")
     private List<String> relatedConcept;
 
     @Indexed
-    // @PropertySource(template = "concept/relatedConceptType", key = "concept.relatedConcept.type", parse = true)
+    @PropertySource(template = "concept/relatedConceptType", key = "concept.relatedConcept.type", parse = true)
     private List<String> relatedConceptType;
 
     @Indexed

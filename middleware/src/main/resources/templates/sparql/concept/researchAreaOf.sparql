@@ -7,5 +7,4 @@ CONSTRUCT {
 } WHERE {
     <[(${uri})]> vivo:researchAreaOf ?researchAreaOf .
     ?researchAreaOf rdfs:label ?label .
-    FILTER (lang(?name) = '')
 }
