@@ -1,2 +1,52 @@
 process:
   class: "http://purl.obolibrary.org/obo/BFO_0000015"
+  title: "http://www.w3.org/2000/01/rdf-schema#label"
+  type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+  thumbnail: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+  website:
+    url: "http://www.w3.org/2006/vcard/ns#url"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  description: "http://vivoweb.org/ontology/core#description"
+  offeredBy:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  dateTimeInterval:
+    start: "http://vivoweb.org/ontology/core#dateTime"
+    end: "http://vivoweb.org/ontology/core#dateTime"
+  occursWithinEvent: "http://www.w3.org/2000/01/rdf-schema#label"
+  includesEvent: "http://www.w3.org/2000/01/rdf-schema#label"
+  inEventSeries: "http://www.w3.org/2000/01/rdf-schema#label"
+  participant:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  hasSubjectArea: "http://www.w3.org/2000/01/rdf-schema#label"
+  hasPrerequisite:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  prerequisiteFor:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  credits: "http://vivoweb.org/ontology/core#courseCredits"
+  geographicFocus:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  outputPublicationOrOtherWork:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  relatedDocument:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  contactInformation: "http://vivoweb.org/ontology/core#contactInformation"
+  heldInFacility: "http://www.w3.org/2000/01/rdf-schema#label"
+  heldInGeographicLocation: "http://www.w3.org/2000/01/rdf-schema#label"
+  hasOutput:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  hasParticipant:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  sameAs:
+    name: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  modTime: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime"
