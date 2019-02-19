@@ -1,0 +1,10 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?grantSubcontractedThrough vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> vivo:grantSubcontractedThrough ?grantSubcontractedThrough .
+    ?grantSubcontractedThrough vitro:mostSpecificType ?mostSpecificType .
+}

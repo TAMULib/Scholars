@@ -1,7 +1,0 @@
-CONSTRUCT {
-    ?relationship ?property ?value .
-} WHERE {
-    #?relationship a <[(${uri})]> .
-    ?relationship a <http://vivoweb.org/ontology/core#AwardReceipt> .
-    ?relationship ?property ?value .
-}

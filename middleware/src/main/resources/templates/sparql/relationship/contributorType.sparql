@@ -1,10 +1,9 @@
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
     ?relates vitro:mostSpecificType ?mostSpecificType .
 } WHERE {
-    <[(${uri})]> vivo:relates ?relates ; a vivo:AwardReceipt .
-    ?relates vitro:mostSpecificType ?mostSpecificType ; a foaf:Person .
+    <[(${uri})]> vivo:relates ?relates ; a vivo:Grant .
+    ?relates vitro:mostSpecificType ?mostSpecificType ; a vivo:ResearcherRole .
 }
