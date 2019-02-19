@@ -327,7 +327,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> editorOfType;
 
     @Indexed
-    @PropertySource(template = "person/editorOfPublisher", key = "person.editorOf.publisher")
+    @PropertySource(template = "person/editorOfPublisher", key = "person.editorOf.publisher", unique = true)
     private List<String> editorOfPublisher;
 
     @Indexed
