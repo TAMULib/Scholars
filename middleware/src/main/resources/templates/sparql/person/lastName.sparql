@@ -1,0 +1,7 @@
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+
+CONSTRUCT {
+    <[(${uri})]> vcard:familyName ?familyName .
+} WHERE {
+    <[(${uri})]> vcard:familyName ?familyName .
+}

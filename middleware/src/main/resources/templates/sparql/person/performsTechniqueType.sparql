@@ -1,0 +1,9 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+ 
+CONSTRUCT {
+    ?technique vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> obo:ERO_0000397 ?technique .
+    ?technique vitro:mostSpecificType ?mostSpecificType .
+}
