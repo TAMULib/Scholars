@@ -1,0 +1,39 @@
+relationship:
+  class: "http://vivoweb.org/ontology/core#Relationship"
+  title: "http://www.w3.org/2000/01/rdf-schema#label"
+  type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  image: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+  thumbnail: "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl"
+  description: "http://vivoweb.org/ontology/core#description"
+  receiptOf:
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  awardOrHonorFor:
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  awardConferredBy:
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  dateTimeInterval:
+    start: "http://vivoweb.org/ontology/core#dateTime"
+    end: "http://vivoweb.org/ontology/core#dateTime"
+  yearAwarded: "http://vivoweb.org/ontology/core#dateTime"
+  sameAs:
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+  assignedBy:
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  inheresIn:
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  isSpecifiedOutputOf:
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  outputOf:
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  participatesIn:
+    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    label: "http://www.w3.org/2000/01/rdf-schema#label"
+  modTime: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime"
