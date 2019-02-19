@@ -391,7 +391,7 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/country", key = "organization.country")
     private String country;
 
-    @Indexed(type = "location")
+    @Indexed
     @PropertySource(template = "organization/geographicLocation", key = "organization.geographicLocation", id = "geographicLocationId")
     private String geographicLocation;
 

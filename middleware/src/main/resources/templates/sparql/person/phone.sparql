@@ -6,5 +6,6 @@ CONSTRUCT {
 } WHERE {
     <[(${uri})]> obo:ARG_2000028 ?vcard .
     ?vcard vcard:hasTelephone ?hasTelephone .
+    ?hasTelephone a vcard:Telephone .
     ?hasTelephone vcard:telephone ?phone .
 }

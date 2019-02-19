@@ -1,0 +1,7 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    <[(${uri})]> vivo:outreachOverview ?outreachOverview .
+} WHERE {
+    <[(${uri})]> vivo:outreachOverview ?outreachOverview .
+}

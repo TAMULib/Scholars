@@ -1,0 +1,9 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+ 
+CONSTRUCT {
+    ?service vitro:mostSpecificType ?type .
+} WHERE {
+    <[(${uri})]> obo:ERO_0000037 ?service .
+    ?service vitro:mostSpecificType ?type .
+}

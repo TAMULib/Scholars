@@ -1,0 +1,7 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    <[(${uri})]> vivo:eRACommonsId ?eRACommonsId .
+} WHERE {
+    <[(${uri})]> vivo:eRACommonsId ?eRACommonsId .
+}

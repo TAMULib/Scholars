@@ -1,0 +1,12 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+ 
+CONSTRUCT {
+    ?roleContributesTo vitro:mostSpecificType ?type .
+} WHERE {
+    <[(${uri})]> obo:RO_0000053 ?role .
+    ?role a vivo:ReviewerRole .
+    ?role vivo:roleContributesTo ?roleContributesTo .
+    ?roleContributesTo vitro:mostSpecificType ?type .
+}
