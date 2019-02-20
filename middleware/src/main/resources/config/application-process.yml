@@ -19,7 +19,7 @@ process:
   inEventSeries: "http://www.w3.org/2000/01/rdf-schema#label"
   participant:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
-    type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    role: "http://www.w3.org/2000/01/rdf-schema#label"
   hasSubjectArea: "http://www.w3.org/2000/01/rdf-schema#label"
   hasPrerequisite:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
