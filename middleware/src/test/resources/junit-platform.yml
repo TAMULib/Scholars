@@ -1,0 +1,8 @@
+junit:
+  jupiter:
+    execution:
+      parallel: enabled
+        #config:
+          #strategy: dynamic
+        #mode:
+          #default: concurrent
