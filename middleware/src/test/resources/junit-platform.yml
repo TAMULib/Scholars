@@ -1,0 +1,4 @@
+junit:
+  jupiter:
+    execution:
+      parallel: enabled
