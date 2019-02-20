@@ -210,6 +210,9 @@ public class Process extends AbstractSolrDocument {
     @PropertySource(template = "process/sameAs", key = "process.sameAs.type", parse = true)
     private List<String> sameAsType;
 
+    @Indexed
+    private List<String> sameAsId;
+
     @Indexed(type = "pdate")
     @PropertySource(template = "process/modTime", key = "process.modTime")
     private String modTime;
@@ -640,6 +643,14 @@ public class Process extends AbstractSolrDocument {
 
     public void setModTime(String modTime) {
         this.modTime = modTime;
+    }
+
+    public List<String> getSameAsId() {
+        return sameAsId;
+    }
+
+    public void setSameAsId(List<String> sameAsId) {
+        this.sameAsId = sameAsId;
     }
 
 }
