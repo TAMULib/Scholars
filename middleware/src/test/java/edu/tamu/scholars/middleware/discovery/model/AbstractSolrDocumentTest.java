@@ -5,15 +5,18 @@ import static org.junit.Assert.assertNotNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.data.solr.core.mapping.Indexed;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
 public abstract class AbstractSolrDocumentTest<D extends AbstractSolrDocument> {
 
     @Test
@@ -39,14 +42,12 @@ public abstract class AbstractSolrDocumentTest<D extends AbstractSolrDocument> {
         // NOTE: only gets field annotated with @Indexed, which is all fields of a AbstractSolrDocument
         for (Field field : FieldUtils.getFieldsListWithAnnotation(clazz, Indexed.class)) {
             String property = field.getName();
-            Method setter = clazz.getDeclaredMethod(setter(property), field.getType());
-            Method getter = clazz.getDeclaredMethod(getter(property));
             if (Collection.class.isAssignableFrom(field.getType())) {
-                setter.invoke(document, multiple);
-                assertEquals(getter.invoke(document), multiple);
+                MethodUtils.invokeMethod(document, true, setter(property), multiple);
+                assertEquals(multiple, MethodUtils.invokeMethod(document, true, getter(property)));
             } else {
-                setter.invoke(document, single);
-                assertEquals(getter.invoke(document), single);
+                MethodUtils.invokeMethod(document, true, setter(property), single);
+                assertEquals(single, MethodUtils.invokeMethod(document, true, getter(property)));
             }
         }
     }
@@ -63,6 +64,6 @@ public abstract class AbstractSolrDocumentTest<D extends AbstractSolrDocument> {
         return accessor + property.substring(0, 1).toUpperCase() + property.substring(1, property.length());
     }
 
-    public abstract Class<?> getType();
+    protected abstract Class<?> getType();
 
 }

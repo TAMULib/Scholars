@@ -1,0 +1,60 @@
+{
+  "id": "n0a2eb46c",
+  "name": "Nair, Dimple",
+  "type": [
+    "FacultyMember"
+  ],
+  "primaryEmail": "dimplenair@tamu.edu",
+  "preferredTitle": "Lecturer",
+  "position": [
+    "Lecturer"
+  ],
+  "positionType": [
+    "FacultyPosition"
+  ],
+  "positionOrganization": [
+    "English"
+  ],
+  "positionId": [
+    "n7d422c40"
+  ],
+  "hrJobTitle": "Lecturer",
+  "educationAndTraining": [
+    "ENGL210 Technical Business Writing",
+    "ENGL104 Composition & Rhetoric"
+  ],
+  "educationAndTrainingRole": [
+    "Instructor",
+    "Instructor"
+  ],
+  "educationAndTrainingType": [
+    "Course",
+    "Course"
+  ],
+  "educationAndTrainingId": [
+    "n3e5160b1",
+    "ne6223298"
+  ],
+  "teachingActivity": [
+    "ENGL210 Technical Business Writing",
+    "ENGL104 Composition & Rhetoric"
+  ],
+  "teachingActivityRole": [
+    "Instructor",
+    "Instructor"
+  ],
+  "teachingActivityId": [
+    "n3e5160b1",
+    "ne6223298"
+  ],
+  "netid": "dimplenair",
+  "uid": "4582ad02f5a802c5b6a53b9b90c81ae9",
+  "email": "dimplenair@tamu.edu",
+  "firstName": "Dimple",
+  "lastName": "Nair",
+  "streetAddress": "Texas A&M University; English; 4227 TAMU",
+  "locality": "College Station",
+  "region": "TX",
+  "postalCode": "77843-4227",
+  "country": "USA"
+}
