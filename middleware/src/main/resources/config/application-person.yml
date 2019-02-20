@@ -178,7 +178,7 @@ person:
   sameAs:
     label: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
-  eRACommonsId: "http://vivoweb.org/ontology/core#eRACommonsId"
+  eraCommonsId: "http://vivoweb.org/ontology/core#eRACommonsId"
   isiResearcherId: "http://vivoweb.org/ontology/core#researcherId"
   scopusId: "http://vivoweb.org/ontology/core#scopusId"
   healthCareProviderId: "http://purl.obolibrary.org/obo/ARG_0000197"

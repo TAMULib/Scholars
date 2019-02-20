@@ -31,6 +31,12 @@ vivo:
   linked-open-data-endpoint: /individual
   list-rdf-endpoint: /listrdf
   sparql-query-endpoint: /api/sparqlQuery
+  triplestore:
+    type: TDB
+    directory:
+    datasourceUrl: jdbc:mysql://localhost/vivo
+    username:
+    password:
 
 logging:
   file: scholars.log
@@ -100,7 +106,7 @@ spring:
             required: true
   profiles:
     active: test
-    include: organization,person,document
+    include: organization,person,document,concept,relationship,process
   session:
     store-type: jdbc
     jdbc:

@@ -1,0 +1,27 @@
+{
+  "id": "nfst01746567",
+  "name": "Experimental economics",
+  "type": [
+    "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "associatedDepartment": [
+    "Economics",
+    "Agricultural Economics"
+  ],
+  "associatedDepartmentId": [
+    "n5bb716ca",
+    "n6f91b86d"
+  ],
+  "researchAreaOf": [
+    "Palma, Marco",
+    "Petrie, Ragan"
+  ],
+  "researchAreaOfOrganization": [
+    "Economics",
+    "Agricultural Economics"
+  ],
+  "researchAreaOfId": [
+    "nba337537",
+    "n238242e1"
+  ]
+}

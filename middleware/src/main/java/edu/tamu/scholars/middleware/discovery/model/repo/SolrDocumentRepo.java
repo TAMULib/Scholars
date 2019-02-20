@@ -17,6 +17,4 @@ public interface SolrDocumentRepo<D extends AbstractSolrDocument> extends SolrCr
     @RestResource(exported = false)
     public void delete(D document);
 
-    long count();
-
 }
