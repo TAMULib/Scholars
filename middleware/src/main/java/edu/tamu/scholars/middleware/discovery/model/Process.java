@@ -46,87 +46,87 @@ public class Process extends AbstractSolrDocument {
     private String description;
 
     @Indexed
-    // @PropertySource(template = "process/offeredBy", key = "process.offeredBy.name", id = "offeredById")
+    @PropertySource(template = "process/offeredBy", key = "process.offeredBy.name", id = "offeredById")
     private List<String> offeredBy;
 
     @Indexed
-    // @PropertySource(template = "process/offeredByType", key = "process.offeredBy.type", parse = true)
+    @PropertySource(template = "process/offeredByType", key = "process.offeredBy.type", parse = true)
     private List<String> offeredByType;
 
     @Indexed
     private List<String> offeredById;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "relationship/dateTimeIntervalStart", key = "relationship.dateTimeInterval.start")
+    @PropertySource(template = "process/dateTimeIntervalStart", key = "process.dateTimeInterval.start")
     private List<String> dateTimeIntervalStart;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "relationship/dateTimeIntervalEnd", key = "relationship.dateTimeInterval.end")
+    @PropertySource(template = "process/dateTimeIntervalEnd", key = "process.dateTimeInterval.end")
     private List<String> dateTimeIntervalEnd;
 
     @Indexed
-    // @PropertySource(template = "process/occursWithinEvent", key = "process.occursWithinEvent", id = "occursWithinEventId")
+    @PropertySource(template = "process/occursWithinEvent", key = "process.occursWithinEvent", id = "occursWithinEventId")
     private List<String> occursWithinEvent;
 
     @Indexed
     private List<String> occursWithinEventId;
 
     @Indexed
-    // @PropertySource(template = "process/includesEvent", key = "process.includesEvent", id = "includesEventId")
+    @PropertySource(template = "process/includesEvent", key = "process.includesEvent", id = "includesEventId")
     private List<String> includesEvent;
 
     @Indexed
     private List<String> includesEventId;
 
     @Indexed
-    // @PropertySource(template = "process/inEventSeries", key = "process.inEventSeries", id = "inEventSeriesId")
+    @PropertySource(template = "process/inEventSeries", key = "process.inEventSeries", id = "inEventSeriesId")
     private List<String> inEventSeries;
 
     @Indexed
     private List<String> inEventSeriesId;
 
     @Indexed
-    // @PropertySource(template = "process/participant", key = "process.participant.name", id = "participantId")
+    @PropertySource(template = "process/participant", key = "process.participant.name", id = "participantId")
     private List<String> participant;
 
     @Indexed
-    // @PropertySource(template = "process/participantType", key = "process.participant.type", parse = true)
-    private List<String> participantType;
+    @PropertySource(template = "process/participantRole", key = "process.participant.role")
+    private List<String> participantRole;
 
     @Indexed
     private List<String> participantId;
 
     @Indexed
-    // @PropertySource(template = "process/hasSubjectArea", key = "process.hasSubjectArea", id = "hasSubjectAreaId")
+    @PropertySource(template = "process/hasSubjectArea", key = "process.hasSubjectArea")
     private List<String> hasSubjectArea;
 
     @Indexed
     private List<String> hasSubjectAreaId;
 
     @Indexed
-    // @PropertySource(template = "process/hasPrerequisite", key = "process.hasPrerequisite.name", id = "hasPrerequisiteId")
+    @PropertySource(template = "process/hasPrerequisite", key = "process.hasPrerequisite.name", id = "hasPrerequisiteId")
     private List<String> hasPrerequisite;
 
     @Indexed
-    // @PropertySource(template = "process/hasPrerequisiteType", key = "process.hasPrerequisite.type", parse = true)
+    @PropertySource(template = "process/hasPrerequisiteType", key = "process.hasPrerequisite.type", parse = true)
     private List<String> hasPrerequisiteType;
 
     @Indexed
     private List<String> hasPrerequisiteId;
 
     @Indexed
-    // @PropertySource(template = "process/prerequisiteFor", key = "process.prerequisiteFor.name", id = "prerequisiteForId")
+    @PropertySource(template = "process/prerequisiteFor", key = "process.prerequisiteFor.name", id = "prerequisiteForId")
     private List<String> prerequisiteFor;
 
     @Indexed
-    // @PropertySource(template = "process/prerequisiteForType", key = "process.prerequisiteFor.type", parse = true)
+    @PropertySource(template = "process/prerequisiteForType", key = "process.prerequisiteFor.type", parse = true)
     private List<String> prerequisiteForType;
 
     @Indexed
     private List<String> prerequisiteForId;
 
     @Indexed
-    // @PropertySource(template = "process/credits", key = "process.credits")
+    @PropertySource(template = "process/credits", key = "process.credits")
     private String credits;
 
     @Indexed
@@ -141,62 +141,62 @@ public class Process extends AbstractSolrDocument {
     private List<String> geographicFocusId;
 
     @Indexed
-    // @PropertySource(template = "process/outputPublicationOrOtherWork", key = "process.outputPublicationOrOtherWork.name", id = "outputPublicationOrOtherWorkId")
+    @PropertySource(template = "process/outputPublicationOrOtherWork", key = "process.outputPublicationOrOtherWork.name", id = "outputPublicationOrOtherWorkId")
     private List<String> outputPublicationOrOtherWork;
 
     @Indexed
-    // @PropertySource(template = "process/outputPublicationOrOtherWorkType", key = "process.outputPublicationOrOtherWork.type", parse = true)
+    @PropertySource(template = "process/outputPublicationOrOtherWorkType", key = "process.outputPublicationOrOtherWork.type", parse = true)
     private List<String> outputPublicationOrOtherWorkType;
 
     @Indexed
     private List<String> outputPublicationOrOtherWorkId;
 
     @Indexed
-    // @PropertySource(template = "process/relatedDocument", key = "process.relatedDocument.name", id = "relatedDocumentId")
+    @PropertySource(template = "process/relatedDocument", key = "process.relatedDocument.name", id = "relatedDocumentId")
     private List<String> relatedDocument;
 
     @Indexed
-    // @PropertySource(template = "process/relatedDocumentType", key = "process.relatedDocument.type", parse = true)
+    @PropertySource(template = "process/relatedDocumentType", key = "process.relatedDocument.type", parse = true)
     private List<String> relatedDocumentType;
 
     @Indexed
     private List<String> relatedDocumentId;
 
     @Indexed
-    // @PropertySource(template = "process/contactInformation", key = "process.contactInformation")
+    @PropertySource(template = "process/contactInformation", key = "process.contactInformation")
     private List<String> contactInformation;
 
     @Indexed
-    // @PropertySource(template = "process/heldInFacility", key = "process.heldInFacility", id = "heldInFacilityId")
+    @PropertySource(template = "process/heldInFacility", key = "process.heldInFacility", id = "heldInFacilityId")
     private List<String> heldInFacility;
 
     @Indexed
     private List<String> heldInFacilityId;
 
     @Indexed
-    // @PropertySource(template = "process/heldInGeographicLocation", key = "process.heldInGeographicLocation", id = "heldInGeographicLocationId")
+    @PropertySource(template = "process/heldInGeographicLocation", key = "process.heldInGeographicLocation", id = "heldInGeographicLocationId")
     private List<String> heldInGeographicLocation;
 
     @Indexed
     private List<String> heldInGeographicLocationId;
 
     @Indexed
-    // @PropertySource(template = "process/hasOutput", key = "process.hasOutput.name", id = "hasOutputId")
+    @PropertySource(template = "process/hasOutput", key = "process.hasOutput.name", id = "hasOutputId")
     private List<String> hasOutput;
 
     @Indexed
-    // @PropertySource(template = "process/hasOutputType", key = "process.hasOutput.type", parse = true)
+    @PropertySource(template = "process/hasOutputType", key = "process.hasOutput.type", parse = true)
     private List<String> hasOutputType;
 
     @Indexed
     private List<String> hasOutputId;
 
     @Indexed
-    // @PropertySource(template = "process/hasParticipant", key = "process.hasParticipant.name", id = "hasParticipantId")
+    @PropertySource(template = "process/hasParticipant", key = "process.hasParticipant.name", id = "hasParticipantId")
     private List<String> hasParticipant;
 
     @Indexed
-    // @PropertySource(template = "process/hasParticipantType", key = "process.hasParticipant.type", parse = true)
+    @PropertySource(template = "process/hasParticipantType", key = "process.hasParticipant.type", parse = true)
     private List<String> hasParticipantType;
 
     @Indexed
@@ -370,12 +370,12 @@ public class Process extends AbstractSolrDocument {
         this.participant = participant;
     }
 
-    public List<String> getParticipantType() {
-        return participantType;
+    public List<String> getParticipantRole() {
+        return participantRole;
     }
 
-    public void setParticipantType(List<String> participantType) {
-        this.participantType = participantType;
+    public void setParticipantRole(List<String> participantRole) {
+        this.participantRole = participantRole;
     }
 
     public List<String> getParticipantId() {

@@ -1,0 +1,9 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+CONSTRUCT {
+    ?course vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> vivo:prerequisiteFor ?course .
+    ?course vitro:mostSpecificType ?mostSpecificType .
+}

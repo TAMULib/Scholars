@@ -1,0 +1,9 @@
+PREFIX bibo:  <http://purl.org/ontology/bibo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?document rdfs:label ?name .
+} WHERE {
+    <[(${uri})]> bibo:presents ?document .
+    ?document rdfs:label ?name .
+}
