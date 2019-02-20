@@ -36,7 +36,8 @@ public abstract class AbstractSolrDocumentTest<D extends AbstractSolrDocument> {
         String single = "Test";
         List<String> multiple = Arrays.asList(new String[] { "Hello", "World" });
 
-        for (Field field : FieldUtils.getFieldsListWithAnnotation(Process.class, Indexed.class)) {
+        // NOTE: only gets field annotated with @Indexed, which is all fields of a AbstractSolrDocument
+        for (Field field : FieldUtils.getFieldsListWithAnnotation(clazz, Indexed.class)) {
             String property = field.getName();
             Method setter = clazz.getDeclaredMethod(setter(property), field.getType());
             Method getter = clazz.getDeclaredMethod(getter(property));

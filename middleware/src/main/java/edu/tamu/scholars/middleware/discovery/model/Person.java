@@ -700,8 +700,8 @@ public class Person extends AbstractSolrDocument {
     private List<String> sameAsId;
 
     @Indexed
-    @PropertySource(template = "person/eRACommonsId", key = "person.eRACommonsId")
-    private String eRACommonsId;
+    @PropertySource(template = "person/eraCommonsId", key = "person.eraCommonsId")
+    private String eraCommonsId;
 
     @Indexed
     @PropertySource(template = "person/isiResearcherId", key = "person.isiResearcherId")
@@ -2216,12 +2216,12 @@ public class Person extends AbstractSolrDocument {
         this.sameAsId = sameAsId;
     }
 
-    public String geteRACommonsId() {
-        return eRACommonsId;
+    public String getEraCommonsId() {
+        return eraCommonsId;
     }
 
-    public void seteRACommonsId(String eRACommonsId) {
-        this.eRACommonsId = eRACommonsId;
+    public void setEraCommonsId(String eraCommonsId) {
+        this.eraCommonsId = eraCommonsId;
     }
 
     public String getIsiResearcherId() {
