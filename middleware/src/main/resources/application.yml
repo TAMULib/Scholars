@@ -25,7 +25,7 @@ ui:
   url: http://localhost:4200
 
 vivo:
-  email: vivoadmin@library.tamu.edu
+  email: vivo_root@school.edu
   password:
   base-url: http://localhost:8080/vivo
   linked-open-data-endpoint: /individual

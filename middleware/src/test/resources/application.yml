@@ -26,7 +26,7 @@ ui:
 
 vivo:
   email: vivo_root@school.edu
-  password: rootPassword
+  password:
   base-url: http://localhost:8080/vivo
   linked-open-data-endpoint: /individual
   list-rdf-endpoint: /listrdf

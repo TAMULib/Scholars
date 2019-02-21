@@ -138,7 +138,7 @@ public class RegistrationServiceTest extends RegistrationIntegrationTest {
 
     @Before
     public void setup() {
-        doReturn(Files.contentOf(new File("src/test/resources/mock/templates/confirm-registration.html"), Charset.defaultCharset())).when(templateService).templateConfirmRegistrationMessage(any(Registration.class), any(String.class));
+        doReturn(Files.contentOf(new File("src/test/resources/mock/templates/email/confirm-registration.html"), Charset.defaultCharset())).when(templateService).templateConfirmRegistrationMessage(any(Registration.class), any(String.class));
         doNothing().when(emailService).send(any(String.class), any(String.class), any(String.class));
         doReturn("VIVO Scholars Discovery Confirm Registration").when(messageSource).getMessage("RegistrationService.confirmationEmailSubject", new Object[0], LocaleContextHolder.getLocale());
         doReturn("Success").when(messageSource).getMessage("RegistrationService.submitSuccess", new Object[0], LocaleContextHolder.getLocale());

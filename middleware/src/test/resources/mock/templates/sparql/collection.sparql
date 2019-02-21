@@ -1,0 +1,5 @@
+CONSTRUCT {
+    ?model a <http://xmlns.com/foaf/0.1/Person> .
+} WHERE {
+    ?model a <http://xmlns.com/foaf/0.1/Person> .
+}
