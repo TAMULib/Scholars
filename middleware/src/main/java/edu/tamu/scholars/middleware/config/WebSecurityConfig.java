@@ -161,9 +161,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(GET,
                         "/registration",
                         "/themes/search/active",
+                        "/concepts", "/concepts/{id}",
+                        "/documents", "/documents/{id}",
+                        "/organizations", "/organizations/{id}",
                         "/persons", "/persons/{id}",
-                        "/publications", "/publications/{id}",
-                        "/organizations", "/organizations/{id}"
+                        "/processes", "/processes/{id}",
+                        "/relationships", "/relationships/{id}"
                     )
                     .permitAll()
                 .antMatchers(GET, "/users", "/users/{id}", "/themes", "/themes/{id}")
