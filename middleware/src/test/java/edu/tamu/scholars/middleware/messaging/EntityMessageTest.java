@@ -3,16 +3,16 @@ package edu.tamu.scholars.middleware.messaging;
 import static edu.tamu.scholars.middleware.messaging.EntityAction.CREATE;
 import static edu.tamu.scholars.middleware.messaging.EntityAction.DELETE;
 import static edu.tamu.scholars.middleware.messaging.EntityAction.UPDATE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import edu.tamu.scholars.middleware.theme.model.Theme;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class EntityMessageTest {
 
     @Test

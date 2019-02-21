@@ -1,0 +1,31 @@
+= Java Web MVC Example API Documentation
+:doctype: book
+:compat-mode:
+:page-layout!:
+:toc: left
+:toclevels: 2
+:sectanchors:
+:sectlinks:
+:sectnums:
+:linkattrs:
+:source-highlighter: highlightjs
+
+= Sample API Documentation
+
+== Introduction
+This is an example of Spring REST Docs generated documentation.
+
+== Concepts API
+Collection of CRUD API endpoints used to manipulate concepts registered in the application.
+
+=== Get Concept By Id
+Obtains a specific concept registered in the application by its unique identifier.
+
+==== Sample Request
+include::{snippets}/concepts/get-one/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/concepts/get-one/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/concepts/get-one/curl-request.adoc[]

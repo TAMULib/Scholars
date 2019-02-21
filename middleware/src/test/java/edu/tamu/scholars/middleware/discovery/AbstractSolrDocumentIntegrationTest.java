@@ -1,9 +1,9 @@
 package edu.tamu.scholars.middleware.discovery;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +13,8 @@ import java.util.List;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.client.solrj.request.CoreAdminRequest;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -38,14 +38,14 @@ public abstract class AbstractSolrDocumentIntegrationTest<D extends AbstractSolr
 
     protected List<D> mockDocuments;
 
-    @Before
+    @BeforeEach
     public void createCore() throws SolrServerException, IOException {
         assertTrue(instanceDirectory.exists());
         assertTrue(instanceDirectory.isFile());
         CoreAdminRequest.createCore(getCollection(), instanceDirectory.getFile().getAbsolutePath(), solrServer);
     }
 
-    @Before
+    @BeforeEach
     public void setDocuments() throws IOException {
         mockDocuments = new ArrayList<D>();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -60,12 +60,12 @@ public abstract class AbstractSolrDocumentIntegrationTest<D extends AbstractSolr
         assertTrue(mockDocuments.size() > 0);
     }
 
-    @After
+    @AfterEach
     public void deleteCore() throws SolrServerException, IOException {
         CoreAdminRequest.unloadCore(getCollection(), solrServer);
     }
 
-    @After
+    @AfterEach
     public void deleteDocuments() {
         repo.deleteAll();
     }

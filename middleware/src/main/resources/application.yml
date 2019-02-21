@@ -19,7 +19,7 @@ middleware:
     socket-timeout: 60000
   index:
     fixedDelay: 86400000
-    initialDelay: 2500
+    initialDelay: 86400000
 
 ui:
   url: http://localhost:4200
@@ -33,7 +33,7 @@ vivo:
   sparql-query-endpoint: /api/sparqlQuery
   triplestore:
     type: TDB
-    directory:
+    directory: /Users/wwelling/vivo-data
     datasourceUrl: jdbc:mysql://localhost/vivo
     username:
     password:

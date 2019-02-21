@@ -2,34 +2,46 @@ package edu.tamu.scholars.middleware.discovery.controller;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON_UTF8_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import edu.tamu.scholars.middleware.discovery.AbstractSolrDocumentIntegrationTest;
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 import edu.tamu.scholars.middleware.discovery.model.repo.SolrDocumentRepo;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-@RunWith(SpringRunner.class)
+@ExtendWith({ RestDocumentationExtension.class, SpringExtension.class })
 public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrDocument, R extends SolrDocumentRepo<D>> extends AbstractSolrDocumentIntegrationTest<D, R> {
 
     @Autowired
-    protected MockMvc mockMvc;
+    private WebApplicationContext context;
+
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    public void setUp(RestDocumentationContextProvider restDocumentation) {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(documentationConfiguration(restDocumentation)).build();
+    }
 
     @Test
     public void testGetDocumentsPage() throws Exception {
@@ -41,7 +53,8 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
             .andExpect(jsonPath("page.size", equalTo(20)))
             .andExpect(jsonPath("page.totalElements", equalTo(mockDocuments.size())))
             .andExpect(jsonPath("page.totalPages", equalTo(1)))
-            .andExpect(jsonPath("page.number", equalTo(0)));
+            .andExpect(jsonPath("page.number", equalTo(0)))
+            .andDo(document(getPath().substring(1) + "/page"));
         // @formatter:on
     }
 
@@ -52,7 +65,8 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
             // @formatter:off
             mockMvc.perform(get(getPath() + "/" + mockDocument.getId()))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+                .andDo(document(getPath().substring(1) + "/get-one"));
             // @formatter:on
         }
     }

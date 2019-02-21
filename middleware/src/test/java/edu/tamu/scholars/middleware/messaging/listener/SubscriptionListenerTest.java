@@ -1,12 +1,12 @@
 package edu.tamu.scholars.middleware.messaging.listener;
 
 import static edu.tamu.scholars.middleware.messaging.MessagingTestUtility.getMockStompHeaderAccessor;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.messaging.simp.stomp.StompCommand.RECEIPT;
 import static org.springframework.messaging.simp.stomp.StompCommand.SUBSCRIBE;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -14,10 +14,10 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.AbstractSubscribableChannel;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class SubscriptionListenerTest {
 
     private static Message<?> message;

@@ -1,13 +1,14 @@
 package edu.tamu.scholars.middleware.theme.exception;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class DeleteActiveThemeExceptionTest {
 
     @Test
@@ -17,9 +18,11 @@ public class DeleteActiveThemeExceptionTest {
         assertEquals("Test delete active theme exception!", exception.getMessage());
     }
 
-    @Test(expected = DeleteActiveThemeException.class)
+    @Test
     public void testThrow() throws DeleteActiveThemeException {
-        throw new DeleteActiveThemeException("Test delete active theme exception!");
+        assertThrows(DeleteActiveThemeException.class, () -> {
+            throw new DeleteActiveThemeException("Test delete active theme exception!");
+        });
     }
 
 }
