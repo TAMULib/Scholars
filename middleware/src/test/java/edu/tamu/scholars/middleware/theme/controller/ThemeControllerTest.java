@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON_UTF8_VALUE;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
@@ -106,7 +107,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
 				.andExpect(jsonPath("variables[1].key", equalTo("--navigation-color")))
 				.andExpect(jsonPath("variables[1].value", equalTo("#3c0000")))
 				.andExpect(jsonPath("variables[2].key", equalTo("--navbar-color")))
-				.andExpect(jsonPath("variables[2].value", equalTo("#ffffff")));
+				.andExpect(jsonPath("variables[2].value", equalTo("#ffffff")))
+	            .andDo(document("themes/create"));
 		// @formatter:on
     }
 
@@ -126,7 +128,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
 				.andExpect(jsonPath("active", equalTo(true)))
 				.andExpect(jsonPath("name", equalTo("Test")))
 				.andExpect(jsonPath("organization", equalTo("Testing Limited")))
-				.andExpect(jsonPath("header.banner.altText", equalTo("Tested")));
+				.andExpect(jsonPath("header.banner.altText", equalTo("Tested")))
+                .andDo(document("themes/update"));
 		// @formatter:on
     }
 
@@ -143,7 +146,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     			.andExpect(jsonPath("active", equalTo(true)))
     			.andExpect(jsonPath("name", equalTo("Test")))
     			.andExpect(jsonPath("organization", equalTo("Testing Unlimited")))
-    			.andExpect(jsonPath("header.navbar.brandText", equalTo("Hello, Scholars!")));
+    			.andExpect(jsonPath("header.navbar.brandText", equalTo("Hello, Scholars!")))
+                .andDo(document("themes/patch"));
 		// @formatter:on
     }
 
@@ -232,7 +236,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     		    .andExpect(status().isOk())
     			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE)).andExpect(jsonPath("active", equalTo(false)))
     			.andExpect(jsonPath("name", equalTo("Test")))
-    			.andExpect(jsonPath("organization", equalTo("Testing Unlimited")));
+    			.andExpect(jsonPath("organization", equalTo("Testing Unlimited")))
+                .andDo(document("themes/find-by-id"));
 		// @formatter:on
     }
 
@@ -297,7 +302,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     			.andExpect(jsonPath("_embedded.themes[0].variables[1].key", equalTo("--navigation-color")))
     			.andExpect(jsonPath("_embedded.themes[0].variables[1].value", equalTo("#3c0000")))
     			.andExpect(jsonPath("_embedded.themes[0].variables[2].key", equalTo("--navbar-color")))
-    			.andExpect(jsonPath("_embedded.themes[0].variables[2].value", equalTo("#ffffff")));
+    			.andExpect(jsonPath("_embedded.themes[0].variables[2].value", equalTo("#ffffff")))
+                .andDo(document("themes/page"));
 		// @formatter:on
     }
 
@@ -310,7 +316,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
 			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
 			.andExpect(jsonPath("active", equalTo(true)))
 			.andExpect(jsonPath("name", equalTo("Test")))
-			.andExpect(jsonPath("organization", equalTo("Testing Limited")));
+			.andExpect(jsonPath("organization", equalTo("Testing Limited")))
+            .andDo(document("themes/active"));
 		// @formatter:on
     }
 
@@ -318,7 +325,11 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     public void testDeleteTheme() throws JsonProcessingException, Exception {
         testCreateTheme();
         Theme theme = themeRepo.findByName("Test").get();
-        mockMvc.perform(delete("/themes/" + theme.getId()).cookie(loginAdmin())).andExpect(status().isNoContent());
+        // @formatter:off
+        mockMvc.perform(delete("/themes/" + theme.getId()).cookie(loginAdmin()))
+            .andExpect(status().isNoContent())
+            .andDo(document("themes/delete"));
+        // @formatter:on
     }
 
     @Test

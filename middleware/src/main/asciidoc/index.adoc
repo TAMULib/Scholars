@@ -1,4 +1,4 @@
-= Java Web MVC Example API Documentation
+= Scholars Middleware API Documentation
 :doctype: book
 :compat-mode:
 :page-layout!:
@@ -13,13 +13,13 @@
 = Sample API Documentation
 
 == Introduction
-This is an example of Spring REST Docs generated documentation.
 
-== Concepts API
-Collection of CRUD API endpoints used to manipulate concepts registered in the application.
+
+== Concepts
+
 
 === Get Concept By Id
-Obtains a specific concept registered in the application by its unique identifier.
+
 
 ==== Sample Request
 include::{snippets}/concepts/get-one/http-request.adoc[]

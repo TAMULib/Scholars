@@ -41,7 +41,12 @@ public class UserControllerTest extends UserIntegrationTest {
         // @formatter:off
         mockMvc.perform(get("/users").cookie(login(admin)))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+            .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("page.size", equalTo(20)))
+            .andExpect(jsonPath("page.totalElements", equalTo(1)))
+            .andExpect(jsonPath("page.totalPages", equalTo(1)))
+            .andExpect(jsonPath("page.number", equalTo(0)))
+            .andDo(document("users/page"));
         // @formatter:on
     }
 
@@ -84,7 +89,8 @@ public class UserControllerTest extends UserIntegrationTest {
         User superAdmin = createMockSuperAdmin();
         // @formatter:off
         mockMvc.perform(delete(String.format("/users/%d", admin.getId())).cookie(login(superAdmin)).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
-            .andExpect(status().isNoContent());
+            .andExpect(status().isNoContent())
+            .andDo(document("users/delete"));
         // @formatter:on
     }
 
@@ -134,7 +140,8 @@ public class UserControllerTest extends UserIntegrationTest {
         // @formatter:off
         mockMvc.perform(get(String.format("/users/%s", admin.getId().toString())).cookie(login(admin)))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+            .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+            .andDo(document("users/find-by-id"));
         // @formatter:on
     }
 

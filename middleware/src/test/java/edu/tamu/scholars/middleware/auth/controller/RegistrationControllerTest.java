@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
@@ -53,7 +54,8 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         // @formatter:off
         mockMvc.perform(post("/registration").contentType(APPLICATION_JSON).content(body))
             .andExpect(status().isOk())
-            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"));
+            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"))
+            .andDo(document("registration/submit"));
         // @formatter:on
     }
 
@@ -135,7 +137,8 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         // @formatter:off
         mockMvc.perform(get("/registration").param("key", token.getKey()))
             .andExpect(status().isOk())
-            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"));
+            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"))
+            .andDo(document("registration/confirm"));
         // @formatter:on
     }
 
@@ -162,7 +165,8 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         // @formatter:off
         mockMvc.perform(put("/registration").contentType(APPLICATION_JSON).content(body))
             .andExpect(status().isOk())
-            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com','role':'ROLE_SUPER_ADMIN','active':true,'enabled':true}"));
+            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com','role':'ROLE_SUPER_ADMIN','active':true,'enabled':true}"))
+            .andDo(document("registration/complete"));
         // @formatter:on
     }
 

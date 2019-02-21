@@ -57,7 +57,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
             mockMvc.perform(get(getPath() + "/" + mockDocument.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
-                .andDo(document(getPath().substring(1) + "/get-one"));
+                .andDo(document(getPath().substring(1) + "/find-by-id"));
             // @formatter:on
         }
     }

@@ -1,6 +1,7 @@
 package edu.tamu.scholars.middleware.auth.controller;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -47,7 +48,8 @@ public class AuthControllerTest extends UserIntegrationTest {
         mockMvc.perform(get("/user")
             .cookie(cookie))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(document("user"));
         // @formatter:on
     }
 
