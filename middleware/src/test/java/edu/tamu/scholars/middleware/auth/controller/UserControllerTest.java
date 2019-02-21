@@ -2,6 +2,7 @@ package edu.tamu.scholars.middleware.auth.controller;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON_UTF8_VALUE;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
@@ -12,13 +13,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import javax.servlet.http.Cookie;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -28,7 +29,7 @@ import edu.tamu.scholars.middleware.auth.model.User;
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class UserControllerTest extends UserIntegrationTest {
 
     @Autowired
@@ -52,7 +53,8 @@ public class UserControllerTest extends UserIntegrationTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
             .andExpect(jsonPath("active", equalTo(false)))
-            .andExpect(jsonPath("role", equalTo("ROLE_USER")));
+            .andExpect(jsonPath("role", equalTo("ROLE_USER")))
+            .andDo(document("users/patch"));
         // @formatter:on
     }
 

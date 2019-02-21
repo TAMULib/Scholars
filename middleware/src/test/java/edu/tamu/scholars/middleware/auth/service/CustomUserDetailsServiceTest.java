@@ -1,23 +1,24 @@
 package edu.tamu.scholars.middleware.auth.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import edu.tamu.scholars.middleware.auth.UserIntegrationTest;
 import edu.tamu.scholars.middleware.auth.model.User;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class CustomUserDetailsServiceTest extends UserIntegrationTest {
 
     @Autowired
@@ -34,9 +35,11 @@ public class CustomUserDetailsServiceTest extends UserIntegrationTest {
         assertEquals("ROLE_USER", userDetails.getAuthorities().toArray(new GrantedAuthority[userDetails.getAuthorities().size()])[0].getAuthority());
     }
 
-    @Test(expected = UsernameNotFoundException.class)
+    @Test
     public void testLoadUserByUsernameNotFound() {
-        customUserDetailsService.loadUserByUsername("eexciting@mailinator.com");
+        assertThrows(UsernameNotFoundException.class, () -> {
+            customUserDetailsService.loadUserByUsername("eexciting@mailinator.com");
+        });
     }
 
 }

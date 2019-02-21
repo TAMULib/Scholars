@@ -1,6 +1,6 @@
 package edu.tamu.scholars.middleware.auth;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -53,7 +53,7 @@ public abstract class UserIntegrationTest {
         return user;
     }
 
-    @After
+    @AfterEach
     public void deleteAllUsers() {
         userRepo.deleteAll();
     }

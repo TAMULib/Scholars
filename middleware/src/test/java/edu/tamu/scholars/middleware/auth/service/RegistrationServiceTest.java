@@ -3,6 +3,7 @@ package edu.tamu.scholars.middleware.auth.service;
 import static edu.tamu.scholars.middleware.auth.RegistrationTestUtility.getMockRegistration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -14,10 +15,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import org.assertj.core.util.Files;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -33,7 +34,7 @@ import org.springframework.security.core.token.KeyBasedPersistenceTokenService;
 import org.springframework.security.core.token.Token;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -52,7 +53,7 @@ import edu.tamu.scholars.middleware.service.EmailService;
 import edu.tamu.scholars.middleware.service.TemplateService;
 
 @DataJpaTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class RegistrationServiceTest extends RegistrationIntegrationTest {
 
     @TestConfiguration
@@ -136,7 +137,7 @@ public class RegistrationServiceTest extends RegistrationIntegrationTest {
     @MockBean
     private MessageSource messageSource;
 
-    @Before
+    @BeforeEach
     public void setup() {
         doReturn(Files.contentOf(new File("src/test/resources/mock/templates/email/confirm-registration.html"), Charset.defaultCharset())).when(templateService).templateConfirmRegistrationMessage(any(Registration.class), any(String.class));
         doNothing().when(emailService).send(any(String.class), any(String.class), any(String.class));
@@ -174,18 +175,22 @@ public class RegistrationServiceTest extends RegistrationIntegrationTest {
         assertEquals("Boring", registration.getLastName());
     }
 
-    @Test(expected = RegistrationException.class)
+    @Test
     public void testConfirmEmailNotFound() throws JsonParseException, JsonMappingException, IOException, RegistrationException {
         Token token = getMockToken("Bob", "Boring", "bboring@mailinator.com");
-        registrationService.confirm(token.getKey());
+        assertThrows(RegistrationException.class, () -> {
+            registrationService.confirm(token.getKey());
+        });
     }
 
-    @Test(expected = RegistrationException.class)
+    @Test
     public void testConfirmTokenExpired() throws JsonParseException, JsonMappingException, IOException, RegistrationException {
         testSubmit();
         authConfig.setRegistrationTokenDuration(0);
         Token token = getMockToken("Bob", "Boring", "bboring@mailinator.com");
-        registrationService.confirm(token.getKey());
+        assertThrows(RegistrationException.class, () -> {
+            registrationService.confirm(token.getKey());
+        });
     }
 
     @Test
@@ -206,24 +211,28 @@ public class RegistrationServiceTest extends RegistrationIntegrationTest {
         assertTrue(user.isEnabled());
     }
 
-    @Test(expected = RegistrationException.class)
+    @Test
     public void testCompleteWithoutSubmitAndConfirm() throws IOException, RegistrationException {
         Registration registration = getMockRegistration("Bob", "Boring", "bboring@mailinator.com");
         registration.setPassword("HelloWorld123!");
         registration.setConfirm("HelloWorld123!");
-        registrationService.complete(registration);
+        assertThrows(RegistrationException.class, () -> {
+            registrationService.complete(registration);
+        });
     }
 
-    @Test(expected = RegistrationException.class)
+    @Test
     public void testCompleteEmailAlreadyConfirmed() throws JsonParseException, JsonMappingException, IOException, RegistrationException {
         testComplete();
         Registration registration = getMockRegistration("Bob", "Boring", "bboring@mailinator.com");
         registration.setPassword("HelloWorld123!");
         registration.setConfirm("HelloWorld123!");
-        registrationService.complete(registration);
+        assertThrows(RegistrationException.class, () -> {
+            registrationService.complete(registration);
+        });
     }
 
-    @After
+    @AfterEach
     public void cleanup() {
         authConfig.setRegistrationTokenDuration(14);
     }
