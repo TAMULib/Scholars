@@ -95,6 +95,7 @@ spring:
         enable_lazy_load_no_trans: true
         hbm2ddl:
           import_files: import/import-themes.sql
+        show_sql: false
     show-sql: false
   mail:
     host: relay.tamu.edu
