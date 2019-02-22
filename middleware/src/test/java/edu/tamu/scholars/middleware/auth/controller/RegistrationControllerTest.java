@@ -5,21 +5,23 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.token.Token;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import edu.tamu.scholars.middleware.auth.RegistrationIntegrationTest;
@@ -28,7 +30,8 @@ import edu.tamu.scholars.middleware.service.EmailService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@RunWith(SpringRunner.class)
+@AutoConfigureRestDocs
+@ExtendWith(SpringExtension.class)
 public class RegistrationControllerTest extends RegistrationIntegrationTest {
 
     @Autowired
@@ -37,7 +40,7 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
     @MockBean
     private EmailService emailService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         doNothing().when(emailService).send(any(String.class), any(String.class), any(String.class));
     }
@@ -51,7 +54,8 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         // @formatter:off
         mockMvc.perform(post("/registration").contentType(APPLICATION_JSON).content(body))
             .andExpect(status().isOk())
-            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"));
+            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"))
+            .andDo(document("registration/submit"));
         // @formatter:on
     }
 
@@ -133,7 +137,8 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         // @formatter:off
         mockMvc.perform(get("/registration").param("key", token.getKey()))
             .andExpect(status().isOk())
-            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"));
+            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"))
+            .andDo(document("registration/confirm"));
         // @formatter:on
     }
 
@@ -160,7 +165,8 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         // @formatter:off
         mockMvc.perform(put("/registration").contentType(APPLICATION_JSON).content(body))
             .andExpect(status().isOk())
-            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com','role':'ROLE_SUPER_ADMIN','active':true,'enabled':true}"));
+            .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com','role':'ROLE_SUPER_ADMIN','active':true,'enabled':true}"))
+            .andDo(document("registration/complete"));
         // @formatter:on
     }
 

@@ -1,18 +1,18 @@
 package edu.tamu.scholars.middleware.messaging.handler;
 
 import static edu.tamu.scholars.middleware.messaging.MessagingTestUtility.getMockStompHeaderAccessor;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.messaging.simp.stomp.StompCommand.ERROR;
 import static org.springframework.messaging.simp.stomp.StompCommand.SUBSCRIBE;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class CustomStompSubProtocolErrorHandlerTest {
 
     private CustomStompSubProtocolErrorHandler customStompSubProtocolErrorHandler = new CustomStompSubProtocolErrorHandler();

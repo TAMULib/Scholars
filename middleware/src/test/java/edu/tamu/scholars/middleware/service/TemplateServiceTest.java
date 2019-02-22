@@ -2,20 +2,20 @@ package edu.tamu.scholars.middleware.service;
 
 import static edu.tamu.scholars.middleware.auth.RegistrationTestUtility.getMockRegistration;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.nio.charset.Charset;
 
 import org.assertj.core.util.Files;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -23,7 +23,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 import edu.tamu.scholars.middleware.auth.controller.request.Registration;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TemplateServiceTest {
 
     @TestConfiguration

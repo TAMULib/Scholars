@@ -159,6 +159,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .denyAll()
 
                 .antMatchers(GET,
+                        "/api/index.html",
                         "/registration",
                         "/themes/search/active",
                         "/concepts", "/concepts/{id}",

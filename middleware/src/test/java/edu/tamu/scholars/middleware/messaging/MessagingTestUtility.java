@@ -9,7 +9,6 @@ public class MessagingTestUtility {
 
     public static StompHeaderAccessor getMockStompHeaderAccessor(StompCommand command) {
         StompHeaderAccessor accessor = StompHeaderAccessor.create(command);
-
         accessor.setReceipt("receipt-0");
         accessor.setSubscriptionId("sub-0");
         accessor.setDestination("/queue/test");
