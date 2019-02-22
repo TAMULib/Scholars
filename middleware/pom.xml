@@ -410,21 +410,6 @@
               </resources>
             </configuration>
           </execution>
-          <execution>
-            <id>copy-adocs</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>src/main/resources/documentation</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${project.build.directory}/generated-snippets</directory>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
 
