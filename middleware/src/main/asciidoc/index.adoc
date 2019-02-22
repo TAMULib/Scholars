@@ -10,7 +10,13 @@
 :source-highlighter: highlightjs
 
 = Introduction
-
+Scholars@TAMU is a profile system that hosts searchable expertise for faculty and TAMU organizations by gathering data from institution-level/enterprise systems, publicly available research data (e.g., grants and publications), and other authoritative sources. +
+The data is compiled into a profile that you can edit to best represent your scholarship and expertise. +
+[%hardbreaks]
+This system helps to:
+Improve the discoverability of scholarly expertise, +
+Enhance the scholarly identity of researchers and +
+Facilitate new research collaborations.
 == Registration
 
 === Submit
