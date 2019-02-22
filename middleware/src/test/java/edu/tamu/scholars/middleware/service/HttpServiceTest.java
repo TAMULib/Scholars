@@ -25,15 +25,12 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import edu.tamu.scholars.middleware.service.request.HttpRequest;
 
-@ExtendWith(SpringExtension.class)
 public final class HttpServiceTest {
     private final static String MOCK_URL_VALID = "http://localhost:9100/mock";
     private final static String MOCK_URL_INVALID = "\\/\\/localhost@9100 /mock";
