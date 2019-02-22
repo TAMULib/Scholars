@@ -1,7 +1,6 @@
-= Scholars Middleware API Documentation
+= Scholars Middleware REST Service API Documentation
 :doctype: book
 :compat-mode:
-:page-layout!:
 :toc: left
 :toclevels: 2
 :sectanchors:
@@ -10,22 +9,222 @@
 :linkattrs:
 :source-highlighter: highlightjs
 
-= Sample API Documentation
+= Introduction
 
-== Introduction
+== Registration
 
+=== Submit
+
+=== Confirm
+
+=== Complete
+
+== Login
+
+== User
+
+== Administration
+
+=== Themes
+
+=== Users
+
+== Discovery
 
 == Concepts
 
+=== Page
 
-=== Get Concept By Id
+==== Request Parameters
+include::{snippets}/concepts/request-parameters.adoc[]
 
+==== Response Fields
+include::{snippets}/concepts/response-fields.adoc[]
 
 ==== Sample Request
-include::{snippets}/concepts/get-one/http-request.adoc[]
+include::{snippets}/concepts/http-request.adoc[]
 
 ==== Sample Response
-include::{snippets}/concepts/get-one/http-response.adoc[]
+include::{snippets}/concepts/http-response.adoc[]
 
-==== CURL sample
-include::{snippets}/concepts/get-one/curl-request.adoc[]
+==== CURL Sample
+include::{snippets}/concepts/curl-request.adoc[]
+
+=== Find By Id
+
+==== Path parameters
+include::{snippets}/concepts/find-by-id/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/concepts/find-by-id/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/concepts/find-by-id/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/concepts/find-by-id/curl-request.adoc[]
+
+== Documents
+
+=== Page
+
+==== Request Parameters
+include::{snippets}/documents/request-parameters.adoc[]
+
+==== Response Fields
+include::{snippets}/documents/response-fields.adoc[]
+
+==== Sample Request
+include::{snippets}/documents/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/documents/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/documents/curl-request.adoc[]
+
+=== Find By Id
+
+==== Path parameters
+include::{snippets}/documents/find-by-id/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/documents/find-by-id/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/documents/find-by-id/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/documents/find-by-id/curl-request.adoc[]
+
+== Organizations
+
+=== Page
+
+==== Request Parameters
+include::{snippets}/organizations/request-parameters.adoc[]
+
+==== Response Fields
+include::{snippets}/organizations/response-fields.adoc[]
+
+==== Sample Request
+include::{snippets}/organizations/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/organizations/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/organizations/curl-request.adoc[]
+
+=== Find By Id
+
+==== Path parameters
+include::{snippets}/organizations/find-by-id/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/organizations/find-by-id/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/organizations/find-by-id/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/organizations/find-by-id/curl-request.adoc[]
+
+== Persons
+
+=== Page
+
+==== Request Parameters
+include::{snippets}/persons/request-parameters.adoc[]
+
+==== Response Fields
+include::{snippets}/persons/response-fields.adoc[]
+
+==== Sample Request
+include::{snippets}/persons/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/persons/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/persons/curl-request.adoc[]
+
+=== Find By Id
+
+==== Path parameters
+include::{snippets}/persons/find-by-id/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/persons/find-by-id/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/persons/find-by-id/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/persons/find-by-id/curl-request.adoc[]
+
+== Processes
+
+=== Page
+
+==== Request Parameters
+include::{snippets}/processs/request-parameters.adoc[]
+
+==== Response Fields
+include::{snippets}/processs/response-fields.adoc[]
+
+==== Sample Request
+include::{snippets}/processs/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/processs/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/processs/curl-request.adoc[]
+
+=== Find By Id
+
+==== Path parameters
+include::{snippets}/processs/find-by-id/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/processs/find-by-id/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/processs/find-by-id/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/processs/find-by-id/curl-request.adoc[]
+
+== Relationships
+
+=== Page
+
+==== Request Parameters
+include::{snippets}/relationships/request-parameters.adoc[]
+
+==== Response Fields
+include::{snippets}/relationships/response-fields.adoc[]
+
+==== Sample Request
+include::{snippets}/relationships/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/relationships/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/relationships/curl-request.adoc[]
+
+=== Find By Id
+
+==== Path parameters
+include::{snippets}/relationships/find-by-id/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/relationships/find-by-id/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/relationships/find-by-id/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/relationships/find-by-id/curl-request.adoc[]

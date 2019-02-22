@@ -2,11 +2,17 @@ package edu.tamu.scholars.middleware.auth.controller;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON_UTF8_VALUE;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,14 +45,34 @@ public class UserControllerTest extends UserIntegrationTest {
     public void testGetUsers() throws Exception {
         User admin = createMockAdmin();
         // @formatter:off
-        mockMvc.perform(get("/users").cookie(login(admin)))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("page.size", equalTo(20)))
-            .andExpect(jsonPath("page.totalElements", equalTo(1)))
-            .andExpect(jsonPath("page.totalPages", equalTo(1)))
-            .andExpect(jsonPath("page.number", equalTo(0)))
-            .andDo(document("users/page"));
+        mockMvc.perform(
+            get("/users").param("page", "0").param("size", "20").param("sort", "id")
+                .cookie(login(admin)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+                    .andExpect(jsonPath("page.size", equalTo(20)))
+                    .andExpect(jsonPath("page.totalElements", equalTo(1)))
+                    .andExpect(jsonPath("page.totalPages", equalTo(1)))
+                    .andExpect(jsonPath("page.number", equalTo(0)))
+                    .andDo(
+                        document(
+                            "users",
+                            requestParameters(
+                                parameterWithName("page").description("The page number"),
+                                parameterWithName("size").description("The page size"),
+                                parameterWithName("sort").description("The page sort")
+                            ),
+                            links(
+                                linkWithRel("self").description("Canonical link for this resource"),
+                                linkWithRel("profile").description("The ALPS profile for this resource")
+                            ),
+                            responseFields(
+                                subsectionWithPath("_embedded.users").description("An array of <<resources-user, User resources>>"),
+                                subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources"),
+                                subsectionWithPath("page").description("Page details for <<resources-user, User resources>>")
+                            )
+                        )
+                    );
         // @formatter:on
     }
 
