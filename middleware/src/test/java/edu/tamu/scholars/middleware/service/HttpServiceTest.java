@@ -25,12 +25,17 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import edu.tamu.scholars.middleware.service.request.HttpRequest;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public final class HttpServiceTest {
     private final static String MOCK_URL_VALID = "http://localhost:9100/mock";
     private final static String MOCK_URL_INVALID = "\\/\\/localhost@9100 /mock";
@@ -52,8 +57,6 @@ public final class HttpServiceTest {
 
     @BeforeEach
     public void beforeEach() throws ClientProtocolException, IOException {
-        MockitoAnnotations.initMocks(this);
-
         service = new HttpService();
 
         mockRequest = new HttpRequest();
