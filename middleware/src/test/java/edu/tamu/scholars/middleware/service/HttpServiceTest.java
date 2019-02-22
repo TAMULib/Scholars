@@ -27,23 +27,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import edu.tamu.scholars.middleware.service.request.HttpRequest;
 
-@ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
+@ExtendWith(SpringExtension.class)
 public final class HttpServiceTest {
+
     private final static String MOCK_URL_VALID = "http://localhost:9100/mock";
     private final static String MOCK_URL_INVALID = "\\/\\/localhost@9100 /mock";
     private final static String MOCK_RESPONSE_CONTENT = "mock content";
     private final static String MOCK_RESPONSE_CONTENT_NORMALIZATION = "\u2013mock norm\u0308\u0041\u0301lization\u2014";
 
-    private final static List<NameValuePair> mockParameters = new ArrayList<NameValuePair>();
     private final static List<Header> mockHeaders = new ArrayList<Header>();
+    private final static List<NameValuePair> mockParameters = new ArrayList<NameValuePair>();
 
     private HttpService service;
 
@@ -113,4 +111,5 @@ public final class HttpServiceTest {
         when(statusLine.getStatusCode()).thenReturn(code);
         when(mockHttpEntity.getContent()).thenReturn(inputStream);
     }
+
 }
