@@ -5,9 +5,10 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
+import edu.tamu.scholars.middleware.discovery.model.repo.custom.SolrDocumentRepoCustom;
 
 @NoRepositoryBean
-public interface SolrDocumentRepo<D extends AbstractSolrDocument> extends SolrCrudRepository<D, String> {
+public interface SolrDocumentRepo<D extends AbstractSolrDocument> extends SolrCrudRepository<D, String>, SolrDocumentRepoCustom<D> {
 
     @Override
     @RestResource(exported = false)

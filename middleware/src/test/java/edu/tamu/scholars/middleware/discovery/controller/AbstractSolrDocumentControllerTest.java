@@ -42,7 +42,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
     private MockMvc mockMvc;
 
     @Test
-    public void testGetDocumentsPage() throws Exception {
+    public void testGetSolrDocumentsPage() throws Exception {
         createDocuments();
         // @formatter:off
         mockMvc.perform(
@@ -63,7 +63,8 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                         ),
                         links(
                             linkWithRel("self").description("Canonical link for this resource"),
-                            linkWithRel("profile").description("The ALPS profile for this resource")
+                            linkWithRel("profile").description("The ALPS profile for this resource"),
+                            linkWithRel("search").description("Search link for this resource")
                         ),
                         responseFields(
                             subsectionWithPath("_embedded." + getPath().substring(1)).description(String.format("An array of <<resources-%s, %s resources>>", getPath().substring(1, getPath().length() - 1), getType().getSimpleName())),
@@ -76,7 +77,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
     }
 
     @Test
-    public void testGetDocument() throws Exception {
+    public void testGetSolrDocument() throws Exception {
         createDocuments();
         for (D mockDocument : mockDocuments) {
             // @formatter:off
@@ -97,25 +98,25 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testPostDocument() throws Exception {
+    public void testPostSolrDocument() throws Exception {
         mockMvc.perform(post(getPath()).content("{}")).andExpect(status().isMethodNotAllowed());
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testPutDocument() throws Exception {
+    public void testPutSolrDocument() throws Exception {
         mockMvc.perform(put(getPath() + "/" + mockDocuments.get(0).getId()).content("{}")).andExpect(status().isMethodNotAllowed());
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testPatchDocument() throws Exception {
+    public void testPatchSolrDocument() throws Exception {
         mockMvc.perform(put(getPath() + "/" + mockDocuments.get(0).getId()).content("{}")).andExpect(status().isMethodNotAllowed());
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testDeleteDocument() throws Exception {
+    public void testDeleteSolrDocument() throws Exception {
         mockMvc.perform(delete(getPath() + "/" + mockDocuments.get(0).getId())).andExpect(status().isMethodNotAllowed());
     }
 
