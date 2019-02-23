@@ -19,15 +19,42 @@ This system helps to: +
 - Facilitate new research collaborations.
 [%hardbreaks]
 == Registration
-
+This feature allows a scholar/expertise to update his/her profile in the VIVO system. +
+====
+.The following fields are present in the registration form : +
+- Add Authors' ID +
+- Create or connect your ORCID iD +
+- Upload your CV, as a PDF, TXT, or MS Word file +
+- First Name: (required) +
+- Middle Name: +
+- Last Name: (required) +
+- ORCiD: +
+- Preferred Title: +
+- TAMU Current Positions  +
+- Research Overview: +
+- Research Areas +
+- Portrait +
+- Upload your grey literature +
+- TAMU HR Email +
+- Phone +
+- Website +
+- Authors' ID +
+- Mailing Address +
+====
+[%hardbreaks]
 === Submit
 
+[%hardbreaks]
 === Confirm
-
+[%hardbreaks]
 === Complete
-
+[%hardbreaks]
 == Login
-
+----
+`*<host>*`:9000/vivo/login
+----
+This endpoint enables the admin to login.
+[%hardbreaks]
 == User
 
 == Administration
