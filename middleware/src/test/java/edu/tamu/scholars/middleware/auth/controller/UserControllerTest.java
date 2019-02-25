@@ -85,7 +85,24 @@ public class UserControllerTest extends UserIntegrationTest {
             .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
             .andExpect(jsonPath("active", equalTo(false)))
             .andExpect(jsonPath("role", equalTo("ROLE_USER")))
-            .andDo(document("users/patch"));
+            .andDo(
+                document(
+                    "users/patch",
+                    links(
+                        linkWithRel("self").description("Canonical link for this resource"),
+                        linkWithRel("user").description("Canonical link for the referenced user")
+                    ),
+                    responseFields(
+                        subsectionWithPath("firstName").description("The first name of the user"),
+                        subsectionWithPath("lastName").description("The last name of the user"),
+                        subsectionWithPath("email").description("The e-mail address of the user"),
+                        subsectionWithPath("role").description("The authorization role of the user"),
+                        subsectionWithPath("active").description(""),
+                        subsectionWithPath("enabled").description("A boolean representing the locked/unlocked status of the user"),
+                        subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources")
+                    )
+                )
+            );
         // @formatter:on
     }
 
