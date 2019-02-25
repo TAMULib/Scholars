@@ -22,24 +22,9 @@ This system helps to: +
 This feature allows a scholar/expertise to update his/her profile in the VIVO system. +
 ====
 .The following fields are present in the registration form : +
-- Add Authors' ID +
-- Create or connect your ORCID iD +
-- Upload your CV, as a PDF, TXT, or MS Word file +
 - First Name: (required) +
-- Middle Name: +
 - Last Name: (required) +
-- ORCiD: +
-- Preferred Title: +
-- TAMU Current Positions  +
-- Research Overview: +
-- Research Areas +
-- Portrait +
-- Upload your grey literature +
-- TAMU HR Email +
-- Phone +
-- Website +
-- Authors' ID +
-- Mailing Address +
+- Email (required) +
 ====
 [%hardbreaks]
 === Submit
@@ -63,6 +48,29 @@ This endpoint enables the admin to login.
 
 === Users
 
+==== Patch
+This partially updates a specific user account. This requires a URL path argument that represents the User Id.
+
+===== Request Body
+include::{snippets}/users/patch/request-body.adoc[]
+
+===== Response Fields
+include::{snippets}/users/patch/response-fields.adoc[]
+
+===== Response Body
+include::{snippets}/users/patch/response-body.adoc[]
+
+==== Sample Request
+include::{snippets}/users/patch/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/users/patch/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/users/patch/curl-request.adoc[]
+
+
+[%hardbreaks]
 == Discovery
 
 == Concepts
