@@ -7,7 +7,7 @@ import edu.tamu.scholars.middleware.auth.model.repo.handler.UserEventHandler;
 import edu.tamu.scholars.middleware.theme.model.repo.handler.ThemeEventHandler;
 
 @Configuration
-public class RepositoryConfig {
+public class RepositoryEventHandlerConfig {
 
     @Bean
     public ThemeEventHandler themeEventHandler() {

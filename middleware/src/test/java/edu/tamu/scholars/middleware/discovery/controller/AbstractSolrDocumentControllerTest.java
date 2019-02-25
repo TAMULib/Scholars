@@ -69,7 +69,44 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                         responseFields(
                             subsectionWithPath("_embedded." + getPath().substring(1)).description(String.format("An array of <<resources-%s, %s resources>>", getPath().substring(1, getPath().length() - 1), getType().getSimpleName())),
                             subsectionWithPath("_links").description(String.format("<<resources-%s-list-links, Links>> to other resources", getPath().substring(1, getPath().length() - 1))),
-                            subsectionWithPath("page").description(String.format("Page details for <<resources-%s, %s resources>>", getPath().substring(1, getPath().length() - 1), getType().getSimpleName()))
+                            subsectionWithPath("page").description(String.format("Page details for <<resources-%s, %s resources>>", getPath().substring(1, getPath().length() - 1), getType().getSimpleName())),
+                            subsectionWithPath("facets").description(String.format("Facets for <<resources-%s, %s resources>>", getPath().substring(1, getPath().length() - 1), getType().getSimpleName()))
+                        )
+                    )
+                );
+        // @formatter:on
+    }
+
+    @Test
+    public void testSearchSolrDocumentsFacetPage() throws Exception {
+        createDocuments();
+        // @formatter:off
+        mockMvc.perform(
+            get(getPath() + "/search/facet").param("query", "*").param("fields", "type").param("page", "0").param("size", "20").param("sort", "id"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("page.size", equalTo(20)))
+                .andExpect(jsonPath("page.totalElements", equalTo(mockDocuments.size())))
+                .andExpect(jsonPath("page.totalPages", equalTo(1)))
+                .andExpect(jsonPath("page.number", equalTo(0)))
+                .andDo(
+                    document(
+                        getPath().substring(1) + "/search",
+                        requestParameters(
+                            parameterWithName("query").description("The search query"),
+                            parameterWithName("fields").description("The facet fields"),
+                            parameterWithName("page").description("The page number"),
+                            parameterWithName("size").description("The page size"),
+                            parameterWithName("sort").description("The page sort [field,asc/desc]")
+                        ),
+                        links(
+                            linkWithRel("self").description("Canonical link for this resource")
+                        ),
+                        responseFields(
+                            subsectionWithPath("_embedded." + getPath().substring(1)).description(String.format("An array of <<resources-%s, %s resources>>", getPath().substring(1, getPath().length() - 1), getType().getSimpleName())),
+                            subsectionWithPath("_links").description(String.format("<<resources-%s-list-links, Links>> to other resources", getPath().substring(1, getPath().length() - 1))),
+                            subsectionWithPath("page").description(String.format("Page details for <<resources-%s, %s resources>>", getPath().substring(1, getPath().length() - 1), getType().getSimpleName())),
+                            subsectionWithPath("facets").description(String.format("Facets for <<resources-%s, %s resources>>", getPath().substring(1, getPath().length() - 1), getType().getSimpleName()))
                         )
                     )
                 );

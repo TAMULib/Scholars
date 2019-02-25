@@ -1,12 +1,8 @@
 package edu.tamu.scholars.middleware.discovery.model.repo.impl;
 
-import java.lang.reflect.Field;
-
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.SolrTemplate;
-import org.springframework.data.solr.core.mapping.Indexed;
 import org.springframework.data.solr.core.query.Criteria;
 import org.springframework.data.solr.core.query.FacetOptions;
 import org.springframework.data.solr.core.query.FacetQuery;
@@ -25,18 +21,8 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
     @Override
     public FacetPage<D> search(String query, String[] fields, Pageable page) {
         FacetQuery facetQuery = new SimpleFacetQuery();
-        Criteria criteria = new Criteria();
-        if (query != null) {
-            criteria = new Criteria();
-            for (Field field : FieldUtils.getFieldsWithAnnotation(type(), Indexed.class)) {
-                Indexed indexed = field.getAnnotation(Indexed.class);
-                if (indexed.type().equals("string") || (indexed.type().isEmpty() && String.class.isAssignableFrom(field.getType()))) {
-                    criteria = criteria.or(new Criteria(field.getName()).contains(query));
-                }
-            }
-        } else {
-            criteria = new Criteria(Criteria.WILDCARD).expression(Criteria.WILDCARD);
-        }
+        // TODO: implement search query
+        Criteria criteria = new Criteria(Criteria.WILDCARD).expression(Criteria.WILDCARD);
         facetQuery.addCriteria(criteria);
         if (fields != null) {
             facetQuery.setFacetOptions(new FacetOptions(fields));
