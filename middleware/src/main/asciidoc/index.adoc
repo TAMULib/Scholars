@@ -51,14 +51,8 @@ This endpoint enables the admin to login.
 ==== Patch
 This partially updates a specific user account. This requires a URL path argument that represents the User Id.
 
-===== Request Body
-include::{snippets}/users/patch/request-body.adoc[]
-
 ===== Response Fields
 include::{snippets}/users/patch/response-fields.adoc[]
-
-===== Response Body
-include::{snippets}/users/patch/response-body.adoc[]
 
 ==== Sample Request
 include::{snippets}/users/patch/http-request.adoc[]
