@@ -97,8 +97,8 @@ public class UserControllerTest extends UserIntegrationTest {
                         subsectionWithPath("lastName").description("The last name of the user"),
                         subsectionWithPath("email").description("The e-mail address of the user"),
                         subsectionWithPath("role").description("The authorization role of the user"),
-                        subsectionWithPath("active").description(""),
-                        subsectionWithPath("enabled").description("A boolean representing the locked/unlocked status of the user"),
+                        subsectionWithPath("active").description("The expired/unexpired status of the user"),
+                        subsectionWithPath("enabled").description("The locked/unlocked status of the user"),
                         subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources")
                     )
                 )
