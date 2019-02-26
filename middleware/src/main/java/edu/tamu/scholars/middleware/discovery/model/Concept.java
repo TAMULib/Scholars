@@ -22,7 +22,7 @@ public class Concept extends AbstractSolrDocument {
     private String name;
 
     @Indexed
-    @PropertySource(template = "concept/type", key = "concept.type")
+    @PropertySource(template = "concept/type", key = "concept.type", parse = true)
     private List<String> type;
 
     @Indexed
