@@ -76,7 +76,7 @@ spring:
       exclude: src/main/resources,target
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2console
   datasource:
     driverClassName: org.h2.Driver
