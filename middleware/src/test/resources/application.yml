@@ -57,7 +57,7 @@ server:
 spring:
   data:
     rest:
-      authorize-hal-browser: true
+      authorize-hal-browser: false
       return-body-on-create: true
       return-body-on-update: true
   main:

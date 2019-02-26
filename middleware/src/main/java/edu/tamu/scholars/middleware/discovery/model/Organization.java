@@ -22,7 +22,7 @@ public class Organization extends AbstractSolrDocument {
     private String name;
 
     @Indexed
-    @PropertySource(template = "organization/type", key = "organization.type")
+    @PropertySource(template = "organization/type", key = "organization.type", parse = true)
     private List<String> type;
 
     @Indexed
