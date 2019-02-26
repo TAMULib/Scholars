@@ -1,0 +1,10 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?specifiedOutputOf vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> obo:OBI_0000312 ?specifiedOutputOf .
+    ?specifiedOutputOf vitro:mostSpecificType ?mostSpecificType .
+}

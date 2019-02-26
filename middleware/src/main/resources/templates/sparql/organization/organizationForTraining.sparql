@@ -1,0 +1,9 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?educationalProcess vivo:majorField ?major .
+} WHERE {
+    <[(${uri})]> obo:RO_0000056 ?educationalProcess .
+    ?educationalProcess vivo:majorField ?major .
+}

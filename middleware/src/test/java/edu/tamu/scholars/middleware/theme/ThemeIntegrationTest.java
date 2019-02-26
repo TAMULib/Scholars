@@ -3,7 +3,7 @@ package edu.tamu.scholars.middleware.theme;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.tamu.scholars.middleware.auth.UserIntegrationTest;
@@ -126,7 +126,7 @@ public abstract class ThemeIntegrationTest extends UserIntegrationTest {
         return theme;
     }
 
-    @After
+    @AfterEach
     public void deleteAllThemes() {
         themeRepo.deleteAll();
     }

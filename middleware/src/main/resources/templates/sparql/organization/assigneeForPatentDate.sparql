@@ -1,0 +1,10 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?patent vivo:dateTime ?dateTime .
+} WHERE {
+    <[(${uri})]> vivo:assigneeFor ?patent .
+    ?patent vivo:dateTimeValue ?date .
+    ?date vivo:dateTime ?dateTime .
+}

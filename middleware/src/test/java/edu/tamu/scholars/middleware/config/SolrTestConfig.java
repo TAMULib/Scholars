@@ -10,7 +10,7 @@ import org.springframework.data.solr.server.support.EmbeddedSolrServerFactoryBea
 
 @Configuration
 @Profile("test")
-@EnableSolrRepositories(basePackages = { "edu.tamu.scholars.middleware.discovery" }, schemaCreationSupport = true)
+@EnableSolrRepositories(basePackages = "edu.tamu.scholars.middleware.discovery", schemaCreationSupport = true)
 public class SolrTestConfig {
 
     @Bean

@@ -1,0 +1,9 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+CONSTRUCT {
+    ?outputOfProcessOrEvent vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> obo:RO_0002353 ?outputOfProcessOrEvent .
+    ?outputOfProcessOrEvent vitro:mostSpecificType ?mostSpecificType .
+}

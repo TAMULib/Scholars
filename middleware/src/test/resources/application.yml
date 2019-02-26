@@ -17,7 +17,7 @@ middleware:
     time-to-live: 60000
     request-timeout: 30000
     socket-timeout: 60000
-  harvest:
+  index:
     fixedDelay: 86400000
     initialDelay: 5000
 
@@ -26,11 +26,17 @@ ui:
 
 vivo:
   email: vivo_root@school.edu
-  password: rootPassword
+  password:
   base-url: http://localhost:8080/vivo
   linked-open-data-endpoint: /individual
   list-rdf-endpoint: /listrdf
   sparql-query-endpoint: /api/sparqlQuery
+  triplestore:
+    type: TDB
+    directory:
+    datasourceUrl: jdbc:mysql://localhost/vivo
+    username:
+    password:
 
 logging:
   file: scholars.log
@@ -51,7 +57,7 @@ server:
 spring:
   data:
     rest:
-      authorize-hal-browser: true
+      authorize-hal-browser: false
       return-body-on-create: true
       return-body-on-update: true
   main:
@@ -83,6 +89,7 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
+        show_sql: false
     show-sql: false
   mail:
     host: smtp.gmail.com
@@ -100,7 +107,7 @@ spring:
             required: true
   profiles:
     active: test
-    include: person,publication,organization
+    include: organization,person,document,concept,relationship,process
   session:
     store-type: jdbc
     jdbc:

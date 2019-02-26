@@ -117,18 +117,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         if(authorizeHalBrowser()) {
-            // NOTE: localhost has full access for HAL browser
+            // NOTE: permit all access for HAL browser
             http
                 .authorizeRequests()
                     .antMatchers("/**")
-                        .access("hasIpAddress('127.0.0.1') OR hasIpAddress('0:0:0:0:0:0:0:1')");
+                        .permitAll();
         }
         if(enableH2Console()) {
-            // NOTE: localhost has full access to h2console
+            // NOTE: permit all access to h2console
             http
                 .authorizeRequests()
                     .antMatchers("/h2console/**")
-                        .access("hasIpAddress('127.0.0.1') OR hasIpAddress('0:0:0:0:0:0:0:1')")
+                        .permitAll()
                 .and()
                     .headers()
                         .frameOptions()
@@ -159,11 +159,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .denyAll()
 
                 .antMatchers(GET,
+                        "/api",
                         "/registration",
                         "/themes/search/active",
-                        "/persons", "/persons/{id}",
-                        "/publications", "/publications/{id}",
-                        "/organizations", "/organizations/{id}"
+                        "/concepts", "/concepts/search/facet", "/concepts/{id}",
+                        "/documents", "/documents/search/facet", "/documents/{id}",
+                        "/organizations", "/organizations/search/facet", "/organizations/{id}",
+                        "/persons", "/persons/search/facet", "/persons/{id}",
+                        "/processes", "/processes/search/facet", "/processes/{id}",
+                        "/relationships", "/relationships/search/facet", "/relationships/{id}"
                     )
                     .permitAll()
                 .antMatchers(GET, "/users", "/users/{id}", "/themes", "/themes/{id}")

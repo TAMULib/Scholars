@@ -1,0 +1,7 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    <[(${uri})]> vivo:freetextKeyword ?freetextKeyword .
+} WHERE {
+    <[(${uri})]> vivo:freetextKeyword ?freetextKeyword .
+}

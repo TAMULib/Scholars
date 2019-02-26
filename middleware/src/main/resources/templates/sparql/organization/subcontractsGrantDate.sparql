@@ -1,0 +1,11 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?grant vivo:dateTime ?dateTime .
+} WHERE {
+    <[(${uri})]> vivo:subcontractsGrant ?grant .
+    ?grant a vivo:Grant .
+    ?grant vivo:dateTimeInterval ?dateTimeInterval .
+    ?dateTimeInterval vivo:start ?date .
+    ?date vivo:dateTime ?dateTime .
+}

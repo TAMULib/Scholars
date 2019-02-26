@@ -1,0 +1,9 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?specifiedOutputOf rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> obo:OBI_0000312 ?specifiedOutputOf .
+    ?specifiedOutputOf rdfs:label ?label .
+}

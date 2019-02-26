@@ -1,0 +1,7 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    <[(${uri})]> vivo:placeOfPublication ?placeOfPublication .
+} WHERE {
+    <[(${uri})]> vivo:placeOfPublication ?placeOfPublication .
+}

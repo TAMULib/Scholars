@@ -1,0 +1,16 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ 
+CONSTRUCT {
+    ?person rdfs:label ?title .
+} WHERE {
+    <[(${uri})]> obo:RO_0000053 ?role .
+    ?role a vivo:TeacherRole .
+    ?role obo:BFO_0000054 ?course .
+    ?course obo:BFO_0000055 ?person .
+    ?person vitro:mostSpecificType ?type .
+    ?person rdfs:label ?title .
+    FILTER(?type = vivo:TeacherRole)
+}

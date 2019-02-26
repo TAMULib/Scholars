@@ -5,6 +5,16 @@
     "description": "A description for 'ui.url'"
   },
   {
+    "name": "middleware.index.fixedDelay",
+    "type": "java.lang.Integer",
+    "description": "A description for 'middleware.index.fixedDelay'"
+  },
+  {
+    "name": "middleware.index.initialDelay",
+    "type": "java.lang.Integer",
+    "description": "A description for 'middleware.index.initialDelay'"
+  },
+  {
     "name": "spring.data.rest.authorize-hal-browser",
     "type": "java.lang.Boolean",
     "description": "A description for 'spring.data.rest.authorize-hal-browser'"

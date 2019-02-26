@@ -1,0 +1,10 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?degree rdfs:label ?name .
+} WHERE {
+    <[(${uri})]> vivo:offers ?degree .
+    ?degree a vivo:AcademicDegree .
+    ?degree rdfs:label ?name .
+}

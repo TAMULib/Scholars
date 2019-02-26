@@ -1,0 +1,12 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+CONSTRUCT {
+    ?publication vitro:mostSpecificType ?type .
+} WHERE {
+    <[(${uri})]> vivo:publisherOf ?publication .
+    ?publication a obo:IAO_0000030 .
+    ?publication vitro:mostSpecificType ?type .
+    FILTER (?type != vivo:DateTimeValue)
+}

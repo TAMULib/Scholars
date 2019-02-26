@@ -1,0 +1,11 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?facility rdfs:label ?name .
+} WHERE {
+    <[(${uri})]> obo:RO_0001025  ?facility .
+    ?facility a vivo:Facility .
+    ?facility rdfs:label ?name .
+}

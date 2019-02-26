@@ -1,0 +1,9 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ 
+CONSTRUCT {
+    ?document rdfs:label ?name .
+} WHERE {
+    <[(${uri})]> vivo:translatorOf ?document .
+    ?document rdfs:label ?name .
+}

@@ -1,0 +1,10 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?role rdfs:label ?position .
+} WHERE {
+    <[(${uri})]> obo:BFO_0000055 ?role .
+    ?role a obo:BFO_0000017 .
+    ?role rdfs:label ?position .
+}

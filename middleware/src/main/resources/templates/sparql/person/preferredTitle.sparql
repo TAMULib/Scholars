@@ -1,0 +1,10 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+
+CONSTRUCT {
+    ?hasTitle vcard:title ?title  .
+} WHERE {
+    <[(${uri})]> obo:ARG_2000028 ?vcard .
+    ?vcard vcard:hasTitle ?hasTitle .
+    ?hasTitle vcard:title ?title  .
+}

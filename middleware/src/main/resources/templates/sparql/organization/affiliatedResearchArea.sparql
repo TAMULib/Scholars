@@ -1,0 +1,14 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?researchArea rdfs:label ?label .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?position .
+    ?position a vivo:Position .
+    ?position vivo:relatedBy ?person .
+    ?person a foaf:Person .
+    ?person vivo:hasResearchArea ?researchArea .
+    ?researchArea rdfs:label ?label .
+}

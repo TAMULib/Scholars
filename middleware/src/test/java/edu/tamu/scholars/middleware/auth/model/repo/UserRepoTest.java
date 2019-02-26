@@ -1,20 +1,20 @@
 package edu.tamu.scholars.middleware.auth.model.repo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import edu.tamu.scholars.middleware.auth.UserIntegrationTest;
 import edu.tamu.scholars.middleware.auth.model.Role;
@@ -22,7 +22,7 @@ import edu.tamu.scholars.middleware.auth.model.User;
 import edu.tamu.scholars.middleware.config.MiddlewareConfig;
 
 @DataJpaTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class UserRepoTest extends UserIntegrationTest {
 
     @TestConfiguration

@@ -1,0 +1,7 @@
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+
+CONSTRUCT {
+    <[(${uri})]> bibo:eanucc13 ?eanucc13 .
+} WHERE {
+    <[(${uri})]> bibo:eanucc13 ?eanucc13 .
+}

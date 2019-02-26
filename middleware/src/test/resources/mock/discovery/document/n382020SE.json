@@ -1,0 +1,25 @@
+{
+  "id": "n382020SE",
+  "title": "Integration of pressure transient data into reservoir models using the Fast Marching Method",
+  "type": [
+    "ConferencePaper"
+  ],
+  "author": [
+    "King, Michael"
+  ],
+  "authorType": [
+    "FacultyMember"
+  ],
+  "authorId": [
+    "n4154b894"
+  ],
+  "authorList": [
+    "Li, C., & King, M."
+  ],
+  "publicationDate": [
+    "Thu Dec 31 18:00:00 CST 2015"
+  ],
+  "identifier": "382020SE",
+  "isbn13": "9789462821859",
+  "abstract": "In this study, we utilize the concept of the 'diffusive time of flight' (DTOF) to formulate an asymptotic solution of the diffusivity equation that describes transient flow behavior in petroleum reservoirs. The DTOF is obtained from the solution of the Eikonal equation via the Fast Marching Method. It may be used as a spatial coordinate which reduces the three dimensional diffusivity equation to an equivalent one dimensional formulation. We investigate the 'pressure front' propagation and the drainage volume evolution as a function of time in terms of the DTOF. The drainage volume may be directly related to the well test derivative which may be used in an inversion calculation to calibrate reservoir model parameters. The analytic sensitivity coefficients of well test derivative with respect to reservoir properties are derived and incorporated into the objective function to perform inverse modeling. The key to formulating the sensitivity coefficients is to utilize the functional derivative of the Eikonal equation to derive the analytic sensitivity of the DTOF to reservoir permeability and porosity. Its solution is implemented by differentiating the local solver within the Fast Marching Method (FMM). The major advantage of formulating sensitivity coefficients using the FMM is its great computational efficiency while inversion is conducted. Unlike the traditional means of estimating bulk reservoir permeability by interpreting the diagnostic plot of the well pressure and production data, the methodology adopted in this inverse modeling study can help generate more accurate spatial distributions of permeability through integration with a prior geologic model. Sensitivity studies are performed on synthetic permeability and porosity fields to analyze magnitudes of response in space and time to the well production. By taking sufficient a priori information into account, the permeability distribution after inversion matches well with reference reservoir model properties. Integration of the well test data into the subsurface using the FMM demonstrates that our proposed inverse modeling approach can predict pressure depletion behavior in the petroleum reservoir, while remaining consistent with a prior geologic static model."
+}

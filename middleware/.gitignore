@@ -30,6 +30,3 @@
 *.trace.db
 
 *.log*
-
-src/main/asciidoc/*
-!src/main/asciidoc/.gitkeep

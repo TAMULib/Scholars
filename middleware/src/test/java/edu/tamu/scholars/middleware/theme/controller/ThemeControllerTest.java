@@ -1,14 +1,22 @@
 package edu.tamu.scholars.middleware.theme.controller;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON_UTF8_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,12 +26,14 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -37,7 +47,8 @@ import edu.tamu.scholars.middleware.theme.model.Theme;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@RunWith(SpringRunner.class)
+@AutoConfigureRestDocs
+@ExtendWith(SpringExtension.class)
 public class ThemeControllerTest extends ThemeIntegrationTest {
 
     @Autowired
@@ -52,7 +63,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
         Theme theme = getMockTheme();
         // @formatter:off
 		mockMvc.perform(post("/themes")
-	        .content(objectMapper.writeValueAsString(theme)).cookie(loginAdmin()))
+	        .content(objectMapper.writeValueAsString(theme)).contentType(MediaType.APPLICATION_JSON).cookie(loginAdmin()))
 				.andExpect(status().isCreated())
 				.andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
 				.andExpect(jsonPath("active", equalTo(false)))
@@ -104,7 +115,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
 				.andExpect(jsonPath("variables[1].key", equalTo("--navigation-color")))
 				.andExpect(jsonPath("variables[1].value", equalTo("#3c0000")))
 				.andExpect(jsonPath("variables[2].key", equalTo("--navbar-color")))
-				.andExpect(jsonPath("variables[2].value", equalTo("#ffffff")));
+				.andExpect(jsonPath("variables[2].value", equalTo("#ffffff")))
+	            .andDo(document("themes/create"));
 		// @formatter:on
     }
 
@@ -116,7 +128,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
         theme.setOrganization("Testing Limited");
         theme.getHeader().getBanner().setAltText("Tested");
         // @formatter:off
-		mockMvc.perform(put("/themes/" + theme.getId())
+		mockMvc.perform(put("/themes/{id}", theme.getId())
 	        .content(objectMapper.writeValueAsString(theme))
 	        .cookie(loginAdmin()))
 				.andExpect(status().isOk())
@@ -124,7 +136,15 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
 				.andExpect(jsonPath("active", equalTo(true)))
 				.andExpect(jsonPath("name", equalTo("Test")))
 				.andExpect(jsonPath("organization", equalTo("Testing Limited")))
-				.andExpect(jsonPath("header.banner.altText", equalTo("Tested")));
+				.andExpect(jsonPath("header.banner.altText", equalTo("Tested")))
+                .andDo(
+                    document(
+                        "themes/update",
+                        pathParameters(
+                            parameterWithName("id").description("The Theme id")
+                        )
+                    )
+                );
 		// @formatter:on
     }
 
@@ -133,7 +153,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
         testCreateTheme();
         Theme theme = themeRepo.findByName("Test").get();
         // @formatter:off
-		mockMvc.perform(patch("/themes/" + theme.getId())
+		mockMvc.perform(patch("/themes/{id}", theme.getId())
 	        .content("{\"active\": true, \"header\": { \"navbar\": { \"brandText\": \"Hello, Scholars!\"}}}")
 			.cookie(loginAdmin()))
 		        .andExpect(status().isOk())
@@ -141,7 +161,15 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     			.andExpect(jsonPath("active", equalTo(true)))
     			.andExpect(jsonPath("name", equalTo("Test")))
     			.andExpect(jsonPath("organization", equalTo("Testing Unlimited")))
-    			.andExpect(jsonPath("header.navbar.brandText", equalTo("Hello, Scholars!")));
+    			.andExpect(jsonPath("header.navbar.brandText", equalTo("Hello, Scholars!")))
+    			.andDo(
+                    document(
+                        "themes/delete",
+                        pathParameters(
+                            parameterWithName("id").description("The Theme id")
+                        )
+                    )
+                );
 		// @formatter:on
     }
 
@@ -225,12 +253,20 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
         testCreateTheme();
         Theme theme = themeRepo.findByName("Test").get();
         // @formatter:off
-		mockMvc.perform(get("/themes/" + theme.getId())
+		mockMvc.perform(get("/themes/{id}", theme.getId())
 	        .cookie(loginAdmin()))
     		    .andExpect(status().isOk())
     			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE)).andExpect(jsonPath("active", equalTo(false)))
     			.andExpect(jsonPath("name", equalTo("Test")))
-    			.andExpect(jsonPath("organization", equalTo("Testing Unlimited")));
+    			.andExpect(jsonPath("organization", equalTo("Testing Unlimited")))
+    			.andDo(
+                    document(
+                        "themes/find-by-id",
+                        pathParameters(
+                            parameterWithName("id").description("The Theme id")
+                        )
+                    )
+                );
 		// @formatter:on
     }
 
@@ -238,7 +274,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     public void testGetThemes() throws JsonProcessingException, Exception {
         testCreateTheme();
         // @formatter:off
-		mockMvc.perform(get("/themes")
+		mockMvc.perform(
+	        get("/themes").param("page", "0").param("size", "20").param("sort", "name")
 	        .cookie(loginAdmin()))
     		    .andExpect(status().isOk())
     			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
@@ -295,7 +332,27 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     			.andExpect(jsonPath("_embedded.themes[0].variables[1].key", equalTo("--navigation-color")))
     			.andExpect(jsonPath("_embedded.themes[0].variables[1].value", equalTo("#3c0000")))
     			.andExpect(jsonPath("_embedded.themes[0].variables[2].key", equalTo("--navbar-color")))
-    			.andExpect(jsonPath("_embedded.themes[0].variables[2].value", equalTo("#ffffff")));
+    			.andExpect(jsonPath("_embedded.themes[0].variables[2].value", equalTo("#ffffff")))
+                .andDo(
+                    document(
+                        "themes",
+                        requestParameters(
+                            parameterWithName("page").description("The page number"),
+                            parameterWithName("size").description("The page size"),
+                            parameterWithName("sort").description("The page sort")
+                        ),
+                        links(
+                            linkWithRel("self").description("Canonical link for this resource"),
+                            linkWithRel("profile").description("The ALPS profile for this resource"),
+                            linkWithRel("search").description("Search link for this resource")
+                        ),
+                        responseFields(
+                            subsectionWithPath("_embedded.themes").description("An array of <<resources-theme, Theme resources>>"),
+                            subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources"),
+                            subsectionWithPath("page").description("Page details for <<resources-theme, Theme resources>>")
+                        )
+                    )
+                );
 		// @formatter:on
     }
 
@@ -308,7 +365,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
 			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
 			.andExpect(jsonPath("active", equalTo(true)))
 			.andExpect(jsonPath("name", equalTo("Test")))
-			.andExpect(jsonPath("organization", equalTo("Testing Limited")));
+			.andExpect(jsonPath("organization", equalTo("Testing Limited")))
+            .andDo(document("themes/active"));
 		// @formatter:on
     }
 
@@ -316,7 +374,18 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     public void testDeleteTheme() throws JsonProcessingException, Exception {
         testCreateTheme();
         Theme theme = themeRepo.findByName("Test").get();
-        mockMvc.perform(delete("/themes/" + theme.getId()).cookie(loginAdmin())).andExpect(status().isNoContent());
+        // @formatter:off
+        mockMvc.perform(delete("/themes/{id}", theme.getId()).cookie(loginAdmin()))
+            .andExpect(status().isNoContent())
+            .andDo(
+                document(
+                    "themes/delete",
+                    pathParameters(
+                        parameterWithName("id").description("The Theme id")
+                    )
+                )
+            );
+        // @formatter:on
     }
 
     @Test

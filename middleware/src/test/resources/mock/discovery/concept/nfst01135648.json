@@ -1,0 +1,28 @@
+{
+  "id": "nfst01135648",
+  "name": "Structural dynamics",
+  "type": [
+    "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "associatedDepartment": [
+    "Center for Intelligent Multifunctional Materials and Structures",
+    "Aerospace Engineering",
+    "Materials Science and Engineering"
+  ],
+  "associatedDepartmentId": [
+    "n2702d149",
+    "nc59ef216",
+    "n09ed9c6e"
+  ],
+  "researchAreaOf": [
+    "Benzerga, Amine"
+  ],
+  "researchAreaOfOrganization": [
+    "Center for Intelligent Multifunctional Materials and Structures",
+    "Aerospace Engineering",
+    "Materials Science and Engineering"
+  ],
+  "researchAreaOfId": [
+    "nf13b335b"
+  ]
+}

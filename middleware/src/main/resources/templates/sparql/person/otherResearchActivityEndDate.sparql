@@ -1,0 +1,16 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+CONSTRUCT {
+    ?date vivo:dateTime ?dateTime .
+} WHERE {
+    <[(${uri})]> obo:RO_0000053 ?role .
+    ?role a vivo:ResearcherRole .
+    ?role vitro:mostSpecificType ?type .
+    ?role vivo:dateTimeInterval ?dateTimeInterval .
+    ?dateTimeInterval vivo:end ?date .
+    ?date vivo:dateTime ?dateTime .
+    FILTER(?type = vivo:ResearcherRole)
+}

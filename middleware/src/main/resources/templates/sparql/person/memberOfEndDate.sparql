@@ -1,0 +1,12 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?date vivo:dateTime ?dateTime .
+} WHERE {
+    <[(${uri})]> obo:RO_0000053 ?role .
+    ?role a vivo:MemberRole .
+    ?role vivo:dateTimeInterval ?dateTimeInterval .
+    ?dateTimeInterval vivo:end ?date .
+    ?date vivo:dateTime ?dateTime .
+}

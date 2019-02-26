@@ -1,6 +1,6 @@
 package edu.tamu.scholars.middleware.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,11 +17,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import edu.tamu.scholars.middleware.config.MailConfig;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class EmailServiceTest {
 
     @TestConfiguration

@@ -1,0 +1,34 @@
+{
+  "id": "nfst00895050",
+  "name": "Discrimination in employment",
+  "type": [
+    "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "associatedDepartment": [
+    "Center for Sport Management Research and Education",
+    "School of Law",
+    "Health and Kinesiology"
+  ],
+  "associatedDepartmentId": [
+    "n51f47fb6",
+    "n52ff53af",
+    "n5f8cc79d"
+  ],
+  "researchAreaOf": [
+    "Green, Michael",
+    "Cunningham, George",
+    "Cunningham, George@en-US",
+    "Morrison, Angela"
+  ],
+  "researchAreaOfOrganization": [
+    "Center for Sport Management Research and Education",
+    "School of Law",
+    "Health and Kinesiology"
+  ],
+  "researchAreaOfId": [
+    "na80996b8",
+    "n73234984",
+    "n73234984",
+    "ne72b58ac"
+  ]
+}

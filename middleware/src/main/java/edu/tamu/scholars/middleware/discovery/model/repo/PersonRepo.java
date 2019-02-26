@@ -1,10 +1,10 @@
 package edu.tamu.scholars.middleware.discovery.model.repo;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import edu.tamu.scholars.middleware.discovery.model.Person;
 
-@Repository
+@RepositoryRestResource
 public interface PersonRepo extends SolrDocumentRepo<Person> {
 
 }

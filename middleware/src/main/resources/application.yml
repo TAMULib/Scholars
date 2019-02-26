@@ -17,7 +17,7 @@ middleware:
     time-to-live: 60000
     request-timeout: 30000
     socket-timeout: 60000
-  harvest:
+  index:
     fixedDelay: 86400000
     initialDelay: 2500
 
@@ -25,12 +25,18 @@ ui:
   url: http://localhost:4200
 
 vivo:
-  email: vivoadmin@library.tamu.edu
+  email: vivo_root@school.edu
   password:
   base-url: http://localhost:8080/vivo
   linked-open-data-endpoint: /individual
   list-rdf-endpoint: /listrdf
   sparql-query-endpoint: /api/sparqlQuery
+  triplestore:
+    type: TDB
+    directory:
+    datasourceUrl: jdbc:mysql://localhost/vivo
+    username:
+    password:
 
 logging:
   file: scholars.log
@@ -66,11 +72,11 @@ spring:
   devtools:
     add-properties: false
     restart:
-      enabled: true
+      enabled: false
       exclude: src/main/resources,target
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2console
   datasource:
     driverClassName: org.h2.Driver
@@ -89,6 +95,7 @@ spring:
         enable_lazy_load_no_trans: true
         hbm2ddl:
           import_files: import/import-themes.sql
+        show_sql: false
     show-sql: false
   mail:
     host: relay.tamu.edu
@@ -107,7 +114,7 @@ spring:
     #        required: true
   profiles:
     active: default
-    include: person,publication,organization
+    include: organization,person,document,concept,relationship,process
   session:
     store-type: jdbc
     jdbc:
