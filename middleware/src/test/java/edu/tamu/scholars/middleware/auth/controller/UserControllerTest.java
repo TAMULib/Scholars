@@ -184,7 +184,24 @@ public class UserControllerTest extends UserIntegrationTest {
         mockMvc.perform(get(String.format("/users/%s", admin.getId().toString())).cookie(login(admin)))
             .andExpect(status().isOk())
             .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
-            .andDo(document("users/find-by-id"));
+            .andDo(
+                document(
+                    "users/find-by-id",
+                    links(
+                        linkWithRel("self").description("Canonical link for this resource"),
+                        linkWithRel("user").description("Canonical link for the referenced user")
+                    ),
+                    responseFields(
+                        subsectionWithPath("firstName").description("The first name of the user"),
+                        subsectionWithPath("lastName").description("The last name of the user"),
+                        subsectionWithPath("email").description("The e-mail address of the user"),
+                        subsectionWithPath("role").description("The authorization role of the user"),
+                        subsectionWithPath("active").description("The expired/unexpired status of the user"),
+                        subsectionWithPath("enabled").description("The locked/unlocked status of the user"),
+                        subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources")
+                    )
+                )
+            );
         // @formatter:on
     }
 

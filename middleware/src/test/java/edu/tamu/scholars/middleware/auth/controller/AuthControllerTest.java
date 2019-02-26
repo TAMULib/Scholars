@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,7 +51,20 @@ public class AuthControllerTest extends UserIntegrationTest {
             .cookie(cookie))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andDo(document("user"));
+                .andDo(
+                    document(
+                        "user",
+                        responseFields(
+                            subsectionWithPath("id").description("The ID of the user"),
+                            subsectionWithPath("firstName").description("The first name of the user"),
+                            subsectionWithPath("lastName").description("The last name of the user"),
+                            subsectionWithPath("email").description("The e-mail address of the user"),
+                            subsectionWithPath("role").description("The authorization role of the user"),
+                            subsectionWithPath("active").description("The expired/unexpired status of the user"),
+                            subsectionWithPath("enabled").description("The locked/unlocked status of the user")
+                        )
+                    )
+                );
         // @formatter:on
     }
 
