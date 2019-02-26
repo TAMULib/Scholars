@@ -16,9 +16,9 @@ import org.springframework.web.util.UriComponents;
 
 // NOTE: open issue, https://jira.spring.io/browse/DATAREST-309
 @Component
-public class CustomPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> {
+public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> {
 
-    public CustomPagedResourcesAssembler(@Nullable HateoasPageableHandlerMethodArgumentResolver resolver, @Nullable UriComponents baseUri) {
+    public FacetPagedResourcesAssembler(@Nullable HateoasPageableHandlerMethodArgumentResolver resolver, @Nullable UriComponents baseUri) {
         super(resolver, baseUri);
     }
 

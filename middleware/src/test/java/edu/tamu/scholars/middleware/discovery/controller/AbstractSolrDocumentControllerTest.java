@@ -82,7 +82,17 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
         createDocuments();
         // @formatter:off
         mockMvc.perform(
-            get(getPath() + "/search/facet").param("query", "*").param("fields", "type").param("page", "0").param("size", "20").param("sort", "id"))
+            get(
+                getPath() + "/search/facet")
+                    .param("query", "*")
+                    .param("facets", "type")
+                    .param("type.limit", "5")
+                    .param("type.offset", "0")
+                    .param("type.sort", "COUNT")
+                    .param("page", "0")
+                    .param("size", "20")
+                    .param("sort", "id")
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("page.size", equalTo(20)))
@@ -91,13 +101,16 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                 .andExpect(jsonPath("page.number", equalTo(0)))
                 .andDo(
                     document(
-                        getPath().substring(1) + "/search",
+                        getPath().substring(1) + "/facet-search",
                         requestParameters(
                             parameterWithName("query").description("The search query"),
-                            parameterWithName("fields").description("The facet fields"),
+                            parameterWithName("facets").description("The facet fields"),
+                            parameterWithName("type.limit").description("Type facet limit"),
+                            parameterWithName("type.offset").description("Type facet offset"),
+                            parameterWithName("type.sort").description("Type facet sort {index,count}"),
                             parameterWithName("page").description("The page number"),
                             parameterWithName("size").description("The page size"),
-                            parameterWithName("sort").description("The page sort [field,asc/desc]")
+                            parameterWithName("sort").description("The page sort 'field,{asc/desc}'")
                         ),
                         links(
                             linkWithRel("self").description("Canonical link for this resource")
