@@ -1,0 +1,50 @@
+=== Relationships
+
+==== Directory
+
+===== Request Parameters
+include::{snippets}/relationships/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/relationships/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/relationships/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/relationships/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/relationships/curl-request.adoc[]
+
+==== Search
+
+===== Request Parameters
+include::{snippets}/relationships/facet-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/relationships/facet-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/relationships/facet-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/relationships/facet-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/relationships/facet-search/curl-request.adoc[]
+
+==== Find By Id
+
+===== Path parameters
+include::{snippets}/relationships/find-by-id/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/relationships/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/relationships/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/relationships/find-by-id/curl-request.adoc[]
+

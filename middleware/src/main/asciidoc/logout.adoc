@@ -1,0 +1,7 @@
+== Logout
+
+===== Sample Request
+
+===== Sample Response
+
+===== CURL Sample

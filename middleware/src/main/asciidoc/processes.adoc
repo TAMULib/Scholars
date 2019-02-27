@@ -1,0 +1,50 @@
+=== Processes
+
+==== Directory
+
+===== Request Parameters
+include::{snippets}/processs/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/processs/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/processs/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/processs/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/processs/curl-request.adoc[]
+
+==== Search
+
+===== Request Parameters
+include::{snippets}/processs/facet-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/processs/facet-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/processs/facet-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/processs/facet-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/processs/facet-search/curl-request.adoc[]
+
+==== Find By Id
+
+===== Path parameters
+include::{snippets}/processs/find-by-id/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/processs/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/processs/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/processs/find-by-id/curl-request.adoc[]
+

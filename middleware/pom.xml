@@ -372,6 +372,7 @@
             <configuration>
               <backend>html</backend>
               <doctype>book</doctype>
+              <sourceDocumentName>index.adoc</sourceDocumentName>
             </configuration>
           </execution>
         </executions>
