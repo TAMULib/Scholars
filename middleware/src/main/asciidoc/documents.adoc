@@ -47,4 +47,3 @@ include::{snippets}/documents/find-by-id/http-response.adoc[]
 
 ===== CURL Sample
 include::{snippets}/documents/find-by-id/curl-request.adoc[]
-

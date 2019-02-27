@@ -2,26 +2,44 @@
 
 === Submit
 
-===== Sample Request
+==== Request Parameters
+include::{snippets}/registration/submit/request-fields.adoc[]
 
-===== Sample Response
+==== Sample Request
+include::{snippets}/registration/submit/http-request.adoc[]
 
-===== CURL Sample
+==== Sample Response
+include::{snippets}/registration/submit/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/registration/submit/curl-request.adoc[]
 
 
 === Confirm
 
-===== Sample Request
+==== Request Parameters
+include::{snippets}/registration/confirm/request-parameters.adoc[]
 
-===== Sample Response
+==== Sample Request
+include::{snippets}/registration/confirm/http-request.adoc[]
 
-===== CURL Sample
+==== Sample Response
+include::{snippets}/registration/confirm/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/registration/confirm/curl-request.adoc[]
 
 
 === Complete
 
-===== Sample Request
+==== Request Parameters
+include::{snippets}/registration/complete/request-fields.adoc[]
 
-===== Sample Response
+==== Sample Request
+include::{snippets}/registration/complete/http-request.adoc[]
 
-===== CURL Sample
+==== Sample Response
+include::{snippets}/registration/complete/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/registration/complete/curl-request.adoc[]

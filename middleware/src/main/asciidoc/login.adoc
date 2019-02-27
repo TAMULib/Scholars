@@ -1,10 +1,16 @@
 == Login
 
-===== Sample Request
+=== Request Parameters
+include::{snippets}/login/request-parameters.adoc[]
+
+=== Response Fields
+include::{snippets}/login/response-fields.adoc[]
+
+=== Sample Request
 include::{snippets}/login/http-request.adoc[]
 
-===== Sample Response
+=== Sample Response
 include::{snippets}/login/http-response.adoc[]
 
-===== CURL Sample
+=== CURL Sample
 include::{snippets}/login/curl-request.adoc[]

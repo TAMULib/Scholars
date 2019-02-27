@@ -1,13 +1,13 @@
 == User
 
-===== Response Fields
+=== Response Fields
 include::{snippets}/user/response-fields.adoc[]
 
-===== Sample Request
+=== Sample Request
 include::{snippets}/user/http-request.adoc[]
 
-===== Sample Response
+=== Sample Response
 include::{snippets}/user/http-response.adoc[]
 
-===== CURL Sample
+=== CURL Sample
 include::{snippets}/user/curl-request.adoc[]

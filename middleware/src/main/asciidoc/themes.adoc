@@ -1,1 +1,82 @@
 === Themes
+
+==== Directory
+
+===== Request Parameters
+include::{snippets}/themes/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/themes/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/themes/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/themes/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/themes/curl-request.adoc[]
+
+==== Active
+
+===== Sample Request
+include::{snippets}/themes/active/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/themes/active/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/themes/active/curl-request.adoc[]
+
+==== Create
+
+===== Sample Request
+include::{snippets}/themes/create/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/themes/create/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/themes/create/curl-request.adoc[]
+
+==== Delete
+
+===== Request Parameters
+include::{snippets}/themes/delete/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/themes/delete/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/themes/delete/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/themes/delete/curl-request.adoc[]
+
+==== Find by ID
+
+===== Request Parameters
+include::{snippets}/themes/find-by-id/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/themes/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/themes/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/themes/find-by-id/curl-request.adoc[]
+
+==== Update
+
+===== Request Parameters
+include::{snippets}/themes/update/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/themes/update/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/themes/update/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/themes/update/curl-request.adoc[]

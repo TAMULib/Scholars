@@ -1,11 +1,50 @@
 === Users
 
+==== Directory
+
+===== Request Parameters
+include::{snippets}/users/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/users/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/users/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/users/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/users/curl-request.adoc[]
+
+==== Delete
+
+===== Sample Request
+include::{snippets}/users/delete/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/users/delete/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/users/delete/curl-request.adoc[]
+
+==== Find by ID
+
+===== Response Fields
+include::{snippets}/users/find-by-id/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/users/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/users/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/users/find-by-id/curl-request.adoc[]
+
 ==== Patch
 
 This partially updates a specific user account. This requires a URL path argument that represents the User Id.
-
-===== Response Fields
-include::{snippets}/users/patch/response-fields.adoc[]
 
 ===== Sample Request
 include::{snippets}/users/patch/http-request.adoc[]

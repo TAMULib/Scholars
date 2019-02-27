@@ -1,7 +1,10 @@
 == Logout
 
-===== Sample Request
+=== Sample Request
+include::{snippets}/logout/http-request.adoc[]
 
-===== Sample Response
+=== Sample Response
+include::{snippets}/logout/http-response.adoc[]
 
-===== CURL Sample
+=== CURL Sample
+include::{snippets}/logout/curl-request.adoc[]
