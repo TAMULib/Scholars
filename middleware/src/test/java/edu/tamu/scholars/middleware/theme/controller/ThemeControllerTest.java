@@ -335,7 +335,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
     			.andExpect(jsonPath("_embedded.themes[0].variables[2].value", equalTo("#ffffff")))
                 .andDo(
                     document(
-                        "themes",
+                        "themes/directory",
                         requestParameters(
                             parameterWithName("page").description("The page number."),
                             parameterWithName("size").description("The page size."),

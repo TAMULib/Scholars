@@ -3,19 +3,19 @@
 ==== Directory
 
 ===== Request Parameters
-include::{snippets}/organizations/request-parameters.adoc[]
+include::{snippets}/organizations/directory/request-parameters.adoc[]
 
 ===== Response Fields
-include::{snippets}/organizations/response-fields.adoc[]
+include::{snippets}/organizations/directory/response-fields.adoc[]
 
 ===== Sample Request
-include::{snippets}/organizations/http-request.adoc[]
+include::{snippets}/organizations/directory/http-request.adoc[]
 
 ===== Sample Response
-include::{snippets}/organizations/http-response.adoc[]
+include::{snippets}/organizations/directory/http-response.adoc[]
 
 ===== CURL Sample
-include::{snippets}/organizations/curl-request.adoc[]
+include::{snippets}/organizations/directory/curl-request.adoc[]
 
 ==== Search
 

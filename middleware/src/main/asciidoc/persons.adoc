@@ -3,19 +3,19 @@
 ==== Directory
 
 ===== Request Parameters
-include::{snippets}/persons/request-parameters.adoc[]
+include::{snippets}/persons/directory/request-parameters.adoc[]
 
 ===== Response Fields
-include::{snippets}/persons/response-fields.adoc[]
+include::{snippets}/persons/directory/response-fields.adoc[]
 
 ===== Sample Request
-include::{snippets}/persons/http-request.adoc[]
+include::{snippets}/persons/directory/http-request.adoc[]
 
 ===== Sample Response
-include::{snippets}/persons/http-response.adoc[]
+include::{snippets}/persons/directory/http-response.adoc[]
 
 ===== CURL Sample
-include::{snippets}/persons/curl-request.adoc[]
+include::{snippets}/persons/directory/curl-request.adoc[]
 
 ==== Search
 

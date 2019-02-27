@@ -3,19 +3,19 @@
 ==== Directory
 
 ===== Request Parameters
-include::{snippets}/users/request-parameters.adoc[]
+include::{snippets}/users/directory/request-parameters.adoc[]
 
 ===== Response Fields
-include::{snippets}/users/response-fields.adoc[]
+include::{snippets}/users/directory/response-fields.adoc[]
 
 ===== Sample Request
-include::{snippets}/users/http-request.adoc[]
+include::{snippets}/users/directory/http-request.adoc[]
 
 ===== Sample Response
-include::{snippets}/users/http-response.adoc[]
+include::{snippets}/users/directory/http-response.adoc[]
 
 ===== CURL Sample
-include::{snippets}/users/curl-request.adoc[]
+include::{snippets}/users/directory/curl-request.adoc[]
 
 ==== Delete
 

@@ -3,19 +3,19 @@
 ==== Directory
 
 ===== Request Parameters
-include::{snippets}/themes/request-parameters.adoc[]
+include::{snippets}/themes/directory/request-parameters.adoc[]
 
 ===== Response Fields
-include::{snippets}/themes/response-fields.adoc[]
+include::{snippets}/themes/directory/response-fields.adoc[]
 
 ===== Sample Request
-include::{snippets}/themes/http-request.adoc[]
+include::{snippets}/themes/directory/http-request.adoc[]
 
 ===== Sample Response
-include::{snippets}/themes/http-response.adoc[]
+include::{snippets}/themes/directory/http-response.adoc[]
 
 ===== CURL Sample
-include::{snippets}/themes/curl-request.adoc[]
+include::{snippets}/themes/directory/curl-request.adoc[]
 
 ==== Active
 

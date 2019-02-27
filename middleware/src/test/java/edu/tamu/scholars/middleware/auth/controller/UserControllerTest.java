@@ -58,7 +58,7 @@ public class UserControllerTest extends UserIntegrationTest {
                     .andExpect(jsonPath("page.number", equalTo(0)))
                     .andDo(
                         document(
-                            "users",
+                            "users/directory",
                             requestParameters(
                                 parameterWithName("page").description("The page number."),
                                 parameterWithName("size").description("The page size."),

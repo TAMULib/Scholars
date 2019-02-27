@@ -56,7 +56,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                 .andExpect(jsonPath("page.number", equalTo(0)))
                 .andDo(
                     document(
-                        getPath().substring(1),
+                        getPath().substring(1) + "/directory",
                         requestParameters(
                             parameterWithName("page").description("The page number."),
                             parameterWithName("size").description("The page size."),

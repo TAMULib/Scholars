@@ -3,19 +3,19 @@
 ==== Directory
 
 ===== Request Parameters
-include::{snippets}/concepts/request-parameters.adoc[]
+include::{snippets}/concepts/directory/request-parameters.adoc[]
 
 ===== Response Fields
-include::{snippets}/concepts/response-fields.adoc[]
+include::{snippets}/concepts/directory/response-fields.adoc[]
 
 ===== Sample Request
-include::{snippets}/concepts/http-request.adoc[]
+include::{snippets}/concepts/directory/http-request.adoc[]
 
 ===== Sample Response
-include::{snippets}/concepts/http-response.adoc[]
+include::{snippets}/concepts/directory/http-response.adoc[]
 
 ===== CURL Sample
-include::{snippets}/concepts/curl-request.adoc[]
+include::{snippets}/concepts/directory/curl-request.adoc[]
 
 ==== Search
 
