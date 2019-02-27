@@ -1,0 +1,12 @@
+This endpoint enables the admin to login.
+
+=== Sample Request
+include::{snippets}/login/http-request.adoc[]
+
+=== Sample Response
+include::{snippets}/login/http-response.adoc[]
+
+=== CURL Sample
+include::{snippets}/login/curl-request.adoc[]
+
+[%hardbreaks]

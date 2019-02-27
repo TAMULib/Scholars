@@ -1,0 +1,45 @@
+=== Page
+
+==== Request Parameters
+include::{snippets}/organizations/request-parameters.adoc[]
+
+==== Response Fields
+include::{snippets}/organizations/response-fields.adoc[]
+
+==== Sample Request
+include::{snippets}/organizations/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/organizations/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/organizations/curl-request.adoc[]
+
+=== Facet-Search
+==== Request Parameters
+include::{snippets}/organizations/facet-search/request-parameters.adoc[]
+
+==== Response Fields
+include::{snippets}/organizations/facet-search/response-fields.adoc[]
+
+==== Sample Request
+include::{snippets}/organizations/facet-search/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/organizations/facet-search/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/organizations/facet-search/curl-request.adoc[]
+
+=== Find By Id
+==== Path parameters
+include::{snippets}/organizations/find-by-id/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/organizations/find-by-id/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/organizations/find-by-id/http-response.adoc[]
+
+==== CURL Sample
+include::{snippets}/organizations/find-by-id/curl-request.adoc[]

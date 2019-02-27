@@ -1,0 +1,13 @@
+=== Response Fields
+include::{snippets}/user/response-fields.adoc[]
+
+=== Sample Request
+include::{snippets}/user/http-request.adoc[]
+
+=== Sample Response
+include::{snippets}/user/http-response.adoc[]
+
+=== CURL Sample
+include::{snippets}/user/curl-request.adoc[]
+
+=== Find By Id

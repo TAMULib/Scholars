@@ -1,0 +1,14 @@
+This feature allows a scholar/expertise to update his/her profile in the VIVO system. +
+====
+.The following fields are present in the registration form : +
+- First Name: (required) +
+- Last Name: (required) +
+- Email (required) +
+====
+[%hardbreaks]
+=== Submit
+
+[%hardbreaks]
+=== Confirm
+[%hardbreaks]
+=== Complete
