@@ -46,7 +46,7 @@ public class LogoutControllerTest extends UserIntegrationTest {
     }
 
     @Test
-    public void testLogoutAgain() throws Exception {
+    public void testLogoutNotLoggedIn() throws Exception {
         // @formatter:off
         mockMvc.perform(post("/logout"))
             .andExpect(status().isOk())
