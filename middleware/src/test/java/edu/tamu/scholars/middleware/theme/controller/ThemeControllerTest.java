@@ -141,7 +141,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                     document(
                         "themes/update",
                         pathParameters(
-                            parameterWithName("id").description("The Theme id")
+                            parameterWithName("id").description("The Theme id.")
                         )
                     )
                 );
@@ -166,7 +166,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                     document(
                         "themes/delete",
                         pathParameters(
-                            parameterWithName("id").description("The Theme id")
+                            parameterWithName("id").description("The Theme id.")
                         )
                     )
                 );
@@ -263,7 +263,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                     document(
                         "themes/find-by-id",
                         pathParameters(
-                            parameterWithName("id").description("The Theme id")
+                            parameterWithName("id").description("The Theme id.")
                         )
                     )
                 );
@@ -337,19 +337,19 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                     document(
                         "themes",
                         requestParameters(
-                            parameterWithName("page").description("The page number"),
-                            parameterWithName("size").description("The page size"),
-                            parameterWithName("sort").description("The page sort")
+                            parameterWithName("page").description("The page number."),
+                            parameterWithName("size").description("The page size."),
+                            parameterWithName("sort").description("The page sort.")
                         ),
                         links(
-                            linkWithRel("self").description("Canonical link for this resource"),
-                            linkWithRel("profile").description("The ALPS profile for this resource"),
-                            linkWithRel("search").description("Search link for this resource")
+                            linkWithRel("self").description("Canonical link for this resource."),
+                            linkWithRel("profile").description("The ALPS profile for this resource."),
+                            linkWithRel("search").description("Search link for this resource.")
                         ),
                         responseFields(
-                            subsectionWithPath("_embedded.themes").description("An array of <<resources-theme, Theme resources>>"),
-                            subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources"),
-                            subsectionWithPath("page").description("Page details for <<resources-theme, Theme resources>>")
+                            subsectionWithPath("_embedded.themes").description("An array of <<resources-theme, Theme resources>>."),
+                            subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources."),
+                            subsectionWithPath("page").description("Page details for <<resources-theme, Theme resources>>.")
                         )
                     )
                 );

@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,12 +25,14 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import edu.tamu.scholars.middleware.auth.UserIntegrationTest;
 import edu.tamu.scholars.middleware.auth.model.User;
+import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ExtendWith(SpringExtension.class)
 public class LoginControllerTest extends UserIntegrationTest {
+    private static final ConstraintDescriptionsHelper describeUser = new ConstraintDescriptionsHelper(User.class);
 
     @Autowired
     private MockMvc mockMvc;
@@ -46,7 +50,24 @@ public class LoginControllerTest extends UserIntegrationTest {
                 .andExpect(jsonPath("enabled", equalTo(user.isEnabled())))
                 .andExpect(jsonPath("email", equalTo(user.getEmail())))
                 .andExpect(jsonPath("role", equalTo(user.getRole().toString())))
-                .andDo(document("login"));
+                .andDo(
+                    document(
+                        "login",
+                        requestParameters(
+                            describeUser.withParameter("username", "The username to login as, usually an e-mail address."),
+                            describeUser.withParameter("password", "The password associated with the specified username.")
+                        ),
+                        responseFields(
+                            describeUser.withField("id", "The ID of the user."),
+                            describeUser.withField("firstName", "The first name of the user."),
+                            describeUser.withField("lastName", "The last name of the user."),
+                            describeUser.withField("email", "The e-mail address of the user."),
+                            describeUser.withField("role", "The authorization role of the user."),
+                            describeUser.withField("active", "The expired/unexpired status of the user."),
+                            describeUser.withField("enabled", "The locked/unlocked status of the user.")
+                        )
+                    )
+                );
         // @formatter:on
     }
 

@@ -31,12 +31,14 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import edu.tamu.scholars.middleware.auth.UserIntegrationTest;
 import edu.tamu.scholars.middleware.auth.model.User;
+import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ExtendWith(SpringExtension.class)
 public class UserControllerTest extends UserIntegrationTest {
+    private static final ConstraintDescriptionsHelper describeUser = new ConstraintDescriptionsHelper(User.class);
 
     @Autowired
     private MockMvc mockMvc;
@@ -58,18 +60,18 @@ public class UserControllerTest extends UserIntegrationTest {
                         document(
                             "users",
                             requestParameters(
-                                parameterWithName("page").description("The page number"),
-                                parameterWithName("size").description("The page size"),
-                                parameterWithName("sort").description("The page sort")
+                                parameterWithName("page").description("The page number."),
+                                parameterWithName("size").description("The page size."),
+                                parameterWithName("sort").description("The page sort.")
                             ),
                             links(
-                                linkWithRel("self").description("Canonical link for this resource"),
-                                linkWithRel("profile").description("The ALPS profile for this resource")
+                                linkWithRel("self").description("Canonical link for this resource."),
+                                linkWithRel("profile").description("The ALPS profile for this resource.")
                             ),
                             responseFields(
-                                subsectionWithPath("_embedded.users").description("An array of <<resources-user, User resources>>"),
-                                subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources"),
-                                subsectionWithPath("page").description("Page details for <<resources-user, User resources>>")
+                                subsectionWithPath("_embedded.users").description("An array of <<resources-user, User resources>>."),
+                                subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources."),
+                                subsectionWithPath("page").description("Page details for <<resources-user, User resources>>.")
                             )
                         )
                     );
@@ -89,17 +91,17 @@ public class UserControllerTest extends UserIntegrationTest {
                 document(
                     "users/patch",
                     links(
-                        linkWithRel("self").description("Canonical link for this resource"),
-                        linkWithRel("user").description("Canonical link for the referenced user")
+                        linkWithRel("self").description("Canonical link for this resource."),
+                        linkWithRel("user").description("Canonical link for the referenced user.")
                     ),
                     responseFields(
-                        subsectionWithPath("firstName").description("The first name of the user"),
-                        subsectionWithPath("lastName").description("The last name of the user"),
-                        subsectionWithPath("email").description("The e-mail address of the user"),
-                        subsectionWithPath("role").description("The authorization role of the user"),
-                        subsectionWithPath("active").description("The expired/unexpired status of the user"),
-                        subsectionWithPath("enabled").description("The locked/unlocked status of the user"),
-                        subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources")
+                        describeUser.withSubsection("firstName", "The first name of the user."),
+                        describeUser.withSubsection("lastName", "The last name of the user."),
+                        describeUser.withSubsection("email", "The e-mail address of the user."),
+                        describeUser.withSubsection("role", "The authorization role of the user."),
+                        describeUser.withSubsection("active", "The expired/unexpired status of the user."),
+                        describeUser.withSubsection("enabled", "The locked/unlocked status of the user."),
+                        subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources.")
                     )
                 )
             );
@@ -188,17 +190,17 @@ public class UserControllerTest extends UserIntegrationTest {
                 document(
                     "users/find-by-id",
                     links(
-                        linkWithRel("self").description("Canonical link for this resource"),
-                        linkWithRel("user").description("Canonical link for the referenced user")
+                        linkWithRel("self").description("Canonical link for this resource."),
+                        linkWithRel("user").description("Canonical link for the referenced user.")
                     ),
                     responseFields(
-                        subsectionWithPath("firstName").description("The first name of the user"),
-                        subsectionWithPath("lastName").description("The last name of the user"),
-                        subsectionWithPath("email").description("The e-mail address of the user"),
-                        subsectionWithPath("role").description("The authorization role of the user"),
-                        subsectionWithPath("active").description("The expired/unexpired status of the user"),
-                        subsectionWithPath("enabled").description("The locked/unlocked status of the user"),
-                        subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources")
+                        describeUser.withSubsection("firstName", "The first name of the user."),
+                        describeUser.withSubsection("lastName", "The last name of the user."),
+                        describeUser.withSubsection("email", "The e-mail address of the user."),
+                        describeUser.withSubsection("role", "The authorization role of the user."),
+                        describeUser.withSubsection("active", "The expired/unexpired status of the user."),
+                        describeUser.withSubsection("enabled", "The locked/unlocked status of the user."),
+                        subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources.")
                     )
                 )
             );
