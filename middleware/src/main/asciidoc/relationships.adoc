@@ -36,7 +36,7 @@ include::{snippets}/relationships/facet-search/curl-request.adoc[]
 
 ==== Find By Id
 
-===== Path parameters
+===== Path Parameters
 include::{snippets}/relationships/find-by-id/path-parameters.adoc[]
 
 ===== Sample Request

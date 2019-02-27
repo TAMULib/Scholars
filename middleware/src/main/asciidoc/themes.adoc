@@ -30,6 +30,12 @@ include::{snippets}/themes/active/curl-request.adoc[]
 
 ==== Create
 
+===== Request Parameters
+include::{snippets}/themes/create/request-fields.adoc[]
+
+===== Response Fields
+include::{snippets}/themes/create/response-fields.adoc[]
+
 ===== Sample Request
 include::{snippets}/themes/create/http-request.adoc[]
 
@@ -41,7 +47,7 @@ include::{snippets}/themes/create/curl-request.adoc[]
 
 ==== Delete
 
-===== Request Parameters
+===== Path Parameters
 include::{snippets}/themes/delete/path-parameters.adoc[]
 
 ===== Sample Request
@@ -55,8 +61,11 @@ include::{snippets}/themes/delete/curl-request.adoc[]
 
 ==== Find by ID
 
-===== Request Parameters
+===== Path Parameters
 include::{snippets}/themes/find-by-id/path-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/themes/find-by-id/response-fields.adoc[]
 
 ===== Sample Request
 include::{snippets}/themes/find-by-id/http-request.adoc[]
@@ -67,10 +76,36 @@ include::{snippets}/themes/find-by-id/http-response.adoc[]
 ===== CURL Sample
 include::{snippets}/themes/find-by-id/curl-request.adoc[]
 
-==== Update
+==== Patch
+
+===== Path Parameters
+include::{snippets}/themes/patch/path-parameters.adoc[]
 
 ===== Request Parameters
+include::{snippets}/themes/patch/request-fields.adoc[]
+
+===== Response Fields
+include::{snippets}/themes/patch/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/themes/patch/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/themes/patch/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/themes/patch/curl-request.adoc[]
+
+==== Update
+
+===== Path Parameters
 include::{snippets}/themes/update/path-parameters.adoc[]
+
+===== Request Parameters
+include::{snippets}/themes/update/request-fields.adoc[]
+
+===== Response Fields
+include::{snippets}/themes/update/response-fields.adoc[]
 
 ===== Sample Request
 include::{snippets}/themes/update/http-request.adoc[]
