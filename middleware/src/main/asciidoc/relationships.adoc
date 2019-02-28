@@ -1,6 +1,7 @@
 === Relationships
 
 ==== Directory
+
 This provides a directory listing view of all the relationships present in the system, based on the _request paramters_ as shown.
 
 ===== Request Parameters
@@ -19,6 +20,7 @@ include::{snippets}/relationships/directory/http-response.adoc[]
 include::{snippets}/relationships/directory/curl-request.adoc[]
 
 ==== Search
+
 This search will return a json response listing all the relationships, based on the query parameters as shown in *Request Parameters*.
 
 ===== Request Parameters
@@ -37,6 +39,7 @@ include::{snippets}/relationships/facet-search/http-response.adoc[]
 include::{snippets}/relationships/facet-search/curl-request.adoc[]
 
 ==== Find By Id
+
 This will find a relationship based on the _relationship id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific relationship querried as shown in the *Sample Response*.
 
 ===== Path Parameters

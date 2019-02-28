@@ -22,6 +22,7 @@ include::{snippets}/registration/submit/curl-request.adoc[]
 
 
 === Confirm
+
 This endpoint requires a key string, (obtained when the user clicks on the email confirmation link) which verifies the user token.
 This key string constructs a token by obtaining user-specified extended information associated with the token, when it was first created.
 If the user is found and the token is not expired, a user object (as shown in "Sample Response") is returned.

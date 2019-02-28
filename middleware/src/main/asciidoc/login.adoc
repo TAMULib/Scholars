@@ -1,5 +1,6 @@
 == Login
-This view enables the registered user to log in using his/her username and password.
+
+This endpoint allows the registered user to log in using his/her username and password.
 
 === Request Parameters
 include::{snippets}/login/request-parameters.adoc[]

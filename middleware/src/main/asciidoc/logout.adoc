@@ -1,5 +1,7 @@
 == Logout
 
+This endpoint allows the authenticated user to log out.
+
 === Sample Request
 include::{snippets}/logout/http-request.adoc[]
 

@@ -1,6 +1,7 @@
 === Organizations
 
 ==== Directory
+
 This provides a directory listing view of all the organizations present in the system, based on the _request paramters_ as shown.
 
 ===== Request Parameters
@@ -19,6 +20,7 @@ include::{snippets}/organizations/directory/http-response.adoc[]
 include::{snippets}/organizations/directory/curl-request.adoc[]
 
 ==== Search
+
 This search will return a json response listing all the organizations, based on the query parameters as shown in *Request Parameters*.
 
 ===== Request Parameters
@@ -37,6 +39,7 @@ include::{snippets}/organizations/facet-search/http-response.adoc[]
 include::{snippets}/organizations/facet-search/curl-request.adoc[]
 
 ==== Find By Id
+
 This will find an organization based on the _organization id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific organization querried as shown in the *Sample Response*.
 
 ===== Path Parameters

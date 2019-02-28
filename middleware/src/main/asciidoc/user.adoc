@@ -1,5 +1,7 @@
 == User
 
+This endpoint returns the authenticated user.
+
 === Response Fields
 include::{snippets}/user/response-fields.adoc[]
 

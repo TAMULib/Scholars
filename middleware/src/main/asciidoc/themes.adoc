@@ -1,9 +1,10 @@
-
 === Themes
+
 This section describes about the "look and feel" of the application. This object is a collection of properties like the header, logo, footer, color, size, styles etc.
 The default theme view is seen in the *Sample Response*.
 
 ==== Directory
+
 This displays a list of all the theme objects based on parameters like page, size or sort feature based on name, organization etc as shown in *Request Parameters*.
 
 ===== Request Parameters
@@ -22,6 +23,7 @@ include::{snippets}/themes/directory/http-response.adoc[]
 include::{snippets}/themes/directory/curl-request.adoc[]
 
 ==== Active
+
 This search retuns an active theme based on the _search/active_  parameter as shown in the *Sample Request*.
 
 ===== Sample Request
@@ -34,6 +36,7 @@ include::{snippets}/themes/active/http-response.adoc[]
 include::{snippets}/themes/active/curl-request.adoc[]
 
 ==== Create
+
 A theme is created by adding a fields like _name_, _organization_, _header_, _footer_ etc along with other styling variables as shown in the *Request Parameters*. A theme when created, by default, has the _active_ check set to false. This boolean flag, when checked will activate the specific theme.
 
 ===== Request Parameters
@@ -52,6 +55,7 @@ include::{snippets}/themes/create/http-response.adoc[]
 include::{snippets}/themes/create/curl-request.adoc[]
 
 ==== Delete
+
 A theme can be deleted by passing the _theme_ _id_ as a path parameter. The _active_ flag has to be set to false prior to delete. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
 
 ===== Path Parameters
@@ -67,6 +71,7 @@ include::{snippets}/themes/delete/http-response.adoc[]
 include::{snippets}/themes/delete/curl-request.adoc[]
 
 ==== Find by ID
+
 A user, with an admin role, can find a theme by providing theme _id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the theme object as shown in the *Sample Response*.
 
 ===== Path Parameters
@@ -85,6 +90,7 @@ include::{snippets}/themes/find-by-id/http-response.adoc[]
 include::{snippets}/themes/find-by-id/curl-request.adoc[]
 
 ==== Patch
+
 This helps an admin user to partially update a theme. This process utilizes the http patch protocol.
 
 ===== Path Parameters
@@ -106,6 +112,7 @@ include::{snippets}/themes/patch/http-response.adoc[]
 include::{snippets}/themes/patch/curl-request.adoc[]
 
 ==== Update
+
 This helps an admin user to update a specifc theme based on the _theme id_ provided in the path parameter. This utilizes the hhtp put protocol.
 
 ===== Path Parameters

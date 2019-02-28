@@ -1,6 +1,7 @@
 === Documents
 
 ==== Directory
+
 This provides a directory listing view of all the documents present in the system, based on the _request paramters_ as shown.
 
 ===== Request Parameters
@@ -19,6 +20,7 @@ include::{snippets}/documents/directory/http-response.adoc[]
 include::{snippets}/documents/directory/curl-request.adoc[]
 
 ==== Search
+
 This search will return a json response listing all the documents, based on the query parameters as shown in *Request Parameters*.
 
 ===== Request Parameters
@@ -37,6 +39,7 @@ include::{snippets}/documents/facet-search/http-response.adoc[]
 include::{snippets}/documents/facet-search/curl-request.adoc[]
 
 ==== Find By Id
+
 This will find a document based on the _document id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific document querried as shown in the *Sample Response*.
 
 ===== Path Parameters
