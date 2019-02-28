@@ -2,7 +2,7 @@
 :doctype: book
 :compat-mode:
 :toc: left
-:toclevels: 2
+:toclevels: 3
 :sectanchors:
 :sectlinks:
 :sectnums:
@@ -10,278 +10,36 @@
 :source-highlighter: highlightjs
 
 = Introduction
-Scholars@TAMU is a profile system that hosts searchable expertise for faculty and TAMU organizations by gathering data from institution-level/enterprise systems, publicly available research data (e.g., grants and publications), and other authoritative sources. +
-The data is compiled into a profile that you can edit to best represent your scholarship and expertise. +
-[%hardbreaks]
-This system helps to: +
-- Improve the discoverability of scholarly expertise, +
-- Enhance the scholarly identity of researchers and +
-- Facilitate new research collaborations.
-[%hardbreaks]
-== Registration
-This feature allows a scholar/expertise to update his/her profile in the VIVO system. +
-====
-.The following fields are present in the registration form : +
-- First Name: (required) +
-- Last Name: (required) +
-- Email (required) +
-====
-[%hardbreaks]
-=== Submit
+
+Scholars@TAMU is a profile system that hosts searchable expertise for faculty and TAMU organizations by gathering data from institution-level/enterprise systems, publicly available research data (e.g., grants and publications), and other authoritative sources.
+The data is compiled into a profile that you can edit to best represent your scholarship and expertise.
+
+.This system helps to:
+ * Improve the discoverability of scholarly expertise
+ * Enhance the scholarly identity of researchers
+ * Facilitate new research collaborations.
 
 [%hardbreaks]
-=== Confirm
-[%hardbreaks]
-=== Complete
-[%hardbreaks]
-== Login
-This endpoint enables the admin to login.
 
-=== Sample Request
-include::{snippets}/login/http-request.adoc[]
-
-=== Sample Response
-include::{snippets}/login/http-response.adoc[]
-
-=== CURL Sample
-include::{snippets}/login/curl-request.adoc[]
+include::registration.adoc[]
+include::login.adoc[]
+include::logout.adoc[]
+include::user.adoc[]
 
 [%hardbreaks]
-== User
-
-=== Response Fields
-include::{snippets}/user/response-fields.adoc[]
-
-=== Sample Request
-include::{snippets}/user/http-request.adoc[]
-
-=== Sample Response
-include::{snippets}/user/http-response.adoc[]
-
-=== CURL Sample
-include::{snippets}/user/curl-request.adoc[]
-
-=== Find By Id
 
 == Administration
 
-=== Themes
-
-=== Users
-
-==== Patch
-This partially updates a specific user account. This requires a URL path argument that represents the User Id.
-
-===== Response Fields
-include::{snippets}/users/patch/response-fields.adoc[]
-
-==== Sample Request
-include::{snippets}/users/patch/http-request.adoc[]
-
-===== Sample Response
-include::{snippets}/users/patch/http-response.adoc[]
-
-===== CURL Sample
-include::{snippets}/users/patch/curl-request.adoc[]
-
+include::themes.adoc[]
+include::users.adoc[]
 
 [%hardbreaks]
+
 == Discovery
 
-== Concepts
-
-=== Page
-
-==== Request Parameters
-include::{snippets}/concepts/request-parameters.adoc[]
-
-==== Response Fields
-include::{snippets}/concepts/response-fields.adoc[]
-
-==== Sample Request
-include::{snippets}/concepts/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/concepts/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/concepts/curl-request.adoc[]
-
-=== Find By Id
-
-==== Path parameters
-include::{snippets}/concepts/find-by-id/path-parameters.adoc[]
-
-==== Sample Request
-include::{snippets}/concepts/find-by-id/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/concepts/find-by-id/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/concepts/find-by-id/curl-request.adoc[]
-
-== Documents
-
-=== Page
-
-==== Request Parameters
-include::{snippets}/documents/request-parameters.adoc[]
-
-==== Response Fields
-include::{snippets}/documents/response-fields.adoc[]
-
-==== Sample Request
-include::{snippets}/documents/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/documents/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/documents/curl-request.adoc[]
-
-=== Find By Id
-
-==== Path parameters
-include::{snippets}/documents/find-by-id/path-parameters.adoc[]
-
-==== Sample Request
-include::{snippets}/documents/find-by-id/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/documents/find-by-id/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/documents/find-by-id/curl-request.adoc[]
-
-== Organizations
-
-=== Page
-
-==== Request Parameters
-include::{snippets}/organizations/request-parameters.adoc[]
-
-==== Response Fields
-include::{snippets}/organizations/response-fields.adoc[]
-
-==== Sample Request
-include::{snippets}/organizations/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/organizations/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/organizations/curl-request.adoc[]
-
-=== Find By Id
-
-==== Path parameters
-include::{snippets}/organizations/find-by-id/path-parameters.adoc[]
-
-==== Sample Request
-include::{snippets}/organizations/find-by-id/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/organizations/find-by-id/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/organizations/find-by-id/curl-request.adoc[]
-
-== Persons
-
-=== Page
-
-==== Request Parameters
-include::{snippets}/persons/request-parameters.adoc[]
-
-==== Response Fields
-include::{snippets}/persons/response-fields.adoc[]
-
-==== Sample Request
-include::{snippets}/persons/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/persons/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/persons/curl-request.adoc[]
-
-=== Find By Id
-
-==== Path parameters
-include::{snippets}/persons/find-by-id/path-parameters.adoc[]
-
-==== Sample Request
-include::{snippets}/persons/find-by-id/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/persons/find-by-id/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/persons/find-by-id/curl-request.adoc[]
-
-== Processes
-
-=== Page
-
-==== Request Parameters
-include::{snippets}/processs/request-parameters.adoc[]
-
-==== Response Fields
-include::{snippets}/processs/response-fields.adoc[]
-
-==== Sample Request
-include::{snippets}/processs/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/processs/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/processs/curl-request.adoc[]
-
-=== Find By Id
-
-==== Path parameters
-include::{snippets}/processs/find-by-id/path-parameters.adoc[]
-
-==== Sample Request
-include::{snippets}/processs/find-by-id/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/processs/find-by-id/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/processs/find-by-id/curl-request.adoc[]
-
-== Relationships
-
-=== Page
-
-==== Request Parameters
-include::{snippets}/relationships/request-parameters.adoc[]
-
-==== Response Fields
-include::{snippets}/relationships/response-fields.adoc[]
-
-==== Sample Request
-include::{snippets}/relationships/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/relationships/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/relationships/curl-request.adoc[]
-
-=== Find By Id
-
-==== Path parameters
-include::{snippets}/relationships/find-by-id/path-parameters.adoc[]
-
-==== Sample Request
-include::{snippets}/relationships/find-by-id/http-request.adoc[]
-
-==== Sample Response
-include::{snippets}/relationships/find-by-id/http-response.adoc[]
-
-==== CURL Sample
-include::{snippets}/relationships/find-by-id/curl-request.adoc[]
+include::concepts.adoc[]
+include::documents.adoc[]
+include::organizations.adoc[]
+include::persons.adoc[]
+include::processes.adoc[]
+include::relationships.adoc[]

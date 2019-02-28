@@ -1,0 +1,79 @@
+=== Users
+
+This sections describes the list of users present in the system - faculty and non faculty.
+
+==== Directory
+
+This displays a list of all the users based on parameters like page, size or sort feature based on name, organization etc as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/users/directory/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/users/directory/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/users/directory/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/users/directory/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/users/directory/curl-request.adoc[]
+
+==== Delete
+
+A user can be deleted by providing the _user id_ in the *path parameters* as shown. If successful, the response will be a json response (as shown in the *Sample Response*).
+
+===== Path Parameters
+include::{snippets}/users/delete/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/users/delete/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/users/delete/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/users/delete/curl-request.adoc[]
+
+==== Find by ID
+
+An admin user can find a specific user by providing _user id_ in the *path parameters* as shown. If successful, the json response will be as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/users/find-by-id/path-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/users/find-by-id/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/users/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/users/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/users/find-by-id/curl-request.adoc[]
+
+==== Patch
+
+An admin user can partially update specific fields in the user account by providing _user id_ in the *path parameters* as shown. If successful, the json response will be an updated user profile as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/users/patch/path-parameters.adoc[]
+
+===== Request Parameters
+include::{snippets}/users/patch/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/users/patch/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/users/patch/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/users/patch/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/users/patch/curl-request.adoc[]
