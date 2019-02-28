@@ -1,6 +1,7 @@
 === Processes
 
 ==== Directory
+This provides a directory listing view of all the processes present in the system, based on the _request paramters_ as shown.
 
 ===== Request Parameters
 include::{snippets}/processes/directory/request-parameters.adoc[]
@@ -18,6 +19,7 @@ include::{snippets}/processes/directory/http-response.adoc[]
 include::{snippets}/processes/directory/curl-request.adoc[]
 
 ==== Search
+This search will return a json response listing all the processes, based on the query parameters as shown in *Request Parameters*.
 
 ===== Request Parameters
 include::{snippets}/processes/facet-search/request-parameters.adoc[]
@@ -35,6 +37,7 @@ include::{snippets}/processes/facet-search/http-response.adoc[]
 include::{snippets}/processes/facet-search/curl-request.adoc[]
 
 ==== Find By Id
+This will find a process based on the _process id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific process querried as shown in the *Sample Response*.
 
 ===== Path Parameters
 include::{snippets}/processes/find-by-id/path-parameters.adoc[]
