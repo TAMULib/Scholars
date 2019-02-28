@@ -1,5 +1,7 @@
 package edu.tamu.scholars.middleware.discovery.model.repo.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.SolrTemplate;
@@ -7,8 +9,11 @@ import org.springframework.data.solr.core.query.Criteria;
 import org.springframework.data.solr.core.query.FacetOptions;
 import org.springframework.data.solr.core.query.FacetOptions.FieldWithFacetParameters;
 import org.springframework.data.solr.core.query.FacetQuery;
+import org.springframework.data.solr.core.query.FilterQuery;
 import org.springframework.data.solr.core.query.Query.Operator;
 import org.springframework.data.solr.core.query.SimpleFacetQuery;
+import org.springframework.data.solr.core.query.SimpleFilterQuery;
+import org.springframework.data.solr.core.query.SimpleStringCriteria;
 import org.springframework.data.solr.core.query.result.FacetPage;
 import org.springframework.util.MultiValueMap;
 
@@ -24,9 +29,11 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
     public FacetPage<D> search(String query, String[] facets, MultiValueMap<String, String> params, Pageable page) {
         FacetQuery facetQuery = new SimpleFacetQuery();
 
-        // TODO: implement search query
-        Criteria criteria = new Criteria(Criteria.WILDCARD).expression(Criteria.WILDCARD);
-        facetQuery.addCriteria(criteria);
+        if (query != null) {
+        	facetQuery.addCriteria(new SimpleStringCriteria(query));
+        } else {
+        	facetQuery.addCriteria(new Criteria(Criteria.WILDCARD).expression(Criteria.WILDCARD));
+        }
 
         if (facets != null) {
 
@@ -39,47 +46,37 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
                     fieldWithFacetParameters.setLimit(Integer.parseInt(limit));
                 }
 
-                String method = params.getFirst(String.format("%s.method", facet));
-                if (method != null) {
-                    fieldWithFacetParameters.setMethod(method);
-                }
-
-                String minCount = params.getFirst(String.format("%s.mincount", facet));
-                if (minCount != null) {
-                    fieldWithFacetParameters.setMinCount(Integer.parseInt(minCount));
-                }
-
-                String missing = params.getFirst(String.format("%s.missing", facet));
-                if (missing != null) {
-                    fieldWithFacetParameters.setMissing(Boolean.parseBoolean(missing));
-                }
-
                 String offset = params.getFirst(String.format("%s.offset", facet));
                 if (offset != null) {
                     fieldWithFacetParameters.setOffset(Integer.parseInt(offset));
                 }
 
-                String prefix = params.getFirst(String.format("%s.prefix", facet));
-                if (prefix != null) {
-                    fieldWithFacetParameters.setPrefix(prefix);
-                }
-
                 // COUNT, INDEX
                 String sort = params.getFirst(String.format("%s.sort", facet));
                 if (sort != null) {
-                    fieldWithFacetParameters.setSort(FacetOptions.FacetSort.valueOf(sort));
+                    fieldWithFacetParameters.setSort(FacetOptions.FacetSort.valueOf(sort.toUpperCase()));
                 }
 
+                // NOTE: other possible; method, minCount, missing, and prefix
+
                 facetOptions.addFacetOnField(fieldWithFacetParameters);
+
+                List<String> filters = params.get(String.format("%s.filter", facet));
+                if (filters != null) {
+                    for (String filter : filters) {
+                        FilterQuery filterQuery = new SimpleFilterQuery(new Criteria(facet).expression(filter));
+                        facetQuery.addFilterQuery(filterQuery);
+                    }
+                }
 
             }
 
             facetQuery.setFacetOptions(facetOptions);
         }
 
-        // AND, NONE, OR
-        String op = params.getFirst("op");
-        facetQuery.setDefaultOperator(Operator.valueOf(op != null ? op.toUpperCase() : "OR"));
+        facetQuery.setDefaultOperator(Operator.AND);
+
+        facetQuery.setDefType("edismax");
 
         facetQuery.setPageRequest(page);
 

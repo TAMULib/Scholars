@@ -17,7 +17,7 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(key = "concept.class")
 public class Concept extends AbstractSolrDocument {
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/name", key = "concept.name")
     private String name;
 
@@ -37,22 +37,22 @@ public class Concept extends AbstractSolrDocument {
     @PropertySource(template = "concept/websiteUrl", key = "concept.website.url")
     private List<String> websiteUrl;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/websiteLabel", key = "concept.website.label")
     private List<String> websiteLabel;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/associatedDepartment", key = "concept.associatedDepartment", id = "associatedDepartmentId")
     private List<String> associatedDepartment;
 
     @Indexed
     private List<String> associatedDepartmentId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/researchAreaOf", key = "concept.researchAreaOf.name", id = "researchAreaOfId")
     private List<String> researchAreaOf;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/researchAreaOfTitle", key = "concept.researchAreaOf.title")
     private List<String> researchAreaOfTitle;
 
@@ -63,7 +63,7 @@ public class Concept extends AbstractSolrDocument {
     @Indexed
     private List<String> researchAreaOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/broaderConcept", key = "concept.broaderConcept.label", id = "broaderConceptId")
     private List<String> broaderConcept;
 
@@ -74,7 +74,7 @@ public class Concept extends AbstractSolrDocument {
     @Indexed
     private List<String> broaderConceptId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/narrowerConcept", key = "concept.narrowerConcept.label", id = "narrowerConceptId")
     private List<String> narrowerConcept;
 
@@ -85,7 +85,7 @@ public class Concept extends AbstractSolrDocument {
     @Indexed
     private List<String> narrowerConceptId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/relatedConcept", key = "concept.relatedConcept.label", id = "relatedConceptId")
     private List<String> relatedConcept;
 
@@ -96,7 +96,7 @@ public class Concept extends AbstractSolrDocument {
     @Indexed
     private List<String> relatedConceptId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "concept/sameAs", key = "concept.sameAs.label", id = "sameAsId")
     private List<String> sameAs;
 

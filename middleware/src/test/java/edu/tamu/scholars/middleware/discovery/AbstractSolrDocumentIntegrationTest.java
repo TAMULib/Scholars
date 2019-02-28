@@ -13,8 +13,10 @@ import java.util.List;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.client.solrj.request.CoreAdminRequest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -25,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 import edu.tamu.scholars.middleware.discovery.model.repo.SolrDocumentRepo;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public abstract class AbstractSolrDocumentIntegrationTest<D extends AbstractSolrDocument, R extends SolrDocumentRepo<D>> {
 
     @Value("classpath:solr/discovery")
@@ -38,15 +41,34 @@ public abstract class AbstractSolrDocumentIntegrationTest<D extends AbstractSolr
 
     protected List<D> mockDocuments;
 
-    @BeforeEach
-    public void createCore() throws SolrServerException, IOException {
+    @BeforeAll
+    public void setup() throws SolrServerException, IOException {
+        createCore();
+        setDocuments();
+        createDocuments();
+    }
+
+    @AfterAll
+    public void cleanup() throws SolrServerException, IOException {
+        deleteDocuments();
+        deleteCore();
+    }
+
+    private void deleteCore() throws SolrServerException, IOException {
+        CoreAdminRequest.unloadCore(getCollection(), solrServer);
+    }
+
+    private void deleteDocuments() {
+        repo.deleteAll();
+    }
+
+    private void createCore() throws SolrServerException, IOException {
         assertTrue(instanceDirectory.exists());
         assertTrue(instanceDirectory.isFile());
         CoreAdminRequest.createCore(getCollection(), instanceDirectory.getFile().getAbsolutePath(), solrServer);
     }
 
-    @BeforeEach
-    public void setDocuments() throws IOException {
+    private void setDocuments() throws IOException {
         mockDocuments = new ArrayList<D>();
         ObjectMapper objectMapper = new ObjectMapper();
         for (File file : getMockFiles()) {
@@ -60,17 +82,7 @@ public abstract class AbstractSolrDocumentIntegrationTest<D extends AbstractSolr
         assertTrue(mockDocuments.size() > 0);
     }
 
-    @AfterEach
-    public void deleteCore() throws SolrServerException, IOException {
-        CoreAdminRequest.unloadCore(getCollection(), solrServer);
-    }
-
-    @AfterEach
-    public void deleteDocuments() {
-        repo.deleteAll();
-    }
-
-    protected void createDocuments() {
+    private void createDocuments() {
         assertEquals(0, repo.count());
         mockDocuments.forEach(mockDocument -> {
             repo.save(mockDocument);

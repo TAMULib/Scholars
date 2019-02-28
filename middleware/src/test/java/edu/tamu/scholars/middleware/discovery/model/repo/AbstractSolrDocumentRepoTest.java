@@ -19,12 +19,12 @@ public abstract class AbstractSolrDocumentRepoTest<D extends AbstractSolrDocumen
 
     @Test
     public void testCreate() {
-        createDocuments();
+        // NOTE: create is tested before all tests
+        assertTrue(true);
     }
 
     @Test
     public void testRead() throws IOException {
-        createDocuments();
         mockDocuments.forEach(mockDocument -> {
             String id = mockDocument.getId();
             Optional<D> document = repo.findById(id);
