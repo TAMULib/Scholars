@@ -2,7 +2,7 @@
 
 ==== Directory
 
-This provides a directory listing view of all the processes present in the system, based on the _request paramters_ as shown.
+This provides a directory listing view of all the processes present in the system, based on the _request parameters_ as shown.
 
 ===== Request Parameters
 include::{snippets}/processes/directory/request-parameters.adoc[]
