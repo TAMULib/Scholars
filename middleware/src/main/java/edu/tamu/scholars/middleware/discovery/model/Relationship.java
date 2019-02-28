@@ -19,7 +19,7 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(key = "relationship.class")
 public class Relationship extends AbstractSolrDocument {
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/title", key = "relationship.title")
     private String title;
 
@@ -36,16 +36,16 @@ public class Relationship extends AbstractSolrDocument {
     private String thumbnail;
 
     @Field("abstract")
-    @Indexed("abstract")
+    @Indexed(value = "abstract", copyTo = "_text_")
     @JsonProperty("abstract")
     @PropertySource(template = "relationship/abstract", key = "relationship.abstract")
     private String abstractText;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/description", key = "relationship.description")
     private String description;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/receiptOf", key = "relationship.receiptOf.name", id = "receiptOfId")
     private List<String> receiptOf;
 
@@ -56,7 +56,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> receiptOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/awardOrHonorFor", key = "relationship.awardOrHonorFor.name", id = "awardOrHonorForId")
     private List<String> awardOrHonorFor;
 
@@ -67,7 +67,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> awardOrHonorForId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/awardConferredBy", key = "relationship.awardConferredBy.name", id = "awardConferredById")
     private List<String> awardConferredBy;
 
@@ -78,7 +78,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> awardConferredById;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/awardedBy", key = "relationship.awardedBy.name", id = "awardedById")
     private List<String> awardedBy;
 
@@ -89,7 +89,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> awardedById;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/grantSubcontractedThrough", key = "relationship.grantSubcontractedThrough.name", id = "grantSubcontractedThroughId")
     private List<String> grantSubcontractedThrough;
 
@@ -100,7 +100,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> grantSubcontractedThroughId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/administeredBy", key = "relationship.administeredBy.name", id = "administeredById")
     private List<String> administeredBy;
 
@@ -111,7 +111,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> administeredById;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/geographicFocus", key = "relationship.geographicFocus.name", id = "geographicFocusId")
     private List<String> geographicFocus;
 
@@ -122,7 +122,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> geographicFocusId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/subGrant", key = "relationship.subGrant.name", id = "subGrantId")
     private List<String> subGrant;
 
@@ -133,7 +133,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> subGrantId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/subGrantOf", key = "relationship.subGrantOf.name", id = "subGrantOfId")
     private List<String> subGrantOf;
 
@@ -144,7 +144,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> subGrantOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/providesFundingFor", key = "relationship.providesFundingFor.name", id = "providesFundingForId")
     private List<String> providesFundingFor;
 
@@ -155,11 +155,11 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> providesFundingForId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/totalAwardAmount", key = "relationship.totalAwardAmount")
     private String totalAwardAmount;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/directCosts", key = "relationship.directCosts")
     private String directCosts;
 
@@ -171,23 +171,23 @@ public class Relationship extends AbstractSolrDocument {
     @PropertySource(template = "relationship/localAwardId", key = "relationship.localAwardId")
     private String localAwardId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/contributor", key = "relationship.contributor.name", id = "contributorId")
     private List<String> contributor;
 
     @Indexed
-    @PropertySource(template = "relationship/contributor", key = "relationship.contributor.type", parse = true)
+    @PropertySource(template = "relationship/contributorType", key = "relationship.contributor.type", parse = true)
     private List<String> contributorType;
 
     @Indexed
     private List<String> contributorId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/supportedPublicationOrOtherWork", key = "relationship.supportedPublicationOrOtherWork.name", id = "supportedPublicationOrOtherWorkId")
     private List<String> supportedPublicationOrOtherWork;
 
     @Indexed
-    @PropertySource(template = "relationship/supportedPublicationOrOtherWork", key = "relationship.supportedPublicationOrOtherWork.type", parse = true)
+    @PropertySource(template = "relationship/supportedPublicationOrOtherWorkType", key = "relationship.supportedPublicationOrOtherWork.type", parse = true)
     private List<String> supportedPublicationOrOtherWorkType;
 
     @Indexed
@@ -201,7 +201,7 @@ public class Relationship extends AbstractSolrDocument {
     @PropertySource(template = "relationship/dateTimeIntervalEnd", key = "relationship.dateTimeInterval.end")
     private List<String> dateTimeIntervalEnd;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/subjectArea", key = "relationship.subjectArea.name", id = "subjectAreaId")
     private List<String> subjectArea;
 
@@ -216,7 +216,7 @@ public class Relationship extends AbstractSolrDocument {
     @PropertySource(template = "relationship/yearAwarded", key = "relationship.yearAwarded")
     private List<String> yearAwarded;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/sameAs", key = "relationship.sameAs.name", id = "sameAsId")
     private List<String> sameAs;
 
@@ -227,7 +227,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> sameAsId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/inheresIn", key = "relationship.inheresIn.name", id = "inheresInId")
     private List<String> inheresIn;
 
@@ -238,7 +238,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> inheresInId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/isSpecifiedOutputOf", key = "relationship.isSpecifiedOutputOf.name", id = "isSpecifiedOutputOfId")
     private List<String> specifiedOutputOf;
 
@@ -249,7 +249,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> isSpecifiedOutputOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/outputOf", key = "relationship.outputOf.name", id = "outputOfId")
     private List<String> outputOf;
 
@@ -260,7 +260,7 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> outputOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "relationship/participatesIn", key = "relationship.participatesIn.name", id = "participatesInId")
     private List<String> participatesIn;
 

@@ -2,7 +2,7 @@
   "id": "n140b034f",
   "name": "Blackwell Publishers Ltd",
   "type": [
-    "http://vivoweb.org/ontology/core#Publisher"
+    "Publisher"
   ],
   "publisherOf": [
     "Discourse and Gender"

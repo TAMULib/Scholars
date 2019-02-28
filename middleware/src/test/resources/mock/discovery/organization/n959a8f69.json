@@ -2,7 +2,7 @@
   "id": "n959a8f69",
   "name": "ASME",
   "type": [
-    "http://vivoweb.org/ontology/core#Publisher"
+    "Publisher"
   ],
   "publisherOf": [
     "ASYMPTOTIC EXPANSION HOMOGENIZATION METHOD FOR CARBON FIBER COMPOSITE STRUCTURES REINFORCED WITH CARBON NANOTUBES",

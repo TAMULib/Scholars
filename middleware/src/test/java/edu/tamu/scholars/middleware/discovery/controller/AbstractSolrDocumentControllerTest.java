@@ -107,7 +107,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                             parameterWithName("facets").description("The facet fields"),
                             parameterWithName("type.limit").description("Type facet limit"),
                             parameterWithName("type.offset").description("Type facet offset"),
-                            parameterWithName("type.sort").description("Type facet sort {index,count}"),
+                            parameterWithName("type.sort").description("Type facet sort {index/count}"),
                             parameterWithName("page").description("The page number"),
                             parameterWithName("size").description("The page size"),
                             parameterWithName("sort").description("The page sort 'field,{asc/desc}'")

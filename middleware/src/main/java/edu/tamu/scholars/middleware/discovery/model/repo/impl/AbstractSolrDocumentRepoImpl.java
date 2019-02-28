@@ -1,15 +1,7 @@
 package edu.tamu.scholars.middleware.discovery.model.repo.impl;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.request.LukeRequest;
-import org.apache.solr.client.solrj.response.LukeResponse;
-import org.apache.solr.client.solrj.response.LukeResponse.FieldInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.SolrTemplate;
@@ -21,6 +13,7 @@ import org.springframework.data.solr.core.query.FilterQuery;
 import org.springframework.data.solr.core.query.Query.Operator;
 import org.springframework.data.solr.core.query.SimpleFacetQuery;
 import org.springframework.data.solr.core.query.SimpleFilterQuery;
+import org.springframework.data.solr.core.query.SimpleStringCriteria;
 import org.springframework.data.solr.core.query.result.FacetPage;
 import org.springframework.util.MultiValueMap;
 
@@ -32,53 +25,15 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
     @Autowired
     private SolrTemplate solrTemplate;
 
-    @Autowired
-    private SolrClient solrClient;
-
     @Override
     public FacetPage<D> search(String query, String[] facets, MultiValueMap<String, String> params, Pageable page) {
         FacetQuery facetQuery = new SimpleFacetQuery();
 
-        Criteria criteria = new Criteria(Criteria.WILDCARD).expression(Criteria.WILDCARD);
-
         if (query != null) {
-
-            criteria = new Criteria();
-
-            LukeRequest luke = new LukeRequest();
-            luke.setPath(String.format("/%s/admin/luke", collection()));
-            luke.setNumTerms(0);
-            LukeResponse lr = null;
-
-            try {
-                lr = luke.process(solrClient);
-            } catch (SolrServerException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Map<String, FieldInfo> map = lr.getFieldInfo();
-
-            for (Entry<String, FieldInfo> entry : map.entrySet()) {
-
-                String field = entry.getKey();
-                FieldInfo fieldInfo = entry.getValue();
-
-                int docs = fieldInfo.getDocs();
-
-                String type = fieldInfo.getType();
-
-                if (docs > 0 && type.equals("string")) {
-                    criteria = criteria.or(new Criteria(field).contains(query));
-
-                }
-
-            }
-
+        	facetQuery.addCriteria(new SimpleStringCriteria(query));
+        } else {
+        	facetQuery.addCriteria(new Criteria(Criteria.WILDCARD).expression(Criteria.WILDCARD));
         }
-
-        facetQuery.addCriteria(criteria);
 
         if (facets != null) {
 
