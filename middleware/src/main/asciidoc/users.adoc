@@ -19,6 +19,9 @@ include::{snippets}/users/directory/curl-request.adoc[]
 
 ==== Delete
 
+===== Path Parameters
+include::{snippets}/users/delete/path-parameters.adoc[]
+
 ===== Sample Request
 include::{snippets}/users/delete/http-request.adoc[]
 
@@ -29,6 +32,9 @@ include::{snippets}/users/delete/http-response.adoc[]
 include::{snippets}/users/delete/curl-request.adoc[]
 
 ==== Find by ID
+
+===== Path Parameters
+include::{snippets}/users/find-by-id/path-parameters.adoc[]
 
 ===== Response Fields
 include::{snippets}/users/find-by-id/response-fields.adoc[]
@@ -45,6 +51,12 @@ include::{snippets}/users/find-by-id/curl-request.adoc[]
 ==== Patch
 
 This partially updates a specific user account. This requires a URL path argument that represents the User Id.
+
+===== Path Parameters
+include::{snippets}/users/patch/path-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/users/patch/response-fields.adoc[]
 
 ===== Sample Request
 include::{snippets}/users/patch/http-request.adoc[]

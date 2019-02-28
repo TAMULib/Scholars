@@ -9,9 +9,11 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -82,7 +84,7 @@ public class UserControllerTest extends UserIntegrationTest {
     public void testPatchUser() throws Exception {
         User admin = createMockAdmin();
         // @formatter:off
-        mockMvc.perform(patch(String.format("/users/%d", admin.getId())).cookie(login(admin)).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
+        mockMvc.perform(patch("/users/{id}", admin.getId()).cookie(login(admin)).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
             .andExpect(jsonPath("active", equalTo(false)))
@@ -90,6 +92,17 @@ public class UserControllerTest extends UserIntegrationTest {
             .andDo(
                 document(
                     "users/patch",
+                    pathParameters(
+                        describeUser.withParameter("id", "The User ID.")
+                    ),
+                    requestFields(
+                        describeUser.withField("firstName", "The first name of the user.").optional().ignored(),
+                        describeUser.withField("lastName", "The last name of the user.").optional().ignored(),
+                        describeUser.withField("email", "The e-mail address of the user.").optional().ignored(),
+                        describeUser.withField("role", "The authorization role of the user.").optional(),
+                        describeUser.withField("active", "The expired/unexpired status of the user.").optional(),
+                        describeUser.withField("enabled", "The locked/unlocked status of the user.").optional().ignored()
+                    ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
                         linkWithRel("user").description("Canonical link for the referenced user.")
@@ -112,7 +125,7 @@ public class UserControllerTest extends UserIntegrationTest {
     public void testPatchUserUnauthorized() throws Exception {
         User user = createMockUser();
         // @formatter:off
-        mockMvc.perform(patch(String.format("/users/%d", user.getId())).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
+        mockMvc.perform(patch("/users/{id}", user.getId()).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
             .andExpect(status().isUnauthorized())
             .andExpect(content().string(equalTo("Full authentication is required to access this resource")));
         // @formatter:on
@@ -122,7 +135,7 @@ public class UserControllerTest extends UserIntegrationTest {
     public void testPatchUserForbidden() throws Exception {
         User user = createMockUser();
         // @formatter:off
-        mockMvc.perform(patch(String.format("/users/%d", user.getId())).cookie(login(user)).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
+        mockMvc.perform(patch("/users/{id}", user.getId()).cookie(login(user)).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
             .andExpect(status().isUnauthorized())
             .andExpect(content().string(equalTo("Access is denied")));
         // @formatter:on
@@ -133,9 +146,16 @@ public class UserControllerTest extends UserIntegrationTest {
         User admin = createMockAdmin();
         User superAdmin = createMockSuperAdmin();
         // @formatter:off
-        mockMvc.perform(delete(String.format("/users/%d", admin.getId())).cookie(login(superAdmin)).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
+        mockMvc.perform(delete("/users/{id}", admin.getId()).cookie(login(superAdmin)).content("{\"role\": \"ROLE_USER\", \"active\": false}"))
             .andExpect(status().isNoContent())
-            .andDo(document("users/delete"));
+            .andDo(
+                document(
+                    "users/delete",
+                    pathParameters(
+                        describeUser.withParameter("id", "The User ID.")
+                    )
+                )
+            );
         // @formatter:on
     }
 
@@ -143,7 +163,7 @@ public class UserControllerTest extends UserIntegrationTest {
     public void testDeleteUserUnauthorized() throws Exception {
         User user = createMockUser();
         // @formatter:off
-        mockMvc.perform(delete(String.format("/users/%d", user.getId())))
+        mockMvc.perform(delete("/users/{id}", user.getId()))
             .andExpect(status().isUnauthorized())
             .andExpect(content().string(equalTo("Full authentication is required to access this resource")));
         // @formatter:on
@@ -154,7 +174,7 @@ public class UserControllerTest extends UserIntegrationTest {
         User user = createMockUser();
         User admin = createMockAdmin();
         // @formatter:off
-        mockMvc.perform(delete(String.format("/users/%d", user.getId())).cookie(login(admin)))
+        mockMvc.perform(delete("/users/{id}", user.getId()).cookie(login(admin)))
             .andExpect(status().isUnauthorized())
             .andExpect(content().string(equalTo("Access is denied")));
         // @formatter:on
@@ -183,12 +203,15 @@ public class UserControllerTest extends UserIntegrationTest {
     public void testGetUser() throws Exception {
         User admin = createMockAdmin();
         // @formatter:off
-        mockMvc.perform(get(String.format("/users/%s", admin.getId().toString())).cookie(login(admin)))
+        mockMvc.perform(get("/users/{id}", admin.getId()).cookie(login(admin)))
             .andExpect(status().isOk())
             .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
             .andDo(
                 document(
                     "users/find-by-id",
+                    pathParameters(
+                        describeUser.withParameter("id", "The User ID.")
+                    ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
                         linkWithRel("user").description("Canonical link for the referenced user.")
@@ -211,7 +234,7 @@ public class UserControllerTest extends UserIntegrationTest {
     public void testGetUserUnauthorized() throws Exception {
         User user = createMockUser();
         // @formatter:off
-        mockMvc.perform(get(String.format("/users/%s", user.getId().toString())))
+        mockMvc.perform(get("/users/{id}", user.getId()))
             .andExpect(status().isUnauthorized())
             .andExpect(content().string(equalTo("Full authentication is required to access this resource")));
         // @formatter:on
@@ -221,7 +244,7 @@ public class UserControllerTest extends UserIntegrationTest {
     public void testGetUserForbidden() throws Exception {
         User user = createMockUser();
         // @formatter:off
-        mockMvc.perform(get(String.format("/users/%s", user.getId().toString())).cookie(login(user)))
+        mockMvc.perform(get("/users/{id}", user.getId()).cookie(login(user)))
             .andExpect(status().isUnauthorized())
             .andExpect(content().string(equalTo("Access is denied")));
         // @formatter:on
