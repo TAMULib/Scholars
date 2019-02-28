@@ -39,7 +39,7 @@ public class LogoutControllerTest extends UserIntegrationTest {
         // @formatter:off
         mockMvc.perform(post("/logout")
             .cookie(cookie))
-                .andExpect(status().isOk())
+                .andExpect(status().isResetContent())
                 .andExpect(content().string(equalTo("Success")))
                 .andDo(document("logout"));
         // @formatter:on
@@ -49,7 +49,7 @@ public class LogoutControllerTest extends UserIntegrationTest {
     public void testLogoutNotLoggedIn() throws Exception {
         // @formatter:off
         mockMvc.perform(post("/logout"))
-            .andExpect(status().isOk())
+            .andExpect(status().isResetContent())
             .andExpect(content().string(equalTo("Success")));
         // @formatter:on
     }
