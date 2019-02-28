@@ -9,7 +9,6 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -95,13 +94,13 @@ public class UserControllerTest extends UserIntegrationTest {
                     pathParameters(
                         describeUser.withParameter("id", "The User ID.")
                     ),
-                    requestFields(
-                        describeUser.withField("firstName", "The first name of the user.").optional().ignored(),
-                        describeUser.withField("lastName", "The last name of the user.").optional().ignored(),
-                        describeUser.withField("email", "The e-mail address of the user.").optional().ignored(),
-                        describeUser.withField("role", "The authorization role of the user.").optional(),
-                        describeUser.withField("active", "The expired/unexpired status of the user.").optional(),
-                        describeUser.withField("enabled", "The locked/unlocked status of the user.").optional().ignored()
+                    requestParameters(
+                        describeUser.withParameter("firstName", "The first name of the user.").optional(),
+                        describeUser.withParameter("lastName", "The last name of the user.").optional(),
+                        describeUser.withParameter("email", "The e-mail address of the user.").optional(),
+                        describeUser.withParameter("role", "The authorization role of the user.").optional(),
+                        describeUser.withParameter("active", "The expired/unexpired status of the user.").optional(),
+                        describeUser.withParameter("enabled", "The locked/unlocked status of the user.").optional()
                     ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),

@@ -82,7 +82,7 @@ include::{snippets}/themes/find-by-id/curl-request.adoc[]
 include::{snippets}/themes/patch/path-parameters.adoc[]
 
 ===== Request Parameters
-include::{snippets}/themes/patch/request-fields.adoc[]
+include::{snippets}/themes/patch/request-parameters.adoc[]
 
 ===== Response Fields
 include::{snippets}/themes/patch/response-fields.adoc[]
@@ -102,7 +102,7 @@ include::{snippets}/themes/patch/curl-request.adoc[]
 include::{snippets}/themes/update/path-parameters.adoc[]
 
 ===== Request Parameters
-include::{snippets}/themes/update/request-fields.adoc[]
+include::{snippets}/themes/update/request-parameters.adoc[]
 
 ===== Response Fields
 include::{snippets}/themes/update/response-fields.adoc[]

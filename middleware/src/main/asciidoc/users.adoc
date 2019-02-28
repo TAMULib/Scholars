@@ -55,6 +55,9 @@ This partially updates a specific user account. This requires a URL path argumen
 ===== Path Parameters
 include::{snippets}/users/patch/path-parameters.adoc[]
 
+===== Request Parameters
+include::{snippets}/users/patch/request-parameters.adoc[]
+
 ===== Response Fields
 include::{snippets}/users/patch/response-fields.adoc[]
 
