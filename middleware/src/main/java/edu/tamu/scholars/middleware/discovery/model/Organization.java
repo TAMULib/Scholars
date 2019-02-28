@@ -17,7 +17,7 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(key = "organization.class")
 public class Organization extends AbstractSolrDocument {
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/name", key = "organization.name")
     private String name;
 
@@ -41,18 +41,18 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/websiteLabel", key = "organization.website.label")
     private List<String> websiteLabel;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/overview", key = "organization.overview")
     private String overview;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/offersDegree", key = "organization.offersDegree", id = "offersDegreeId")
     private List<String> offersDegree;
 
     @Indexed
     private List<String> offersDegreeId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/abbreviation", key = "organization.abbreviation")
     private String abbreviation;
 
@@ -60,7 +60,7 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/date", key = "organization.date")
     private List<String> date;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/sponsorsAwardOrHonor", key = "organization.sponsorsAwardOrHonor.name", id = "sponsorsAwardOrHonorId")
     private List<String> sponsorsAwardOrHonor;
 
@@ -71,7 +71,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> sponsorsAwardOrHonorId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/awardOrHonorGiven", key = "organization.awardOrHonorGiven.name", id = "awardOrHonorGivenId")
     private List<String> awardOrHonorGiven;
 
@@ -82,7 +82,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> awardOrHonorGivenId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/awardOrHonorReceived", key = "organization.awardOrHonorReceived.name", id = "awardOrHonorReceivedId")
     private List<String> awardOrHonorReceived;
 
@@ -93,18 +93,18 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> awardOrHonorReceivedId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/keyword", key = "organization.keyword")
     private List<String> keyword;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/organizationForTraining", key = "organization.organizationForTraining", id = "organizationForTrainingId")
     private List<String> organizationForTraining;
 
     @Indexed
     private List<String> organizationForTrainingId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/people", key = "organization.people.name", id = "peopleId")
     private List<String> people;
 
@@ -112,63 +112,63 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/peopleType", key = "organization.people.type", parse = true)
     private List<String> peopleType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/peopleTitle", key = "organization.people.title")
     private List<String> peopleTitle;
 
     @Indexed
     private List<String> peopleId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/hasSubOrganization", key = "organization.hasSubOrganization", id = "hasSubOrganizationId")
     private List<String> hasSubOrganization;
 
     @Indexed
     private List<String> hasSubOrganizationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/organizationWithin", key = "organization.organizationWithin", id = "organizationWithinId")
     private List<String> organizationWithin;
 
     @Indexed
     private List<String> organizationWithinId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/leadOrganizationOf", key = "organization.leadOrganizationOf", id = "leadOrganizationOfId")
     private List<String> leadOrganizationOf;
 
     @Indexed
     private List<String> leadOrganizationOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", key = "organization.hasCollaboratingOrganizationOrGroup", id = "hasCollaboratingOrganizationOrGroupId")
     private List<String> hasCollaboratingOrganizationOrGroup;
 
     @Indexed
     private List<String> hasCollaboratingOrganizationOrGroupId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/hasAffiliatedOrganization", key = "organization.hasAffiliatedOrganization", id = "hasAffiliatedOrganizationId")
     private List<String> hasAffiliatedOrganization;
 
     @Indexed
     private List<String> hasAffiliatedOrganizationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/memberOf", key = "organization.memberOf", id = "memberOfId")
     private List<String> memberOf;
 
     @Indexed
     private List<String> memberOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/clinicalActivity", key = "organization.clinicalActivity", id = "clinicalActivityId")
     private List<String> clinicalActivity;
 
     @Indexed
     private List<String> clinicalActivityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/convenerOfEvent", key = "organization.convenerOfEvent.name", id = "convenerOfEventId")
     private List<String> convenerOfEvent;
 
@@ -179,7 +179,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> convenerOfEventId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/attendedEvent", key = "organization.attendedEvent.name", id = "attendedEventId")
     private List<String> attendedEvent;
 
@@ -190,7 +190,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> attendedEventId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/selectedPublication", key = "organization.selectedPublication.title", id = "selectedPublicationId")
     private List<String> selectedPublication;
 
@@ -205,7 +205,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> selectedPublicationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/publisherOf", key = "organization.publisherOf.title", id = "publisherOfId", unique = true)
     private List<String> publisherOf;
 
@@ -220,11 +220,11 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> publisherOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/presentation", key = "organization.presentation.title", id = "presentationId")
     private List<String> presentation;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/presentationEvent", key = "organization.presentation.event")
     private List<String> presentationEvent;
 
@@ -235,7 +235,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> presentationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/featuredIn", key = "organization.featuredIn.title", id = "featuredInId")
     private List<String> featuredIn;
 
@@ -250,7 +250,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> featuredInId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/assigneeForPatent", key = "organization.assigneeForPatent.name", id = "assigneeForPatentId")
     private List<String> assigneeForPatent;
 
@@ -261,7 +261,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> assigneeForPatentId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/translatorOf", key = "organization.translatorOf.title", id = "translatorOfId")
     private List<String> translatorOf;
 
@@ -276,7 +276,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> translatorOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/awardsGrant", key = "organization.awardsGrant.name", id = "awardsGrantId")
     private List<String> awardsGrant;
 
@@ -287,7 +287,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> awardsGrantId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/administersGrant", key = "organization.administersGrant.name", id = "administersGrantId")
     private List<String> administersGrant;
 
@@ -298,7 +298,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> administersGrantId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/subcontractsGrant", key = "organization.subcontractsGrant.name", id = "subcontractsGrantId")
     private List<String> subcontractsGrant;
 
@@ -309,46 +309,46 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> subcontractsGrantId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/performsHumanStudy", key = "organization.performsHumanStudy", id = "performsHumanStudyId")
     private List<String> performsHumanStudy;
 
     @Indexed
     private List<String> performsHumanStudyId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/contractOrProviderForService", key = "organization.contractOrProviderForService", id = "contractOrProviderForServiceId")
     private List<String> contractOrProviderForService;
 
     @Indexed
     private List<String> contractOrProviderForServiceId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/outreachAndCommunityServiceActivity", key = "organization.outreachAndCommunityServiceActivity", id = "outreachAndCommunityServiceActivityId")
     private List<String> outreachAndCommunityServiceActivity;
 
     @Indexed
     private List<String> outreachAndCommunityServiceActivityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/hasEquipment", key = "organization.hasEquipment", id = "hasEquipmentId")
     private List<String> hasEquipment;
 
     @Indexed
     private List<String> hasEquipmentId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/offersCourse", key = "organization.offersCourse", id = "offersCourseId")
     private List<String> offersCourse;
 
     @Indexed
     private List<String> offersCourseId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/orgId", key = "organization.orgId")
     private String orgId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/sameAs", key = "organization.sameAs.label", id = "sameAsId")
     private List<String> sameAs;
 
@@ -359,67 +359,67 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> sameAsId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/phone", key = "organization.phone")
     private String phone;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/fax", key = "organization.fax")
     private String fax;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/emailAddress", key = "organization.emailAddress")
     private String emailAddress;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/streetAddress", key = "organization.streetAddress")
     private String streetAddress;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/locality", key = "organization.locality")
     private String locality;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/region", key = "organization.region")
     private String region;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/postalCode", key = "organization.postalCode")
     private String postalCode;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/country", key = "organization.country")
     private String country;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/geographicLocation", key = "organization.geographicLocation", id = "geographicLocationId")
     private String geographicLocation;
 
     @Indexed
     private String geographicLocationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/locatedAtFacility", key = "organization.locatedAtFacility", id = "locatedAtFacilityId")
     private List<String> locatedAtFacility;
 
     @Indexed
     private List<String> locatedAtFacilityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/predecessorOrganization", key = "organization.predecessorOrganization", id = "predecessorOrganizationId")
     private List<String> predecessorOrganization;
 
     @Indexed
     private List<String> predecessorOrganizationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/successorOrganization", key = "organization.successorOrganization", id = "successorOrganizationId")
     private List<String> successorOrganization;
 
     @Indexed
     private List<String> successorOrganizationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/governingAuthorityFor", key = "organization.governingAuthorityFor", id = "governingAuthorityForId")
     private List<String> governingAuthorityFor;
 
@@ -427,7 +427,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> governingAuthorityForId;
 
     // NOTE: unidirectional from Concept vivo:researchAreaOf
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "organization/affiliatedResearchArea", key = "organization.affiliatedResearchArea", id = "affiliatedResearchAreaId", unique = true)
     private List<String> affiliatedResearchArea;
 

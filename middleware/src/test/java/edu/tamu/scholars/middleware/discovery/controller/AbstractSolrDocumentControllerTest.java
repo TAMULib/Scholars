@@ -44,7 +44,6 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
 
     @Test
     public void testGetSolrDocumentsPage() throws Exception {
-        createDocuments();
         // @formatter:off
         mockMvc.perform(
             get(getPath()).param("page", "0").param("size", "20").param("sort", "id"))
@@ -80,7 +79,6 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
 
     @Test
     public void testSearchSolrDocumentsFacetPage() throws Exception {
-        createDocuments();
         // @formatter:off
         mockMvc.perform(
             get(
@@ -90,6 +88,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                     .param("type.limit", "5")
                     .param("type.offset", "0")
                     .param("type.sort", "COUNT")
+                    .param("type.filter", "*")
                     .param("page", "0")
                     .param("size", "20")
                     .param("sort", "id")
@@ -104,14 +103,15 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                     document(
                         getPath().substring(1) + "/facet-search",
                         requestParameters(
-                            parameterWithName("query").description("The search query."),
-                            parameterWithName("facets").description("The facet fields."),
-                            parameterWithName("type.limit").description("Type facet limit."),
-                            parameterWithName("type.offset").description("Type facet offset."),
-                            parameterWithName("type.sort").description("Type facet sort {index,count}."),
-                            parameterWithName("page").description("The page number."),
-                            parameterWithName("size").description("The page size."),
-                            parameterWithName("sort").description("The page sort 'field,{asc/desc}'.")
+                            parameterWithName("query").description("The search query"),
+                            parameterWithName("facets").description("The facet fields"),
+                            parameterWithName("type.limit").description("Type facet limit"),
+                            parameterWithName("type.offset").description("Type facet offset"),
+                            parameterWithName("type.sort").description("Type facet sort {index/count}"),
+                            parameterWithName("type.filter").description("Type facet filter applied"),
+                            parameterWithName("page").description("The page number"),
+                            parameterWithName("size").description("The page size"),
+                            parameterWithName("sort").description("The page sort 'field,{asc/desc}'")
                         ),
                         links(
                             linkWithRel("self").description("Canonical link for this resource")
@@ -129,7 +129,6 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
 
     @Test
     public void testGetSolrDocument() throws Exception {
-        createDocuments();
         for (D mockDocument : mockDocuments) {
             ConstraintDescriptionsHelper describeDocument = new ConstraintDescriptionsHelper(mockDocument.getClass());
 

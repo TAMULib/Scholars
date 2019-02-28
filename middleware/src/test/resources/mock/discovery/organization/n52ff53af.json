@@ -2,8 +2,8 @@
   "id": "n52ff53af",
   "name": "School of Law",
   "type": [
-    "http://vivoweb.org/ontology/core#School",
-    "http://xmlns.com/foaf/0.1/Organization"
+    "School",
+    "Organization"
   ],
   "people": [
     "Pierce, Tanya",
