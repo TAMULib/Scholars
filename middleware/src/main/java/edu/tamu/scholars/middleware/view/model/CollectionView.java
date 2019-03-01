@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFacets;
@@ -20,6 +22,10 @@ public abstract class CollectionView extends View {
     @Column(nullable = false, unique = true)
     private String collection;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Layout layout;
+
     @ElementCollection
     private List<Facet> facets;
 
@@ -34,6 +40,14 @@ public abstract class CollectionView extends View {
 
     public void setCollection(String collection) {
         this.collection = collection;
+    }
+
+    public Layout getLayout() {
+        return layout;
+    }
+
+    public void setLayout(Layout layout) {
+        this.layout = layout;
     }
 
     public List<Facet> getFacets() {
