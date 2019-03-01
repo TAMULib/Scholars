@@ -13,6 +13,9 @@ public class ResultView extends View {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String template;
+
     public ResultView() {
         super();
     }
@@ -23,6 +26,14 @@ public class ResultView extends View {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
     }
 
     @Override
