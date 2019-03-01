@@ -2,22 +2,22 @@ package edu.tamu.scholars.middleware.view.validator;
 
 import java.util.List;
 
-import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFacets;
+import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFilters;
 import edu.tamu.scholars.middleware.view.model.CollectionView;
-import edu.tamu.scholars.middleware.view.model.Facet;
+import edu.tamu.scholars.middleware.view.model.Filter;
 
-public class CollectionFacetsValidator extends CollectionFieldValidator<ValidCollectionFacets> {
+public class CollectionFiltersValidator extends CollectionFieldValidator<ValidCollectionFilters> {
 
     @Override
     protected boolean isValidField(CollectionView collectionView, List<String> fields) {
-        List<Facet> facets = collectionView.getFacets();
-        if (facets.isEmpty()) {
+        List<Filter> filters = collectionView.getFilters();
+        if (filters.isEmpty()) {
             return true;
         }
-        for (Facet facet : facets) {
+        for (Filter filter : filters) {
             boolean facetValid = false;
             for (String field : fields) {
-                if (field.equals(facet.getField())) {
+                if (field.equals(filter.getField())) {
                     facetValid = true;
                     break;
                 }

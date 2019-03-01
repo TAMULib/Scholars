@@ -8,6 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 
 import edu.tamu.scholars.middleware.view.validator.CollectionFacetsValidator;
 
@@ -18,5 +19,9 @@ import edu.tamu.scholars.middleware.view.validator.CollectionFacetsValidator;
 public @interface ValidCollectionFacets {
 
     String message();
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 
 }

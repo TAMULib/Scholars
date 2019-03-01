@@ -10,13 +10,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import edu.tamu.scholars.middleware.view.validator.IndexFieldValidator;
+import edu.tamu.scholars.middleware.view.validator.CollectionFiltersValidator;
 
 @Documented
 @Target(TYPE)
 @Retention(RUNTIME)
-@Constraint(validatedBy = IndexFieldValidator.class)
-public @interface ValidIndexField {
+@Constraint(validatedBy = CollectionFiltersValidator.class)
+public @interface ValidCollectionFilters {
 
     String message();
 

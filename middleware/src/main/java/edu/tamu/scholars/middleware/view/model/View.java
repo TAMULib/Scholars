@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -21,6 +22,9 @@ public abstract class View implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String name;
+
     public View() {
         super();
     }
@@ -33,6 +37,12 @@ public abstract class View implements Serializable {
         this.id = id;
     }
 
-    public abstract String getIdentifier();
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

@@ -14,11 +14,6 @@ public class EmailConstraintValidator implements ConstraintValidator<AvailableEm
     private UserRepo userRepo;
 
     @Override
-    public void initialize(AvailableEmail availableEmail) {
-
-    }
-
-    @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
         if (userRepo.existsByEmail(email)) {
             return false;

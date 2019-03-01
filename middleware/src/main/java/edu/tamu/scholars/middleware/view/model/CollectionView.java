@@ -10,16 +10,18 @@ import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFacets;
+import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFilters;
 import edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection;
 
 @MappedSuperclass
 @ValidCollectionFacets(message = "{CollectionView.validCollectionFacets}")
+@ValidCollectionFilters(message = "{CollectionView.validCollectionFilters}")
 public abstract class CollectionView extends View {
 
     private static final long serialVersionUID = 6875458024293994230L;
 
     @ValidDiscoveryCollection(message = "{CollectionView.validDiscoveryCollection}")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String collection;
 
     @Column(nullable = false)
@@ -28,6 +30,9 @@ public abstract class CollectionView extends View {
 
     @ElementCollection
     private List<Facet> facets;
+
+    @ElementCollection
+    private List<Filter> filters;
 
     public CollectionView() {
         super();
@@ -58,13 +63,16 @@ public abstract class CollectionView extends View {
         this.facets = facets;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+    public List<Filter> getFilters() {
+        return filters;
     }
 
-    @Override
-    public String getIdentifier() {
-        return collection;
+    public void setFilters(List<Filter> filters) {
+        this.filters = filters;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 
 }

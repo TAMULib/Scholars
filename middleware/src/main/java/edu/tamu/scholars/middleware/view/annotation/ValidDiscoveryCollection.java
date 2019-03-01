@@ -8,6 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 
 import edu.tamu.scholars.middleware.view.validator.DiscoveryCollectionValidator;
 
@@ -16,7 +17,11 @@ import edu.tamu.scholars.middleware.view.validator.DiscoveryCollectionValidator;
 @Retention(RUNTIME)
 @Constraint(validatedBy = DiscoveryCollectionValidator.class)
 public @interface ValidDiscoveryCollection {
-    
+
     String message();
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 
 }

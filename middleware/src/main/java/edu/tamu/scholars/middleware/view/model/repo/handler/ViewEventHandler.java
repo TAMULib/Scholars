@@ -28,7 +28,7 @@ public abstract class ViewEventHandler<V extends View> {
 
     @HandleAfterDelete
     public void broadcastThemeDelete(V view) {
-        simpMessageTemplate.convertAndSend(getChannel(), new DeleteEntityMessage<String>(view.getIdentifier()));
+        simpMessageTemplate.convertAndSend(getChannel(), new DeleteEntityMessage<String>(view.getName()));
     }
 
     protected abstract String getChannel();
