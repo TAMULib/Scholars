@@ -25,14 +25,12 @@ import org.passay.spring.SpringMessageResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.stereotype.Component;
 
 import edu.tamu.scholars.middleware.auth.annotation.ValidPassword;
 import edu.tamu.scholars.middleware.auth.controller.request.Registration;
 import edu.tamu.scholars.middleware.auth.model.User;
 import edu.tamu.scholars.middleware.auth.model.repo.UserRepo;
 
-@Component
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, Registration> {
 
     @Autowired
@@ -40,11 +38,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 
     @Autowired
     private MessageSource messageSource;
-
-    @Override
-    public void initialize(ValidPassword password) {
-
-    }
 
     @Override
     public boolean isValid(Registration registration, ConstraintValidatorContext context) {

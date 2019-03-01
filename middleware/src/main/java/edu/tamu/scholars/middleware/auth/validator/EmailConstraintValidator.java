@@ -4,12 +4,10 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import edu.tamu.scholars.middleware.auth.annotation.AvailableEmail;
 import edu.tamu.scholars.middleware.auth.model.repo.UserRepo;
 
-@Component
 public class EmailConstraintValidator implements ConstraintValidator<AvailableEmail, String> {
 
     @Autowired

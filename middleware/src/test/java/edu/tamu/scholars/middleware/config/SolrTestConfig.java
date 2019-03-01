@@ -14,15 +14,10 @@ import org.springframework.data.solr.server.support.EmbeddedSolrServerFactoryBea
 public class SolrTestConfig {
 
     @Bean
-    public EmbeddedSolrServerFactoryBean solrServerFactory() {
+    public EmbeddedSolrServer solrServer() throws Exception {
         EmbeddedSolrServerFactoryBean factory = new EmbeddedSolrServerFactoryBean();
         factory.setSolrHome("classpath:solr");
-        return factory;
-    }
-
-    @Bean
-    public EmbeddedSolrServer solrServer() throws Exception {
-        return solrServerFactory().getObject();
+        return factory.getObject();
     }
 
     @Bean
