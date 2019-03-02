@@ -4,10 +4,17 @@ import static edu.tamu.scholars.middleware.auth.AuthConstants.PASSWORD_DURATION_
 import static edu.tamu.scholars.middleware.auth.AuthConstants.PASSWORD_MAX_LENGTH;
 import static edu.tamu.scholars.middleware.auth.AuthConstants.PASSWORD_MIN_LENGTH;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
 
 import org.jsonschema2pojo.DefaultGenerationConfig;
 import org.jsonschema2pojo.GenerationConfig;
@@ -31,6 +38,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -43,11 +51,15 @@ import com.fasterxml.jackson.module.jsonSchema.factories.ObjectVisitor;
 import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
 import com.fasterxml.jackson.module.jsonSchema.factories.VisitorContext;
 import com.fasterxml.jackson.module.jsonSchema.factories.WrapperFactory;
-import com.fasterxml.jackson.module.jsonSchema.types.AnySchema;
 import com.fasterxml.jackson.module.jsonSchema.types.ArraySchema;
 import com.fasterxml.jackson.module.jsonSchema.types.ObjectSchema;
 import com.fasterxml.jackson.module.jsonSchema.types.StringSchema;
+import com.sun.codemodel.JAnnotationArrayMember;
+import com.sun.codemodel.JAnnotationUse;
+import com.sun.codemodel.JClass;
 import com.sun.codemodel.JCodeModel;
+import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JFieldVar;
 
 import edu.tamu.scholars.middleware.auth.config.AuthConfig;
 import edu.tamu.scholars.middleware.auth.config.PasswordConfig;
@@ -98,11 +110,16 @@ public class MiddlewareApplication {
             public boolean isGenerateBuilders() {
                 return true;
             }
+
+            @Override
+            public boolean isIncludeAdditionalProperties() {
+                return false;
+            }
         };
 
         SolrDocumentSchemaFactoryWrapper solrDocumentVisitor = new SolrDocumentSchemaFactoryWrapper();
 
-        SchemaMapper schemaMapper = new SchemaMapper(new RuleFactory(config, new Jackson2Annotator(config), new SchemaStore()), new SchemaGenerator());
+        SchemaMapper schemaMapper = new SchemaMapper(new RuleFactory(config, new SolrDocumentTypeAnnotator(config), new SchemaStore()), new SchemaGenerator());
 
         ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
 
@@ -130,6 +147,58 @@ public class MiddlewareApplication {
 
         codeModel.build(sourceDirectory);
 
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+
+        File modelDirectory = new File(String.format("%s/source/edu/tamu/scholars/middleware/discovery/model", classpath.getFile().getAbsolutePath()));
+
+        for (File file : modelDirectory.listFiles()) {
+            System.out.println("Compiling..." + file.getAbsolutePath());
+            int result = compiler.run(null, null, null, file.getAbsolutePath());
+            if (result == 0) {
+                System.out.println("...Success");
+            }
+        }
+
+        SolrDocumentClassLoader solrDocumentClassLoader = new SolrDocumentClassLoader();
+
+        for (BeanDefinition beanDefinition : provider.findCandidateComponents("edu.tamu.scholars.middleware.discovery.model")) {
+            System.out.println("Loading..." + beanDefinition.getBeanClassName());
+            Class<?> clazz = solrDocumentClassLoader.loadClass(beanDefinition.getBeanClassName());
+            System.out.println("...Success... Loaded " + clazz.getSimpleName());
+        }
+
+    }
+
+    public class SolrDocumentClassLoader extends ClassLoader {
+        @Override
+        public Class<?> loadClass(String name) throws ClassNotFoundException {
+            if (name.contains("edu.tamu.scholars.middleware.discovery.model")) {
+                try {
+                    String path = String.format("%s%ssource%s%s.class", classpath.getFile().getAbsolutePath(), File.separator, File.separator, name.replace(".", File.separator));
+                    System.out.println(path);
+                    File classFile = new File(path);
+                    System.out.println(classFile.exists());
+                    InputStream inputStream = new FileInputStream(classFile);
+
+                    byte[] buffer;
+                    ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+                    int nextValue = 0;
+                    try {
+                        while ((nextValue = inputStream.read()) != -1) {
+                            byteStream.write(nextValue);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    buffer = byteStream.toByteArray();
+
+                    return defineClass(name, buffer, 0, buffer.length);
+                } catch (IOException e) {
+                    throw new ClassNotFoundException("", e);
+                }
+            }
+            return super.loadClass(name);
+        }
     }
 
     public static class SolrDocumentSchemaFactoryWrapper extends SchemaFactoryWrapper {
@@ -172,47 +241,23 @@ public class MiddlewareApplication {
             @Override
             public StringSchema stringSchema() {
                 return new StringSchema() {
-                    private ObjectNode indexed;
-                    private ObjectNode propertySource;
+                    private final List<ObjectNode> annotations = new ArrayList<ObjectNode>();
 
                     @Override
                     public void enrichWithBeanProperty(BeanProperty beanProperty) {
                         super.enrichWithBeanProperty(beanProperty);
                         Indexed indexed = beanProperty.getAnnotation(Indexed.class);
                         if (indexed != null) {
-                            setIndexed(toObjectNode(indexed));
+                            annotations.add(toObjectNode(indexed));
                         }
                         PropertySource propertySource = beanProperty.getAnnotation(PropertySource.class);
                         if (propertySource != null) {
-                            setPropertySource(toObjectNode(propertySource));
+                            annotations.add(toObjectNode(propertySource));
                         }
                     }
 
-                    public ObjectNode getIndexed() {
-                        return indexed;
-                    }
-
-                    public void setIndexed(ObjectNode indexed) {
-                        this.indexed = indexed;
-                    }
-
-                    public ObjectNode getPropertySource() {
-                        return propertySource;
-                    }
-
-                    public void setPropertySource(ObjectNode propertySource) {
-                        this.propertySource = propertySource;
-                    }
-                };
-            }
-
-            @Override
-            public AnySchema anySchema() {
-                return new AnySchema() {
-                    @Override
-                    public void enrichWithBeanProperty(BeanProperty beanProperty) {
-                        super.enrichWithBeanProperty(beanProperty);
-                        System.out.println(beanProperty.getName());
+                    public List<ObjectNode> getAnnotations() {
+                        return annotations;
                     }
                 };
             }
@@ -220,113 +265,211 @@ public class MiddlewareApplication {
             @Override
             public ArraySchema arraySchema() {
                 return new ArraySchema() {
-                    private ObjectNode indexed;
-                    private ObjectNode propertySource;
+                    private final List<ObjectNode> annotations = new ArrayList<ObjectNode>();
 
                     @Override
                     public void enrichWithBeanProperty(BeanProperty beanProperty) {
                         super.enrichWithBeanProperty(beanProperty);
                         Indexed indexed = beanProperty.getAnnotation(Indexed.class);
                         if (indexed != null) {
-                            setIndexed(toObjectNode(indexed));
+                            annotations.add(toObjectNode(indexed));
                         }
                         PropertySource propertySource = beanProperty.getAnnotation(PropertySource.class);
                         if (propertySource != null) {
-                            setPropertySource(toObjectNode(propertySource));
+                            annotations.add(toObjectNode(propertySource));
                         }
                     }
 
-                    public ObjectNode getIndexed() {
-                        return indexed;
-                    }
-
-                    public void setIndexed(ObjectNode indexed) {
-                        this.indexed = indexed;
-                    }
-
-                    public ObjectNode getPropertySource() {
-                        return propertySource;
-                    }
-
-                    public void setPropertySource(ObjectNode propertySource) {
-                        this.propertySource = propertySource;
+                    public List<ObjectNode> getAnnotations() {
+                        return annotations;
                     }
                 };
             }
 
             public ObjectNode toObjectNode(Indexed indexed) {
                 ObjectNode node = mapper.createObjectNode();
-                node.put("readonly", indexed.readonly());
-                node.put("stored", indexed.stored());
-                node.put("searchable", indexed.searchable());
-                node.put("parse", indexed.type());
-                ArrayNode copyTo = node.putArray("copyTo");
-                for (String ct : indexed.copyTo()) {
-                    copyTo.add(ct);
+                node.put("type", indexed.annotationType().getName());
+                ObjectNode properties = node.putObject("properties");
+                properties.put("readonly", indexed.readonly());
+                properties.put("stored", indexed.stored());
+                properties.put("searchable", indexed.searchable());
+                if (!indexed.type().isEmpty()) {
+                    properties.put("type", indexed.type());
                 }
-                node.put("template", indexed.defaultValue());
-                node.put("key", indexed.required());
-                node.put("id", indexed.name());
-                node.put("parse", indexed.value());
+                if (indexed.copyTo().length > 0) {
+                    ArrayNode copyTo = properties.putArray("copyTo");
+                    for (String ct : indexed.copyTo()) {
+                        copyTo.add(ct);
+                    }
+                }
+                if (!indexed.defaultValue().isEmpty()) {
+                    properties.put("defaultValue", indexed.defaultValue());
+                }
+                properties.put("required", indexed.required());
+                if (!indexed.name().isEmpty()) {
+                    properties.put("name", indexed.name());
+                }
+                if (!indexed.value().isEmpty()) {
+                    properties.put("value", indexed.value());
+                }
                 return node;
             }
 
             public ObjectNode toObjectNode(PropertySource propertySource) {
                 ObjectNode node = mapper.createObjectNode();
-                node.put("template", propertySource.template());
-                node.put("key", propertySource.key());
-                node.put("id", propertySource.id());
-                node.put("parse", propertySource.parse());
-                node.put("unique", propertySource.unique());
+                node.put("type", propertySource.annotationType().getName());
+                ObjectNode properties = node.putObject("properties");
+                if (!propertySource.template().isEmpty()) {
+                    properties.put("template", propertySource.template());
+                }
+                if (!propertySource.key().isEmpty()) {
+                    properties.put("key", propertySource.key());
+                }
+                if (!propertySource.id().isEmpty()) {
+                    properties.put("id", propertySource.id());
+                }
+                properties.put("parse", propertySource.parse());
+                properties.put("unique", propertySource.unique());
                 return node;
             }
 
         }
 
         public class SolrDocumentObjectSchema extends ObjectSchema {
-            private ObjectNode solrDocument;
-            private ObjectNode collectionSource;
+            private final List<ObjectNode> annotations = new ArrayList<ObjectNode>();
 
             public SolrDocumentObjectSchema(JavaType convertedType) {
                 Class<?> type = convertedType.getRawClass();
                 SolrDocument solrDocument = type.getAnnotation(SolrDocument.class);
                 if (solrDocument != null) {
-                    setSolrDocument(toObjectNode(solrDocument));
+                    annotations.add(toObjectNode(solrDocument));
                 }
                 CollectionSource collectionSource = type.getAnnotation(CollectionSource.class);
                 if (collectionSource != null) {
-                    setCollectionSource(toObjectNode(collectionSource));
+                    annotations.add(toObjectNode(collectionSource));
                 }
             }
 
-            public ObjectNode getSolrDocument() {
-                return solrDocument;
+            public List<ObjectNode> getAnnotations() {
+                return annotations;
             }
-
-            public void setSolrDocument(ObjectNode solrDocument) {
-                this.solrDocument = solrDocument;
-            }
-
-            public ObjectNode getCollectionSource() {
-                return collectionSource;
-            }
-
-            public void setCollectionSource(ObjectNode collectionSource) {
-                this.collectionSource = collectionSource;
-            }
-
         }
 
         public ObjectNode toObjectNode(SolrDocument solrDocument) {
             ObjectNode node = mapper.createObjectNode();
-            node.put("collection", solrDocument.collection());
+            node.put("type", solrDocument.annotationType().getName());
+            ObjectNode properties = node.putObject("properties");
+            if (!solrDocument.collection().isEmpty()) {
+                properties.put("collection", solrDocument.collection());
+            }
             return node;
         }
 
         public ObjectNode toObjectNode(CollectionSource collectionSource) {
             ObjectNode node = mapper.createObjectNode();
-            node.put("key", collectionSource.key());
+            node.put("type", collectionSource.annotationType().getName());
+            ObjectNode properties = node.putObject("properties");
+            if (!collectionSource.key().isEmpty()) {
+                properties.put("key", collectionSource.key());
+            }
             return node;
+        }
+
+    }
+
+    public class SolrDocumentTypeAnnotator extends Jackson2Annotator {
+
+        public SolrDocumentTypeAnnotator(GenerationConfig generationConfig) {
+            super(generationConfig);
+        }
+
+        @Override
+        public void propertyInclusion(JDefinedClass clazz, JsonNode schema) {
+            super.propertyInclusion(clazz, schema);
+            JsonNode additionalProperties = schema.get("additionalProperties");
+            if (additionalProperties != null) {
+                JsonNode annotations = additionalProperties.get("annotations");
+                if (annotations != null) {
+                    if (annotations.isArray()) {
+                        for (final JsonNode annotation : annotations) {
+                            String annotationType = annotation.get("type").asText();
+                            try {
+                                JClass annotationClass = new JCodeModel().ref(Class.forName(annotationType));
+                                JAnnotationUse annotationUse = clazz.annotate(annotationClass);
+                                annotation.get("properties").fields().forEachRemaining(pEntry -> {
+                                    if (pEntry.getValue().isArray()) {
+                                        JAnnotationArrayMember arrayMember = annotationUse.paramArray(pEntry.getKey());
+                                        for (final JsonNode value : pEntry.getValue()) {
+                                            if (value.isTextual()) {
+                                                arrayMember.param(value.asText());
+                                            } else if (value.isBoolean()) {
+                                                arrayMember.param(value.asBoolean());
+                                            } else if (value.isInt()) {
+                                                arrayMember.param(value.asInt());
+                                            }
+                                        }
+                                    } else {
+                                        String key = pEntry.getKey();
+                                        JsonNode value = pEntry.getValue();
+                                        if (value.isTextual()) {
+                                            annotationUse.param(key, value.asText());
+                                        } else if (value.isBoolean()) {
+                                            annotationUse.param(key, value.asBoolean());
+                                        } else if (value.isInt()) {
+                                            annotationUse.param(key, value.asInt());
+                                        }
+                                    }
+                                });
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void propertyField(JFieldVar field, JDefinedClass clazz, String propertyName, JsonNode propertyNode) {
+            super.propertyField(field, clazz, propertyName, propertyNode);
+            JsonNode annotations = propertyNode.get("annotations");
+            if (annotations != null) {
+                if (annotations.isArray()) {
+                    for (final JsonNode annotation : annotations) {
+                        String annotationType = annotation.get("type").asText();
+                        try {
+                            JClass annotationClass = new JCodeModel().ref(Class.forName(annotationType));
+                            JAnnotationUse annotationUse = field.annotate(annotationClass);
+                            annotation.get("properties").fields().forEachRemaining(pEntry -> {
+                                if (pEntry.getValue().isArray()) {
+                                    JAnnotationArrayMember arrayMember = annotationUse.paramArray(pEntry.getKey());
+                                    for (final JsonNode value : pEntry.getValue()) {
+                                        if (value.isTextual()) {
+                                            arrayMember.param(value.asText());
+                                        } else if (value.isBoolean()) {
+                                            arrayMember.param(value.asBoolean());
+                                        } else if (value.isInt()) {
+                                            arrayMember.param(value.asInt());
+                                        }
+                                    }
+                                } else {
+                                    String key = pEntry.getKey();
+                                    JsonNode value = pEntry.getValue();
+                                    if (value.isTextual()) {
+                                        annotationUse.param(key, value.asText());
+                                    } else if (value.isBoolean()) {
+                                        annotationUse.param(key, value.asBoolean());
+                                    } else if (value.isInt()) {
+                                        annotationUse.param(key, value.asInt());
+                                    }
+                                }
+                            });
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
         }
 
     }
