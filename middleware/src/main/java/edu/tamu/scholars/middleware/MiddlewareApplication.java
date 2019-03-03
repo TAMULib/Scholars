@@ -91,7 +91,7 @@ public class MiddlewareApplication {
     }
 
     @PostConstruct
-    private void generateSchema() throws ClassNotFoundException, IOException {
+    private void testDynamicSolrDocument() throws ClassNotFoundException, IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -108,11 +108,31 @@ public class MiddlewareApplication {
         GenerationConfig config = new DefaultGenerationConfig() {
             @Override
             public boolean isGenerateBuilders() {
+                return false;
+            }
+
+            @Override
+            public boolean isIncludeConstructors() {
                 return true;
             }
 
             @Override
+            public boolean isConstructorsRequiredPropertiesOnly() {
+                return false;
+            }
+
+            @Override
             public boolean isIncludeAdditionalProperties() {
+                return false;
+            }
+
+            @Override
+            public boolean isIncludeHashcodeAndEquals() {
+                return false;
+            }
+
+            @Override
+            public boolean isIncludeToString() {
                 return false;
             }
         };
@@ -139,7 +159,7 @@ public class MiddlewareApplication {
             schemaMapper.generate(codeModel, clazz.getSimpleName(), "edu.tamu.scholars.middleware.discovery.model", schema.toURI().toURL());
         }
 
-        File sourceDirectory = new File(String.format("%s/source", classpath.getFile().getAbsolutePath()));
+        File sourceDirectory = new File(String.format("%s/../generated-sources", classpath.getFile().getAbsolutePath()));
 
         if (!sourceDirectory.exists()) {
             sourceDirectory.mkdir();
@@ -149,7 +169,7 @@ public class MiddlewareApplication {
 
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
-        File modelDirectory = new File(String.format("%s/source/edu/tamu/scholars/middleware/discovery/model", classpath.getFile().getAbsolutePath()));
+        File modelDirectory = new File(String.format("%s/../generated-sources/edu/tamu/scholars/middleware/discovery/model", classpath.getFile().getAbsolutePath()));
 
         for (File file : modelDirectory.listFiles()) {
             System.out.println("Compiling..." + file.getAbsolutePath());
@@ -174,7 +194,7 @@ public class MiddlewareApplication {
         public Class<?> loadClass(String name) throws ClassNotFoundException {
             if (name.contains("edu.tamu.scholars.middleware.discovery.model")) {
                 try {
-                    String path = String.format("%s%ssource%s%s.class", classpath.getFile().getAbsolutePath(), File.separator, File.separator, name.replace(".", File.separator));
+                    String path = String.format("%s%s..%sgenerated-sources%s%s.class", classpath.getFile().getAbsolutePath(), File.separator, File.separator, File.separator, name.replace(".", File.separator));
                     System.out.println(path);
                     File classFile = new File(path);
                     System.out.println(classFile.exists());
