@@ -15,8 +15,9 @@ import edu.tamu.scholars.middleware.view.model.Facet;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
 import edu.tamu.scholars.middleware.view.model.Layout;
+import edu.tamu.scholars.middleware.view.model.ResultView;
 
-public class DirectoryViewRepoTest extends ViewRepoTest<DirectoryView, DirectoryViewRepo> {
+public class DirectoryViewRepoTest extends CollectionViewRepoTest<DirectoryView, DirectoryViewRepo> {
 
     @TestConfiguration
     static class DirectoryViewRepoTestContextConfiguration {
@@ -39,7 +40,14 @@ public class DirectoryViewRepoTest extends ViewRepoTest<DirectoryView, Directory
 
         directoryView.setName("People");
         directoryView.setCollection("persons");
-        directoryView.setLayout(Layout.LIST);
+        directoryView.setLayout(Layout.GRID);
+
+        ResultView resultView = new ResultView();
+
+        resultView.setName("People");
+        resultView.setTemplate("<h1>Person template from WSYWIG</h1>");
+
+        directoryView.setResultView(resultView);
 
         List<Facet> facets = new ArrayList<Facet>();
 

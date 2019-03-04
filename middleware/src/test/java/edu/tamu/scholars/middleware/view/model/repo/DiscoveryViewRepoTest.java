@@ -13,8 +13,9 @@ import edu.tamu.scholars.middleware.view.model.DiscoveryView;
 import edu.tamu.scholars.middleware.view.model.Facet;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Layout;
+import edu.tamu.scholars.middleware.view.model.ResultView;
 
-public class DiscoveryViewRepoTest extends ViewRepoTest<DiscoveryView, DiscoveryViewRepo> {
+public class DiscoveryViewRepoTest extends CollectionViewRepoTest<DiscoveryView, DiscoveryViewRepo> {
 
     @TestConfiguration
     static class DiscoveryViewRepoTestContextConfiguration {
@@ -37,7 +38,14 @@ public class DiscoveryViewRepoTest extends ViewRepoTest<DiscoveryView, Discovery
 
         discoveryView.setName("People");
         discoveryView.setCollection("persons");
-        discoveryView.setLayout(Layout.LIST);
+        discoveryView.setLayout(Layout.GRID);
+
+        ResultView resultView = new ResultView();
+
+        resultView.setName("People");
+        resultView.setTemplate("<h1>Person template from WSYWIG</h1>");
+
+        discoveryView.setResultView(resultView);
 
         List<Facet> facets = new ArrayList<Facet>();
 

@@ -1,5 +1,8 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.FetchType.EAGER;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFacets;
@@ -27,6 +31,9 @@ public abstract class CollectionView extends View {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Layout layout;
+
+    @ManyToOne(fetch = EAGER, cascade = { PERSIST }, optional = false)
+    private ResultView resultView;
 
     @ElementCollection
     private List<Facet> facets;
@@ -54,6 +61,14 @@ public abstract class CollectionView extends View {
 
     public void setLayout(Layout layout) {
         this.layout = layout;
+    }
+
+    public ResultView getResultView() {
+        return resultView;
+    }
+
+    public void setResultView(ResultView resultView) {
+        this.resultView = resultView;
     }
 
     public List<Facet> getFacets() {

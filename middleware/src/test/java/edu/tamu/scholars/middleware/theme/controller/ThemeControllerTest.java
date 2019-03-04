@@ -53,6 +53,7 @@ import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
 @AutoConfigureRestDocs
 @ExtendWith(SpringExtension.class)
 public class ThemeControllerTest extends ThemeIntegrationTest {
+
     private static final ConstraintDescriptionsHelper describeTheme = new ConstraintDescriptionsHelper(Theme.class);
 
     @Autowired

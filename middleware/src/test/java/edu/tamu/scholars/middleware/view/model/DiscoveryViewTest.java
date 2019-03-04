@@ -39,6 +39,18 @@ public class DiscoveryViewTest {
         assertEquals("persons", discoveryView.getCollection());
         assertEquals(Layout.LIST, discoveryView.getLayout());
 
+        ResultView resultView = new ResultView();
+
+        resultView.setId(1L);
+        resultView.setName("People");
+        resultView.setTemplate("<h1>Person template from WSYWIG</h1>");
+
+        discoveryView.setResultView(resultView);
+
+        assertEquals(1L, discoveryView.getResultView().getId(), 1);
+        assertEquals("People", discoveryView.getResultView().getName());
+        assertEquals("<h1>Person template from WSYWIG</h1>", discoveryView.getResultView().getTemplate());
+
         List<Facet> facets = new ArrayList<Facet>();
 
         Facet facet = new Facet();

@@ -40,6 +40,18 @@ public class DirectoryViewTest {
         assertEquals("persons", directoryView.getCollection());
         assertEquals(Layout.LIST, directoryView.getLayout());
 
+        ResultView resultView = new ResultView();
+
+        resultView.setId(1L);
+        resultView.setName("People");
+        resultView.setTemplate("<h1>Person template from WSYWIG</h1>");
+
+        directoryView.setResultView(resultView);
+
+        assertEquals(1L, directoryView.getResultView().getId(), 1);
+        assertEquals("People", directoryView.getResultView().getName());
+        assertEquals("<h1>Person template from WSYWIG</h1>", directoryView.getResultView().getTemplate());
+
         List<Facet> facets = new ArrayList<Facet>();
 
         Facet facet = new Facet();
