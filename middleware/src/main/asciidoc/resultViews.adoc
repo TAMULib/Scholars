@@ -1,0 +1,120 @@
+=== Result Views
+
+This section describes about the result views of the application. This object is a persistent representation of a result views.
+
+==== Directory
+
+This displays a list of all the result view objects based on parameters like page, size or sort feature based on name as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/resultViews/directory/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/resultViews/directory/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/resultViews/directory/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/resultViews/directory/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/resultViews/directory/curl-request.adoc[]
+
+==== Create
+
+A result view is created by adding a fields like _name_, _template_ etc along with other variables as shown in the *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/resultViews/create/request-fields.adoc[]
+
+===== Response Fields
+include::{snippets}/resultViews/create/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/resultViews/create/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/resultViews/create/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/resultViews/create/curl-request.adoc[]
+
+==== Delete
+
+A result view can be deleted by passing the _resultView _id_ as a path parameter. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/resultViews/delete/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/resultViews/delete/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/resultViews/delete/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/resultViews/delete/curl-request.adoc[]
+
+==== Find by ID
+
+A user can find a result view by providing _resultView _id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the theme object as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/resultViews/find-by-id/path-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/resultViews/find-by-id/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/resultViews/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/resultViews/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/resultViews/find-by-id/curl-request.adoc[]
+
+==== Patch
+
+This helps an admin user to partially update a result view. This process utilizes the http patch protocol.
+
+===== Path Parameters
+include::{snippets}/resultViews/patch/path-parameters.adoc[]
+
+===== Request Parameters
+include::{snippets}/resultViews/patch/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/resultViews/patch/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/resultViews/patch/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/resultViews/patch/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/resultViews/patch/curl-request.adoc[]
+
+==== Update
+
+This helps an admin user to update a specifc result view based on the _resultView id_ provided in the path parameter. This utilizes the hhtp put protocol.
+
+===== Path Parameters
+include::{snippets}/resultViews/update/path-parameters.adoc[]
+
+===== Request Parameters
+include::{snippets}/resultViews/update/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/resultViews/update/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/resultViews/update/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/resultViews/update/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/resultViews/update/curl-request.adoc[]

@@ -1,0 +1,120 @@
+=== Discovery Views
+
+This section describes about the discovery views of the application. This object is a persistent representation of a discovery view.
+
+==== Directory
+
+This displays a list of all the discovery view objects based on parameters like page, size or sort feature based on name, collection etc as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/discoveryViews/directory/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/discoveryViews/directory/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/discoveryViews/directory/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/discoveryViews/directory/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/discoveryViews/directory/curl-request.adoc[]
+
+==== Create
+
+A discovery view is created by adding a fields like _name_, _collection_, _resultView_, _facets_, _filters_ etc along with other variables as shown in the *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/discoveryViews/create/request-fields.adoc[]
+
+===== Response Fields
+include::{snippets}/discoveryViews/create/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/discoveryViews/create/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/discoveryViews/create/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/discoveryViews/create/curl-request.adoc[]
+
+==== Delete
+
+A discovery view can be deleted by passing the _discoveryView _id_ as a path parameter. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/discoveryViews/delete/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/discoveryViews/delete/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/discoveryViews/delete/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/discoveryViews/delete/curl-request.adoc[]
+
+==== Find by ID
+
+A user can find a discovery view by providing _discoveryView _id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the theme object as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/discoveryViews/find-by-id/path-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/discoveryViews/find-by-id/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/discoveryViews/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/discoveryViews/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/discoveryViews/find-by-id/curl-request.adoc[]
+
+==== Patch
+
+This helps an admin user to partially update a discovery view. This process utilizes the http patch protocol.
+
+===== Path Parameters
+include::{snippets}/discoveryViews/patch/path-parameters.adoc[]
+
+===== Request Parameters
+include::{snippets}/discoveryViews/patch/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/discoveryViews/patch/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/discoveryViews/patch/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/discoveryViews/patch/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/discoveryViews/patch/curl-request.adoc[]
+
+==== Update
+
+This helps an admin user to update a specifc discovery view based on the _discoveryView id_ provided in the path parameter. This utilizes the hhtp put protocol.
+
+===== Path Parameters
+include::{snippets}/discoveryViews/update/path-parameters.adoc[]
+
+===== Request Parameters
+include::{snippets}/discoveryViews/update/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/discoveryViews/update/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/discoveryViews/update/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/discoveryViews/update/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/discoveryViews/update/curl-request.adoc[]
