@@ -1,4 +1,4 @@
-package edu.tamu.scholars.middleware.discovery.service;
+package edu.tamu.scholars.middleware.discovery.utility;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -11,16 +11,14 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.data.solr.core.mapping.SolrDocument;
-import org.springframework.stereotype.Service;
 
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
-@Service
-public class DiscoveryService {
+public class DiscoveryUtility {
 
     private static final String DISCOVERY_MODEL_PACKAGE = "edu.tamu.scholars.middleware.discovery.model";
 
-    public List<String> getFields(String collection) {
+    public static List<String> getFields(String collection) {
         List<String> fields = new ArrayList<String>();
         for (BeanDefinition beanDefinition : getSolrDocumentBeanDefinitions()) {
             try {
@@ -35,7 +33,7 @@ public class DiscoveryService {
         return fields;
     }
 
-    public boolean hasIndexField(String collection, String field) {
+    public static boolean hasIndexField(String collection, String field) {
         Optional<Class<?>> type = getCollectionType(collection);
         if (type.isPresent()) {
             for (Field f : FieldUtils.getFieldsListWithAnnotation(type.get(), PropertySource.class)) {
@@ -47,7 +45,7 @@ public class DiscoveryService {
         return false;
     }
 
-    public boolean isCollection(String collection) {
+    public static boolean isCollection(String collection) {
         for (BeanDefinition beanDefinition : getSolrDocumentBeanDefinitions()) {
             try {
                 Class<?> type = Class.forName(beanDefinition.getBeanClassName());
@@ -62,13 +60,13 @@ public class DiscoveryService {
         return false;
     }
 
-    private Set<BeanDefinition> getSolrDocumentBeanDefinitions() {
+    private static Set<BeanDefinition> getSolrDocumentBeanDefinitions() {
         ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
         provider.addIncludeFilter(new AnnotationTypeFilter(SolrDocument.class));
         return provider.findCandidateComponents(DISCOVERY_MODEL_PACKAGE);
     }
 
-    private Optional<Class<?>> getCollectionType(String collection) {
+    private static Optional<Class<?>> getCollectionType(String collection) {
         for (BeanDefinition beanDefinition : getSolrDocumentBeanDefinitions()) {
             try {
                 Class<?> type = Class.forName(beanDefinition.getBeanClassName());

@@ -1,11 +1,10 @@
 package edu.tamu.scholars.middleware.view.model.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
 
-@Repository
-public interface DiscoveryViewRepo extends JpaRepository<DiscoveryView, Long> {
+@RepositoryRestResource
+public interface DiscoveryViewRepo extends ViewRepo<DiscoveryView> {
 
 }

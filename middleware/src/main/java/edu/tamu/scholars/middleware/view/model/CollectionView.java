@@ -37,6 +37,7 @@ public abstract class CollectionView extends View {
     public CollectionView() {
         super();
         facets = new ArrayList<Facet>();
+        filters = new ArrayList<Filter>();
     }
 
     public String getCollection() {

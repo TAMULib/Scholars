@@ -42,9 +42,11 @@ public class ThemeTest {
     public void testGettersAndSetters() {
         Theme theme = new Theme();
 
+        theme.setId(1L);
         theme.setName("Test");
         theme.setOrganization("Testing Unlimited");
 
+        assertEquals(1L, theme.getId(), 1);
         assertEquals("Test", theme.getName());
         assertEquals("Testing Unlimited", theme.getOrganization());
 
