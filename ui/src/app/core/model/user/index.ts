@@ -1,3 +1,3 @@
-export { User } from '../user/user';
-export { Role } from '../user/role';
+export { User } from './user';
+export { Role } from './role';
 export { UserRepo } from './repo/user.repo';

@@ -1,0 +1,10 @@
+export { AbstractSdrDiscoverRepo } from './abstract-sdr-discover-repo';
+export { AbstractSdrRepo } from './abstract-sdr-repo';
+export { SdrConceptRepo } from './sdr-concept-repo';
+export { SdrDiscoverRepo } from './sdr-discover-repo';
+export { SdrDocumentRepo } from './sdr-document-repo';
+export { SdrOrganizationRepo } from './sdr-organization-repo';
+export { SdrPersonRepo } from './sdr-person-repo';
+export { SdrProcessRepo } from './sdr-process-repo';
+export { SdrRelationshipRepo } from './sdr-relationship-repo';
+export { SdrRepo } from './sdr-repo';

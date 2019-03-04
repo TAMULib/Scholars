@@ -1,6 +1,7 @@
-import { SdrResource } from '../';
-import { SdrPageRequest } from '../sdr-page';
 import { Observable } from 'rxjs';
+
+import { SdrResource } from '../sdr-resource';
+import { SdrPageRequest } from '../sdr-page';
 import { SdrCollection } from '../sdr-collection';
 
 export interface SdrRepo<R extends SdrResource> {

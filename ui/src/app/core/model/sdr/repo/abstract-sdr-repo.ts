@@ -1,5 +1,3 @@
-import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 
 import { RestService } from '../../../service/rest.service';
@@ -11,9 +9,6 @@ import { SdrPageRequest } from '../sdr-page';
 
 import { environment } from '../../../../../environments/environment';
 
-@Injectable({
-    providedIn: 'root',
-})
 export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<R> {
 
     constructor(protected restService: RestService) {
@@ -21,7 +16,7 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
     }
 
     public page(page: SdrPageRequest): Observable<SdrCollection> {
-        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}?page=${page.number - 1}&size=${page.size}`, {
+        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}` + this.mapParameters(page), {
             withCredentials: true
         });
     }
@@ -55,6 +50,23 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
             withCredentials: true,
             responseType: 'text'
         });
+    }
+
+    protected mapParameters(request: SdrPageRequest, parameters: String[] = []): String {
+        parameters.push('page=' + request.number);
+        parameters.push('size=' + request.size);
+
+        if (request.sort) {
+            if (request.sort.name) {
+                parameters.push('sort=' + encodeURIComponent(request.sort.name) + (request.sort.ascend === true ? ',asc' : request.sort.ascend === false ? ',desc' : ''));
+            } else if (request.sort.ascend === true) {
+                parameters.push('sort=asc');
+            } else if (request.sort.ascend === false) {
+                parameters.push('sort=desc');
+            }
+        }
+
+        return '?' + parameters.join('&');
     }
 
     protected abstract path(): string;
