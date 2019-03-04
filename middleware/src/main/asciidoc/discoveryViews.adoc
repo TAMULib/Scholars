@@ -42,7 +42,7 @@ include::{snippets}/discoveryViews/create/curl-request.adoc[]
 
 ==== Delete
 
-A discovery view can be deleted by passing the _discoveryView _id_ as a path parameter. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
+A discovery view can be deleted by passing the _discoveryView id_ as a path parameter. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
 
 ===== Path Parameters
 include::{snippets}/discoveryViews/delete/path-parameters.adoc[]
@@ -58,7 +58,7 @@ include::{snippets}/discoveryViews/delete/curl-request.adoc[]
 
 ==== Find by ID
 
-A user can find a discovery view by providing _discoveryView _id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the theme object as shown in the *Sample Response*.
+A user can find a discovery view by providing _discoveryView id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the theme object as shown in the *Sample Response*.
 
 ===== Path Parameters
 include::{snippets}/discoveryViews/find-by-id/path-parameters.adoc[]

@@ -56,7 +56,7 @@ include::{snippets}/themes/create/curl-request.adoc[]
 
 ==== Delete
 
-A theme can be deleted by passing the _theme _id_ as a path parameter. The _active_ flag has to be set to false prior to delete. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
+A theme can be deleted by passing the _theme id_ as a path parameter. The _active_ flag has to be set to false prior to delete. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
 
 ===== Path Parameters
 include::{snippets}/themes/delete/path-parameters.adoc[]
@@ -72,7 +72,7 @@ include::{snippets}/themes/delete/curl-request.adoc[]
 
 ==== Find by ID
 
-A user, with an admin role, can find a theme by providing _theme _id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the theme object as shown in the *Sample Response*.
+A user, with an admin role, can find a theme by providing _theme id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the theme object as shown in the *Sample Response*.
 
 ===== Path Parameters
 include::{snippets}/themes/find-by-id/path-parameters.adoc[]

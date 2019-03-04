@@ -42,7 +42,7 @@ include::{snippets}/directoryViews/create/curl-request.adoc[]
 
 ==== Delete
 
-A directory view can be deleted by passing the _directoryView _id_ as a path parameter. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
+A directory view can be deleted by passing the _directoryView id_ as a path parameter. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
 
 ===== Path Parameters
 include::{snippets}/directoryViews/delete/path-parameters.adoc[]
@@ -58,7 +58,7 @@ include::{snippets}/directoryViews/delete/curl-request.adoc[]
 
 ==== Find by ID
 
-A user can find a directory view by providing _directoryView _id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the directory view object as shown in the *Sample Response*.
+A user can find a directory view by providing _directoryView id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the directory view object as shown in the *Sample Response*.
 
 ===== Path Parameters
 include::{snippets}/directoryViews/find-by-id/path-parameters.adoc[]
