@@ -118,8 +118,7 @@ public class ResultViewControllerTest extends ViewIntegrationTest<ResultView, Re
         performCreateResultView();
         ResultView resultView = viewRepo.findByName("People").get();
         // @formatter:off
-        mockMvc.perform(get("/resultViews/{id}", resultView.getId())
-            .cookie(loginAdmin()))
+        mockMvc.perform(get("/resultViews/{id}", resultView.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("name", equalTo("People")))
@@ -148,8 +147,7 @@ public class ResultViewControllerTest extends ViewIntegrationTest<ResultView, Re
         performCreateResultView();
         // @formatter:off
         mockMvc.perform(
-            get("/resultViews").param("page", "0").param("size", "20").param("sort", "name")
-            .cookie(loginAdmin()))
+            get("/resultViews").param("page", "0").param("size", "20").param("sort", "name"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("page.size", equalTo(20)))
@@ -207,10 +205,14 @@ public class ResultViewControllerTest extends ViewIntegrationTest<ResultView, Re
         createMockAdmin();
         ResultView resultView = getMockView();
         // @formatter:off
-        return mockMvc.perform(post("/resultViews")
-            .content(objectMapper.writeValueAsString(resultView)).contentType(MediaType.APPLICATION_JSON).cookie(loginAdmin()))
-                .andExpect(status().isCreated())
-                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+        return mockMvc.perform(
+            post("/resultViews")
+                .content(objectMapper.writeValueAsString(resultView))
+                .contentType(MediaType.APPLICATION_JSON)
+                .cookie(loginAdmin()))
+                    .andExpect(status().isCreated())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE)
+                );
         // @formatter:on
     }
 
@@ -219,11 +221,13 @@ public class ResultViewControllerTest extends ViewIntegrationTest<ResultView, Re
         resultView.setName("Organizations");
         resultView.setTemplate("<h1>Organization templated from WSYWIG</h1>");
         // @formatter:off
-        return mockMvc.perform(put("/resultViews/{id}", resultView.getId())
-            .content(objectMapper.writeValueAsString(resultView))
-            .cookie(loginAdmin()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+        return mockMvc.perform(
+            put("/resultViews/{id}", resultView.getId())
+                .content(objectMapper.writeValueAsString(resultView))
+                .cookie(loginAdmin()))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE)
+                );
         // @formatter:on
     }
 

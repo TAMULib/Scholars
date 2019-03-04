@@ -127,8 +127,8 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
         performCreateDiscoveryView();
         DiscoveryView discoveryView = viewRepo.findByName("People").get();
         // @formatter:off
-        mockMvc.perform(get("/discoveryViews/{id}", discoveryView.getId())
-            .cookie(loginAdmin()))
+        mockMvc.perform(
+            get("/discoveryViews/{id}", discoveryView.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("name", equalTo("People")))
@@ -163,8 +163,7 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
         performCreateDiscoveryView();
         // @formatter:off
         mockMvc.perform(
-            get("/discoveryViews").param("page", "0").param("size", "20").param("sort", "name")
-            .cookie(loginAdmin()))
+            get("/discoveryViews").param("page", "0").param("size", "20").param("sort", "name"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("page.size", equalTo(20)))
@@ -199,16 +198,18 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
         performCreateDiscoveryView();
         DiscoveryView discoveryView = viewRepo.findByName("People").get();
         // @formatter:off
-        mockMvc.perform(delete("/discoveryViews/{id}", discoveryView.getId()).cookie(loginAdmin()))
-            .andExpect(status().isNoContent())
-            .andDo(
-                document(
-                    "discoveryViews/delete",
-                    pathParameters(
-                        parameterWithName("id").description("The Discovery View id")
-                    )
-                )
-            );
+        mockMvc.perform(
+            delete("/discoveryViews/{id}", discoveryView.getId())
+                .cookie(loginAdmin()))
+                    .andExpect(status().isNoContent())
+                    .andDo(
+                        document(
+                            "discoveryViews/delete",
+                            pathParameters(
+                                parameterWithName("id").description("The Discovery View id")
+                            )
+                        )
+                    );
         // @formatter:on
     }
 
@@ -227,12 +228,14 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
         discoveryViewNode.put("resultView", String.format("http://localhost:9001/resultViews/%s", discoveryView.getResultView().getId()));
 
         // @formatter:off
-        return mockMvc.perform(post("/discoveryViews")
-            .content(discoveryViewNode.toString())
-            .contentType(MediaType.APPLICATION_JSON)
-            .cookie(loginAdmin()))
-                .andExpect(status().isCreated())
-                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+        return mockMvc.perform(
+            post("/discoveryViews")
+                .content(discoveryViewNode.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .cookie(loginAdmin()))
+                    .andExpect(status().isCreated())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE)
+                );
         // @formatter:on
     }
 
@@ -246,11 +249,13 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
         discoveryViewNode.put("resultView", String.format("http://localhost:9001/resultViews/%s", discoveryView.getResultView().getId()));
 
         // @formatter:off
-        return mockMvc.perform(put("/discoveryViews/{id}", discoveryView.getId())
-            .content(discoveryViewNode.toString())
-            .cookie(loginAdmin()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+        return mockMvc.perform(
+            put("/discoveryViews/{id}", discoveryView.getId())
+                .content(discoveryViewNode.toString())
+                .cookie(loginAdmin()))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE)
+                );
         // @formatter:on
     }
 

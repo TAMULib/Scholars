@@ -131,8 +131,8 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
         performCreateDirectoryView();
         DirectoryView directoryView = viewRepo.findByName("People").get();
         // @formatter:off
-        mockMvc.perform(get("/directoryViews/{id}", directoryView.getId())
-            .cookie(loginAdmin()))
+        mockMvc.perform(
+            get("/directoryViews/{id}", directoryView.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("name", equalTo("People")))
@@ -168,8 +168,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
         performCreateDirectoryView();
         // @formatter:off
         mockMvc.perform(
-            get("/directoryViews").param("page", "0").param("size", "20").param("sort", "name")
-            .cookie(loginAdmin()))
+            get("/directoryViews").param("page", "0").param("size", "20").param("sort", "name"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("page.size", equalTo(20)))
@@ -204,16 +203,18 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
         performCreateDirectoryView();
         DirectoryView directoryView = viewRepo.findByName("People").get();
         // @formatter:off
-        mockMvc.perform(delete("/directoryViews/{id}", directoryView.getId()).cookie(loginAdmin()))
-            .andExpect(status().isNoContent())
-            .andDo(
-                document(
-                    "directoryViews/delete",
-                    pathParameters(
-                        parameterWithName("id").description("The Discovery View id")
-                    )
-                )
-            );
+        mockMvc.perform(
+            delete("/directoryViews/{id}", directoryView.getId())
+                .cookie(loginAdmin()))
+                    .andExpect(status().isNoContent())
+                    .andDo(
+                        document(
+                            "directoryViews/delete",
+                            pathParameters(
+                                parameterWithName("id").description("The Discovery View id")
+                            )
+                        )
+                    );
         // @formatter:on
     }
 
@@ -232,12 +233,14 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
         directoryViewNode.put("resultView", String.format("http://localhost:9001/resultViews/%s", directoryView.getResultView().getId()));
 
         // @formatter:off
-        return mockMvc.perform(post("/directoryViews")
-            .content(directoryViewNode.toString())
-            .contentType(MediaType.APPLICATION_JSON)
-            .cookie(loginAdmin()))
-                .andExpect(status().isCreated())
-                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+        return mockMvc.perform(
+            post("/directoryViews")
+                .content(directoryViewNode.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .cookie(loginAdmin()))
+                    .andExpect(status().isCreated())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE)
+            );
         // @formatter:on
     }
 
@@ -251,11 +254,13 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
         directoryViewNode.put("resultView", String.format("http://localhost:9001/resultViews/%s", directoryView.getResultView().getId()));
 
         // @formatter:off
-        return mockMvc.perform(put("/directoryViews/{id}", directoryView.getId())
-            .content(directoryViewNode.toString())
-            .cookie(loginAdmin()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE));
+        return mockMvc.perform(
+            put("/directoryViews/{id}", directoryView.getId())
+                .content(directoryViewNode.toString())
+                .cookie(loginAdmin()))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE)
+            );
         // @formatter:on
     }
 
