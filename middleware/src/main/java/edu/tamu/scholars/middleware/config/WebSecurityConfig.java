@@ -141,19 +141,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/connect/**")
                     .permitAll()
 
-                .antMatchers(PATCH, "/users/{id}")
+                .antMatchers(PATCH,
+                        "/directory-views/{id}",
+                        "/discovery-views/{id}",
+                        "/result-views/{id}",
+                        "/themes/{id}",
+                        "/users/{id}"
+                    )
                     .hasRole("ADMIN")
 
-                .antMatchers(POST, "/themes/{id}")
-                    .hasRole("ADMIN")
                 .antMatchers(POST, "/registration")
                     .permitAll()
+                .antMatchers(POST,
+                        "/directory-views/{id}",
+                        "/discovery-views/{id}",
+                        "/result-views/{id}",
+                        "/themes/{id}"
+                    )
+                    .hasRole("ADMIN")
                 .antMatchers(POST, "/users/{id}")
                     .denyAll()
 
                 .antMatchers(PUT, "/registration")
                     .permitAll()
-                .antMatchers(PUT, "/themes/{id}")
+                .antMatchers(PUT,
+                        "/directory-views/{id}",
+                        "/discovery-views/{id}",
+                        "/result-views/{id}",
+                        "/themes/{id}"
+                    )
                     .hasRole("ADMIN")
                 .antMatchers(PUT, "/users/{id}")
                     .denyAll()
@@ -162,6 +178,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api",
                         "/registration",
                         "/themes/search/active",
+                        "/directory-views", "/directory-views/{id}",
+                        "/discovery-views", "/discovery-views/{id}",
+                        "/result-views", "/result-views/{id}",
                         "/concepts", "/concepts/search/facet", "/concepts/{id}",
                         "/documents", "/documents/search/facet", "/documents/{id}",
                         "/organizations", "/organizations/search/facet", "/organizations/{id}",
@@ -170,10 +189,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/relationships", "/relationships/search/facet", "/relationships/{id}"
                     )
                     .permitAll()
-                .antMatchers(GET, "/users", "/users/{id}", "/themes", "/themes/{id}")
+                .antMatchers(GET,
+                        "/users",
+                        "/users/{id}",
+                        "/themes",
+                        "/themes/{id}"
+                    )
                     .hasRole("ADMIN")
 
-                .antMatchers(DELETE, "/themes/{id}")
+                .antMatchers(DELETE,
+                        "/directory-views/{id}",
+                        "/discovery-views/{id}",
+                        "/result-views/{id}",
+                        "/themes/{id}"
+                    )
                     .hasRole("ADMIN")
                 .antMatchers(DELETE, "/users/{id}")
                     .hasRole("SUPER_ADMIN")
