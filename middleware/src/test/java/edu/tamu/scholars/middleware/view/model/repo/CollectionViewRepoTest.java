@@ -64,8 +64,10 @@ public abstract class CollectionViewRepoTest<V extends CollectionView, R extends
         assertEquals(1, resultViewRepo.count());
     }
 
+    @Override
     @AfterEach
-    public void deleteAllResultViews() {
+    public void deleteAllViews() {
+        viewRepo.deleteAll();
         resultViewRepo.deleteAll();
     }
 

@@ -67,7 +67,8 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
                     requestFields(
                         describeRegistration.withField("firstName", "The first name of the registered account."),
                         describeRegistration.withField("lastName", "The last name of the registered account."),
-                        // FIXME: the annotation `@AvailableEmail` is preventing describeRegistration.withField() usage for "email".
+                        // describeRegistration.withField("email", "The e-mail address of the registered account.")
+                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.auth.annotation.AvailableEmail.description
                         fieldWithPath("email").description("The e-mail address of the registered account.")
                     )
                 )
@@ -195,7 +196,8 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
                     requestFields(
                         describeRegistration.withField("firstName", "The first name of the registered account."),
                         describeRegistration.withField("lastName", "The last name of the registered account."),
-                        // FIXME: the annotation `@AvailableEmail` is preventing describeRegistration.withField() usage for "email".
+                        // describeRegistration.withField("email", "The e-mail address of the registered account."),
+                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.auth.annotation.AvailableEmail.description
                         fieldWithPath("email").description("The e-mail address of the registered account."),
                         describeRegistration.withField("password", "The password for the registered account."),
                         describeRegistration.withField("confirm", "The password confirmation, which should match the password.")

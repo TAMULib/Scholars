@@ -1,5 +1,7 @@
 package edu.tamu.scholars.middleware.view.model.repo;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockResultView;
+
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,12 +28,7 @@ public class ResultViewRepoTest extends ViewRepoTest<ResultView, ResultViewRepo>
 
     @Override
     protected ResultView getMockView() {
-        ResultView resultView = new ResultView();
-
-        resultView.setName("People");
-        resultView.setTemplate("<h1>Fancy templated html from WSYWIG</h1>");
-
-        return resultView;
+        return getMockResultView();
     }
 
 }

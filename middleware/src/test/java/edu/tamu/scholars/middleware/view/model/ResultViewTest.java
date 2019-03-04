@@ -1,5 +1,6 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockResultView;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -18,15 +19,12 @@ public class ResultViewTest {
 
     @Test
     public void testGettersAndSetters() {
-        ResultView resultView = new ResultView();
-
+        ResultView resultView = getMockResultView();
         resultView.setId(1L);
-        resultView.setName("People");
-        resultView.setTemplate("<h1>Fancy templated html from WSYWIG</h1>");
 
         assertEquals(1L, resultView.getId(), 1);
         assertEquals("People", resultView.getName());
-        assertEquals("<h1>Fancy templated html from WSYWIG</h1>", resultView.getTemplate());
+        assertEquals("<h1>Person template from WSYWIG</h1>", resultView.getTemplate());
     }
 
 }

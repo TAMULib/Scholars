@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -22,6 +23,7 @@ public abstract class View implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Size(min = 3, max = 32)
     @Column(nullable = false, unique = true)
     private String name;
 

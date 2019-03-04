@@ -94,7 +94,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                         describeTheme.withSubsection("colors", "An array of <<resources-color, Color resources>>."),
                         describeTheme.withSubsection("variants", "An array of <<resources-variants, Variants resources>>."),
                         describeTheme.withSubsection("variables", "An array of <<resources-variables, Variables resources>>."),
-                        subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources.")
+                        subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources.")
                     )
                 )
             );
@@ -191,7 +191,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                             describeTheme.withSubsection("colors", "An array of <<resources-color, Color resources>>."),
                             describeTheme.withSubsection("variants", "An array of <<resources-variants, Variants resources>>."),
                             describeTheme.withSubsection("variables", "An array of <<resources-variables, Variables resources>>."),
-                            subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources.")
+                            subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources.")
                         )
                     )
                 );
@@ -281,7 +281,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
 		mockMvc.perform(get("/themes/{id}", theme.getId())
 	        .cookie(loginAdmin()))
     		    .andExpect(status().isOk())
-    			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE)).andExpect(jsonPath("active", equalTo(false)))
+    			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+    			.andExpect(jsonPath("active", equalTo(false)))
     			.andExpect(jsonPath("name", equalTo("Test")))
     			.andExpect(jsonPath("organization", equalTo("Testing Unlimited")))
     			.andDo(
@@ -304,7 +305,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                             describeTheme.withSubsection("colors", "An array of <<resources-color, Color resources>>."),
                             describeTheme.withSubsection("variants", "An array of <<resources-variants, Variants resources>>."),
                             describeTheme.withSubsection("variables", "An array of <<resources-variables, Variables resources>>."),
-                            subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources.")
+                            subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources.")
                         )
                     )
                 );

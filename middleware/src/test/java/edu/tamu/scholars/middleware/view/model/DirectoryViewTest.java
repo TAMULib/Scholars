@@ -1,11 +1,9 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDirectoryView;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,42 +26,19 @@ public class DirectoryViewTest {
 
     @Test
     public void testGettersAndSetters() {
-        DirectoryView directoryView = new DirectoryView();
-
+        DirectoryView directoryView = getMockDirectoryView();
         directoryView.setId(1L);
-        directoryView.setName("People");
-        directoryView.setCollection("persons");
-        directoryView.setLayout(Layout.LIST);
+
+        directoryView.getResultView().setId(1L);
 
         assertEquals(1L, directoryView.getId(), 1);
         assertEquals("People", directoryView.getName());
         assertEquals("persons", directoryView.getCollection());
         assertEquals(Layout.LIST, directoryView.getLayout());
 
-        ResultView resultView = new ResultView();
-
-        resultView.setId(1L);
-        resultView.setName("People");
-        resultView.setTemplate("<h1>Person template from WSYWIG</h1>");
-
-        directoryView.setResultView(resultView);
-
         assertEquals(1L, directoryView.getResultView().getId(), 1);
         assertEquals("People", directoryView.getResultView().getName());
         assertEquals("<h1>Person template from WSYWIG</h1>", directoryView.getResultView().getTemplate());
-
-        List<Facet> facets = new ArrayList<Facet>();
-
-        Facet facet = new Facet();
-
-        facet.setName("Name");
-        facet.setField("name");
-        facet.setLimit(20);
-        facet.setSort(FacetSort.INDEX);
-
-        facets.add(facet);
-
-        directoryView.setFacets(facets);
 
         assertEquals(1, directoryView.getFacets().size());
         assertEquals("Name", directoryView.getFacets().get(0).getName());
@@ -71,27 +46,9 @@ public class DirectoryViewTest {
         assertEquals(20, directoryView.getFacets().get(0).getLimit());
         assertEquals(FacetSort.INDEX, directoryView.getFacets().get(0).getSort());
 
-        List<Filter> filters = new ArrayList<Filter>();
-
-        Filter filter = new Filter();
-
-        filter.setField("type");
-        filter.setValue("FacultyMember");
-
-        filters.add(filter);
-
-        directoryView.setFilters(filters);
-
         assertEquals(1, directoryView.getFilters().size());
         assertEquals("type", directoryView.getFilters().get(0).getField());
         assertEquals("FacultyMember", directoryView.getFilters().get(0).getValue());
-
-        Index index = new Index();
-
-        index.setField("name");
-        index.setType(Type.ENDING_WITH);
-
-        directoryView.setIndex(index);
 
         assertNotNull(directoryView.getIndex());
         assertEquals("name", directoryView.getIndex().getField());
