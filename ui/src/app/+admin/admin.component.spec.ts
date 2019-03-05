@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
 
 import { AdminComponent } from './admin.component';
-import { DirectoryViewsComponent } from './directory-view/directory-views.component';
+import { DirectoryViewsComponent } from './directory-views/directory-views.component';
 import { DiscoveryViewsComponent } from './discovery-views/discovery-views.component';
 import { ResultViewsComponent } from './result-views/result-views.component';
 import { ThemesComponent } from './themes/themes.component';
