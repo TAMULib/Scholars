@@ -1,4 +1,3 @@
 import { SdrResource } from '../sdr';
 
-export interface Person extends SdrResource {
-}
+export type Person = SdrResource;

@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
 
 import { RestService } from '../../../service/rest.service';
@@ -9,6 +11,9 @@ import { SdrPageRequest } from '../sdr-page';
 
 import { environment } from '../../../../../environments/environment';
 
+@Injectable({
+    providedIn: 'root',
+})
 export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<R> {
 
     constructor(protected restService: RestService) {
