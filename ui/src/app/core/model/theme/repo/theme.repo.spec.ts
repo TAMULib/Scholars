@@ -12,7 +12,7 @@ import { metaReducers, reducers } from '../../../store';
 
 import { getRequest } from '../../../../app.browser.module';
 
-describe('UserRepo', () => {
+describe('ThemeRepo', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({

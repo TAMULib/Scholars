@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
 
 import { AbstractSdrRepo } from './abstract-sdr-repo';
@@ -8,6 +10,9 @@ import { SdrDiscoverRequest } from '../sdr-discover';
 
 import { environment } from '../../../../../environments/environment';
 
+@Injectable({
+    providedIn: 'root',
+})
 export abstract class AbstractSdrDiscoverRepo<R extends SdrResource> extends AbstractSdrRepo<R> implements SdrDiscoverRepo<R> {
 
     public search(request: SdrDiscoverRequest): Observable<R> {
@@ -37,4 +42,5 @@ export abstract class AbstractSdrDiscoverRepo<R extends SdrResource> extends Abs
             withCredentials: true
         });
     }
+
 }
