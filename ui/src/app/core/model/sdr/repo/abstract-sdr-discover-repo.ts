@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AbstractSdrRepo } from './abstract-sdr-repo';
 import { SdrDiscoverRepo } from './sdr-discover-repo';
 
-import { SolrDocument } from '../../solr-document';
+import { SolrDocument } from '../../discovery/solr-document';
 import { SdrDiscoverRequest } from '../sdr-discover';
 
 import { environment } from '../../../../../environments/environment';

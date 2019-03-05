@@ -2,15 +2,23 @@ import { InjectionToken } from '@angular/core';
 
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
+import {
+  Concept,
+  Document,
+  Organization,
+  Person,
+  Process,
+  Relationship
+} from '../model/discovery';
+
 import { Theme } from '../model/theme';
 import { User } from '../model/user';
-import { Concept } from '../model/concept';
-import { Document } from '../model/document';
-import { Organization } from '../model/organization';
-import { Person } from '../model/person';
-import { Process } from '../model/process';
-import { Relationship } from '../model/relationship';
-import { DirectoryView, DiscoveryView, ResultView } from '../model/view';
+
+import {
+  DirectoryView,
+  DiscoveryView,
+  ResultView
+} from '../model/view';
 
 import * as fromRouter from '@ngrx/router-store';
 
