@@ -23,9 +23,9 @@ include::{snippets}/directoryViews/directory/curl-request.adoc[]
 
 ==== Create
 
-A directory view is created by adding a fields like _name_, _collection_, _index_ etc along with other variables as shown in the *Request Parameters*.
+A directory view is created by adding a fields like _name_, _collection_, _index_ etc along with other variables as shown in the *Request Fields*.
 
-===== Request Parameters
+===== Request Fields
 include::{snippets}/directoryViews/create/request-fields.adoc[]
 
 ===== Response Fields
@@ -104,8 +104,8 @@ This helps an admin user to update a specifc directory view based on the _direct
 ===== Path Parameters
 include::{snippets}/directoryViews/update/path-parameters.adoc[]
 
-===== Request Parameters
-include::{snippets}/directoryViews/update/request-parameters.adoc[]
+===== Request Fields
+include::{snippets}/directoryViews/update/request-fields.adoc[]
 
 ===== Response Fields
 include::{snippets}/directoryViews/update/response-fields.adoc[]

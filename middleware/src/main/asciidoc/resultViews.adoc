@@ -23,9 +23,9 @@ include::{snippets}/resultViews/directory/curl-request.adoc[]
 
 ==== Create
 
-A result view is created by adding a fields like _name_, _template_ etc along with other variables as shown in the *Request Parameters*.
+A result view is created by adding a fields like _name_, _template_ etc along with other variables as shown in the *Request Fields*.
 
-===== Request Parameters
+===== Request Fields
 include::{snippets}/resultViews/create/request-fields.adoc[]
 
 ===== Response Fields
@@ -104,8 +104,8 @@ This helps an admin user to update a specifc result view based on the _resultVie
 ===== Path Parameters
 include::{snippets}/resultViews/update/path-parameters.adoc[]
 
-===== Request Parameters
-include::{snippets}/resultViews/update/request-parameters.adoc[]
+===== Request Fields
+include::{snippets}/resultViews/update/request-fields.adoc[]
 
 ===== Response Fields
 include::{snippets}/resultViews/update/response-fields.adoc[]

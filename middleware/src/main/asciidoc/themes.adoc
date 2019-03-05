@@ -39,7 +39,7 @@ include::{snippets}/themes/active/curl-request.adoc[]
 
 A theme is created by adding a fields like _name_, _organization_, _header_, _footer_ etc along with other styling variables as shown in the *Request Parameters*. A theme when created, by default, has the _active_ check set to false. This boolean flag, when checked will activate the specific theme.
 
-===== Request Parameters
+===== Request Fields
 include::{snippets}/themes/create/request-fields.adoc[]
 
 ===== Response Fields
@@ -118,8 +118,8 @@ This helps an admin user to update a specifc theme based on the _theme id_ provi
 ===== Path Parameters
 include::{snippets}/themes/update/path-parameters.adoc[]
 
-===== Request Parameters
-include::{snippets}/themes/update/request-parameters.adoc[]
+===== Request Fields
+include::{snippets}/themes/update/request-fields.adoc[]
 
 ===== Response Fields
 include::{snippets}/themes/update/response-fields.adoc[]
