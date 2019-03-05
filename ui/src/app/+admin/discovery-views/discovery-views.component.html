@@ -1,0 +1,15 @@
+<scholars-pagination [page]="page" (pageChange)="onPageChange($event)">
+  <h3 class="text-primary">{{ 'ADMIN.DISCOVERY_VIEWS.TITLE' | translate }}</h3>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">{{ 'ADMIN.DISCOVERY_VIEWS.NAME' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="discoveryViews | async; let discoveryViews">
+      <tr *ngFor="let discoveryView of discoveryViews">
+        <td scope="row">{{discoveryView.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</scholars-pagination>

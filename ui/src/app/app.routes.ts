@@ -10,6 +10,11 @@ export const routes: Routes = [
         }
     },
     {
+        path: 'directory', loadChildren: './+directory#DirectoryModule', canActivate: [], data: {
+
+        }
+    },
+    {
         path: 'discovery', loadChildren: './+discovery#DiscoveryModule', canActivate: [], data: {
 
         }

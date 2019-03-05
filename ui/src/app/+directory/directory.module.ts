@@ -1,23 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TranslateModule, MissingTranslationHandler } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { SharedModule } from '../shared/shared.module';
 
 import { CustomMissingTranslationHandler } from '../core/handler/custom-missing-translation.handler';
 
-import { AboutComponent } from './about/about.component';
-import { DashboardComponent } from './dashboard.component';
-import { HomeComponent } from './home/home.component';
+import { DirectoryComponent } from './direcotory.component';
 
-import { routes } from './dashboard.routes';
+import { routes } from './directory.routes';
 
 @NgModule({
     declarations: [
-        AboutComponent,
-        DashboardComponent,
-        HomeComponent
+        DirectoryComponent
     ],
     imports: [
         CommonModule,
@@ -32,7 +28,7 @@ import { routes } from './dashboard.routes';
         RouterModule.forChild(routes)
     ]
 })
-export class DashboardModule {
+export class DirectoryModule {
 
     public static routes = routes;
 

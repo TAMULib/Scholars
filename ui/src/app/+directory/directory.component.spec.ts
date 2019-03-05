@@ -1,7 +1,16 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
 
-import { DirectoryComponent } from './directory.component';
+import { SharedModule } from '../shared/shared.module';
+
+import { DirectoryComponent } from './direcotory.component';
+
+import { routes } from './directory.routes';
+
+import { metaReducers, reducers } from '../core/store';
 
 describe('DirectoryComponent', () => {
     let component: DirectoryComponent;
@@ -11,6 +20,14 @@ describe('DirectoryComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 DirectoryComponent
+            ],
+            imports: [
+                SharedModule,
+                StoreModule.forRoot(reducers, {
+                    metaReducers
+                }),
+                TranslateModule.forRoot(),
+                RouterTestingModule.withRoutes(routes)
             ],
             schemas: [
                 CUSTOM_ELEMENTS_SCHEMA

@@ -58,7 +58,7 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
     }
 
     protected mapParameters(request: SdrPageRequest, parameters: String[] = []): String {
-        parameters.push('page=' + request.number);
+        parameters.push('page=' + (request.number - 1));
         parameters.push('size=' + request.size);
 
         if (request.sort) {
