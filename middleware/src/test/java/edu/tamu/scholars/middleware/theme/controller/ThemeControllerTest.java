@@ -53,6 +53,7 @@ import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
 @AutoConfigureRestDocs
 @ExtendWith(SpringExtension.class)
 public class ThemeControllerTest extends ThemeIntegrationTest {
+
     private static final ConstraintDescriptionsHelper describeTheme = new ConstraintDescriptionsHelper(Theme.class);
 
     @Autowired
@@ -93,7 +94,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                         describeTheme.withSubsection("colors", "An array of <<resources-color, Color resources>>."),
                         describeTheme.withSubsection("variants", "An array of <<resources-variants, Variants resources>>."),
                         describeTheme.withSubsection("variables", "An array of <<resources-variables, Variables resources>>."),
-                        subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources.")
+                        subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources.")
                     )
                 )
             );
@@ -112,17 +113,17 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                     pathParameters(
                         describeTheme.withParameter("id", "The Theme id.")
                     ),
-                    requestParameters(
-                        describeTheme.withParameter("id", "The Theme id.").optional(),
-                        describeTheme.withParameter("active", "Designates the theme currently in use.").optional(),
-                        describeTheme.withParameter("name", "The name of the theme.").optional(),
-                        describeTheme.withParameter("organization", "An organization the theme belongs to.").optional(),
-                        describeTheme.withParameter("home", "A <<resources-home, Home resource>>.").optional(),
-                        describeTheme.withParameter("header", "A <<resources-header, Header resource>>.").optional(),
-                        describeTheme.withParameter("footer", "A <<resources-header, Footer resource>>.").optional(),
-                        describeTheme.withParameter("colors", "An array of <<resources-color, Color resources>>.").optional(),
-                        describeTheme.withParameter("variants", "An array of <<resources-variants, Variants resources>>.").optional(),
-                        describeTheme.withParameter("variables", "An array of <<resources-variables, Variables resources>>.").optional()
+                    requestFields(
+                        describeTheme.withField("id", "The Theme id."),
+                        describeTheme.withField("active", "Designates the theme currently in use."),
+                        describeTheme.withField("name", "The name of the theme."),
+                        describeTheme.withField("organization", "An organization the theme belongs to."),
+                        describeTheme.withSubsection("home", "A <<resources-home, Home resource>>."),
+                        describeTheme.withSubsection("header", "A <<resources-header, Header resource>>."),
+                        describeTheme.withSubsection("footer", "A <<resources-header, Footer resource>>."),
+                        describeTheme.withSubsection("colors", "An array of <<resources-color, Color resources>>."),
+                        describeTheme.withSubsection("variants", "An array of <<resources-variants, Variants resources>>."),
+                        describeTheme.withSubsection("variables", "An array of <<resources-variables, Variables resources>>.")
                     ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
@@ -190,7 +191,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                             describeTheme.withSubsection("colors", "An array of <<resources-color, Color resources>>."),
                             describeTheme.withSubsection("variants", "An array of <<resources-variants, Variants resources>>."),
                             describeTheme.withSubsection("variables", "An array of <<resources-variables, Variables resources>>."),
-                            subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources.")
+                            subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources.")
                         )
                     )
                 );
@@ -280,7 +281,8 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
 		mockMvc.perform(get("/themes/{id}", theme.getId())
 	        .cookie(loginAdmin()))
     		    .andExpect(status().isOk())
-    			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE)).andExpect(jsonPath("active", equalTo(false)))
+    			.andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+    			.andExpect(jsonPath("active", equalTo(false)))
     			.andExpect(jsonPath("name", equalTo("Test")))
     			.andExpect(jsonPath("organization", equalTo("Testing Unlimited")))
     			.andDo(
@@ -303,7 +305,7 @@ public class ThemeControllerTest extends ThemeIntegrationTest {
                             describeTheme.withSubsection("colors", "An array of <<resources-color, Color resources>>."),
                             describeTheme.withSubsection("variants", "An array of <<resources-variants, Variants resources>>."),
                             describeTheme.withSubsection("variables", "An array of <<resources-variables, Variables resources>>."),
-                            subsectionWithPath("_links").description("<<resources-user-list-links, Links>> to other resources.")
+                            subsectionWithPath("_links").description("<<resources-theme-list-links, Links>> to other resources.")
                         )
                     )
                 );

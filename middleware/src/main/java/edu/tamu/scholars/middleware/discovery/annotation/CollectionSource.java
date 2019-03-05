@@ -7,9 +7,9 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-@Target({ TYPE })
-@Retention(RUNTIME)
 @Documented
+@Target(TYPE)
+@Retention(RUNTIME)
 public @interface CollectionSource {
 
     String key();
