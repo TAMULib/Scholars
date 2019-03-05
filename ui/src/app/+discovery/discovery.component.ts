@@ -9,11 +9,11 @@ import { AppState } from '../core/store';
 import { selectRouterSearchQuery } from '../core/store/router';
 
 @Component({
-    selector: 'scholars-search',
-    templateUrl: 'search.component.html',
-    styleUrls: ['search.component.scss']
+    selector: 'scholars-discovery',
+    templateUrl: 'discovery.component.html',
+    styleUrls: ['discovery.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class DiscoveryComponent implements OnInit {
 
     public live = true;
 

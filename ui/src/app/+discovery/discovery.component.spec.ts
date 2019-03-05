@@ -6,20 +6,20 @@ import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { SearchComponent } from './search.component';
+import { DiscoveryComponent } from './discovery.component';
 
-import { routes } from './search.routes';
+import { routes } from './discovery.routes';
 
 import { metaReducers, reducers } from '../core/store';
 
-describe('SearchComponent', () => {
-    let component: SearchComponent;
-    let fixture: ComponentFixture<SearchComponent>;
+describe('DiscoveryComponent', () => {
+    let component: DiscoveryComponent;
+    let fixture: ComponentFixture<DiscoveryComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                SearchComponent
+                DiscoveryComponent
             ],
             imports: [
                 SharedModule,
@@ -36,7 +36,7 @@ describe('SearchComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SearchComponent);
+        fixture = TestBed.createComponent(DiscoveryComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

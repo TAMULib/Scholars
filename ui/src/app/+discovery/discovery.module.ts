@@ -7,13 +7,13 @@ import { SharedModule } from '../shared/shared.module';
 
 import { CustomMissingTranslationHandler } from '../core/handler/custom-missing-translation.handler';
 
-import { SearchComponent } from './search.component';
+import { DiscoveryComponent } from './discovery.component';
 
-import { routes } from './search.routes';
+import { routes } from './discovery.routes';
 
 @NgModule({
     declarations: [
-        SearchComponent
+        DiscoveryComponent
     ],
     imports: [
         CommonModule,
@@ -28,7 +28,7 @@ import { routes } from './search.routes';
         RouterModule.forChild(routes)
     ]
 })
-export class SearchModule {
+export class DiscoveryModule {
 
     public static routes = routes;
 
