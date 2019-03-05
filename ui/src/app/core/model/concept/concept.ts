@@ -1,4 +1,3 @@
 import { SdrResource } from '../sdr';
 
-export interface Concept extends SdrResource {
-}
+export type Concept = SdrResource;
