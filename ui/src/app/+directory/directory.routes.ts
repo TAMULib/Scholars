@@ -4,6 +4,7 @@ import { DirectoryComponent } from './direcotory.component';
 
 export const routes: Routes = [
     {
-        path: '', component: DirectoryComponent, pathMatch: 'full'
-    }
+        path: ':collection', component: DirectoryComponent, pathMatch: 'full'
+    },
+    { path: '**', redirectTo: 'persons' }
 ];

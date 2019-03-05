@@ -12,13 +12,13 @@
           <a class="nav-link" [routerLink]="['/']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.HOME' | translate }}</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/people']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.PEOPLE' | translate }}</a>
+          <a class="nav-link" [routerLink]="['/directory/people']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.PEOPLE' | translate }}</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/organizations']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.ORGANIZATIONS' | translate }}</a>
+          <a class="nav-link" [routerLink]="['/directory/organizations']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.ORGANIZATIONS' | translate }}</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/research']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.RESEARCH' | translate }}</a>
+          <a class="nav-link" [routerLink]="['/directory/research']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.RESEARCH' | translate }}</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
           <a class="nav-link" [routerLink]="['/about']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.ABOUT' | translate }}</a>
