@@ -6,13 +6,13 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { StoreModule } from '@ngrx/store';
 
 import { RestService } from '../../../service/rest.service';
-import { ThemeRepo } from './theme.repo';
+import { RelationshipRepo } from './relationship.repo';
 
 import { metaReducers, reducers } from '../../../store';
 
 import { getRequest } from '../../../../app.browser.module';
 
-describe('ThemeRepo', () => {
+describe('RelationshipRepo', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -25,12 +25,12 @@ describe('ThemeRepo', () => {
             providers: [
                 { provide: REQUEST, useFactory: (getRequest) },
                 RestService,
-                ThemeRepo
+                RelationshipRepo
             ]
         });
     });
 
-    it('should be created', inject([ThemeRepo], (service: ThemeRepo) => {
+    it('should be created', inject([RelationshipRepo], (service: RelationshipRepo) => {
         expect(service).toBeTruthy();
     }));
 
