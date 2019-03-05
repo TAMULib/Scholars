@@ -1,3 +1,3 @@
-import { SdrResource } from '../sdr';
+import { SolrDocument } from '../solr-document';
 
-export type Person = SdrResource;
+export type Person = SolrDocument;

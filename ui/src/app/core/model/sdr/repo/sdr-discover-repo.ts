@@ -1,12 +1,11 @@
 import { Observable } from 'rxjs';
 
-import { SdrCollection } from '../sdr-collection';
-import { SdrDiscoverRequest, SdrDiscoverFilter } from '../sdr-discover';
+import { SdrDiscoverRequest } from '../sdr-discover';
+import { SolrDocument } from '../../solr-document';
 import { SdrRepo } from './sdr-repo';
-import { SdrResource } from '../';
 
-export interface SdrDiscoverRepo<R extends SdrResource> extends SdrRepo<R> {
+export interface SdrDiscoverRepo<D extends SolrDocument> extends SdrRepo<D> {
 
-    search(request: SdrDiscoverRequest): Observable<R>;
+    search(request: SdrDiscoverRequest): Observable<D>;
 
 }

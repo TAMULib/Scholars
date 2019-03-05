@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AbstractSdrRepo } from './abstract-sdr-repo';
 import { SdrDiscoverRepo } from './sdr-discover-repo';
 
-import { SdrResource } from '../sdr-resource';
+import { SolrDocument } from '../../solr-document';
 import { SdrDiscoverRequest } from '../sdr-discover';
 
 import { environment } from '../../../../../environments/environment';
@@ -13,9 +13,9 @@ import { environment } from '../../../../../environments/environment';
 @Injectable({
     providedIn: 'root',
 })
-export abstract class AbstractSdrDiscoverRepo<R extends SdrResource> extends AbstractSdrRepo<R> implements SdrDiscoverRepo<R> {
+export abstract class AbstractSdrDiscoverRepo<D extends SolrDocument> extends AbstractSdrRepo<D> implements SdrDiscoverRepo<D> {
 
-    public search(request: SdrDiscoverRequest): Observable<R> {
+    public search(request: SdrDiscoverRequest): Observable<D> {
         const parameters: String[] = [];
 
         if (request.query) {
@@ -38,7 +38,7 @@ export abstract class AbstractSdrDiscoverRepo<R extends SdrResource> extends Abs
             parameters.push('facets=' + encodeURIComponent(request.facets.join()));
         }
 
-        return this.restService.get<R>(`${environment.service}/${this.path()}/search/facet` + this.mapParameters(request, parameters), {
+        return this.restService.get<D>(`${environment.service}/${this.path()}/search/facet` + this.mapParameters(request, parameters), {
             withCredentials: true
         });
     }
