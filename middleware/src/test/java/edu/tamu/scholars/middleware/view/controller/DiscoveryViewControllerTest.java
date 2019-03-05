@@ -8,6 +8,7 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -119,6 +120,57 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
                     )
                 )
             );
+        // @formatter:on
+    }
+
+    @Test
+    public void testPatchTheme() throws JsonProcessingException, Exception {
+        performCreateDiscoveryView();
+        DiscoveryView discoveryView = viewRepo.findByName("People").get();
+
+        // @formatter:off
+        mockMvc.perform(
+            patch("/discoveryViews/{id}", discoveryView.getId())
+                .content("{\"name\": \"Organizations\", \"collection\": \"organizations\"}")
+                .cookie(loginAdmin()))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+                    .andExpect(jsonPath("name", equalTo("Organizations")))
+                    .andExpect(jsonPath("collection", equalTo("organizations")))
+                    .andDo(
+                        document(
+                            "discoveryViews/patch",
+                            pathParameters(
+                                describeDiscoveryView.withParameter("id", "The Discovery View id.")
+                            ),
+                            requestParameters(
+                                describeDiscoveryView.withParameter("id", "The Discovery View id.").optional(),
+                                describeDiscoveryView.withParameter("name", "The name of the Discovery View.").optional(),
+                                // describeDiscoveryView.withParameter("collection", "The collection of the Discovery View.").optional(),
+                                // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
+                                parameterWithName("collection").description("The collection of the discovery view.").optional(),
+                                describeDiscoveryView.withParameter("layout", "The layout of the discovery view.").optional(),
+                                describeDiscoveryView.withParameter("resultView", "A <<resources-discovery-view, Result View resource>>.").optional(),
+                                describeDiscoveryView.withParameter("facets", "An array of <<resources-facets, Facet resources>>.").optional(),
+                                describeDiscoveryView.withParameter("filters", "An array of <<resources-filters, Filters resources>>.").optional()
+                            ),
+                            links(
+                                linkWithRel("self").description("Canonical link for this resource."),
+                                linkWithRel("discoveryView").description("The Discovery View link for this resource."),
+                                linkWithRel("resultView").description("The Result View link for this resource.")
+                            ),
+                            responseFields(
+                                describeDiscoveryView.withField("name", "The name of the Discovery View."),
+                                // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
+                                // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
+                                fieldWithPath("collection").description("The collection of the discovery view."),
+                                describeDiscoveryView.withField("layout", "The layout of the discovery view."),
+                                describeDiscoveryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
+                                describeDiscoveryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                                subsectionWithPath("_links").description("<<resources-discovery-views-list-links, Links>> to other resources.")
+                            )
+                        )
+                    );
         // @formatter:on
     }
 

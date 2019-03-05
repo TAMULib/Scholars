@@ -8,6 +8,7 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -110,6 +111,44 @@ public class ResultViewControllerTest extends ViewIntegrationTest<ResultView, Re
                     )
                 )
             );
+        // @formatter:on
+    }
+
+    @Test
+    public void testPatchTheme() throws JsonProcessingException, Exception {
+        performCreateResultView();
+        ResultView resultView = viewRepo.findByName("People").get();
+
+        // @formatter:off
+        mockMvc.perform(
+            patch("/resultViews/{id}", resultView.getId())
+                .content("{\"name\": \"Organizations\", \"template\": \"<h1>Organization templated from WSYWIG</h1>\"}")
+                .cookie(loginAdmin()))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+                    .andExpect(jsonPath("name", equalTo("Organizations")))
+                    .andExpect(jsonPath("template", equalTo("<h1>Organization templated from WSYWIG</h1>")))
+                    .andDo(
+                        document(
+                            "resultViews/patch",
+                            pathParameters(
+                                describeResultView.withParameter("id", "The Result View id.")
+                            ),
+                            requestParameters(
+                                describeResultView.withParameter("name", "The name of the Result View.").optional(),
+                                describeResultView.withParameter("template", "The template of the Result View.").optional()
+                            ),
+                            links(
+                                linkWithRel("self").description("Canonical link for this resource."),
+                                linkWithRel("resultView").description("The Result View link for this resource.")
+                            ),
+                            responseFields(
+                                describeResultView.withField("name", "The name of the Result View."),
+                                describeResultView.withField("template", "The template of the Result View."),
+                                subsectionWithPath("_links").description("<<resources-result-views-list-links, Links>> to other resources.")
+                            )
+                        )
+                    );
         // @formatter:on
     }
 
