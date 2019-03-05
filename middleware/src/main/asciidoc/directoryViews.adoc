@@ -99,7 +99,7 @@ include::{snippets}/directoryViews/patch/curl-request.adoc[]
 
 ==== Update
 
-This helps an admin user to update a specifc directory view based on the _directoryView id_ provided in the path parameter. This utilizes the hhtp put protocol.
+This helps an admin user to update a specifc directory view based on the _directoryView id_ provided in the path parameter. This utilizes the http put protocol.
 
 ===== Path Parameters
 include::{snippets}/directoryViews/update/path-parameters.adoc[]

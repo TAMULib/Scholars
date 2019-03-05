@@ -113,7 +113,7 @@ include::{snippets}/themes/patch/curl-request.adoc[]
 
 ==== Update
 
-This helps an admin user to update a specifc theme based on the _theme id_ provided in the path parameter. This utilizes the hhtp put protocol.
+This helps an admin user to update a specifc theme based on the _theme id_ provided in the path parameter. This utilizes the http put protocol.
 
 ===== Path Parameters
 include::{snippets}/themes/update/path-parameters.adoc[]

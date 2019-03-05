@@ -99,7 +99,7 @@ include::{snippets}/resultViews/patch/curl-request.adoc[]
 
 ==== Update
 
-This helps an admin user to update a specifc result view based on the _resultView id_ provided in the path parameter. This utilizes the hhtp put protocol.
+This helps an admin user to update a specifc result view based on the _resultView id_ provided in the path parameter. This utilizes the http put protocol.
 
 ===== Path Parameters
 include::{snippets}/resultViews/update/path-parameters.adoc[]
