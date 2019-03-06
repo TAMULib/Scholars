@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { CustomMissingTranslationHandler } from '../core/handler/custom-missing-translation.handler';
 
-import { DirectoryComponent } from './direcotory.component';
+import { DirectoryComponent } from './directory.component';
 
 import { routes } from './directory.routes';
 

@@ -7,8 +7,6 @@ import { Subscription } from 'rxjs';
 
 import { AppState } from '../core/store';
 
-
-
 @Component({
     selector: 'scholars-directory',
     templateUrl: 'directory.component.html',

@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { DirectoryComponent } from './direcotory.component';
+import { DirectoryComponent } from './directory.component';
 
 import { routes } from './directory.routes';
 

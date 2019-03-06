@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { DirectoryComponent } from './direcotory.component';
+import { DirectoryComponent } from './directory.component';
 
 export const routes: Routes = [
     {

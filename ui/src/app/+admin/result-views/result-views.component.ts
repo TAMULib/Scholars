@@ -13,7 +13,6 @@ import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
 
 import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
-
 @Component({
     selector: 'scholars-result-views',
     templateUrl: './result-views.component.html',
