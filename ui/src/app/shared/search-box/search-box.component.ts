@@ -73,7 +73,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
 
     public onSearch(): void {
         let navigation: fromRouter.RouterNavigation = {
-            path: ['/search']
+            path: ['/discovery']
         };
         if (this.form.value.query && this.form.value.query.length > 0) {
             navigation = Object.assign(navigation, { query: { query: this.form.value.query } });

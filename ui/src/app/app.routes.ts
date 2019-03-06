@@ -10,7 +10,12 @@ export const routes: Routes = [
         }
     },
     {
-        path: 'search', loadChildren: './+search#SearchModule', canActivate: [], data: {
+        path: 'directory', loadChildren: './+directory#DirectoryModule', canActivate: [], data: {
+
+        }
+    },
+    {
+        path: 'discovery', loadChildren: './+discovery#DiscoveryModule', canActivate: [], data: {
 
         }
     },

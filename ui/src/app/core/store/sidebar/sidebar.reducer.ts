@@ -1,5 +1,5 @@
 import { SidebarActions, SidebarActionTypes } from './sidebar.actions';
-import { SidebarMenu } from './';
+import { SidebarMenu } from '../../model/sidebar';
 
 export type SidebarState = Readonly<{
     menu: SidebarMenu;

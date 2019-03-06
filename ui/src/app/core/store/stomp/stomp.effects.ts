@@ -6,7 +6,7 @@ import { defer, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom, skipWhile } from 'rxjs/operators';
 
 import { AppState } from '../';
-import { StompSubscription } from './';
+import { StompSubscription } from '../../model/stomp';
 
 import { AlertService } from '../../service/alert.service';
 import { StompService } from '../../service/stomp.service';

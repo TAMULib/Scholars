@@ -4,10 +4,14 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
+import { DirectoryView } from '../../core/model/view';
 
 import { selectIsNavigationCollapsed } from '../../core/store/layout';
 
+import { selectAllResources } from '../../core/store/sdr';
+
 import * as fromLayout from '../../core/store/layout/layout.actions';
+import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
 @Component({
     selector: 'scholars-navigation',
@@ -16,6 +20,8 @@ import * as fromLayout from '../../core/store/layout/layout.actions';
 })
 export class NavigationComponent implements OnInit {
 
+    public directoryViews: Observable<DirectoryView[]>;
+
     public isNavigationCollapsed: Observable<boolean>;
 
     constructor(private store: Store<AppState>) {
@@ -23,7 +29,13 @@ export class NavigationComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.directoryViews = this.store.pipe(select(selectAllResources<DirectoryView>('directoryViews')));
         this.isNavigationCollapsed = this.store.pipe(select(selectIsNavigationCollapsed));
+        this.store.dispatch(new fromSdr.GetAllResourcesAction('directoryViews'));
+    }
+
+    public getDirectoryRoute(directoryView: DirectoryView): string[] {
+        return [`/directory/${directoryView.collection}`];
     }
 
     public toggleNavigation(): void {

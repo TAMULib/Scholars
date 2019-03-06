@@ -9,7 +9,7 @@ import { AppState } from '../../core/store';
 import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
 import { User, Role } from '../../core/model/user';
 
-import { selectAllResources, selectReousrcesPage } from '../../core/store/sdr';
+import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
 
 import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit {
 
     ngOnInit() {
         this.users = this.store.pipe(select(selectAllResources<User>('users')));
-        this.page = this.store.pipe(select(selectReousrcesPage<User>('users')));
+        this.page = this.store.pipe(select(selectResourcesPage<User>('users')));
     }
 
     public openUserEditDialog(user: User): void {

@@ -28,6 +28,18 @@ export class AdminComponent implements OnInit {
                         title: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.TITLE'),
                         items: [
                             {
+                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DIRECTORY_VIEWS'),
+                                route: ['/admin/directroyViews'],
+                            },
+                            {
+                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DISCOVERY_VIEWS'),
+                                route: ['/admin/discoveryViews'],
+                            },
+                            {
+                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.RESULT_VIEWS'),
+                                route: ['/admin/resultViews'],
+                            },
+                            {
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.THEMES'),
                                 route: ['/admin/themes'],
                             },

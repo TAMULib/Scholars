@@ -1,0 +1,13 @@
+export { Concept } from './concept';
+export { ConceptRepo } from './repo/concept.repo';
+export { Document } from './document';
+export { DocumentRepo } from './repo/document.repo';
+export { Organization } from './organization';
+export { OrganizationRepo } from './repo/organization.repo';
+export { Person } from './person';
+export { PersonRepo } from './repo/person.repo';
+export { Process } from './process';
+export { ProcessRepo } from './repo/process.repo';
+export { Relationship } from './relationship';
+export { RelationshipRepo } from './repo/relationship.repo';
+export { SolrDocument } from './solr-document';

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 
 import { AppState } from '../../../core/store';
-import { DialogButtonType, DialogControl } from '../../../core/store/dialog';
+import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
 
 import * as fromDialog from '../../../core/store/dialog/dialog.actions';
 

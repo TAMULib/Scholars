@@ -1,5 +1,22 @@
 {
   "ADMIN": {
+    "DIRECTORY_VIEWS": {
+      "TITLE": "Directory Views",
+      "NAME": "Name",
+      "COLLECTION": "Collection",
+      "LAYOUT": "Layout"
+    },
+    "DISCOVERY_VIEWS": {
+      "TITLE": "Discovery Views",
+      "NAME": "Name",
+      "COLLECTION": "Collection",
+      "LAYOUT": "Layout"
+    },
+    "RESULT_VIEWS": {
+      "TITLE": "Result Views",
+      "NAME": "Name",
+      "TEMPLATE": "Template"
+    },
     "THEMES": {
       "TITLE": "Themes",
       "NAME": "Name",
@@ -20,24 +37,13 @@
     "ABOUT": {
       "TITLE": "About"
     },
-    "DIRECTORY": {
-      "ORGANIZATIONS": {
-        "TITLE": "Organizations"
-      },
-      "PEOPLE": {
-        "TITLE": "People"
-      },
-      "RESEARCH": {
-        "TITLE": "Research"
-      }
-    },
     "HOME": {
       "LATEST_PUBLICATIONS_TEXT": "Latest published books by {{organization}} faculty",
       "CLICK_PUBLICATION_TEXT": "Click to see the author faculty page"
     }
   },
-  "SEARCH": {
-    "TITLE": "Search"
+  "DISCOVERY": {
+    "TITLE": "Discovery"
   },
   "FOOTER": {
     "ADMINISTRATION": "Administration",
@@ -54,9 +60,6 @@
     "NAVIGATION": {
       "EDIT_PROFILE": "EDIT MY PROFILE",
       "HOME": "Home",
-      "PEOPLE": "People",
-      "ORGANIZATIONS": "Organizations",
-      "RESEARCH": "Research",
       "ABOUT": "About"
     },
     "PAGINATION": {
@@ -110,6 +113,9 @@
     "SIDEBAR": {
       "ADMINISTRATION": {
         "TITLE": "Administration",
+        "DIRECTORY_VIEWS": "Directory Views",
+        "DISCOVERY_VIEWS": "Discovery Views",
+        "RESULT_VIEWS": "Result Views",
         "THEMES": "Themes",
         "USERS": "Users"
       }

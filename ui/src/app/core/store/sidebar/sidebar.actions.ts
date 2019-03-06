@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { SidebarMenu } from './';
+import { SidebarMenu } from '../../model/sidebar';
 
 export enum SidebarActionTypes {
     LOAD_SIDEBAR = '[Sidebar] load',
