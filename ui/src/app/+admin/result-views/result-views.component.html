@@ -4,11 +4,13 @@
     <thead>
       <tr>
         <th scope="col">{{ 'ADMIN.RESULT_VIEWS.NAME' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.RESULT_VIEWS.TEMPLATE' | translate }}</th>
       </tr>
     </thead>
     <tbody *ngIf="resultViews | async; let resultViews">
       <tr *ngFor="let resultView of resultViews">
         <td scope="row">{{resultView.name}}</td>
+        <td scope="row">{{resultView.template}}</td>
       </tr>
     </tbody>
   </table>

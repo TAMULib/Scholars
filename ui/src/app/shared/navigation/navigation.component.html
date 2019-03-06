@@ -11,15 +11,13 @@
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
           <a class="nav-link" [routerLink]="['/']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.HOME' | translate }}</a>
         </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/directory/people']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.PEOPLE' | translate }}</a>
+      </ul>
+      <ul class="navbar-nav" *ngIf="directoryViews | async; let directoryViews">
+        <li class="nav-item" *ngFor="let directoryView of directoryViews" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="getDirectoryRoute(directoryView)" (click)="toggleNavigation()">{{ directoryView.name }}</a>
         </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/directory/organizations']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.ORGANIZATIONS' | translate }}</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/directory/research']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.RESEARCH' | translate }}</a>
-        </li>
+      </ul>
+      <ul class="navbar-nav">
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
           <a class="nav-link" [routerLink]="['/about']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.ABOUT' | translate }}</a>
         </li>

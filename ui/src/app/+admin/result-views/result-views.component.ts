@@ -9,7 +9,7 @@ import { AppState } from '../../core/store';
 import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
 import { ResultView } from '../../core/model/view';
 
-import { selectAllResources, selectReousrcesPage } from '../../core/store/sdr';
+import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
 
 import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
@@ -35,7 +35,7 @@ export class ResultViewsComponent implements OnInit {
 
     ngOnInit() {
         this.resultViews = this.store.pipe(select(selectAllResources<ResultView>('resultViews')));
-        this.page = this.store.pipe(select(selectReousrcesPage<ResultView>('resultViews')));
+        this.page = this.store.pipe(select(selectResourcesPage<ResultView>('resultViews')));
     }
 
     public onPageChange(page: SdrPageRequest): void {

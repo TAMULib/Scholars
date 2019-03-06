@@ -7,7 +7,7 @@ import { AppState } from '../../core/store';
 import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
 import { Theme } from '../../core/model/theme';
 
-import { selectAllResources, selectReousrcesPage } from '../../core/store/sdr';
+import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
 
 import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
@@ -29,7 +29,7 @@ export class ThemesComponent implements OnInit {
 
     ngOnInit() {
         this.themes = this.store.pipe(select(selectAllResources<Theme>('themes')));
-        this.page = this.store.pipe(select(selectReousrcesPage<Theme>('themes')));
+        this.page = this.store.pipe(select(selectResourcesPage<Theme>('themes')));
     }
 
     public onPageChange(page: SdrPageRequest): void {

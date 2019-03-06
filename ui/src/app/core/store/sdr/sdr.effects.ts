@@ -36,6 +36,48 @@ export class SdrEffects {
 
     // TODO: alerts should be in dialog location if a dialog is opened
 
+    @Effect() getAll = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL)),
+        switchMap((action: fromSdr.GetAllResourcesAction) =>
+            this.repos.get(action.name).getAll().pipe(
+                map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(action.name, { collection })),
+                catchError((response) => of(new fromSdr.GetAllResourcesFailureAction(action.name, { response })))
+            )
+        )
+    );
+
+    @Effect({ dispatch: false }) getAllSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS)),
+        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => combineLatest(
+            of(action.name),
+            this.store.pipe(
+                select(selectIsStompConnected),
+                skipWhile((connected: boolean) => !connected),
+                take(1)
+            )
+        )),
+        withLatestFrom(this.store),
+        map(([combination, store]) => {
+            const name = combination[0];
+            if (!store.stomp.subscriptions.has(`/queue/${name}`)) {
+                this.store.dispatch(new fromStomp.SubscribeAction({
+                    channel: `/queue/${name}`,
+                    handle: (frame: any) => {
+                        // TODO: consider prevent page request if loading, updating, or editing
+                        if (frame.command === 'MESSAGE') {
+                            this.store.dispatch(new fromSdr.GetAllResourcesAction(name));
+                        }
+                    }
+                }));
+            }
+        })
+    );
+
+    @Effect() getAllFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE)),
+        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.pageFailureAlert(action.payload))
+    );
+
     @Effect() page = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE)),
         switchMap((action: fromSdr.PageResourcesAction) =>

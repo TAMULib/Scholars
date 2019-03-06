@@ -4,11 +4,15 @@
     <thead>
       <tr>
         <th scope="col">{{ 'ADMIN.DIRECTORY_VIEWS.NAME' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.DIRECTORY_VIEWS.COLLECTION' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.DIRECTORY_VIEWS.LAYOUT' | translate }}</th>
       </tr>
     </thead>
     <tbody *ngIf="directoryViews | async; let directoryViews">
       <tr *ngFor="let directoryView of directoryViews">
         <td scope="row">{{directoryView.name}}</td>
+        <td scope="row">{{directoryView.collection}}</td>
+        <td scope="row">{{directoryView.layout}}</td>
       </tr>
     </tbody>
   </table>

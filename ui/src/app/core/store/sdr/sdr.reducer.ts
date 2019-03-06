@@ -32,6 +32,26 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
 export const getSdrReducer = <R extends SdrResource>(name: string) => {
     return (state = getSdrInitialState<R>(keys[name]), action: SdrActions): SdrState<R> => {
         switch (action.type) {
+            case getSdrAction(SdrActionTypes.GET_ALL, name):
+                return {
+                    ...state,
+                    loading: true,
+                    error: undefined
+                };
+            case getSdrAction(SdrActionTypes.GET_ALL_SUCCESS, name):
+                return getSdrAdapter<R>(keys[name]).addAll(action.payload.collection._embedded[name], {
+                    ...state,
+                    links: action.payload.collection._links,
+                    loading: false,
+                    error: undefined
+                });
+            case getSdrAction(SdrActionTypes.GET_ALL_FAILURE, name):
+                console.error(action);
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload.response.error
+                };
             case getSdrAction(SdrActionTypes.PAGE, name):
                 return {
                     ...state,

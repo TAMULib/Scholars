@@ -31,8 +31,8 @@ export enum Type {
 }
 
 export interface Index {
-    readonly field: string;
     readonly type: Type;
+    readonly field: string;
 }
 
 export interface DirectoryView extends CollectionView {

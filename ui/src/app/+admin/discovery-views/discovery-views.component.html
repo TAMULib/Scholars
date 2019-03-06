@@ -4,11 +4,15 @@
     <thead>
       <tr>
         <th scope="col">{{ 'ADMIN.DISCOVERY_VIEWS.NAME' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.DISCOVERY_VIEWS.COLLECTION' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.DISCOVERY_VIEWS.LAYOUT' | translate }}</th>
       </tr>
     </thead>
     <tbody *ngIf="discoveryViews | async; let discoveryViews">
       <tr *ngFor="let discoveryView of discoveryViews">
         <td scope="row">{{discoveryView.name}}</td>
+        <td scope="row">{{discoveryView.collection}}</td>
+        <td scope="row">{{discoveryView.layout}}</td>
       </tr>
     </tbody>
   </table>

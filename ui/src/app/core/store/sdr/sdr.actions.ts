@@ -1,6 +1,9 @@
 import { Action } from '@ngrx/store';
 
 export enum SdrActionTypes {
+    GET_ALL = 'get all resources',
+    GET_ALL_SUCCESS = 'sucessfully got all resources',
+    GET_ALL_FAILURE = 'failed getting all resources',
     PAGE = 'page resources',
     PAGE_SUCCESS = 'sucessfully paged resources',
     PAGE_FAILURE = 'failed paging resources',
@@ -23,6 +26,20 @@ export const getSdrAction = (actionType: SdrActionTypes, name: string): string =
     return `[${name}] ${actionType}`;
 };
 
+export class GetAllResourcesAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL, this.name);
+    constructor(public name: string, public payload?: any) { }
+}
+
+export class GetAllResourcesSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class GetAllResourcesFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
 
 export class PageResourcesAction implements Action {
     readonly type = getSdrAction(SdrActionTypes.PAGE, this.name);
@@ -105,6 +122,9 @@ export class ClearResourcesAction implements Action {
 }
 
 export type SdrActions =
+    GetAllResourcesAction |
+    GetAllResourcesSuccessAction |
+    GetAllResourcesFailureAction |
     PageResourcesAction |
     PageResourcesSuccessAction |
     PageResourcesFailureAction |

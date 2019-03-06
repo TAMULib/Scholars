@@ -2,15 +2,20 @@
   "ADMIN": {
     "DIRECTORY_VIEWS": {
       "TITLE": "Directory Views",
-      "NAME": "Name"
+      "NAME": "Name",
+      "COLLECTION": "Collection",
+      "LAYOUT": "Layout"
     },
     "DISCOVERY_VIEWS": {
       "TITLE": "Discovery Views",
-      "NAME": "Name"
+      "NAME": "Name",
+      "COLLECTION": "Collection",
+      "LAYOUT": "Layout"
     },
     "RESULT_VIEWS": {
       "TITLE": "Result Views",
-      "NAME": "Name"
+      "NAME": "Name",
+      "TEMPLATE": "Template"
     },
     "THEMES": {
       "TITLE": "Themes",
@@ -55,9 +60,6 @@
     "NAVIGATION": {
       "EDIT_PROFILE": "EDIT MY PROFILE",
       "HOME": "Home",
-      "PEOPLE": "People",
-      "ORGANIZATIONS": "Organizations",
-      "RESEARCH": "Research",
       "ABOUT": "About"
     },
     "PAGINATION": {
