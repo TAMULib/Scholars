@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { AlertLocation } from '../../core/model/alert';
-import { DialogControl } from '../../core/store/dialog/dialog.model';
+import { DialogControl } from '../../core/model/dialog';
 
 @Component({
     selector: 'scholars-dialog',
