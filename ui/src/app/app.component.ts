@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
 
 import { AppState } from './core/store';
-
-import { AlertLocation } from './core/store/alert';
+import { AlertLocation } from './core/model/alert';
 
 import { selectStyle } from './core/store/theme';
 

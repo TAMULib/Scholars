@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AlertLocation, AlertType } from '../store/alert';
+import { AlertLocation, AlertType } from '../model/alert';
 
 import * as fromAlert from '../store/alert/alert.actions';
 import * as fromSdr from '../store/sdr/sdr.actions';

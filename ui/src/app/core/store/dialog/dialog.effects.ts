@@ -8,8 +8,9 @@ import { map, withLatestFrom } from 'rxjs/operators';
 
 import { AppState } from '../';
 import { Dialog } from './dialog.model';
+import { AlertLocation } from '../../model/alert';
 
-import { selectAlertsByLocation, AlertLocation } from '../alert';
+import { selectAlertsByLocation } from '../alert';
 
 import * as fromDialog from './dialog.actions';
 import * as fromAlert from '../alert/alert.actions';

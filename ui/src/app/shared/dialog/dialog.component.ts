@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { AlertLocation } from '../../core/store/alert';
+import { AlertLocation } from '../../core/model/alert';
 import { DialogControl } from '../../core/store/dialog/dialog.model';
 
 @Component({
