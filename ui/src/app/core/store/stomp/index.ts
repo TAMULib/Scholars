@@ -10,5 +10,3 @@ export const selectStompState = createFeatureSelector<fromStomp.StompState>('sto
 export const selectIsStompConnected = createSelector(selectStompState, fromStomp.isConnected);
 export const selectIsStompDisconnected = createSelector(selectStompState, fromStomp.isDisconnected);
 export const selectStompSubscriptions = createSelector(selectStompState, fromStomp.getSubscriptions);
-
-export { StompSubscription } from './stomp.model';

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { StompSubscription } from './';
+import { StompSubscription } from '../../model/stomp';
 
 export enum StompActionTypes {
     CONNECT = '[Stomp] connect',
