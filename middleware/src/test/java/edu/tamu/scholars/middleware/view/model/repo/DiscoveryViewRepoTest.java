@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import edu.tamu.scholars.middleware.config.MiddlewareConfig;
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
 
-public class DiscoveryViewRepoTest extends CollectionViewRepoTest<DiscoveryView, DiscoveryViewRepo> {
+public class DiscoveryViewRepoTest extends ViewRepoTest<DiscoveryView, DiscoveryViewRepo> {
 
     @TestConfiguration
     static class DiscoveryViewRepoTestContextConfiguration {

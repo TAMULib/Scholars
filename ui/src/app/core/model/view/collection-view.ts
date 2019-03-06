@@ -1,4 +1,4 @@
-import { View, ResultView } from './';
+import { View } from './';
 
 export enum Layout {
     LIST, GRID
@@ -23,7 +23,8 @@ export interface Filter {
 export interface CollectionView extends View {
     readonly collection: string;
     readonly layout: Layout;
-    readonly resultView: ResultView;
+    readonly template: string;
+    readonly styles: string[];
     readonly facets: Facet[];
     readonly filters: Filter[];
 }

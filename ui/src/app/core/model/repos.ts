@@ -14,8 +14,7 @@ import { UserRepo } from './user';
 
 import {
     DirectoryViewRepo,
-    DiscoveryViewRepo,
-    ResultViewRepo
+    DiscoveryViewRepo
 } from './view';
 
 // NOTE: the keys must match the property of the Spring Data REST embedded response
@@ -30,8 +29,7 @@ export const keys = {
     themes: 'name',
     users: 'email',
     directoryViews: 'name',
-    discoveryViews: 'name',
-    resultViews: 'name'
+    discoveryViews: 'name'
 };
 
 export const repos = {
@@ -44,8 +42,7 @@ export const repos = {
     themes: new InjectionToken<string>('ThemeRepo'),
     users: new InjectionToken<string>('UserRepo'),
     directoryViews: new InjectionToken<string>('DirectoryViewRepo'),
-    discoveryViews: new InjectionToken<string>('DiscoveryViewRepo'),
-    resultViews: new InjectionToken<string>('ResultViewRepo')
+    discoveryViews: new InjectionToken<string>('DiscoveryViewRepo')
 };
 
 export const injectable = [
@@ -58,6 +55,5 @@ export const injectable = [
     { provide: repos.themes, useExisting: ThemeRepo },
     { provide: repos.users, useExisting: UserRepo },
     { provide: repos.directoryViews, useExisting: DirectoryViewRepo },
-    { provide: repos.discoveryViews, useExisting: DiscoveryViewRepo },
-    { provide: repos.resultViews, useExisting: ResultViewRepo }
+    { provide: repos.discoveryViews, useExisting: DiscoveryViewRepo }
 ];

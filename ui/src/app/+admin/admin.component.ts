@@ -36,10 +36,6 @@ export class AdminComponent implements OnInit {
                                 route: ['/admin/discoveryViews'],
                             },
                             {
-                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.RESULT_VIEWS'),
-                                route: ['/admin/resultViews'],
-                            },
-                            {
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.THEMES'),
                                 route: ['/admin/themes'],
                             },

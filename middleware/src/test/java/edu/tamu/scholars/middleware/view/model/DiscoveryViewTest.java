@@ -27,17 +27,16 @@ public class DiscoveryViewTest {
     public void testGettersAndSetters() {
         DiscoveryView discoveryView = getMockDiscoveryView();
         discoveryView.setId(1L);
-        
-        discoveryView.getResultView().setId(1L);
 
         assertEquals(1L, discoveryView.getId(), 1);
         assertEquals("People", discoveryView.getName());
         assertEquals("persons", discoveryView.getCollection());
         assertEquals(Layout.GRID, discoveryView.getLayout());
 
-        assertEquals(1L, discoveryView.getResultView().getId(), 1);
-        assertEquals("People", discoveryView.getResultView().getName());
-        assertEquals("<h1>Person template from WSYWIG</h1>", discoveryView.getResultView().getTemplate());
+        assertEquals("<h1>Person template from WSYWIG</h1>", discoveryView.getTemplate());
+
+        assertEquals(1, discoveryView.getStyles().size());
+        assertEquals("color: maroon;", discoveryView.getStyles().get(0));
 
         assertEquals(1, discoveryView.getFacets().size());
         assertEquals("Name", discoveryView.getFacets().get(0).getName());

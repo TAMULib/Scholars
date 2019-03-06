@@ -12,11 +12,6 @@
       "COLLECTION": "Collection",
       "LAYOUT": "Layout"
     },
-    "RESULT_VIEWS": {
-      "TITLE": "Result Views",
-      "NAME": "Name",
-      "TEMPLATE": "Template"
-    },
     "THEMES": {
       "TITLE": "Themes",
       "NAME": "Name",
@@ -115,7 +110,6 @@
         "TITLE": "Administration",
         "DIRECTORY_VIEWS": "Directory Views",
         "DISCOVERY_VIEWS": "Discovery Views",
-        "RESULT_VIEWS": "Result Views",
         "THEMES": "Themes",
         "USERS": "Users"
       }
