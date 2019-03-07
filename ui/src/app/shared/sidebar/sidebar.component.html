@@ -6,12 +6,12 @@
             </div>
             <ul class="list-group list-group-flush" *ngFor="let item of section.items">
                 <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" [routerLink]="item.route" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" aria-role="link" [attr.aria-label]="'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate">
-                    <label class="item-label" *ngIf="item.checkbox"><input class="item-checkbox" type="checkbox" [class.checked]="item.checked"> {{item.label | async}}</label>
+                    <label class="item-label" *ngIf="item.checkbox"><input class="item-checkbox" type="checkbox" [checked]="item.checked"> {{item.label | async}}</label>
                     <span class="item-label" *ngIf="!item.checkbox">{{item.label | async}}</span>
                     <span class="item-total" *ngIf="item.total"> ({{item.total | async}})</span>
                     <span class="item-fields" *ngFor="let field of item.fields">
                         <label class="field-label {{field.label.classes}}" [for]="field.label.for">{{field.label.value}}</label>
-                        <input class="field-input {{field.input.classes}}" [id]="field.input.id" [name]="field.input.name" [type]="field.input.type" [placeholder]="field.input.placeholder" [value]="field.input.value" [class.checked]="field.input.checked">
+                        <input class="field-input {{field.input.classes}}" [id]="field.input.id" [name]="field.input.name" [type]="field.input.type" [placeholder]="field.input.placeholder" [value]="field.input.value" [checked]="field.input.checked">
                     </span>
                 </li>
             </ul>
