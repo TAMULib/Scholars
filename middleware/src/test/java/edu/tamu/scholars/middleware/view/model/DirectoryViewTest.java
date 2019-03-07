@@ -29,16 +29,15 @@ public class DirectoryViewTest {
         DirectoryView directoryView = getMockDirectoryView();
         directoryView.setId(1L);
 
-        directoryView.getResultView().setId(1L);
-
         assertEquals(1L, directoryView.getId(), 1);
         assertEquals("People", directoryView.getName());
         assertEquals("persons", directoryView.getCollection());
         assertEquals(Layout.LIST, directoryView.getLayout());
 
-        assertEquals(1L, directoryView.getResultView().getId(), 1);
-        assertEquals("People", directoryView.getResultView().getName());
-        assertEquals("<h1>Person template from WSYWIG</h1>", directoryView.getResultView().getTemplate());
+        assertEquals("<h1>Person template from WSYWIG</h1>", directoryView.getTemplate());
+
+        assertEquals(1, directoryView.getStyles().size());
+        assertEquals("color: maroon;", directoryView.getStyles().get(0));
 
         assertEquals(1, directoryView.getFacets().size());
         assertEquals("Name", directoryView.getFacets().get(0).getName());

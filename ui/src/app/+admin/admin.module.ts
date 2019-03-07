@@ -10,7 +10,6 @@ import { CustomMissingTranslationHandler } from '../core/handler/custom-missing-
 import { AdminComponent } from './admin.component';
 import { DirectoryViewsComponent } from './directory-views/directory-views.component';
 import { DiscoveryViewsComponent } from './discovery-views/discovery-views.component';
-import { ResultViewsComponent } from './result-views/result-views.component';
 import { ThemesComponent } from './themes/themes.component';
 import { UsersComponent } from './users/users.component';
 
@@ -21,7 +20,6 @@ import { routes } from './admin.routes';
         AdminComponent,
         DirectoryViewsComponent,
         DiscoveryViewsComponent,
-        ResultViewsComponent,
         ThemesComponent,
         UsersComponent
     ],

@@ -16,8 +16,7 @@ import { User } from '../model/user';
 
 import {
   DirectoryView,
-  DiscoveryView,
-  ResultView
+  DiscoveryView
 } from '../model/view';
 
 import * as fromRouter from '@ngrx/router-store';
@@ -54,7 +53,6 @@ export interface AppState {
   users: fromSdr.SdrState<User>;
   directoryViews: fromSdr.SdrState<DirectoryView>;
   discoveryViews: fromSdr.SdrState<DiscoveryView>;
-  resultViews: fromSdr.SdrState<ResultView>;
   router: fromRouter.RouterReducerState;
 }
 
@@ -78,7 +76,6 @@ export const reducers: ActionReducerMap<AppState> = {
   users: fromSdr.getSdrReducer<User>('users'),
   directoryViews: fromSdr.getSdrReducer<DirectoryView>('directoryViews'),
   discoveryViews: fromSdr.getSdrReducer<DiscoveryView>('discoveryViews'),
-  resultViews: fromSdr.getSdrReducer<ResultView>('resultViews'),
   router: fromRouter.routerReducer
 };
 

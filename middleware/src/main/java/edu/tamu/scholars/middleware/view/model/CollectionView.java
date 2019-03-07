@@ -1,8 +1,5 @@
 package edu.tamu.scholars.middleware.view.model;
 
-import static javax.persistence.CascadeType.PERSIST;
-import static javax.persistence.FetchType.EAGER;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFacets;
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFilters;
@@ -32,8 +29,12 @@ public abstract class CollectionView extends View {
     @Enumerated(EnumType.STRING)
     private Layout layout;
 
-    @ManyToOne(fetch = EAGER, cascade = { PERSIST }, optional = false)
-    private ResultView resultView;
+    @NotNull
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String template;
+
+    @ElementCollection
+    private List<String> styles;
 
     @ElementCollection
     private List<Facet> facets;
@@ -63,12 +64,20 @@ public abstract class CollectionView extends View {
         this.layout = layout;
     }
 
-    public ResultView getResultView() {
-        return resultView;
+    public String getTemplate() {
+        return template;
     }
 
-    public void setResultView(ResultView resultView) {
-        this.resultView = resultView;
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    public List<String> getStyles() {
+        return styles;
+    }
+
+    public void setStyles(List<String> styles) {
+        this.styles = styles;
     }
 
     public List<Facet> getFacets() {

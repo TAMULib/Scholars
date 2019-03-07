@@ -34,7 +34,6 @@ include::themes.adoc[]
 include::users.adoc[]
 include::directoryViews.adoc[]
 include::discoveryViews.adoc[]
-include::resultViews.adoc[]
 
 [%hardbreaks]
 

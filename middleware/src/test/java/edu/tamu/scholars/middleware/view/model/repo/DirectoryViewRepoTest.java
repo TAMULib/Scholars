@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import edu.tamu.scholars.middleware.config.MiddlewareConfig;
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 
-public class DirectoryViewRepoTest extends CollectionViewRepoTest<DirectoryView, DirectoryViewRepo> {
+public class DirectoryViewRepoTest extends ViewRepoTest<DirectoryView, DirectoryViewRepo> {
 
     @TestConfiguration
     static class DirectoryViewRepoTestContextConfiguration {

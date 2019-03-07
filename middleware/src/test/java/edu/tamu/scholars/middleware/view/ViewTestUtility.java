@@ -12,7 +12,6 @@ import edu.tamu.scholars.middleware.view.model.Facet;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
 import edu.tamu.scholars.middleware.view.model.Layout;
-import edu.tamu.scholars.middleware.view.model.ResultView;
 
 public class ViewTestUtility {
 
@@ -23,12 +22,13 @@ public class ViewTestUtility {
         directoryView.setCollection("persons");
         directoryView.setLayout(Layout.LIST);
 
-        ResultView resultView = new ResultView();
+        directoryView.setTemplate("<h1>Person template from WSYWIG</h1>");
 
-        resultView.setName("People");
-        resultView.setTemplate("<h1>Person template from WSYWIG</h1>");
+        List<String> styles = new ArrayList<String>();
 
-        directoryView.setResultView(resultView);
+        styles.add("color: maroon;");
+
+        directoryView.setStyles(styles);
 
         List<Facet> facets = new ArrayList<Facet>();
 
@@ -71,12 +71,13 @@ public class ViewTestUtility {
         discoveryView.setCollection("persons");
         discoveryView.setLayout(Layout.GRID);
 
-        ResultView resultView = new ResultView();
+        discoveryView.setTemplate("<h1>Person template from WSYWIG</h1>");
 
-        resultView.setName("People");
-        resultView.setTemplate("<h1>Person template from WSYWIG</h1>");
+        List<String> styles = new ArrayList<String>();
 
-        discoveryView.setResultView(resultView);
+        styles.add("color: maroon;");
+
+        discoveryView.setStyles(styles);
 
         List<Facet> facets = new ArrayList<Facet>();
 
@@ -103,15 +104,6 @@ public class ViewTestUtility {
         discoveryView.setFilters(filters);
 
         return discoveryView;
-    }
-
-    public static ResultView getMockResultView() {
-        ResultView resultView = new ResultView();
-
-        resultView.setName("People");
-        resultView.setTemplate("<h1>Person template from WSYWIG</h1>");
-
-        return resultView;
     }
 
 }

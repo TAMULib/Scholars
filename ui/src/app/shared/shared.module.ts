@@ -13,6 +13,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NotificationComponent } from './dialog/notification/notification.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { RecentPublicationsComponent } from './recent-publications/recent-publications.component';
+import { ResultViewComponent } from './result-view/result-view.component';
 import { RegistrationComponent } from './dialog/registration/registration.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -40,6 +41,7 @@ const COMPONENTS = [
     PaginationComponent,
     RecentPublicationsComponent,
     RegistrationComponent,
+    ResultViewComponent,
     SearchBoxComponent,
     SidebarComponent
 ];
