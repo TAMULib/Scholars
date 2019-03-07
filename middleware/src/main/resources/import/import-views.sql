@@ -1,6 +1,6 @@
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, TYPE) VALUES (1, 'People', 'persons', 'LIST', '<span>Hello, World!</span>', 'name', 'STARTING_WITH');
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, TYPE) VALUES (2, 'Organizations', 'organizations', 'LIST', '<span>Hello, World!</span>', 'name', 'STARTING_WITH');
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, TYPE) VALUES (3, 'Research', 'documents', 'LIST', '<span>Hello, World!</span>', 'title', 'STARTING_WITH');
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, TYPE) VALUES (1, 'People', 'persons', 'LIST', '<span>{{resource.name}}</span>', 'name', 'STARTING_WITH');
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, TYPE) VALUES (2, 'Organizations', 'organizations', 'LIST', '<span>{{resource.name}}</span>', 'name', 'STARTING_WITH');
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, TYPE) VALUES (3, 'Research', 'documents', 'LIST', '<span>{{resource.title}}</span>', 'title', 'STARTING_WITH');
 
 INSERT INTO DIRECTORY_VIEW_FACETS (DIRECTORY_VIEW_ID, NAME, FIELD, DEFAULT_LIMIT, DEFAULT_SORT) VALUES (1, 'Type', 'type', 10, 'COUNT');
 INSERT INTO DIRECTORY_VIEW_FACETS (DIRECTORY_VIEW_ID, NAME, FIELD, DEFAULT_LIMIT, DEFAULT_SORT) VALUES (2, 'Type', 'type', 10, 'COUNT');
@@ -8,12 +8,12 @@ INSERT INTO DIRECTORY_VIEW_FACETS (DIRECTORY_VIEW_ID, NAME, FIELD, DEFAULT_LIMIT
 
 
 
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (1, 'People', 'persons', 'GRID', '<span>Hello, World!</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (2, 'Publications', 'documents', 'LIST', '<span>Hello, World!</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (3, 'Grants', 'relationships', 'LIST', '<span>Hello, World!</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (4, 'Awards', 'relationships', 'LIST', '<span>Hello, World!</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (5, 'Courses', 'processes', 'LIST', '<span>Hello, World!</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (6, 'Concepts', 'concepts', 'LIST', '<span>Hello, World!</span>');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (1, 'People', 'persons', 'GRID', '<span>{{resource.name}}</span>');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (2, 'Publications', 'documents', 'LIST', '<span>{{resource.title}}</span>');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (3, 'Grants', 'relationships', 'LIST', '<span>{{resource.title}}</span>');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (4, 'Awards', 'relationships', 'LIST', '<span>{{resource.title}}</span>');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (5, 'Courses', 'processes', 'LIST', '<span>{{resource.title}}</span>');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (6, 'Concepts', 'concepts', 'LIST', '<span>{{resource.name}}</span>');
 
 INSERT INTO DISCOVERY_VIEW_FILTERS (DISCOVERY_VIEW_ID, FIELD, VALUE) VALUES (3, 'type', 'Grant');
 INSERT INTO DISCOVERY_VIEW_FILTERS (DISCOVERY_VIEW_ID, FIELD, VALUE) VALUES (4, 'type', 'AwardReceipt');

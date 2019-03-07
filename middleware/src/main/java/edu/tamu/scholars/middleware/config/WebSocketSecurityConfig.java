@@ -32,7 +32,13 @@ public class WebSocketSecurityConfig extends AbstractSecurityWebSocketMessageBro
                     "/queue/themes",
                     "/queue/directoryViews",
                     "/queue/discoveryViews",
-                    "/queue/resultViews"
+                    "/queue/resultViews",
+                    "/queue/concepts",
+                    "/queue/documents",
+                    "/queue/organizations",
+                    "/queue/persons",
+                    "/queue/processes",
+                    "/queue/relationships"
                 )
                 .permitAll()
             .simpSubscribeDestMatchers("/user/queue/users")

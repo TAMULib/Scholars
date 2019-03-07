@@ -7,7 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AlertComponent } from './alert/alert.component';
 import { DialogComponent } from './dialog/dialog.component';
-import { StatsBoxComponent } from './stats-box/stats-box.component';
+import { GridViewComponent } from './grid-view/grid-view.component';
+import { ListViewComponent } from './list-view/list-view.component';
 import { LoginComponent } from './dialog/login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NotificationComponent } from './dialog/notification/notification.component';
@@ -18,6 +19,7 @@ import { RegistrationComponent } from './dialog/registration/registration.compon
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserEditComponent } from './dialog/user-edit/user-edit.component';
+import { StatsBoxComponent } from './stats-box/stats-box.component';
 
 const MODULES = [
     CommonModule,
@@ -35,7 +37,8 @@ const PIPES = [
 const COMPONENTS = [
     AlertComponent,
     DialogComponent,
-    StatsBoxComponent,
+    GridViewComponent,
+    ListViewComponent,
     LoginComponent,
     NavigationComponent,
     PaginationComponent,
@@ -43,7 +46,8 @@ const COMPONENTS = [
     RegistrationComponent,
     ResultViewComponent,
     SearchBoxComponent,
-    SidebarComponent
+    SidebarComponent,
+    StatsBoxComponent
 ];
 
 const ENTRY_COMPONENTS = [

@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SolrDocument } from '../../core/model/discovery';
 import { CollectionView } from '../../core/model/view';
 
 @Component({
@@ -25,7 +24,7 @@ export class ResultViewComponent implements AfterContentInit, OnDestroy {
     public view: CollectionView;
 
     @Input()
-    public document: SolrDocument;
+    public resource: any;
 
     @ViewChild('dynamicResultView', { read: ViewContainerRef })
     public dynamicResultView: ViewContainerRef;
@@ -53,7 +52,7 @@ export class ResultViewComponent implements AfterContentInit, OnDestroy {
             styles
         })
         class DynamicComponent {
-            public document: SolrDocument;
+            public resource: any;
             constructor() { }
         }
 
@@ -75,7 +74,7 @@ export class ResultViewComponent implements AfterContentInit, OnDestroy {
 
         this.componentRef = this.dynamicResultView.createComponent(factory);
 
-        this.componentRef.instance.document = this.document;
+        this.componentRef.instance.resource = this.resource;
     }
 
 }

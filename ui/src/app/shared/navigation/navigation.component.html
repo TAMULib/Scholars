@@ -13,7 +13,7 @@
         </li>
       </ul>
       <ul class="navbar-nav" *ngIf="directoryViews | async; let directoryViews">
-        <li class="nav-item" *ngFor="let directoryView of directoryViews" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <li class="nav-item" *ngFor="let directoryView of directoryViews" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}">
           <a class="nav-link" [routerLink]="getDirectoryRoute(directoryView)" (click)="toggleNavigation()">{{ directoryView.name }}</a>
         </li>
       </ul>

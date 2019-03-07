@@ -33,7 +33,7 @@ export class DiscoveryViewsComponent implements OnInit {
     }
 
     public onPageChange(page: SdrPageRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction('discoveryViews', { page }));
+        this.store.dispatch(new fromSdr.PageResourcesAction(page.collection, { page }));
     }
 
 }

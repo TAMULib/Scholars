@@ -4,7 +4,8 @@ import { DiscoveryComponent } from './discovery.component';
 
 export const routes: Routes = [
     {
-        path: ':collection', component: DiscoveryComponent, pathMatch: 'full'
+        path: ':name', component: DiscoveryComponent, pathMatch: 'full'
     },
-    { path: '**', redirectTo: 'persons' }
+    // TODO: dynamic redirect to first discovery view
+    { path: '**', redirectTo: 'People' }
 ];

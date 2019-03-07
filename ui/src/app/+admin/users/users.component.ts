@@ -46,7 +46,7 @@ export class UsersComponent implements OnInit {
     }
 
     public onPageChange(page: SdrPageRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction('users', { page }));
+        this.store.dispatch(new fromSdr.PageResourcesAction(page.collection, { page }));
     }
 
 }

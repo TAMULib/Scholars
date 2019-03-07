@@ -35,7 +35,7 @@ export class NavigationComponent implements OnInit {
     }
 
     public getDirectoryRoute(directoryView: DirectoryView): string[] {
-        return [`/directory/${directoryView.collection}`];
+        return [`/directory/${directoryView.name}`];
     }
 
     public toggleNavigation(): void {

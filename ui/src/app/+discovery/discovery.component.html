@@ -2,12 +2,16 @@
   <div class="container pt-2">
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
-        <scholars-search-box [live]="live"></scholars-search-box>
+        <scholars-search-box live="true"></scholars-search-box>
       </div>
     </div>
   </div>
 </div>
-<div class="container mt-2">
-  <h3 class="text-primary">{{ 'DISCOVERY.TITLE' | translate }}</h3>
+<div class="container mt-2" *ngIf="view | async; let view">
+  <h3 class="text-primary">{{ view.name }}</h3>
   <p>{{query | async}}</p>
+  <scholars-pagination *ngIf="documents | async; let documents" [collection]="view.collection" [page]="page" (pageChange)="onPageChange($event, view)" [ngSwitch]="view.layout">
+    <scholars-grid-view *ngSwitchCase="'GRID'" [view]="view" [resources]="documents"></scholars-grid-view>
+    <scholars-list-view *ngSwitchCase="'LIST'" [view]="view" [resources]="documents"></scholars-list-view>
+  </scholars-pagination>
 </div>

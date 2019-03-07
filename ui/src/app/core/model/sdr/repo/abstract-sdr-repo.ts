@@ -58,12 +58,12 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
     }
 
     protected mapParameters(request: SdrPageRequest, parameters: String[] = []): String {
-        parameters.push('page=' + (request.number - 1));
-        parameters.push('size=' + request.size);
+        parameters.push(`page=${(request.number - 1)}`);
+        parameters.push(`size=${request.size}`);
 
         if (request.sort) {
             if (request.sort.name) {
-                parameters.push('sort=' + encodeURIComponent(request.sort.name) + (request.sort.ascend === true ? ',asc' : request.sort.ascend === false ? ',desc' : ''));
+                parameters.push(`sort=${encodeURIComponent(request.sort.name) + (request.sort.ascend === true ? ',asc' : request.sort.ascend === false ? ',desc' : '')}`);
             } else if (request.sort.ascend === true) {
                 parameters.push('sort=asc');
             } else if (request.sort.ascend === false) {
@@ -71,7 +71,7 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
             }
         }
 
-        return '?' + parameters.join('&');
+        return `?${parameters.join('&')}`;
     }
 
     protected abstract path(): string;

@@ -33,7 +33,7 @@ export class ThemesComponent implements OnInit {
     }
 
     public onPageChange(page: SdrPageRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction('themes', { page }));
+        this.store.dispatch(new fromSdr.PageResourcesAction(page.collection, { page }));
     }
 
 }

@@ -4,7 +4,8 @@ import { DirectoryComponent } from './directory.component';
 
 export const routes: Routes = [
     {
-        path: ':collection', component: DirectoryComponent, pathMatch: 'full'
+        path: ':name', component: DirectoryComponent, pathMatch: 'full'
     },
-    { path: '**', redirectTo: 'persons' }
+    // TODO: dynamic redirect to first directory view
+    { path: '**', redirectTo: 'People' }
 ];

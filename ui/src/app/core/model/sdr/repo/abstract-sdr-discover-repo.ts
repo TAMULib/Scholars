@@ -19,26 +19,26 @@ export abstract class AbstractSdrDiscoverRepo<D extends SolrDocument> extends Ab
         const parameters: String[] = [];
 
         if (request.query) {
-            parameters.push('query=' + encodeURIComponent(request.query));
+            parameters.push(`query=${encodeURIComponent(request.query)}`);
         }
 
         if (request.type.filter) {
-            parameters.push('type.filter=' + encodeURIComponent(request.type.filter));
+            parameters.push(`type.filter=${encodeURIComponent(request.type.filter)}`);
         }
 
         if (request.type) {
             for (const key in ['limit', 'offset', 'sort']) {
                 if (request.type[key]) {
-                    parameters.push('type.limit=' + request.type[key]);
+                    parameters.push(`type.limit=${request.type[key]}`);
                 }
             }
         }
 
         if (request.facets) {
-            parameters.push('facets=' + encodeURIComponent(request.facets.join()));
+            parameters.push(`facets=${encodeURIComponent(request.facets.join())}`);
         }
 
-        return this.restService.get<D>(`${environment.service}/${this.path()}/search/facet` + this.mapParameters(request, parameters), {
+        return this.restService.get<D>(`${environment.service}/${this.path()}/search/facet${this.mapParameters(request, parameters)}`, {
             withCredentials: true
         });
     }

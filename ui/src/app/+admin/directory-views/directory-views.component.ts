@@ -33,7 +33,7 @@ export class DirectoryViewsComponent implements OnInit {
     }
 
     public onPageChange(page: SdrPageRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction('directoryViews', { page }));
+        this.store.dispatch(new fromSdr.PageResourcesAction(page.collection, { page }));
     }
 
 }
