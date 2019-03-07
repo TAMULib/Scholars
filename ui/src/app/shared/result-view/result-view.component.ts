@@ -4,14 +4,12 @@ import {
     OnDestroy,
     AfterContentInit,
     Input,
-    Compiler,
     ViewContainerRef,
-    NgModule,
     ComponentRef
 } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { CollectionView } from '../../core/model/view';
+import { ResultViewService } from '../../core/service/result-view.service';
 
 @Component({
     selector: 'scholars-result-view',
@@ -31,7 +29,7 @@ export class ResultViewComponent implements AfterContentInit, OnDestroy {
 
     public componentRef: ComponentRef<any>;
 
-    constructor(private compiler: Compiler) {
+    constructor(private resultViewService: ResultViewService) {
 
     }
 
@@ -42,38 +40,8 @@ export class ResultViewComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.renderResultView(this.view.template, this.view.styles);
-    }
-
-    private renderResultView(template: string, styles: string[] = []) {
-
-        @Component({
-            template: template,
-            styles
-        })
-        class DynamicComponent {
-            public resource: any;
-            constructor() { }
-        }
-
-        @NgModule({
-            imports: [
-                BrowserModule
-            ],
-            declarations: [
-                DynamicComponent
-            ]
-        })
-        class DynamicComponentModule { }
-
-        const dynamicComponentModule = this.compiler.compileModuleAndAllComponentsSync(DynamicComponentModule);
-
-        const factory = dynamicComponentModule.componentFactories.find((component) =>
-            component.componentType === DynamicComponent
-        );
-
+        const factory = this.resultViewService.compileDynamicResultView(this.view);
         this.componentRef = this.dynamicResultView.createComponent(factory);
-
         this.componentRef.instance.resource = this.resource;
     }
 

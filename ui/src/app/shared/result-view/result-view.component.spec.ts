@@ -4,6 +4,8 @@ import { SharedModule } from '../shared.module';
 
 import { ResultViewComponent } from './result-view.component';
 import { Layout } from '../../core/model/view';
+import { ResultViewService } from '../../core/service/result-view.service';
+import { Compiler } from '@angular/core';
 
 describe('ResultViewComponent', () => {
     let component: ResultViewComponent;
@@ -11,6 +13,10 @@ describe('ResultViewComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            providers: [
+                Compiler,
+                ResultViewService
+            ],
             imports: [
                 SharedModule
             ]
