@@ -15,36 +15,38 @@ export class ResultViewService {
         this.factories = new Map<string, ComponentFactory<any>>();
     }
 
-    public compileDynamicResultView(view: CollectionView): ComponentFactory<any> {
-        let factory = this.factories.get(view.name);
-        if (factory === undefined) {
-            @Component({
-                template: view.template,
-                styles: view.styles
-            })
-            class DynamicComponent {
-                public resource: any;
-                constructor() { }
+    public compileDynamicResultView(view: CollectionView): Promise<ComponentFactory<any>> {
+        return new Promise((resolve, reject) => {
+            let factory = this.factories.get(view.name);
+            if (factory === undefined) {
+                @Component({
+                    template: view.template,
+                    styles: view.styles
+                })
+                class DynamicComponent {
+                    public resource: any;
+                    constructor() { }
+                }
+
+                @NgModule({
+                    imports: [
+                        BrowserModule,
+                        CommonModule
+                    ],
+                    declarations: [
+                        DynamicComponent
+                    ]
+                })
+                class DynamicComponentModule { }
+
+                const dynamicComponentModule = this.compiler.compileModuleAndAllComponentsSync(DynamicComponentModule);
+
+                factory = dynamicComponentModule.componentFactories[0];
+
+                this.factories.set(view.name, factory);
             }
-
-            @NgModule({
-                imports: [
-                    BrowserModule,
-                    CommonModule
-                ],
-                declarations: [
-                    DynamicComponent
-                ]
-            })
-            class DynamicComponentModule { }
-
-            const dynamicComponentModule = this.compiler.compileModuleAndAllComponentsSync(DynamicComponentModule);
-
-            factory = dynamicComponentModule.componentFactories[0];
-
-            this.factories.set(view.name, factory);
-        }
-        return factory;
+            resolve(factory);
+        });
     }
 
     public removeAllDynamicResultView(): void {

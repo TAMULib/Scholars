@@ -5,7 +5,8 @@ import {
     AfterContentInit,
     Input,
     ViewContainerRef,
-    ComponentRef
+    ComponentRef,
+    ComponentFactory,
 } from '@angular/core';
 
 import { CollectionView } from '../../core/model/view';
@@ -40,9 +41,10 @@ export class ResultViewComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        const factory = this.resultViewService.compileDynamicResultView(this.view);
-        this.componentRef = this.dynamicResultView.createComponent(factory);
-        this.componentRef.instance.resource = this.resource;
+        this.resultViewService.compileDynamicResultView(this.view).then((factory: ComponentFactory<any>) => {
+            this.componentRef = this.dynamicResultView.createComponent(factory);
+            this.componentRef.instance.resource = this.resource;
+        });
     }
 
 }
