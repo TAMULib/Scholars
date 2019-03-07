@@ -112,6 +112,9 @@
         "DISCOVERY_VIEWS": "Discovery Views",
         "THEMES": "Themes",
         "USERS": "Users"
+      },
+      "LINK": {
+        "ARIA_LABEL": "Navigation link."
       }
     },
     "ALERT": {
