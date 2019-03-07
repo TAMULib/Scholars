@@ -1,8 +1,8 @@
 <div class="wrapper container">
     <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu">
         <div class="card bg-dark" *ngFor="let section of menu.sections">
-            <div class="card-header text-white {{section.classes}}" *ngIf="section.label">
-                <span class="header-label">{{section.label | async}}</span>
+            <div class="card-header text-white {{section.classes}}">
+                <span class="header-title">{{section.title | async}}</span>
             </div>
             <ul class="list-group list-group-flush" *ngFor="let item of section.items">
                 <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" [routerLink]="item.route" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" aria-role="link" [attr.aria-label]="'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate">

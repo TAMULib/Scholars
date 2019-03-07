@@ -25,7 +25,7 @@ export class AdminComponent implements OnInit {
             menu: {
                 sections: [
                     {
-                        label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.TITLE'),
+                        title: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.TITLE'),
                         items: [
                             {
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DIRECTORY_VIEWS'),
