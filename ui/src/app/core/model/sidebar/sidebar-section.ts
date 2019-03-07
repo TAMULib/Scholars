@@ -5,5 +5,5 @@ export interface SidebarSection {
     label?: Observable<string>;
     items: SidebarItem[];
     collapsible: boolean;
-    classes?: string[];
+    classes?: string;
 }
