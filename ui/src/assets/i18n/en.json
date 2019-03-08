@@ -30,7 +30,9 @@
   },
   "DASHBOARD": {
     "ABOUT": {
-      "TITLE": "About"
+      "TITLE": "About Scholars@TAMU",
+      "NEW_SCHOLARS_TITLE" : "New to Scholars@TAMU?",
+      "ABOUT_PROJECT": "About the Project"
     },
     "HOME": {
       "LATEST_PUBLICATIONS_TEXT": "Latest published books by {{organization}} faculty",
