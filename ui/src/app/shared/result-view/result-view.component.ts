@@ -1,13 +1,4 @@
-import {
-    Component,
-    ViewChild,
-    OnDestroy,
-    AfterContentInit,
-    Input,
-    ViewContainerRef,
-    ComponentRef,
-    ComponentFactory,
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { CollectionView } from '../../core/model/view';
 import { ResultViewService } from '../../core/service/result-view.service';
@@ -17,7 +8,7 @@ import { ResultViewService } from '../../core/service/result-view.service';
     templateUrl: './result-view.component.html',
     styleUrls: ['./result-view.component.scss']
 })
-export class ResultViewComponent implements AfterContentInit, OnDestroy {
+export class ResultViewComponent implements OnInit {
 
     @Input()
     public view: CollectionView;
@@ -25,26 +16,14 @@ export class ResultViewComponent implements AfterContentInit, OnDestroy {
     @Input()
     public resource: any;
 
-    @ViewChild('dynamicResultView', { read: ViewContainerRef })
-    public dynamicResultView: ViewContainerRef;
-
-    public componentRef: ComponentRef<any>;
+    public resultHtml: string;
 
     constructor(private resultViewService: ResultViewService) {
 
     }
 
-    ngOnDestroy() {
-        if (this.componentRef) {
-            this.componentRef.destroy();
-        }
-    }
-
-    ngAfterContentInit() {
-        this.resultViewService.compileDynamicResultView(this.view).then((factory: ComponentFactory<any>) => {
-            this.componentRef = this.dynamicResultView.createComponent(factory);
-            this.componentRef.instance.resource = this.resource;
-        });
+    ngOnInit() {
+        this.resultHtml = this.resultViewService.compileResultView(this.view, this.resource);
     }
 
 }

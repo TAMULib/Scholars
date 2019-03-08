@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf, COMPILER_OPTIONS, CompilerFactory, Compiler } from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthGuard } from './guard/auth.guard';
@@ -13,11 +13,6 @@ import { UserRepo } from './model/user/repo/user.repo';
 import { AlertService } from './service/alert.service';
 import { DialogService } from './service/dialog.service';
 import { ResultViewService } from './service/result-view.service';
-import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
-
-export function createCompiler(compilerFactory: CompilerFactory) {
-    return compilerFactory.createCompiler();
-}
 
 const MODULES = [
     CommonModule
@@ -61,12 +56,7 @@ export class CoreModule {
         return {
             ngModule: CoreModule,
             providers: [
-                ...PROVIDERS,
-                // Compiler is not included in AOT-compiled bundle.
-                // Must explicitly provide compiler to be able to compile templates at runtime.
-                { provide: COMPILER_OPTIONS, useValue: { useJit: true }, multi: true },
-                { provide: CompilerFactory, useClass: JitCompilerFactory, deps: [COMPILER_OPTIONS] },
-                { provide: Compiler, useFactory: createCompiler, deps: [CompilerFactory] }
+                ...PROVIDERS
             ]
         };
     }

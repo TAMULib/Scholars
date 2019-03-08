@@ -1,60 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { Injectable, Compiler, Component, NgModule, ComponentFactory } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { Injectable } from '@angular/core';
+import * as Mustache from 'mustache';
 
 import { CollectionView } from '../model/view';
+import { stringify } from '@angular/core/src/render3/util';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ResultViewService {
 
-    private factories: Map<string, ComponentFactory<any>>;
-
-    constructor(private compiler: Compiler) {
-        this.factories = new Map<string, ComponentFactory<any>>();
+    public compileResultView(view: CollectionView, resource: any): string {
+        return Mustache.render(view.template, resource);
     }
 
-    public compileDynamicResultView(view: CollectionView): Promise<ComponentFactory<any>> {
-        return new Promise((resolve, reject) => {
-            let factory = this.factories.get(view.name);
-            if (factory === undefined) {
-                @Component({
-                    template: view.template,
-                    styles: view.styles
-                })
-                class DynamicComponent {
-                    public resource: any;
-                    constructor() { }
-                }
-
-                @NgModule({
-                    imports: [
-                        BrowserModule,
-                        CommonModule
-                    ],
-                    declarations: [
-                        DynamicComponent
-                    ]
-                })
-                class DynamicComponentModule { }
-
-                const dynamicComponentModule = this.compiler.compileModuleAndAllComponentsSync(DynamicComponentModule);
-
-                factory = dynamicComponentModule.componentFactories[0];
-
-                this.factories.set(view.name, factory);
-            }
-            resolve(factory);
-        });
-    }
-
-    public removeAllDynamicResultView(): void {
-        this.factories.clear();
-    }
-
-    public removeDynamicResultView(name: string): void {
-        this.factories.delete(name);
+    public clearCache(): void {
+        Mustache.clearCache();
     }
 
 }
