@@ -19,7 +19,8 @@ export const selectReousrceIsLoading = <R extends SdrResource>(name: string) => 
 export const selectReousrceIsUpdating = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.isUpdating);
 
 export const selectResourcesPage = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getPage);
-export const selectReousrcesLinks = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getLinks);
+export const selectResourcesFacets = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getFacets);
+export const selectResourcesLinks = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getLinks);
 
 export const selectResourceById = <R extends SdrResource>(name: string, id: string) => createSelector(
     selectReousrceEntities<R>(name),

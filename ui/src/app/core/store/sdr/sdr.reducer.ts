@@ -148,4 +148,5 @@ export const isLoading = <R extends SdrResource>(state: SdrState<R>) => state.lo
 export const isUpdating = <R extends SdrResource>(state: SdrState<R>) => state.updating;
 
 export const getPage = <R extends SdrResource>(state: SdrState<R>) => state.page;
+export const getFacets = <R extends SdrResource>(state: SdrState<R>) => state.facets;
 export const getLinks = <R extends SdrResource>(state: SdrState<R>) => state.links;

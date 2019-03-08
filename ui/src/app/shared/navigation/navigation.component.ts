@@ -30,7 +30,6 @@ export class NavigationComponent implements OnInit {
     ngOnInit() {
         this.directoryViews = this.store.pipe(select(selectAllResources<DirectoryView>('directoryViews')));
         this.isNavigationCollapsed = this.store.pipe(select(selectIsNavigationCollapsed));
-        this.directoryViews.subscribe((view) => console.log(view));
     }
 
     public getDirectoryRoute(directoryView: DirectoryView): string[] {

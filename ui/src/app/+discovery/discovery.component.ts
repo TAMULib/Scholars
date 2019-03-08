@@ -14,7 +14,7 @@ import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
 import { selectRouterSearchQuery } from '../core/store/router';
-import { selectAllResources, selectResourcesPage, selectResourceById } from '../core/store/sdr';
+import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 
@@ -62,6 +62,7 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
                 this.subscriptions.push(this.view.subscribe((view: CollectionView) => {
                     this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(view.collection)));
                     this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(view.collection)));
+                    this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(view.collection)));
                 }));
             }
         }));
