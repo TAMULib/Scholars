@@ -56,7 +56,7 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
                 collection: this.collection,
                 number: params.page !== undefined ? params.page : 1,
                 size: params.size !== undefined ? params.size : 10,
-                query: params.query != undefined ? params.query : ''
+                query: params.query !== undefined ? params.query : ''
             };
             this.pageChange.emit(this.lastPage);
         }));

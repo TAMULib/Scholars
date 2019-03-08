@@ -32,9 +32,9 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
 };
 
 export const getSdrReducer = <R extends SdrResource>(name: string) => {
-    const getResources = (action: SdrActions, name: string): R[] => {
-        return action.payload.collection._embedded !== undefined ? action.payload.collection._embedded[name] : [];
-    }
+    const getResources = (action: SdrActions, key: string): R[] => {
+        return action.payload.collection._embedded !== undefined ? action.payload.collection._embedded[key] : [];
+    };
     return (state = getSdrInitialState<R>(keys[name]), action: SdrActions): SdrState<R> => {
         switch (action.type) {
             case getSdrAction(SdrActionTypes.GET_ALL, name):
