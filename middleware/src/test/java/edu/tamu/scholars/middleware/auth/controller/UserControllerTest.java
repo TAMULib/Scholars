@@ -56,7 +56,7 @@ public class UserControllerTest extends UserIntegrationTest {
                     .andExpect(jsonPath("page.size", equalTo(20)))
                     .andExpect(jsonPath("page.totalElements", equalTo(1)))
                     .andExpect(jsonPath("page.totalPages", equalTo(1)))
-                    .andExpect(jsonPath("page.number", equalTo(0)))
+                    .andExpect(jsonPath("page.number", equalTo(1)))
                     .andDo(
                         document(
                             "users/directory",

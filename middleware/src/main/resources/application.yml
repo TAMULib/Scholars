@@ -63,6 +63,10 @@ spring:
       return-body-on-update: true
     solr:
       host: http://localhost:8983/solr
+    # NOTE: this does not work yet, https://jira.spring.io/browse/DATAREST-1290
+    web:
+      pageable:
+        oneIndexedParameters: true
   main:
     allow-bean-definition-overriding: false
   messages:
