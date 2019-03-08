@@ -11,6 +11,12 @@
       .card {
         .card-header {
           font-weight: bold;
+
+          .header-collapsable {
+            float: right;
+            font-size: 1.3em;
+            line-height: 1.1em;
+          }
         }
       }
     }
@@ -19,6 +25,5 @@
       margin-left: 0px;
     }
 
-    
   }
 }

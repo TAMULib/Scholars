@@ -115,6 +115,10 @@
       },
       "LINK": {
         "ARIA_LABEL": "Navigation link."
+      },
+      "SECTION": {
+          "ARIA_LABEL_COLLAPSE": "Collapse the {{label}} section.",
+          "ARIA_LABEL_EXPAND": "Expand the {{label}} section."
       }
     },
     "ALERT": {
