@@ -11,7 +11,7 @@ import { AppState } from '../core/store';
 import { SdrRequest } from '../core/model/request';
 import { CollectionView } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
-import { SdrPage } from '../core/model/sdr';
+import { SdrPage, SdrFacet } from '../core/model/sdr';
 
 import { selectRouterSearchQuery } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourceById } from '../core/store/sdr';
@@ -25,13 +25,15 @@ import * as fromSdr from '../core/store/sdr/sdr.actions';
 })
 export class DiscoveryComponent implements OnDestroy, OnInit {
 
-    public query: Observable<string>;
-
     public view: Observable<CollectionView>;
 
     public documents: Observable<SolrDocument[]>;
 
     public page: Observable<SdrPage>;
+
+    public facets: Observable<SdrFacet[]>;
+
+    public query: Observable<string>;
 
     private subscriptions: Subscription[];
 

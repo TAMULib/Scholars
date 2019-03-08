@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 
-import { of, combineLatest } from 'rxjs';
+import { of, combineLatest, defer } from 'rxjs';
 import { map, switchMap, catchError, withLatestFrom, skipWhile, take } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
@@ -63,9 +63,9 @@ export class SdrEffects {
                 this.store.dispatch(new fromStomp.SubscribeAction({
                     channel: `/queue/${name}`,
                     handle: (frame: any) => {
-                        // TODO: consider prevent page request if loading, updating, or editing
+                        // TODO: conditionally reload all
                         if (frame.command === 'MESSAGE') {
-                            this.store.dispatch(new fromSdr.GetAllResourcesAction(name));
+                            console.log(frame);
                         }
                     }
                 }));
@@ -105,9 +105,9 @@ export class SdrEffects {
                 this.store.dispatch(new fromStomp.SubscribeAction({
                     channel: `/queue/${name}`,
                     handle: (frame: any) => {
-                        // TODO: consider prevent page request if loading, updating, or editing
+                        // TODO: conditionally reload page
                         if (frame.command === 'MESSAGE') {
-                            this.store.dispatch(new fromSdr.PageResourcesAction(name, { request: store[name].page }));
+                            console.log(frame);
                         }
                     }
                 }));
@@ -147,9 +147,9 @@ export class SdrEffects {
                 this.store.dispatch(new fromStomp.SubscribeAction({
                     channel: `/queue/${name}`,
                     handle: (frame: any) => {
-                        // TODO: consider prevent page request if loading, updating, or editing
+                        // TODO: conditionally reload search
                         if (frame.command === 'MESSAGE') {
-                            this.store.dispatch(new fromSdr.SearchResourcesAction(name, { request: store[name].page }));
+                            console.log(frame);
                         }
                     }
                 }));
@@ -258,6 +258,10 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.DELETE_FAILURE)),
         map((action: fromSdr.DeleteResourceFailureAction) => this.alert.deleteFailureAlert(action.payload))
     );
+
+    @Effect() initDirectoryViews = defer(() => {
+        return of(new fromSdr.GetAllResourcesAction('directoryViews'));
+    });
 
     private buildActions(actionType: fromSdr.SdrActionTypes): string[] {
         const loadActions = [];

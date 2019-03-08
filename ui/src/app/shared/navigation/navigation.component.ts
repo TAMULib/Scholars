@@ -11,7 +11,6 @@ import { selectIsNavigationCollapsed } from '../../core/store/layout';
 import { selectAllResources } from '../../core/store/sdr';
 
 import * as fromLayout from '../../core/store/layout/layout.actions';
-import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
 @Component({
     selector: 'scholars-navigation',
@@ -31,7 +30,7 @@ export class NavigationComponent implements OnInit {
     ngOnInit() {
         this.directoryViews = this.store.pipe(select(selectAllResources<DirectoryView>('directoryViews')));
         this.isNavigationCollapsed = this.store.pipe(select(selectIsNavigationCollapsed));
-        this.store.dispatch(new fromSdr.GetAllResourcesAction('directoryViews'));
+        this.directoryViews.subscribe((view) => console.log(view));
     }
 
     public getDirectoryRoute(directoryView: DirectoryView): string[] {

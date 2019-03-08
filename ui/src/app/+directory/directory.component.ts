@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, OnChanges, AfterViewChecked } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
@@ -11,7 +11,7 @@ import { AppState } from '../core/store';
 import { SdrRequest } from '../core/model/request';
 import { CollectionView } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
-import { SdrPage } from '../core/model/sdr';
+import { SdrPage, SdrFacet } from '../core/model/sdr';
 
 import { selectAllResources, selectResourcesPage, selectResourceById } from '../core/store/sdr';
 
@@ -30,6 +30,8 @@ export class DirectoryComponent implements OnDestroy, OnInit {
 
     public page: Observable<SdrPage>;
 
+    public facets: Observable<SdrFacet[]>;
+
     private subscriptions: Subscription[];
 
     constructor(
@@ -46,7 +48,6 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
-        this.store.dispatch(new fromSdr.GetAllResourcesAction('directoryViews'));
         this.subscriptions.push(this.route.params.subscribe((params) => {
             if (params.name) {
                 this.view = this.store.pipe(
