@@ -1,6 +1,9 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,6 +19,9 @@ public class Index {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Type type;
+
+    @ElementCollection
+    private List<String> options;
 
     public Index() {
 
@@ -35,6 +41,14 @@ public class Index {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<String> options) {
+        this.options = options;
     }
 
 }

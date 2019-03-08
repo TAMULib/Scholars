@@ -63,6 +63,10 @@ export class DirectoryComponent implements OnDestroy, OnInit {
         }));
     }
 
+    public gotoIndex(view: CollectionView, option: string): void {
+        console.log(view, option);
+    }
+
     public onPageChange(request: SdrRequest): void {
         this.store.dispatch(new fromSdr.SearchResourcesAction(request.collection, { request }));
     }
