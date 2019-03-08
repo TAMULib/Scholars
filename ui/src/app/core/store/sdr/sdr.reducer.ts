@@ -32,6 +32,9 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
 };
 
 export const getSdrReducer = <R extends SdrResource>(name: string) => {
+    const getResources = (action: SdrActions, name: string): R[] => {
+        return action.payload.collection._embedded !== undefined ? action.payload.collection._embedded[name] : [];
+    }
     return (state = getSdrInitialState<R>(keys[name]), action: SdrActions): SdrState<R> => {
         switch (action.type) {
             case getSdrAction(SdrActionTypes.GET_ALL, name):
@@ -41,7 +44,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     error: undefined
                 };
             case getSdrAction(SdrActionTypes.GET_ALL_SUCCESS, name):
-                return getSdrAdapter<R>(keys[name]).addAll(action.payload.collection._embedded[name], {
+                return getSdrAdapter<R>(keys[name]).addAll(getResources(action, name), {
                     ...state,
                     links: action.payload.collection._links,
                     loading: false,
@@ -61,7 +64,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     error: undefined
                 };
             case getSdrAction(SdrActionTypes.PAGE_SUCCESS, name):
-                return getSdrAdapter<R>(keys[name]).addAll(action.payload.collection._embedded[name], {
+                return getSdrAdapter<R>(keys[name]).addAll(getResources(action, name), {
                     ...state,
                     page: Object.assign(action.payload.collection.page, { number: action.payload.collection.page.number }),
                     links: action.payload.collection._links,
@@ -82,7 +85,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     error: undefined
                 };
             case getSdrAction(SdrActionTypes.SEARCH_SUCCESS, name):
-                return getSdrAdapter<R>(keys[name]).addAll(action.payload.collection._embedded[name], {
+                return getSdrAdapter<R>(keys[name]).addAll(getResources(action, name), {
                     ...state,
                     page: Object.assign(action.payload.collection.page, { number: action.payload.collection.page.number }),
                     facets: action.payload.collection.facets,
