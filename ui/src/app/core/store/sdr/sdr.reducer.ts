@@ -63,7 +63,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
             case getSdrAction(SdrActionTypes.PAGE_SUCCESS, name):
                 return getSdrAdapter<R>(keys[name]).addAll(action.payload.collection._embedded[name], {
                     ...state,
-                    page: Object.assign(action.payload.collection.page, { number: action.payload.collection.page.number + 1 }),
+                    page: Object.assign(action.payload.collection.page, { number: action.payload.collection.page.number }),
                     links: action.payload.collection._links,
                     loading: false,
                     error: undefined
@@ -84,7 +84,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
             case getSdrAction(SdrActionTypes.SEARCH_SUCCESS, name):
                 return getSdrAdapter<R>(keys[name]).addAll(action.payload.collection._embedded[name], {
                     ...state,
-                    page: Object.assign(action.payload.collection.page, { number: action.payload.collection.page.number + 1 }),
+                    page: Object.assign(action.payload.collection.page, { number: action.payload.collection.page.number }),
                     facets: action.payload.collection.facets,
                     links: action.payload.collection._links,
                     loading: false,
