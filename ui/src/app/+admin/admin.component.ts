@@ -44,10 +44,10 @@ export class AdminComponent implements OnInit {
                                 route: ['/admin/users'],
                             }
                         ],
-                        collapsable: { allowed: false }
+                        collapsible: { allowed: false }
                     }
                 ],
-                collapsable: { allowed: true }
+                collapsible: { allowed: true }
             }
         }));
     }

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
 import { SidebarMenu } from '../../core/model/sidebar';
-import { Collapsable } from '../../core/model/theme/collapsable';
+import { Collapsible } from '../../core/model/theme/collapsible';
 
 import { selectIsSidebarCollapsed } from '../../core/store/layout';
 import { selectMenu } from '../../core/store/sidebar';
@@ -29,34 +29,34 @@ export class SidebarComponent implements OnInit {
         this.menu = this.store.pipe(select(selectMenu));
     }
 
-    public getSectionCollapsableIcon(collapsable: Collapsable): string {
-        if (this.isSectionCollapsable(collapsable)) {
-            return this.isSectionCollapsed(collapsable) ? 'fa-caret-right' : 'fa-caret-down';
+    public getSectionCollapsibleIcon(collapsible: Collapsible): string {
+        if (this.isSectionCollapsible(collapsible)) {
+            return this.isSectionCollapsed(collapsible) ? 'fa-caret-right' : 'fa-caret-down';
         }
 
         return '';
     }
 
     public toggleSectionCollapse(sectionIndex: number): void {
-        this.store.dispatch(new fromSidebar.ToggleCollapsableSectionAction({sectionIndex}));
+        this.store.dispatch(new fromSidebar.ToggleCollapsibleSectionAction({sectionIndex}));
     }
 
-    public translateSectionCollapsableButton(collapsable: Collapsable, label: string): Observable<string> {
+    public translateSectionCollapsibleButton(collapsible: Collapsible, label: string): Observable<string> {
         let key = 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_COLLAPSE';
 
-        if (this.isSectionCollapsed(collapsable)) {
+        if (this.isSectionCollapsed(collapsible)) {
             key = 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_EXPAND';
         }
 
         return this.translate.get(key, { label });
     }
 
-    public isSectionCollapsable(collapsable: Collapsable): boolean {
-        return collapsable.allowed;
+    public isSectionCollapsible(collapsible: Collapsible): boolean {
+        return collapsible.allowed;
     }
 
-    public isSectionCollapsed(collapsable: Collapsable): boolean {
-        return collapsable.allowed && collapsable.collapsed;
+    public isSectionCollapsed(collapsible: Collapsible): boolean {
+        return collapsible.allowed && collapsible.collapsed;
     }
 
 }

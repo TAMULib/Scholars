@@ -4,11 +4,11 @@ import { SidebarMenu } from '../../model/sidebar';
 export enum SidebarActionTypes {
     LOAD_SIDEBAR = '[Sidebar] load',
     UNLOAD_SIDEBAR = '[Sidebar] unload',
-    TOGGLE_COLLAPSABLE_SECTION = '[Sidebar] toggle collapsable section'
+    TOGGLE_COLLAPSIBLE_SECTION = '[Sidebar] toggle collapsible section'
 }
 
-export class ToggleCollapsableSectionAction implements Action {
-    readonly type = SidebarActionTypes.TOGGLE_COLLAPSABLE_SECTION;
+export class ToggleCollapsibleSectionAction implements Action {
+    readonly type = SidebarActionTypes.TOGGLE_COLLAPSIBLE_SECTION;
     constructor(public payload: { sectionIndex: number }) { }
 }
 
@@ -22,6 +22,6 @@ export class UnloadSidebarAction implements Action {
 }
 
 export type SidebarActions =
-    ToggleCollapsableSectionAction |
+    ToggleCollapsibleSectionAction |
     LoadSidebarAction |
     UnloadSidebarAction;
