@@ -52,12 +52,11 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
         this.config.ellipses = true;
         this.config.boundaryLinks = true;
         this.subscriptions.push(this.route.queryParams.subscribe((params: Params) => {
-            const pageNumber = params.page !== undefined ? params.page : 1;
-            const pageSize = params.size !== undefined ? params.size : 10;
             this.lastPage = {
                 collection: this.collection,
-                number: pageNumber,
-                size: pageSize
+                number: params.page !== undefined ? params.page : 1,
+                size: params.size !== undefined ? params.size : 10,
+                query: params.query != undefined ? params.query : ''
             };
             this.pageChange.emit(this.lastPage);
         }));
