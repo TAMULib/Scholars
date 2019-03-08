@@ -11,6 +11,14 @@ export const initialState: SidebarState = {
 
 export function reducer(state = initialState, action: SidebarActions): SidebarState {
     switch (action.type) {
+        case SidebarActionTypes.TOGGLE_COLLAPSABLE_SECTION:
+            const newState = {...state};
+            const collapsable = newState.menu.sections[action.payload.sectionIndex].collapsable;
+            newState.menu.sections[action.payload.sectionIndex].collapsable = {
+                allowed: collapsable.allowed,
+                collapsed: !collapsable.collapsed
+            };
+            return newState;
         case SidebarActionTypes.LOAD_SIDEBAR:
             return {
                 ...state,

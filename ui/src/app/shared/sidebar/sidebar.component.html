@@ -1,10 +1,10 @@
 <div class="wrapper container">
     <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu">
-        <div class="card bg-dark" *ngFor="let section of menu.sections">
-            <div class="card-header text-white {{section.classes}}">
+        <div class="card bg-dark" *ngFor="let section of menu.sections; let sectionIndex = index">
+            <div class="card-header text-white {{section.classes}}" (click)="toggleSectionCollapse(sectionIndex)">
                 <span class="header-title">{{section.title | async}}</span>
             </div>
-            <ul class="list-group list-group-flush" *ngFor="let item of section.items">
+            <ul class="list-group list-group-flush" *ngFor="let item of section.items" [ngbCollapse]="isSectionCollapsed(section.collapsable)">
                 <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" [routerLink]="item.route" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" aria-role="link" [attr.aria-label]="'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate">
                     <label class="item-label" *ngIf="item.checkbox"><input class="item-checkbox" type="checkbox" [checked]="item.checked"> {{item.label | async}}</label>
                     <span class="item-label" *ngIf="!item.checkbox">{{item.label | async}}</span>

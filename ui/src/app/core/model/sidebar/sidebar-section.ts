@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
 import { SidebarItem } from './';
+import { Collapsable } from '../theme/collapsable';
 
 export interface SidebarSection {
     title: Observable<string>;
     items: SidebarItem[];
-    collapsible: boolean;
+    collapsable: Collapsable;
     classes?: string;
 }
