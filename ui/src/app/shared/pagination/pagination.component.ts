@@ -13,7 +13,8 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { Subscription, Observable } from 'rxjs';
 
-import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
+import { SdrPage } from '../../core/model/sdr';
+import { SdrRequest } from '../../core/model/request';
 
 @Component({
     selector: 'scholars-pagination',
@@ -29,13 +30,13 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
     public page: Observable<SdrPage>;
 
     @Output()
-    public pageChange = new EventEmitter<SdrPageRequest>();
+    public pageChange = new EventEmitter<SdrRequest>();
 
     public pageSizeOptions = [10, 25, 50, 100];
 
     private subscriptions: Subscription[];
 
-    private lastPage: SdrPageRequest;
+    private lastPage: SdrRequest;
 
     constructor(
         public config: NgbPaginationConfig,

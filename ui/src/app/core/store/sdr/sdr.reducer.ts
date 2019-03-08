@@ -1,13 +1,13 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 
 import { SdrActionTypes, SdrActions, getSdrAction } from './sdr.actions';
-import { SdrResource, SdrPage, SdrCollectionLinks } from '../../model/sdr';
+import { SdrResource, SdrPage, SdrCollectionLinks, SdrFacet } from '../../model/sdr';
 
 import { keys } from '../../model/repos';
-import { createSelector, defaultMemoize } from '@ngrx/store';
 
 export interface SdrState<R extends SdrResource> extends EntityState<R> {
     page: SdrPage;
+    facets: SdrFacet[];
     links: SdrCollectionLinks;
     loading: boolean;
     updating: boolean;
@@ -23,6 +23,7 @@ export const getSdrAdapter = <R extends SdrResource>(key: string) => {
 export const getSdrInitialState = <R extends SdrResource>(key: string) => {
     return getSdrAdapter<R>(key).getInitialState({
         page: undefined,
+        facets: [],
         links: undefined,
         loading: false,
         updating: false,
@@ -74,6 +75,28 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     loading: false,
                     error: action.payload.response.error
                 };
+            case getSdrAction(SdrActionTypes.SEARCH, name):
+                return {
+                    ...state,
+                    loading: true,
+                    error: undefined
+                };
+            case getSdrAction(SdrActionTypes.SEARCH_SUCCESS, name):
+                return getSdrAdapter<R>(keys[name]).addAll(action.payload.collection._embedded[name], {
+                    ...state,
+                    page: Object.assign(action.payload.collection.page, { number: action.payload.collection.page.number + 1 }),
+                    facets: action.payload.collection.facets,
+                    links: action.payload.collection._links,
+                    loading: false,
+                    error: undefined
+                });
+            case getSdrAction(SdrActionTypes.SEARCH_FAILURE, name):
+                console.error(action);
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload.response.error
+                };
             case getSdrAction(SdrActionTypes.PUT, name):
             case getSdrAction(SdrActionTypes.POST, name):
             case getSdrAction(SdrActionTypes.PATCH, name):
@@ -104,6 +127,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                 return {
                     ...state,
                     page: undefined,
+                    facets: [],
                     links: undefined,
                     loading: false,
                     updating: false,

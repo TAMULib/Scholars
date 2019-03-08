@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import { RestService } from '../../../service/rest.service';
 import { SdrRepo } from './sdr-repo';
 
-import { SdrCollection } from '../sdr-collection';
+import { SdrRequest } from '../../request';
 import { SdrResource } from '../sdr-resource';
-import { SdrPageRequest } from '../sdr-page';
+import { SdrCollection } from '../sdr-collection';
 
 import { environment } from '../../../../../environments/environment';
 
@@ -20,8 +20,14 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
 
     }
 
-    public page(page: SdrPageRequest): Observable<SdrCollection> {
-        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}` + this.mapParameters(page), {
+    public search(request: SdrRequest): Observable<SdrCollection> {
+        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}/search/facet${this.mapParameters(request)}`, {
+            withCredentials: true
+        });
+    }
+
+    public page(request: SdrRequest): Observable<SdrCollection> {
+        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}${this.mapParameters(request)}`, {
             withCredentials: true
         });
     }
@@ -57,11 +63,14 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
         });
     }
 
-    protected mapParameters(request: SdrPageRequest, parameters: String[] = []): String {
+    protected mapParameters(request: SdrRequest): String {
+        const parameters: string[] = [];
+
         parameters.push(`page=${(request.number - 1)}`);
         parameters.push(`size=${request.size}`);
 
         if (request.sort) {
+            console.log(request.sort);
             if (request.sort.name) {
                 parameters.push(`sort=${encodeURIComponent(request.sort.name) + (request.sort.ascend === true ? ',asc' : request.sort.ascend === false ? ',desc' : '')}`);
             } else if (request.sort.ascend === true) {
@@ -69,6 +78,32 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
             } else if (request.sort.ascend === false) {
                 parameters.push('sort=desc');
             }
+        }
+
+        if (request.query) {
+            console.log(request.query);
+            parameters.push(`query=${encodeURIComponent(request.query)}`);
+        }
+
+        if (request.facets) {
+            console.log(request.facets);
+            parameters.push(`facets=${encodeURIComponent(request.facets.join())}`);
+
+            request.facets.forEach((facet: string) => {
+                console.log(facet);
+
+                if (request[facet].filter) {
+                    parameters.push(`type.filter=${encodeURIComponent(request[facet].filter)}`);
+                }
+
+                if (request[facet]) {
+                    ['limit', 'offset', 'sort'].forEach((key: string) => {
+                        if (request[facet][key]) {
+                            parameters.push(`${facet}.limit=${request[facet][key]}`);
+                        }
+                    });
+                }
+            });
         }
 
         return `?${parameters.join('&')}`;

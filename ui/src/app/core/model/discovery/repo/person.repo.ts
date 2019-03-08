@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { AbstractSdrDiscoverRepo } from '../../sdr/repo/abstract-sdr-discover-repo';
+import { AbstractSdrRepo } from '../../sdr/repo';
 import { Person } from '../person';
 
 @Injectable({
     providedIn: 'root',
 })
-export class PersonRepo extends AbstractSdrDiscoverRepo<Person> {
+export class PersonRepo extends AbstractSdrRepo<Person> {
 
     protected path(): string {
         return 'persons';

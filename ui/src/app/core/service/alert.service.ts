@@ -85,7 +85,15 @@ export class AlertService {
         return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.error, true, 15000);
     }
 
+    public getAllFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
     public pageFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
+    public searchFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
         return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
     }
 

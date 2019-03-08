@@ -1,12 +1,14 @@
 import { Observable } from 'rxjs';
 
+import { SdrRequest } from '../../request';
 import { SdrResource } from '../sdr-resource';
-import { SdrPageRequest } from '../sdr-page';
 import { SdrCollection } from '../sdr-collection';
 
 export interface SdrRepo<R extends SdrResource> {
 
-    page(page: SdrPageRequest): Observable<SdrCollection>;
+    search(request: SdrRequest): Observable<SdrCollection>;
+
+    page(request: SdrRequest): Observable<SdrCollection>;
 
     getAll(): Observable<SdrCollection>;
 

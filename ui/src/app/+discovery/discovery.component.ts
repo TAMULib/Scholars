@@ -8,9 +8,10 @@ import { filter } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
+import { SdrRequest } from '../core/model/request';
 import { CollectionView } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
-import { SdrPage, SdrPageRequest } from '../core/model/sdr';
+import { SdrPage } from '../core/model/sdr';
 
 import { selectRouterSearchQuery } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourceById } from '../core/store/sdr';
@@ -64,8 +65,8 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         }));
     }
 
-    public onPageChange(page: SdrPageRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction(page.collection, { page }));
+    public onPageChange(request: SdrRequest): void {
+        this.store.dispatch(new fromSdr.SearchResourcesAction(request.collection, { request }));
     }
 
 }

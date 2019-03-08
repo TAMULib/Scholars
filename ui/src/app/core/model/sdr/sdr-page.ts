@@ -1,13 +1,6 @@
-import { SdrSortBy } from './sdr-sort-by';
+import { SdrRequest } from '../request';
 
-export interface SdrPageRequest {
-    collection: string;
-    readonly number: number;
-    readonly size: number;
-    readonly sort?: SdrSortBy;
-}
-
-export interface SdrPage extends SdrPageRequest {
+export interface SdrPage extends SdrRequest {
     readonly totalElements: number;
     readonly totalPages: number;
 }
