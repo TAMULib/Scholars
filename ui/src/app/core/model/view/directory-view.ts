@@ -31,8 +31,8 @@ export enum Type {
 }
 
 export interface Index {
-    readonly type: Type;
     readonly field: string;
+    readonly type: Type;
     readonly options: string[];
 }
 

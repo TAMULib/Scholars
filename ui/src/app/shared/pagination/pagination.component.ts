@@ -1,20 +1,11 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    OnDestroy,
-    Output,
-    EventEmitter,
-    OnChanges,
-    SimpleChanges
-} from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { Subscription, Observable } from 'rxjs';
 
 import { SdrPage } from '../../core/model/sdr';
-import { SdrRequest } from '../../core/model/request';
+import { Sort, Pageable, Indexable, Facet, SdrRequest } from '../../core/model/request';
 
 @Component({
     selector: 'scholars-pagination',
@@ -36,7 +27,7 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
 
     private subscriptions: Subscription[];
 
-    private lastPage: SdrRequest;
+    private request: SdrRequest;
 
     constructor(
         public config: NgbPaginationConfig,
@@ -52,13 +43,8 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
         this.config.ellipses = true;
         this.config.boundaryLinks = true;
         this.subscriptions.push(this.route.queryParams.subscribe((params: Params) => {
-            this.lastPage = {
-                collection: this.collection,
-                number: params.page !== undefined ? params.page : 1,
-                size: params.size !== undefined ? params.size : 10,
-                query: params.query !== undefined ? params.query : ''
-            };
-            this.pageChange.emit(this.lastPage);
+            this.request = this.buildRequest(params);
+            this.pageChange.emit(this.request);
         }));
     }
 
@@ -69,9 +55,9 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.lastPage && changes.collection && changes.collection.currentValue !== changes.collection.previousValue) {
-            this.lastPage.collection = changes.collection.currentValue;
-            this.pageChange.emit(this.lastPage);
+        if (this.request && changes.collection && changes.collection.currentValue !== changes.collection.previousValue) {
+            this.request.collection = changes.collection.currentValue;
+            this.pageChange.emit(this.request);
         }
     }
 
@@ -82,6 +68,70 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
             preserveFragment: true
         });
         this.router.navigateByUrl(urlTree);
+    }
+
+    private buildRequest(params: Params): SdrRequest {
+        const request = {
+            collection: this.collection,
+            pageable: this.buildPageable(params),
+            facets: this.buildFacets(params),
+            indexable: this.buildIndexable(params),
+            query: params.query
+        };
+        return request;
+    }
+
+    private buildPageable(params: Params): Pageable {
+        return {
+            number: params.page,
+            size: params.size,
+            sort: this.buildSort(params.sort)
+        };
+    }
+
+    private buildSort(sortParams: string): Sort[] {
+        const sort: Sort[] = [];
+        if (sortParams !== undefined) {
+            if (Array.isArray(sortParams)) {
+                sortParams.forEach((currentSortParam) => sort.push(this.splitSort(currentSortParam)));
+            } else {
+                sort.push(this.splitSort(sortParams));
+            }
+        }
+        return sort;
+    }
+
+    private splitSort(sortParam: string): Sort {
+        const sortSplit = sortParam.split(',');
+        return {
+            name: sortSplit[0],
+            direction: sortSplit.length > 1 ? sortSplit[1] : 'asc'
+        };
+    }
+
+    private buildFacets(params: Params): Facet[] {
+        const facets: Facet[] = [];
+        const fields: string[] = params.facets !== undefined ? Array.isArray(params.facets) ? params.facets : [params.facets] : [];
+        fields.forEach((field: string) => {
+            const facet: Facet = { field };
+            ['limit', 'offset', 'sort', 'filter'].forEach((key: string) => {
+                if (params[`${field}.${key}`]) {
+                    facet[key] = params[`${field}.${key}`];
+                }
+            });
+            facets.push(facet);
+        });
+        return facets;
+    }
+
+    private buildIndexable(params: Params): Indexable {
+        if (params.index) {
+            const indexSplit: string[] = params.index.split(',');
+            return {
+                field: indexSplit[0],
+                option: indexSplit[1]
+            };
+        }
     }
 
 }

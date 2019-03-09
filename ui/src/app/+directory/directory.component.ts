@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
 import { AppState } from '../core/store';
 
 import { SdrRequest } from '../core/model/request';
-import { CollectionView } from '../core/model/view';
+import { CollectionView, DirectoryView } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
@@ -36,7 +36,8 @@ export class DirectoryComponent implements OnDestroy, OnInit {
 
     constructor(
         private store: Store<AppState>,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.subscriptions = [];
     }
@@ -63,8 +64,22 @@ export class DirectoryComponent implements OnDestroy, OnInit {
         }));
     }
 
-    public gotoIndex(view: CollectionView, option: string): void {
-        console.log(view, option);
+    public reset(view: DirectoryView): void {
+        const urlTree = this.router.createUrlTree([`/directory/${view.name}`], {
+            queryParams: { index: undefined },
+            queryParamsHandling: 'merge',
+            preserveFragment: true
+        });
+        this.router.navigateByUrl(urlTree);
+    }
+
+    public gotoIndex(view: DirectoryView, option: string): void {
+        const urlTree = this.router.createUrlTree([`/directory/${view.name}`], {
+            queryParams: { index: `${view.index.field},${option}` },
+            queryParamsHandling: 'merge',
+            preserveFragment: true
+        });
+        this.router.navigateByUrl(urlTree);
     }
 
     public onPageChange(request: SdrRequest): void {

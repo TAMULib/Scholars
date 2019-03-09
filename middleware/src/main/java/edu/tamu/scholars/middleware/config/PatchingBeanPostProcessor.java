@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class PatchingBeanPostProcessor implements BeanPostProcessor {
 
-    // NOTE: work around for spring data rest issue, https://jira.spring.io/browse/DATAREST-1290
+    @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (bean.getClass().isAssignableFrom(HateoasPageableHandlerMethodArgumentResolver.class)) {
+            // NOTE: work around for spring data rest issue, https://jira.spring.io/browse/DATAREST-1290
             ((HateoasPageableHandlerMethodArgumentResolver) bean).setOneIndexedParameters(true);
         }
         return bean;

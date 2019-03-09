@@ -3,14 +3,8 @@
   .index {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15px, 1fr));
-    grid-gap: 5px;
+    grid-gap: 8px;
     text-align: center;
-
-    .option {
-      border: solid gray 1px;
-      border-radius: 5px;
-      padding: 2px;
-    }
     .option:hover {
       cursor: pointer;
     }

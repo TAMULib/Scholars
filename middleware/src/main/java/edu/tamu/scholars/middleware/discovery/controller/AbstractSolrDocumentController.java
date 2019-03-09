@@ -31,12 +31,13 @@ public abstract class AbstractSolrDocumentController<D extends AbstractSolrDocum
     // @formatter:off
     public ResponseEntity<PagedResources<R>> search(
         @RequestParam(value = "query", required = false) String query,
+        @RequestParam(value = "index", required = false) String index,
         @RequestParam(value = "facets", required = false) String[] facets,
         @RequestParam MultiValueMap<String, String> params,
         @PageableDefault Pageable pageable
     ) {
     // @formatter:on
-        FacetPage<D> page = repo.search(query, facets, params, pageable);
+        FacetPage<D> page = repo.search(query, index, facets, params, pageable);
         return ResponseEntity.ok(pagedResourcesAssembler.toResource(page, assembler));
     }
 

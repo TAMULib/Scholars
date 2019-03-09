@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { RestService } from '../../../service/rest.service';
 import { SdrRepo } from './sdr-repo';
 
-import { SdrRequest } from '../../request';
+import { Sort, Facet, SdrRequest } from '../../request';
 import { SdrResource } from '../sdr-resource';
 import { SdrCollection } from '../sdr-collection';
 
@@ -66,44 +66,41 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
     protected mapParameters(request: SdrRequest): String {
         const parameters: string[] = [];
 
-        parameters.push(`page=${(request.number)}`);
-        parameters.push(`size=${request.size}`);
-
-        if (request.sort) {
-            console.log(request.sort);
-            if (request.sort.name) {
-                parameters.push(`sort=${encodeURIComponent(request.sort.name) + (request.sort.ascend === true ? ',asc' : request.sort.ascend === false ? ',desc' : '')}`);
-            } else if (request.sort.ascend === true) {
-                parameters.push('sort=asc');
-            } else if (request.sort.ascend === false) {
-                parameters.push('sort=desc');
-            }
+        if (request.pageable.number) {
+            parameters.push(`page=${(request.pageable.number)}`);
+        }
+        if (request.pageable.size) {
+            parameters.push(`size=${request.pageable.size}`);
+        }
+        if (request.pageable.sort && request.pageable.sort.length > 0) {
+            request.pageable.sort.forEach((sort: Sort) => {
+                parameters.push(`sort=${encodeURIComponent(sort.name)},${sort.direction}`);
+            });
         }
 
-        if (request.query) {
-            console.log(request.query);
+        if (request.query && request.query.length > 0) {
             parameters.push(`query=${encodeURIComponent(request.query)}`);
         }
 
-        if (request.facets) {
-            console.log(request.facets);
-            parameters.push(`facets=${encodeURIComponent(request.facets.join())}`);
+        if (request.indexable) {
+            parameters.push(`index=${encodeURIComponent(request.indexable.field)},${request.indexable.option}`);
+        }
 
-            request.facets.forEach((facet: string) => {
-                console.log(facet);
-
-                if (request[facet].filter) {
-                    parameters.push(`type.filter=${encodeURIComponent(request[facet].filter)}`);
-                }
-
-                if (request[facet]) {
-                    ['limit', 'offset', 'sort'].forEach((key: string) => {
-                        if (request[facet][key]) {
-                            parameters.push(`${facet}.limit=${request[facet][key]}`);
-                        }
-                    });
+        if (request.facets && request.facets.length > 0) {
+            const fields: string[] = [];
+            request.facets.forEach((facet: Facet) => {
+                fields.push(facet.field);
+                ['limit', 'offset', 'sort'].forEach((key: string) => {
+                    if (facet[key]) {
+                        parameters.push(`${facet.field}.${key}=${facet[key]}`);
+                    }
+                });
+                if (facet.filter) {
+                    parameters.push(`${facet.field}.filter=${encodeURIComponent(facet.filter)}`);
                 }
             });
+
+            parameters.push(`facets=${encodeURIComponent(fields.join(','))}`);
         }
 
         return `?${parameters.join('&')}`;

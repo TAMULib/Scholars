@@ -11,4 +11,3 @@ export { SdrPageable } from './sdr-pageable';
 export { SdrResourceLinks } from './sdr-resource-links';
 export { SdrResource } from './sdr-resource';
 export { SdrSort } from './sdr-sort';
-export { SdrSortBy } from './sdr-sort-by';

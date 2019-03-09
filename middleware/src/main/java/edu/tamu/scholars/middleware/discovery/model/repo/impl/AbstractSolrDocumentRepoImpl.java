@@ -26,13 +26,23 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
     private SolrTemplate solrTemplate;
 
     @Override
-    public FacetPage<D> search(String query, String[] facets, MultiValueMap<String, String> params, Pageable page) {
+    public FacetPage<D> search(String query, String index, String[] facets, MultiValueMap<String, String> params, Pageable page) {
         FacetQuery facetQuery = new SimpleFacetQuery();
 
         if (query != null) {
-        	facetQuery.addCriteria(new SimpleStringCriteria(query));
+            facetQuery.addCriteria(new SimpleStringCriteria(query));
         } else {
-        	facetQuery.addCriteria(new Criteria(Criteria.WILDCARD).expression(Criteria.WILDCARD));
+            facetQuery.addCriteria(new Criteria(Criteria.WILDCARD).expression(Criteria.WILDCARD));
+        }
+
+        if (index != null) {
+            String[] indexParts = index.split(",");
+            if (indexParts.length == 2) {
+                String field = indexParts[0];
+                String option = indexParts[1];
+                FilterQuery filterQuery = new SimpleFilterQuery(new Criteria(field).startsWith(option));
+                facetQuery.addFilterQuery(filterQuery);
+            }
         }
 
         if (facets != null) {

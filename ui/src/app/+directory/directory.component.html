@@ -11,6 +11,7 @@
   <h3 class="text-primary">{{ view.name }}</h3>
   <p>{{query | async}}</p>
   <div class="index">
+    <span class="option" (click)="reset(view)">{{ 'DIRECTORY.ALL' | translate }}</span>
     <span class="option" *ngFor="let option of view.index.options" (click)="gotoIndex(view, option)">{{option}}</span>
   </div>
   <scholars-pagination *ngIf="documents | async; let documents" [collection]="view.collection" [page]="page" (pageChange)="onPageChange($event, view)" [ngSwitch]="view.layout">
