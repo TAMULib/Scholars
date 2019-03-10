@@ -74,7 +74,6 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     }
 
     public gotoIndex(view: DirectoryView, option: string): void {
-        console.log(`${view.index.field},${view.index.operationKey},${option}`);
         const urlTree = this.router.createUrlTree([`/directory/${view.name}`], {
             queryParams: { index: `${view.index.field},${view.index.operationKey},${option}` },
             queryParamsHandling: 'merge',
