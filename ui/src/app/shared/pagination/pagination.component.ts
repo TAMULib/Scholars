@@ -5,7 +5,8 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, Observable } from 'rxjs';
 
 import { SdrPage } from '../../core/model/sdr';
-import { Sort, Pageable, Indexable, Facet, SdrRequest } from '../../core/model/request';
+import { OperationKey, FacetSort } from '../../core/model/view';
+import { Direction, Sort, Pageable, Indexable, Facet, SdrRequest } from '../../core/model/request';
 
 @Component({
     selector: 'scholars-pagination',
@@ -105,7 +106,7 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
         const sortSplit = sortParam.split(',');
         return {
             name: sortSplit[0],
-            direction: sortSplit.length > 1 ? sortSplit[1] : 'asc'
+            direction: Direction[sortSplit[1] !== undefined ? sortSplit[1].toUpperCase() : 'ASC']
         };
     }
 
@@ -116,7 +117,7 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
             const facet: Facet = { field };
             ['limit', 'offset', 'sort', 'filter'].forEach((key: string) => {
                 if (params[`${field}.${key}`]) {
-                    facet[key] = params[`${field}.${key}`];
+                    facet[key] = key === 'sort' ? FacetSort[params[`${field}.${key}`]] : params[`${field}.${key}`];
                 }
             });
             facets.push(facet);
@@ -129,7 +130,8 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
             const indexSplit: string[] = params.index.split(',');
             return {
                 field: indexSplit[0],
-                option: indexSplit[1]
+                operationKey: OperationKey[indexSplit[1]],
+                option: indexSplit[2]
             };
         }
     }

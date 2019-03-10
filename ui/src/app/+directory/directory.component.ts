@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
 import { AppState } from '../core/store';
 
 import { SdrRequest } from '../core/model/request';
-import { CollectionView, DirectoryView } from '../core/model/view';
+import { CollectionView, DirectoryView, OperationKey } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
@@ -74,8 +74,9 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     }
 
     public gotoIndex(view: DirectoryView, option: string): void {
+        console.log(`${view.index.field},${view.index.operationKey},${option}`);
         const urlTree = this.router.createUrlTree([`/directory/${view.name}`], {
-            queryParams: { index: `${view.index.field},${option}` },
+            queryParams: { index: `${view.index.field},${view.index.operationKey},${option}` },
             queryParamsHandling: 'merge',
             preserveFragment: true
         });

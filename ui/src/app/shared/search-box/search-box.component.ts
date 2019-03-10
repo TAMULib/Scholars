@@ -83,14 +83,14 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     public onSearch(): void {
         const urlTree = this.router.createUrlTree(['/discovery'], {
             queryParams: this.getSearchQueryParams(),
-            queryParamsHandling: 'merge',
+            queryParamsHandling: this.live ? 'merge' : undefined,
             preserveFragment: true
         });
         this.router.navigateByUrl(urlTree);
     }
 
     private getSearchQueryParams(): any {
-        const queryParams: any = {};
+        const queryParams: any = { query: undefined };
         if (this.form.value.query && this.form.value.query.length > 0) {
             queryParams.query = this.form.value.query;
         }

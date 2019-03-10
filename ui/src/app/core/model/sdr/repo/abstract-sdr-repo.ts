@@ -83,7 +83,7 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
         }
 
         if (request.indexable) {
-            parameters.push(`index=${encodeURIComponent(request.indexable.field)},${request.indexable.option}`);
+            parameters.push(`index=${encodeURIComponent(request.indexable.field)},${request.indexable.operationKey},${request.indexable.option}`);
         }
 
         if (request.facets && request.facets.length > 0) {

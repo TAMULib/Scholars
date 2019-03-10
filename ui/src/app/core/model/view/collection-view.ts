@@ -1,11 +1,13 @@
 import { View } from './';
 
 export enum Layout {
-    LIST, GRID
+    LIST = 'LIST',
+    GRID = 'GRID'
 }
 
 export enum FacetSort {
-    COUNT, INDEX
+    COUNT = 'COUNT',
+    INDEX = 'INDEX'
 }
 
 export interface Facet {

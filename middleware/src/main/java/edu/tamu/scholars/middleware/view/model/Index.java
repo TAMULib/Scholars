@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-import org.springframework.data.repository.query.parser.Part.Type;
+import org.springframework.data.solr.core.query.Criteria.OperationKey;
 
 @Embeddable
 public class Index {
@@ -18,13 +18,13 @@ public class Index {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private OperationKey operationKey;
 
     @ElementCollection
     private List<String> options;
 
     public Index() {
-
+        operationKey = OperationKey.STARTS_WITH;
     }
 
     public String getField() {
@@ -35,12 +35,12 @@ public class Index {
         this.field = field;
     }
 
-    public Type getType() {
-        return type;
+    public OperationKey getOperationKey() {
+        return operationKey;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setOperationKey(OperationKey operationKey) {
+        this.operationKey = operationKey;
     }
 
     public List<String> getOptions() {
