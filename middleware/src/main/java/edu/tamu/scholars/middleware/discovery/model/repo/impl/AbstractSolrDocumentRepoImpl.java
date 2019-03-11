@@ -84,7 +84,7 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
                 List<String> filters = params.get(String.format(FILTER_TEMPLATE, facet));
                 if (filters != null) {
                     for (String filter : filters) {
-                        FilterQuery filterQuery = new SimpleFilterQuery(new Criteria(facet).expression(filter));
+                        FilterQuery filterQuery = new SimpleFilterQuery(new Criteria(facet).is(filter));
                         facetQuery.addFilterQuery(filterQuery);
                     }
                 }
@@ -123,7 +123,7 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
             criteria.endsWith(option);
             break;
         case EQUALS:
-            // NOTE: not supported
+            criteria.is(option);
             break;
         case EXPRESSION:
             criteria.expression(option);

@@ -1,13 +1,8 @@
 export { SdrCollection } from './sdr-collection';
 export { SdrCollectionLinks } from './sdr-collection-links';
 export { SdrFacet } from './sdr-facet';
-export { SdrFacetContent } from './sdr-facet-content';
-export { SdrFacetQueryResult } from './sdr-facet-query-result';
-export { SdrField } from './sdr-field';
+export { SdrFacetEntry } from './sdr-facet-entry';
 export { SdrLink } from './sdr-link';
 export { SdrPage } from './sdr-page';
-export { SdrPager } from './sdr-pager';
-export { SdrPageable } from './sdr-pageable';
 export { SdrResourceLinks } from './sdr-resource-links';
 export { SdrResource } from './sdr-resource';
-export { SdrSort } from './sdr-sort';

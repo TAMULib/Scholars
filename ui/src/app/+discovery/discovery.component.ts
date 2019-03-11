@@ -3,20 +3,22 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
 import { SdrRequest } from '../core/model/request';
-import { CollectionView, DiscoveryView, Filter, Facet } from '../core/model/view';
+import { DiscoveryView, Filter, Facet } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
-import { SdrPage, SdrFacet } from '../core/model/sdr';
+import { SdrPage, SdrFacet, SdrFacetEntry } from '../core/model/sdr';
+import { SidebarMenu, SidebarSection, SidebarItem } from '../core/model/sidebar';
 
 import { selectRouterSearchQuery, selectRouterUrl } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
+import * as fromSidebar from '../core/store/sidebar/sidebar.actions';
 
 @Component({
     selector: 'scholars-discovery',
@@ -31,7 +33,7 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
 
     public discoveryViews: Observable<DiscoveryView[]>;
 
-    public discoveryView: Observable<CollectionView>;
+    public discoveryView: Observable<DiscoveryView>;
 
     public documents: Observable<SolrDocument[]>;
 
@@ -63,12 +65,52 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
             if (params.name) {
                 this.discoveryView = this.store.pipe(
                     select(selectResourceById('discoveryViews', params.name)),
-                    filter((discoveryView: CollectionView) => discoveryView !== undefined)
+                    filter((discoveryView: DiscoveryView) => discoveryView !== undefined)
                 );
-                this.subscriptions.push(this.discoveryView.subscribe((discoveryView: CollectionView) => {
+                this.subscriptions.push(this.discoveryView.subscribe((discoveryView: DiscoveryView) => {
                     this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(discoveryView.collection)));
                     this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(discoveryView.collection)));
                     this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(discoveryView.collection)));
+
+                    // TODO: combine discovery view observable and facets observable, move into effects, match the two, and clean up
+                    this.subscriptions.push(this.facets.subscribe((facets: SdrFacet[]) => {
+
+                        const sidebarMenu: SidebarMenu = {
+                            sections: [],
+                            collapsible: { allowed: true }
+                        };
+
+                        facets.forEach((facet: SdrFacet) => {
+
+                            const sidebarSection: SidebarSection = {
+                                title: of(facet.field),
+                                items: [],
+                                collapsible: { allowed: true }
+                            };
+
+                            facet.entries.forEach((facetEntry: SdrFacetEntry) => {
+
+                                const sidebarItem: SidebarItem = {
+                                    label: of(facetEntry.value),
+                                    total: facetEntry.count,
+                                    route: [],
+                                    queryParams: {}
+                                };
+
+                                sidebarItem.queryParams[`${facet.field}.filter`] = facetEntry.value;
+
+                                sidebarSection.items.push(sidebarItem);
+
+                            });
+
+                            sidebarMenu.sections.push(sidebarSection);
+
+                        });
+
+                        this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
+
+                    }));
+
                 }));
             }
         }));

@@ -24,9 +24,13 @@ public class Facet {
     @Column(nullable = false, name = "default_sort")
     private FacetOptions.FacetSort sort;
 
+    @Column(nullable = false)
+    private boolean hidden;
+
     public Facet() {
         limit = 10;
         sort = FacetSort.COUNT;
+        hidden = false;
     }
 
     public String getName() {
@@ -59,6 +63,14 @@ public class Facet {
 
     public void setSort(FacetOptions.FacetSort sort) {
         this.sort = sort;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
 }

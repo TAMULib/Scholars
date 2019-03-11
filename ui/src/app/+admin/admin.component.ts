@@ -29,19 +29,19 @@ export class AdminComponent implements OnInit {
                         items: [
                             {
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DIRECTORY_VIEWS'),
-                                route: ['/admin/directroyViews'],
+                                route: ['/admin/directroyViews']
                             },
                             {
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DISCOVERY_VIEWS'),
-                                route: ['/admin/discoveryViews'],
+                                route: ['/admin/discoveryViews']
                             },
                             {
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.THEMES'),
-                                route: ['/admin/themes'],
+                                route: ['/admin/themes']
                             },
                             {
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.USERS'),
-                                route: ['/admin/users'],
+                                route: ['/admin/users']
                             }
                         ],
                         collapsible: { allowed: false }
