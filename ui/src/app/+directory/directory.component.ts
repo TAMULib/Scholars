@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, SystemJsNgModuleLoader } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
 import { AppState } from '../core/store';
 
 import { SdrRequest } from '../core/model/request';
-import { CollectionView, DirectoryView, OperationKey } from '../core/model/view';
+import { CollectionView, DirectoryView } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
@@ -24,7 +24,7 @@ import * as fromSdr from '../core/store/sdr/sdr.actions';
 })
 export class DirectoryComponent implements OnDestroy, OnInit {
 
-    public view: Observable<CollectionView>;
+    public directoryView: Observable<CollectionView>;
 
     public documents: Observable<SolrDocument[]>;
 
@@ -36,8 +36,7 @@ export class DirectoryComponent implements OnDestroy, OnInit {
 
     constructor(
         private store: Store<AppState>,
-        private route: ActivatedRoute,
-        private router: Router
+        private route: ActivatedRoute
     ) {
         this.subscriptions = [];
     }
@@ -51,35 +50,34 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     ngOnInit() {
         this.subscriptions.push(this.route.params.subscribe((params) => {
             if (params.name) {
-                this.view = this.store.pipe(
+                this.directoryView = this.store.pipe(
                     select(selectResourceById('directoryViews', params.name)),
-                    filter((view: CollectionView) => view !== undefined)
+                    filter((directoryView: CollectionView) => directoryView !== undefined)
                 );
-                this.subscriptions.push(this.view.subscribe((view: CollectionView) => {
-                    this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(view.collection)));
-                    this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(view.collection)));
-                    this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(view.collection)));
+                this.subscriptions.push(this.directoryView.subscribe((directoryView: CollectionView) => {
+                    this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(directoryView.collection)));
+                    this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(directoryView.collection)));
+                    this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(directoryView.collection)));
                 }));
             }
         }));
     }
 
-    public reset(view: DirectoryView): void {
-        const urlTree = this.router.createUrlTree([`/directory/${view.name}`], {
-            queryParams: { index: undefined },
-            queryParamsHandling: 'merge',
-            preserveFragment: true
-        });
-        this.router.navigateByUrl(urlTree);
+    public getRouterLink(directoryView: DirectoryView): string[] {
+        return ['/directory', directoryView.name];
     }
 
-    public gotoIndex(view: DirectoryView, option: string): void {
-        const urlTree = this.router.createUrlTree([`/directory/${view.name}`], {
-            queryParams: { index: `${view.index.field},${view.index.operationKey},${option}` },
-            queryParamsHandling: 'merge',
-            preserveFragment: true
-        });
-        this.router.navigateByUrl(urlTree);
+    public getQueryParams(directoryView: DirectoryView, option: string): Params {
+        return {
+            index: `${directoryView.index.field},${directoryView.index.operationKey},${option}`,
+            sort: `${directoryView.index.field},asc`
+        };
+    }
+
+    public getResetQueryParams(directoryView: DirectoryView): Params {
+        return {
+            sort: `${directoryView.index.field},asc`
+        };
     }
 
     public onPageChange(request: SdrRequest): void {

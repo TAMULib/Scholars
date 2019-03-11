@@ -7,15 +7,15 @@
     </div>
   </div>
 </div>
-<div class="container mt-2" *ngIf="view | async; let view">
-  <h3 class="text-primary">{{ view.name }}</h3>
+<div class="container mt-2" *ngIf="directoryView | async; let directoryView">
+  <h3 class="text-primary">{{ directoryView.name }}</h3>
   <p>{{query | async}}</p>
   <div class="index">
-    <span class="option" (click)="reset(view)">{{ 'DIRECTORY.ALL' | translate }}</span>
-    <span class="option" *ngFor="let option of view.index.options" (click)="gotoIndex(view, option)">{{option}}</span>
+    <a class="option" [routerLink]="getRouterLink(directoryView)" [queryParams]="getResetQueryParams(directoryView)">{{ 'DIRECTORY.ALL' | translate }}</a>
+    <a class="option" *ngFor="let option of directoryView.index.options" [routerLink]="getRouterLink(directoryView)" [queryParams]="getQueryParams(directoryView, option)">{{option}}</a>
   </div>
-  <scholars-pagination *ngIf="documents | async; let documents" [collection]="view.collection" [page]="page" (pageChange)="onPageChange($event, view)" [ngSwitch]="view.layout">
-    <scholars-grid-view *ngSwitchCase="'GRID'" [view]="view" [resources]="documents"></scholars-grid-view>
-    <scholars-list-view *ngSwitchCase="'LIST'" [view]="view" [resources]="documents"></scholars-list-view>
+  <scholars-pagination *ngIf="documents | async; let documents" [collection]="directoryView.collection" [page]="page" (pageChange)="onPageChange($event, directoryView)" [ngSwitch]="directoryView.layout">
+    <scholars-grid-view *ngSwitchCase="'GRID'" [view]="directoryView" [resources]="documents"></scholars-grid-view>
+    <scholars-list-view *ngSwitchCase="'LIST'" [view]="directoryView" [resources]="documents"></scholars-list-view>
   </scholars-pagination>
 </div>

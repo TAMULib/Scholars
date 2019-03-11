@@ -13,8 +13,9 @@
         </li>
       </ul>
       <ul class="navbar-nav" *ngIf="directoryViews | async; let directoryViews">
-        <li class="nav-item" *ngFor="let directoryView of directoryViews" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}">
-          <a class="nav-link" [routerLink]="getDirectoryRoute(directoryView)" (click)="toggleNavigation()">{{ directoryView.name }}</a>
+        <!-- NOTE: can use routerLinkActive here due to the changes in the query parameters -->
+        <li class="nav-item" *ngFor="let directoryView of directoryViews" [class.active]="isActive(directoryView, url | async)">
+          <a class="nav-link" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getDirectoryQueryParams(directoryView)" (click)="toggleNavigation()">{{ directoryView.name }}</a>
         </li>
       </ul>
       <ul class="navbar-nav">

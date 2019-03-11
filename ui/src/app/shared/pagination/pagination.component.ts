@@ -112,7 +112,7 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
 
     private buildFacets(params: Params): Facet[] {
         const facets: Facet[] = [];
-        const fields: string[] = params.facets !== undefined ? Array.isArray(params.facets) ? params.facets : [params.facets] : [];
+        const fields: string[] = params.facets !== undefined ? params.facets.split(',') : [];
         fields.forEach((field: string) => {
             const facet: Facet = { field };
             ['limit', 'offset', 'sort', 'filter'].forEach((key: string) => {

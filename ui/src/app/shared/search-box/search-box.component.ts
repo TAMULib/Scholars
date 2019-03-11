@@ -1,7 +1,7 @@
 import { Component, Input, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
@@ -81,7 +81,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     }
 
     public onSearch(): void {
-        const urlTree = this.router.createUrlTree(['/discovery'], {
+        const urlTree = this.router.createUrlTree(this.live ? [] : ['/discovery'], {
             queryParams: this.getSearchQueryParams(),
             queryParamsHandling: this.live ? 'merge' : undefined,
             preserveFragment: true
@@ -89,8 +89,11 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl(urlTree);
     }
 
-    private getSearchQueryParams(): any {
-        const queryParams: any = { query: undefined };
+    private getSearchQueryParams(): Params {
+        const queryParams: Params = {
+            query: undefined,
+            page: this.live ? 1 : undefined
+        };
         if (this.form.value.query && this.form.value.query.length > 0) {
             queryParams.query = this.form.value.query;
         }

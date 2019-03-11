@@ -7,11 +7,16 @@
     </div>
   </div>
 </div>
-<div class="container mt-2" *ngIf="view | async; let view">
-  <h3 class="text-primary">{{ view.name }}</h3>
+<div class="container mt-2" *ngIf="discoveryView | async; let discoveryView">
+  <h3 class="text-primary">{{ discoveryView.name }}</h3>
   <p>{{query | async}}</p>
-  <scholars-pagination *ngIf="documents | async; let documents" [collection]="view.collection" [page]="page" (pageChange)="onPageChange($event, view)" [ngSwitch]="view.layout">
-    <scholars-grid-view *ngSwitchCase="'GRID'" [view]="view" [resources]="documents"></scholars-grid-view>
-    <scholars-list-view *ngSwitchCase="'LIST'" [view]="view" [resources]="documents"></scholars-list-view>
+  <ul role="tablist" class="list-unstyled" *ngIf="discoveryViews | async; let discoveryViews" [ngClass]="{ 'nav flex-column nav-pills': false, 'nav nav-tabs nav-fill': true }">
+    <li class="nav-item" *ngFor="let discoveryView of discoveryViews">
+      <a class="nav-link" [routerLink]="getDiscoveryRouteLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, query | async)" [class.active]="isActive(discoveryView, url | async)">{{ discoveryView.name }}</a>
+    </li>
+  </ul>
+  <scholars-pagination *ngIf="documents | async; let documents" [collection]="discoveryView.collection" [page]="page" (pageChange)="onPageChange($event, discoveryView)" [ngSwitch]="discoveryView.layout">
+    <scholars-grid-view *ngSwitchCase="'GRID'" [view]="discoveryView" [resources]="documents"></scholars-grid-view>
+    <scholars-list-view *ngSwitchCase="'LIST'" [view]="discoveryView" [resources]="documents"></scholars-list-view>
   </scholars-pagination>
 </div>
