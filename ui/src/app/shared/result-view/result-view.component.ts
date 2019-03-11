@@ -1,81 +1,29 @@
-import {
-    Component,
-    ViewChild,
-    OnDestroy,
-    AfterContentInit,
-    Input,
-    Compiler,
-    ViewContainerRef,
-    NgModule,
-    ComponentRef
-} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { Component, OnInit, Input } from '@angular/core';
 
-import { SolrDocument } from '../../core/model/discovery';
 import { CollectionView } from '../../core/model/view';
+import { ResultViewService } from '../../core/service/result-view.service';
 
 @Component({
     selector: 'scholars-result-view',
     templateUrl: './result-view.component.html',
     styleUrls: ['./result-view.component.scss']
 })
-export class ResultViewComponent implements AfterContentInit, OnDestroy {
+export class ResultViewComponent implements OnInit {
 
     @Input()
     public view: CollectionView;
 
     @Input()
-    public document: SolrDocument;
+    public resource: any;
 
-    @ViewChild('dynamicResultView', { read: ViewContainerRef })
-    public dynamicResultView: ViewContainerRef;
+    public resultHtml: string;
 
-    public componentRef: ComponentRef<any>;
-
-    constructor(private compiler: Compiler) {
+    constructor(private resultViewService: ResultViewService) {
 
     }
 
-    ngOnDestroy() {
-        if (this.componentRef) {
-            this.componentRef.destroy();
-        }
-    }
-
-    ngAfterContentInit() {
-        this.renderResultView(this.view.template, this.view.styles);
-    }
-
-    private renderResultView(template: string, styles: string[] = []) {
-
-        @Component({
-            template: template,
-            styles
-        })
-        class DynamicComponent {
-            public document: SolrDocument;
-            constructor() { }
-        }
-
-        @NgModule({
-            imports: [
-                BrowserModule
-            ],
-            declarations: [
-                DynamicComponent
-            ]
-        })
-        class DynamicComponentModule { }
-
-        const dynamicComponentModule = this.compiler.compileModuleAndAllComponentsSync(DynamicComponentModule);
-
-        const factory = dynamicComponentModule.componentFactories.find((component) =>
-            component.componentType === DynamicComponent
-        );
-
-        this.componentRef = this.dynamicResultView.createComponent(factory);
-
-        this.componentRef.instance.document = this.document;
+    ngOnInit() {
+        this.resultHtml = this.resultViewService.compileResultView(this.view, this.resource);
     }
 
 }

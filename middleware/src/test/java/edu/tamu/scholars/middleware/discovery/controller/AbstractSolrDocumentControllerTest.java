@@ -52,7 +52,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                 .andExpect(jsonPath("page.size", equalTo(20)))
                 .andExpect(jsonPath("page.totalElements", equalTo(mockDocuments.size())))
                 .andExpect(jsonPath("page.totalPages", equalTo(1)))
-                .andExpect(jsonPath("page.number", equalTo(0)))
+                .andExpect(jsonPath("page.number", equalTo(1)))
                 .andDo(
                     document(
                         getPath().substring(1) + "/directory",
@@ -98,7 +98,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                 .andExpect(jsonPath("page.size", equalTo(20)))
                 .andExpect(jsonPath("page.totalElements", equalTo(mockDocuments.size())))
                 .andExpect(jsonPath("page.totalPages", equalTo(1)))
-                .andExpect(jsonPath("page.number", equalTo(0)))
+                .andExpect(jsonPath("page.number", equalTo(1)))
                 .andDo(
                     document(
                         getPath().substring(1) + "/facet-search",

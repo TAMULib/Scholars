@@ -1,0 +1,14 @@
+:host {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-rows: auto 1fr auto;
+    grid-gap: 5px;
+
+    .grid-item {
+      border: solid gray 1px;
+      border-radius: 5px;
+      padding: 5px;
+    }
+  }
+}

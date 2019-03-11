@@ -2,7 +2,7 @@
   <ng-container *ngTemplateOutlet="searchForm"></ng-container>
 </form>
 
-<form *ngIf="isServerRendered()" action="/search" method="get" novalidate>
+<form *ngIf="isServerRendered()" action="/discovery" method="get" novalidate>
   <ng-container *ngTemplateOutlet="searchForm"></ng-container>
   <input type="submit" class="d-none" />
 </form>

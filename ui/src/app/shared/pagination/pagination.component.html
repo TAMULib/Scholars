@@ -1,7 +1,7 @@
 <div class="pagination">
   <div class="pt-2 w-100" *ngIf="page | async; let page">
     <ng-content></ng-content>
-    <div class="form-group row">
+    <div class="form-group row mt-3" *ngIf="page.totalElements > page.size">
       <div class="col-sm-8">
         <ngb-pagination [(collectionSize)]="page.totalElements" [(page)]="page.number" [(pageSize)]="page.size" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
       </div>

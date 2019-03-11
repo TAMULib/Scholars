@@ -1,21 +1,15 @@
 import { InjectionToken } from '@angular/core';
 
-import {
-    ConceptRepo,
-    DocumentRepo,
-    OrganizationRepo,
-    PersonRepo,
-    ProcessRepo,
-    RelationshipRepo
-} from './discovery';
-
-import { ThemeRepo } from './theme';
-import { UserRepo } from './user';
-
-import {
-    DirectoryViewRepo,
-    DiscoveryViewRepo
-} from './view';
+import { ConceptRepo } from './discovery/repo/concept.repo';
+import { DocumentRepo } from './discovery/repo/document.repo';
+import { OrganizationRepo } from './discovery/repo/organization.repo';
+import { PersonRepo } from './discovery/repo/person.repo';
+import { ProcessRepo } from './discovery/repo/process.repo';
+import { RelationshipRepo } from './discovery/repo/relationship.repo';
+import { ThemeRepo } from './theme/repo/theme.repo';
+import { UserRepo } from './user/repo/user.repo';
+import { DirectoryViewRepo } from './view/repo/directory-view.repo';
+import { DiscoveryViewRepo } from './view/repo/discovery-view.repo';
 
 // NOTE: the keys must match the property of the Spring Data REST embedded response
 

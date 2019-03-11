@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import { RestService } from '../../../service/rest.service';
 import { SdrRepo } from './sdr-repo';
 
-import { SdrCollection } from '../sdr-collection';
+import { Sort, Facet, SdrRequest } from '../../request';
 import { SdrResource } from '../sdr-resource';
-import { SdrPageRequest } from '../sdr-page';
+import { SdrCollection } from '../sdr-collection';
 
 import { environment } from '../../../../../environments/environment';
 
@@ -20,8 +20,14 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
 
     }
 
-    public page(page: SdrPageRequest): Observable<SdrCollection> {
-        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}` + this.mapParameters(page), {
+    public search(request: SdrRequest): Observable<SdrCollection> {
+        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}/search/facet${this.mapParameters(request)}`, {
+            withCredentials: true
+        });
+    }
+
+    public page(request: SdrRequest): Observable<SdrCollection> {
+        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}${this.mapParameters(request)}`, {
             withCredentials: true
         });
     }
@@ -57,21 +63,47 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
         });
     }
 
-    protected mapParameters(request: SdrPageRequest, parameters: String[] = []): String {
-        parameters.push('page=' + (request.number - 1));
-        parameters.push('size=' + request.size);
+    protected mapParameters(request: SdrRequest): String {
+        const parameters: string[] = [];
 
-        if (request.sort) {
-            if (request.sort.name) {
-                parameters.push('sort=' + encodeURIComponent(request.sort.name) + (request.sort.ascend === true ? ',asc' : request.sort.ascend === false ? ',desc' : ''));
-            } else if (request.sort.ascend === true) {
-                parameters.push('sort=asc');
-            } else if (request.sort.ascend === false) {
-                parameters.push('sort=desc');
-            }
+        if (request.pageable.number) {
+            parameters.push(`page=${(request.pageable.number)}`);
+        }
+        if (request.pageable.size) {
+            parameters.push(`size=${request.pageable.size}`);
+        }
+        if (request.pageable.sort && request.pageable.sort.length > 0) {
+            request.pageable.sort.forEach((sort: Sort) => {
+                parameters.push(`sort=${encodeURIComponent(sort.name)},${sort.direction}`);
+            });
         }
 
-        return '?' + parameters.join('&');
+        if (request.query && request.query.length > 0) {
+            parameters.push(`query=${encodeURIComponent(request.query)}`);
+        }
+
+        if (request.indexable) {
+            parameters.push(`index=${encodeURIComponent(request.indexable.field)},${request.indexable.operationKey},${request.indexable.option}`);
+        }
+
+        if (request.facets && request.facets.length > 0) {
+            const fields: string[] = [];
+            request.facets.forEach((facet: Facet) => {
+                fields.push(facet.field);
+                ['limit', 'offset', 'sort'].forEach((key: string) => {
+                    if (facet[key]) {
+                        parameters.push(`${facet.field}.${key}=${facet[key]}`);
+                    }
+                });
+                if (facet.filter) {
+                    parameters.push(`${facet.field}.filter=${encodeURIComponent(facet.filter)}`);
+                }
+            });
+
+            parameters.push(`facets=${encodeURIComponent(fields.join(','))}`);
+        }
+
+        return `?${parameters.join('&')}`;
     }
 
     protected abstract path(): string;

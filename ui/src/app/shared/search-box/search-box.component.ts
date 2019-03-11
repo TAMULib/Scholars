@@ -1,6 +1,8 @@
 import { Component, Input, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Router, Params } from '@angular/router';
+
 import { Store, select } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
@@ -10,8 +12,6 @@ import { AppState } from '../../core/store';
 
 import { selectActiveThemeOrganization } from '../../core/store/theme';
 import { selectRouterSearchQuery } from '../../core/store/router';
-
-import * as fromRouter from '../../core/store/router/router.actions';
 
 export interface SearchBoxStyles {
     labelColor: string;
@@ -43,7 +43,8 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(PLATFORM_ID) private platformId: string,
         private formBuilder: FormBuilder,
-        private store: Store<AppState>
+        private store: Store<AppState>,
+        private router: Router
     ) {
         this.subscriptions = [];
     }
@@ -71,22 +72,32 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
         });
     }
 
-    public onSearch(): void {
-        let navigation: fromRouter.RouterNavigation = {
-            path: ['/discovery']
-        };
-        if (this.form.value.query && this.form.value.query.length > 0) {
-            navigation = Object.assign(navigation, { query: { query: this.form.value.query } });
-        }
-        this.store.dispatch(new fromRouter.Go(navigation));
-    }
-
     public isBrowserRendered(): boolean {
         return isPlatformBrowser(this.platformId);
     }
 
     public isServerRendered(): boolean {
         return isPlatformServer(this.platformId);
+    }
+
+    public onSearch(): void {
+        const urlTree = this.router.createUrlTree(this.live ? [] : ['/discovery'], {
+            queryParams: this.getSearchQueryParams(),
+            queryParamsHandling: this.live ? 'merge' : undefined,
+            preserveFragment: true
+        });
+        this.router.navigateByUrl(urlTree);
+    }
+
+    private getSearchQueryParams(): Params {
+        const queryParams: Params = {
+            query: undefined,
+            page: this.live ? 1 : undefined
+        };
+        if (this.form.value.query && this.form.value.query.length > 0) {
+            queryParams.query = this.form.value.query;
+        }
+        return queryParams;
     }
 
 }

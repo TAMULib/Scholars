@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 
-import { of, combineLatest } from 'rxjs';
+import { of, combineLatest, defer } from 'rxjs';
 import { map, switchMap, catchError, withLatestFrom, skipWhile, take } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
@@ -63,9 +63,9 @@ export class SdrEffects {
                 this.store.dispatch(new fromStomp.SubscribeAction({
                     channel: `/queue/${name}`,
                     handle: (frame: any) => {
-                        // TODO: consider prevent page request if loading, updating, or editing
+                        // TODO: conditionally reload all
                         if (frame.command === 'MESSAGE') {
-                            this.store.dispatch(new fromSdr.GetAllResourcesAction(name));
+                            console.log(frame);
                         }
                     }
                 }));
@@ -75,13 +75,13 @@ export class SdrEffects {
 
     @Effect() getAllFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE)),
-        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.pageFailureAlert(action.payload))
+        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
     );
 
     @Effect() page = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE)),
         switchMap((action: fromSdr.PageResourcesAction) =>
-            this.repos.get(action.name).page(action.payload.page).pipe(
+            this.repos.get(action.name).page(action.payload.request).pipe(
                 map((collection: SdrCollection) => new fromSdr.PageResourcesSuccessAction(action.name, { collection })),
                 catchError((response) => of(new fromSdr.PageResourcesFailureAction(action.name, { response })))
             )
@@ -105,9 +105,9 @@ export class SdrEffects {
                 this.store.dispatch(new fromStomp.SubscribeAction({
                     channel: `/queue/${name}`,
                     handle: (frame: any) => {
-                        // TODO: consider prevent page request if loading, updating, or editing
+                        // TODO: conditionally reload page
                         if (frame.command === 'MESSAGE') {
-                            this.store.dispatch(new fromSdr.PageResourcesAction(name, { page: store[name].page }));
+                            console.log(frame);
                         }
                     }
                 }));
@@ -118,6 +118,48 @@ export class SdrEffects {
     @Effect() pageFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE_FAILURE)),
         map((action: fromSdr.PageResourcesFailureAction) => this.alert.pageFailureAlert(action.payload))
+    );
+
+    @Effect() search = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.SEARCH)),
+        switchMap((action: fromSdr.SearchResourcesAction) =>
+            this.repos.get(action.name).search(action.payload.request).pipe(
+                map((collection: SdrCollection) => new fromSdr.SearchResourcesSuccessAction(action.name, { collection })),
+                catchError((response) => of(new fromSdr.SearchResourcesFailureAction(action.name, { response })))
+            )
+        )
+    );
+
+    @Effect({ dispatch: false }) searchSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.SEARCH_SUCCESS)),
+        switchMap((action: fromSdr.SearchResourcesSuccessAction) => combineLatest(
+            of(action.name),
+            this.store.pipe(
+                select(selectIsStompConnected),
+                skipWhile((connected: boolean) => !connected),
+                take(1)
+            )
+        )),
+        withLatestFrom(this.store),
+        map(([combination, store]) => {
+            const name = combination[0];
+            if (!store.stomp.subscriptions.has(`/queue/${name}`)) {
+                this.store.dispatch(new fromStomp.SubscribeAction({
+                    channel: `/queue/${name}`,
+                    handle: (frame: any) => {
+                        // TODO: conditionally reload search
+                        if (frame.command === 'MESSAGE') {
+                            console.log(frame);
+                        }
+                    }
+                }));
+            }
+        })
+    );
+
+    @Effect() searchFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.SEARCH_FAILURE)),
+        map((action: fromSdr.SearchResourcesFailureAction) => this.alert.searchFailureAlert(action.payload))
     );
 
     @Effect() clearResourceSubscription = this.actions.pipe(
@@ -216,6 +258,10 @@ export class SdrEffects {
         ofType(...this.buildActions(fromSdr.SdrActionTypes.DELETE_FAILURE)),
         map((action: fromSdr.DeleteResourceFailureAction) => this.alert.deleteFailureAlert(action.payload))
     );
+
+    @Effect() initDirectoryViews = defer(() => {
+        return of(new fromSdr.GetAllResourcesAction('directoryViews'));
+    });
 
     private buildActions(actionType: fromSdr.SdrActionTypes): string[] {
         const loadActions = [];

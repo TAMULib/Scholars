@@ -2,11 +2,20 @@
   <div class="container pt-2">
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
-        <scholars-search-box [live]="false"></scholars-search-box>
+        <scholars-search-box></scholars-search-box>
       </div>
     </div>
   </div>
 </div>
-<div class="container mt-2">
-
+<div class="container mt-2" *ngIf="directoryView | async; let directoryView">
+  <h3 class="text-primary">{{ directoryView.name }}</h3>
+  <p>{{query | async}}</p>
+  <div class="index">
+    <a class="option" [routerLink]="getRouterLink(directoryView)" [queryParams]="getResetQueryParams(directoryView)">{{ 'DIRECTORY.ALL' | translate }}</a>
+    <a class="option" *ngFor="let option of directoryView.index.options" [routerLink]="getRouterLink(directoryView)" [queryParams]="getQueryParams(directoryView, option)">{{option}}</a>
+  </div>
+  <scholars-pagination *ngIf="documents | async; let documents" [collection]="directoryView.collection" [page]="page" (pageChange)="onPageChange($event, directoryView)" [ngSwitch]="directoryView.layout">
+    <scholars-grid-view *ngSwitchCase="'GRID'" [view]="directoryView" [resources]="documents"></scholars-grid-view>
+    <scholars-list-view *ngSwitchCase="'LIST'" [view]="directoryView" [resources]="documents"></scholars-list-view>
+  </scholars-pagination>
 </div>

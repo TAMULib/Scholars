@@ -7,4 +7,3 @@ export { Banner } from './banner';
 export { Link } from './link';
 export { Style } from './style';
 export { Theme } from './theme';
-export { ThemeRepo } from './repo/theme.repo';

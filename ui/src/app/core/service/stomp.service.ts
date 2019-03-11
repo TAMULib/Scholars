@@ -35,9 +35,11 @@ export class StompService {
                 if (receipt.headers.destination) {
                     const channel = receipt.headers.destination;
                     const pending = this.pending.get(channel);
-                    pending.observer.next(pending.subscription);
-                    pending.observer.complete();
-                    this.pending.delete(channel);
+                    if (pending) {
+                        pending.observer.next(pending.subscription);
+                        pending.observer.complete();
+                        this.pending.delete(channel);
+                    }
                 }
             }
         };
@@ -58,9 +60,11 @@ export class StompService {
                     if (error.headers.destination) {
                         const channel = error.headers.destination;
                         const pending = this.pending.get(channel);
-                        pending.observer.error(error);
-                        pending.observer.complete();
-                        this.pending.delete(channel);
+                        if (pending) {
+                            pending.observer.error(error);
+                            pending.observer.complete();
+                            this.pending.delete(channel);
+                        }
                     }
                 }
             });

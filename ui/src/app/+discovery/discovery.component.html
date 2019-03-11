@@ -2,12 +2,21 @@
   <div class="container pt-2">
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
-        <scholars-search-box [live]="live"></scholars-search-box>
+        <scholars-search-box [live]="true"></scholars-search-box>
       </div>
     </div>
   </div>
 </div>
-<div class="container mt-2">
-  <h3 class="text-primary">{{ 'DISCOVERY.TITLE' | translate }}</h3>
+<div class="container mt-2" *ngIf="discoveryView | async; let discoveryView">
+  <h3 class="text-primary">{{ discoveryView.name }}</h3>
   <p>{{query | async}}</p>
+  <ul role="tablist" class="list-unstyled" *ngIf="discoveryViews | async; let discoveryViews" [ngClass]="{ 'nav flex-column nav-pills': false, 'nav nav-tabs nav-fill': true }">
+    <li class="nav-item" *ngFor="let discoveryView of discoveryViews">
+      <a class="nav-link" [routerLink]="getDiscoveryRouteLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, query | async)" [class.active]="isActive(discoveryView, url | async)">{{ discoveryView.name }}</a>
+    </li>
+  </ul>
+  <scholars-pagination *ngIf="documents | async; let documents" [collection]="discoveryView.collection" [page]="page" (pageChange)="onPageChange($event, discoveryView)" [ngSwitch]="discoveryView.layout">
+    <scholars-grid-view *ngSwitchCase="'GRID'" [view]="discoveryView" [resources]="documents"></scholars-grid-view>
+    <scholars-list-view *ngSwitchCase="'LIST'" [view]="discoveryView" [resources]="documents"></scholars-list-view>
+  </scholars-pagination>
 </div>

@@ -1,38 +1,24 @@
 import { CollectionView } from './';
 
-export enum Type {
-    BETWEEN,
-    IS_NOT_NULL,
-    IS_NULL,
-    LESS_THAN,
-    LESS_THAN_EQUAL,
-    GREATER_THAN,
-    GREATER_THAN_EQUAL,
-    BEFORE,
-    AFTER,
-    NOT_LIKE,
-    LIKE,
-    STARTING_WITH,
-    ENDING_WITH,
-    IS_NOT_EMPTY,
-    IS_EMPTY,
-    NOT_CONTAINING,
-    CONTAINING,
-    NOT_IN,
-    IN,
-    NEAR,
-    WITHIN,
-    REGEX,
-    EXISTS,
-    TRUE,
-    FALSE,
-    NEGATING_SIMPLE_PROPERTY,
-    SIMPLE_PROPERTY
+// NOTE: support for some will require additional properties to be added to the Index and the subsequent request
+export enum OperationKey {
+    // BETWEEN = 'BETWEEN',
+    CONTAINS = 'CONTAINS',
+    ENDS_WITH = 'ENDS_WITH',
+    // EQUALS = 'EQUALS',
+    EXPRESSION = 'EXPRESSION',
+    // FUNCTION = 'FUNCTION',
+    FUZZY = 'FUZZY',
+    // NEAR = 'NEAR',
+    // SLOPPY = 'SLOPPY',
+    STARTS_WITH = 'STARTS_WITH',
+    // WITHIN = 'WITHIN',
 }
 
 export interface Index {
-    readonly type: Type;
     readonly field: string;
+    readonly operationKey: OperationKey;
+    readonly options: string[];
 }
 
 export interface DirectoryView extends CollectionView {

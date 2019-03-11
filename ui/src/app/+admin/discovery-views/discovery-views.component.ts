@@ -4,7 +4,8 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
-import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
+import { SdrPage } from '../../core/model/sdr';
+import { SdrRequest } from '../../core/model/request';
 import { DiscoveryView } from '../../core/model/view';
 
 import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
@@ -32,8 +33,8 @@ export class DiscoveryViewsComponent implements OnInit {
         this.page = this.store.pipe(select(selectResourcesPage<DiscoveryView>('discoveryViews')));
     }
 
-    public onPageChange(page: SdrPageRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction('discoveryViews', { page }));
+    public onPageChange(request: SdrRequest): void {
+        this.store.dispatch(new fromSdr.PageResourcesAction(request.collection, { request }));
     }
 
 }

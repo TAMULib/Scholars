@@ -233,7 +233,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                 .andExpect(jsonPath("page.size", equalTo(20)))
                 .andExpect(jsonPath("page.totalElements", equalTo(1)))
                 .andExpect(jsonPath("page.totalPages", equalTo(1)))
-                .andExpect(jsonPath("page.number", equalTo(0)))
+                .andExpect(jsonPath("page.number", equalTo(1)))
                 .andExpect(jsonPath("_embedded.directoryViews[0].name", equalTo("People")))
                 .andDo(
                     document(

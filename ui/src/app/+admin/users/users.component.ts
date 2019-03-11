@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import { DialogService } from '../../core/service/dialog.service';
 
 import { AppState } from '../../core/store';
-import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
+import { SdrPage } from '../../core/model/sdr';
+import { SdrRequest } from '../../core/model/request';
 import { User, Role } from '../../core/model/user';
 
 import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
@@ -45,8 +46,8 @@ export class UsersComponent implements OnInit {
         return Role[role];
     }
 
-    public onPageChange(page: SdrPageRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction('users', { page }));
+    public onPageChange(request: SdrRequest): void {
+        this.store.dispatch(new fromSdr.PageResourcesAction(request.collection, { request }));
     }
 
 }

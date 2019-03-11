@@ -39,6 +39,9 @@
       "CLICK_PUBLICATION_TEXT": "Click to see the author faculty page"
     }
   },
+  "DIRECTORY": {
+    "ALL": "All"
+  },
   "DISCOVERY": {
     "TITLE": "Discovery"
   },

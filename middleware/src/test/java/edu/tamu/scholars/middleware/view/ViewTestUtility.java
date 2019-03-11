@@ -3,7 +3,7 @@ package edu.tamu.scholars.middleware.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.repository.query.parser.Part.Type;
+import org.springframework.data.solr.core.query.Criteria.OperationKey;
 import org.springframework.data.solr.core.query.FacetOptions.FacetSort;
 
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
@@ -57,7 +57,7 @@ public class ViewTestUtility {
         Index index = new Index();
 
         index.setField("name");
-        index.setType(Type.ENDING_WITH);
+        index.setOperationKey(OperationKey.ENDS_WITH);
 
         directoryView.setIndex(index);
 

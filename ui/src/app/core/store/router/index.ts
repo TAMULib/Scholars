@@ -8,4 +8,8 @@ import { CustomRouterState } from './router.reducer';
 
 export const selectRouterState = createFeatureSelector<RouterReducerState<CustomRouterState>>('router');
 
+export const selectRouterUrl = createSelector(selectRouterState, (router: RouterReducerState<CustomRouterState>) => router && router.state && router.state.url);
+export const selectRouterParams = createSelector(selectRouterState, (router: RouterReducerState<CustomRouterState>) => router && router.state && router.state.params);
+export const selectRouterQueryParams = createSelector(selectRouterState, (router: RouterReducerState<CustomRouterState>) => router && router.state && router.state.queryParams);
+export const selectRouterData = createSelector(selectRouterState, (router: RouterReducerState<CustomRouterState>) => router && router.state && router.state.data);
 export const selectRouterSearchQuery = createSelector(selectRouterState, (router: RouterReducerState<CustomRouterState>) => router && router.state && router.state.queryParams ? router.state.queryParams.query : '');
