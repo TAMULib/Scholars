@@ -88,7 +88,6 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                     .param("type.limit", "5")
                     .param("type.offset", "0")
                     .param("type.sort", "COUNT")
-                    .param("type.filter", "*")
                     .param("page", "0")
                     .param("size", "20")
                     .param("sort", "id")
@@ -108,7 +107,6 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                             parameterWithName("type.limit").description("Type facet limit"),
                             parameterWithName("type.offset").description("Type facet offset"),
                             parameterWithName("type.sort").description("Type facet sort {index/count}"),
-                            parameterWithName("type.filter").description("Type facet filter applied"),
                             parameterWithName("page").description("The page number"),
                             parameterWithName("size").description("The page size"),
                             parameterWithName("sort").description("The page sort 'field,{asc/desc}'")
