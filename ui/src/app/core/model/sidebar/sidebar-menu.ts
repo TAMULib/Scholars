@@ -1,7 +1,8 @@
 import { SidebarSection } from './';
+import { Collapsible } from '../theme/collapsible';
 
 export interface SidebarMenu {
     sections: SidebarSection[];
-    collapsible: boolean;
+    collapsible: Collapsible;
     classes?: string;
 }

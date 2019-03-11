@@ -1,20 +1,23 @@
 <div class="wrapper container">
     <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu">
-        <div class="card bg-dark" *ngFor="let section of menu.sections">
+        <div class="card bg-dark" *ngFor="let section of menu.sections; let sectionIndex = index">
             <div class="card-header text-white {{section.classes}}">
                 <span class="header-title">{{section.title | async}}</span>
+                <span class="header-collapsible fa {{getSectionCollapsibleIcon(section.collapsible)}}" (click)="toggleSectionCollapse(sectionIndex)" *ngIf="isSectionCollapsible(section.collapsible)" aria-role="button" [attr.aria-label]="translateSectionCollapsibleButton(section.collapsible, section.title | async) | async"></span>
             </div>
-            <ul class="list-group list-group-flush" *ngFor="let item of section.items">
-                <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" [routerLink]="item.route" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" aria-role="link" [attr.aria-label]="'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate">
-                    <label class="item-label" *ngIf="item.checkbox"><input class="item-checkbox" type="checkbox" [checked]="item.checked"> {{item.label | async}}</label>
-                    <span class="item-label" *ngIf="!item.checkbox">{{item.label | async}}</span>
-                    <span class="item-total" *ngIf="item.total"> ({{item.total | async}})</span>
-                    <span class="item-fields" *ngFor="let field of item.fields">
-                        <label class="field-label {{field.label.classes}}" [for]="field.label.for">{{field.label.value}}</label>
-                        <input class="field-input {{field.input.classes}}" [id]="field.input.id" [name]="field.input.name" [type]="field.input.type" [placeholder]="field.input.placeholder" [value]="field.input.value" [checked]="field.input.checked">
-                    </span>
-                </li>
-            </ul>
+            <div class="card-items" [ngbCollapse]="isSectionCollapsed(section.collapsible)">
+                <ul class="list-group list-group-flush" *ngFor="let item of section.items">
+                    <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" [routerLink]="item.route" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" aria-role="link" [attr.aria-label]="'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate">
+                        <label class="item-label" *ngIf="item.checkbox"><input class="item-checkbox" type="checkbox" [checked]="item.checked"> {{item.label | async}}</label>
+                        <span class="item-label" *ngIf="!item.checkbox">{{item.label | async}}</span>
+                        <span class="item-total" *ngIf="item.total"> ({{item.total | async}})</span>
+                        <span class="item-fields" *ngFor="let field of item.fields">
+                            <label class="field-label {{field.label.classes}}" [for]="field.label.for">{{field.label.value}}</label>
+                            <input class="field-input {{field.input.classes}}" [id]="field.input.id" [name]="field.input.name" [type]="field.input.type" [placeholder]="field.input.placeholder" [value]="field.input.value" [checked]="field.input.checked">
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <div class="content container">
