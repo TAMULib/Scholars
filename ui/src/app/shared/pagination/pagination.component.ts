@@ -62,7 +62,7 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
 
-    public onPageChange(page): void {
+    public onPageChange(page: SdrPage): void {
         const urlTree = this.router.createUrlTree([], {
             queryParams: { page: page.number, size: page.size },
             queryParamsHandling: 'merge',
