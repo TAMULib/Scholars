@@ -93,7 +93,7 @@
     "@types/jasminewd2": "2.0.6",
     "@types/lodash": "4.14.123",
     "@types/mustache": "0.8.32",
-    "@types/node": "11.11.1",
+    "@types/node": "11.11.2",
     "codelyzer": "4.5.0",
     "coveralls": "3.0.3",
     "http-server": "0.11.1",
