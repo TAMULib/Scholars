@@ -128,6 +128,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     }
 
     public onSearch(): void {
+        console.log('here');
         const queryParams: Params = this.getDiscoveryQueryParams(this.form.value.query);
         const urlTree = this.buildUrlTree(queryParams);
         this.router.navigateByUrl(urlTree);

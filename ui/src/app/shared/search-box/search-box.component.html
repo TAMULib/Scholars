@@ -1,23 +1,26 @@
 <div *ngIf="view">
   <div *ngIf="setupForm()">
     <form *ngIf="isBrowserRendered()" (ngSubmit)="onSearch()" novalidate>
-      <ng-container *ngTemplateOutlet="searchForm"></ng-container>
+      <div [formGroup]="form" class="form-group search-box text-center">
+        <ng-container *ngTemplateOutlet="searchLabel"></ng-container>
+        <input type="text" class="form-control" placeholder="Search..." name="query" formControlName="query" [style.box-shadow]="styles?.inputBoxShadow" />
+      </div>
     </form>
 
     <form *ngIf="isServerRendered()" [action]="getAction()" method="get" novalidate>
-      <ng-container *ngTemplateOutlet="searchForm"></ng-container>
-      <input type="submit" class="d-none" />
-    </form>
-
-    <ng-template #searchForm>
       <div [formGroup]="form" class="form-group search-box text-center">
-        <span class="search-label d-inline-block" [style.color]="styles?.labelColor">{{ 'SHARED.SEARCH_BOX.LABEL' | translate:{organization: (organization | async)} }}</span>
-        <span class="fa fa-search form-control-feedback"></span>
+        <ng-container *ngTemplateOutlet="searchLabel"></ng-container>
         <input type="text" class="form-control" placeholder="Search..." name="query" formControlName="query" [style.box-shadow]="styles?.inputBoxShadow" />
         <input type="text" class="form-control invisible" name="collection" formControlName="collection" />
         <input type="text" class="form-control invisible" name="facets" formControlName="facets" />
         <input *ngFor="let filter of view.filters" type="text" class="form-control invisible" [name]="getFilterName(filter)" [formControlName]="getFilterName(filter)" />
+        <input type="submit" class="d-none" />
       </div>
+    </form>
+
+    <ng-template #searchLabel>
+      <span class="search-label d-inline-block" [style.color]="styles?.labelColor">{{ 'SHARED.SEARCH_BOX.LABEL' | translate:{organization: (organization | async)} }}</span>
+      <span class="fa fa-search form-control-feedback"></span>
     </ng-template>
   </div>
 </div>
