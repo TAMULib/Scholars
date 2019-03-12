@@ -12,10 +12,10 @@
     <h3 class="text-primary">{{ directoryView.name }}</h3>
     <p>{{query | async}}</p>
     <div class="index">
-      <a class="option" [routerLink]="getRouterLink(directoryView)" [queryParams]="getResetQueryParams(directoryView)" queryParamsHandling="merge">{{ 'DIRECTORY.ALL' | translate }}</a>
-      <a class="option" *ngFor="let option of directoryView.index.options" [routerLink]="getRouterLink(directoryView)" [queryParams]="getQueryParams(directoryView, option)" queryParamsHandling="merge">{{option}}</a>
+      <a class="option" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getResetQueryParams(directoryView)" queryParamsHandling="merge">{{ 'DIRECTORY.ALL' | translate }}</a>
+      <a class="option" *ngFor="let option of directoryView.index.options" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getDirectoryQueryParams(directoryView, option)" queryParamsHandling="merge">{{option}}</a>
     </div>
-    <scholars-pagination *ngIf="documents | async; let documents" [collection]="directoryView.collection" [page]="page" (pageChange)="onPageChange($event, directoryView)" [ngSwitch]="directoryView.layout">
+    <scholars-pagination *ngIf="documents | async; let documents" [page]="page" [ngSwitch]="directoryView.layout">
       <scholars-grid-view *ngSwitchCase="'GRID'" [view]="directoryView" [resources]="documents"></scholars-grid-view>
       <scholars-list-view *ngSwitchCase="'LIST'" [view]="directoryView" [resources]="documents"></scholars-list-view>
     </scholars-pagination>

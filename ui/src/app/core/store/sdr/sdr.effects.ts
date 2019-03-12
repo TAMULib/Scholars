@@ -9,15 +9,23 @@ import { AlertService } from '../../service/alert.service';
 
 import { AppState } from '../';
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
-import { SdrResource, SdrCollection } from '../../model/sdr';
+import { CustomRouterState } from '../router/router.reducer';
+import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
+import { OperationKey, FacetSort, Facet } from '../../model/view';
+import { Params } from '@angular/router';
+import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry } from '../../model/sdr';
+import { SidebarMenu, SidebarSection, SidebarItem } from '../../model/sidebar';
 
 import { injectable, repos } from '../../model/repos';
 
-import { selectIsStompConnected } from '../stomp';
+import { selectRouterState } from '../router';
+import { selectIsStompConnected, selectStompState } from '../stomp';
 
 import * as fromDialog from '../dialog/dialog.actions';
+import * as fromRouter from '../router/router.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from './sdr.actions';
+import * as fromSidebar from '../sidebar/sidebar.actions';
 
 @Injectable()
 export class SdrEffects {
@@ -56,10 +64,15 @@ export class SdrEffects {
                 take(1)
             )
         )),
-        withLatestFrom(this.store),
-        map(([combination, store]) => {
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => {
             const name = combination[0];
-            if (!store.stomp.subscriptions.has(`/queue/${name}`)) {
+
+            if (name === 'directoryViews') {
+                this.store.dispatch(new fromSdr.GetAllResourcesAction('discoveryViews'));
+            }
+
+            if (!stomp.subscriptions.has(`/queue/${name}`)) {
                 this.store.dispatch(new fromStomp.SubscribeAction({
                     channel: `/queue/${name}`,
                     handle: (frame: any) => {
@@ -98,10 +111,10 @@ export class SdrEffects {
                 take(1)
             )
         )),
-        withLatestFrom(this.store),
-        map(([combination, store]) => {
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => {
             const name = combination[0];
-            if (!store.stomp.subscriptions.has(`/queue/${name}`)) {
+            if (!stomp.subscriptions.has(`/queue/${name}`)) {
                 this.store.dispatch(new fromStomp.SubscribeAction({
                     channel: `/queue/${name}`,
                     handle: (frame: any) => {
@@ -133,7 +146,8 @@ export class SdrEffects {
     @Effect({ dispatch: false }) searchSuccess = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.SEARCH_SUCCESS)),
         switchMap((action: fromSdr.SearchResourcesSuccessAction) => combineLatest(
-            of(action.name),
+            of(action),
+            this.store.pipe(select(selectRouterState)),
             this.store.pipe(
                 select(selectIsStompConnected),
                 skipWhile((connected: boolean) => !connected),
@@ -142,10 +156,81 @@ export class SdrEffects {
         )),
         withLatestFrom(this.store),
         map(([combination, store]) => {
-            const name = combination[0];
-            if (!store.stomp.subscriptions.has(`/queue/${name}`)) {
+            const action = combination[0];
+            const router = combination[1];
+
+            if (router.state.queryParams.collection) {
+
+                let facets: Facet[] = [];
+
+                if (router.state.url.startsWith('/directory')) {
+                    facets = store['directoryViews'].entities[router.state.params.view].facets;
+                } else if (router.state.url.startsWith('/discovery')) {
+                    facets = store['discoveryViews'].entities[router.state.params.view].facets;
+                }
+
+                const sdrFacets: SdrFacet[] = action.payload.collection.facets;
+
+                const sidebarMenu: SidebarMenu = {
+                    sections: [],
+                    collapsible: { allowed: true }
+                };
+
+                facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
+
+                    for (const sdrFacet of sdrFacets) {
+
+                        if (sdrFacet.field === facet.field) {
+
+                            const sidebarSection: SidebarSection = {
+                                title: of(facet.name),
+                                items: [],
+                                collapsible: { allowed: true }
+                            };
+
+                            sdrFacet.entries.forEach((facetEntry: SdrFacetEntry) => {
+
+                                let checked = false;
+
+                                for (const requestFacet of router.state.queryParams.facets.split(',')) {
+                                    if (router.state.queryParams[`${requestFacet}.filter`] === facetEntry.value) {
+                                        checked = true;
+                                        break;
+                                    }
+                                }
+
+                                const sidebarItem: SidebarItem = {
+                                    label: of(facetEntry.value),
+                                    total: facetEntry.count,
+                                    route: [],
+                                    checkbox: {
+                                        id: facet.field,
+                                        name: facet.name,
+                                        type: 'checkbox',
+                                        value: checked
+                                    },
+                                    queryParams: {}
+                                };
+
+                                sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !checked ? facetEntry.value : undefined;
+
+                                sidebarSection.items.push(sidebarItem);
+
+                            });
+                            sidebarMenu.sections.push(sidebarSection);
+                            break;
+                        }
+                    }
+                });
+
+                if (sidebarMenu.sections.length > 0) {
+                    this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
+                }
+            }
+
+            if (!store.stomp.subscriptions.has(`/queue/${action.name}`)) {
                 this.store.dispatch(new fromStomp.SubscribeAction({
-                    channel: `/queue/${name}`,
+                    channel: `/queue/${action.name}`,
                     handle: (frame: any) => {
                         // TODO: conditionally reload search
                         if (frame.command === 'MESSAGE') {
@@ -259,12 +344,22 @@ export class SdrEffects {
         map((action: fromSdr.DeleteResourceFailureAction) => this.alert.deleteFailureAlert(action.payload))
     );
 
-    @Effect({ dispatch: false }) initViews = defer(() => {
-        this.store.dispatch(new fromSdr.GetAllResourcesAction('directoryViews'));
-        setTimeout(() => {
-            this.store.dispatch(new fromSdr.GetAllResourcesAction('discoveryViews'));
-        });
-    });
+    @Effect({ dispatch: false }) navigation = this.actions.pipe(
+        ofType(fromRouter.RouterActionTypes.CHANGED),
+        withLatestFrom(this.store.pipe(select(selectRouterState))),
+        map(([action, router]) => {
+            let collection = router.state.data.collection;
+            if (collection === undefined) {
+                collection = router.state.queryParams.collection;
+            }
+            if (collection) {
+                const request = this.createSdrRequest(router.state);
+                this.store.dispatch(new fromSdr.SearchResourcesAction(collection, { request }));
+            }
+        })
+    );
+
+    @Effect() initDirectoryViews = defer(() => of(new fromSdr.GetAllResourcesAction('directoryViews')));
 
     private buildActions(actionType: fromSdr.SdrActionTypes): string[] {
         const loadActions = [];
@@ -285,6 +380,70 @@ export class SdrEffects {
             if (repos.hasOwnProperty(name)) {
                 this.repos.set(name, injector.get<AbstractSdrRepo<SdrResource>>(repos[name]));
             }
+        }
+    }
+
+    private createSdrRequest(routerState: CustomRouterState): SdrRequest {
+        const queryParams = routerState.queryParams;
+        return {
+            pageable: this.buildPageable(queryParams),
+            facets: this.buildFacets(queryParams),
+            indexable: this.buildIndexable(queryParams),
+            query: queryParams.query
+        };
+    }
+
+    private buildPageable(queryParams: Params): Pageable {
+        return {
+            number: queryParams.page,
+            size: queryParams.size,
+            sort: this.buildSort(queryParams.sort)
+        };
+    }
+
+    private buildSort(sortParams: string): Sort[] {
+        const sort: Sort[] = [];
+        if (sortParams !== undefined) {
+            if (Array.isArray(sortParams)) {
+                sortParams.forEach((currentSortParam) => sort.push(this.splitSort(currentSortParam)));
+            } else {
+                sort.push(this.splitSort(sortParams));
+            }
+        }
+        return sort;
+    }
+
+    private splitSort(sortParam: string): Sort {
+        const sortSplit = sortParam.split(',');
+        return {
+            name: sortSplit[0],
+            direction: Direction[sortSplit[1] !== undefined ? sortSplit[1].toUpperCase() : 'ASC']
+        };
+    }
+
+    private buildFacets(queryParams: Params): Facetable[] {
+        const facets: Facetable[] = [];
+        const fields: string[] = queryParams.facets !== undefined ? queryParams.facets.split(',') : [];
+        fields.forEach((field: string) => {
+            const facet: Facetable = { field };
+            ['limit', 'offset', 'sort', 'filter'].forEach((key: string) => {
+                if (queryParams[`${field}.${key}`]) {
+                    facet[key] = key === 'sort' ? FacetSort[queryParams[`${field}.${key}`]] : queryParams[`${field}.${key}`];
+                }
+            });
+            facets.push(facet);
+        });
+        return facets;
+    }
+
+    private buildIndexable(queryParams: Params): Indexable {
+        if (queryParams.index) {
+            const indexSplit: string[] = queryParams.index.split(',');
+            return {
+                field: indexSplit[0],
+                operationKey: OperationKey[indexSplit[1]],
+                option: indexSplit[2]
+            };
         }
     }
 

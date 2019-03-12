@@ -45,22 +45,25 @@ export class NavigationComponent implements OnInit {
         return ['/directory', directoryView.name];
     }
 
+    // NOTE: redundant with getResetQueryParams in DirectoryComponent
     public getDirectoryQueryParams(directoryView: DirectoryView): Params {
-        const params: Params = {};
+        const queryParams: Params = {};
+        queryParams.collection = directoryView.collection;
+        queryParams.sort = `${directoryView.index.field},asc`;
+        queryParams.index = undefined;
         if (directoryView.facets && directoryView.facets.length > 0) {
             let facets = '';
             directoryView.facets.forEach((facet: Facet) => {
                 facets += facets.length > 0 ? `,${facet.field}` : facet.field;
             });
-            params.facets = facets;
+            queryParams.facets = facets;
         }
         if (directoryView.filters && directoryView.filters.length > 0) {
             directoryView.filters.forEach((filter: Filter) => {
-                params[`${filter.field}.filter`] = filter.value;
+                queryParams[`${filter.field}.filter`] = filter.value;
             });
         }
-        params.sort = `${directoryView.index.field},asc`;
-        return params;
+        return queryParams;
     }
 
     public toggleNavigation(): void {

@@ -40,8 +40,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
 
     public organization: Observable<string>;
 
-    public discoveryViews: Observable<DiscoveryView[]>;
-
     private subscriptions: Subscription[];
 
     constructor(
@@ -58,10 +56,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
             query: new FormControl()
         });
         this.organization = this.store.pipe(select(selectActiveThemeOrganization));
-        this.discoveryViews = this.store.pipe(
-            select(selectAllResources<DiscoveryView>('discoveryViews')),
-            filter((discoveryViews: DiscoveryView[]) => discoveryViews.length > 0)
-        );
 
         this.subscriptions.push(this.store.pipe(
             select(selectRouterSearchQuery),
@@ -69,12 +63,10 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
         ).subscribe((query: string) => this.form.patchValue({ query })));
 
         if (this.live) {
-            this.subscriptions.push(this.discoveryViews.subscribe((discoveryViews: DiscoveryView[]) => {
-                this.subscriptions.push(this.form.controls.query.valueChanges.pipe(
-                    debounceTime(this.debounce),
-                    distinctUntilChanged()
-                ).subscribe(() => this.onSearch(discoveryViews)));
-            }));
+            this.subscriptions.push(this.form.controls.query.valueChanges.pipe(
+                debounceTime(this.debounce),
+                distinctUntilChanged()
+            ).subscribe(() => this.onSearch()));
         }
     }
 
@@ -92,42 +84,29 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
         return isPlatformServer(this.platformId);
     }
 
-    public onSearch(discoveryViews: DiscoveryView[]): void {
-        const urlTree = this.buildUrlTree(discoveryViews[0]);
+    public onSearch(): void {
+        const urlTree = this.buildUrlTree();
         this.router.navigateByUrl(urlTree);
     }
 
-    public getAction(discoveryViews: DiscoveryView[]): string {
-        const urlTree = this.buildUrlTree(discoveryViews[0]);
+    public getAction(): string {
+        const urlTree = this.buildUrlTree();
         return urlTree.toString();
     }
 
-    private buildUrlTree(discoveryView: DiscoveryView): UrlTree {
-        return this.router.createUrlTree(this.live ? [] : [`/discovery/${discoveryView.name}`], {
-            queryParams: this.getSearchQueryParams(discoveryView),
+    private buildUrlTree(): UrlTree {
+        return this.router.createUrlTree(this.live ? [] : ['/discovery'], {
+            queryParams: this.getSearchQueryParams(),
             queryParamsHandling: this.live ? 'merge' : undefined,
             preserveFragment: true
         });
     }
 
-    private getSearchQueryParams(discoveryView: DiscoveryView): Params {
+    private getSearchQueryParams(): Params {
         const queryParams: Params = {
             query: undefined,
             page: this.live ? 1 : undefined
         };
-        if (discoveryView.facets && discoveryView.facets.length > 0) {
-            let facets = '';
-            discoveryView.facets.forEach((facet: Facet) => {
-                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
-            });
-            queryParams.facets = facets;
-        }
-        if (discoveryView.filters && discoveryView.filters.length > 0) {
-            // tslint:disable-next-line:no-shadowed-variable
-            discoveryView.filters.forEach((filter: Filter) => {
-                queryParams[`${filter.field}.filter`] = filter.value;
-            });
-        }
         if (this.form.value.query && this.form.value.query.length > 0) {
             queryParams.query = this.form.value.query;
         }

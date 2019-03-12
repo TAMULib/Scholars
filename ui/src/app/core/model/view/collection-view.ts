@@ -10,7 +10,6 @@ export enum FacetSort {
     INDEX = 'INDEX'
 }
 
-// NOTE: ambigous interface with SdrRequest Facet
 export interface Facet {
     readonly name: string;
     readonly field: string;

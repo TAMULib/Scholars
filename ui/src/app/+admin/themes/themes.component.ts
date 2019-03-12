@@ -5,12 +5,9 @@ import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
 import { SdrPage } from '../../core/model/sdr';
-import { SdrRequest } from '../../core/model/request';
 import { Theme } from '../../core/model/theme';
 
 import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
-
-import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
 @Component({
     selector: 'scholars-themes',
@@ -31,10 +28,6 @@ export class ThemesComponent implements OnInit {
     ngOnInit() {
         this.themes = this.store.pipe(select(selectAllResources<Theme>('themes')));
         this.page = this.store.pipe(select(selectResourcesPage<Theme>('themes')));
-    }
-
-    public onPageChange(request: SdrRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction(request.collection, { request }));
     }
 
 }

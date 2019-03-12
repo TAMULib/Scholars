@@ -16,7 +16,7 @@
         <a class="nav-link" [routerLink]="getDiscoveryRouteLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, query | async)" [class.active]="isActive(discoveryView, url | async)">{{ discoveryView.name }}</a>
       </li>
     </ul>
-    <scholars-pagination *ngIf="documents | async; let documents" [collection]="discoveryView.collection" [page]="page" (pageChange)="onPageChange($event, discoveryView)" [ngSwitch]="discoveryView.layout">
+    <scholars-pagination *ngIf="documents | async; let documents" [page]="page" [ngSwitch]="discoveryView.layout">
       <scholars-grid-view *ngSwitchCase="'GRID'" [view]="discoveryView" [resources]="documents"></scholars-grid-view>
       <scholars-list-view *ngSwitchCase="'LIST'" [view]="discoveryView" [resources]="documents"></scholars-list-view>
     </scholars-pagination>

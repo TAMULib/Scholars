@@ -7,13 +7,9 @@ import { DialogService } from '../../core/service/dialog.service';
 
 import { AppState } from '../../core/store';
 import { SdrPage } from '../../core/model/sdr';
-import { SdrRequest } from '../../core/model/request';
 import { User, Role } from '../../core/model/user';
 
 import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
-
-import * as fromSdr from '../../core/store/sdr/sdr.actions';
-
 @Component({
     selector: 'scholars-users',
     templateUrl: './users.component.html',
@@ -44,10 +40,6 @@ export class UsersComponent implements OnInit {
 
     public getRoleValue(role: Role): string {
         return Role[role];
-    }
-
-    public onPageChange(request: SdrRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction(request.collection, { request }));
     }
 
 }

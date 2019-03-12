@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
     public menu: Observable<SidebarMenu>;
 
     constructor(private store: Store<AppState>, private translate: TranslateService) {
+
     }
 
     ngOnInit() {

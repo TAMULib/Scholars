@@ -12,9 +12,16 @@ export type CustomRouterState = Readonly<{
 export class CustomRouterStateSerializer implements fromRouter.RouterStateSerializer<CustomRouterState> {
     serialize(routerState: RouterStateSnapshot): CustomRouterState {
         const { url } = routerState;
-        const params = routerState.root.params;
         const queryParams = routerState.root.queryParams;
-        const data = routerState.root.data;
+
+        let route = routerState.root;
+        while (route.firstChild) {
+            route = route.firstChild;
+        }
+
+        const params = route.params;
+        const data = route.data;
+
         return { url, params, queryParams, data };
     }
 }
