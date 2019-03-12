@@ -15,8 +15,6 @@ import { SdrPage, SdrFacet } from '../core/model/sdr';
 import { selectRouterSearchQuery, selectRouterUrl } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
 
-import * as fromSdr from '../core/store/sdr/sdr.actions';
-
 @Component({
     selector: 'scholars-discovery',
     templateUrl: 'discovery.component.html',
@@ -61,7 +59,7 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
             if (params.view) {
                 this.discoveryView = this.store.pipe(
                     select(selectResourceById('discoveryViews', params.view)),
-                    filter((discoveryView: DiscoveryView) => discoveryView !== undefined)
+                    filter((view: DiscoveryView) => view !== undefined)
                 );
                 this.subscriptions.push(this.discoveryView.subscribe((discoveryView: DiscoveryView) => {
                     this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(discoveryView.collection)));

@@ -8,11 +8,11 @@ import { filter } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { DirectoryView, Facet, Filter } from '../core/model/view';
+import { DirectoryView, Facet, Filter, DiscoveryView } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
-import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
+import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById, selectDefaultDiscoveryView } from '../core/store/sdr';
 
 @Component({
     selector: 'scholars-directory',
@@ -22,6 +22,8 @@ import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectR
 export class DirectoryComponent implements OnDestroy, OnInit {
 
     public directoryView: Observable<DirectoryView>;
+
+    public discoveryView: Observable<DiscoveryView>;
 
     public documents: Observable<SolrDocument[]>;
 
@@ -45,11 +47,15 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
+        this.discoveryView = this.store.pipe(
+            select(selectDefaultDiscoveryView),
+            filter((view: DiscoveryView) => view !== undefined)
+        );
         this.subscriptions.push(this.route.params.subscribe((params) => {
             if (params.view) {
                 this.directoryView = this.store.pipe(
                     select(selectResourceById('directoryViews', params.view)),
-                    filter((directoryView: DirectoryView) => directoryView !== undefined)
+                    filter((view: DirectoryView) => view !== undefined)
                 );
                 this.subscriptions.push(this.directoryView.subscribe((directoryView: DirectoryView) => {
                     this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(directoryView.collection)));

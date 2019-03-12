@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 
 import { of, combineLatest, defer } from 'rxjs';
-import { map, switchMap, catchError, withLatestFrom, skipWhile, take } from 'rxjs/operators';
+import { map, switchMap, catchError, withLatestFrom, skipWhile, take, filter } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
 
@@ -11,13 +11,14 @@ import { AppState } from '../';
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 import { CustomRouterState } from '../router/router.reducer';
 import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
-import { OperationKey, FacetSort, Facet } from '../../model/view';
+import { OperationKey, FacetSort, Facet, DiscoveryView, DirectoryView } from '../../model/view';
 import { Params } from '@angular/router';
 import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry } from '../../model/sdr';
 import { SidebarMenu, SidebarSection, SidebarItem } from '../../model/sidebar';
 
 import { injectable, repos } from '../../model/repos';
 
+import { selectAllResources } from './';
 import { selectRouterState } from '../router';
 import { selectIsStompConnected, selectStompState } from '../stomp';
 
@@ -148,6 +149,14 @@ export class SdrEffects {
         switchMap((action: fromSdr.SearchResourcesSuccessAction) => combineLatest(
             of(action),
             this.store.pipe(select(selectRouterState)),
+            this.store.pipe(
+                select(selectAllResources('directoryViews')),
+                filter((views: DirectoryView[]) => views.length !== 0)
+            ),
+            this.store.pipe(
+                select(selectAllResources('discoveryViews')),
+                filter((views: DiscoveryView[]) => views.length !== 0)
+            ),
             this.store.pipe(
                 select(selectIsStompConnected),
                 skipWhile((connected: boolean) => !connected),

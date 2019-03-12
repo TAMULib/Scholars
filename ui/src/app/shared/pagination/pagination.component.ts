@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { Observable } from 'rxjs';
@@ -17,7 +18,10 @@ export class PaginationComponent implements OnInit {
 
     public pageSizeOptions = [10, 25, 50, 100];
 
-    constructor(private config: NgbPaginationConfig) {
+    constructor(
+        private config: NgbPaginationConfig,
+        private router: Router
+    ) {
 
     }
 
@@ -29,7 +33,12 @@ export class PaginationComponent implements OnInit {
     }
 
     public onPageChange(page: SdrPage): void {
-        console.log(page);
+        const urlTree = this.router.createUrlTree([], {
+            queryParams: { page: page.number, size: page.size },
+            queryParamsHandling: 'merge',
+            preserveFragment: true
+        });
+        this.router.navigateByUrl(urlTree);
     }
 
 }

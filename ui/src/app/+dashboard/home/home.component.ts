@@ -6,13 +6,15 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 
 import { Subscription, Observable, BehaviorSubject } from 'rxjs';
-import { skipWhile } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { AppState } from '../../core/store';
 import { Home, Hero } from '../../core/model/theme';
+import { DiscoveryView } from '../../core/model/view';
 
 import { SearchBoxStyles } from '../../shared/search-box/search-box.component';
 
+import { selectDefaultDiscoveryView } from '../../core/store/sdr';
 import { selectActiveThemeHome, selectActiveThemeOrganization } from '../../core/store/theme';
 
 import * as fromAuth from '../../core/store/auth/auth.actions';
@@ -24,6 +26,8 @@ import * as fromAuth from '../../core/store/auth/auth.actions';
     encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit, OnDestroy {
+
+    public discoveryView: Observable<DiscoveryView>;
 
     public home: Observable<Home>;
 
@@ -43,13 +47,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.discoveryView = this.store.pipe(
+            select(selectDefaultDiscoveryView),
+            filter((view: DiscoveryView) => view !== undefined)
+        );
         this.home = this.store.pipe(
             select(selectActiveThemeHome),
-            skipWhile((home: Home) => home === undefined)
+            filter((home: Home) => home !== undefined)
         );
         this.organization = this.store.pipe(
             select(selectActiveThemeOrganization),
-            skipWhile((organization: string) => organization === undefined)
+            filter((organization: string) => organization !== undefined)
         );
         this.subscriptions.push(this.route.queryParams.subscribe((params: Params) => {
             if (params.key !== undefined) {

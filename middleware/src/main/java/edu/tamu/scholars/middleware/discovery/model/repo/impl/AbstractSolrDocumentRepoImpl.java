@@ -50,7 +50,9 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
             // NOTE: to support all operation keys additional values will have to be included in the index query parameter
             // TODO: handle if invalid index query parameter, consider an argument resolver into Indexable class
             if (indexParts.length == 3) {
-                FilterQuery filterQuery = new SimpleFilterQuery(buildCriteria(indexParts));
+                Criteria criteria = buildCriteria(indexParts);
+                indexParts[2] = indexParts[2].toLowerCase();
+                FilterQuery filterQuery = new SimpleFilterQuery(criteria.or(buildCriteria(indexParts)));
                 facetQuery.addFilterQuery(filterQuery);
             }
         }

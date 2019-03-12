@@ -1,8 +1,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
 
 import { AboutComponent } from './about.component';
+
+import { metaReducers, reducers } from '../../core/store';
 
 describe('AboutComponent', () => {
     let component: AboutComponent;
@@ -14,6 +17,9 @@ describe('AboutComponent', () => {
                 AboutComponent
             ],
             imports: [
+                StoreModule.forRoot(reducers, {
+                    metaReducers
+                }),
                 TranslateModule.forRoot()
             ],
             schemas: [
