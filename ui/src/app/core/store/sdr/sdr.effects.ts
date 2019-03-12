@@ -363,7 +363,11 @@ export class SdrEffects {
             }
             if (collection) {
                 const request = this.createSdrRequest(router.state);
-                this.store.dispatch(new fromSdr.SearchResourcesAction(collection, { request }));
+                if (router.state.url.startsWith('/directory') || router.state.url.startsWith('/discovery')) {
+                    this.store.dispatch(new fromSdr.SearchResourcesAction(collection, { request }));
+                } else {
+                    this.store.dispatch(new fromSdr.PageResourcesAction(collection, { request }));
+                }
             }
         })
     );
