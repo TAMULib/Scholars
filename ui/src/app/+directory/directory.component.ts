@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
 import { AppState } from '../core/store';
 
 import { SdrRequest } from '../core/model/request';
-import { DirectoryView } from '../core/model/view';
+import { DirectoryView, Facet } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet, SdrFacetEntry } from '../core/model/sdr';
 import { SidebarMenu, SidebarSection, SidebarItem } from '../core/model/sidebar';
@@ -36,6 +36,8 @@ export class DirectoryComponent implements OnDestroy, OnInit {
 
     private subscriptions: Subscription[];
 
+    private request: SdrRequest;
+
     constructor(
         private store: Store<AppState>,
         private route: ActivatedRoute
@@ -59,44 +61,72 @@ export class DirectoryComponent implements OnDestroy, OnInit {
                 this.subscriptions.push(this.directoryView.subscribe((directoryView: DirectoryView) => {
                     this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(directoryView.collection)));
                     this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(directoryView.collection)));
-                    this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(directoryView.collection)));
+                    this.facets = this.store.pipe(
+                        select(selectResourcesFacets<SolrDocument>(directoryView.collection)),
+                        filter((sdrFacets: SdrFacet[]) => sdrFacets.length > 0)
+                    );
 
-                    // TODO: combine directory view observable and facets observable, move into effects, match the two, and clean up
-                    this.subscriptions.push(this.facets.subscribe((facets: SdrFacet[]) => {
+                    this.subscriptions.push(this.facets.subscribe((sdrFacets: SdrFacet[]) => {
 
                         const sidebarMenu: SidebarMenu = {
                             sections: [],
                             collapsible: { allowed: true }
                         };
 
-                        facets.forEach((facet: SdrFacet) => {
+                        directoryView.facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
 
-                            const sidebarSection: SidebarSection = {
-                                title: of(facet.field),
-                                items: [],
-                                collapsible: { allowed: true }
-                            };
+                            for (const sdrFacet of sdrFacets) {
 
-                            facet.entries.forEach((facetEntry: SdrFacetEntry) => {
+                                if (sdrFacet.field === facet.field) {
 
-                                const sidebarItem: SidebarItem = {
-                                    label: of(facetEntry.value),
-                                    total: facetEntry.count,
-                                    route: [],
-                                    queryParams: {}
-                                };
+                                    const sidebarSection: SidebarSection = {
+                                        title: of(facet.name),
+                                        items: [],
+                                        collapsible: { allowed: true }
+                                    };
 
-                                sidebarItem.queryParams[`${facet.field}.filter`] = facetEntry.value;
+                                    sdrFacet.entries.forEach((facetEntry: SdrFacetEntry) => {
 
-                                sidebarSection.items.push(sidebarItem);
+                                        let checked = false;
 
-                            });
+                                        for (const requestFacet of this.request.facets) {
+                                            if (requestFacet.filter === facetEntry.value) {
+                                                checked = true;
+                                                break;
+                                            }
+                                        }
 
-                            sidebarMenu.sections.push(sidebarSection);
+                                        const sidebarItem: SidebarItem = {
+                                            label: of(facetEntry.value),
+                                            total: facetEntry.count,
+                                            route: [],
+                                            checkbox: {
+                                                id: facet.field,
+                                                name: facet.name,
+                                                type: 'checkbox',
+                                                value: checked
+                                            },
+                                            queryParams: {}
+                                        };
+
+                                        sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !checked ? facetEntry.value : undefined;
+
+                                        sidebarSection.items.push(sidebarItem);
+
+                                    });
+
+                                    sidebarMenu.sections.push(sidebarSection);
+
+                                    break;
+                                }
+
+                            }
 
                         });
 
-                        this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
+                        if (sidebarMenu.sections.length > 0) {
+                            this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
+                        }
 
                     }));
 
@@ -125,6 +155,7 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     }
 
     public onPageChange(request: SdrRequest): void {
+        this.request = request;
         this.store.dispatch(new fromSdr.SearchResourcesAction(request.collection, { request }));
     }
 

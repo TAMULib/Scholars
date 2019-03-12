@@ -22,6 +22,7 @@ export interface Indexable {
     readonly option: string;
 }
 
+// NOTE: ambigous interface with CollectionView Facet
 export interface Facet {
     readonly field: string;
     readonly limit?: number;
@@ -34,6 +35,6 @@ export interface SdrRequest {
     collection: string;
     readonly pageable: Pageable;
     readonly indexable?: Indexable;
-    readonly facets?: Facet[];
+    readonly facets: Facet[];
     readonly query?: string;
 }

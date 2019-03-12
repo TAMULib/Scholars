@@ -43,6 +43,8 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
 
     private subscriptions: Subscription[];
 
+    private request: SdrRequest;
+
     constructor(
         private store: Store<AppState>,
         private route: ActivatedRoute
@@ -60,7 +62,6 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         this.url = this.store.pipe(select(selectRouterUrl));
         this.query = this.store.pipe(select(selectRouterSearchQuery));
         this.discoveryViews = this.store.pipe(select(selectAllResources<DiscoveryView>('discoveryViews')));
-        this.store.dispatch(new fromSdr.GetAllResourcesAction('discoveryViews'));
         this.subscriptions.push(this.route.params.subscribe((params) => {
             if (params.name) {
                 this.discoveryView = this.store.pipe(
@@ -70,44 +71,72 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
                 this.subscriptions.push(this.discoveryView.subscribe((discoveryView: DiscoveryView) => {
                     this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(discoveryView.collection)));
                     this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(discoveryView.collection)));
-                    this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(discoveryView.collection)));
+                    this.facets = this.store.pipe(
+                        select(selectResourcesFacets<SolrDocument>(discoveryView.collection)),
+                        filter((sdrFacets: SdrFacet[]) => sdrFacets.length > 0)
+                    );
 
-                    // TODO: combine discovery view observable and facets observable, move into effects, match the two, and clean up
-                    this.subscriptions.push(this.facets.subscribe((facets: SdrFacet[]) => {
+                    this.subscriptions.push(this.facets.subscribe((sdrFacets: SdrFacet[]) => {
 
                         const sidebarMenu: SidebarMenu = {
                             sections: [],
                             collapsible: { allowed: true }
                         };
 
-                        facets.forEach((facet: SdrFacet) => {
+                        discoveryView.facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
 
-                            const sidebarSection: SidebarSection = {
-                                title: of(facet.field),
-                                items: [],
-                                collapsible: { allowed: true }
-                            };
+                            for (const sdrFacet of sdrFacets) {
 
-                            facet.entries.forEach((facetEntry: SdrFacetEntry) => {
+                                if (sdrFacet.field === facet.field) {
 
-                                const sidebarItem: SidebarItem = {
-                                    label: of(facetEntry.value),
-                                    total: facetEntry.count,
-                                    route: [],
-                                    queryParams: {}
-                                };
+                                    const sidebarSection: SidebarSection = {
+                                        title: of(facet.name),
+                                        items: [],
+                                        collapsible: { allowed: true }
+                                    };
 
-                                sidebarItem.queryParams[`${facet.field}.filter`] = facetEntry.value;
+                                    sdrFacet.entries.forEach((facetEntry: SdrFacetEntry) => {
 
-                                sidebarSection.items.push(sidebarItem);
+                                        let checked = false;
 
-                            });
+                                        for (const requestFacet of this.request.facets) {
+                                            if (requestFacet.filter === facetEntry.value) {
+                                                checked = true;
+                                                break;
+                                            }
+                                        }
 
-                            sidebarMenu.sections.push(sidebarSection);
+                                        const sidebarItem: SidebarItem = {
+                                            label: of(facetEntry.value),
+                                            total: facetEntry.count,
+                                            route: [],
+                                            checkbox: {
+                                                id: facet.field,
+                                                name: facet.name,
+                                                type: 'checkbox',
+                                                value: checked
+                                            },
+                                            queryParams: {}
+                                        };
+
+                                        sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !checked ? facetEntry.value : undefined;
+
+                                        sidebarSection.items.push(sidebarItem);
+
+                                    });
+
+                                    sidebarMenu.sections.push(sidebarSection);
+
+                                    break;
+                                }
+
+                            }
 
                         });
 
-                        this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
+                        if (sidebarMenu.sections.length > 0) {
+                            this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
+                        }
 
                     }));
 
@@ -125,27 +154,28 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
     }
 
     public getDiscoveryQueryParams(discoveryView: DiscoveryView, query: string): Params {
-        const params: Params = {};
+        const queryParams: Params = {};
         if (discoveryView.facets && discoveryView.facets.length > 0) {
             let facets = '';
             discoveryView.facets.forEach((facet: Facet) => {
                 facets += facets.length > 0 ? `,${facet.field}` : facet.field;
             });
-            params.facets = facets;
+            queryParams.facets = facets;
         }
         if (discoveryView.filters && discoveryView.filters.length > 0) {
             // tslint:disable-next-line:no-shadowed-variable
             discoveryView.filters.forEach((filter: Filter) => {
-                params[`${filter.field}.filter`] = filter.value;
+                queryParams[`${filter.field}.filter`] = filter.value;
             });
         }
         if (query && query.length > 0) {
-            params.query = query;
+            queryParams.query = query;
         }
-        return params;
+        return queryParams;
     }
 
     public onPageChange(request: SdrRequest): void {
+        this.request = request;
         this.store.dispatch(new fromSdr.SearchResourcesAction(request.collection, { request }));
     }
 

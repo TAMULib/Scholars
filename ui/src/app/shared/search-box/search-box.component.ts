@@ -1,17 +1,19 @@
 import { Component, Input, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { Router, Params } from '@angular/router';
+import { Router, Params, UrlTree } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
-import { skipWhile, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { skipWhile, debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 
 import { AppState } from '../../core/store';
+import { DiscoveryView, Facet, Filter } from '../../core/model/view';
 
 import { selectActiveThemeOrganization } from '../../core/store/theme';
 import { selectRouterSearchQuery } from '../../core/store/router';
+import { selectAllResources } from '../../core/store/sdr';
 
 export interface SearchBoxStyles {
     labelColor: string;
@@ -38,6 +40,8 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
 
     public organization: Observable<string>;
 
+    public discoveryViews: Observable<DiscoveryView[]>;
+
     private subscriptions: Subscription[];
 
     constructor(
@@ -54,15 +58,23 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
             query: new FormControl()
         });
         this.organization = this.store.pipe(select(selectActiveThemeOrganization));
+        this.discoveryViews = this.store.pipe(
+            select(selectAllResources<DiscoveryView>('discoveryViews')),
+            filter((discoveryViews: DiscoveryView[]) => discoveryViews.length > 0)
+        );
+
         this.subscriptions.push(this.store.pipe(
             select(selectRouterSearchQuery),
             skipWhile((query: string) => query === undefined)
         ).subscribe((query: string) => this.form.patchValue({ query })));
+
         if (this.live) {
-            this.subscriptions.push(this.form.controls.query.valueChanges.pipe(
-                debounceTime(this.debounce),
-                distinctUntilChanged()
-            ).subscribe(() => this.onSearch()));
+            this.subscriptions.push(this.discoveryViews.subscribe((discoveryViews: DiscoveryView[]) => {
+                this.subscriptions.push(this.form.controls.query.valueChanges.pipe(
+                    debounceTime(this.debounce),
+                    distinctUntilChanged()
+                ).subscribe(() => this.onSearch(discoveryViews)));
+            }));
         }
     }
 
@@ -80,20 +92,42 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
         return isPlatformServer(this.platformId);
     }
 
-    public onSearch(): void {
-        const urlTree = this.router.createUrlTree(this.live ? [] : ['/discovery'], {
-            queryParams: this.getSearchQueryParams(),
-            queryParamsHandling: this.live ? 'merge' : undefined,
-            preserveFragment: true
-        });
+    public onSearch(discoveryViews: DiscoveryView[]): void {
+        const urlTree = this.buildUrlTree(discoveryViews[0]);
         this.router.navigateByUrl(urlTree);
     }
 
-    private getSearchQueryParams(): Params {
+    public getAction(discoveryViews: DiscoveryView[]): string {
+        const urlTree = this.buildUrlTree(discoveryViews[0]);
+        return urlTree.toString();
+    }
+
+    private buildUrlTree(discoveryView: DiscoveryView): UrlTree {
+        return this.router.createUrlTree(this.live ? [] : [`/discovery/${discoveryView.name}`], {
+            queryParams: this.getSearchQueryParams(discoveryView),
+            queryParamsHandling: this.live ? 'merge' : undefined,
+            preserveFragment: true
+        });
+    }
+
+    private getSearchQueryParams(discoveryView: DiscoveryView): Params {
         const queryParams: Params = {
             query: undefined,
             page: this.live ? 1 : undefined
         };
+        if (discoveryView.facets && discoveryView.facets.length > 0) {
+            let facets = '';
+            discoveryView.facets.forEach((facet: Facet) => {
+                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
+            });
+            queryParams.facets = facets;
+        }
+        if (discoveryView.filters && discoveryView.filters.length > 0) {
+            // tslint:disable-next-line:no-shadowed-variable
+            discoveryView.filters.forEach((filter: Filter) => {
+                queryParams[`${filter.field}.filter`] = filter.value;
+            });
+        }
         if (this.form.value.query && this.form.value.query.length > 0) {
             queryParams.query = this.form.value.query;
         }

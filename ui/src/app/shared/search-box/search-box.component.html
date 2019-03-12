@@ -1,11 +1,13 @@
-<form *ngIf="isBrowserRendered()" (ngSubmit)="onSearch()" novalidate>
-  <ng-container *ngTemplateOutlet="searchForm"></ng-container>
-</form>
+<div *ngIf="discoveryViews | async; let discoveryViews">
+  <form *ngIf="isBrowserRendered()" (ngSubmit)="onSearch(discoveryViews)" novalidate>
+    <ng-container *ngTemplateOutlet="searchForm"></ng-container>
+  </form>
 
-<form *ngIf="isServerRendered()" action="/discovery" method="get" novalidate>
-  <ng-container *ngTemplateOutlet="searchForm"></ng-container>
-  <input type="submit" class="d-none" />
-</form>
+  <form *ngIf="isServerRendered()" action="getAction(discoveryViews)" method="get" novalidate>
+    <ng-container *ngTemplateOutlet="searchForm"></ng-container>
+    <input type="submit" class="d-none" />
+  </form>
+</div>
 
 <ng-template #searchForm>
   <div [formGroup]="form" class="form-group search-box text-center">

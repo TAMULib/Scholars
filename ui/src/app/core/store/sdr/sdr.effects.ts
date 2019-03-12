@@ -259,8 +259,11 @@ export class SdrEffects {
         map((action: fromSdr.DeleteResourceFailureAction) => this.alert.deleteFailureAlert(action.payload))
     );
 
-    @Effect() initDirectoryViews = defer(() => {
-        return of(new fromSdr.GetAllResourcesAction('directoryViews'));
+    @Effect({ dispatch: false }) initViews = defer(() => {
+        this.store.dispatch(new fromSdr.GetAllResourcesAction('directoryViews'));
+        setTimeout(() => {
+            this.store.dispatch(new fromSdr.GetAllResourcesAction('discoveryViews'));
+        });
     });
 
     private buildActions(actionType: fromSdr.SdrActionTypes): string[] {

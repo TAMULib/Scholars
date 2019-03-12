@@ -10,11 +10,13 @@ export enum FacetSort {
     INDEX = 'INDEX'
 }
 
+// NOTE: ambigous interface with SdrRequest Facet
 export interface Facet {
     readonly name: string;
     readonly field: string;
     readonly limit: number;
     readonly sort: FacetSort;
+    readonly hidden: boolean;
 }
 
 export interface Filter {
