@@ -15,13 +15,13 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponents;
 
-import edu.tamu.scholars.middleware.discovery.model.Facet;
-import edu.tamu.scholars.middleware.discovery.model.Facet.Entry;
+import edu.tamu.scholars.middleware.discovery.model.SdrFacet;
+import edu.tamu.scholars.middleware.discovery.model.SdrFacetEntry;
 
 @Component
-public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> {
+public class SolrDocumentFacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> {
 
-    public FacetPagedResourcesAssembler(@Nullable HateoasPageableHandlerMethodArgumentResolver resolver, @Nullable UriComponents baseUri) {
+    public SolrDocumentFacetPagedResourcesAssembler(@Nullable HateoasPageableHandlerMethodArgumentResolver resolver, @Nullable UriComponents baseUri) {
         super(resolver, baseUri);
     }
 
@@ -29,35 +29,35 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
     protected <R extends ResourceSupport, S> PagedResources<R> createPagedResource(List<R> resources, PagedResources.PageMetadata metadata, Page<S> page) {
         PagedResources<R> pagedResource = super.createPagedResource(resources, metadata, page);
         if (page instanceof FacetPage) {
-            return new FacetPagedResource<R, S>(pagedResource, (FacetPage<S>) page);
+            return new SolrDocumentFacetPagedResource<R, S>(pagedResource, (FacetPage<S>) page);
         }
         return pagedResource;
     }
 
-    class FacetPagedResource<R extends ResourceSupport, S> extends PagedResources<R> {
+    class SolrDocumentFacetPagedResource<R extends ResourceSupport, S> extends PagedResources<R> {
 
-        private List<Facet> facets;
+        private List<SdrFacet> facets;
 
-        FacetPagedResource(PagedResources<R> pagedResources, FacetPage<S> facetPage) {
+        SolrDocumentFacetPagedResource(PagedResources<R> pagedResources, FacetPage<S> facetPage) {
             super(pagedResources.getContent(), pagedResources.getMetadata(), pagedResources.getLinks());
 
-            List<Facet> facets = new ArrayList<Facet>();
+            List<SdrFacet> facets = new ArrayList<SdrFacet>();
 
             facetPage.getFacetResultPages().forEach(facetFieldEntryPage -> {
 
                 Optional<String> field = Optional.empty();
 
-                List<Entry> entries = new ArrayList<Entry>();
+                List<SdrFacetEntry> entries = new ArrayList<SdrFacetEntry>();
 
                 for (FacetFieldEntry facetFieldEntry : facetFieldEntryPage.getContent()) {
                     if (!field.isPresent()) {
                         field = Optional.of(facetFieldEntry.getField().getName());
                     }
-                    entries.add(new Entry(facetFieldEntry.getValue(), facetFieldEntry.getValueCount()));
+                    entries.add(new SdrFacetEntry(facetFieldEntry.getValue(), facetFieldEntry.getValueCount()));
                 }
 
                 if (field.isPresent()) {
-                    facets.add(new Facet(field.get(), entries, facetFieldEntryPage.getPageable()));
+                    facets.add(new SdrFacet(field.get(), entries, facetFieldEntryPage.getPageable()));
                 }
 
             });
@@ -65,11 +65,11 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
             setFacets(facets);
         }
 
-        public List<Facet> getFacets() {
+        public List<SdrFacet> getFacets() {
             return facets;
         }
 
-        public void setFacets(List<Facet> facets) {
+        public void setFacets(List<SdrFacet> facets) {
             this.facets = facets;
         }
 

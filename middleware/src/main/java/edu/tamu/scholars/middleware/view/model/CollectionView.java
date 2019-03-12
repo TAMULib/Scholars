@@ -96,8 +96,4 @@ public abstract class CollectionView extends View {
         this.filters = filters;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
 }

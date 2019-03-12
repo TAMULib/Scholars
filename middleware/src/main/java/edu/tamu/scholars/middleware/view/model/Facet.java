@@ -1,12 +1,18 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.query.FacetOptions;
 import org.springframework.data.solr.core.query.FacetOptions.FacetSort;
+
+import edu.tamu.scholars.middleware.discovery.model.SdrFacetEntry;
 
 @Embeddable
 public class Facet {
@@ -26,6 +32,12 @@ public class Facet {
 
     @Column(nullable = false)
     private boolean hidden;
+
+    @Transient
+    private List<SdrFacetEntry> entries;
+
+    @Transient
+    private Pageable page;
 
     public Facet() {
         limit = 10;
@@ -71,6 +83,22 @@ public class Facet {
 
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
+    }
+
+    public List<SdrFacetEntry> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(List<SdrFacetEntry> entries) {
+        this.entries = entries;
+    }
+
+    public Pageable getPage() {
+        return page;
+    }
+
+    public void setPage(Pageable page) {
+        this.page = page;
     }
 
 }

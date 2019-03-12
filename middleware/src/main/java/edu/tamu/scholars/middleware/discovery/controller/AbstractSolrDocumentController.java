@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.tamu.scholars.middleware.discovery.assembler.AbstractSolrDocumentResourceAssembler;
-import edu.tamu.scholars.middleware.discovery.assembler.FacetPagedResourcesAssembler;
+import edu.tamu.scholars.middleware.discovery.assembler.SolrDocumentFacetPagedResourcesAssembler;
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
 import edu.tamu.scholars.middleware.discovery.model.repo.SolrDocumentRepo;
 import edu.tamu.scholars.middleware.discovery.resource.AbstractSolrDocumentResource;
@@ -25,7 +25,7 @@ public abstract class AbstractSolrDocumentController<D extends AbstractSolrDocum
     private SDA assembler;
 
     @Autowired
-    private FacetPagedResourcesAssembler<D> pagedResourcesAssembler;
+    private SolrDocumentFacetPagedResourcesAssembler<D> pagedResourcesAssembler;
 
     @GetMapping("/search/facet")
     // @formatter:off

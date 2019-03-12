@@ -1,4 +1,5 @@
 import { View } from './';
+import { SdrFacet } from '../sdr';
 
 export enum Layout {
     LIST = 'LIST',
@@ -10,9 +11,8 @@ export enum FacetSort {
     INDEX = 'INDEX'
 }
 
-export interface Facet {
+export interface Facet extends SdrFacet {
     readonly name: string;
-    readonly field: string;
     readonly limit: number;
     readonly sort: FacetSort;
 }
