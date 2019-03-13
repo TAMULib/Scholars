@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 
 import { AboutComponent } from './about.component';
+import { LoaderDirective } from '../../shared/loader/loader.directive';
 
 import { metaReducers, reducers } from '../../core/store';
 
@@ -14,7 +15,8 @@ describe('AboutComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AboutComponent
+                AboutComponent,
+                LoaderDirective
             ],
             imports: [
                 StoreModule.forRoot(reducers, {
