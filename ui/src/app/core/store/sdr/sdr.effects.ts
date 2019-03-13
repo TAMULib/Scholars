@@ -1,20 +1,23 @@
 import { Injectable, Injector } from '@angular/core';
+import { Params } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 
-import { of, combineLatest, defer } from 'rxjs';
+import { of, combineLatest, defer, Observable } from 'rxjs';
 import { map, switchMap, catchError, withLatestFrom, skipWhile, take, filter } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
 
 import { AppState } from '../';
-import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
+import { StompState } from '../stomp/stomp.reducer';
 import { CustomRouterState } from '../router/router.reducer';
-import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
-import { OperationKey, FacetSort, Facet, DiscoveryView, DirectoryView } from '../../model/view';
-import { Params } from '@angular/router';
+
+import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
+
 import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry } from '../../model/sdr';
 import { SidebarMenu, SidebarSection, SidebarItem } from '../../model/sidebar';
+import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
+import { OperationKey, FacetSort, Facet, DiscoveryView, DirectoryView } from '../../model/view';
 
 import { injectable, repos } from '../../model/repos';
 
@@ -46,7 +49,25 @@ export class SdrEffects {
     // TODO: alerts should be in dialog location if a dialog is opened
 
     @Effect() getAll = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL)),
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL, ['directoryViews', 'discoveryViews'])),
+        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
+    );
+
+    @Effect({ dispatch: false }) getAllSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, ['directoryViews', 'discoveryViews'])),
+        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
+    );
+
+
+    @Effect() getAllFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE, ['directoryViews', 'discoveryViews'])),
+        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
+    );
+
+    @Effect() getDirectoryViews = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'directoryViews')),
         switchMap((action: fromSdr.GetAllResourcesAction) =>
             this.repos.get(action.name).getAll().pipe(
                 map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(action.name, { collection })),
@@ -55,78 +76,45 @@ export class SdrEffects {
         )
     );
 
-    @Effect({ dispatch: false }) getAllSuccess = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS)),
-        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => combineLatest(
-            of(action.name),
-            this.store.pipe(
-                select(selectIsStompConnected),
-                skipWhile((connected: boolean) => !connected),
-                take(1)
-            )
-        )),
+    @Effect({ dispatch: false }) getDirectoryViewsSuccess = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, 'directoryViews')),
+        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
         withLatestFrom(this.store.pipe(select(selectStompState))),
-        map(([combination, stomp]) => {
-            const name = combination[0];
-
-            if (name === 'directoryViews') {
-                this.store.dispatch(new fromSdr.GetAllResourcesAction('discoveryViews'));
-            }
-
-            if (!stomp.subscriptions.has(`/queue/${name}`)) {
-                this.store.dispatch(new fromStomp.SubscribeAction({
-                    channel: `/queue/${name}`,
-                    handle: (frame: any) => {
-                        // TODO: conditionally reload all
-                        if (frame.command === 'MESSAGE') {
-                            console.log(frame);
-                        }
-                    }
-                }));
-            }
-        })
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
     );
 
-    @Effect() getAllFailure = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE)),
+    @Effect() getDirectoryViewsFailure = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'directoryViews')),
+        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
+    );
+
+    @Effect() getDiscoveryViews = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'discoveryViews')),
+        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
+    );
+
+    @Effect({ dispatch: false }) getDiscoveryViewsSuccess = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, 'discoveryViews')),
+        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
+    );
+
+    @Effect() getDiscoveryViewsFailure = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'discoveryViews')),
         map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
     );
 
     @Effect() page = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE)),
-        switchMap((action: fromSdr.PageResourcesAction) =>
-            this.repos.get(action.name).page(action.payload.request).pipe(
-                map((collection: SdrCollection) => new fromSdr.PageResourcesSuccessAction(action.name, { collection })),
-                catchError((response) => of(new fromSdr.PageResourcesFailureAction(action.name, { response })))
-            )
-        )
+        switchMap((action: fromSdr.PageResourcesAction) => this.getAllHandler(action.name))
     );
 
     @Effect({ dispatch: false }) pageSuccess = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE_SUCCESS)),
-        switchMap((action: fromSdr.PageResourcesSuccessAction) => combineLatest(
-            of(action.name),
-            this.store.pipe(
-                select(selectIsStompConnected),
-                skipWhile((connected: boolean) => !connected),
-                take(1)
-            )
-        )),
+        switchMap((action: fromSdr.PageResourcesSuccessAction) => this.waitForStompConnection(action.name)),
         withLatestFrom(this.store.pipe(select(selectStompState))),
-        map(([combination, stomp]) => {
-            const name = combination[0];
-            if (!stomp.subscriptions.has(`/queue/${name}`)) {
-                this.store.dispatch(new fromStomp.SubscribeAction({
-                    channel: `/queue/${name}`,
-                    handle: (frame: any) => {
-                        // TODO: conditionally reload page
-                        if (frame.command === 'MESSAGE') {
-                            console.log(frame);
-                        }
-                    }
-                }));
-            }
-        })
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
     );
 
     @Effect() pageFailure = this.actions.pipe(
@@ -164,91 +152,7 @@ export class SdrEffects {
             )
         )),
         withLatestFrom(this.store),
-        map(([combination, store]) => {
-            const action = combination[0];
-            const router = combination[1];
-
-            if (router.state.queryParams.collection) {
-
-                let facets: Facet[] = [];
-
-                if (router.state.url.startsWith('/directory')) {
-                    facets = store['directoryViews'].entities[router.state.params.view].facets;
-                } else if (router.state.url.startsWith('/discovery')) {
-                    facets = store['discoveryViews'].entities[router.state.params.view].facets;
-                }
-
-                const sdrFacets: SdrFacet[] = action.payload.collection.facets;
-
-                const sidebarMenu: SidebarMenu = {
-                    sections: [],
-                    collapsible: { allowed: true }
-                };
-
-                facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
-
-                    for (const sdrFacet of sdrFacets) {
-
-                        if (sdrFacet.field === facet.field) {
-
-                            const sidebarSection: SidebarSection = {
-                                title: of(facet.name),
-                                items: [],
-                                collapsible: { allowed: true }
-                            };
-
-                            sdrFacet.entries.forEach((facetEntry: SdrFacetEntry) => {
-
-                                let checked = false;
-
-                                for (const requestFacet of router.state.queryParams.facets.split(',')) {
-                                    if (router.state.queryParams[`${requestFacet}.filter`] === facetEntry.value) {
-                                        checked = true;
-                                        break;
-                                    }
-                                }
-
-                                const sidebarItem: SidebarItem = {
-                                    label: of(facetEntry.value),
-                                    total: facetEntry.count,
-                                    route: [],
-                                    checkbox: {
-                                        id: facet.field,
-                                        name: facet.name,
-                                        type: 'checkbox',
-                                        value: checked
-                                    },
-                                    queryParams: {}
-                                };
-
-                                sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !checked ? facetEntry.value : undefined;
-
-                                sidebarSection.items.push(sidebarItem);
-
-                            });
-                            sidebarMenu.sections.push(sidebarSection);
-                            break;
-                        }
-                    }
-                });
-
-                if (sidebarMenu.sections.length > 0) {
-                    this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
-                }
-            }
-
-            if (!store.stomp.subscriptions.has(`/queue/${action.name}`)) {
-                this.store.dispatch(new fromStomp.SubscribeAction({
-                    channel: `/queue/${action.name}`,
-                    handle: (frame: any) => {
-                        // TODO: conditionally reload search
-                        if (frame.command === 'MESSAGE') {
-                            console.log(frame);
-                        }
-                    }
-                }));
-            }
-        })
+        map(([combination, store]) => this.searchSuccessHandler(combination[0], combination[1].state, store))
     );
 
     @Effect() searchFailure = this.actions.pipe(
@@ -372,17 +276,7 @@ export class SdrEffects {
         })
     );
 
-    @Effect() initDirectoryViews = defer(() => of(new fromSdr.GetAllResourcesAction('directoryViews')));
-
-    private buildActions(actionType: fromSdr.SdrActionTypes): string[] {
-        const loadActions = [];
-        for (const name in repos) {
-            if (repos.hasOwnProperty(name)) {
-                loadActions.push(fromSdr.getSdrAction(actionType, name));
-            }
-        }
-        return loadActions;
-    }
+    @Effect() initViews = defer(() => of(new fromSdr.GetAllResourcesAction('directoryViews'), new fromSdr.GetAllResourcesAction('discoveryViews')));
 
     private injectRepos(): void {
         const injector = Injector.create({
@@ -394,6 +288,121 @@ export class SdrEffects {
                 this.repos.set(name, injector.get<AbstractSdrRepo<SdrResource>>(repos[name]));
             }
         }
+    }
+
+    private buildActions(actionType: fromSdr.SdrActionTypes, exclude: string[] = []): string[] {
+        const loadActions = [];
+        for (const name in repos) {
+            if (repos.hasOwnProperty(name) && !exclude.includes(name)) {
+                loadActions.push(fromSdr.getSdrAction(actionType, name));
+            }
+        }
+        return loadActions;
+    }
+
+    private waitForStompConnection(name: string): Observable<[string, boolean]> {
+        return combineLatest(
+            of(name),
+            this.store.pipe(
+                select(selectIsStompConnected),
+                skipWhile((connected: boolean) => !connected),
+                take(1)
+            )
+        );
+    }
+
+    private subscribeToResourceQueue(name: string, stomp: StompState): void {
+        if (!stomp.subscriptions.has(`/queue/${name}`)) {
+            this.store.dispatch(new fromStomp.SubscribeAction({
+                channel: `/queue/${name}`,
+                handle: (frame: any) => {
+                    // TODO: conditionally reload all
+                    if (frame.command === 'MESSAGE') {
+                        console.log(frame);
+                    }
+                }
+            }));
+        }
+    }
+
+    private getAllHandler(name: string): Observable<fromSdr.GetAllResourcesSuccessAction | fromSdr.GetAllResourcesFailureAction> {
+        return this.repos.get(name).getAll().pipe(
+            map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(name, { collection })),
+            catchError((response) => of(new fromSdr.GetAllResourcesFailureAction(name, { response })))
+        );
+    }
+
+    private searchSuccessHandler(action: fromSdr.SearchResourcesSuccessAction, routerState: CustomRouterState, store: AppState): void {
+        if (routerState.queryParams.collection) {
+
+            let facets: Facet[] = [];
+
+            if (routerState.url.startsWith('/directory')) {
+                facets = store['directoryViews'].entities[routerState.params.view].facets;
+            } else if (routerState.url.startsWith('/discovery')) {
+                facets = store['discoveryViews'].entities[routerState.params.view].facets;
+            }
+
+            const sdrFacets: SdrFacet[] = action.payload.collection.facets;
+
+            const sidebarMenu: SidebarMenu = {
+                sections: [],
+                collapsible: { allowed: true }
+            };
+
+            facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
+
+                for (const sdrFacet of sdrFacets) {
+
+                    if (sdrFacet.field === facet.field) {
+
+                        const sidebarSection: SidebarSection = {
+                            title: of(facet.name),
+                            items: [],
+                            collapsible: { allowed: true }
+                        };
+
+                        sdrFacet.entries.forEach((facetEntry: SdrFacetEntry) => {
+
+                            let checked = false;
+
+                            for (const requestFacet of routerState.queryParams.facets.split(',')) {
+                                if (routerState.queryParams[`${requestFacet}.filter`] === facetEntry.value) {
+                                    checked = true;
+                                    break;
+                                }
+                            }
+
+                            const sidebarItem: SidebarItem = {
+                                label: of(facetEntry.value),
+                                total: facetEntry.count,
+                                route: [],
+                                checkbox: {
+                                    id: facet.field,
+                                    name: facet.name,
+                                    type: 'checkbox',
+                                    value: checked
+                                },
+                                queryParams: {}
+                            };
+
+                            sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !checked ? facetEntry.value : undefined;
+
+                            sidebarSection.items.push(sidebarItem);
+
+                        });
+                        sidebarMenu.sections.push(sidebarSection);
+                        break;
+                    }
+                }
+            });
+
+            if (sidebarMenu.sections.length > 0) {
+                this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
+            }
+        }
+
+        this.subscribeToResourceQueue(action.name, store.stomp);
     }
 
     private createSdrRequest(routerState: CustomRouterState): SdrRequest {

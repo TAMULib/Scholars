@@ -90,7 +90,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
             }
 
             if (this.view.filters && this.view.filters.length > 0) {
-                // tslint:disable-next-line:no-shadowed-variable
                 this.view.filters.forEach((filter: Filter) => {
                     const field = {};
                     field[`${filter.field}.filter`] = filter.value;
@@ -128,7 +127,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     }
 
     public onSearch(): void {
-        console.log('here');
         const queryParams: Params = this.getDiscoveryQueryParams(this.form.value.query);
         const urlTree = this.buildUrlTree(queryParams);
         this.router.navigateByUrl(urlTree);
@@ -154,7 +152,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
             queryParams.facets = facets;
         }
         if (this.view.filters && this.view.filters.length > 0) {
-            // tslint:disable-next-line:no-shadowed-variable
             this.view.filters.forEach((filter: Filter) => {
                 queryParams[`${filter.field}.filter`] = filter.value;
             });
