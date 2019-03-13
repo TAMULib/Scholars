@@ -8,14 +8,11 @@ import { filter } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { SdrRequest } from '../core/model/request';
-import { CollectionView, DirectoryView } from '../core/model/view';
+import { DirectoryView, Facet, Filter, DiscoveryView } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
-import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
-
-import * as fromSdr from '../core/store/sdr/sdr.actions';
+import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById, selectDefaultDiscoveryView } from '../core/store/sdr';
 
 @Component({
     selector: 'scholars-directory',
@@ -24,7 +21,9 @@ import * as fromSdr from '../core/store/sdr/sdr.actions';
 })
 export class DirectoryComponent implements OnDestroy, OnInit {
 
-    public directoryView: Observable<CollectionView>;
+    public directoryView: Observable<DirectoryView>;
+
+    public discoveryView: Observable<DiscoveryView>;
 
     public documents: Observable<SolrDocument[]>;
 
@@ -48,40 +47,56 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
+        this.discoveryView = this.store.pipe(
+            select(selectDefaultDiscoveryView),
+            filter((view: DiscoveryView) => view !== undefined)
+        );
         this.subscriptions.push(this.route.params.subscribe((params) => {
-            if (params.name) {
+            if (params.view) {
                 this.directoryView = this.store.pipe(
-                    select(selectResourceById('directoryViews', params.name)),
-                    filter((directoryView: CollectionView) => directoryView !== undefined)
+                    select(selectResourceById('directoryViews', params.view)),
+                    filter((view: DirectoryView) => view !== undefined)
                 );
-                this.subscriptions.push(this.directoryView.subscribe((directoryView: CollectionView) => {
+                this.subscriptions.push(this.directoryView.subscribe((directoryView: DirectoryView) => {
                     this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(directoryView.collection)));
                     this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(directoryView.collection)));
                     this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(directoryView.collection)));
                 }));
             }
         }));
+
     }
 
-    public getRouterLink(directoryView: DirectoryView): string[] {
+    public getDirectoryRouterLink(directoryView: DirectoryView): string[] {
         return ['/directory', directoryView.name];
     }
 
-    public getQueryParams(directoryView: DirectoryView, option: string): Params {
-        return {
-            index: `${directoryView.index.field},${directoryView.index.operationKey},${option}`,
-            sort: `${directoryView.index.field},asc`
-        };
+    public getDirectoryQueryParams(directoryView: DirectoryView, option: string): Params {
+        const queryParams: Params = this.getResetQueryParams(directoryView);
+        queryParams.index = `${directoryView.index.field},${directoryView.index.operationKey},${option}`;
+        return queryParams;
     }
 
     public getResetQueryParams(directoryView: DirectoryView): Params {
-        return {
-            sort: `${directoryView.index.field},asc`
-        };
-    }
-
-    public onPageChange(request: SdrRequest): void {
-        this.store.dispatch(new fromSdr.SearchResourcesAction(request.collection, { request }));
+        const queryParams: Params = {};
+        queryParams.collection = directoryView.collection;
+        queryParams.sort = `${directoryView.index.field},asc`;
+        queryParams.index = undefined;
+        if (directoryView.facets && directoryView.facets.length > 0) {
+            let facets = '';
+            directoryView.facets.forEach((facet: Facet) => {
+                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
+            });
+            queryParams.facets = facets;
+        }
+        if (directoryView.filters && directoryView.filters.length > 0) {
+            // tslint:disable-next-line:no-shadowed-variable
+            directoryView.filters.forEach((filter: Filter) => {
+                queryParams[`${filter.field}.filter`] = filter.value;
+            });
+        }
+        queryParams.sort = `${directoryView.index.field},asc`;
+        return queryParams;
     }
 
 }

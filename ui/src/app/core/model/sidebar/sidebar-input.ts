@@ -2,8 +2,7 @@ export interface SidebarInput {
     id: string;
     name: string;
     type: string;
-    value?: string;
-    checked?: boolean;
+    value?: string | boolean;
     placeholder?: string;
     classes?: string;
 }

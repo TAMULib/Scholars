@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { RestService } from '../../../service/rest.service';
 import { SdrRepo } from './sdr-repo';
 
-import { Sort, Facet, SdrRequest } from '../../request';
+import { Sort, Facetable, SdrRequest } from '../../request';
 import { SdrResource } from '../sdr-resource';
 import { SdrCollection } from '../sdr-collection';
 
@@ -66,16 +66,18 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
     protected mapParameters(request: SdrRequest): String {
         const parameters: string[] = [];
 
-        if (request.pageable.number) {
-            parameters.push(`page=${(request.pageable.number)}`);
-        }
-        if (request.pageable.size) {
-            parameters.push(`size=${request.pageable.size}`);
-        }
-        if (request.pageable.sort && request.pageable.sort.length > 0) {
-            request.pageable.sort.forEach((sort: Sort) => {
-                parameters.push(`sort=${encodeURIComponent(sort.name)},${sort.direction}`);
-            });
+        if (request.pageable) {
+            if (request.pageable.number) {
+                parameters.push(`page=${(request.pageable.number)}`);
+            }
+            if (request.pageable.size) {
+                parameters.push(`size=${request.pageable.size}`);
+            }
+            if (request.pageable.sort && request.pageable.sort.length > 0) {
+                request.pageable.sort.forEach((sort: Sort) => {
+                    parameters.push(`sort=${encodeURIComponent(sort.name)},${sort.direction}`);
+                });
+            }
         }
 
         if (request.query && request.query.length > 0) {
@@ -88,7 +90,7 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
 
         if (request.facets && request.facets.length > 0) {
             const fields: string[] = [];
-            request.facets.forEach((facet: Facet) => {
+            request.facets.forEach((facet: Facetable) => {
                 fields.push(facet.field);
                 ['limit', 'offset', 'sort'].forEach((key: string) => {
                     if (facet[key]) {

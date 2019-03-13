@@ -6,6 +6,7 @@ import {
 import { SdrResource } from '../../model/sdr';
 
 import * as fromSdr from './sdr.reducer';
+import { DiscoveryView } from '../../model/view';
 
 export const selectSdrState = <R extends SdrResource>(name: string) => createFeatureSelector<fromSdr.SdrState<R>>(name);
 
@@ -25,4 +26,12 @@ export const selectResourcesLinks = <R extends SdrResource>(name: string) => cre
 export const selectResourceById = <R extends SdrResource>(name: string, id: string) => createSelector(
     selectReousrceEntities<R>(name),
     resources => resources[id]
+);
+
+export const selectDefaultDiscoveryView = createSelector(
+    selectReousrceIds<DiscoveryView>('discoveryViews'),
+    selectReousrceEntities<DiscoveryView>('discoveryViews'),
+    (ids, resources) => {
+        return resources[ids[0]] ? resources[ids[0]] : undefined;
+    }
 );

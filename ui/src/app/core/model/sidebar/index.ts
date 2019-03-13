@@ -1,7 +1,6 @@
-export { SidebarMenu } from './sidebar-menu';
+export { SidebarField } from './sidebar-field';
 export { SidebarItem } from './sidebar-item';
+export { SidebarInput } from './sidebar-input';
+export { SidebarLabel } from './sidebar-label';
+export { SidebarMenu } from './sidebar-menu';
 export { SidebarSection } from './sidebar-section';
-
-import { SidebarField } from './sidebar-field';
-import { SidebarInput } from './sidebar-input';
-import { SidebarLabel } from './sidebar-label';

@@ -46,11 +46,11 @@ export class RouterEffects {
         map(() => this.location.forward())
     );
 
-    @Effect() navigation = this.actions.pipe(
+    @Effect() redirect = this.actions.pipe(
         ofType(fromRouter.RouterActionTypes.CHANGED),
         withLatestFrom(this.store.pipe(select(selectLoginRedirect))),
-        map(([action, navigation]) => navigation),
-        skipWhile((navigation: fromRouter.RouterNavigation) => navigation === undefined),
+        map(([action, redirect]) => redirect),
+        skipWhile((redirect: fromRouter.RouterNavigation) => redirect === undefined),
         map(() => new fromAuth.UnsetLoginRedirectAction())
     );
 

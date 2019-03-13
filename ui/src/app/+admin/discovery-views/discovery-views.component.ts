@@ -5,12 +5,9 @@ import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
 import { SdrPage } from '../../core/model/sdr';
-import { SdrRequest } from '../../core/model/request';
 import { DiscoveryView } from '../../core/model/view';
 
 import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
-
-import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
 @Component({
     selector: 'scholars-discovery-views',
@@ -31,10 +28,6 @@ export class DiscoveryViewsComponent implements OnInit {
     ngOnInit() {
         this.discoveryViews = this.store.pipe(select(selectAllResources<DiscoveryView>('discoveryViews')));
         this.page = this.store.pipe(select(selectResourcesPage<DiscoveryView>('discoveryViews')));
-    }
-
-    public onPageChange(request: SdrRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction(request.collection, { request }));
     }
 
 }

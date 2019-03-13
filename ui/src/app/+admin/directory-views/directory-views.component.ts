@@ -5,12 +5,9 @@ import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
 import { SdrPage } from '../../core/model/sdr';
-import { SdrRequest } from '../../core/model/request';
 import { DirectoryView } from '../../core/model/view';
 
 import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
-
-import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
 @Component({
     selector: 'scholars-directory-views',
@@ -31,10 +28,6 @@ export class DirectoryViewsComponent implements OnInit {
     ngOnInit() {
         this.directoryViews = this.store.pipe(select(selectAllResources<DirectoryView>('directoryViews')));
         this.page = this.store.pipe(select(selectResourcesPage<DirectoryView>('directoryViews')));
-    }
-
-    public onPageChange(request: SdrRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction(request.collection, { request }));
     }
 
 }

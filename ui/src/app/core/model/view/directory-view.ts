@@ -5,7 +5,7 @@ export enum OperationKey {
     // BETWEEN = 'BETWEEN',
     CONTAINS = 'CONTAINS',
     ENDS_WITH = 'ENDS_WITH',
-    // EQUALS = 'EQUALS',
+    EQUALS = 'EQUALS',
     EXPRESSION = 'EXPRESSION',
     // FUNCTION = 'FUNCTION',
     FUZZY = 'FUZZY',

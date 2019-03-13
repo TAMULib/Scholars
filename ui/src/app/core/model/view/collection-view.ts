@@ -15,6 +15,7 @@ export interface Facet {
     readonly field: string;
     readonly limit: number;
     readonly sort: FacetSort;
+    readonly hidden: boolean;
 }
 
 export interface Filter {

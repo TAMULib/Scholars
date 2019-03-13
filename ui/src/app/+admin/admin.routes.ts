@@ -11,26 +11,30 @@ export const routes: Routes = [
     {
         path: '', component: AdminComponent, children: [
             {
-                path: 'directroyViews', component: DirectoryViewsComponent, data: {
+                path: 'DirectoryViews', component: DirectoryViewsComponent, data: {
+                    collection: 'directoryViews',
                     tags: [{ name: 'view', content: 'Scholars Administration - Directory Views' }]
                 }
             },
             {
-                path: 'discoveryViews', component: DiscoveryViewsComponent, data: {
+                path: 'DiscoveryViews', component: DiscoveryViewsComponent, data: {
+                    collection: 'discoveryViews',
                     tags: [{ name: 'view', content: 'Scholars Administration - Discovery Views' }]
                 }
             },
             {
-                path: 'themes', component: ThemesComponent, data: {
+                path: 'Themes', component: ThemesComponent, data: {
+                    collection: 'themes',
                     tags: [{ name: 'view', content: 'Scholars Administration - Themes' }]
                 }
             },
             {
-                path: 'users', component: UsersComponent, data: {
+                path: 'Users', component: UsersComponent, data: {
+                    collection: 'users',
                     tags: [{ name: 'view', content: 'Scholars Administration - Users' }]
                 }
             },
-            { path: '**', redirectTo: 'directroyViews' }
+            { path: '**', redirectTo: 'DirectoryViews' }
         ]
     }
 ];

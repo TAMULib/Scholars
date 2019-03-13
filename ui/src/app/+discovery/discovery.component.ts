@@ -8,15 +8,12 @@ import { filter } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { SdrRequest } from '../core/model/request';
-import { CollectionView, DiscoveryView, Filter, Facet } from '../core/model/view';
+import { DiscoveryView, Filter, Facet } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
 import { selectRouterSearchQuery, selectRouterUrl } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
-
-import * as fromSdr from '../core/store/sdr/sdr.actions';
 
 @Component({
     selector: 'scholars-discovery',
@@ -31,7 +28,7 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
 
     public discoveryViews: Observable<DiscoveryView[]>;
 
-    public discoveryView: Observable<CollectionView>;
+    public discoveryView: Observable<DiscoveryView>;
 
     public documents: Observable<SolrDocument[]>;
 
@@ -58,14 +55,13 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         this.url = this.store.pipe(select(selectRouterUrl));
         this.query = this.store.pipe(select(selectRouterSearchQuery));
         this.discoveryViews = this.store.pipe(select(selectAllResources<DiscoveryView>('discoveryViews')));
-        this.store.dispatch(new fromSdr.GetAllResourcesAction('discoveryViews'));
         this.subscriptions.push(this.route.params.subscribe((params) => {
-            if (params.name) {
+            if (params.view) {
                 this.discoveryView = this.store.pipe(
-                    select(selectResourceById('discoveryViews', params.name)),
-                    filter((discoveryView: CollectionView) => discoveryView !== undefined)
+                    select(selectResourceById('discoveryViews', params.view)),
+                    filter((view: DiscoveryView) => view !== undefined)
                 );
-                this.subscriptions.push(this.discoveryView.subscribe((discoveryView: CollectionView) => {
+                this.subscriptions.push(this.discoveryView.subscribe((discoveryView: DiscoveryView) => {
                     this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(discoveryView.collection)));
                     this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(discoveryView.collection)));
                     this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(discoveryView.collection)));
@@ -83,28 +79,25 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
     }
 
     public getDiscoveryQueryParams(discoveryView: DiscoveryView, query: string): Params {
-        const params: Params = {};
+        const queryParams: Params = {};
+        queryParams.collection = discoveryView.collection;
         if (discoveryView.facets && discoveryView.facets.length > 0) {
             let facets = '';
             discoveryView.facets.forEach((facet: Facet) => {
                 facets += facets.length > 0 ? `,${facet.field}` : facet.field;
             });
-            params.facets = facets;
+            queryParams.facets = facets;
         }
         if (discoveryView.filters && discoveryView.filters.length > 0) {
             // tslint:disable-next-line:no-shadowed-variable
             discoveryView.filters.forEach((filter: Filter) => {
-                params[`${filter.field}.filter`] = filter.value;
+                queryParams[`${filter.field}.filter`] = filter.value;
             });
         }
         if (query && query.length > 0) {
-            params.query = query;
+            queryParams.query = query;
         }
-        return params;
-    }
-
-    public onPageChange(request: SdrRequest): void {
-        this.store.dispatch(new fromSdr.SearchResourcesAction(request.collection, { request }));
+        return queryParams;
     }
 
 }
