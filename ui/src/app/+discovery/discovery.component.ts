@@ -12,7 +12,7 @@ import { DiscoveryView, Filter, Facet } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
-import { selectRouterSearchQuery, selectRouterUrl } from '../core/store/router';
+import { selectRouterSearchQuery, selectRouterUrl, selectRouterQueryParamFilters } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
 
 @Component({
@@ -25,6 +25,8 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
     public url: Observable<string>;
 
     public query: Observable<string>;
+
+    public filters: Observable<any[]>;
 
     public discoveryViews: Observable<DiscoveryView[]>;
 
@@ -54,6 +56,7 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
     ngOnInit() {
         this.url = this.store.pipe(select(selectRouterUrl));
         this.query = this.store.pipe(select(selectRouterSearchQuery));
+        this.filters = this.store.pipe(select(selectRouterQueryParamFilters));
         this.discoveryViews = this.store.pipe(select(selectAllResources<DiscoveryView>('discoveryViews')));
         this.subscriptions.push(this.route.params.subscribe((params) => {
             if (params.view) {
@@ -74,11 +77,21 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         return url.startsWith(`/discovery/${discoveryView.name}`);
     }
 
+    public showFilter(discoveryView: DiscoveryView, actualFilter: Filter): boolean {
+        // tslint:disable-next-line:no-shadowed-variable
+        for (const filter of discoveryView.filters) {
+            if (this.equals(filter, actualFilter)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public getDiscoveryRouteLink(discoveryView: DiscoveryView): string[] {
         return ['/discovery', discoveryView.name];
     }
 
-    public getDiscoveryQueryParams(discoveryView: DiscoveryView, query: string): Params {
+    public getDiscoveryQueryParams(discoveryView: DiscoveryView, query: string, filters: Filter[] = [], removeFilter: Filter): Params {
         const queryParams: Params = {};
         queryParams.collection = discoveryView.collection;
         if (discoveryView.facets && discoveryView.facets.length > 0) {
@@ -94,10 +107,18 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
                 queryParams[`${filter.field}.filter`] = filter.value;
             });
         }
+        // tslint:disable-next-line:no-shadowed-variable
+        filters.filter((filter: Filter) => !this.equals(filter, removeFilter)).forEach((filter: Filter) => {
+            queryParams[`${filter.field}.filter`] = filter.value;
+        });
         if (query && query.length > 0) {
             queryParams.query = query;
         }
         return queryParams;
+    }
+
+    private equals(filterOne: Filter, filterTwo: Filter): boolean {
+        return filterOne.field === filterTwo.field && filterOne.value === filterTwo.value;
     }
 
 }
