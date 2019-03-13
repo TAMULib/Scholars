@@ -1,12 +1,9 @@
-import {
-    createSelector,
-    createFeatureSelector
-} from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
+import { DiscoveryView } from '../../model/view';
 import { SdrResource } from '../../model/sdr';
 
 import * as fromSdr from './sdr.reducer';
-import { DiscoveryView } from '../../model/view';
 
 export const selectSdrState = <R extends SdrResource>(name: string) => createFeatureSelector<fromSdr.SdrState<R>>(name);
 
@@ -31,7 +28,5 @@ export const selectResourceById = <R extends SdrResource>(name: string, id: stri
 export const selectDefaultDiscoveryView = createSelector(
     selectReousrceIds<DiscoveryView>('discoveryViews'),
     selectReousrceEntities<DiscoveryView>('discoveryViews'),
-    (ids, resources) => {
-        return resources[ids[0]] ? resources[ids[0]] : undefined;
-    }
+    (ids, resources) => resources[ids[0]] ? resources[ids[0]] : undefined
 );

@@ -10,7 +10,7 @@
           <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" aria-role="link" [attr.aria-label]="'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate">
             <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
               <label class="item-label" *ngIf="item.checkbox !== undefined">
-                <input class="item-checkbox mr-2 pb-1" type="checkbox" [checked]="item.checkbox.value">
+                <input class="item-checkbox mr-2 pb-1" type="checkbox" [checked]="item.checkbox.value" disabled>
               </label>
               <span class="item-label">{{item.label | async}}</span>
             </a>

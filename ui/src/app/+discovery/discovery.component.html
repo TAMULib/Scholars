@@ -9,9 +9,20 @@
 </div>
 <scholars-sidebar>
   <div class="container mt-2" *ngIf="discoveryView | async; let discoveryView">
-    <h3 class="text-primary">{{ discoveryView.name }}</h3>
-    <p>{{query | async}}</p>
-    <ul role="tablist" class="list-unstyled" *ngIf="discoveryViews | async; let discoveryViews" [ngClass]="{ 'nav flex-column nav-pills': false, 'nav nav-tabs nav-fill': true }">
+    <h4 class="text-primary">
+      <span class="mr-2">Search results for:</span>
+      <span>{{query | async}}</span>
+    </h4>
+    <div class="applied-filters mt-2" *ngIf="filters | async; let filters">
+      <span class="badge badge-primary p-2 mr-2 mb-2" *ngFor="let filter of filters">
+        <span *ngIf="showFilter(discoveryView, filter)">
+          <span class="mr-1">{{filter.field}}:</span>
+          <span class="mr-2">{{filter.value}}</span>
+          <a class="fa fa-close" [routerLink]="getDiscoveryRouteLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, query | async, filters, filter)"></a>
+        </span>
+      </span>
+    </div>
+    <ul role="tablist" class="list-unstyled mt-3" *ngIf="discoveryViews | async; let discoveryViews" [ngClass]="{ 'nav flex-column nav-pills': false, 'nav nav-tabs nav-fill': true }">
       <li class="nav-item" *ngFor="let discoveryView of discoveryViews">
         <a class="nav-link" [routerLink]="getDiscoveryRouteLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, query | async)" [class.active]="isActive(discoveryView, url | async)">{{ discoveryView.name }}</a>
       </li>
