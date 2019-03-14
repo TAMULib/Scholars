@@ -8,9 +8,9 @@
   </div>
 </div>
 
-<div class="container mt-2" [scholarsLoader]="isAnotherLoading()" loaderType="linear" loaderPosition="top center">
+<div class="container mt-2">
   <h3 class="text-primary">{{ 'DASHBOARD.ABOUT.TITLE' | translate }}</h3>
-  <p [scholarsLoader]="isLoading()" loaderType="circular" loaderPosition="center center">Scholars@TAMU is a profile system that hosts searchable expertise for faculty and TAMU organizations by gathering data from institution-level/enterprise systems,
+  <p>Scholars@TAMU is a profile system that hosts searchable expertise for faculty and TAMU organizations by gathering data from institution-level/enterprise systems,
     publicly available research data (e.g., grants and publications), and other authoritative sources. The data is compiled into a profile that you can edit to best represent your
     scholarship and expertise.This system helps to:
   </p>
@@ -20,14 +20,14 @@
     <li>Facilitate new research collaborations.</li>
   </ul>
 
-  <p><strong [scholarsLoader]="isLoading()" loaderType="linear" loaderPosition="center center">Information Sheets</strong></p>
+  <p><strong>Information Sheets</strong></p>
   <ul>
     <li><a href="http://scholars.library.tamu.edu/pdf/Scholars%20Admin%20Info%20Sheet.pdf">Benefits for Administrators</a></li>
     <li><a href="http://scholars.library.tamu.edu/pdf/Scholars%20Faculty%20Info%20Sheet.pdf">Benefits for Faculty</a></li>
   </ul>
 
-  <div class="container text-center mb-2">
-    <iframe allowfullscreen="allowfullscreen" frameborder="0" height="300" src="https://www.youtube.com/embed/XTs0LmChNWM?rel=0" width="535"></iframe>
+  <div id="about-iframe-video" class="container mb-2">
+    <iframe allowfullscreen="allowfullscreen" frameborder="0" height="300" src="https://www.youtube.com/embed/XTs0LmChNWM?rel=0"></iframe>
   </div>
 
   <h3 class="text-primary">{{ 'DASHBOARD.ABOUT.NEW_SCHOLARS_TITLE' | translate }}</h3>
@@ -45,7 +45,7 @@
   </ul>
 
   <p><strong>Explore Scholars@TAMU</strong></p>
-  <ul [scholarsLoader]="isLoading()" loaderType="circular" loaderPosition="center left">
+  <ul>
     <li>Search by keywords to identify potential collaborators</li>
     <li>Find scholars by&#160;<a href="http://scholars.library.tamu.edu/vivo/people/">name</a></li>
     <li>Browse&#160;<a href="http://scholars.library.tamu.edu/vivo/organizations#http://vivoweb.org/ontology/core#College">colleges</a>,&#160;

@@ -7,24 +7,16 @@ export enum LoaderType {
     LINEAR = 'linear'
 }
 
-export enum LoaderPosition {
-    CENTER = 'center center',
-    TOP = 'center top',
-    BOTTOM = 'center bottom',
-    LEFT = 'left center',
-    TOP_LEFT = 'left top',
-    BOTTOM_LEFT = 'left bottom',
-    RIGHT = 'right center',
-    TOP_RIGHT = 'right top',
-    BOTTOM_RIGHT = 'right bottom'
-}
-
-interface StyledElement {
-    element: any;
-    filter: string;
-    pointerEvents: string;
+interface BlurStyles {
     color: string;
     textShadow: string;
+    opacity: string;
+    filter: string;
+    pointerEvents: string;
+}
+
+interface StyledElement extends BlurStyles {
+    element: any;
     root: boolean;
 }
 
@@ -33,11 +25,11 @@ interface StyledElement {
 })
 export class LoaderDirective implements OnInit, OnDestroy {
 
-    @HostBinding('style.transition') transition: string;
+    @HostBinding('style.transition') readonly transition: string;
+
+    @HostBinding('style.background-repeat') readonly backgroundRepeat: string;
 
     @HostBinding('style.background-image') backgroundImage: string;
-
-    @HostBinding('style.background-repeat') backgroundRepeat: string;
 
     @HostBinding('style.background-position') backgroundPosition: string;
 
@@ -45,16 +37,32 @@ export class LoaderDirective implements OnInit, OnDestroy {
 
     @Input() scholarsLoader: Observable<boolean>;
 
-    @Input() loaderType: LoaderType = LoaderType.CIRCULAR;
+    @Input() loaderType: LoaderType;
 
-    @Input() loaderPosition: LoaderPosition = LoaderPosition.TOP;
+    @Input() loaderPosition: string;
+
+    @Input() loaderSize: string;
 
     private elementsToBlur: StyledElement[];
 
     private subscription: Subscription;
 
+    private readonly blurStyles: BlurStyles = {
+        color: 'transparent',
+        textShadow: '0 0 5px rgba(0,0,0,0.5)',
+        opacity: '.5',
+        filter: 'blur(5px)',
+        pointerEvents: 'none'
+    };
+
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {
         this.transition = 'all .25s ease-in-out';
+        this.backgroundRepeat = 'no-repeat';
+
+        this.loaderType = LoaderType.CIRCULAR;
+        this.loaderPosition = 'center center';
+        this.loaderSize = '100px 100px';
+
         this.elementsToBlur = [];
     }
 
@@ -81,14 +89,16 @@ export class LoaderDirective implements OnInit, OnDestroy {
 
                 this.elementsToBlur.forEach((elementToBlur: StyledElement) => {
                     if (elementToBlur.root) {
-                        this.renderer.setStyle(elementToBlur.element, 'color', 'transparent');
-                        this.renderer.setStyle(elementToBlur.element, 'text-shadow', '0 0 5px rgba(0,0,0,0.5)');
+                        this.renderer.setStyle(elementToBlur.element, 'color', this.blurStyles.color);
+                        this.renderer.setStyle(elementToBlur.element, 'text-shadow', this.blurStyles.textShadow);
                     } else {
-                        this.renderer.setStyle(elementToBlur.element, 'filter', 'blur(5px)');
-                        this.renderer.setStyle(elementToBlur.element, 'pointer-events', 'none');
+                        this.renderer.setStyle(elementToBlur.element, 'opacity', this.blurStyles.opacity);
+                        this.renderer.setStyle(elementToBlur.element, 'filter', this.blurStyles.filter);
+                        this.renderer.setStyle(elementToBlur.element, 'pointer-events', this.blurStyles.pointerEvents);
                     }
                 });
 
+                this.backgroundSize = this.loaderSize;
                 this.backgroundPosition = this.loaderPosition;
             } else {
                 this.backgroundImage = 'url(/assets/images/transparent.png)';
@@ -98,15 +108,15 @@ export class LoaderDirective implements OnInit, OnDestroy {
                         this.renderer.setStyle(elementToBlur.element, 'color', elementToBlur.color);
                         this.renderer.setStyle(elementToBlur.element, 'text-shadow', elementToBlur.textShadow);
                     } else {
+                        this.renderer.setStyle(elementToBlur.element, 'opacity', elementToBlur.opacity);
                         this.renderer.setStyle(elementToBlur.element, 'filter', elementToBlur.filter);
                         this.renderer.setStyle(elementToBlur.element, 'pointer-events', elementToBlur.pointerEvents);
                     }
                 });
 
                 setTimeout(() => {
-                    this.backgroundRepeat = 'no-repeat';
-                    this.backgroundPosition = 'center center';
                     this.backgroundSize = '100px 100px';
+                    this.backgroundPosition = 'center center';
                 }, 250);
             }
         });
@@ -120,11 +130,12 @@ export class LoaderDirective implements OnInit, OnDestroy {
         const styles = getComputedStyle(element);
         return {
             element: element,
-            filter: styles['filter'],
-            pointerEvents: styles['pointer-events'],
             color: styles['color'],
             textShadow: styles['text-shadow'],
-            root: root
+            root: root,
+            opacity: styles['opacity'],
+            filter: styles['filter'],
+            pointerEvents: styles['pointer-events']
         };
     }
 
