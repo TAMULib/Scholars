@@ -21,6 +21,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserEditComponent } from './dialog/user-edit/user-edit.component';
 import { StatsBoxComponent } from './stats-box/stats-box.component';
 
+import { LoaderDirective } from './loader/loader.directive';
+
 const MODULES = [
     CommonModule,
     NgbModule,
@@ -50,6 +52,10 @@ const COMPONENTS = [
     StatsBoxComponent
 ];
 
+const DIRECTIVES = [
+    LoaderDirective
+];
+
 const ENTRY_COMPONENTS = [
     LoginComponent,
     RegistrationComponent,
@@ -61,6 +67,7 @@ const ENTRY_COMPONENTS = [
     declarations: [
         ...PIPES,
         ...COMPONENTS,
+        ...DIRECTIVES,
         ...ENTRY_COMPONENTS
     ],
     entryComponents: [
@@ -69,7 +76,8 @@ const ENTRY_COMPONENTS = [
     exports: [
         ...MODULES,
         ...PIPES,
-        ...COMPONENTS
+        ...COMPONENTS,
+        ...DIRECTIVES
     ],
     imports: [
         ...MODULES
