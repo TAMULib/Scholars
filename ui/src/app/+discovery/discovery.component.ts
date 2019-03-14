@@ -91,7 +91,7 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         return ['/discovery', discoveryView.name];
     }
 
-    public getDiscoveryQueryParams(discoveryView: DiscoveryView, query: string, filters: Filter[] = [], removeFilter: Filter): Params {
+    public getDiscoveryQueryParams(discoveryView: DiscoveryView, page: SdrPage, query: string, filters: Filter[] = [], removeFilter: Filter): Params {
         const queryParams: Params = {};
         queryParams.collection = discoveryView.collection;
         if (discoveryView.facets && discoveryView.facets.length > 0) {
@@ -113,6 +113,9 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         });
         if (query && query.length > 0) {
             queryParams.query = query;
+        }
+        if (page && page.size) {
+            queryParams.size = page.size;
         }
         return queryParams;
     }

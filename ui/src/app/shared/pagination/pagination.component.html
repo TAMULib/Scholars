@@ -1,18 +1,45 @@
-<div class="pagination">
-  <div class="pt-2 w-100" *ngIf="page | async; let page">
-    <ng-content></ng-content>
-    <div class="form-group row mt-3" *ngIf="page.totalElements > page.size">
-      <div class="col-sm-8">
-        <ngb-pagination [(collectionSize)]="page.totalElements" [(page)]="page.number" [(pageSize)]="page.size" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
-      </div>
-      <div class="col-sm-2 d-flex justify-content-end">
-        <label for="paginationPageSize" class="col-form-label">{{ 'SHARED.PAGINATION.PAGE_SIZE' | translate }}</label>
-      </div>
-      <div class="col-sm-2">
-        <select id="paginationPageSize" name="pageSize" class="form-control" [(ngModel)]="page.size" (ngModelChange)="onPageChange(page)">
-          <option *ngFor="let size of pageSizeOptions" [ngValue]="size">{{size}}</option>
-        </select>
-      </div>
-    </div>
+<div class="pt-2 w-100" *ngIf="page | async; let page">
+  <ng-content></ng-content>
+  <div class="pagination-controls form-group mt-3" *ngIf="page.totalElements > page.size">
+    <ul [class]="'pagination' + (size ? ' pagination-' + size : '')">
+      <li class="page-item" [class.disabled]="previousDisabled(page.number)">
+        <a aria-label="First" class="page-link" [routerLink]="getRouterLink()" [queryParams]="getQueryParams(1, page.size)" queryParamsHandling="merge" [attr.tabindex]="(hasPrevious(page.number) ? null : '-1')">
+          <span aria-hidden="true">&laquo;&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item" [class.disabled]="previousDisabled(page.number)">
+        <a aria-label="Previous" class="page-link" [routerLink]="getRouterLink()" [queryParams]="getQueryParams(page.number - 1, page.size)" queryParamsHandling="merge" [attr.tabindex]="(hasPrevious(page.number) ? null : '-1')">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li *ngFor="let pageNumber of getPages(page)" class="page-item" [class.active]="pageNumber === page.number" [class.disabled]="isEllipsis(pageNumber)">
+        <a *ngIf="isEllipsis(pageNumber)" class="page-link">
+          <span>...</span>
+        </a>
+        <a *ngIf="!isEllipsis(pageNumber)" class="page-link" [routerLink]="getRouterLink()" [queryParams]="getQueryParams(pageNumber, page.size)" queryParamsHandling="merge">
+          <span>{{ pageNumber }}</span>
+          <span *ngIf="page.number === pageNumber" class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="page-item" [class.disabled]="nextDisabled(page.number, page.totalPages)">
+        <a aria-label="Next" class="page-link" [routerLink]="getRouterLink()" [queryParams]="getQueryParams(page.number + 1, page.size)" queryParamsHandling="merge" [attr.tabindex]="(hasNext(page.number, page.totalPages) ? null : '-1')">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      <li class="page-item" [class.disabled]="nextDisabled(page.number, page.totalPages)">
+        <a aria-label="Last" class="page-link" [routerLink]="getRouterLink()" [queryParams]="getQueryParams(page.totalPages, page.size)" queryParamsHandling="merge" [attr.tabindex]="(hasNext(page.number, page.totalPages) ? null : '-1')">
+          <span aria-hidden="true">&raquo;&raquo;</span>
+        </a>
+      </li>
+    </ul>
+    <div class="page-control-divider"></div>
+    <ul [class]="'pagination' + (size ? ' pagination-' + size : '')">
+      <li *ngFor="let pageSizeOption of pageSizeOptions" class="page-item" [class.active]="pageSizeOption === page.size">
+        <a *ngIf="!isEllipsis(pageNumber)" class="page-link" [routerLink]="getRouterLink()" [queryParams]="getQueryParams(1, pageSizeOption)" queryParamsHandling="merge">
+          <span>{{ pageSizeOption }}</span>
+          <span *ngIf="page.size === pageSizeOption" class="sr-only">(current)</span>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>

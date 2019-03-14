@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input } from '@angular/core';
+import { Params } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
@@ -11,34 +10,84 @@ import { SdrPage } from '../../core/model/sdr';
     templateUrl: 'pagination.component.html',
     styleUrls: ['pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
 
     @Input()
     public page: Observable<SdrPage>;
 
+    @Input()
+    public size: 'sm' | 'lg';
+
+    @Input()
+    public maxSize = 5;
+
+    @Input()
     public pageSizeOptions = [10, 25, 50, 100];
 
-    constructor(
-        private config: NgbPaginationConfig,
-        private router: Router
-    ) {
+    public getPages(page: SdrPage): number[] {
 
+        let pages: number[] = [];
+
+        for (let i = 1; i <= page.totalPages; i++) {
+            pages.push(i);
+        }
+
+        // apply this.maxSize if necessary
+        if (this.maxSize > 0 && page.totalPages > this.maxSize) {
+            let start = 0;
+            let end = page.totalPages;
+
+            const leftOffset = Math.floor(this.maxSize / 2);
+            const rightOffset = this.maxSize % 2 === 0 ? leftOffset - 1 : leftOffset;
+
+            if (page.number <= leftOffset) {
+                // very beginning, no rotation -> [0..this.maxSize]
+                end = this.maxSize;
+            } else if (page.totalPages - page.number < leftOffset) {
+                // very end, no rotation -> [len-this.maxSize..len]
+                start = page.totalPages - this.maxSize;
+            } else {
+                // rotate
+                start = page.number - leftOffset - 1;
+                end = page.number + rightOffset;
+            }
+
+            pages = pages.slice(start, end);
+
+            if (start > 0) {
+                if (start > 1) {
+                    pages.unshift(-1);
+                }
+                pages.unshift(1);
+            }
+            if (end < page.totalPages) {
+                if (end < (page.totalPages - 1)) {
+                    pages.push(-1);
+                }
+                pages.push(page.totalPages);
+            }
+        }
+
+        return pages;
     }
 
-    ngOnInit() {
-        this.config.maxSize = 5;
-        this.config.rotate = true;
-        this.config.ellipses = true;
-        this.config.boundaryLinks = true;
+    public hasPrevious(pageNumber: number): boolean { return pageNumber > 1; }
+
+    public hasNext(pageNumber: number, totalPages: number): boolean { return pageNumber < totalPages; }
+
+    public nextDisabled(pageNumber: number, totalPages: number): boolean { return !this.hasNext(pageNumber, totalPages); }
+
+    public previousDisabled(pageNumber: number): boolean { return !this.hasPrevious(pageNumber); }
+
+    public isEllipsis(pageNumber: number): boolean { return pageNumber === -1; }
+
+    public getRouterLink(): string[] {
+        return [];
     }
 
-    public onPageChange(page: SdrPage): void {
-        const urlTree = this.router.createUrlTree([], {
-            queryParams: { page: page.number, size: page.size },
-            queryParamsHandling: 'merge',
-            preserveFragment: true
-        });
-        this.router.navigateByUrl(urlTree);
+    public getQueryParams(page: number, size: number): Params {
+
+        return { page, size };
     }
 
 }

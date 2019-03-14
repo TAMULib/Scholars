@@ -96,6 +96,7 @@ export class DirectoryComponent implements OnDestroy, OnInit {
             });
         }
         queryParams.sort = `${directoryView.index.field},asc`;
+        queryParams.page = 1;
         return queryParams;
     }
 
