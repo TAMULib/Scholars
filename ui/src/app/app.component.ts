@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { SafeStyle } from '@angular/platform-browser';
 import { Store, select } from '@ngrx/store';
 
@@ -7,10 +7,12 @@ import { skipWhile } from 'rxjs/operators';
 
 import { AppState } from './core/store';
 import { AlertLocation } from './core/model/alert';
+import { WindowDimensions } from './core/store/layout/layout.reducer';
 
 import { selectStyle } from './core/store/theme';
 
 import * as fromMetadata from './core/store/metadata/metadata.actions';
+import * as fromLayout from './core/store/layout/layout.actions';
 
 @Component({
     selector: 'scholars-root',
@@ -37,6 +39,19 @@ export class AppComponent implements OnInit {
                 name: 'title', content: 'Scholars'
             }]
         }));
+    }
+
+    @HostListener('window:resize', ['$event'])
+    public onResize(event): void {
+        this.dispatchResizeWindowAction({
+            height: event.target.innerHeight,
+            width: event.target.innerWidth
+        } as WindowDimensions);
+    }
+
+
+    private dispatchResizeWindowAction(windowDimensions: WindowDimensions): void {
+        this.store.dispatch(new fromLayout.ResizeWindowAction({ windowDimensions }));
     }
 
 }

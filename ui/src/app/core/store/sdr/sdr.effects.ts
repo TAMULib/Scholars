@@ -347,7 +347,7 @@ export class SdrEffects {
 
             const sidebarMenu: SidebarMenu = {
                 sections: [],
-                collapsed: false
+                open: true
             };
 
             facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
@@ -393,9 +393,7 @@ export class SdrEffects {
                 }
             });
 
-            if (sidebarMenu.sections.length > 0) {
-                this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
-            }
+            this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
         }
 
         this.subscribeToResourceQueue(action.name, store.stomp);

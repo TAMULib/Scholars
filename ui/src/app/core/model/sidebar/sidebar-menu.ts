@@ -2,6 +2,6 @@ import { SidebarSection } from './';
 
 export interface SidebarMenu {
     sections: SidebarSection[];
-    collapsed: boolean;
+    open: boolean;
     classes?: string;
 }

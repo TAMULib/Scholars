@@ -48,7 +48,7 @@ export class AdminComponent implements OnInit {
                         collapsed: false
                     }
                 ],
-                collapsed: false
+                open: false
             }
         }));
     }
