@@ -11,14 +11,12 @@
       .card {
         margin-bottom: 10px;
 
-        .card-header {
-          font-weight: bold;
-
-          .header-collapsible {
-            float: right;
-            font-size: 1.3em;
-            line-height: 1.1em;
-          }
+        .section-collapse {
+          font-size: 1.3em;
+          line-height: 1.1em;
+        }
+        .section-collapse:hover {
+          cursor: pointer;
         }
       }
     }

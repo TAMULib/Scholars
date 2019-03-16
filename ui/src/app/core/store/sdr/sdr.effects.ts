@@ -347,7 +347,7 @@ export class SdrEffects {
 
             const sidebarMenu: SidebarMenu = {
                 sections: [],
-                collapsible: { allowed: true }
+                collapsed: false
             };
 
             facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
@@ -359,34 +359,30 @@ export class SdrEffects {
                         const sidebarSection: SidebarSection = {
                             title: of(facet.name),
                             items: [],
-                            collapsible: { allowed: true }
+                            collapsible: true,
+                            collapsed: false
                         };
 
                         sdrFacet.entries.forEach((facetEntry: SdrFacetEntry) => {
 
-                            let checked = false;
+                            let selected = false;
 
                             for (const requestFacet of routerState.queryParams.facets.split(',')) {
                                 if (routerState.queryParams[`${requestFacet}.filter`] === facetEntry.value) {
-                                    checked = true;
+                                    selected = true;
                                     break;
                                 }
                             }
 
                             const sidebarItem: SidebarItem = {
                                 label: of(facetEntry.value),
+                                selected: selected,
                                 total: facetEntry.count,
                                 route: [],
-                                checkbox: {
-                                    id: facet.field,
-                                    name: facet.name,
-                                    type: 'checkbox',
-                                    value: checked
-                                },
-                                queryParams: {}
+                                queryParams: {},
                             };
 
-                            sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !checked ? facetEntry.value : undefined;
+                            sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !selected ? facetEntry.value : undefined;
 
                             sidebarSection.items.push(sidebarItem);
 

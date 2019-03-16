@@ -1,24 +1,20 @@
 <div class="wrapper container">
   <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu">
-    <div class="card bg-dark" *ngFor="let section of menu.sections; let sectionIndex = index">
-      <div class="card-header text-white {{section.classes}}">
-        <span class="header-title">{{section.title | async}}</span>
-        <span class="header-collapsible fa" *ngIf="isSectionCollapsible(section.collapsible)" [ngClass]="{ 'fa-caret-right': isSectionCollapsed(section.collapsible), 'fa-caret-down': !isSectionCollapsed(section.collapsible) }" (click)="toggleSectionCollapse(sectionIndex)" aria-role="button" [attr.aria-label]="translateSectionCollapsibleButton(section.collapsible, section.title | async) | async"></span>
+    <div class="card" *ngFor="let section of menu.sections; let sectionIndex = index">
+      <div class="card-header font-weight-bold {{section.classes}}" *ngIf="section.title | async; let sectionTitle">
+        <span>{{sectionTitle}}</span>
+        <span *ngIf="section.collapsible" class="section-collapse float-right fa" [ngClass]="{ 'fa-caret-right': section.collapsed, 'fa-caret-down': !section.collapsed }" (click)="toggleSectionCollapse(sectionIndex)" aria-role="button" attr.aria-label="{{ section.collapsed ? 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_EXPAND' : 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_COLLAPSE' | translate:{ label: sectionTitle } }}"></span>
       </div>
-      <div class="card-items" [ngbCollapse]="isSectionCollapsed(section.collapsible)">
+      <div class="card-items" [ngbCollapse]="section.collapsed">
         <ul class="list-group list-group-flush" *ngFor="let item of section.items">
-          <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" aria-role="link" [attr.aria-label]="'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate">
+          <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" aria-role="link" attr.aria-label="{{ 'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate }}">
             <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
-              <label class="item-label" *ngIf="item.checkbox !== undefined">
-                <input class="item-checkbox mr-2 pb-1" type="checkbox" [checked]="item.checkbox.value" disabled>
-              </label>
-              <span class="item-label">{{item.label | async}}</span>
+              <span>
+                <span *ngIf="item.selected" class="fa fa-caret-right mr-2"></span>
+                <span>{{item.label | async}}</span>
+              </span>
             </a>
-            <span class="item-total" *ngIf="item.total"> ({{item.total}})</span>
-            <span class="item-fields" *ngFor="let field of item.fields">
-              <label class="field-label {{field.label.classes}}" [for]="field.label.for">{{field.label.value}}</label>
-              <input class="field-input {{field.input.classes}}" [id]="field.input.id" [name]="field.input.name" [type]="field.input.type" [placeholder]="field.input.placeholder" [value]="field.input.value" [checked]="field.input.checked">
-            </span>
+            <span *ngIf="item.total"> ({{item.total}})</span>
           </li>
         </ul>
       </div>

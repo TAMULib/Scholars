@@ -14,7 +14,7 @@
       <span>{{query | async}}</span>
     </h4>
     <div class="applied-filters mt-2" *ngIf="filters | async; let filters">
-      <span class="badge badge-primary p-2 mr-2 mb-2" *ngFor="let filter of filters">
+      <span class="badge badge-light p-2 mr-2 mb-2" *ngFor="let filter of filters">
         <span *ngIf="showFilter(discoveryView, filter)">
           <span class="mr-1">{{filter.field}}:</span>
           <span class="mr-2">{{filter.value}}</span>
