@@ -57,16 +57,20 @@
     }
   },
   "SHARED": {
-    "NAVIGATION": {
-      "EDIT_PROFILE": "EDIT MY PROFILE",
-      "HOME": "Home",
-      "ABOUT": "About"
-    },
-    "PAGINATION": {
-      "PAGE_SIZE": "Page Size"
-    },
-    "SEARCH_BOX": {
-      "LABEL": "Find Research at {{organization}}"
+    "ALERT": {
+      "LOGIN_SUCCESS": "Login success.",
+      "SUBMIT_REGISTRATION_SUCCESS": "Confirm email to complete registration.",
+      "CONFIRM_REGISTRATION_SUCCESS": "Set password to complete registration.",
+      "COMPLETE_REGISTRATION_SUCCESS": "Registration complete. You can now login.",
+      "UNAUTHORIZED": "Unauthorized!",
+      "FORBIDDEN": "Forbidden! You must be logged in to access.",
+      "CONNECT_FAILED": "Failed to connect.",
+      "DISCONNECT_FAILED": "Failed to disconnect.",
+      "UNSUBSCRIBE_FAILED": "Failed to unsubscribe.",
+      "POST_SUCCESS": "Post successful.",
+      "PUT_SUCCESS": "Put successful.",
+      "PATCH_SUCCESS": "Patch successful.",
+      "DELETE_SUCCESS": "Delete successful."
     },
     "DIALOG": {
       "LOGIN": {
@@ -110,6 +114,21 @@
         "CONFIRM_PASSWORD": "{{field}} must match password"
       }
     },
+    "NAVIGATION": {
+      "EDIT_PROFILE": "EDIT MY PROFILE",
+      "HOME": "Home",
+      "ABOUT": "About"
+    },
+    "PAGINATION": {
+      "FIRST": "First",
+      "PREVIOUS": "Previous",
+      "NEXT": "Next",
+      "LAST": "Last",
+      "PAGE_SIZE": "Page Size {{size}}"
+    },
+    "SEARCH_BOX": {
+      "LABEL": "Find Research at {{organization}}"
+    },
     "SIDEBAR": {
       "ADMINISTRATION": {
         "TITLE": "Administration",
@@ -127,21 +146,6 @@
         "ARIA_LABEL_COLLAPSE": "Collapse the {{label}} section.",
         "ARIA_LABEL_EXPAND": "Expand the {{label}} section."
       }
-    },
-    "ALERT": {
-      "LOGIN_SUCCESS": "Login success.",
-      "SUBMIT_REGISTRATION_SUCCESS": "Confirm email to complete registration.",
-      "CONFIRM_REGISTRATION_SUCCESS": "Set password to complete registration.",
-      "COMPLETE_REGISTRATION_SUCCESS": "Registration complete. You can now login.",
-      "UNAUTHORIZED": "Unauthorized!",
-      "FORBIDDEN": "Forbidden! You must be logged in to access.",
-      "CONNECT_FAILED": "Failed to connect.",
-      "DISCONNECT_FAILED": "Failed to disconnect.",
-      "UNSUBSCRIBE_FAILED": "Failed to unsubscribe.",
-      "POST_SUCCESS": "Post successful.",
-      "PUT_SUCCESS": "Put successful.",
-      "PATCH_SUCCESS": "Patch successful.",
-      "DELETE_SUCCESS": "Delete successful."
     }
   },
   "LANGUAGE": {
