@@ -35,3 +35,4 @@ export function reducer(state = initialState, action: SidebarActions): SidebarSt
 }
 
 export const getMenu = (state: SidebarState) => state.menu;
+export const hasMenu = (state: SidebarState) => state.menu.sections.length > 0;

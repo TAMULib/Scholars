@@ -10,9 +10,11 @@ import { DirectoryView, Facet, Filter } from '../../core/model/view';
 import { selectIsNavigationCollapsed, selectIsSidebarOpen } from '../../core/store/layout';
 
 import { selectRouterUrl } from '../../core/store/router';
+import { selectHasMenu } from '../../core/store/sidebar';
 import { selectAllResources } from '../../core/store/sdr';
 
 import * as fromLayout from '../../core/store/layout/layout.actions';
+
 
 @Component({
     selector: 'scholars-navigation',
@@ -20,6 +22,8 @@ import * as fromLayout from '../../core/store/layout/layout.actions';
     styleUrls: ['navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+
+    public hasMenu: Observable<boolean>;
 
     public isSidebarOpen: Observable<boolean>;
 
@@ -34,6 +38,7 @@ export class NavigationComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.hasMenu = this.store.pipe(select(selectHasMenu));
         this.isSidebarOpen = this.store.pipe(select(selectIsSidebarOpen));
         this.url = this.store.pipe(select(selectRouterUrl));
         this.directoryViews = this.store.pipe(select(selectAllResources<DirectoryView>('directoryViews')));

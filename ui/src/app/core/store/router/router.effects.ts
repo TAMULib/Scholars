@@ -12,6 +12,7 @@ import { selectLoginRedirect } from '../auth';
 
 import * as fromAuth from '../auth/auth.actions';
 import * as fromRouter from './router.actions';
+import * as fromSidebar from '../sidebar/sidebar.actions';
 
 @Injectable()
 export class RouterEffects {
@@ -52,6 +53,11 @@ export class RouterEffects {
         map(([action, redirect]) => redirect),
         skipWhile((redirect: fromRouter.RouterNavigation) => redirect === undefined),
         map(() => new fromAuth.UnsetLoginRedirectAction())
+    );
+
+    @Effect() unloadSidebar = this.actions.pipe(
+        ofType(fromRouter.RouterActionTypes.CHANGED),
+        map(() => new fromSidebar.UnloadSidebarAction())
     );
 
     private listenForRouteChange() {

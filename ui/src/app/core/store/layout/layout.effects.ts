@@ -35,7 +35,7 @@ export class LayoutEffects {
     );
 
     private checkSidebar(windowDimensions: WindowDimensions): fromLayout.LayoutActions {
-        return windowDimensions.width <= 767 ? new fromLayout.CloseSidebarAction() : new fromLayout.OpenSidebarAction();
+        return windowDimensions.width <= 991 ? new fromLayout.CloseSidebarAction() : new fromLayout.OpenSidebarAction();
     }
 
 }
