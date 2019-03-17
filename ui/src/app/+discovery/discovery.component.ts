@@ -11,10 +11,10 @@ import { AppState } from '../core/store';
 import { DiscoveryView, Filter, Facet } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
+import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectRouterSearchQuery, selectRouterUrl, selectRouterQueryParamFilters } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
-import { WindowDimensions } from '../core/store/layout/layout.reducer';
 import { selectWindowDimensions } from '../core/store/layout';
 
 @Component({

@@ -22,7 +22,7 @@
         </span>
       </span>
     </div>
-    <ul role="tablist" class="list-unstyled mt-3" *ngIf="discoveryViews | async; let discoveryViews" [ngClass]="{ 'nav flex-column nav-pills': !showTabs(windowDimensions | async), 'nav nav-tabs nav-fill': showTabs(windowDimensions | async) }">
+    <ul role="tablist" class="list-unstyled mt-3" *ngIf="discoveryViews | async; let discoveryViews" [ngClass]="{ 'nav nav-tabs nav-fill': showTabs(windowDimensions | async), 'nav flex-column nav-pills': !showTabs(windowDimensions | async) }">
       <li class="nav-item" *ngFor="let discoveryView of discoveryViews">
         <a class="nav-link" [routerLink]="getDiscoveryRouteLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, page | async, query | async)" [class.active]="isActive(discoveryView, url | async)">{{ discoveryView.name }}</a>
       </li>
