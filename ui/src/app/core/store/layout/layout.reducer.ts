@@ -9,7 +9,7 @@ export type LayoutState = Readonly<{
     windowDimensions: WindowDimensions;
     navbarCollapsed: boolean;
     navigationCollapsed: boolean;
-    sidebarCollapsed: boolean;
+    sidebarOpen: boolean;
 }>;
 
 export const initialState: LayoutState = {
@@ -19,7 +19,7 @@ export const initialState: LayoutState = {
     },
     navbarCollapsed: true,
     navigationCollapsed: true,
-    sidebarCollapsed: false
+    sidebarOpen: false
 };
 
 export function reducer(state = initialState, action: LayoutActions): LayoutState {
@@ -42,7 +42,17 @@ export function reducer(state = initialState, action: LayoutActions): LayoutStat
         case LayoutActionTypes.TOGGLE_SIDEBAR:
             return {
                 ...state,
-                sidebarCollapsed: !state.sidebarCollapsed
+                sidebarOpen: !state.sidebarOpen
+            };
+        case LayoutActionTypes.OPEN_SIDEBAR:
+            return {
+                ...state,
+                sidebarOpen: true
+            };
+        case LayoutActionTypes.CLOSE_SIDEBAR:
+            return {
+                ...state,
+                sidebarOpen: false
             };
         default:
             return state;
@@ -53,4 +63,4 @@ export const getWindowDimensions = (state: LayoutState) => state.windowDimension
 
 export const isNavbarCollapsed = (state: LayoutState) => state.navbarCollapsed;
 export const isNavigationCollapsed = (state: LayoutState) => state.navigationCollapsed;
-export const isSidebarCollapsed = (state: LayoutState) => state.sidebarCollapsed;
+export const isSidebarOpen = (state: LayoutState) => state.sidebarOpen;

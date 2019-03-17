@@ -1,11 +1,9 @@
 <nav class="navbar navbar-expand-sm navbar-light">
   <div class="container">
+    <a class="navbar-brand d-sm-none ml-2 menu-action" (click)="toggleSidebar()">{{ ((isSidebarOpen | async) ? 'SHARED.SIDEBAR.BACK' : 'SHARED.SIDEBAR.MENU') | translate }}</a>
     <button class="navbar-toggler" type="button" (click)="toggleNavigation()" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="nav navbar-nav d-sm-none">
-      <button class="btn btn-outline-primary">{{ 'SHARED.NAVIGATION.EDIT_PROFILE' | translate }}</button>
-    </div>
     <div [ngbCollapse]="isNavigationCollapsed | async" class="collapse navbar-collapse" [ngClass]="{'expand': !(isNavigationCollapsed | async)}" id="navigation">
       <ul class="navbar-nav">
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
@@ -13,7 +11,7 @@
         </li>
       </ul>
       <ul class="navbar-nav" *ngIf="directoryViews | async; let directoryViews">
-        <!-- NOTE: can use routerLinkActive here due to the changes in the query parameters -->
+        <!-- NOTE: can not use routerLinkActive here due to the changes in the query parameters -->
         <li class="nav-item" *ngFor="let directoryView of directoryViews" [class.active]="isActive(directoryView, url | async)">
           <a class="nav-link" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getDirectoryQueryParams(directoryView)" (click)="toggleNavigation()">{{ directoryView.name }}</a>
         </li>
@@ -21,6 +19,9 @@
       <ul class="navbar-nav">
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
           <a class="nav-link" [routerLink]="['/about']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.ABOUT' | translate }}</a>
+        </li>
+        <li class="nav-item d-sm-none">
+          <a class="nav-link" href="#">{{ 'SHARED.NAVIGATION.EDIT_PROFILE' | translate }}</a>
         </li>
       </ul>
     </div>

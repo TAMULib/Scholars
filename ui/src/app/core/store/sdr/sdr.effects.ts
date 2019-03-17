@@ -346,8 +346,7 @@ export class SdrEffects {
             const sdrFacets: SdrFacet[] = action.payload.collection.facets;
 
             const sidebarMenu: SidebarMenu = {
-                sections: [],
-                open: true
+                sections: []
             };
 
             facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {

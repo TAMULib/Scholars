@@ -14,6 +14,8 @@ import { SdrPage, SdrFacet } from '../core/model/sdr';
 
 import { selectRouterSearchQuery, selectRouterUrl, selectRouterQueryParamFilters } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
+import { WindowDimensions } from '../core/store/layout/layout.reducer';
+import { selectWindowDimensions } from '../core/store/layout';
 
 @Component({
     selector: 'scholars-discovery',
@@ -21,6 +23,8 @@ import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectR
     styleUrls: ['discovery.component.scss']
 })
 export class DiscoveryComponent implements OnDestroy, OnInit {
+
+    public windowDimensions: Observable<WindowDimensions>;
 
     public url: Observable<string>;
 
@@ -54,6 +58,7 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
+        this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
         this.url = this.store.pipe(select(selectRouterUrl));
         this.query = this.store.pipe(select(selectRouterSearchQuery));
         this.filters = this.store.pipe(select(selectRouterQueryParamFilters));
@@ -71,6 +76,10 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
                 }));
             }
         }));
+    }
+
+    public showTabs(windowDimensions: WindowDimensions): boolean {
+        return windowDimensions.width > 767;
     }
 
     public isActive(discoveryView: DiscoveryView, url: string): boolean {

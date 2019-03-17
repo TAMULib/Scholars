@@ -31,7 +31,7 @@
   "DASHBOARD": {
     "ABOUT": {
       "TITLE": "About Scholars@TAMU",
-      "NEW_SCHOLARS_TITLE" : "New to Scholars@TAMU?",
+      "NEW_SCHOLARS_TITLE": "New to Scholars@TAMU?",
       "ABOUT_PROJECT": "About the Project"
     },
     "HOME": {
@@ -118,12 +118,14 @@
         "THEMES": "Themes",
         "USERS": "Users"
       },
+      "MENU": "MENU",
+      "BACK": "BACK",
       "LINK": {
         "ARIA_LABEL": "Navigation link."
       },
       "SECTION": {
-          "ARIA_LABEL_COLLAPSE": "Collapse the {{label}} section.",
-          "ARIA_LABEL_EXPAND": "Expand the {{label}} section."
+        "ARIA_LABEL_COLLAPSE": "Collapse the {{label}} section.",
+        "ARIA_LABEL_EXPAND": "Expand the {{label}} section."
       }
     },
     "ALERT": {

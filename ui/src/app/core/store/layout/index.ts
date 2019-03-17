@@ -11,4 +11,4 @@ export const selectWindowDimensions = createSelector(selectLayoutState, fromLayo
 
 export const selectIsNavbarCollapsed = createSelector(selectLayoutState, fromLayout.isNavbarCollapsed);
 export const selectIsNavigationCollapsed = createSelector(selectLayoutState, fromLayout.isNavigationCollapsed);
-export const selectIsSidebarCollapsed = createSelector(selectLayoutState, fromLayout.isSidebarCollapsed);
+export const selectIsSidebarOpen = createSelector(selectLayoutState, fromLayout.isSidebarOpen);

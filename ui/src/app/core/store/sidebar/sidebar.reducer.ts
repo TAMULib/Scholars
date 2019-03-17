@@ -7,8 +7,7 @@ export type SidebarState = Readonly<{
 
 export const initialState: SidebarState = {
     menu: {
-        sections: [],
-        open: false
+        sections: []
     }
 };
 
@@ -23,16 +22,9 @@ export function reducer(state = initialState, action: SidebarActions): SidebarSt
             return {
                 ...state,
                 menu: {
-                    sections: [],
-                    open: false
+                    sections: []
                 }
             };
-        case SidebarActionTypes.OPEN_SIDEBAR:
-            state.menu.open = true;
-            return state;
-        case SidebarActionTypes.CLOSE_SIDEBAR:
-            state.menu.open = false;
-            return state;
         case SidebarActionTypes.TOGGLE_COLLAPSIBLE_SECTION:
             const collapsed = state.menu.sections[action.payload.sectionIndex].collapsed;
             state.menu.sections[action.payload.sectionIndex].collapsed = !collapsed;
@@ -43,4 +35,3 @@ export function reducer(state = initialState, action: SidebarActions): SidebarSt
 }
 
 export const getMenu = (state: SidebarState) => state.menu;
-export const isMenuOpen = (state: SidebarState) => state.menu.open;

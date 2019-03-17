@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../core/store';
 import { DirectoryView, Facet, Filter } from '../../core/model/view';
 
-import { selectIsNavigationCollapsed } from '../../core/store/layout';
+import { selectIsNavigationCollapsed, selectIsSidebarOpen } from '../../core/store/layout';
 
 import { selectRouterUrl } from '../../core/store/router';
 import { selectAllResources } from '../../core/store/sdr';
@@ -21,6 +21,8 @@ import * as fromLayout from '../../core/store/layout/layout.actions';
 })
 export class NavigationComponent implements OnInit {
 
+    public isSidebarOpen: Observable<boolean>;
+
     public url: Observable<string>;
 
     public directoryViews: Observable<DirectoryView[]>;
@@ -32,6 +34,7 @@ export class NavigationComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isSidebarOpen = this.store.pipe(select(selectIsSidebarOpen));
         this.url = this.store.pipe(select(selectRouterUrl));
         this.directoryViews = this.store.pipe(select(selectAllResources<DirectoryView>('directoryViews')));
         this.isNavigationCollapsed = this.store.pipe(select(selectIsNavigationCollapsed));
@@ -68,6 +71,10 @@ export class NavigationComponent implements OnInit {
 
     public toggleNavigation(): void {
         this.store.dispatch(new fromLayout.ToggleNavigationAction());
+    }
+
+    public toggleSidebar(): void {
+        this.store.dispatch(new fromLayout.ToggleSidebarAction());
     }
 
 }
