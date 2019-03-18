@@ -14,12 +14,12 @@ export type LayoutState = Readonly<{
 
 export const initialState: LayoutState = {
     windowDimensions: {
-        width: 800,
-        height: 600
+        width: 992,
+        height: 768
     },
     navbarCollapsed: true,
     navigationCollapsed: true,
-    sidebarOpen: false
+    sidebarOpen: true
 };
 
 export function reducer(state = initialState, action: LayoutActions): LayoutState {
