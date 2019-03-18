@@ -12,8 +12,14 @@
     <h3 class="text-primary">{{ directoryView.name }}</h3>
     <p>{{query | async}}</p>
     <div class="index">
-      <a class="option" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getResetQueryParams(directoryView)" queryParamsHandling="merge">{{ 'DIRECTORY.ALL' | translate }}</a>
-      <a class="option" *ngFor="let option of directoryView.index.options" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getDirectoryQueryParams(directoryView, option)" queryParamsHandling="merge">{{option}}</a>
+      <a class="option" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getResetQueryParams(directoryView)" queryParamsHandling="merge">
+        <span *ngIf="isActive(queryParams | async, 'All')" class="fa fa-caret-right mr-1"></span>
+        <span>{{ 'DIRECTORY.ALL' | translate }}</span>
+      </a>
+      <a class="option" *ngFor="let option of directoryView.index.options" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getDirectoryQueryParams(directoryView, option)" queryParamsHandling="merge">
+        <span *ngIf="isActive(queryParams | async, option)" class="fa fa-caret-right mr-1"></span>
+        <span>{{option}}</span>
+      </a>
     </div>
     <scholars-pagination *ngIf="documents | async; let documents" [page]="page" [ngSwitch]="directoryView.layout">
       <scholars-grid-view *ngSwitchCase="'GRID'" [view]="directoryView" [resources]="documents"></scholars-grid-view>

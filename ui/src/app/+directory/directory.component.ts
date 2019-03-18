@@ -13,6 +13,7 @@ import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById, selectDefaultDiscoveryView } from '../core/store/sdr';
+import { selectRouterQueryParams } from '../core/store/router';
 
 @Component({
     selector: 'scholars-directory',
@@ -20,6 +21,8 @@ import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectR
     styleUrls: ['directory.component.scss']
 })
 export class DirectoryComponent implements OnDestroy, OnInit {
+
+    public queryParams: Observable<Params>;
 
     public directoryView: Observable<DirectoryView>;
 
@@ -47,6 +50,7 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
+        this.queryParams = this.store.pipe(select(selectRouterQueryParams));
         this.discoveryView = this.store.pipe(
             select(selectDefaultDiscoveryView),
             filter((view: DiscoveryView) => view !== undefined)
@@ -64,7 +68,13 @@ export class DirectoryComponent implements OnDestroy, OnInit {
                 }));
             }
         }));
+    }
 
+    public isActive(queryParams: Params, option: string): boolean {
+        if (queryParams.index !== undefined) {
+            return queryParams.index.split(',')[2] === option;
+        }
+        return option === 'All';
     }
 
     public getDirectoryRouterLink(directoryView: DirectoryView): string[] {
