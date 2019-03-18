@@ -1,6 +1,7 @@
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (1, 'People', 'persons', 'LIST', '<span>{{name}}</span>', 'name', 'STARTS_WITH');
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (2, 'Organizations', 'organizations', 'LIST', '<span>{{name}}</span>', 'name', 'STARTS_WITH');
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (3, 'Research', 'documents', 'LIST', '<span>{{title}}</span>', 'title', 'STARTS_WITH');
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (1, 'People', 'persons', 'LIST', '<div style="display: flex"><div style="margin-right: 25px"><div>{{#thumbnail}}<img src="http://scholars.library.tamu.edu/vivo{{thumbnail}}" style="border-radius: 50%" height="80" width="80">{{/thumbnail}}{{^thumbnail}}<i class="fa fa-user-circle fa-5x"></i>{{/thumbnail}}</div></div><div style="margin: auto 0"><div><a href>{{name}}</a></div><div><span>{{preferredTitle}}</span></div></div></div>', 'name', 'STARTS_WITH');
+
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (2, 'Organizations', 'organizations', 'LIST', '<div><div><a href>{{name}}</a></div><div><span>{{type}}</span></div></div>', 'name', 'STARTS_WITH');
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (3, 'Research', 'documents', 'LIST', '<div><a href>{{title}}</a></div>', 'title', 'STARTS_WITH');
 
 INSERT INTO DIRECTORY_VIEW_FACETS (DIRECTORY_VIEW_ID, NAME, FIELD, DEFAULT_LIMIT, DEFAULT_SORT, HIDDEN) VALUES (1, 'Type', 'type', 10, 'COUNT', false);
 INSERT INTO DIRECTORY_VIEW_FACETS (DIRECTORY_VIEW_ID, NAME, FIELD, DEFAULT_LIMIT, DEFAULT_SORT, HIDDEN) VALUES (2, 'Type', 'type', 10, 'COUNT', false);
