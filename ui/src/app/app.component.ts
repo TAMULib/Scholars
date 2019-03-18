@@ -44,8 +44,8 @@ export class AppComponent implements OnInit {
     @HostListener('window:resize', ['$event'])
     public onResize(event): void {
         this.dispatchResizeWindowAction({
-            height: event.target.innerHeight,
-            width: event.target.innerWidth
+            width: event.target.innerWidth,
+            height: event.target.innerHeight
         } as WindowDimensions);
     }
 

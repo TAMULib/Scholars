@@ -1,8 +1,8 @@
 import { LayoutActions, LayoutActionTypes } from './layout.actions';
 
 export interface WindowDimensions {
-    height: number;
     width: number;
+    height: number;
 }
 
 export type LayoutState = Readonly<{
@@ -14,8 +14,8 @@ export type LayoutState = Readonly<{
 
 export const initialState: LayoutState = {
     windowDimensions: {
-        height: window.innerHeight,
-        width: window.innerWidth
+        width: 800,
+        height: 600
     },
     navbarCollapsed: true,
     navigationCollapsed: true,
