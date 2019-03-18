@@ -3,7 +3,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 
-import { of, empty, defer } from 'rxjs';
+import { of, defer, EMPTY } from 'rxjs';
 import { map, withLatestFrom } from 'rxjs/operators';
 
 import { AppState } from '../';
@@ -47,7 +47,7 @@ export class LayoutEffects {
                 }
             }));
         }
-        return empty();
+        return EMPTY;
     });
 
 

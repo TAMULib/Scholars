@@ -115,7 +115,7 @@
       }
     },
     "NAVIGATION": {
-      "EDIT_PROFILE": "EDIT MY PROFILE",
+      "EDIT_PROFILE": "Ediy my profile",
       "HOME": "Home",
       "ABOUT": "About"
     },
@@ -137,8 +137,8 @@
         "THEMES": "Themes",
         "USERS": "Users"
       },
-      "MENU": "MENU",
-      "BACK": "BACK",
+      "MENU": "Menu",
+      "BACK": "Back",
       "LINK": {
         "ARIA_LABEL": "Navigation link."
       },

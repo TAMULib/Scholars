@@ -56,6 +56,10 @@
       }
     }
   }
+  .edit-profile-action,
+  .menu-action {
+    text-transform: uppercase;
+  }
   .menu-action:hover {
     cursor: pointer;
   }
