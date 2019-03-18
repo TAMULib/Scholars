@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../core/store';
 import { SidebarMenu } from '../../core/model/sidebar';
 
-import { selectIsSidebarExpanded } from '../../core/store/layout';
+import { selectIsSidebarCollapsed } from '../../core/store/layout';
 import { selectMenu } from '../../core/store/sidebar';
 
 import * as fromSidebar from '../../core/store/sidebar/sidebar.actions';
@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isSidebarCollapsed = this.store.pipe(select(selectIsSidebarExpanded));
+        this.isSidebarCollapsed = this.store.pipe(select(selectIsSidebarCollapsed));
         this.menu = this.store.pipe(select(selectMenu));
     }
 
