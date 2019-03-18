@@ -3,29 +3,27 @@
     display: flex;
     width: 100%;
     padding: 10px;
-
     .sidebar {
       min-width: 250px;
       max-width: 250px;
-
+      @media (max-width: 575.98px) {
+        min-width: 100%;
+        max-width: 100%;
+      }
       .card {
         margin-bottom: 10px;
-
-        .card-header {
-          font-weight: bold;
-
-          .header-collapsible {
-            float: right;
-            font-size: 1.3em;
-            line-height: 1.1em;
-          }
+        .section-collapse {
+          font-size: 1.3em;
+          line-height: 1.1em;
+        }
+        .section-collapse:hover {
+          cursor: pointer;
         }
       }
     }
-
     .content {
       margin-left: 0px;
+      overflow: hidden;
     }
-
   }
 }

@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../core/store';
 import { DirectoryView, Facet, Filter } from '../../core/model/view';
 
-import { selectIsNavigationCollapsed } from '../../core/store/layout';
+import { selectIsNavigationCollapsed, selectIsSidebarExpanded, selectIsNavigationExpanded } from '../../core/store/layout';
 
 import { selectRouterUrl } from '../../core/store/router';
+import { selectHasMenu } from '../../core/store/sidebar';
 import { selectAllResources } from '../../core/store/sdr';
 
 import * as fromLayout from '../../core/store/layout/layout.actions';
@@ -21,20 +22,29 @@ import * as fromLayout from '../../core/store/layout/layout.actions';
 })
 export class NavigationComponent implements OnInit {
 
+    public hasMenu: Observable<boolean>;
+
+    public isSidebarExpanded: Observable<boolean>;
+
+    public isNavigationCollapsed: Observable<boolean>;
+
+    public isNavigationExpanded: Observable<boolean>;
+
     public url: Observable<string>;
 
     public directoryViews: Observable<DirectoryView[]>;
-
-    public isNavigationCollapsed: Observable<boolean>;
 
     constructor(private store: Store<AppState>) {
 
     }
 
     ngOnInit() {
+        this.hasMenu = this.store.pipe(select(selectHasMenu));
+        this.isSidebarExpanded = this.store.pipe(select(selectIsSidebarExpanded));
+        this.isNavigationCollapsed = this.store.pipe(select(selectIsNavigationCollapsed));
+        this.isNavigationExpanded = this.store.pipe(select(selectIsNavigationExpanded));
         this.url = this.store.pipe(select(selectRouterUrl));
         this.directoryViews = this.store.pipe(select(selectAllResources<DirectoryView>('directoryViews')));
-        this.isNavigationCollapsed = this.store.pipe(select(selectIsNavigationCollapsed));
     }
 
     public isActive(directoryView: DirectoryView, url: string): boolean {
@@ -68,6 +78,10 @@ export class NavigationComponent implements OnInit {
 
     public toggleNavigation(): void {
         this.store.dispatch(new fromLayout.ToggleNavigationAction());
+    }
+
+    public toggleSidebar(): void {
+        this.store.dispatch(new fromLayout.ToggleSidebarAction());
     }
 
 }

@@ -35,7 +35,7 @@ export class RecentPublicationsComponent implements AfterViewInit {
     }
 
     @HostListener('window:resize', ['$event'])
-    onResize() {
+    public onResize() {
         this.fitItems();
     }
 
