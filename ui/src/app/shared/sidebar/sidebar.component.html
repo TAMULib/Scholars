@@ -1,5 +1,5 @@
 <div class="wrapper container">
-  <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu" [ngClass]="{ 'd-none': !(isSidebarOpen | async) }">
+  <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu" [ngClass]="{ 'd-none': !(isSidebarCollapsed | async) }">
     <div class="card" *ngFor="let section of menu.sections; let sectionIndex = index">
       <div class="card-header font-weight-bold {{section.classes}}" *ngIf="section.title | async; let sectionTitle">
         <span>{{sectionTitle}}</span>
