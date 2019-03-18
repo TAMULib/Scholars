@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
         } as WindowDimensions);
     }
 
-
     private dispatchResizeWindowAction(windowDimensions: WindowDimensions): void {
         this.store.dispatch(new fromLayout.ResizeWindowAction({ windowDimensions }));
     }
