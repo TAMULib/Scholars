@@ -3,12 +3,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-template-rows: auto 1fr auto;
-    grid-gap: 5px;
+    grid-gap: 10px;
+
+    font-size: 12px;
 
     .grid-item {
-      border: solid gray 1px;
-      border-radius: 5px;
-      padding: 5px;
+      border: solid gray .5px;
+      padding: 10px;
+      box-shadow: 2.5px 2.5px 2px #888888;
     }
   }
 }

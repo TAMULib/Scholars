@@ -22,6 +22,7 @@ import { UserEditComponent } from './dialog/user-edit/user-edit.component';
 import { StatsBoxComponent } from './stats-box/stats-box.component';
 
 import { LoaderDirective } from './loader/loader.directive';
+import { SafeHtmlPipe } from './safe-html/safe-html.pipe';
 
 const MODULES = [
     CommonModule,
@@ -33,7 +34,7 @@ const MODULES = [
 ];
 
 const PIPES = [
-
+    SafeHtmlPipe
 ];
 
 const COMPONENTS = [

@@ -61,7 +61,7 @@
     "@ngx-translate/http-loader": "4.0.0",
     "bootstrap": "4.3.1",
     "classlist.js": "1.1.20150312",
-    "compression": "1.7.3",
+    "compression": "1.7.4",
     "core-js": "2.6.5",
     "express": "4.16.4",
     "font-awesome": "4.7.0",
