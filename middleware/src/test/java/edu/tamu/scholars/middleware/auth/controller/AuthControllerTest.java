@@ -5,7 +5,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,12 +24,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import edu.tamu.scholars.middleware.auth.UserIntegrationTest;
 import edu.tamu.scholars.middleware.auth.model.Role;
 import edu.tamu.scholars.middleware.auth.model.User;
+import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ExtendWith(SpringExtension.class)
 public class AuthControllerTest extends UserIntegrationTest {
+    private static final ConstraintDescriptionsHelper describeUser = new ConstraintDescriptionsHelper(User.class);
 
     @Autowired
     private MockMvc mockMvc;
@@ -55,13 +56,13 @@ public class AuthControllerTest extends UserIntegrationTest {
                     document(
                         "user",
                         responseFields(
-                            subsectionWithPath("id").description("The ID of the user"),
-                            subsectionWithPath("firstName").description("The first name of the user"),
-                            subsectionWithPath("lastName").description("The last name of the user"),
-                            subsectionWithPath("email").description("The e-mail address of the user"),
-                            subsectionWithPath("role").description("The authorization role of the user"),
-                            subsectionWithPath("active").description("The expired/unexpired status of the user"),
-                            subsectionWithPath("enabled").description("The locked/unlocked status of the user")
+                            describeUser.withSubsection("id", "The ID of the user."),
+                            describeUser.withSubsection("firstName", "The first name of the user."),
+                            describeUser.withSubsection("lastName", "The last name of the user."),
+                            describeUser.withSubsection("email", "The e-mail address of the user."),
+                            describeUser.withSubsection("role", "The authorization role of the user."),
+                            describeUser.withSubsection("active", "The expired/unexpired status of the user."),
+                            describeUser.withSubsection("enabled", "The locked/unlocked status of the user.")
                         )
                     )
                 );

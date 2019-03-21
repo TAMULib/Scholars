@@ -1,0 +1,10 @@
+:host {
+  .pagination-controls {
+    display: flex;
+    flex-wrap: wrap;
+
+    .page-control-divider {
+      flex-grow: 1;
+    }
+  }
+}

@@ -7,7 +7,7 @@ import { combineLatest, of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
-import { DialogButtonType, DialogControl } from '../../../core/store/dialog';
+import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
 
 import { selectIsLoggingIn } from '../../../core/store/auth';
 

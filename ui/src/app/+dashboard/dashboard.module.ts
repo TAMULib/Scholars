@@ -9,11 +9,7 @@ import { CustomMissingTranslationHandler } from '../core/handler/custom-missing-
 
 import { AboutComponent } from './about/about.component';
 import { DashboardComponent } from './dashboard.component';
-import { DirectoryComponent } from './directory/directory.component';
 import { HomeComponent } from './home/home.component';
-import { OrganizationsComponent } from './organizations/organizations.component';
-import { PeopleComponent } from './people/people.component';
-import { ResearchComponent } from './research/research.component';
 
 import { routes } from './dashboard.routes';
 
@@ -21,11 +17,7 @@ import { routes } from './dashboard.routes';
     declarations: [
         AboutComponent,
         DashboardComponent,
-        DirectoryComponent,
-        HomeComponent,
-        OrganizationsComponent,
-        PeopleComponent,
-        ResearchComponent
+        HomeComponent
     ],
     imports: [
         CommonModule,

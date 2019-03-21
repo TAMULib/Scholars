@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Dialog } from './dialog.model';
+import { Dialog } from '../../model/dialog';
 
 export enum DialogActionTypes {
     OPEN_DIALOG = '[Dialog] open',

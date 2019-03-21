@@ -1,0 +1,28 @@
+:host {
+  .user-icon {
+    list-style-type: none;
+  }
+  
+  .fa-user {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+
+  #about-iframe-video {
+    text-align: center;
+    iframe {
+      height: 300px;
+      width: 500px;
+      @media (max-width: 768px) { 
+        height: 250px;
+        width: 416px;
+      }
+      @media (max-width: 576px) { 
+        height: 150px;
+        width: 250px;
+      }
+    }
+    @media (max-width: 768px) { text-align: center; }
+  }
+
+}

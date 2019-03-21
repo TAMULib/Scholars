@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID, SystemJsNgModuleLoader } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
 import { Observable, Observer, of } from 'rxjs';
@@ -6,7 +6,7 @@ import { Observable, Observer, of } from 'rxjs';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
-import { StompSubscription } from '../store/stomp';
+import { StompSubscription } from '../model/stomp';
 
 import { environment } from '../../../environments/environment';
 
@@ -35,9 +35,11 @@ export class StompService {
                 if (receipt.headers.destination) {
                     const channel = receipt.headers.destination;
                     const pending = this.pending.get(channel);
-                    pending.observer.next(pending.subscription);
-                    pending.observer.complete();
-                    this.pending.delete(channel);
+                    if (pending) {
+                        pending.observer.next(pending.subscription);
+                        pending.observer.complete();
+                        this.pending.delete(channel);
+                    }
                 }
             }
         };
@@ -58,9 +60,11 @@ export class StompService {
                     if (error.headers.destination) {
                         const channel = error.headers.destination;
                         const pending = this.pending.get(channel);
-                        pending.observer.error(error);
-                        pending.observer.complete();
-                        this.pending.delete(channel);
+                        if (pending) {
+                            pending.observer.error(error);
+                            pending.observer.complete();
+                            this.pending.delete(channel);
+                        }
                     }
                 }
             });

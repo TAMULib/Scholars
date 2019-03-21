@@ -1,5 +1,3 @@
--- TAMU themes
-
 INSERT INTO THEMES (ID, ACTIVE, BANNER_ALT_TEXT, BANNER_IMAGE_URI, NAVBAR_BRAND_TEXT, NAVBAR_BRAND_URI, NAVBAR_LOGO_URI, HEROES_NAVIGABLE, ORGANIZATION, NAME) VALUES (1, true, 'SCHOLARS@TAMU', '/assets/images/scholars_logo_white.png', 'Texas A&M University Libraries', 'https://library.tamu.edu', '/assets/images/tamu-logo-with-right-border.png', false, 'Texas A&M University', 'TAMU');
 
 INSERT INTO THEME_COLORS (THEME_ID, KEY, VALUE) VALUES (1, '--blue', '#007bff');

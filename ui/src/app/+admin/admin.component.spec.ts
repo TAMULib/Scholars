@@ -7,6 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
 
 import { AdminComponent } from './admin.component';
+import { DirectoryViewsComponent } from './directory-views/directory-views.component';
+import { DiscoveryViewsComponent } from './discovery-views/discovery-views.component';
 import { ThemesComponent } from './themes/themes.component';
 import { UsersComponent } from './users/users.component';
 
@@ -22,6 +24,8 @@ describe('AdminComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AdminComponent,
+                DirectoryViewsComponent,
+                DiscoveryViewsComponent,
                 ThemesComponent,
                 UsersComponent
             ],

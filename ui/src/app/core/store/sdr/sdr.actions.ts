@@ -1,9 +1,16 @@
 import { Action } from '@ngrx/store';
+import { SdrRequest } from '../../model/request';
 
 export enum SdrActionTypes {
+    GET_ALL = 'get all resources',
+    GET_ALL_SUCCESS = 'sucessfully got all resources',
+    GET_ALL_FAILURE = 'failed getting all resources',
     PAGE = 'page resources',
     PAGE_SUCCESS = 'sucessfully paged resources',
     PAGE_FAILURE = 'failed paging resources',
+    SEARCH = 'search resources',
+    SEARCH_SUCCESS = 'sucessfully searched resources',
+    SEARCH_FAILURE = 'failed searching resources',
     POST = 'post resource',
     POST_SUCCESS = 'sucessfully posted resource',
     POST_FAILURE = 'failed posting resource',
@@ -23,10 +30,24 @@ export const getSdrAction = (actionType: SdrActionTypes, name: string): string =
     return `[${name}] ${actionType}`;
 };
 
+export class GetAllResourcesAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL, this.name);
+    constructor(public name: string, public payload?: any) { }
+}
+
+export class GetAllResourcesSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class GetAllResourcesFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
 
 export class PageResourcesAction implements Action {
     readonly type = getSdrAction(SdrActionTypes.PAGE, this.name);
-    constructor(public name: string, public payload: any) { }
+    constructor(public name: string, public payload: { request: SdrRequest }) { }
 }
 
 export class PageResourcesSuccessAction implements Action {
@@ -36,6 +57,21 @@ export class PageResourcesSuccessAction implements Action {
 
 export class PageResourcesFailureAction implements Action {
     readonly type = getSdrAction(SdrActionTypes.PAGE_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class SearchResourcesAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.SEARCH, this.name);
+    constructor(public name: string, public payload: { request: SdrRequest }) { }
+}
+
+export class SearchResourcesSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.SEARCH_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class SearchResourcesFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.SEARCH_FAILURE, this.name);
     constructor(public name: string, public payload: any) { }
 }
 
@@ -105,9 +141,15 @@ export class ClearResourcesAction implements Action {
 }
 
 export type SdrActions =
+    GetAllResourcesAction |
+    GetAllResourcesSuccessAction |
+    GetAllResourcesFailureAction |
     PageResourcesAction |
     PageResourcesSuccessAction |
     PageResourcesFailureAction |
+    SearchResourcesAction |
+    SearchResourcesSuccessAction |
+    SearchResourcesFailureAction |
     PostResourceAction |
     PostResourceSuccessAction |
     PostResourceFailureAction |

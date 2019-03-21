@@ -1,8 +1,6 @@
-import {
-    createSelector,
-    createFeatureSelector
-} from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
+import { DiscoveryView } from '../../model/view';
 import { SdrResource } from '../../model/sdr';
 
 import * as fromSdr from './sdr.reducer';
@@ -18,5 +16,17 @@ export const selectReousrceError = <R extends SdrResource>(name: string) => crea
 export const selectReousrceIsLoading = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.isLoading);
 export const selectReousrceIsUpdating = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.isUpdating);
 
-export const selectReousrcesPage = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getPage);
-export const selectReousrcesLinks = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getLinks);
+export const selectResourcesPage = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getPage);
+export const selectResourcesFacets = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getFacets);
+export const selectResourcesLinks = <R extends SdrResource>(name: string) => createSelector(selectSdrState<R>(name), fromSdr.getLinks);
+
+export const selectResourceById = <R extends SdrResource>(name: string, id: string) => createSelector(
+    selectReousrceEntities<R>(name),
+    resources => resources[id]
+);
+
+export const selectDefaultDiscoveryView = createSelector(
+    selectReousrceIds<DiscoveryView>('discoveryViews'),
+    selectReousrceEntities<DiscoveryView>('discoveryViews'),
+    (ids, resources) => resources[ids[0]] ? resources[ids[0]] : undefined
+);

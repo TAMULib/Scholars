@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Alert } from './';
+import { Alert } from '../../model/alert';
 
 export enum AlertActionTypes {
     ADD_ALERT = '[Alert] add alert',

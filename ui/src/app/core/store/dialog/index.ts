@@ -9,5 +9,3 @@ export const selectDialogIsOpening = createSelector(selectDialogState, fromDialo
 export const selectDialogIsClosed = createSelector(selectDialogState, fromDialog.isDialogClosed);
 export const selectDialogIsClosing = createSelector(selectDialogState, fromDialog.isDialogClosing);
 export const selectDialog = createSelector(selectDialogState, fromDialog.getDialog);
-
-export { DialogButtonType, DialogButton, DialogControl, Dialog } from './dialog.model';

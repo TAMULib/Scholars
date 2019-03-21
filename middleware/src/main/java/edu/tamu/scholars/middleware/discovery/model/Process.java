@@ -17,7 +17,7 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(key = "process.class")
 public class Process extends AbstractSolrDocument {
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/title", key = "process.title")
     private String title;
 
@@ -37,15 +37,15 @@ public class Process extends AbstractSolrDocument {
     @PropertySource(template = "process/websiteUrl", key = "process.website.url")
     private List<String> websiteUrl;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/websiteLabel", key = "process.website.label")
     private List<String> websiteLabel;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/description", key = "process.description")
     private String description;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/offeredBy", key = "process.offeredBy.name", id = "offeredById")
     private List<String> offeredBy;
 
@@ -64,28 +64,28 @@ public class Process extends AbstractSolrDocument {
     @PropertySource(template = "process/dateTimeIntervalEnd", key = "process.dateTimeInterval.end")
     private List<String> dateTimeIntervalEnd;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/occursWithinEvent", key = "process.occursWithinEvent", id = "occursWithinEventId")
     private List<String> occursWithinEvent;
 
     @Indexed
     private List<String> occursWithinEventId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/includesEvent", key = "process.includesEvent", id = "includesEventId")
     private List<String> includesEvent;
 
     @Indexed
     private List<String> includesEventId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/inEventSeries", key = "process.inEventSeries", id = "inEventSeriesId")
     private List<String> inEventSeries;
 
     @Indexed
     private List<String> inEventSeriesId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/participant", key = "process.participant.name", id = "participantId")
     private List<String> participant;
 
@@ -96,14 +96,14 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> participantId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/hasSubjectArea", key = "process.hasSubjectArea")
     private List<String> hasSubjectArea;
 
     @Indexed
     private List<String> hasSubjectAreaId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/hasPrerequisite", key = "process.hasPrerequisite.name", id = "hasPrerequisiteId")
     private List<String> hasPrerequisite;
 
@@ -114,7 +114,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> hasPrerequisiteId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/prerequisiteFor", key = "process.prerequisiteFor.name", id = "prerequisiteForId")
     private List<String> prerequisiteFor;
 
@@ -125,11 +125,11 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> prerequisiteForId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/credits", key = "process.credits")
     private String credits;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/geographicFocus", key = "process.geographicFocus.name", id = "geographicFocusId")
     private List<String> geographicFocus;
 
@@ -140,7 +140,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> geographicFocusId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/outputPublicationOrOtherWork", key = "process.outputPublicationOrOtherWork.name", id = "outputPublicationOrOtherWorkId")
     private List<String> outputPublicationOrOtherWork;
 
@@ -151,7 +151,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> outputPublicationOrOtherWorkId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/relatedDocument", key = "process.relatedDocument.name", id = "relatedDocumentId")
     private List<String> relatedDocument;
 
@@ -162,25 +162,25 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> relatedDocumentId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/contactInformation", key = "process.contactInformation")
     private List<String> contactInformation;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/heldInFacility", key = "process.heldInFacility", id = "heldInFacilityId")
     private List<String> heldInFacility;
 
     @Indexed
     private List<String> heldInFacilityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/heldInGeographicLocation", key = "process.heldInGeographicLocation", id = "heldInGeographicLocationId")
     private List<String> heldInGeographicLocation;
 
     @Indexed
     private List<String> heldInGeographicLocationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/hasOutput", key = "process.hasOutput.name", id = "hasOutputId")
     private List<String> hasOutput;
 
@@ -191,7 +191,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> hasOutputId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/hasParticipant", key = "process.hasParticipant.name", id = "hasParticipantId")
     private List<String> hasParticipant;
 
@@ -202,7 +202,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> hasParticipantId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/sameAs", key = "process.sameAs.name", id = "sameAsId")
     private List<String> sameAs;
 

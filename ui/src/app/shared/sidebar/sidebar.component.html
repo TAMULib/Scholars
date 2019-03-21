@@ -1,15 +1,26 @@
 <div class="wrapper container">
-    <nav class="sidebar" *ngIf="menu | async; let menu">
-        <div class="card bg-dark" *ngFor="let section of menu.sections">
-            <div class="card-header text-white">
-                <span>{{section.title | async}}</span>
-            </div>
-            <ul class="list-group list-group-flush" *ngFor="let item of section.items">
-                <li class="list-group-item list-group-item-action list-group-item-light link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: false}" [routerLink]="item.route">{{item.label | async}}</li>
-            </ul>
-        </div>
-    </nav>
-    <div class="content container">
-        <ng-content></ng-content>
+  <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu" [ngClass]="{ 'd-none': (isSidebarCollapsed | async) }">
+    <div class="card" *ngFor="let section of menu.sections; let sectionIndex = index">
+      <div class="card-header font-weight-bold {{section.classes}}" *ngIf="section.title | async; let sectionTitle">
+        <span>{{sectionTitle}}</span>
+        <span *ngIf="section.collapsible" class="section-collapse float-right fa" [ngClass]="{ 'fa-caret-right': section.collapsed, 'fa-caret-down': !section.collapsed }" (click)="toggleSectionCollapse(sectionIndex)" aria-role="button" attr.aria-label="{{ (section.collapsed ? 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_EXPAND' : 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_COLLAPSE') | translate:{ label: sectionTitle } }}"></span>
+      </div>
+      <div class="card-items" [ngbCollapse]="section.collapsed">
+        <ul class="list-group list-group-flush" *ngFor="let item of section.items">
+          <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" aria-role="link" attr.aria-label="{{ 'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate }}">
+            <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
+              <span>
+                <span *ngIf="item.selected" class="fa fa-caret-right mr-2"></span>
+                <span>{{item.label | async}}</span>
+              </span>
+            </a>
+            <span *ngIf="item.total"> ({{item.total}})</span>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+  <div class="content container">
+    <ng-content></ng-content>
+  </div>
 </div>

@@ -17,7 +17,7 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(key = "person.class")
 public class Person extends AbstractSolrDocument {
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/name", key = "person.name")
     private String name;
 
@@ -33,15 +33,15 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/thumbnail", key = "person.thumbnail")
     private String thumbnail;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/primaryEmail", key = "person.primaryEmail")
     private String primaryEmail;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/additionalEmail", key = "person.additionalEmail")
     private List<String> additionalEmail;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/phone", key = "person.phone")
     private String phone;
 
@@ -49,19 +49,19 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/websiteUrl", key = "person.website.url")
     private List<String> websiteUrl;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/websiteLabel", key = "person.website.label")
     private List<String> websiteLabel;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/orcidId", key = "person.orcidId", parse = true)
     private String orcidId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/preferredTitle", key = "person.preferredTitle")
     private String preferredTitle;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/position", key = "person.position.title", id = "positionId")
     private List<String> position;
 
@@ -69,25 +69,25 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/positionType", key = "person.position.type", parse = true)
     private List<String> positionType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/positionOrganization", key = "person.position.organization")
     private List<String> positionOrganization;
 
     @Indexed
     private List<String> positionId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/overview", key = "person.overview")
     private String overview;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/researchArea", key = "person.researchArea", id = "researchAreaId")
     private List<String> researchArea;
 
     @Indexed
     private List<String> researchAreaId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/geographicFocus", key = "person.geographicFocus.name", id = "geographicFocusId")
     private List<String> geographicFocus;
 
@@ -98,15 +98,15 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> geographicFocusId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/hrJobTitle", key = "person.hrJobTitle")
     private String hrJobTitle;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/keyword", key = "person.keyword")
     private List<String> keyword;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/headOf", key = "person.headOf.role", id = "headOfId")
     private List<String> headOf;
 
@@ -114,7 +114,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/headOfType", key = "person.headOf.type", parse = true)
     private List<String> headOfType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/headOfOrganization", key = "person.headOf.organization")
     private List<String> headOfOrganization;
 
@@ -129,7 +129,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> headOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/memberOf", key = "person.memberOf.role", id = "memberOfId")
     private List<String> memberOf;
 
@@ -137,7 +137,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/memberOfType", key = "person.memberOf.type", parse = true)
     private List<String> memberOfType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/memberOfOrganization", key = "person.memberOf.organization")
     private List<String> memberOfOrganization;
 
@@ -152,14 +152,14 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> memberOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/hasCollaborator", key = "person.hasCollaborator", id = "hasCollaboratorId")
     private List<String> hasCollaborator;
 
     @Indexed
     private List<String> hasCollaboratorId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/clinicalActivity", key = "person.clinicalActivity.name", id = "clinicalActivityId")
     private List<String> clinicalActivity;
 
@@ -167,7 +167,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/clinicalActivityType", key = "person.clinicalActivity.type", parse = true)
     private List<String> clinicalActivityType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/clinicalActivityRole", key = "person.clinicalActivity.role")
     private List<String> clinicalActivityRole;
 
@@ -182,7 +182,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> clinicalActivityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/attendedEvent", key = "person.attendedEvent.name", id = "attendedEventId")
     private List<String> attendedEvent;
 
@@ -201,7 +201,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> attendedEventId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/educationAndTraining", key = "person.educationAndTraining.name", id = "educationAndTrainingId")
     private List<String> educationAndTraining;
 
@@ -224,7 +224,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> educationAndTrainingId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/credentials", key = "person.credentials.name", id = "credentialsId")
     private List<String> credentials;
 
@@ -235,7 +235,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> credentialsId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/credentialEligibilityAttained", key = "person.credentialEligibilityAttained.name", id = "credentialEligibilityAttainedId")
     private List<String> credentialEligibilityAttained;
 
@@ -246,7 +246,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> credentialEligibilityAttainedId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/awardAndHonor", key = "person.awardAndHonor.name", id = "awardAndHonorId")
     private List<String> awardAndHonor;
 
@@ -257,7 +257,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> awardAndHonorId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/adviseeOf", key = "person.adviseeOf.name", id = "adviseeOfId")
     private List<String> adviseeOf;
 
@@ -265,7 +265,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/adviseeOfType", key = "person.adviseeOf.type", parse = true)
     private List<String> adviseeOfType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/adviseeOfCandidacy", key = "person.adviseeOf.candidacy")
     private List<String> adviseeOfCandidacy;
 
@@ -280,7 +280,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> adviseeOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/selectedPublication", key = "person.selectedPublication.title", id = "selectedPublicationId")
     private List<String> selectedPublication;
 
@@ -295,11 +295,11 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> selectedPublicationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/collectionOrSeriesEditorFor", key = "person.collectionOrSeriesEditorFor.title", id = "collectionOrSeriesEditorForId")
     private List<String> collectionOrSeriesEditorFor;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/collectionOrSeriesEditorForRole", key = "person.collectionOrSeriesEditorFor.role")
     private List<String> collectionOrSeriesEditorForRole;
 
@@ -318,7 +318,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> collectionOrSeriesEditorForId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/editorOf", key = "person.editorOf.title", id = "editorOfId")
     private List<String> editorOf;
 
@@ -326,11 +326,11 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/editorOfType", key = "person.editorOf.type", parse = true)
     private List<String> editorOfType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/editorOfPublisher", key = "person.editorOf.publisher", unique = true)
     private List<String> editorOfPublisher;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/editorOfFullAuthorList", key = "person.editorOf.fullAuthorList")
     private List<String> editorOfFullAuthorList;
 
@@ -349,7 +349,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> editorOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/presentation", key = "person.presentation.name", id = "presentationId")
     private List<String> presentation;
 
@@ -357,11 +357,11 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/presentationType", key = "person.presentation.type", parse = true)
     private List<String> presentationType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/presentationRole", key = "person.presentation.role")
     private List<String> presentationRole;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/presentationEvent", key = "person.presentation.event", parse = true)
     private List<String> presentationEvent;
 
@@ -376,7 +376,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> presentationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/featuredIn", key = "person.featuredIn.title", id = "featuredInId")
     private List<String> featuredIn;
 
@@ -391,7 +391,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> featuredInId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/assigneeForPatent", key = "person.assigneeForPatent.name", id = "assigneeForPatentId")
     private List<String> assigneeForPatent;
 
@@ -406,7 +406,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> assigneeForPatentId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/translatorOf", key = "person.translatorOf.title", id = "translatorOfId")
     private List<String> translatorOf;
 
@@ -421,15 +421,15 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> translatorOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/researchOverview", key = "person.researchOverview")
     private String researchOverview;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/principalInvestigatorOn", key = "person.principalInvestigatorOn.name", id = "principalInvestigatorOnId")
     private List<String> principalInvestigatorOn;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/principalInvestigatorOnAwardedBy", key = "person.principalInvestigatorOn.awardedBy")
     private List<String> principalInvestigatorOnAwardedBy;
 
@@ -444,11 +444,11 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> principalInvestigatorOnId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/coPrincipalInvestigatorOn", key = "person.coPrincipalInvestigatorOn.name", id = "coPrincipalInvestigatorOnId")
     private List<String> coPrincipalInvestigatorOn;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/coPrincipalInvestigatorOnAwardedBy", key = "person.coPrincipalInvestigatorOn.awardedBy")
     private List<String> coPrincipalInvestigatorOnAwardedBy;
 
@@ -463,11 +463,11 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> coPrincipalInvestigatorOnId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/investigatorOn", key = "person.investigatorOn.name", id = "investigatorOnId")
     private List<String> investigatorOn;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/investigatorOnAwardedBy", key = "person.investigatorOn.awardedBy")
     private List<String> investigatorOnAwardedBy;
 
@@ -501,30 +501,30 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> otherResearchActivityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/teachingOverview", key = "person.teachingOverview")
     private String teachingOverview;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/teachingActivity", key = "person.teachingActivity.name", id = "teachingActivityId")
     private List<String> teachingActivity;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/teachingActivityRole", key = "person.teachingActivity.role")
     private List<String> teachingActivityRole;
 
     @Indexed
     private List<String> teachingActivityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/advisee", key = "person.advisee.name", id = "adviseeId")
     private List<String> advisee;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/adviseeCandidacy", key = "person.advisee.candidacy")
     private List<String> adviseeCandidacy;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/adviseeType", key = "person.advisee.type", parse = true)
     private List<String> adviseeType;
 
@@ -539,11 +539,11 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> adviseeId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/outreachOverview", key = "person.outreachOverview")
     private String outreachOverview;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/reviewerOf", key = "person.reviewerOf.title", id = "reviewerOfId")
     private List<String> reviewerOf;
 
@@ -562,7 +562,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> reviewerOfId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/contactOrProvidorForService", key = "person.contactOrProvidorForService.name", id = "contactOrProvidorForServiceId")
     private List<String> contactOrProvidorForService;
 
@@ -573,7 +573,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> contactOrProvidorForServiceId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/organizerOfEvent", key = "person.organizerOfEvent.name", id = "organizerOfEventId")
     private List<String> organizerOfEvent;
 
@@ -592,7 +592,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> organizerOfEventId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/professionalServiceActivity", key = "person.professionalServiceActivity.name", id = "professionalServiceActivityId")
     private List<String> professionalServiceActivity;
 
@@ -600,7 +600,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/professionalServiceActivityType", key = "person.professionalServiceActivity.type", parse = true)
     private List<String> professionalServiceActivityType;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/professionalServiceActivityRole", key = "person.professionalServiceActivity.role")
     private List<String> professionalServiceActivityRole;
 
@@ -615,11 +615,11 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> professionalServiceActivityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/outreachAndCommunityServiceActivity", key = "person.outreachAndCommunityServiceActivity.name", id = "outreachAndCommunityServiceActivityId")
     private List<String> outreachAndCommunityServiceActivity;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/professionalServiceActivityRole", key = "person.outreachAndCommunityServiceActivity.role")
     private List<String> outreachAndCommunityServiceActivityRole;
 
@@ -638,7 +638,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> outreachAndCommunityServiceActivityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/performsTechnique", key = "person.performsTechnique.name", id = "performsTechniqueId")
     private List<String> performsTechnique;
 
@@ -649,7 +649,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> performsTechniqueId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/hasExpertiseInTechnique", key = "person.hasExpertiseInTechnique.name", id = "hasExpertiseInTechniqueId")
     private List<String> hasExpertiseInTechnique;
 
@@ -660,35 +660,35 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> hasExpertiseInTechniqueId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/isni", key = "person.isni")
     private String isni;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/netid", key = "person.netid")
     private String netid;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/researcherId", key = "person.researcherId")
     private String researcherId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/twitter", key = "person.twitter")
     private String twitter;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/uid", key = "person.uid")
     private String uid;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/uin", key = "person.uin")
     private String uin;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/youtube", key = "person.youtube")
     private String youtube;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/sameAs", key = "person.sameAs.label", id = "sameAsId")
     private List<String> sameAs;
 
@@ -699,77 +699,77 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> sameAsId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/eraCommonsId", key = "person.eraCommonsId")
     private String eraCommonsId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/isiResearcherId", key = "person.isiResearcherId")
     private String isiResearcherId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/scopusId", key = "person.scopusId")
     private String scopusId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/healthCareProviderId", key = "person.healthCareProviderId")
     private String healthCareProviderId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/email", key = "person.email")
     private String email;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/firstName", key = "person.firstName")
     private String firstName;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/middleName", key = "person.middleName")
     private String middleName;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/lastName", key = "person.lastName")
     private String lastName;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/streetAddress", key = "person.address.streetAddress")
     private String streetAddress;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/locality", key = "person.address.locality")
     private String locality;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/region", key = "person.address.region")
     private String region;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/postalCode", key = "person.address.postalCode")
     private String postalCode;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/country", key = "person.address.country")
     private String country;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/geographicLocation", key = "person.geographicLocation", id = "geographicLocationId")
     private String geographicLocation;
 
     @Indexed
     private String geographicLocationId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/locatedInFacility", key = "person.locatedInFacility", id = "locatedInFacilityId")
     private List<String> locatedInFacility;
 
     @Indexed
     private List<String> locatedInFacilityId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/fax", key = "person.fax")
     private String fax;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/etdChairOf", key = "person.etdChairOf", id = "etdChairOfId")
     private List<String> etdChairOf;
 

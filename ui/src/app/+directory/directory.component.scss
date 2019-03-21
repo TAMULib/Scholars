@@ -1,0 +1,15 @@
+:host {
+  width: 100%;
+  .index {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    grid-gap: 8px;
+    text-align: center;
+    .option {
+      white-space: nowrap;
+    }
+    .option:hover {
+      cursor: pointer;
+    }
+  }
+}
