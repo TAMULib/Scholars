@@ -90,7 +90,6 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     public getResetQueryParams(directoryView: DirectoryView): Params {
         const queryParams: Params = {};
         queryParams.collection = directoryView.collection;
-        queryParams.sort = `${directoryView.index.field},asc`;
         queryParams.index = undefined;
         if (directoryView.facets && directoryView.facets.length > 0) {
             let facets = '';
