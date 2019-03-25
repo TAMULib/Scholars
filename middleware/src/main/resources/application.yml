@@ -33,7 +33,7 @@ vivo:
   sparql-query-endpoint: /api/sparqlQuery
   triplestore:
     type: TDB
-    directory:
+    directory: C:\\Users\\wwelling\\Development\\Scholars\\triplestore
     datasourceUrl: jdbc:mysql://localhost/vivo
     username:
     password:
