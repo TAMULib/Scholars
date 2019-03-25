@@ -60,6 +60,9 @@ spring:
       authorize-hal-browser: false
       return-body-on-create: true
       return-body-on-update: true
+    solr:
+      operator: AND
+      parser: edismax
     # NOTE: this does not work yet, https://jira.spring.io/browse/DATAREST-1290
     web:
       pageable:

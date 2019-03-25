@@ -33,7 +33,7 @@ vivo:
   sparql-query-endpoint: /api/sparqlQuery
   triplestore:
     type: TDB
-    directory: C:\\Users\\wwelling\\Development\\Scholars\\triplestore
+    directory:
     datasourceUrl: jdbc:mysql://localhost/vivo
     username:
     password:
@@ -63,6 +63,8 @@ spring:
       return-body-on-update: true
     solr:
       host: http://localhost:8983/solr
+      operator: AND
+      parser: edismax
     # NOTE: this does not work yet, https://jira.spring.io/browse/DATAREST-1290
     web:
       pageable:
@@ -76,7 +78,7 @@ spring:
   devtools:
     add-properties: false
     restart:
-      enabled: false
+      enabled: true
       exclude: src/main/resources,target
   h2:
     console:

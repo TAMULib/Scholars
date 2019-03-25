@@ -1,11 +1,11 @@
 package edu.tamu.scholars.middleware.discovery.model.repo.impl;
 
 import static org.springframework.data.solr.core.query.Criteria.WILDCARD;
-import static org.springframework.data.solr.core.query.Query.Operator.AND;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.Criteria;
@@ -14,6 +14,7 @@ import org.springframework.data.solr.core.query.FacetOptions;
 import org.springframework.data.solr.core.query.FacetOptions.FieldWithFacetParameters;
 import org.springframework.data.solr.core.query.FacetQuery;
 import org.springframework.data.solr.core.query.FilterQuery;
+import org.springframework.data.solr.core.query.Query.Operator;
 import org.springframework.data.solr.core.query.SimpleFacetQuery;
 import org.springframework.data.solr.core.query.SimpleFilterQuery;
 import org.springframework.data.solr.core.query.SimpleStringCriteria;
@@ -30,7 +31,12 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
     private static final String OFFSET_TEMPLATE = "%s.offset";
     private static final String SORT_TEMPLATE = "%s.sort";
     private static final String FILTER_TEMPLATE = "%s.filter";
-    private static final String QUERY_PARSER = "edismax";
+
+    @Value("${spring.data.solr.parser:edismax}")
+    private String queryParser;
+
+    @Value("${spring.data.solr.operator:AND}")
+    private Operator queryOperator;
 
     @Autowired
     private SolrTemplate solrTemplate;
@@ -48,7 +54,7 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
         if (index != null) {
             String[] indexParts = index.split(INDEX_QUERY_PARAM_DELIMETER);
             // NOTE: to support all operation keys additional values will have to be included in the index query parameter
-            // TODO: handle if invalid index query parameter, consider an argument resolver into Indexable class
+            // TODO: if invalid index query parameter, consider an argument resolver into Indexable class
             if (indexParts.length == 3) {
                 Criteria criteria = buildCriteria(indexParts);
                 indexParts[2] = indexParts[2].toLowerCase();
@@ -96,9 +102,9 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
             facetQuery.setFacetOptions(facetOptions);
         }
 
-        facetQuery.setDefaultOperator(AND);
+        facetQuery.setDefaultOperator(queryOperator);
 
-        facetQuery.setDefType(QUERY_PARSER);
+        facetQuery.setDefType(queryParser);
 
         facetQuery.setPageRequest(page);
 
