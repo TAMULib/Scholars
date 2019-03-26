@@ -2,6 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Params } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
 import { of, combineLatest, defer, Observable } from 'rxjs';
 import { map, switchMap, catchError, withLatestFrom, skipWhile, take, filter } from 'rxjs/operators';
@@ -42,7 +43,8 @@ export class SdrEffects {
         private injector: Injector,
         private store: Store<AppState>,
         private alert: AlertService,
-        private dialog: DialogService
+        private dialog: DialogService,
+        private translate: TranslateService
     ) {
         this.repos = new Map<string, AbstractSdrRepo<SdrResource>>();
         this.injectRepos();
@@ -395,7 +397,7 @@ export class SdrEffects {
                             sidebarSection.items.push({
                                 type: SidebarItemType.ACTION,
                                 action: this.dialog.facetEntriesDialog(facet.name, sdrFacet),
-                                label: of('more')
+                                label: this.translate.get('SHARED.SIDEBAR.ACTION.MORE')
                             });
                         }
 

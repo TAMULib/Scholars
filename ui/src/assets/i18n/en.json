@@ -74,6 +74,7 @@
     },
     "DIALOG": {
       "FACET_ENTRIES": {
+        "ARIA_LABELLED_BY": "{{name}} facet entries dialog",
         "CANCEL": "Close"
       },
       "LOGIN": {
@@ -144,6 +145,9 @@
       "BACK": "Back",
       "LINK": {
         "ARIA_LABEL": "Navigation link."
+      },
+      "ACTION": {
+        "MORE": "more"
       },
       "SECTION": {
         "ARIA_LABEL_COLLAPSE": "Collapse the {{label}} section.",

@@ -83,7 +83,7 @@ export class DialogService {
                     component: FacetEntriesComponent,
                     inputs: { name, facet }
                 },
-                options: this.options(this.translate.instant('SHARED.DIALOG.FACET_ENTRIES.ARIA_LABELLED_BY'))
+                options: this.options(this.translate.instant('SHARED.DIALOG.FACET_ENTRIES.ARIA_LABELLED_BY', { name }))
             }
         });
     }
