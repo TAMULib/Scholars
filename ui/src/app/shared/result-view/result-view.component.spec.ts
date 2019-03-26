@@ -41,6 +41,9 @@ describe('ResultViewComponent', () => {
                 }
             }
         };
+        component.resource = {
+            type: []
+        };
         fixture.detectChanges();
     });
 
