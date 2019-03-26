@@ -33,7 +33,8 @@ public class DiscoveryViewTest {
         assertEquals("persons", discoveryView.getCollection());
         assertEquals(Layout.GRID, discoveryView.getLayout());
 
-        assertEquals("<h1>Person template from WSYWIG</h1>", discoveryView.getTemplate());
+        assertTrue(discoveryView.getTemplates().containsKey("default"));
+        assertEquals("<h1>Person template from WSYWIG</h1>", discoveryView.getTemplates().get("default"));
 
         assertEquals(1, discoveryView.getStyles().size());
         assertEquals("color: maroon;", discoveryView.getStyles().get(0));

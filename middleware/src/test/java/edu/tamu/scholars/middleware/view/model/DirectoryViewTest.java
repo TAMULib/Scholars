@@ -34,7 +34,8 @@ public class DirectoryViewTest {
         assertEquals("persons", directoryView.getCollection());
         assertEquals(Layout.LIST, directoryView.getLayout());
 
-        assertEquals("<h1>Person template from WSYWIG</h1>", directoryView.getTemplate());
+        assertTrue(directoryView.getTemplates().containsKey("default"));
+        assertEquals("<h1>Person template from WSYWIG</h1>", directoryView.getTemplates().get("default"));
 
         assertEquals(1, directoryView.getStyles().size());
         assertEquals("color: maroon;", directoryView.getStyles().get(0));

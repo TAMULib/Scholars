@@ -54,7 +54,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
                         fieldWithPath("collection").description("The collection of the directory view."),
                         describeDirectoryView.withField("layout", "The layout of the directory view."),
-                        describeDirectoryView.withField("template", "The result template of the directory view."),
+                        describeDirectoryView.withSubsection("templates", "The result templates of the directory view."),
                         describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
@@ -70,7 +70,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
                         fieldWithPath("collection").description("The collection of the directory view."),
                         describeDirectoryView.withField("layout", "The layout of the directory view."),
-                        describeDirectoryView.withField("template", "The result template of the directory view."),
+                        describeDirectoryView.withSubsection("templates", "The result templates of the directory view."),
                         describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
@@ -101,7 +101,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
                         fieldWithPath("collection").description("The collection of the directory view."),
                         describeDirectoryView.withField("layout", "The layout of the directory view."),
-                        describeDirectoryView.withField("template", "The result template of the directory view."),
+                        describeDirectoryView.withSubsection("templates", "The result templates of the directory view."),
                         describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
@@ -117,7 +117,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
                         fieldWithPath("collection").description("The collection of the directory view."),
                         describeDirectoryView.withField("layout", "The layout of the directory view."),
-                        describeDirectoryView.withField("template", "The result template of the directory view."),
+                        describeDirectoryView.withSubsection("templates", "The result templates of the directory view."),
                         describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
@@ -157,7 +157,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                                 parameterWithName("collection").description("The collection of the directory view.").optional(),
                                 describeDirectoryView.withParameter("layout", "The layout of the directory view.").optional(),
                                 describeDirectoryView.withParameter("index", "A <<resources-index, Index resource>>.").optional(),
-                                describeDirectoryView.withParameter("template", "The result template of the directory view.").optional(),
+                                describeDirectoryView.withParameter("templates", "The result templates of the directory view.").optional(),
                                 describeDirectoryView.withParameter("styles", "An array of result style strings of the directory view.").optional(),
                                 describeDirectoryView.withParameter("facets", "An array of <<resources-facets, Facet resources>>.").optional(),
                                 describeDirectoryView.withParameter("filters", "An array of <<resources-filters, Filters resources>>.").optional()
@@ -172,7 +172,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
                                 fieldWithPath("collection").description("The collection of the directory view."),
                                 describeDirectoryView.withField("layout", "The layout of the directory view."),
-                                describeDirectoryView.withField("template", "The result template of the directory view."),
+                                describeDirectoryView.withSubsection("templates", "The result templates of the directory view."),
                                 describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
                                 describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                                 describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
@@ -210,7 +210,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                             // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
                             fieldWithPath("collection").description("The collection of the directory view."),
                             describeDirectoryView.withField("layout", "The layout of the directory view."),
-                            describeDirectoryView.withField("template", "The result template of the directory view."),
+                            describeDirectoryView.withSubsection("templates", "The result templates of the directory view."),
                             describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
                             describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                             describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),

@@ -26,7 +26,7 @@ export interface Filter {
 export interface CollectionView extends View {
     readonly collection: string;
     readonly layout: Layout;
-    readonly template: string;
+    readonly templates: any;
     readonly styles: string[];
     readonly facets: Facet[];
     readonly filters: Filter[];
