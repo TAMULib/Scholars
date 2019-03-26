@@ -23,13 +23,13 @@
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
           <a class="nav-link" [routerLink]="['/about']" (click)="toggleNavigation()">{{ 'SHARED.NAVIGATION.ABOUT' | translate }}</a>
         </li>
-        <li class="nav-item d-sm-none">
-          <a class="nav-link edit-profile-action" href="#">{{ 'SHARED.NAVIGATION.EDIT_PROFILE' | translate }}</a>
+        <li *ngIf="editProfileLink" class="nav-item d-sm-none">
+          <a class="nav-link edit-profile-action" [href]="editProfileLink">{{ 'SHARED.NAVIGATION.EDIT_PROFILE' | translate }}</a>
         </li>
       </ul>
     </div>
-    <div class="nav navbar-nav d-none d-sm-block">
-      <a class="btn btn-outline-primary edit-profile-action" href="#">{{ 'SHARED.NAVIGATION.EDIT_PROFILE' | translate }}</a>
+    <div *ngIf="editProfileLink" class="nav navbar-nav d-none d-sm-block">
+      <a class="btn btn-outline-primary edit-profile-action" [href]="editProfileLink">{{ 'SHARED.NAVIGATION.EDIT_PROFILE' | translate }}</a>
     </div>
   </div>
 </nav>

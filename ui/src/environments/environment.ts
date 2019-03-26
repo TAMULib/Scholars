@@ -9,5 +9,6 @@ export const environment = {
     hmr: false,
     hasStoreDevTools: false,
     stompDebug: false,
-    service: 'http://localhost:9000'
+    service: 'http://localhost:9000',
+    editProfileLink: 'https://scholars.library.tamu.edu/vivo_editor/'
 };

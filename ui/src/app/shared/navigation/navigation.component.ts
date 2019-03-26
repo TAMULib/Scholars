@@ -15,12 +15,16 @@ import { selectAllResources } from '../../core/store/sdr';
 
 import * as fromLayout from '../../core/store/layout/layout.actions';
 
+import { environment } from '../../../environments/environment';
+
 @Component({
     selector: 'scholars-navigation',
     templateUrl: 'navigation.component.html',
     styleUrls: ['navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+
+    public editProfileLink: string;
 
     public hasMenu: Observable<boolean>;
 
@@ -35,7 +39,7 @@ export class NavigationComponent implements OnInit {
     public directoryViews: Observable<DirectoryView[]>;
 
     constructor(private store: Store<AppState>) {
-
+        this.editProfileLink = environment.editProfileLink;
     }
 
     ngOnInit() {
