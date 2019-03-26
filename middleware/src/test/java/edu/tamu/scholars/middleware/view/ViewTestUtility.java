@@ -1,7 +1,9 @@
 package edu.tamu.scholars.middleware.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.solr.core.query.Criteria.OperationKey;
 import org.springframework.data.solr.core.query.FacetOptions.FacetSort;
@@ -22,7 +24,10 @@ public class ViewTestUtility {
         directoryView.setCollection("persons");
         directoryView.setLayout(Layout.LIST);
 
-        directoryView.setTemplate("<h1>Person template from WSYWIG</h1>");
+        Map<String, String> templates = new HashMap<String, String>();
+        templates.put("default", "<h1>Person template from WSYWIG</h1>");
+
+        directoryView.setTemplates(templates);
 
         List<String> styles = new ArrayList<String>();
 
@@ -71,7 +76,10 @@ public class ViewTestUtility {
         discoveryView.setCollection("persons");
         discoveryView.setLayout(Layout.GRID);
 
-        discoveryView.setTemplate("<h1>Person template from WSYWIG</h1>");
+        Map<String, String> templates = new HashMap<String, String>();
+        templates.put("default", "<h1>Person template from WSYWIG</h1>");
+
+        discoveryView.setTemplates(templates);
 
         List<String> styles = new ArrayList<String>();
 

@@ -1,14 +1,16 @@
 package edu.tamu.scholars.middleware.view.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
 
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFacets;
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFilters;
@@ -29,9 +31,10 @@ public abstract class CollectionView extends View {
     @Enumerated(EnumType.STRING)
     private Layout layout;
 
-    @NotNull
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String template;
+    @ElementCollection
+    @MapKeyColumn(name = "key")
+    @Column(name = "template", columnDefinition = "TEXT")
+    private Map<String, String> templates;
 
     @ElementCollection
     private List<String> styles;
@@ -44,6 +47,8 @@ public abstract class CollectionView extends View {
 
     public CollectionView() {
         super();
+        templates = new HashMap<String, String>();
+        styles = new ArrayList<String>();
         facets = new ArrayList<Facet>();
         filters = new ArrayList<Filter>();
     }
@@ -64,12 +69,12 @@ public abstract class CollectionView extends View {
         this.layout = layout;
     }
 
-    public String getTemplate() {
-        return template;
+    public Map<String, String> getTemplates() {
+        return templates;
     }
 
-    public void setTemplate(String template) {
-        this.template = template;
+    public void setTemplates(Map<String, String> templates) {
+        this.templates = templates;
     }
 
     public List<String> getStyles() {

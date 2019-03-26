@@ -1,6 +1,10 @@
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (1, 'People', 'persons', 'LIST', '<div style="display: flex"><div style="margin-right: 25px"><div>{{#thumbnail}}<img src="http://scholars.library.tamu.edu/vivo{{thumbnail}}" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}{{^thumbnail}}<img src="assets/images/default-avatar.png" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}</div></div><div style="margin: auto 0"><div><a href>{{name}}</a></div><div><span>{{preferredTitle}}</span></div></div></div>', 'name', 'STARTS_WITH');
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (2, 'Organizations', 'organizations', 'LIST', '<div><div><a href>{{name}}</a></div><div><span>{{type}}</span></div></div>', 'name', 'STARTS_WITH');
-INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE, FIELD, OPERATION_KEY) VALUES (3, 'Research', 'documents', 'LIST', '<div><a href>{{title}}</a></div>', 'title', 'STARTS_WITH');
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, FIELD, OPERATION_KEY) VALUES (1, 'People', 'persons', 'LIST', 'name', 'STARTS_WITH');
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, FIELD, OPERATION_KEY) VALUES (2, 'Organizations', 'organizations', 'LIST', 'name', 'STARTS_WITH');
+INSERT INTO DIRECTORY_VIEWS (ID, NAME, COLLECTION, LAYOUT, FIELD, OPERATION_KEY) VALUES (3, 'Research', 'documents', 'LIST', 'title', 'STARTS_WITH');
+
+INSERT INTO DIRECTORY_VIEW_TEMPLATES (DIRECTORY_VIEW_ID, KEY, TEMPLATE) VALUES (1, 'default', '<div style="display: flex"><div style="margin-right: 25px"><div>{{#thumbnail}}<img src="http://scholars.library.tamu.edu/vivo{{thumbnail}}" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}{{^thumbnail}}<img src="assets/images/default-avatar.png" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}</div></div><div style="margin: auto 0"><div><a href>{{name}}</a></div><div><span>{{preferredTitle}}</span></div></div></div>');
+INSERT INTO DIRECTORY_VIEW_TEMPLATES (DIRECTORY_VIEW_ID, KEY, TEMPLATE) VALUES (2, 'default', '<div><div><a href>{{name}}</a></div><div><span>{{type}}</span></div></div>');
+INSERT INTO DIRECTORY_VIEW_TEMPLATES (DIRECTORY_VIEW_ID, KEY, TEMPLATE) VALUES (3, 'default', '<div><a href>{{title}}</a></div>');
 
 INSERT INTO DIRECTORY_VIEW_FACETS (DIRECTORY_VIEW_ID, NAME, FIELD, DEFAULT_LIMIT, DEFAULT_SORT, HIDDEN) VALUES (1, 'Type', 'type', 10, 'COUNT', false);
 INSERT INTO DIRECTORY_VIEW_FACETS (DIRECTORY_VIEW_ID, NAME, FIELD, DEFAULT_LIMIT, DEFAULT_SORT, HIDDEN) VALUES (2, 'Type', 'type', 10, 'COUNT', false);
@@ -88,12 +92,19 @@ INSERT INTO DIRECTORY_VIEW_OPTIONS (DIRECTORY_VIEW_ID, OPTIONS) VALUES (3, 'Y');
 INSERT INTO DIRECTORY_VIEW_OPTIONS (DIRECTORY_VIEW_ID, OPTIONS) VALUES (3, 'Z');
 
 
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (1, 'People', 'persons', 'GRID', '<div style="display: flex"> <div style="margin-right: 25px"> <div>{{#thumbnail}}<img src="http://scholars.library.tamu.edu/vivo{{thumbnail}}" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}{{^thumbnail}}<img src="assets/images/default-avatar.png" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}</div> </div> <div style="margin: auto 0"> <div style="font-size: 15px"><a href>{{name}}</a></div> <div style="margin-top: 10px"><span>{{preferredTitle}}</span></div> <div class="comma-seperated"> {{#positionOrganization}} <span><a href>{{.}}</a></span> {{/positionOrganization}} </div> {{#researchArea.length}} <div style="margin-top: 10px"><span>Research Areas</span></div> <div class="comma-seperated"> {{#researchArea}} <span><a href>{{.}}</a></span> {{/researchArea}} </div> {{/researchArea.length}} </div> </div> <div style="display: flex; margin-top: 10px;"> <div style="margin: auto"> <a href style="color: black; text-decoration: none">Co-Author Network</a> </div> <div style="margin: auto"> <a href style="color: black; text-decoration: none">Map of Science</a> </div> </div> <style> .comma-seperated span:after { content: ", "; } .comma-seperated span:last-child:after { content: ""; } </style>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (2, 'Publications', 'documents', 'LIST', '<span>{{title}}</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (3, 'Grants', 'relationships', 'LIST', '<span>{{title}}</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (4, 'Awards', 'relationships', 'LIST', '<span>{{title}}</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (5, 'Courses', 'processes', 'LIST', '<span>{{title}}</span>');
-INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT, TEMPLATE) VALUES (6, 'Concepts', 'concepts', 'LIST', '<span>{{name}}</span>');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT) VALUES (1, 'People', 'persons', 'GRID');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT) VALUES (2, 'Publications', 'documents', 'LIST');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT) VALUES (3, 'Grants', 'relationships', 'LIST');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT) VALUES (4, 'Awards', 'relationships', 'LIST');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT) VALUES (5, 'Courses', 'processes', 'LIST');
+INSERT INTO DISCOVERY_VIEWS (ID, NAME, COLLECTION, LAYOUT) VALUES (6, 'Concepts', 'concepts', 'LIST');
+
+INSERT INTO DISCOVERY_VIEW_TEMPLATES (DISCOVERY_VIEW_ID, KEY, TEMPLATE) VALUES (1, 'default', '<div style="display: flex"> <div style="margin-right: 25px"> <div>{{#thumbnail}}<img src="http://scholars.library.tamu.edu/vivo{{thumbnail}}" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}{{^thumbnail}}<img src="assets/images/default-avatar.png" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}</div> </div> <div style="margin: auto 0"> <div style="font-size: 15px"><a href>{{name}}</a></div> <div style="margin-top: 10px"><span>{{preferredTitle}}</span></div> <div class="comma-seperated"> {{#positionOrganization}} <span><a href>{{.}}</a></span> {{/positionOrganization}} </div> {{#researchArea.length}} <div style="margin-top: 10px"><span>Research Areas</span></div> <div class="comma-seperated"> {{#researchArea}} <span><a href>{{.}}</a></span> {{/researchArea}} </div> {{/researchArea.length}} </div> </div> <div style="display: flex; margin-top: 10px;"> <div style="margin: auto"> <a href style="color: black; text-decoration: none">Co-Author Network</a> </div> <div style="margin: auto"> <a href style="color: black; text-decoration: none">Map of Science</a> </div> </div> <style> .comma-seperated span:after { content: ", "; } .comma-seperated span:last-child:after { content: ""; } </style>');
+INSERT INTO DISCOVERY_VIEW_TEMPLATES (DISCOVERY_VIEW_ID, KEY, TEMPLATE) VALUES (2, 'default', '<span>{{title}}</span>');
+INSERT INTO DISCOVERY_VIEW_TEMPLATES (DISCOVERY_VIEW_ID, KEY, TEMPLATE) VALUES (3, 'default', '<span>{{title}}</span>');
+INSERT INTO DISCOVERY_VIEW_TEMPLATES (DISCOVERY_VIEW_ID, KEY, TEMPLATE) VALUES (4, 'default', '<span>{{title}}</span>');
+INSERT INTO DISCOVERY_VIEW_TEMPLATES (DISCOVERY_VIEW_ID, KEY, TEMPLATE) VALUES (5, 'default', '<span>{{title}}</span>');
+INSERT INTO DISCOVERY_VIEW_TEMPLATES (DISCOVERY_VIEW_ID, KEY, TEMPLATE) VALUES (6, 'default', '<span>{{name}}</span>');
 
 INSERT INTO DISCOVERY_VIEW_FILTERS (DISCOVERY_VIEW_ID, FIELD, VALUE) VALUES (3, 'type', 'Grant');
 INSERT INTO DISCOVERY_VIEW_FILTERS (DISCOVERY_VIEW_ID, FIELD, VALUE) VALUES (4, 'type', 'AwardReceipt');
