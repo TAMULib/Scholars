@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { of } from 'rxjs';
@@ -9,7 +10,7 @@ import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
 import { SdrFacet } from '../../../core/model/sdr';
 
 import * as fromDialog from '../../../core/store/dialog/dialog.actions';
-import { Params } from '@angular/router';
+
 
 @Component({
     selector: 'scholars-facet-entries',

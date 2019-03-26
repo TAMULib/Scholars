@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
+import { FacetEntriesComponent } from '../../shared/dialog/facet-entries/facet-entries.component';
 import { LoginComponent } from '../../shared/dialog/login/login.component';
 import { NotificationComponent } from '../../shared/dialog/notification/notification.component';
 import { UserEditComponent } from '../../shared/dialog/user-edit/user-edit.component';
@@ -9,10 +10,9 @@ import { RegistrationStep, RegistrationComponent } from '../../shared/dialog/reg
 
 import { User } from '../model/user';
 import { RegistrationRequest } from '../model/request';
+import { SdrFacet } from '../model/sdr';
 
 import * as fromDialog from '../../core/store/dialog/dialog.actions';
-import { FacetEntriesComponent } from '../../shared/dialog/facet-entries/facet-entries.component';
-import { SdrFacet } from '../model/sdr';
 
 @Injectable({
     providedIn: 'root',

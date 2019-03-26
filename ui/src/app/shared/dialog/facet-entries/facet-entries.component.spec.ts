@@ -29,6 +29,12 @@ describe('FacetEntriesComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(FacetEntriesComponent);
         component = fixture.componentInstance;
+        component.name = 'Test';
+        component.facet = {
+            field: undefined,
+            page: undefined,
+            entries: []
+        };
         fixture.detectChanges();
     });
 
