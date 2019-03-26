@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.query.result.FacetFieldEntry;
 import org.springframework.data.solr.core.query.result.FacetPage;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
@@ -14,9 +15,6 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponents;
-
-import edu.tamu.scholars.middleware.discovery.model.Facet;
-import edu.tamu.scholars.middleware.discovery.model.Facet.Entry;
 
 @Component
 public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> {
@@ -71,6 +69,85 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
 
         public void setFacets(List<Facet> facets) {
             this.facets = facets;
+        }
+
+        class Facet {
+
+            private String field;
+
+            private List<Entry> entries;
+
+            private Pageable page;
+
+            public Facet() {
+
+            }
+
+            public Facet(String field, List<Entry> entries, Pageable page) {
+                super();
+                this.field = field;
+                this.entries = entries;
+                this.page = page;
+            }
+
+            public List<Entry> getEntries() {
+                return entries;
+            }
+
+            public String getField() {
+                return field;
+            }
+
+            public void setField(String field) {
+                this.field = field;
+            }
+
+            public void setEntries(List<Entry> entries) {
+                this.entries = entries;
+            }
+
+            public Pageable getPage() {
+                return page;
+            }
+
+            public void setPage(Pageable page) {
+                this.page = page;
+            }
+
+        }
+
+        class Entry {
+
+            private String value;
+
+            private long count;
+
+            public Entry() {
+
+            }
+
+            public Entry(String value, long count) {
+                super();
+                this.value = value;
+                this.count = count;
+            }
+
+            public String getValue() {
+                return value;
+            }
+
+            public void setValue(String value) {
+                this.value = value;
+            }
+
+            public long getCount() {
+                return count;
+            }
+
+            public void setCount(long count) {
+                this.count = count;
+            }
+
         }
 
     }
