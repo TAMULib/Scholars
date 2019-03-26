@@ -11,6 +11,8 @@ import { User } from '../model/user';
 import { RegistrationRequest } from '../model/request';
 
 import * as fromDialog from '../../core/store/dialog/dialog.actions';
+import { FacetEntriesComponent } from '../../shared/dialog/facet-entries/facet-entries.component';
+import { SdrFacet } from '../model/sdr';
 
 @Injectable({
     providedIn: 'root',
@@ -70,6 +72,18 @@ export class DialogService {
                     inputs: { text }
                 },
                 options: this.options(this.translate.instant('SHARED.DIALOG.NOTIFICATION.ARIA_LABELLED_BY'))
+            }
+        });
+    }
+
+    public facetEntriesDialog(name: string, facet: SdrFacet): fromDialog.OpenDialogAction {
+        return new fromDialog.OpenDialogAction({
+            dialog: {
+                ref: {
+                    component: FacetEntriesComponent,
+                    inputs: { name, facet }
+                },
+                options: this.options(this.translate.instant('SHARED.DIALOG.FACET_ENTRIES.ARIA_LABELLED_BY'))
             }
         });
     }

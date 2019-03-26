@@ -5,8 +5,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.solr.core.query.FacetOptions;
-import org.springframework.data.solr.core.query.FacetOptions.FacetSort;
 
 @Embeddable
 public class Facet {
@@ -17,19 +17,24 @@ public class Facet {
     @Column(nullable = false)
     private String field;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FacetOptions.FacetSort sort;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Sort.Direction direction;
+
     @Column(nullable = false, name = "default_limit")
     private int limit;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "default_sort")
-    private FacetOptions.FacetSort sort;
 
     @Column(nullable = false)
     private boolean hidden;
 
     public Facet() {
+        sort = FacetOptions.FacetSort.COUNT;
+        direction = Sort.Direction.DESC;
         limit = 10;
-        sort = FacetSort.COUNT;
         hidden = false;
     }
 
@@ -49,20 +54,20 @@ public class Facet {
         this.field = field;
     }
 
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
-
     public FacetOptions.FacetSort getSort() {
         return sort;
     }
 
     public void setSort(FacetOptions.FacetSort sort) {
         this.sort = sort;
+    }
+
+    public Sort.Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Sort.Direction direction) {
+        this.direction = direction;
     }
 
     public boolean isHidden() {
@@ -73,4 +78,11 @@ public class Facet {
         this.hidden = hidden;
     }
 
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 }

@@ -73,6 +73,9 @@
       "DELETE_SUCCESS": "Delete successful."
     },
     "DIALOG": {
+      "FACET_ENTRIES": {
+        "CANCEL": "Close"
+      },
       "LOGIN": {
         "EMAIL": "Enter email",
         "PASSWORD": "Enter password",

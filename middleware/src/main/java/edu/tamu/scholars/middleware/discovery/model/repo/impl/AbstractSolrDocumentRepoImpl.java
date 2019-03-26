@@ -27,10 +27,10 @@ import edu.tamu.scholars.middleware.discovery.model.repo.custom.SolrDocumentRepo
 public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocument> implements SolrDocumentRepoCustom<D> {
 
     private static final String INDEX_QUERY_PARAM_DELIMETER = ",";
-    private static final String LIMIT_TEMPLATE = "%s.limit";
-    private static final String OFFSET_TEMPLATE = "%s.offset";
-    private static final String SORT_TEMPLATE = "%s.sort";
     private static final String FILTER_TEMPLATE = "%s.filter";
+
+    private static final int LIMIT = Integer.MAX_VALUE;
+    private static final int OFFSET = 0;
 
     @Value("${spring.data.solr.parser:edismax}")
     private String queryParser;
@@ -69,21 +69,11 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
             for (String facet : facets) {
                 FieldWithFacetParameters fieldWithFacetParameters = new FieldWithFacetParameters(facet);
 
-                String limit = params.getFirst(String.format(LIMIT_TEMPLATE, facet));
-                if (limit != null) {
-                    fieldWithFacetParameters.setLimit(Integer.parseInt(limit));
-                }
+                fieldWithFacetParameters.setLimit(LIMIT);
 
-                String offset = params.getFirst(String.format(OFFSET_TEMPLATE, facet));
-                if (offset != null) {
-                    fieldWithFacetParameters.setOffset(Integer.parseInt(offset));
-                }
+                fieldWithFacetParameters.setOffset(OFFSET);
 
-                // COUNT, INDEX
-                String sort = params.getFirst(String.format(SORT_TEMPLATE, facet));
-                if (sort != null) {
-                    fieldWithFacetParameters.setSort(FacetOptions.FacetSort.valueOf(sort.toUpperCase()));
-                }
+                fieldWithFacetParameters.setSort(FacetOptions.FacetSort.COUNT);
 
                 // NOTE: other possible; method, minCount, missing, and prefix
 

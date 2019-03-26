@@ -7,7 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.data.solr.core.query.FacetOptions.FacetSort;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.solr.core.query.FacetOptions;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -43,7 +44,8 @@ public class DiscoveryViewTest {
         assertEquals("Name", discoveryView.getFacets().get(0).getName());
         assertEquals("name", discoveryView.getFacets().get(0).getField());
         assertEquals(20, discoveryView.getFacets().get(0).getLimit());
-        assertEquals(FacetSort.INDEX, discoveryView.getFacets().get(0).getSort());
+        assertEquals(FacetOptions.FacetSort.COUNT, discoveryView.getFacets().get(0).getSort());
+        assertEquals(Sort.Direction.DESC, discoveryView.getFacets().get(0).getDirection());
 
         assertEquals(1, discoveryView.getFilters().size());
         assertEquals("type", discoveryView.getFilters().get(0).getField());

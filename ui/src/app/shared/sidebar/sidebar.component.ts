@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store, select, Action } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
@@ -33,6 +33,10 @@ export class SidebarComponent implements OnInit {
 
     public toggleSectionCollapse(sectionIndex: number): void {
         this.store.dispatch(new fromSidebar.ToggleCollapsibleSectionAction({ sectionIndex }));
+    }
+
+    public dispatchAction(action: Action): void {
+        this.store.dispatch(action);
     }
 
 }

@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.solr.core.query.Criteria.OperationKey;
-import org.springframework.data.solr.core.query.FacetOptions.FacetSort;
+import org.springframework.data.solr.core.query.FacetOptions;
 
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
@@ -42,7 +43,8 @@ public class ViewTestUtility {
         facet.setName("Name");
         facet.setField("name");
         facet.setLimit(20);
-        facet.setSort(FacetSort.INDEX);
+        facet.setSort(FacetOptions.FacetSort.COUNT);
+        facet.setDirection(Sort.Direction.DESC);
 
         facets.add(facet);
 
@@ -94,7 +96,8 @@ public class ViewTestUtility {
         facet.setName("Name");
         facet.setField("name");
         facet.setLimit(20);
-        facet.setSort(FacetSort.INDEX);
+        facet.setSort(FacetOptions.FacetSort.COUNT);
+        facet.setDirection(Sort.Direction.DESC);
 
         facets.add(facet);
 

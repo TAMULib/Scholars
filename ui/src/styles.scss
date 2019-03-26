@@ -11,11 +11,17 @@ body {
     background-image: linear-gradient(#dbdbdb, #fff);
   }
   .link {
-    color: var(--primary);
+    color: var(--link-color);
   }
   .link:hover {
-    color: var(--accent);
+    color: var(--link-color-hover);
     text-decoration: none;
     cursor: pointer;
+  }
+  a {
+    color: var(--link-color);
+  }
+  a:hover {
+    color: var(--link-color-hover);
   }
 }

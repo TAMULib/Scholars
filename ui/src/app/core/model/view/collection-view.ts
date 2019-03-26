@@ -1,4 +1,5 @@
 import { View } from './';
+import { Direction } from '../request';
 
 export enum Layout {
     LIST = 'LIST',
@@ -15,6 +16,7 @@ export interface Facet {
     readonly field: string;
     readonly limit: number;
     readonly sort: FacetSort;
+    readonly direction: Direction;
     readonly hidden: boolean;
 }
 

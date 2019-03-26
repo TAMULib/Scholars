@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AlertComponent } from './alert/alert.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { FacetEntriesComponent } from './dialog/facet-entries/facet-entries.component';
 import { GridViewComponent } from './grid-view/grid-view.component';
 import { ListViewComponent } from './list-view/list-view.component';
 import { LoginComponent } from './dialog/login/login.component';
@@ -40,6 +41,7 @@ const PIPES = [
 const COMPONENTS = [
     AlertComponent,
     DialogComponent,
+    FacetEntriesComponent,
     GridViewComponent,
     ListViewComponent,
     LoginComponent,
@@ -58,6 +60,7 @@ const DIRECTIVES = [
 ];
 
 const ENTRY_COMPONENTS = [
+    FacetEntriesComponent,
     LoginComponent,
     RegistrationComponent,
     NotificationComponent,
