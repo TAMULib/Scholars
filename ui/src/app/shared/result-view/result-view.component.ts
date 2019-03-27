@@ -28,6 +28,9 @@ export class ResultViewComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.resource.uri !== undefined) {
+            this.resource.uri = this.resource.uri[0].replace('http://hdl.handle.net/', '');
+        }
         this.resultHtml = this.resultViewService.compileResultView(this.view, this.resource);
         if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
