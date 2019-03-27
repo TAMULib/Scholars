@@ -32,7 +32,6 @@ describe('FacetEntriesComponent', () => {
         component.name = 'Test';
         component.facet = {
             field: undefined,
-            page: undefined,
             entries: []
         };
         fixture.detectChanges();

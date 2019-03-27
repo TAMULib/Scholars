@@ -54,9 +54,7 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
                 }
 
                 if (field.isPresent()) {
-                    Page page = new Page(facetFieldEntryPage.getSize(), facetFieldEntryPage.getTotalElements(), facetFieldEntryPage.getTotalPages(), facetFieldEntryPage.getNumber());
-                    Facet facet = new Facet(field.get(), page, entries);
-                    facets.add(facet);
+                    facets.add(new Facet(field.get(), entries));
                 }
 
             });
@@ -76,23 +74,15 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
 
             private final String field;
 
-            private final Page page;
-
             private final List<Entry> entries;
 
-            public Facet(String field, Page page, List<Entry> entries) {
+            public Facet(String field, List<Entry> entries) {
                 this.field = field;
-
-                this.page = page;
                 this.entries = entries;
             }
 
             public String getField() {
                 return field;
-            }
-
-            public Page getPage() {
-                return page;
             }
 
             public List<Entry> getEntries() {
@@ -118,41 +108,6 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
 
             public long getCount() {
                 return count;
-            }
-
-        }
-
-        class Page {
-
-            private final int size;
-
-            private final long totalElements;
-
-            private final int totalPages;
-
-            private final int number;
-
-            public Page(int size, long totalElements, int totalPages, int number) {
-                this.size = size;
-                this.totalElements = totalElements;
-                this.totalPages = totalPages;
-                this.number = ++number;
-            }
-
-            public int getSize() {
-                return size;
-            }
-
-            public long getTotalElements() {
-                return totalElements;
-            }
-
-            public int getTotalPages() {
-                return totalPages;
-            }
-
-            public int getNumber() {
-                return number;
             }
 
         }
