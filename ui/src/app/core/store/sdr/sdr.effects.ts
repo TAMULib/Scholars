@@ -2,11 +2,13 @@ import { Injectable, Injector } from '@angular/core';
 import { Params } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
 import { of, combineLatest, defer, Observable } from 'rxjs';
 import { map, switchMap, catchError, withLatestFrom, skipWhile, take, filter } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
+import { DialogService } from '../../service/dialog.service';
 
 import { AppState } from '../';
 import { StompState } from '../stomp/stomp.reducer';
@@ -15,9 +17,9 @@ import { CustomRouterState } from '../router/router.reducer';
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 
 import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry } from '../../model/sdr';
-import { SidebarMenu, SidebarSection, SidebarItem } from '../../model/sidebar';
+import { SidebarMenu, SidebarSection, SidebarItem, SidebarItemType } from '../../model/sidebar';
 import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
-import { OperationKey, FacetSort, Facet, DiscoveryView, DirectoryView } from '../../model/view';
+import { OperationKey, Facet, DiscoveryView, DirectoryView, FacetSort } from '../../model/view';
 
 import { injectable, repos } from '../../model/repos';
 
@@ -40,7 +42,9 @@ export class SdrEffects {
         private actions: Actions,
         private injector: Injector,
         private store: Store<AppState>,
-        private alert: AlertService
+        private alert: AlertService,
+        private dialog: DialogService,
+        private translate: TranslateService
     ) {
         this.repos = new Map<string, AbstractSdrRepo<SdrResource>>();
         this.injectRepos();
@@ -362,7 +366,11 @@ export class SdrEffects {
                             collapsed: false
                         };
 
-                        sdrFacet.entries.forEach((facetEntry: SdrFacetEntry) => {
+                        Object.assign(sdrFacet, {
+                            entries: sdrFacet.entries.sort(this.getFacetSortFunction(facet))
+                        });
+
+                        sdrFacet.entries.slice(0, facet.limit).forEach((facetEntry: SdrFacetEntry) => {
 
                             let selected = false;
 
@@ -374,9 +382,10 @@ export class SdrEffects {
                             }
 
                             const sidebarItem: SidebarItem = {
+                                type: SidebarItemType.LINK,
                                 label: of(facetEntry.value),
                                 selected: selected,
-                                total: facetEntry.count,
+                                parenthetical: facetEntry.count,
                                 route: [],
                                 queryParams: {},
                             };
@@ -386,6 +395,15 @@ export class SdrEffects {
                             sidebarSection.items.push(sidebarItem);
 
                         });
+
+                        if (sdrFacet.entries.length > facet.limit) {
+                            sidebarSection.items.push({
+                                type: SidebarItemType.ACTION,
+                                action: this.dialog.facetEntriesDialog(facet.name, sdrFacet),
+                                label: this.translate.get('SHARED.SIDEBAR.ACTION.MORE')
+                            });
+                        }
+
                         sidebarMenu.sections.push(sidebarSection);
                         break;
                     }
@@ -396,6 +414,20 @@ export class SdrEffects {
         }
 
         this.subscribeToResourceQueue(action.name, store.stomp);
+    }
+
+    private getFacetSortFunction(facet: Facet): (f1: SdrFacetEntry, f2: SdrFacetEntry) => number {
+        const sort = FacetSort.COUNT === FacetSort[facet.sort] ? 'count' : 'value';
+        const direction = Direction.ASC === Direction[facet.direction] ? [1, -1] : [-1, 1];
+        return (f1: SdrFacetEntry, f2: SdrFacetEntry) => {
+            if (f1[sort] > f2[sort]) {
+                return direction[0];
+            }
+            if (f1[sort] < f2[sort]) {
+                return direction[1];
+            }
+            return 0;
+        };
     }
 
     private createSdrRequest(routerState: CustomRouterState): SdrRequest {
@@ -441,11 +473,9 @@ export class SdrEffects {
         const fields: string[] = queryParams.facets !== undefined ? queryParams.facets.split(',') : [];
         fields.forEach((field: string) => {
             const facet: Facetable = { field };
-            ['limit', 'offset', 'sort', 'filter'].forEach((key: string) => {
-                if (queryParams[`${field}.${key}`]) {
-                    facet[key] = key === 'sort' ? FacetSort[queryParams[`${field}.${key}`]] : queryParams[`${field}.${key}`];
-                }
-            });
+            if (queryParams[`${field}.filter`]) {
+                facet.filter = queryParams[`${field}.filter`];
+            }
             facets.push(facet);
         });
         return facets;

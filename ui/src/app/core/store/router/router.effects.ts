@@ -11,6 +11,7 @@ import { AppState } from '../';
 import { selectLoginRedirect } from '../auth';
 
 import * as fromAuth from '../auth/auth.actions';
+import * as fromDialog from '../dialog/dialog.actions';
 import * as fromRouter from './router.actions';
 import * as fromSidebar from '../sidebar/sidebar.actions';
 
@@ -58,6 +59,11 @@ export class RouterEffects {
     @Effect() unloadSidebar = this.actions.pipe(
         ofType(fromRouter.RouterActionTypes.CHANGED),
         map(() => new fromSidebar.UnloadSidebarAction())
+    );
+
+    @Effect() closeDialog = this.actions.pipe(
+        ofType(fromRouter.RouterActionTypes.CHANGED),
+        map(() => new fromDialog.CloseDialogAction())
     );
 
     private listenForRouteChange() {

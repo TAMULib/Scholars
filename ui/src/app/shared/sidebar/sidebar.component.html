@@ -7,15 +7,25 @@
       </div>
       <div class="card-items" [ngbCollapse]="section.collapsed">
         <ul class="list-group list-group-flush" *ngFor="let item of section.items">
-          <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" aria-role="link" attr.aria-label="{{ 'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate }}">
-            <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
-              <span>
-                <span *ngIf="item.selected" class="fa fa-close mr-2"></span>
-                <span>{{item.label | async}}</span>
-              </span>
-            </a>
-            <span *ngIf="item.total"> ({{item.total}})</span>
+
+          <li [ngSwitch]="item.type" class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" aria-role="link" attr.aria-label="{{ 'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate }}">
+
+            <span *ngSwitchCase="'LINK'">
+              <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
+                <span>
+                  <span *ngIf="item.selected" class="fa fa-close mr-2"></span>
+                  <span>{{item.label | async}}</span>
+                </span>
+              </a>
+              <span *ngIf="item.parenthetical"> ({{item.parenthetical}})</span>
+            </span>
+
+            <span *ngSwitchCase="'ACTION'">
+              <span class="link" (click)="dispatchAction(item.action)">{{item.label | async}}</span>
+            </span>
+
           </li>
+
         </ul>
       </div>
     </div>

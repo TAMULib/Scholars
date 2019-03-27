@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
+import { FacetEntriesComponent } from '../../shared/dialog/facet-entries/facet-entries.component';
 import { LoginComponent } from '../../shared/dialog/login/login.component';
 import { NotificationComponent } from '../../shared/dialog/notification/notification.component';
 import { UserEditComponent } from '../../shared/dialog/user-edit/user-edit.component';
@@ -9,6 +10,7 @@ import { RegistrationStep, RegistrationComponent } from '../../shared/dialog/reg
 
 import { User } from '../model/user';
 import { RegistrationRequest } from '../model/request';
+import { SdrFacet } from '../model/sdr';
 
 import * as fromDialog from '../../core/store/dialog/dialog.actions';
 
@@ -70,6 +72,18 @@ export class DialogService {
                     inputs: { text }
                 },
                 options: this.options(this.translate.instant('SHARED.DIALOG.NOTIFICATION.ARIA_LABELLED_BY'))
+            }
+        });
+    }
+
+    public facetEntriesDialog(name: string, facet: SdrFacet): fromDialog.OpenDialogAction {
+        return new fromDialog.OpenDialogAction({
+            dialog: {
+                ref: {
+                    component: FacetEntriesComponent,
+                    inputs: { name, facet }
+                },
+                options: this.options(this.translate.instant('SHARED.DIALOG.FACET_ENTRIES.ARIA_LABELLED_BY', { name }))
             }
         });
     }

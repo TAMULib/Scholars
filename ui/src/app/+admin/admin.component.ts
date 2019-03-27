@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../core/store';
+import { SidebarItemType } from '../core/model/sidebar';
 
 import * as fromSidebar from '../core/store/sidebar/sidebar.actions';
 
@@ -28,18 +29,22 @@ export class AdminComponent implements OnInit {
                         title: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.TITLE'),
                         items: [
                             {
+                                type: SidebarItemType.LINK,
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DIRECTORY_VIEWS'),
                                 route: ['/admin/DirectoryViews']
                             },
                             {
+                                type: SidebarItemType.LINK,
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DISCOVERY_VIEWS'),
                                 route: ['/admin/DiscoveryViews']
                             },
                             {
+                                type: SidebarItemType.LINK,
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.THEMES'),
                                 route: ['/admin/Themes']
                             },
                             {
+                                type: SidebarItemType.LINK,
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.USERS'),
                                 route: ['/admin/Users']
                             }

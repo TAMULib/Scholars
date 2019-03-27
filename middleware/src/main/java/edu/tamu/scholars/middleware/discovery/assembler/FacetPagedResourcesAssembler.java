@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.query.result.FacetFieldEntry;
 import org.springframework.data.solr.core.query.result.FacetPage;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
@@ -55,7 +54,7 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
                 }
 
                 if (field.isPresent()) {
-                    facets.add(new Facet(field.get(), entries, facetFieldEntryPage.getPageable()));
+                    facets.add(new Facet(field.get(), entries));
                 }
 
             });
@@ -73,61 +72,32 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
 
         class Facet {
 
-            private String field;
+            private final String field;
 
-            private List<Entry> entries;
+            private final List<Entry> entries;
 
-            private Pageable page;
-
-            public Facet() {
-
-            }
-
-            public Facet(String field, List<Entry> entries, Pageable page) {
-                super();
+            public Facet(String field, List<Entry> entries) {
                 this.field = field;
                 this.entries = entries;
-                this.page = page;
-            }
-
-            public List<Entry> getEntries() {
-                return entries;
             }
 
             public String getField() {
                 return field;
             }
 
-            public void setField(String field) {
-                this.field = field;
-            }
-
-            public void setEntries(List<Entry> entries) {
-                this.entries = entries;
-            }
-
-            public Pageable getPage() {
-                return page;
-            }
-
-            public void setPage(Pageable page) {
-                this.page = page;
+            public List<Entry> getEntries() {
+                return entries;
             }
 
         }
 
         class Entry {
 
-            private String value;
+            private final String value;
 
-            private long count;
-
-            public Entry() {
-
-            }
+            private final long count;
 
             public Entry(String value, long count) {
-                super();
                 this.value = value;
                 this.count = count;
             }
@@ -136,16 +106,8 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
                 return value;
             }
 
-            public void setValue(String value) {
-                this.value = value;
-            }
-
             public long getCount() {
                 return count;
-            }
-
-            public void setCount(long count) {
-                this.count = count;
             }
 
         }
