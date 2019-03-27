@@ -25,7 +25,10 @@
               "src/assets/images",
               "src/assets/i18n"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/scripts/badge.js",
+              "src/assets/scripts/embed.js"
+            ],
             "styles": [
               "src/styles.scss"
             ],
@@ -88,7 +91,10 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [],
+            "scripts": [
+              "src/assets/scripts/badge.js",
+              "src/assets/scripts/embed.js"
+            ],
             "styles": [
               "src/styles.scss"
             ],
