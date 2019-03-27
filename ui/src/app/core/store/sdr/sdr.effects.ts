@@ -19,7 +19,7 @@ import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry } from '../../model/sdr';
 import { SidebarMenu, SidebarSection, SidebarItem, SidebarItemType } from '../../model/sidebar';
 import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
-import { OperationKey, Facet, DiscoveryView, DirectoryView } from '../../model/view';
+import { OperationKey, Facet, DiscoveryView, DirectoryView, FacetSort } from '../../model/view';
 
 import { injectable, repos } from '../../model/repos';
 
@@ -366,6 +366,11 @@ export class SdrEffects {
                             collapsed: false
                         };
 
+                        // TODO: move to effect with latest from store for collection view facet
+                        Object.assign(sdrFacet, {
+                            entries: sdrFacet.entries.sort(this.getFacetSortFunction(facet))
+                        });
+
                         sdrFacet.entries.slice(0, facet.limit).forEach((facetEntry: SdrFacetEntry) => {
 
                             let selected = false;
@@ -393,7 +398,6 @@ export class SdrEffects {
                         });
 
                         if (sdrFacet.page.size < sdrFacet.page.totalElements) {
-                            // TODO: translate more
                             sidebarSection.items.push({
                                 type: SidebarItemType.ACTION,
                                 action: this.dialog.facetEntriesDialog(facet.name, sdrFacet),
@@ -411,6 +415,60 @@ export class SdrEffects {
         }
 
         this.subscribeToResourceQueue(action.name, store.stomp);
+    }
+
+    private getFacetSortFunction(facet: Facet): (f1: SdrFacetEntry, f2: SdrFacetEntry) => number {
+        if (FacetSort.COUNT === FacetSort[facet.sort]) {
+            if (Direction.ASC === Direction[facet.direction]) {
+                return (f1: SdrFacetEntry, f2: SdrFacetEntry) => {
+                    if (f1.count > f2.count) {
+                        return 1;
+                    }
+                    if (f1.count < f2.count) {
+                        return -1;
+                    }
+                    return 0;
+                };
+            } else if (Direction.DESC === Direction[facet.direction]) {
+                return (f1: SdrFacetEntry, f2: SdrFacetEntry) => {
+                    if (f1.count > f2.count) {
+                        return -1;
+                    }
+                    if (f1.count < f2.count) {
+                        return 1;
+                    }
+                    return 0;
+                };
+            } else {
+                throw new Error('Unknown facet sort direction!');
+            }
+        } else if (FacetSort.INDEX === FacetSort[facet.sort]) {
+            if (Direction.ASC === Direction[facet.direction]) {
+                return (f1: SdrFacetEntry, f2: SdrFacetEntry) => {
+                    if (f1.value > f2.value) {
+                        return 1;
+                    }
+                    if (f1.value < f2.value) {
+                        return -1;
+                    }
+                    return 0;
+                };
+            } else if (Direction.DESC === Direction[facet.direction]) {
+                return (f1: SdrFacetEntry, f2: SdrFacetEntry) => {
+                    if (f1.value > f2.value) {
+                        return -1;
+                    }
+                    if (f1.value < f2.value) {
+                        return 1;
+                    }
+                    return 0;
+                };
+            } else {
+                throw new Error('Unknown facet sort direction!');
+            }
+        } else {
+            throw new Error('Unknown facet sort!');
+        }
     }
 
     private createSdrRequest(routerState: CustomRouterState): SdrRequest {
