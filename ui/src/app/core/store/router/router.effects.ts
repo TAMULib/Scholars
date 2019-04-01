@@ -56,10 +56,11 @@ export class RouterEffects {
         map(() => new fromAuth.UnsetLoginRedirectAction())
     );
 
-    @Effect() unloadSidebar = this.actions.pipe(
-        ofType(fromRouter.RouterActionTypes.CHANGED),
-        map(() => new fromSidebar.UnloadSidebarAction())
-    );
+    // TODO: determine if this is necessary, possible check for route data flag to unload
+    // @Effect() unloadSidebar = this.actions.pipe(
+    //     ofType(fromRouter.RouterActionTypes.CHANGED),
+    //     map(() => new fromSidebar.UnloadSidebarAction())
+    // );
 
     @Effect() closeDialog = this.actions.pipe(
         ofType(fromRouter.RouterActionTypes.CHANGED),

@@ -1,4 +1,4 @@
-<scholars-pagination [page]="page">
+<scholars-pagination *ngIf="directoryViews | async; let directoryViews" [page]="page">
   <h3 class="text-primary">{{ 'ADMIN.DIRECTORY_VIEWS.TITLE' | translate }}</h3>
   <table class="table table-striped table-hover">
     <thead>
@@ -8,7 +8,7 @@
         <th scope="col">{{ 'ADMIN.DIRECTORY_VIEWS.LAYOUT' | translate }}</th>
       </tr>
     </thead>
-    <tbody *ngIf="directoryViews | async; let directoryViews">
+    <tbody>
       <tr *ngFor="let directoryView of directoryViews">
         <td scope="row">{{directoryView.name}}</td>
         <td scope="row">{{directoryView.collection}}</td>

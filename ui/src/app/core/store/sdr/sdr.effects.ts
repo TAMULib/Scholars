@@ -72,12 +72,7 @@ export class SdrEffects {
 
     @Effect() getDirectoryViews = this.actions.pipe(
         ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'directoryViews')),
-        switchMap((action: fromSdr.GetAllResourcesAction) =>
-            this.repos.get(action.name).getAll().pipe(
-                map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(action.name, { collection })),
-                catchError((response) => of(new fromSdr.GetAllResourcesFailureAction(action.name, { response })))
-            )
-        )
+        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
     );
 
     @Effect({ dispatch: false }) getDirectoryViewsSuccess = this.actions.pipe(
@@ -111,7 +106,12 @@ export class SdrEffects {
 
     @Effect() page = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE)),
-        switchMap((action: fromSdr.PageResourcesAction) => this.getAllHandler(action.name))
+        switchMap((action: fromSdr.PageResourcesAction) =>
+            this.repos.get(action.name).page(action.payload.request).pipe(
+                map((collection: SdrCollection) => new fromSdr.PageResourcesSuccessAction(action.name, { collection })),
+                catchError((response) => of(new fromSdr.PageResourcesFailureAction(action.name, { response })))
+            )
+        )
     );
 
     @Effect({ dispatch: false }) pageSuccess = this.actions.pipe(

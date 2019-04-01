@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminComponent } from './admin.component';
 import { DirectoryViewsComponent } from './directory-views/directory-views.component';
 import { DiscoveryViewsComponent } from './discovery-views/discovery-views.component';
+import { DisplayViewsComponent } from './display-views/display-views.component';
 import { ThemesComponent } from './themes/themes.component';
 import { UsersComponent } from './users/users.component';
 
@@ -26,6 +27,7 @@ describe('AdminComponent', () => {
                 AdminComponent,
                 DirectoryViewsComponent,
                 DiscoveryViewsComponent,
+                DisplayViewsComponent,
                 ThemesComponent,
                 UsersComponent
             ],
