@@ -144,7 +144,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PATCH,
                         "/directoryViews/{id}",
                         "/discoveryViews/{id}",
-                        "/resultViews/{id}",
+                        "/displayViews/{id}",
                         "/themes/{id}",
                         "/users/{id}"
                     )
@@ -155,7 +155,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(POST,
                         "/directoryViews/{id}",
                         "/discoveryViews/{id}",
-                        "/resultViews/{id}",
+                        "/displayViews/{id}",
                         "/themes/{id}"
                     )
                     .hasRole("ADMIN")
@@ -167,7 +167,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PUT,
                         "/directoryViews/{id}",
                         "/discoveryViews/{id}",
-                        "/resultViews/{id}",
+                        "/displayViews/{id}",
                         "/themes/{id}"
                     )
                     .hasRole("ADMIN")
@@ -180,7 +180,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/themes/search/active",
                         "/directoryViews", "/directoryViews/{id}",
                         "/discoveryViews", "/discoveryViews/{id}",
-                        "/resultViews", "/resultViews/{id}",
+                        "/displayViews", "/displayViews/{id}",
                         "/concepts", "/concepts/search/facet", "/concepts/{id}",
                         "/documents", "/documents/search/facet", "/documents/{id}",
                         "/organizations", "/organizations/search/facet", "/organizations/{id}",
@@ -200,7 +200,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(DELETE,
                         "/directoryViews/{id}",
                         "/discoveryViews/{id}",
-                        "/resultViews/{id}",
+                        "/displayViews/{id}",
                         "/themes/{id}"
                     )
                     .hasRole("ADMIN")

@@ -1,5 +1,6 @@
 package edu.tamu.scholars.middleware.view.controller;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.MOCK_VIEW_NAME;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDirectoryView;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON_UTF8_VALUE;
@@ -33,11 +34,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import edu.tamu.scholars.middleware.auth.model.User;
 import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
-import edu.tamu.scholars.middleware.view.CollectionViewIntegrationTest;
+import edu.tamu.scholars.middleware.view.ResourceViewIntegrationTest;
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 import edu.tamu.scholars.middleware.view.model.repo.DirectoryViewRepo;
 
-public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<DirectoryView, DirectoryViewRepo> {
+public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<DirectoryView, DirectoryViewRepo> {
 
     private static final ConstraintDescriptionsHelper describeDirectoryView = new ConstraintDescriptionsHelper(DirectoryView.class);
 
@@ -132,7 +133,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testPatchTheme() throws JsonProcessingException, Exception {
         performCreateDirectoryView();
-        DirectoryView directoryView = viewRepo.findByName("People").get();
+        DirectoryView directoryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
 
         // @formatter:off
         mockMvc.perform(
@@ -187,13 +188,13 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testGetDirectoryView() throws JsonProcessingException, Exception {
         performCreateDirectoryView();
-        DirectoryView directoryView = viewRepo.findByName("People").get();
+        DirectoryView directoryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         // @formatter:off
         mockMvc.perform(
             get("/directoryViews/{id}", directoryView.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("name", equalTo("People")))
+                .andExpect(jsonPath("name", equalTo(MOCK_VIEW_NAME)))
                 .andDo(
                     document(
                         "directoryViews/find-by-id",
@@ -234,7 +235,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                 .andExpect(jsonPath("page.totalElements", equalTo(1)))
                 .andExpect(jsonPath("page.totalPages", equalTo(1)))
                 .andExpect(jsonPath("page.number", equalTo(1)))
-                .andExpect(jsonPath("_embedded.directoryViews[0].name", equalTo("People")))
+                .andExpect(jsonPath("_embedded.directoryViews[0].name", equalTo(MOCK_VIEW_NAME)))
                 .andDo(
                     document(
                         "directoryViews/directory",
@@ -260,7 +261,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testDeleteTheme() throws JsonProcessingException, Exception {
         performCreateDirectoryView();
-        DirectoryView directoryView = viewRepo.findByName("People").get();
+        DirectoryView directoryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         // @formatter:off
         mockMvc.perform(
             delete("/directoryViews/{id}", directoryView.getId())
@@ -300,7 +301,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
     }
 
     private ResultActions performUpdateDirectoryView() throws JsonProcessingException, Exception {
-        DirectoryView directoryView = viewRepo.findByName("People").get();
+        DirectoryView directoryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         directoryView.setName("Organizations");
         directoryView.setCollection("organizations");
 

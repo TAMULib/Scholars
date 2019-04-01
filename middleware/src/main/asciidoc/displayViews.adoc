@@ -1,0 +1,120 @@
+=== Display Views
+
+This section describes about the display views of the application. This object is a persistent representation of a display UI.
+
+==== Display
+
+This displays a list of all the display view objects based on parameters like page, size or sort feature based on name, collection etc as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/displayViews/display/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/displayViews/display/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/displayViews/display/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/displayViews/display/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/displayViews/display/curl-request.adoc[]
+
+==== Create
+
+A display view is created by adding a fields like _name_, _collection_, _index_ etc along with other variables as shown in the *Request Fields*.
+
+===== Request Fields
+include::{snippets}/displayViews/create/request-fields.adoc[]
+
+===== Response Fields
+include::{snippets}/displayViews/create/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/displayViews/create/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/displayViews/create/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/displayViews/create/curl-request.adoc[]
+
+==== Delete
+
+A display view can be deleted by passing the _displayView id_ as a path parameter. This will return a *NO_CONTENT (204)* http status code as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/displayViews/delete/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/displayViews/delete/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/displayViews/delete/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/displayViews/delete/curl-request.adoc[]
+
+==== Find by ID
+
+A user can find a display view by providing _displayView id_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the display view object as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/displayViews/find-by-id/path-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/displayViews/find-by-id/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/displayViews/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/displayViews/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/displayViews/find-by-id/curl-request.adoc[]
+
+==== Patch
+
+This helps an admin user to partially update a display view. This process utilizes the http patch protocol.
+
+===== Path Parameters
+include::{snippets}/displayViews/patch/path-parameters.adoc[]
+
+===== Request Parameters
+include::{snippets}/displayViews/patch/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/displayViews/patch/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/displayViews/patch/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/displayViews/patch/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/displayViews/patch/curl-request.adoc[]
+
+==== Update
+
+This helps an admin user to update a specifc display view based on the _displayView id_ provided in the path parameter. This utilizes the http put protocol.
+
+===== Path Parameters
+include::{snippets}/displayViews/update/path-parameters.adoc[]
+
+===== Request Fields
+include::{snippets}/displayViews/update/request-fields.adoc[]
+
+===== Response Fields
+include::{snippets}/displayViews/update/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/displayViews/update/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/displayViews/update/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/displayViews/update/curl-request.adoc[]

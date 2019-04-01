@@ -32,6 +32,7 @@ include::user.adoc[]
 
 include::themes.adoc[]
 include::users.adoc[]
+include::displayViews.adoc[]
 include::directoryViews.adoc[]
 include::discoveryViews.adoc[]
 
