@@ -4,9 +4,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import edu.tamu.scholars.middleware.discovery.utility.DiscoveryUtility;
-import edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection;
+import edu.tamu.scholars.middleware.view.annotation.ValidResourceCollection;
 
-public class DiscoveryCollectionValidator implements ConstraintValidator<ValidDiscoveryCollection, String> {
+public class ResourceCollectionValidator implements ConstraintValidator<ValidResourceCollection, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
