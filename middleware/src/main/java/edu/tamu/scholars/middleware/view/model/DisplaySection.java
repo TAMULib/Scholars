@@ -9,11 +9,14 @@ public class DisplaySection {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private boolean hidden;
+
     @Column(columnDefinition = "TEXT")
     public String template;
 
     public DisplaySection() {
-
+        hidden = false;
     }
 
     public String getName() {
@@ -22,6 +25,14 @@ public class DisplaySection {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public String getTemplate() {
