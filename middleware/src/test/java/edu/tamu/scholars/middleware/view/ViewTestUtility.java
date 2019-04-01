@@ -21,10 +21,12 @@ import edu.tamu.scholars.middleware.view.model.TabView;
 
 public class ViewTestUtility {
 
+    public static String MOCK_VIEW_NAME = "People";
+
     public static DirectoryView getMockDirectoryView() {
         DirectoryView directoryView = new DirectoryView();
 
-        directoryView.setName("People");
+        directoryView.setName(MOCK_VIEW_NAME);
         directoryView.setCollection("persons");
         directoryView.setLayout(Layout.LIST);
 
@@ -77,7 +79,7 @@ public class ViewTestUtility {
     public static DiscoveryView getMockDiscoveryView() {
         DiscoveryView discoveryView = new DiscoveryView();
 
-        discoveryView.setName("People");
+        discoveryView.setName(MOCK_VIEW_NAME);
         discoveryView.setCollection("persons");
         discoveryView.setLayout(Layout.GRID);
 
@@ -123,8 +125,8 @@ public class ViewTestUtility {
     public static DisplayView getMockDisplayView() {
         DisplayView displayView = new DisplayView();
 
+        displayView.setName(MOCK_VIEW_NAME);
         displayView.setCollection("persons");
-        displayView.setName("Test");
         displayView.setMainContentTemplate("<div>Main</div>");
         displayView.setLeftScanTemplate("<div>Left Scan</div>");
         displayView.setRightScanTemplate("<div>Right Scan</div>");
