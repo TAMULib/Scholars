@@ -306,42 +306,42 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@ng-bootstrap/ng-bootstrap@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.1.0.tgz#84c542e7dbb1e03944c87a2615199edc39c3d6c7"
-  integrity sha512-7THBEgwDW9bs3R6JQ3glDXAxyihrUqM8p71Es2GpN21xLs2fcxUUcLO4ioRcWGGlR6QKwamzNVAHNUDB5IMY+Q==
+"@ng-bootstrap/ng-bootstrap@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.1.1.tgz#5e9c477ed9cc19114b56a0abc87e9c8483fb6bbf"
+  integrity sha512-OgbmPVhbDdNpIwogEXsycUJG0caNtb2+wCABfLUClgi9YcfNXhZ9Phu2GQq7Pk/LO66okth6s77RBQnbTJuysg==
   dependencies:
     tslib "^1.9.0"
 
-"@ngrx/effects@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.3.0.tgz#9bc3d58c7e6c810083870b3cd84bfe339847c5c0"
-  integrity sha512-PxZQaKTUmdsTPpd/0vCbYmVn8KtnvlmMDv4GflU7TVhZPe8uibaPN4HNkJMZD2gPe6qk3R7wGwuyXlFWBeQiUw==
+"@ngrx/effects@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.4.0.tgz#7d1977538cf85e42ab48fd648acdfbc8b52f93d3"
+  integrity sha512-YjgB17WnLCBDPjAkHduKWsLFSGLZryPaTjY3EIvMF+WTRPDlgC5SAv2n7p3YIei6g6IYcEvOwLWBqZHFUXTgBw==
 
-"@ngrx/entity@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-7.3.0.tgz#733f91d53c25244d23d2518a13e8b41cdbb3c5b5"
-  integrity sha512-Ox2V0FlzRsJr7mquyiaF1SrXwIciXJuFJuHu+hCHdpai1apTwXWIPM3j36VU42AeOX6kSQXNmCsf5JOOv4vKFA==
+"@ngrx/entity@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-7.4.0.tgz#634cdff1db9629ca0e64c1d6b1e43dc15f4e2ca6"
+  integrity sha512-aFRDTNp6IFkYFlP9gV6hgNgtDYot9KYF8WVbaQTao9ihmdPumMBOCeRttPPiHS/cU41w9nW3xF53NgxQPnEiQA==
 
-"@ngrx/router-store@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-7.3.0.tgz#74323f0fa5f322582b3b01779963d525598105ee"
-  integrity sha512-CZJN0r0Te+a9tJtqX6kTeqOx2d5rmBwyjIC1g8GZfPo4rG0oIVATGTEZy/84quAJx3HhjlsqXq27nu34mDHstw==
+"@ngrx/router-store@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-7.4.0.tgz#69c085bda3022117169f87ed5753b951de7d376d"
+  integrity sha512-ZpwTO1/ha3pxO7NV3jIfnwipBN1A719IjAOgrcmI8Ut06VH3HY/7JVFTkwLN/FyuHvl4EOlAVYmMAblmrymUWA==
 
-"@ngrx/schematics@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-7.3.0.tgz#edd5d5e592284d66dcc2613486c5e8b82e0032ee"
-  integrity sha512-vNR31Phec+tgbP3+QZNnkcdcBW0r4vyis0YM3PeVjwclHC0ZuawILG3pIkCX74wMGZuNcXQBJbLZd3me5nDI2Q==
+"@ngrx/schematics@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-7.4.0.tgz#c430e11e60b4ef9cd60d92569da65b29847bce89"
+  integrity sha512-H0endOV7nYWDaFH7mOJAWFGVymlOYynwjEHZPWeLQFZIFUaekKOrgrHpc+rygu1Hov5ww8lNXHgAunm4vpvwMA==
 
-"@ngrx/store-devtools@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-7.3.0.tgz#a178e66083343d81e554cfc092101f5bf8311908"
-  integrity sha512-//zuFcXUEJO3H/KfT3ontsosdF+dBphvoT4NHHZQAewaGUmn/z6OqgJv41n0d8NmAjVmKYYA73jtWwRmfSHTcA==
+"@ngrx/store-devtools@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-7.4.0.tgz#5a73469c70322351c4224f4529c5123f587a5997"
+  integrity sha512-ZmPpquprBYUozbLuLMLZzUhI+LnMNGMNg8x1ij9yDxXWQADcJm1Zu7kouYE1r5SoCYxKfwJ3Ia1VQfS3A5S8dw==
 
-"@ngrx/store@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-7.3.0.tgz#12684cef59765f161d0152b12a6caad63dbb832a"
-  integrity sha512-cELOO+kHYo100Q2wi1cZqhK9jA/NJs5//0lkphoR/AKxShGmJCkub6L+qnJCrzROu4Bvod4DAlA9VAQSq4EYLg==
+"@ngrx/store@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-7.4.0.tgz#525a343aa45d7f6ca60f3301a23a27669c14bbce"
+  integrity sha512-kwTUHgfgBeAL4RQBjZO46z9v4Xzg8PXAgY4WwXdt3zUk1tF4ZvijMleFvFRUoiJJfxF/UM6jgIZ/yGrX2dXQuA==
 
 "@ngtools/webpack@7.3.7":
   version "7.3.7"
@@ -497,10 +497,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
 
-"@types/node@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.12.0.tgz#ec5594728811dc2797e42396cfcdf786f2052c12"
-  integrity sha512-Lg00egj78gM+4aE0Erw05cuDbvX9sLJbaaPwwRtdCdAMnIudqrQZ0oZX98Ek0yiSK/A2nubHgJfvII/rTT2Dwg==
+"@types/node@11.12.2":
+  version "11.12.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.12.2.tgz#d7f302e74b10e9801d52852137f652d9ee235da8"
+  integrity sha512-c82MtnqWB/CqqK7/zit74Ob8H1dBdV7bK+BcErwtXbe0+nUGkgzq5NTDmRW/pAv2lFtmeNmW95b0zK2hxpeklg==
 
 "@types/q@^0.0.32":
   version "0.0.32"
