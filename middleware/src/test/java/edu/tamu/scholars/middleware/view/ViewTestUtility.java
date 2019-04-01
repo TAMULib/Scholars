@@ -12,6 +12,7 @@ import org.springframework.data.solr.core.query.FacetOptions;
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
 import edu.tamu.scholars.middleware.view.model.DisplaySection;
+import edu.tamu.scholars.middleware.view.model.DisplayView;
 import edu.tamu.scholars.middleware.view.model.Facet;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
@@ -117,6 +118,24 @@ public class ViewTestUtility {
         discoveryView.setFilters(filters);
 
         return discoveryView;
+    }
+
+    public static DisplayView getMockDisplayView() {
+        DisplayView displayView = new DisplayView();
+
+        displayView.setCollection("persons");
+        displayView.setName("Test");
+        displayView.setMainContentTemplate("<div>Main</div>");
+        displayView.setLeftScanTemplate("<div>Left Scan</div>");
+        displayView.setRightScanTemplate("<div>Right Scan</div>");
+
+        List<TabView> tabs = new ArrayList<TabView>();
+
+        tabs.add(getMockTabView());
+
+        displayView.setTabs(tabs);
+
+        return displayView;
     }
 
     public static TabView getMockTabView() {
