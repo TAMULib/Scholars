@@ -14,18 +14,13 @@ import javax.persistence.MappedSuperclass;
 
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFacets;
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFilters;
-import edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection;
 
 @MappedSuperclass
 @ValidCollectionFacets(message = "{CollectionView.validCollectionFacets}")
 @ValidCollectionFilters(message = "{CollectionView.validCollectionFilters}")
-public abstract class CollectionView extends View {
+public abstract class CollectionView extends ResourceView {
 
     private static final long serialVersionUID = 6875458024293994230L;
-
-    @ValidDiscoveryCollection(message = "{CollectionView.validDiscoveryCollection}")
-    @Column(nullable = false)
-    private String collection;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -51,14 +46,6 @@ public abstract class CollectionView extends View {
         styles = new ArrayList<String>();
         facets = new ArrayList<Facet>();
         filters = new ArrayList<Filter>();
-    }
-
-    public String getCollection() {
-        return collection;
-    }
-
-    public void setCollection(String collection) {
-        this.collection = collection;
     }
 
     public Layout getLayout() {

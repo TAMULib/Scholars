@@ -17,7 +17,7 @@ import edu.tamu.scholars.middleware.view.model.repo.ViewRepo;
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ExtendWith(SpringExtension.class)
-public abstract class CollectionViewIntegrationTest<V extends View, R extends ViewRepo<V>> extends ViewIntegrationTest<V, R> {
+public abstract class ResourceViewIntegrationTest<V extends View, R extends ViewRepo<V>> extends ViewIntegrationTest<V, R> {
 
     @Autowired
     protected MockMvc mockMvc;

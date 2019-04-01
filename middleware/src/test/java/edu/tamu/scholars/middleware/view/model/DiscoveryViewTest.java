@@ -1,5 +1,6 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.MOCK_VIEW_NAME;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDiscoveryView;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,7 +31,7 @@ public class DiscoveryViewTest {
         discoveryView.setId(1L);
 
         assertEquals(1L, discoveryView.getId(), 1);
-        assertEquals("People", discoveryView.getName());
+        assertEquals(MOCK_VIEW_NAME, discoveryView.getName());
         assertEquals("persons", discoveryView.getCollection());
         assertEquals(Layout.GRID, discoveryView.getLayout());
 

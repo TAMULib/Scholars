@@ -10,13 +10,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import edu.tamu.scholars.middleware.view.validator.DiscoveryCollectionValidator;
+import edu.tamu.scholars.middleware.view.validator.ResourceCollectionValidator;
 
 @Documented
 @Target(FIELD)
 @Retention(RUNTIME)
-@Constraint(validatedBy = DiscoveryCollectionValidator.class)
-public @interface ValidDiscoveryCollection {
+@Constraint(validatedBy = ResourceCollectionValidator.class)
+public @interface ValidResourceCollection {
 
     String message();
 

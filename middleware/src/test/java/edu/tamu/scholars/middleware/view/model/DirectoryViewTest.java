@@ -1,5 +1,6 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.MOCK_VIEW_NAME;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDirectoryView;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,7 +32,7 @@ public class DirectoryViewTest {
         directoryView.setId(1L);
 
         assertEquals(1L, directoryView.getId(), 1);
-        assertEquals("People", directoryView.getName());
+        assertEquals(MOCK_VIEW_NAME, directoryView.getName());
         assertEquals("persons", directoryView.getCollection());
         assertEquals(Layout.LIST, directoryView.getLayout());
 
