@@ -15,17 +15,17 @@ import { DisplayViewRepo } from './view/repo/display-view.repo';
 // NOTE: the keys must match the property of the Spring Data REST embedded response
 
 export const keys = {
-    concepts: 'name',
-    documents: 'title',
-    organizations: 'name',
-    persons: 'name',
-    processes: 'title',
-    relationships: 'title',
+    concepts: 'id',
+    documents: 'id',
+    organizations: 'id',
+    persons: 'id',
+    processes: 'id',
+    relationships: 'id',
     themes: 'name',
     users: 'email',
     directoryViews: 'name',
     discoveryViews: 'name',
-    displayViews: 'name'
+    displayViews: 'type'
 };
 
 export const repos = {

@@ -32,6 +32,7 @@ import * as fromRouter from '../router/router.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from './sdr.actions';
 import * as fromSidebar from '../sidebar/sidebar.actions';
+import { SolrDocument } from '../../model/discovery';
 
 @Injectable()
 export class SdrEffects {
@@ -53,21 +54,40 @@ export class SdrEffects {
     // TODO: alerts should be in dialog location if a dialog is opened
 
     @Effect() getAll = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL, ['directoryViews', 'discoveryViews'])),
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL, ['directoryViews', 'discoveryViews', 'displayViews'])),
         switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
     );
 
     @Effect({ dispatch: false }) getAllSuccess = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, ['directoryViews', 'discoveryViews'])),
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, ['directoryViews', 'discoveryViews', 'displayViews'])),
         switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
         withLatestFrom(this.store.pipe(select(selectStompState))),
         map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
     );
 
-
     @Effect() getAllFailure = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE, ['directoryViews', 'discoveryViews'])),
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE, ['directoryViews', 'discoveryViews', 'displayViews'])),
         map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
+    );
+
+    @Effect() getOne = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ONE)),
+        switchMap((action: fromSdr.GetOneResourceAction) => this.repos.get(action.name).getOne(action.payload.id).pipe(
+            map((document: SolrDocument) => new fromSdr.GetOneResourceSuccessAction(action.name, { document })),
+            catchError((response) => of(new fromSdr.GetOneResourceFailureAction(action.name, { response })))
+        ))
+    );
+
+    @Effect({ dispatch: false }) getOneSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ONE_SUCCESS)),
+        switchMap((action: fromSdr.GetOneResourceSuccessAction) => this.waitForStompConnection(action.name)),
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
+    );
+
+    @Effect() getOneFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ONE_FAILURE)),
+        map((action: fromSdr.GetOneResourceFailureAction) => this.alert.getAllFailureAlert(action.payload))
     );
 
     @Effect() getDirectoryViews = this.actions.pipe(
@@ -101,6 +121,23 @@ export class SdrEffects {
 
     @Effect() getDiscoveryViewsFailure = this.actions.pipe(
         ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'discoveryViews')),
+        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
+    );
+
+    @Effect() getDisplayViews = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'displayViews')),
+        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
+    );
+
+    @Effect({ dispatch: false }) getDisplayViewsSuccess = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, 'displayViews')),
+        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
+    );
+
+    @Effect() getDisplayViewsFailure = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'displayViews')),
         map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
     );
 
@@ -280,7 +317,7 @@ export class SdrEffects {
         })
     );
 
-    @Effect() initViews = defer(() => of(new fromSdr.GetAllResourcesAction('directoryViews'), new fromSdr.GetAllResourcesAction('discoveryViews')));
+    @Effect() initViews = defer(() => of(new fromSdr.GetAllResourcesAction('directoryViews'), new fromSdr.GetAllResourcesAction('discoveryViews'), new fromSdr.GetAllResourcesAction('displayViews')));
 
     private injectRepos(): void {
         const injector = Injector.create({

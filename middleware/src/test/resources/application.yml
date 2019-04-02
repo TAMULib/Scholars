@@ -53,6 +53,8 @@ logging:
 
 server:
   port: 9001
+  servlet:
+    contextPath:
 
 spring:
   data:

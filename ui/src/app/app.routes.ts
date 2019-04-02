@@ -20,6 +20,11 @@ export const routes: Routes = [
         }
     },
     {
+        path: 'display', loadChildren: './+display#DisplayModule', canActivate: [], data: {
+
+        }
+    },
+    {
         path: '', loadChildren: './+dashboard#DashboardModule', canActivate: [], data: {
 
         }
