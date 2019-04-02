@@ -16,6 +16,9 @@ public class DisplayView extends ResourceView {
 
     private static final long serialVersionUID = 7556127622115170597L;
 
+    @Column(unique = true)
+    private String type;
+
     @Column(columnDefinition = "TEXT")
     private String mainContentTemplate;
 
@@ -31,6 +34,14 @@ public class DisplayView extends ResourceView {
     public DisplayView() {
         super();
         tabs = new ArrayList<TabView>();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getMainContentTemplate() {

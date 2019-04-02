@@ -50,27 +50,30 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                 document(
                     "displayViews/create",
                     requestFields(
-                        describeDisplayView.withField("name", "The name of the display view."),
-                        // describeDisplayView.withField("collection", "The collection of the display view."),
+                        describeDisplayView.withField("name", "The name of the Display View."),
+                        describeDisplayView.withField("type", "The type of document for Display View."),
+                        // describeDisplayView.withField("collection", "The collection of the Display View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                        fieldWithPath("collection").description("The collection of the display view."),
-                        describeDisplayView.withField("mainContentTemplate", "The main content template of the display view."),
-                        describeDisplayView.withField("leftScanTemplate", "The left scan template of the display view."),
-                        describeDisplayView.withField("rightScanTemplate", "The right scan template of the display view."),
+                        fieldWithPath("collection").description("The collection of the Display View."),
+                        describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
+                        describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
+                        describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
                         describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>.")
                     ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
-                        linkWithRel("displayView").description("The display view link for this resource.")
+                        linkWithRel("displayView").description("The Display View link for this resource.")
                     ),
                     responseFields(
-                        describeDisplayView.withField("name", "The name of the display view."),
-                        // describeDisplayView.withField("collection", "The collection of the display view."),
+                        describeDisplayView.withField("id", "The Display View id."),
+                        describeDisplayView.withField("name", "The name of the Display View."),
+                        describeDisplayView.withField("type", "The type of document for Display View."),
+                        // describeDisplayView.withField("collection", "The collection of the Display View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                        fieldWithPath("collection").description("The collection of the display view."),
-                        describeDisplayView.withField("mainContentTemplate", "The main content template of the display view."),
-                        describeDisplayView.withField("leftScanTemplate", "The left scan template of the display view."),
-                        describeDisplayView.withField("rightScanTemplate", "The right scan template of the display view."),
+                        fieldWithPath("collection").description("The collection of the Display View."),
+                        describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
+                        describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
+                        describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
                         describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>."),
                         subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
                     )
@@ -94,12 +97,13 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                     requestFields(
                         describeDisplayView.withField("id", "The Display View id."),
                         describeDisplayView.withField("name", "The name of the Display View."),
-                        // describeDisplayView.withField("collection", "The collection of the display view."),
+                        describeDisplayView.withField("type", "The type of document for Display View."),
+                        // describeDisplayView.withField("collection", "The collection of the Display View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                        fieldWithPath("collection").description("The collection of the display view."),
-                        describeDisplayView.withField("mainContentTemplate", "The main content template of the display view."),
-                        describeDisplayView.withField("leftScanTemplate", "The left scan template of the display view."),
-                        describeDisplayView.withField("rightScanTemplate", "The right scan template of the display view."),
+                        fieldWithPath("collection").description("The collection of the Display View."),
+                        describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
+                        describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
+                        describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
                         describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>.")
                     ),
                     links(
@@ -107,13 +111,15 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         linkWithRel("displayView").description("The Display View link for this resource.")
                     ),
                     responseFields(
+                        describeDisplayView.withField("id", "The Display View id."),
                         describeDisplayView.withField("name", "The name of the Display View."),
-                        // describeDisplayView.withField("collection", "The collection of the display view."),
+                        describeDisplayView.withField("type", "The type of document for Display View."),
+                        // describeDisplayView.withField("collection", "The collection of the Display View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                        fieldWithPath("collection").description("The collection of the display view."),
-                        describeDisplayView.withField("mainContentTemplate", "The main content template of the display view."),
-                        describeDisplayView.withField("leftScanTemplate", "The left scan template of the display view."),
-                        describeDisplayView.withField("rightScanTemplate", "The right scan template of the display view."),
+                        fieldWithPath("collection").description("The collection of the Display View."),
+                        describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
+                        describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
+                        describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
                         describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>."),
                         subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
                     )
@@ -145,12 +151,13 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             requestParameters(
                                 describeDisplayView.withParameter("id", "The Display View id.").optional(),
                                 describeDisplayView.withParameter("name", "The name of the Display View.").optional(),
+                                describeDisplayView.withParameter("type", "The type of document for Display View.").optional(),
                                 // describeDisplayView.withParameter("collection", "The collection of the Display View.").optional(),
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                                parameterWithName("collection").description("The collection of the display view.").optional(),
-                                describeDisplayView.withParameter("mainContentTemplate", "The main content template of the display view.").optional(),
-                                describeDisplayView.withParameter("leftScanTemplate", "The left scan template of the display view.").optional(),
-                                describeDisplayView.withParameter("rightScanTemplate", "The right scan template of the display view.").optional(),
+                                parameterWithName("collection").description("The collection of the Display View.").optional(),
+                                describeDisplayView.withParameter("mainContentTemplate", "The main content template of the Display View.").optional(),
+                                describeDisplayView.withParameter("leftScanTemplate", "The left scan template of the Display View.").optional(),
+                                describeDisplayView.withParameter("rightScanTemplate", "The right scan template of the Display View.").optional(),
                                 describeDisplayView.withParameter("tabs", "An array of <<resources-tabs, Tabe view resources>>.").optional()
                             ),
                             links(
@@ -158,13 +165,15 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                                 linkWithRel("displayView").description("The Display View link for this resource.")
                             ),
                             responseFields(
+                                describeDisplayView.withField("id", "The Display View id."),
                                 describeDisplayView.withField("name", "The name of the Display View."),
+                                describeDisplayView.withField("type", "The type of document for Display View."),
                                 // describeDisplayView.withField("collection", "The collection of the Display View."),
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                                fieldWithPath("collection").description("The collection of the display view."),
-                                describeDisplayView.withField("mainContentTemplate", "The main content template of the display view."),
-                                describeDisplayView.withField("leftScanTemplate", "The left scan template of the display view."),
-                                describeDisplayView.withField("rightScanTemplate", "The right scan template of the display view."),
+                                fieldWithPath("collection").description("The collection of the Display View."),
+                                describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
+                                describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
+                                describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
                                 describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>."),
                                 subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
                             )
@@ -194,13 +203,15 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             linkWithRel("displayView").description("The Display View link for this resource.")
                         ),
                         responseFields(
+                            describeDisplayView.withField("id", "The Display View id."),
                             describeDisplayView.withField("name", "The name of the Display View."),
-                            // describeDisplayView.withField("collection", "The collection of the display view."),
+                            describeDisplayView.withField("type", "The type of document for Display View."),
+                            // describeDisplayView.withField("collection", "The collection of the Display View."),
                             // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                            fieldWithPath("collection").description("The collection of the display view."),
-                            describeDisplayView.withField("mainContentTemplate", "The main content template of the display view."),
-                            describeDisplayView.withField("leftScanTemplate", "The left scan template of the display view."),
-                            describeDisplayView.withField("rightScanTemplate", "The right scan template of the display view."),
+                            fieldWithPath("collection").description("The collection of the Display View."),
+                            describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
+                            describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
+                            describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
                             describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>."),
                             subsectionWithPath("_links").description("<<resources-display-view-list-links, Links>> to other resources.")
                         )
