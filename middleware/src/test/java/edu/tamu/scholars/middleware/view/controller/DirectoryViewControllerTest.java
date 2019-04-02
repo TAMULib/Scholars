@@ -66,7 +66,6 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                         linkWithRel("directoryView").description("The Directory View link for this resource.")
                     ),
                     responseFields(
-                        describeDirectoryView.withField("id", "The Directory View id."),
                         describeDirectoryView.withField("name", "The name of the Directory View."),
                         // describeDirectoryView.withField("collection", "The collection of the Directory View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
@@ -114,7 +113,6 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                         linkWithRel("directoryView").description("The Directory View link for this resource.")
                     ),
                     responseFields(
-                        describeDirectoryView.withField("id", "The Directory View id."),
                         describeDirectoryView.withField("name", "The name of the Directory View."),
                         // describeDirectoryView.withField("collection", "The collection of the Directory View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
@@ -170,7 +168,6 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                                 linkWithRel("directoryView").description("The Directory View link for this resource.")
                             ),
                             responseFields(
-                                describeDirectoryView.withField("id", "The Directory View id."),
                                 describeDirectoryView.withField("name", "The name of the Directory View."),
                                 // describeDirectoryView.withField("collection", "The collection of the Directory View."),
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
@@ -209,7 +206,6 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                             linkWithRel("directoryView").description("The Directory View link for this resource.")
                         ),
                         responseFields(
-                            describeDirectoryView.withField("id", "The Directory View id."),
                             describeDirectoryView.withField("name", "The name of the Directory View."),
                             // describeDirectoryView.withField("collection", "The collection of the Directory View."),
                             // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description

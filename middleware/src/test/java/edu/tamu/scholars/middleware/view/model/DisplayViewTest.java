@@ -26,8 +26,8 @@ public class DisplayViewTest {
         displayView.setId(1L);
 
         assertEquals(1L, displayView.getId(), 1);
-        assertEquals("FacultyMember", displayView.getType());
         assertEquals(MOCK_VIEW_NAME, displayView.getName());
+        assertEquals("FacultyMember", displayView.getType());
         assertEquals("persons", displayView.getCollection());
 
         assertEquals("<div>Main</div>", displayView.getMainContentTemplate());

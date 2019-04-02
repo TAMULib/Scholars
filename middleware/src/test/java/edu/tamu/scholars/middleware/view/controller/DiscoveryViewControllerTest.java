@@ -65,7 +65,6 @@ public class DiscoveryViewControllerTest extends ResourceViewIntegrationTest<Dis
                         linkWithRel("discoveryView").description("The Discovery View link for this resource.")
                     ),
                     responseFields(
-                        describeDiscoveryView.withField("id", "The Discovery View id."),
                         describeDiscoveryView.withField("name", "The name of the Discovery View."),
                         // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
@@ -111,7 +110,6 @@ public class DiscoveryViewControllerTest extends ResourceViewIntegrationTest<Dis
                         linkWithRel("discoveryView").description("The Discovery View link for this resource.")
                     ),
                     responseFields(
-                        describeDiscoveryView.withField("id", "The Discovery View id."),
                         describeDiscoveryView.withField("name", "The name of the Discovery View."),
                         // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
@@ -165,7 +163,6 @@ public class DiscoveryViewControllerTest extends ResourceViewIntegrationTest<Dis
                                 linkWithRel("discoveryView").description("The Discovery View link for this resource.")
                             ),
                             responseFields(
-                                describeDiscoveryView.withField("id", "The Discovery View id."),
                                 describeDiscoveryView.withField("name", "The name of the Discovery View."),
                                 // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
@@ -203,7 +200,6 @@ public class DiscoveryViewControllerTest extends ResourceViewIntegrationTest<Dis
                             linkWithRel("discoveryView").description("The Discovery View link for this resource.")
                         ),
                         responseFields(
-                            describeDiscoveryView.withField("id", "The Discovery View id."),
                             describeDiscoveryView.withField("name", "The name of the Discovery View."),
                             // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                             // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description

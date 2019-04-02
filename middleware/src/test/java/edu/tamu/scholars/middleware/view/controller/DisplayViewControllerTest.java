@@ -65,7 +65,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         linkWithRel("displayView").description("The Display View link for this resource.")
                     ),
                     responseFields(
-                        describeDisplayView.withField("id", "The Display View id."),
                         describeDisplayView.withField("name", "The name of the Display View."),
                         describeDisplayView.withField("type", "The type of document for Display View."),
                         // describeDisplayView.withField("collection", "The collection of the Display View."),
@@ -111,7 +110,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         linkWithRel("displayView").description("The Display View link for this resource.")
                     ),
                     responseFields(
-                        describeDisplayView.withField("id", "The Display View id."),
                         describeDisplayView.withField("name", "The name of the Display View."),
                         describeDisplayView.withField("type", "The type of document for Display View."),
                         // describeDisplayView.withField("collection", "The collection of the Display View."),
@@ -165,7 +163,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                                 linkWithRel("displayView").description("The Display View link for this resource.")
                             ),
                             responseFields(
-                                describeDisplayView.withField("id", "The Display View id."),
                                 describeDisplayView.withField("name", "The name of the Display View."),
                                 describeDisplayView.withField("type", "The type of document for Display View."),
                                 // describeDisplayView.withField("collection", "The collection of the Display View."),
@@ -203,7 +200,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             linkWithRel("displayView").description("The Display View link for this resource.")
                         ),
                         responseFields(
-                            describeDisplayView.withField("id", "The Display View id."),
                             describeDisplayView.withField("name", "The name of the Display View."),
                             describeDisplayView.withField("type", "The type of document for Display View."),
                             // describeDisplayView.withField("collection", "The collection of the Display View."),
