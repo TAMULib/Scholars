@@ -126,7 +126,7 @@ public class ViewTestUtility {
         DisplayView displayView = new DisplayView();
 
         displayView.setName(MOCK_VIEW_NAME);
-        displayView.setType("FaculityMember");
+        displayView.setType("FacultyMember");
         displayView.setCollection("persons");
         displayView.setMainContentTemplate("<div>Main</div>");
         displayView.setLeftScanTemplate("<div>Left Scan</div>");
