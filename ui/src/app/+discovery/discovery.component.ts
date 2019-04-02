@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
@@ -67,13 +67,13 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
             if (params.view) {
                 this.discoveryView = this.store.pipe(
                     select(selectResourceById('discoveryViews', params.view)),
-                    filter((view: DiscoveryView) => view !== undefined)
+                    filter((view: DiscoveryView) => view !== undefined),
+                    tap((view: DiscoveryView) => {
+                        this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(view.collection)));
+                        this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(view.collection)));
+                        this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(view.collection)));
+                    })
                 );
-                this.subscriptions.push(this.discoveryView.subscribe((discoveryView: DiscoveryView) => {
-                    this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(discoveryView.collection)));
-                    this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(discoveryView.collection)));
-                    this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(discoveryView.collection)));
-                }));
             }
         }));
     }

@@ -7,4 +7,14 @@
     </div>
   </div>
 </div>
-<h1>Display</h1>
+<div class="document container" *ngIf="document | async; let document">
+
+  <div class="row" *ngIf="displayView | async; let displayView">
+
+    <div class="col-3" [innerHtml]="getLeftScan(displayView, document) | safeHtml"></div>
+    <div class="col-6" [innerHtml]="getMainContent(displayView, document) | safeHtml"></div>
+    <div class="col-3" [innerHtml]="getRightScan(displayView, document) | safeHtml"></div>
+
+  </div>
+
+</div>

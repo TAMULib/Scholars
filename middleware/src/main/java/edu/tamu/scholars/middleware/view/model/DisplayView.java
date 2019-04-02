@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,6 +29,7 @@ public class DisplayView extends ResourceView {
     @Column(columnDefinition = "TEXT")
     private String rightScanTemplate;
 
+    @JoinColumn(name = "display_view_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TabView> tabs;
 
