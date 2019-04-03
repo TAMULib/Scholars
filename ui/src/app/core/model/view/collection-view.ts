@@ -11,6 +11,11 @@ export enum FacetSort {
     INDEX = 'INDEX'
 }
 
+export interface Sort {
+    readonly field: string;
+    readonly direction: Direction;
+}
+
 export interface Facet {
     readonly name: string;
     readonly field: string;
@@ -31,4 +36,5 @@ export interface CollectionView extends ResourceView {
     readonly styles: string[];
     readonly facets: Facet[];
     readonly filters: Filter[];
+    readonly sort: Sort[];
 }

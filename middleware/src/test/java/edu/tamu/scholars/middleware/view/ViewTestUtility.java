@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.solr.core.query.Criteria.OperationKey;
 import org.springframework.data.solr.core.query.FacetOptions;
 
@@ -17,6 +17,7 @@ import edu.tamu.scholars.middleware.view.model.Facet;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
 import edu.tamu.scholars.middleware.view.model.Layout;
+import edu.tamu.scholars.middleware.view.model.Sort;
 import edu.tamu.scholars.middleware.view.model.TabView;
 
 public class ViewTestUtility {
@@ -49,7 +50,7 @@ public class ViewTestUtility {
         facet.setField("name");
         facet.setLimit(20);
         facet.setSort(FacetOptions.FacetSort.COUNT);
-        facet.setDirection(Sort.Direction.DESC);
+        facet.setDirection(Direction.DESC);
 
         facets.add(facet);
 
@@ -65,6 +66,16 @@ public class ViewTestUtility {
         filters.add(filter);
 
         directoryView.setFilters(filters);
+
+        List<Sort> sorting = new ArrayList<Sort>();
+
+        Sort sort = new Sort();
+        sort.setField("name");
+        sort.setDirection(Direction.ASC);
+
+        sorting.add(sort);
+
+        directoryView.setSort(sorting);
 
         Index index = new Index();
 
@@ -102,7 +113,7 @@ public class ViewTestUtility {
         facet.setField("name");
         facet.setLimit(20);
         facet.setSort(FacetOptions.FacetSort.COUNT);
-        facet.setDirection(Sort.Direction.DESC);
+        facet.setDirection(Direction.DESC);
 
         facets.add(facet);
 
@@ -118,6 +129,16 @@ public class ViewTestUtility {
         filters.add(filter);
 
         discoveryView.setFilters(filters);
+
+        List<Sort> sorting = new ArrayList<Sort>();
+
+        Sort sort = new Sort();
+        sort.setField("name");
+        sort.setDirection(Direction.ASC);
+
+        sorting.add(sort);
+
+        discoveryView.setSort(sorting);
 
         return discoveryView;
     }

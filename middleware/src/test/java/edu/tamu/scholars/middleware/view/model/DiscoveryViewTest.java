@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.solr.core.query.FacetOptions;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -51,6 +52,10 @@ public class DiscoveryViewTest {
         assertEquals(1, discoveryView.getFilters().size());
         assertEquals("type", discoveryView.getFilters().get(0).getField());
         assertEquals("FacultyMember", discoveryView.getFilters().get(0).getValue());
+
+        assertEquals(1, discoveryView.getSort().size());
+        assertEquals("name", discoveryView.getSort().get(0).getField());
+        assertEquals(Direction.ASC, discoveryView.getSort().get(0).getDirection());
     }
 
 }

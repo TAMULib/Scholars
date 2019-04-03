@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.solr.core.query.Criteria.OperationKey;
 import org.springframework.data.solr.core.query.FacetOptions;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -52,6 +53,10 @@ public class DirectoryViewTest {
         assertEquals(1, directoryView.getFilters().size());
         assertEquals("type", directoryView.getFilters().get(0).getField());
         assertEquals("FacultyMember", directoryView.getFilters().get(0).getValue());
+
+        assertEquals(1, directoryView.getSort().size());
+        assertEquals("name", directoryView.getSort().get(0).getField());
+        assertEquals(Direction.ASC, directoryView.getSort().get(0).getDirection());
 
         assertNotNull(directoryView.getIndex());
         assertEquals("name", directoryView.getIndex().getField());

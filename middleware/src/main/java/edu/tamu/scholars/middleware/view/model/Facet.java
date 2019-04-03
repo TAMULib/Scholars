@@ -1,12 +1,15 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static org.springframework.data.domain.Sort.Direction.DESC;
+import static org.springframework.data.solr.core.query.FacetOptions.FacetSort.COUNT;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.data.solr.core.query.FacetOptions;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.solr.core.query.FacetOptions.FacetSort;
 
 @Embeddable
 public class Facet {
@@ -19,11 +22,11 @@ public class Facet {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private FacetOptions.FacetSort sort;
+    private FacetSort sort;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Sort.Direction direction;
+    private Direction direction;
 
     @Column(nullable = false, name = "default_limit")
     private int limit;
@@ -32,8 +35,8 @@ public class Facet {
     private boolean hidden;
 
     public Facet() {
-        sort = FacetOptions.FacetSort.COUNT;
-        direction = Sort.Direction.DESC;
+        sort = COUNT;
+        direction = DESC;
         limit = 10;
         hidden = false;
     }
@@ -54,19 +57,19 @@ public class Facet {
         this.field = field;
     }
 
-    public FacetOptions.FacetSort getSort() {
+    public FacetSort getSort() {
         return sort;
     }
 
-    public void setSort(FacetOptions.FacetSort sort) {
+    public void setSort(FacetSort sort) {
         this.sort = sort;
     }
 
-    public Sort.Direction getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 
-    public void setDirection(Sort.Direction direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 

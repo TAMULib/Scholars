@@ -35,6 +35,7 @@ describe('ResultViewComponent', () => {
             styles: [],
             facets: [],
             filters: [],
+            sort: [],
             _links: {
                 self: {
                     href: ''
