@@ -13,6 +13,7 @@ document:
   publicationVenueFor: "http://www.w3.org/2000/01/rdf-schema#label"
   etdChairedBy:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
+    organization: "http://www.w3.org/2000/01/rdf-schema#label"
     email: "http://www.w3.org/2006/vcard/ns#email"
   author:
     name: "http://www.w3.org/2000/01/rdf-schema#label"

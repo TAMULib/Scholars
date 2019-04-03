@@ -72,6 +72,10 @@ public class Document extends AbstractSolrDocument {
     private List<String> etdChairedBy;
 
     @Indexed(copyTo = "_text_")
+    @PropertySource(template = "document/etdChairedByOrganization", key = "document.etdChairedBy.organization")
+    private List<String> etdChairedByOrganization;
+
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "document/etdChairedByEmail", key = "document.etdChairedBy.email")
     private List<String> etdChairedByEmail;
 
@@ -612,6 +616,14 @@ public class Document extends AbstractSolrDocument {
 
     public void setEtdChairedBy(List<String> etdChairedBy) {
         this.etdChairedBy = etdChairedBy;
+    }
+
+    public List<String> getEtdChairedByOrganization() {
+        return etdChairedByOrganization;
+    }
+
+    public void setEtdChairedByOrganization(List<String> etdChairedByOrganization) {
+        this.etdChairedByOrganization = etdChairedByOrganization;
     }
 
     public List<String> getEtdChairedByEmail() {
