@@ -79,6 +79,10 @@ export class DisplayComponent implements OnDestroy, OnInit {
         return this.resultViewService.compileView(displayView.rightScanTemplate, document);
     }
 
+    public getSection(template: string, document: SolrDocument): string {
+        return this.resultViewService.compileView(template, document);
+    }
+
     public showTabs(windowDimensions: WindowDimensions): boolean {
         return windowDimensions.width > 767;
     }

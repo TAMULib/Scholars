@@ -9,11 +9,36 @@
 </div>
 <div class="document container" *ngIf="document | async; let document">
 
-  <div class="row" *ngIf="displayView | async; let displayView">
+  <div *ngIf="displayView | async; let displayView">
 
-    <div class="col-3" [innerHtml]="getLeftScan(displayView, document) | safeHtml"></div>
-    <div class="col-6" [innerHtml]="getMainContent(displayView, document) | safeHtml"></div>
-    <div class="col-3" [innerHtml]="getRightScan(displayView, document) | safeHtml"></div>
+    <div class="row mt-2">
+
+      <div class="col-3" [innerHtml]="getLeftScan(displayView, document) | safeHtml"></div>
+      <div class="col-6" [innerHtml]="getMainContent(displayView, document) | safeHtml"></div>
+      <div class="col-3" [innerHtml]="getRightScan(displayView, document) | safeHtml"></div>
+
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <ngb-tabset>
+          <ngb-tab *ngFor="let tab of displayView.tabs | filter:{ hidden: false }" [title]="tab.name">
+            <ng-template ngbTabContent>
+
+              <div class="row m-2" *ngFor="let section of tab.sections | filter:{ hidden: false }">
+
+                <div class="col-12">
+                  <h3>{{section.name}}</h3>
+                  <div [innerHtml]="getSection(section.template, document)"></div>
+                </div>
+
+              </div>
+
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
 
   </div>
 

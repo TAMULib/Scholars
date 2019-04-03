@@ -23,7 +23,9 @@ import { UserEditComponent } from './dialog/user-edit/user-edit.component';
 import { StatsBoxComponent } from './stats-box/stats-box.component';
 
 import { LoaderDirective } from './loader/loader.directive';
-import { SafeHtmlPipe } from './safe-html/safe-html.pipe';
+
+import { SafeHtmlPipe } from './utilities/safe-html.pipe';
+import { FilterPipe } from './utilities/filter.pipe';
 
 const MODULES = [
     CommonModule,
@@ -35,6 +37,7 @@ const MODULES = [
 ];
 
 const PIPES = [
+    FilterPipe,
     SafeHtmlPipe
 ];
 
