@@ -75,6 +75,10 @@ public class Relationship extends AbstractSolrDocument {
     @PropertySource(template = "relationship/awardConferredByType", key = "relationship.awardConferredBy.type", parse = true)
     private List<String> awardConferredByType;
 
+    @Indexed(copyTo = "_text_")
+    @PropertySource(template = "relationship/awardConferredByPreferredLabel", key = "relationship.awardConferredBy.preferredLabel")
+    private List<String> awardConferredByPreferredLabel;
+
     @Indexed
     private List<String> awardConferredById;
 
@@ -85,6 +89,10 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     @PropertySource(template = "relationship/awardedByType", key = "relationship.awardedBy.type", parse = true)
     private List<String> awardedByType;
+
+    @Indexed(copyTo = "_text_")
+    @PropertySource(template = "relationship/awardedByPreferredLabel", key = "relationship.awardedBy.preferredLabel")
+    private List<String> awardedByPreferredLabel;
 
     @Indexed
     private List<String> awardedById;
@@ -391,6 +399,14 @@ public class Relationship extends AbstractSolrDocument {
         this.awardConferredByType = awardConferredByType;
     }
 
+    public List<String> getAwardConferredByPreferredLabel() {
+        return awardConferredByPreferredLabel;
+    }
+
+    public void setAwardConferredByPreferredLabel(List<String> awardConferredByPreferredLabel) {
+        this.awardConferredByPreferredLabel = awardConferredByPreferredLabel;
+    }
+
     public List<String> getAwardConferredById() {
         return awardConferredById;
     }
@@ -413,6 +429,14 @@ public class Relationship extends AbstractSolrDocument {
 
     public void setAwardedByType(List<String> awardedByType) {
         this.awardedByType = awardedByType;
+    }
+
+    public List<String> getAwardedByPreferredLabel() {
+        return awardedByPreferredLabel;
+    }
+
+    public void setAwardedByPreferredLabel(List<String> awardedByPreferredLabel) {
+        this.awardedByPreferredLabel = awardedByPreferredLabel;
     }
 
     public List<String> getAwardedById() {

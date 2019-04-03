@@ -15,6 +15,7 @@ relationship:
   awardConferredBy:
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     name: "http://www.w3.org/2000/01/rdf-schema#label"
+    preferredLabel: "http://vivo.library.tamu.edu/ontology/TAMU#awardConferredBy_label"
   dateTimeInterval:
     start: "http://vivoweb.org/ontology/core#dateTime"
     end: "http://vivoweb.org/ontology/core#dateTime"
@@ -24,6 +25,7 @@ relationship:
   awardedBy:
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     name: "http://www.w3.org/2000/01/rdf-schema#label"
+    preferredLabel: "http://vivo.library.tamu.edu/ontology/TAMU#awardedBy_label"
   grantSubcontractedThrough:
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     name: "http://www.w3.org/2000/01/rdf-schema#label"
