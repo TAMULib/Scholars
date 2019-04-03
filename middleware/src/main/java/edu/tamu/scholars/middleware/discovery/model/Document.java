@@ -82,6 +82,10 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/author", key = "document.author.name", id = "authorId")
     private List<String> author;
 
+    @Indexed(copyTo = "_text_")
+    @PropertySource(template = "document/authorOrganization", key = "document.author.organization")
+    private List<String> authorOrganization;
+
     @Indexed
     @PropertySource(template = "document/authorType", key = "document.author.type", parse = true)
     private List<String> authorType;
@@ -632,6 +636,14 @@ public class Document extends AbstractSolrDocument {
 
     public void setAuthor(List<String> author) {
         this.author = author;
+    }
+
+    public List<String> getAuthorOrganization() {
+        return authorOrganization;
+    }
+
+    public void setAuthorOrganization(List<String> authorOrganization) {
+        this.authorOrganization = authorOrganization;
     }
 
     public List<String> getAuthorType() {

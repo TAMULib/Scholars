@@ -16,6 +16,7 @@ document:
     email: "http://www.w3.org/2006/vcard/ns#email"
   author:
     name: "http://www.w3.org/2000/01/rdf-schema#label"
+    organization: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
     rank: "http://vivoweb.org/ontology/core#rank"
   authorList: "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList"
