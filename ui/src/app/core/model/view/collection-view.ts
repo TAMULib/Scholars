@@ -1,4 +1,4 @@
-import { View } from './';
+import { ResourceView } from './';
 import { Direction } from '../request';
 
 export enum Layout {
@@ -25,8 +25,7 @@ export interface Filter {
     readonly value: string;
 }
 
-export interface CollectionView extends View {
-    readonly collection: string;
+export interface CollectionView extends ResourceView {
     readonly layout: Layout;
     readonly templates: any;
     readonly styles: string[];

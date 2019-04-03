@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,6 +16,9 @@ import javax.persistence.Table;
 public class DisplayView extends ResourceView {
 
     private static final long serialVersionUID = 7556127622115170597L;
+
+    @Column(unique = true)
+    private String type;
 
     @Column(columnDefinition = "TEXT")
     private String mainContentTemplate;
@@ -25,12 +29,21 @@ public class DisplayView extends ResourceView {
     @Column(columnDefinition = "TEXT")
     private String rightScanTemplate;
 
+    @JoinColumn(name = "display_view_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TabView> tabs;
 
     public DisplayView() {
         super();
         tabs = new ArrayList<TabView>();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getMainContentTemplate() {

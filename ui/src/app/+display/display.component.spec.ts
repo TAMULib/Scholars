@@ -6,30 +6,20 @@ import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { AdminComponent } from './admin.component';
-import { DirectoryViewsComponent } from './directory-views/directory-views.component';
-import { DiscoveryViewsComponent } from './discovery-views/discovery-views.component';
-import { DisplayViewsComponent } from './display-views/display-views.component';
-import { ThemesComponent } from './themes/themes.component';
-import { UsersComponent } from './users/users.component';
+import { DisplayComponent } from './display.component';
 
-import { routes } from './admin.routes';
+import { routes } from './display.routes';
 
 import { metaReducers, reducers } from '../core/store';
 
-describe('AdminComponent', () => {
-    let component: AdminComponent;
-    let fixture: ComponentFixture<AdminComponent>;
+describe('DisplayComponent', () => {
+    let component: DisplayComponent;
+    let fixture: ComponentFixture<DisplayComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AdminComponent,
-                DirectoryViewsComponent,
-                DiscoveryViewsComponent,
-                DisplayViewsComponent,
-                ThemesComponent,
-                UsersComponent
+                DisplayComponent
             ],
             imports: [
                 SharedModule,
@@ -46,7 +36,7 @@ describe('AdminComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(AdminComponent);
+        fixture = TestBed.createComponent(DisplayComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

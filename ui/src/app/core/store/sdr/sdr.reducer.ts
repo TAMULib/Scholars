@@ -57,6 +57,26 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     loading: false,
                     error: action.payload.response.error
                 };
+            case getSdrAction(SdrActionTypes.GET_ONE, name):
+                return {
+                    ...state,
+                    loading: true,
+                    error: undefined
+                };
+            case getSdrAction(SdrActionTypes.GET_ONE_SUCCESS, name):
+                return getSdrAdapter<R>(keys[name]).addOne(action.payload.document, {
+                    ...state,
+                    links: state.links,
+                    loading: false,
+                    error: undefined
+                });
+            case getSdrAction(SdrActionTypes.GET_ONE_FAILURE, name):
+                console.error(action);
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload.response.error
+                };
             case getSdrAction(SdrActionTypes.PAGE, name):
                 return {
                     ...state,

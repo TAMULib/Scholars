@@ -40,6 +40,11 @@ export class AdminComponent implements OnInit {
                             },
                             {
                                 type: SidebarItemType.LINK,
+                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DISPLAY_VIEWS'),
+                                route: ['/admin/DisplayViews']
+                            },
+                            {
+                                type: SidebarItemType.LINK,
                                 label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.THEMES'),
                                 route: ['/admin/Themes']
                             },

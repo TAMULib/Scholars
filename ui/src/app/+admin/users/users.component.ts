@@ -10,6 +10,7 @@ import { SdrPage } from '../../core/model/sdr';
 import { User, Role } from '../../core/model/user';
 
 import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
+
 @Component({
     selector: 'scholars-users',
     templateUrl: './users.component.html',
