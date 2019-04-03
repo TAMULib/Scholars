@@ -71,6 +71,7 @@ person:
   selectedPublication:
     title: "http://www.w3.org/2000/01/rdf-schema#label"
     type: "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType"
+    venue: "http://www.w3.org/2000/01/rdf-schema#label"
     date: "http://vivoweb.org/ontology/core#dateTime"
   collectionOrSeriesEditorFor:
     title: "http://www.w3.org/2000/01/rdf-schema#label"

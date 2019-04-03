@@ -288,6 +288,10 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/selectedPublicationType", key = "person.selectedPublication.type", parse = true)
     private List<String> selectedPublicationType;
 
+    @Indexed(copyTo = "_text_")
+    @PropertySource(template = "person/selectedPublicationVenue", key = "person.selectedPublication.venue")
+    private List<String> selectedPublicationVenue;
+
     @Indexed(type = "pdate")
     @PropertySource(template = "person/selectedPublicationDate", key = "person.selectedPublication.date")
     private List<String> selectedPublicationDate;
@@ -1350,6 +1354,14 @@ public class Person extends AbstractSolrDocument {
 
     public void setSelectedPublicationType(List<String> selectedPublicationType) {
         this.selectedPublicationType = selectedPublicationType;
+    }
+
+    public List<String> getSelectedPublicationVenue() {
+        return selectedPublicationVenue;
+    }
+
+    public void setSelectedPublicationVenue(List<String> selectedPublicationVenue) {
+        this.selectedPublicationVenue = selectedPublicationVenue;
     }
 
     public List<String> getSelectedPublicationDate() {
