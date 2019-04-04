@@ -87,7 +87,7 @@ export class SdrEffects {
 
     @Effect() getOneFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ONE_FAILURE)),
-        map((action: fromSdr.GetOneResourceFailureAction) => this.alert.getAllFailureAlert(action.payload))
+        map((action: fromSdr.GetOneResourceFailureAction) => this.alert.getOneFailureAlert(action.payload))
     );
 
     @Effect() getDirectoryViews = this.actions.pipe(

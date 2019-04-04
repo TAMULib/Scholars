@@ -38,6 +38,9 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
     return (state = getSdrInitialState<R>(keys[name]), action: SdrActions): SdrState<R> => {
         switch (action.type) {
             case getSdrAction(SdrActionTypes.GET_ALL, name):
+            case getSdrAction(SdrActionTypes.GET_ONE, name):
+            case getSdrAction(SdrActionTypes.PAGE, name):
+            case getSdrAction(SdrActionTypes.SEARCH, name):
                 return {
                     ...state,
                     loading: true,
@@ -50,19 +53,6 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     loading: false,
                     error: undefined
                 });
-            case getSdrAction(SdrActionTypes.GET_ALL_FAILURE, name):
-                console.error(action);
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.response.error
-                };
-            case getSdrAction(SdrActionTypes.GET_ONE, name):
-                return {
-                    ...state,
-                    loading: true,
-                    error: undefined
-                };
             case getSdrAction(SdrActionTypes.GET_ONE_SUCCESS, name):
                 return getSdrAdapter<R>(keys[name]).addOne(action.payload.document, {
                     ...state,
@@ -70,19 +60,6 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     loading: false,
                     error: undefined
                 });
-            case getSdrAction(SdrActionTypes.GET_ONE_FAILURE, name):
-                console.error(action);
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.response.error
-                };
-            case getSdrAction(SdrActionTypes.PAGE, name):
-                return {
-                    ...state,
-                    loading: true,
-                    error: undefined
-                };
             case getSdrAction(SdrActionTypes.PAGE_SUCCESS, name):
                 return getSdrAdapter<R>(keys[name]).addAll(getResources(action, name), {
                     ...state,
@@ -91,19 +68,6 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     loading: false,
                     error: undefined
                 });
-            case getSdrAction(SdrActionTypes.PAGE_FAILURE, name):
-                console.error(action);
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload.response.error
-                };
-            case getSdrAction(SdrActionTypes.SEARCH, name):
-                return {
-                    ...state,
-                    loading: true,
-                    error: undefined
-                };
             case getSdrAction(SdrActionTypes.SEARCH_SUCCESS, name):
                 return getSdrAdapter<R>(keys[name]).addAll(getResources(action, name), {
                     ...state,
@@ -113,6 +77,9 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     loading: false,
                     error: undefined
                 });
+            case getSdrAction(SdrActionTypes.GET_ALL_FAILURE, name):
+            case getSdrAction(SdrActionTypes.GET_ONE_FAILURE, name):
+            case getSdrAction(SdrActionTypes.PAGE_FAILURE, name):
             case getSdrAction(SdrActionTypes.SEARCH_FAILURE, name):
                 console.error(action);
                 return {
