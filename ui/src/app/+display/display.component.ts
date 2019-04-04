@@ -17,7 +17,7 @@ import { SolrDocument } from '../core/model/discovery';
 import { selectResourceById } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
-import { ResultViewService } from '../core/service/result-view.service';
+import { TemplateService } from '../core/service/template.service';
 
 @Component({
     selector: 'scholars-display',
@@ -36,7 +36,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     constructor(
         private store: Store<AppState>,
-        private resultViewService: ResultViewService,
+        private template: TemplateService,
         private route: ActivatedRoute
     ) {
         this.subscriptions = [];
@@ -67,20 +67,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
         }));
     }
 
-    public getLeftScan(displayView: DisplayView, document: SolrDocument): string {
-        return this.resultViewService.compileView(displayView.leftScanTemplate, document);
-    }
-
-    public getMainContent(displayView: DisplayView, document: SolrDocument): string {
-        return this.resultViewService.compileView(displayView.mainContentTemplate, document);
-    }
-
-    public getRightScan(displayView: DisplayView, document: SolrDocument): string {
-        return this.resultViewService.compileView(displayView.rightScanTemplate, document);
-    }
-
-    public getSection(template: string, document: SolrDocument): string {
-        return this.resultViewService.compileView(template, document);
+    public render(template: string, document: SolrDocument): string {
+        return this.template.render(template, document);
     }
 
     public showTabs(windowDimensions: WindowDimensions): boolean {

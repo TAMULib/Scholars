@@ -81,7 +81,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
             case getSdrAction(SdrActionTypes.GET_ONE_FAILURE, name):
             case getSdrAction(SdrActionTypes.PAGE_FAILURE, name):
             case getSdrAction(SdrActionTypes.SEARCH_FAILURE, name):
-                console.error(action);
+                console.error('here', action);
                 return {
                     ...state,
                     loading: false,

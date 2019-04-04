@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewEncapsulation, Inject, PLATFORM_ID } from
 import { isPlatformBrowser } from '@angular/common';
 
 import { CollectionView } from '../../core/model/view';
-import { ResultViewService } from '../../core/service/result-view.service';
+import { TemplateService } from '../../core/service/template.service';
 
 @Component({
     selector: 'scholars-result-view',
@@ -22,7 +22,7 @@ export class ResultViewComponent implements OnInit {
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: string,
-        private resultViewService: ResultViewService
+        private template: TemplateService
     ) {
 
     }
@@ -31,7 +31,7 @@ export class ResultViewComponent implements OnInit {
         if (this.resource.uri !== undefined) {
             this.resource.uri = this.resource.uri[0].replace('http://hdl.handle.net/', '');
         }
-        this.resultHtml = this.resultViewService.compileResultView(this.view, this.resource);
+        this.resultHtml = this.template.renderResult(this.view, this.resource);
         if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
                 window['_altmetric_embed_init']();

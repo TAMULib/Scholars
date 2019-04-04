@@ -1,18 +1,18 @@
 import { inject, TestBed } from '@angular/core/testing';
 
-import { ResultViewService } from './result-view.service';
+import { TemplateService } from './template.service';
 
-describe('ResultViewService', () => {
+describe('TemplateService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                ResultViewService
+                TemplateService
             ]
         });
     });
 
-    it('should be created', inject([ResultViewService], (service: ResultViewService) => {
+    it('should be created', inject([TemplateService], (service: TemplateService) => {
         expect(service).toBeTruthy();
     }));
 
