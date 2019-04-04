@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { DOCUMENT } from '@angular/common';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
@@ -13,6 +13,8 @@ import { readFileSync } from 'fs';
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 
+import { ComputedStyleLoader } from './core/computed-style-loader';
+
 import { CustomMissingTranslationHandler } from './core/handler/custom-missing-translation.handler';
 
 export function createUniversalTranslateLoader(): TranslateLoader {
@@ -24,6 +26,22 @@ export function createUniversalTranslateLoader(): TranslateLoader {
             });
         }
     } as TranslateLoader;
+}
+
+export function createUniversalStyleLoader(document: Document): ComputedStyleLoader {
+    return {
+        getComputedStyle(): any {
+            const styleLinkTag = document.querySelector('head > link[rel=stylesheet]');
+            const stylesheet = styleLinkTag.getAttribute('href');
+            const styles = readFileSync(`./dist/browser/${stylesheet}`, 'utf8');
+            const root = styles.match(/:root{([^}]+)}/g)[0];
+            const cssTxt = root.replace(/\/\*(.|\s)*?\*\//g, ' ').replace(/\s+/g, ' ');
+            const style = {}, [, ruleName, rule] = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [, , cssTxt];
+            const properties = rule.split(';').map(o => o.split(':').map(x => x && x.trim()));
+            for (const [property, value] of properties) { if (value) { style[property] = value; } }
+            return { root, ruleName, style, getPropertyValue: (key) => style[key] };
+        }
+    } as ComputedStyleLoader;
 }
 
 @NgModule({
@@ -42,8 +60,7 @@ export function createUniversalTranslateLoader(): TranslateLoader {
             },
             loader: {
                 provide: TranslateLoader,
-                useFactory: (createUniversalTranslateLoader),
-                deps: [HttpClient]
+                useFactory: (createUniversalTranslateLoader)
             }
         })
     ],
@@ -51,6 +68,13 @@ export function createUniversalTranslateLoader(): TranslateLoader {
     // imported AppModule, it needs to be repeated here.
     bootstrap: [
         AppComponent
+    ],
+    providers: [
+        {
+            provide: ComputedStyleLoader,
+            useFactory: (createUniversalStyleLoader),
+            deps: [DOCUMENT]
+        }
     ]
 })
 export class AppServerModule {
