@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 
@@ -6,7 +7,9 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { RestService } from './rest.service';
 import { ThemeService } from './theme.service';
 
-import { getRequest } from '../../app.browser.module';
+import { getRequest, createStyleLoader } from '../../app.browser.module';
+
+import { ComputedStyleLoader } from '../computed-style-loader';
 
 describe('ThemeService', () => {
 
@@ -17,6 +20,11 @@ describe('ThemeService', () => {
             ],
             providers: [
                 { provide: REQUEST, useFactory: (getRequest) },
+                {
+                    provide: ComputedStyleLoader,
+                    useFactory: (createStyleLoader),
+                    deps: [DOCUMENT]
+                },
                 RestService,
                 ThemeService
             ]
