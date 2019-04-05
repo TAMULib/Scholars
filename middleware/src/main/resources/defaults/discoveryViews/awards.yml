@@ -3,7 +3,7 @@ name: Awards
 collection: relationships
 layout: LIST
 templates:
-  default: "<span>{{title}}</span>"
+  default: "defaults/discoveryViews/awards/default.html"
 styles: []
 facets:
 - name: Awards

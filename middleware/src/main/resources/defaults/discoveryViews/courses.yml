@@ -3,7 +3,7 @@ name: Courses
 collection: processes
 layout: LIST
 templates:
-  default: "<span>{{title}}</span>"
+  default: "defaults/discoveryViews/courses/default.html"
 styles: []
 facets:
 - name: Courses

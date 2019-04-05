@@ -3,11 +3,7 @@ name: People
 collection: persons
 layout: LIST
 templates:
-  default: '<div style="display: flex"><div style="margin-right: 25px"><div>{{#thumbnail}}<img
-    src="https://scholars.library.tamu.edu/vivo{{thumbnail}}" style="border-radius:
-    50%" height="60" width="60">{{/thumbnail}}{{^thumbnail}}<img src="assets/images/default-avatar.png"
-    style="border-radius: 50%" height="60" width="60">{{/thumbnail}}</div></div><div
-    style="margin: auto 0"><div><a href="/display/{{collection}}/{{id}}">{{name}}</a></div><div><span>{{preferredTitle}}</span></div></div></div>'
+  default: "defaults/directoryViews/people/default.html"
 styles: []
 facets:
 - name: Type

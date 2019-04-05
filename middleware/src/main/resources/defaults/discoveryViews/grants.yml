@@ -3,7 +3,7 @@ name: Grants
 collection: relationships
 layout: LIST
 templates:
-  default: "<span>{{title}}</span>"
+  default: "defaults/discoveryViews/grants/default.html"
 styles: []
 facets:
 - name: Grants

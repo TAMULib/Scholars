@@ -18,7 +18,7 @@ import edu.tamu.scholars.middleware.theme.model.repo.NamedRepo;
 
 public abstract class AbstractDefaults<E extends Named, R extends NamedRepo<E>> implements Defaults<E, R> {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected final ObjectMapper mapper;
 

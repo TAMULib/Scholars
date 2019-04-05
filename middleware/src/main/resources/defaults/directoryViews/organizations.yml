@@ -3,7 +3,7 @@ name: Organizations
 collection: organizations
 layout: LIST
 templates:
-  default: "<div><div><a href>{{name}}</a></div><div><span>{{type}}</span></div></div>"
+  default: "defaults/directoryViews/organizations/default.html"
 styles: []
 facets:
 - name: Type

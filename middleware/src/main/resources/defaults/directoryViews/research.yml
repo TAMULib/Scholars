@@ -3,7 +3,7 @@ name: Research
 collection: documents
 layout: LIST
 templates:
-  default: "<div><a href>{{title}}</a></div>"
+  default: "defaults/directoryViews/research/default.html"
 styles: []
 facets:
 - name: Type

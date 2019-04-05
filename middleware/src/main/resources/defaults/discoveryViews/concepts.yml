@@ -3,7 +3,7 @@ name: Concepts
 collection: concepts
 layout: LIST
 templates:
-  default: "<span>{{name}}</span>"
+  default: "defaults/discoveryViews/concepts/default.html"
 styles: []
 facets:
 - name: Concepts
