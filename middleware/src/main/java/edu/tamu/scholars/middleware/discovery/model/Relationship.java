@@ -190,6 +190,20 @@ public class Relationship extends AbstractSolrDocument {
     @Indexed
     private List<String> contributorId;
 
+    @Indexed(copyTo = "_text_")
+    @PropertySource(template = "relationship/principalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "principalInvestigatorId")
+    private List<String> principalInvestigator;
+
+    @Indexed
+    private List<String> principalInvestigatorId;
+
+    @Indexed(copyTo = "_text_")
+    @PropertySource(template = "relationship/coPrincipalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "coPrincipalInvestigator")
+    private List<String> coPrincipalInvestigator;
+
+    @Indexed
+    private List<String> coPrincipalInvestigatorId;
+
     @Indexed
     @PropertySource(template = "relationship/supportedPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "supportedPublicationOrOtherWorkId")
     private List<String> supportedPublicationOrOtherWork;
@@ -645,6 +659,38 @@ public class Relationship extends AbstractSolrDocument {
 
     public void setContributorId(List<String> contributorId) {
         this.contributorId = contributorId;
+    }
+
+    public List<String> getPrincipalInvestigator() {
+        return principalInvestigator;
+    }
+
+    public void setPrincipalInvestigator(List<String> principalInvestigator) {
+        this.principalInvestigator = principalInvestigator;
+    }
+
+    public List<String> getPrincipalInvestigatorId() {
+        return principalInvestigatorId;
+    }
+
+    public void setPrincipalInvestigatorId(List<String> principalInvestigatorId) {
+        this.principalInvestigatorId = principalInvestigatorId;
+    }
+
+    public List<String> getCoPrincipalInvestigator() {
+        return coPrincipalInvestigator;
+    }
+
+    public void setCoPrincipalInvestigator(List<String> coPrincipalInvestigator) {
+        this.coPrincipalInvestigator = coPrincipalInvestigator;
+    }
+
+    public List<String> getCoPrincipalInvestigatorId() {
+        return coPrincipalInvestigatorId;
+    }
+
+    public void setCoPrincipalInvestigatorId(List<String> coPrincipalInvestigatorId) {
+        this.coPrincipalInvestigatorId = coPrincipalInvestigatorId;
     }
 
     public List<String> getSupportedPublicationOrOtherWork() {

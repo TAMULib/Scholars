@@ -5,6 +5,6 @@ CONSTRUCT {
     ?contributor rdfs:label ?label .
 } WHERE {
     <[(${uri})]> vivo:relates ?relates ; a vivo:Grant .
-    ?relates obo:RO_0000052 ?contributor ; a vivo:ResearcherRole .
+    ?relates obo:RO_0000052 ?contributor ; a vivo:CoPrincipalInvestigatorRole .
     ?contributor rdfs:label ?label .
 }

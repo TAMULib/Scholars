@@ -300,6 +300,13 @@ public class Person extends AbstractSolrDocument {
     private List<String> selectedPublicationId;
 
     @Indexed
+    @PropertySource(template = "person/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publisherId")
+    private List<String> publisher;
+
+    @Indexed
+    private List<String> publisherId;
+
+    @Indexed
     @PropertySource(template = "person/collectionOrSeriesEditorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "collectionOrSeriesEditorForId")
     private List<String> collectionOrSeriesEditorFor;
 
@@ -1378,6 +1385,22 @@ public class Person extends AbstractSolrDocument {
 
     public void setSelectedPublicationId(List<String> selectedPublicationId) {
         this.selectedPublicationId = selectedPublicationId;
+    }
+
+    public List<String> getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(List<String> publisher) {
+        this.publisher = publisher;
+    }
+
+    public List<String> getPublisherId() {
+        return publisherId;
+    }
+
+    public void setPublisherId(List<String> publisherId) {
+        this.publisherId = publisherId;
     }
 
     public List<String> getCollectionOrSeriesEditorFor() {

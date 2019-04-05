@@ -30,6 +30,12 @@ facets:
   direction: DESC
   limit: 10
   hidden: false
+- name: Publisher
+  field: publisher
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
 - name: Position
   field: position
   sort: COUNT

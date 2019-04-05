@@ -24,6 +24,18 @@ facets:
   direction: DESC
   limit: 10
   hidden: false
+- name: Principal Investigator
+  field: principalInvestigator
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Co-Principal Investigator
+  field: coPrincipalInvestigator
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
 - name: Awarded By
   field: awardedBy
   sort: COUNT
