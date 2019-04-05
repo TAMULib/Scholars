@@ -44,11 +44,6 @@ export function createUniversalStyleLoader(document: Document, baseHref: string)
     } as ComputedStyleLoader;
 }
 
-export function getUniversalBaseHref(document: Document): string {
-    const baseTag = document.querySelector('head > base')
-    return baseTag.getAttribute('href');
-}
-
 @NgModule({
     imports: [
         // The AppServerModule should import your AppModule followed
@@ -75,11 +70,6 @@ export function getUniversalBaseHref(document: Document): string {
         AppComponent
     ],
     providers: [
-        {
-            provide: APP_BASE_HREF,
-            useFactory: (getUniversalBaseHref),
-            deps: [DOCUMENT]
-        },
         {
             provide: ComputedStyleLoader,
             useFactory: (createUniversalStyleLoader),

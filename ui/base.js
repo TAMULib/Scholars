@@ -8,8 +8,6 @@ if (!BASE_HREF.startsWith('/')) {
     BASE_HREF = `/${BASE_HREF}`;
 }
 
-console.log(`Setting base href to '${BASE_HREF}'`);
-
 fs.readFile("angular.base.json", function (err, buf) {
     let angularFile = buf.toString();
     const baseHref = BASE_HREF === '/' ? BASE_HREF : `${BASE_HREF}/`;

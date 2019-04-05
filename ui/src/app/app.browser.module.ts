@@ -32,11 +32,6 @@ export function createStyleLoader(document: Document): ComputedStyleLoader {
     } as ComputedStyleLoader;
 }
 
-export function getBaseHref(document: Document): string {
-    const baseTag = document.querySelector('head > base')
-    return baseTag.getAttribute('href');
-}
-
 @NgModule({
     imports: [
         BrowserModule.withServerTransition({ appId: 'scholars-discovery' }),
@@ -62,11 +57,6 @@ export function getBaseHref(document: Document): string {
         {
             provide: REQUEST,
             useFactory: (getRequest)
-        },
-        {
-            provide: APP_BASE_HREF,
-            useFactory: (getBaseHref),
-            deps: [DOCUMENT]
         },
         {
             provide: ComputedStyleLoader,
