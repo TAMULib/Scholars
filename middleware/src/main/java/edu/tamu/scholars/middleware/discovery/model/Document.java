@@ -49,7 +49,7 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/abstract", predicate = "http://purl.org/ontology/bibo/abstract")
     private String abstractText;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/abbreviation", predicate = "http://vivoweb.org/ontology/core#abbreviation")
     private String abbreviation;
 
@@ -60,33 +60,33 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> publicationVenueId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/publicationVenueFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publicationVenueForId", unique = true)
     private List<String> publicationVenueFor;
 
     @Indexed
     private List<String> publicationVenueForId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/etdChairedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "etdChairedById")
     private List<String> etdChairedBy;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/etdChairedByOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairedByOrganization;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/etdChairedByEmail", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private List<String> etdChairedByEmail;
 
     @Indexed
     private List<String> etdChairedById;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/author", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "authorId")
     private List<String> author;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/authorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> authorOrganization;
 
@@ -101,11 +101,11 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> authorId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/authorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList")
     private List<String> authorList;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/editor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "editorId")
     private List<String> editor;
 
@@ -120,15 +120,15 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> editorId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/editorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullEditorList")
     private List<String> editorList;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/bookTitle", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter")
     private String bookTitle;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/translator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translatorId")
     private List<String> translator;
 
@@ -139,7 +139,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> translatorId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/status", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "statusId")
     private List<String> status;
 
@@ -150,7 +150,7 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/publicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> publicationDate;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publisherId", unique = true)
     private List<String> publisher;
 
@@ -169,18 +169,18 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/dateIssued", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateIssued;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subjectAreaId")
     private List<String> subjectArea;
 
     @Indexed
     private List<String> subjectAreaId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/restriction", predicate = "http://purl.obolibrary.org/obo/ERO_0000045")
     private List<String> restriction;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/documentPart", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "documentPartId")
     private List<String> documentPart;
 
@@ -191,11 +191,11 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> documentPartId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/chapter", predicate = "http://purl.org/ontology/bibo/chapter")
     private String chapter;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/feature", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "featureId")
     private List<String> feature;
 
@@ -206,11 +206,11 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> featureId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/edition", predicate = "http://purl.org/ontology/bibo/edition")
     private String edition;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicFocusId")
     private List<String> geographicFocus;
 
@@ -221,7 +221,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> geographicFocusId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/documentationForProjectOrResource", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "documentationForProjectOrResourceId")
     private List<String> documentationForProjectOrResource;
 
@@ -232,7 +232,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> documentationForProjectOrResourceId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/outputOfProcessOrEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outputOfProcessOrEventId")
     private List<String> outputOfProcessOrEvent;
 
@@ -243,7 +243,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> outputOfProcessOrEventId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/presentedAt", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "presentedAtId")
     private List<String> presentedAt;
 
@@ -262,23 +262,23 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/eanucc13", predicate = "http://purl.org/ontology/bibo/eanucc13")
     private String eanucc13;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/nihmsid", predicate = "http://vivoweb.org/ontology/core#nihmsid")
     private String nihmsid;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/pmcid", predicate = "http://vivoweb.org/ontology/core#pmcid")
     private String pmcid;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/identifier", predicate = "http://purl.org/ontology/bibo/identifier")
     private String identifier;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/patentNumber", predicate = "http://vivoweb.org/ontology/core#patentNumber")
     private List<String> patentNumber;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
@@ -289,35 +289,35 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> sameAsId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/doi", predicate = "http://purl.org/ontology/bibo/doi")
     private String doi;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/oclcnum", predicate = "http://purl.org/ontology/bibo/oclcnum")
     private String oclcnum;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/isbn10", predicate = "http://purl.org/ontology/bibo/isbn10")
     private String isbn10;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/isbn13", predicate = "http://purl.org/ontology/bibo/isbn13")
     private String isbn13;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/pmid", predicate = "http://purl.org/ontology/bibo/pmid")
     private String pmid;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/lccn", predicate = "http://purl.org/ontology/bibo/lccn")
     private String lccn;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/issn", predicate = "http://purl.org/ontology/bibo/issn")
     private String issn;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/eissn", predicate = "http://purl.org/ontology/bibo/eissn")
     private String eissn;
 
@@ -325,7 +325,7 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/uri", predicate = "http://purl.org/ontology/bibo/uri")
     private List<String> uri;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/citedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "citedById")
     private List<String> citedBy;
 
@@ -336,7 +336,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> citedById;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/citation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "citationId")
     private List<String> citation;
 
@@ -347,7 +347,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> citationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/citesAsDataSource", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "citesAsDataSourceId")
     private List<String> citesAsDataSource;
 
@@ -358,7 +358,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> citesAsDataSourceId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/translation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translationId")
     private List<String> translation;
 
@@ -369,7 +369,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> translationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/translationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translationOfId")
     private List<String> translationOf;
 
@@ -380,14 +380,14 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> translationOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/globalCitationFrequency", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "globalCitationFrequencyId")
     private List<String> globalCitationFrequency;
 
     @Indexed
     private List<String> globalCitationFrequencyId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/iclCode", predicate = "http://vivoweb.org/ontology/core#iclCode")
     private String iclCode;
 
@@ -403,19 +403,19 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/pageEnd", predicate = "http://purl.org/ontology/bibo/pageEnd")
     private String pageEnd;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/volume", predicate = "http://purl.org/ontology/bibo/volume")
     private String volume;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/issue", predicate = "http://purl.org/ontology/bibo/issue")
     private String issue;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/placeOfPublication", predicate = "http://vivoweb.org/ontology/core#placeOfPublication")
     private String placeOfPublication;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/assignee", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "assigneeId")
     private List<String> assignee;
 
@@ -426,14 +426,14 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> assigneeId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/reproducedIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "reproducedInId")
     private List<String> reproducedIn;
 
     @Indexed
     private List<String> reproducedInId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/reproduces", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "reproducesId")
     private List<String> reproduces;
 
@@ -444,7 +444,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> reproducesId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/isAbout", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "isAboutId")
     private List<String> isAbout;
 
@@ -455,7 +455,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> isAboutId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/specifiedOutputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "specifiedOutputOfId")
     private List<String> specifiedOutputOf;
 
@@ -470,7 +470,7 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/isTemplate", predicate = "http://purl.obolibrary.org/obo/ARG_0000001")
     private String isTemplate;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/mention", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "mentionId")
     private List<String> mention;
 
@@ -481,14 +481,14 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     private List<String> mentionId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/participatesIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "participatesInId")
     private List<String> participatesIn;
 
     @Indexed
     private List<String> participatesInId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/supportedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "supportedById")
     private List<String> supportedBy;
 
@@ -503,7 +503,7 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
     private String modTime;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "document/receipt", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "receiptId")
     private List<String> receipt;
 

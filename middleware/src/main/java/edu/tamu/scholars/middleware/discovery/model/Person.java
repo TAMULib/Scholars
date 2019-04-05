@@ -33,15 +33,15 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/primaryEmail", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private String primaryEmail;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/additionalEmail", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private List<String> additionalEmail;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/phone", predicate = "http://www.w3.org/2006/vcard/ns#telephone")
     private String phone;
 
@@ -49,19 +49,19 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> websiteLabel;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/orcidId", predicate = "http://vivoweb.org/ontology/core#orcidId", parse = true)
     private String orcidId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/preferredTitle", predicate = "http://www.w3.org/2006/vcard/ns#title")
     private String preferredTitle;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/position", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "positionId")
     private List<String> position;
 
@@ -69,7 +69,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/positionType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> positionType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> positionOrganization;
 
@@ -87,7 +87,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> researchAreaId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicFocusId")
     private List<String> geographicFocus;
 
@@ -98,15 +98,15 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> geographicFocusId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/hrJobTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
     private String hrJobTitle;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/keyword", predicate = "http://vivoweb.org/ontology/core#freetextKeyword")
     private List<String> keyword;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/headOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "headOfId")
     private List<String> headOf;
 
@@ -114,7 +114,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/headOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> headOfType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> headOfOrganization;
 
@@ -129,7 +129,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> headOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "memberOfId")
     private List<String> memberOf;
 
@@ -137,7 +137,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/memberOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> memberOfType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> memberOfOrganization;
 
@@ -152,14 +152,14 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> memberOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/hasCollaborator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasCollaboratorId")
     private List<String> hasCollaborator;
 
     @Indexed
     private List<String> hasCollaboratorId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "clinicalActivityId")
     private List<String> clinicalActivity;
 
@@ -167,7 +167,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/clinicalActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> clinicalActivityType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/clinicalActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> clinicalActivityRole;
 
@@ -182,7 +182,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> clinicalActivityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "attendedEventId")
     private List<String> attendedEvent;
 
@@ -201,7 +201,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> attendedEventId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/educationAndTraining", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "educationAndTrainingId")
     private List<String> educationAndTraining;
 
@@ -224,7 +224,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> educationAndTrainingId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/credentials", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "credentialsId")
     private List<String> credentials;
 
@@ -235,7 +235,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> credentialsId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/credentialEligibilityAttained", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "credentialEligibilityAttainedId")
     private List<String> credentialEligibilityAttained;
 
@@ -246,7 +246,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> credentialEligibilityAttainedId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/awardAndHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardAndHonorId")
     private List<String> awardAndHonor;
 
@@ -257,7 +257,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> awardAndHonorId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/adviseeOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "adviseeOfId")
     private List<String> adviseeOf;
 
@@ -265,7 +265,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/adviseeOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> adviseeOfType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/adviseeOfCandidacy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> adviseeOfCandidacy;
 
@@ -299,11 +299,11 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> selectedPublicationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/collectionOrSeriesEditorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "collectionOrSeriesEditorForId")
     private List<String> collectionOrSeriesEditorFor;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/collectionOrSeriesEditorForRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> collectionOrSeriesEditorForRole;
 
@@ -322,7 +322,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> collectionOrSeriesEditorForId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/editorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "editorOfId")
     private List<String> editorOf;
 
@@ -330,11 +330,11 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/editorOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> editorOfType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/editorOfPublisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> editorOfPublisher;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/editorOfFullAuthorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList")
     private List<String> editorOfFullAuthorList;
 
@@ -353,7 +353,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> editorOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "presentationId")
     private List<String> presentation;
 
@@ -361,11 +361,11 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/presentationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> presentationType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/presentationRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentationRole;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/presentationEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", parse = true)
     private List<String> presentationEvent;
 
@@ -410,7 +410,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> assigneeForPatentId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translatorOfId")
     private List<String> translatorOf;
 
@@ -486,7 +486,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> investigatorOnId;
 
-    @Indexed
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "person/otherResearchActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "otherResearchActivityId")
     private List<String> otherResearchActivity;
 
@@ -513,22 +513,22 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/teachingActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "teachingActivityId")
     private List<String> teachingActivity;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/teachingActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> teachingActivityRole;
 
     @Indexed
     private List<String> teachingActivityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/advisee", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "adviseeId")
     private List<String> advisee;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/adviseeCandidacy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> adviseeCandidacy;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/adviseeType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> adviseeType;
 
@@ -566,7 +566,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> reviewerOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/contactOrProvidorForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "contactOrProvidorForServiceId")
     private List<String> contactOrProvidorForService;
 
@@ -577,7 +577,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> contactOrProvidorForServiceId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/organizerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "organizerOfEventId")
     private List<String> organizerOfEvent;
 
@@ -596,7 +596,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> organizerOfEventId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/professionalServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "professionalServiceActivityId")
     private List<String> professionalServiceActivity;
 
@@ -604,7 +604,7 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/professionalServiceActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> professionalServiceActivityType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/professionalServiceActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> professionalServiceActivityRole;
 
@@ -619,11 +619,11 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> professionalServiceActivityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outreachAndCommunityServiceActivityId")
     private List<String> outreachAndCommunityServiceActivity;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/professionalServiceActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> outreachAndCommunityServiceActivityRole;
 
@@ -642,7 +642,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> outreachAndCommunityServiceActivityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/performsTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "performsTechniqueId")
     private List<String> performsTechnique;
 
@@ -653,7 +653,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> performsTechniqueId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/hasExpertiseInTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasExpertiseInTechniqueId")
     private List<String> hasExpertiseInTechnique;
 
@@ -664,35 +664,35 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> hasExpertiseInTechniqueId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/isni", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#ISNI")
     private String isni;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/netid", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#NETID")
     private String netid;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/researcherId", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#ResearcherId")
     private String researcherId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/twitter", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#twitterId")
     private String twitter;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/uid", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#UID")
     private String uid;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/uin", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#UIN")
     private String uin;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/youtube", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#youtube")
     private String youtube;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
@@ -703,23 +703,23 @@ public class Person extends AbstractSolrDocument {
     @Indexed
     private List<String> sameAsId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/eraCommonsId", predicate = "http://vivoweb.org/ontology/core#eRACommonsId")
     private String eraCommonsId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/isiResearcherId", predicate = "http://vivoweb.org/ontology/core#researcherId")
     private String isiResearcherId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/scopusId", predicate = "http://vivoweb.org/ontology/core#scopusId")
     private String scopusId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/healthCareProviderId", predicate = "http://purl.obolibrary.org/obo/ARG_0000197")
     private String healthCareProviderId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/email", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private String email;
 
@@ -735,41 +735,41 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/lastName", predicate = "http://www.w3.org/2006/vcard/ns#familyName")
     private String lastName;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/streetAddress", predicate = "http://www.w3.org/2006/vcard/ns#streetAddress")
     private String streetAddress;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/locality", predicate = "http://www.w3.org/2006/vcard/ns#locality")
     private String locality;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/region", predicate = "http://www.w3.org/2006/vcard/ns#region")
     private String region;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/postalCode", predicate = "http://www.w3.org/2006/vcard/ns#postalCode")
     private String postalCode;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/country", predicate = "http://www.w3.org/2006/vcard/ns#country")
     private String country;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicLocationId")
     private String geographicLocation;
 
     @Indexed
     private String geographicLocationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/locatedInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "locatedInFacilityId")
     private List<String> locatedInFacility;
 
     @Indexed
     private List<String> locatedInFacilityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "person/fax", predicate = "http://www.w3.org/2006/vcard/ns#fax")
     private String fax;
 

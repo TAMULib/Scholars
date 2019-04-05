@@ -37,22 +37,22 @@ public class Concept extends AbstractSolrDocument {
     @PropertySource(template = "concept/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "concept/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> websiteLabel;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "concept/associatedDepartment", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "associatedDepartmentId")
     private List<String> associatedDepartment;
 
     @Indexed
     private List<String> associatedDepartmentId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "concept/researchAreaOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "researchAreaOfId")
     private List<String> researchAreaOf;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "concept/researchAreaOfTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
     private List<String> researchAreaOfTitle;
 
@@ -63,7 +63,7 @@ public class Concept extends AbstractSolrDocument {
     @Indexed
     private List<String> researchAreaOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "concept/broaderConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "broaderConceptId")
     private List<String> broaderConcept;
 
@@ -74,7 +74,7 @@ public class Concept extends AbstractSolrDocument {
     @Indexed
     private List<String> broaderConceptId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "concept/narrowerConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "narrowerConceptId")
     private List<String> narrowerConcept;
 
@@ -85,7 +85,7 @@ public class Concept extends AbstractSolrDocument {
     @Indexed
     private List<String> narrowerConceptId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "concept/relatedConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "relatedConceptId")
     private List<String> relatedConcept;
 
@@ -96,7 +96,7 @@ public class Concept extends AbstractSolrDocument {
     @Indexed
     private List<String> relatedConceptId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "concept/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 

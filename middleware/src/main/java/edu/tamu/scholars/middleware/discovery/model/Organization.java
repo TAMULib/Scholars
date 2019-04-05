@@ -45,7 +45,7 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/overview", predicate = "http://vivoweb.org/ontology/core#overview")
     private String overview;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/offersDegree", predicate = "organization.offersDegree", id = "offersDegreeId")
     private List<String> offersDegree;
 
@@ -60,7 +60,7 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/date", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> date;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/sponsorsAwardOrHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sponsorsAwardOrHonorId")
     private List<String> sponsorsAwardOrHonor;
 
@@ -71,7 +71,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> sponsorsAwardOrHonorId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/awardOrHonorGiven", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardOrHonorGivenId")
     private List<String> awardOrHonorGiven;
 
@@ -82,7 +82,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> awardOrHonorGivenId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/awardOrHonorReceived", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardOrHonorReceivedId")
     private List<String> awardOrHonorReceived;
 
@@ -97,14 +97,14 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/keyword", predicate = "http://vivoweb.org/ontology/core#freetextKeyword")
     private List<String> keyword;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/organizationForTraining", predicate = "http://vivoweb.org/ontology/core#majorField", id = "organizationForTrainingId")
     private List<String> organizationForTraining;
 
     @Indexed
     private List<String> organizationForTrainingId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/people", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "peopleId")
     private List<String> people;
 
@@ -112,63 +112,63 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/peopleType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> peopleType;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/peopleTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
     private List<String> peopleTitle;
 
     @Indexed
     private List<String> peopleId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/hasSubOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasSubOrganizationId")
     private List<String> hasSubOrganization;
 
     @Indexed
     private List<String> hasSubOrganizationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/organizationWithin", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "organizationWithinId")
     private List<String> organizationWithin;
 
     @Indexed
     private List<String> organizationWithinId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/leadOrganizationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "leadOrganizationOfId")
     private List<String> leadOrganizationOf;
 
     @Indexed
     private List<String> leadOrganizationOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasCollaboratingOrganizationOrGroupId")
     private List<String> hasCollaboratingOrganizationOrGroup;
 
     @Indexed
     private List<String> hasCollaboratingOrganizationOrGroupId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/hasAffiliatedOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasAffiliatedOrganizationId")
     private List<String> hasAffiliatedOrganization;
 
     @Indexed
     private List<String> hasAffiliatedOrganizationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "memberOfId")
     private List<String> memberOf;
 
     @Indexed
     private List<String> memberOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "clinicalActivityId")
     private List<String> clinicalActivity;
 
     @Indexed
     private List<String> clinicalActivityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/convenerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "convenerOfEventId")
     private List<String> convenerOfEvent;
 
@@ -179,7 +179,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> convenerOfEventId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "attendedEventId")
     private List<String> attendedEvent;
 
@@ -190,7 +190,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> attendedEventId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "selectedPublicationId")
     private List<String> selectedPublication;
 
@@ -205,7 +205,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> selectedPublicationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/publisherOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publisherOfId", unique = true)
     private List<String> publisherOf;
 
@@ -220,11 +220,11 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> publisherOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "presentationId")
     private List<String> presentation;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/presentationEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentationEvent;
 
@@ -235,7 +235,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> presentationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "featuredInId")
     private List<String> featuredIn;
 
@@ -250,7 +250,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> featuredInId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "assigneeForPatentId")
     private List<String> assigneeForPatent;
 
@@ -261,7 +261,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> assigneeForPatentId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translatorOfId")
     private List<String> translatorOf;
 
@@ -276,7 +276,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> translatorOfId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/awardsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardsGrantId")
     private List<String> awardsGrant;
 
@@ -287,7 +287,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> awardsGrantId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/administersGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "administersGrantId")
     private List<String> administersGrant;
 
@@ -298,7 +298,7 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> administersGrantId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/subcontractsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subcontractsGrantId")
     private List<String> subcontractsGrant;
 
@@ -309,46 +309,46 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> subcontractsGrantId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/performsHumanStudy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "performsHumanStudyId")
     private List<String> performsHumanStudy;
 
     @Indexed
     private List<String> performsHumanStudyId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/contractOrProviderForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "contractOrProviderForServiceId")
     private List<String> contractOrProviderForService;
 
     @Indexed
     private List<String> contractOrProviderForServiceId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outreachAndCommunityServiceActivityId")
     private List<String> outreachAndCommunityServiceActivity;
 
     @Indexed
     private List<String> outreachAndCommunityServiceActivityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/hasEquipment", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasEquipmentId")
     private List<String> hasEquipment;
 
     @Indexed
     private List<String> hasEquipmentId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/offersCourse", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "offersCourseId")
     private List<String> offersCourse;
 
     @Indexed
     private List<String> offersCourseId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/orgId", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#OrgID")
     private String orgId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
@@ -359,15 +359,15 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> sameAsId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/phone", predicate = "http://www.w3.org/2006/vcard/ns#telephone")
     private String phone;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/fax", predicate = "http://www.w3.org/2006/vcard/ns#fax")
     private String fax;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/emailAddress", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private String emailAddress;
 
@@ -405,21 +405,21 @@ public class Organization extends AbstractSolrDocument {
     @Indexed
     private List<String> locatedAtFacilityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/predecessorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "predecessorOrganizationId")
     private List<String> predecessorOrganization;
 
     @Indexed
     private List<String> predecessorOrganizationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/successorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "successorOrganizationId")
     private List<String> successorOrganization;
 
     @Indexed
     private List<String> successorOrganizationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "organization/governingAuthorityFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "governingAuthorityForId")
     private List<String> governingAuthorityFor;
 

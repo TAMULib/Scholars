@@ -37,7 +37,7 @@ public class Process extends AbstractSolrDocument {
     @PropertySource(template = "process/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> websiteLabel;
 
@@ -64,28 +64,28 @@ public class Process extends AbstractSolrDocument {
     @PropertySource(template = "process/dateTimeIntervalEnd", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateTimeIntervalEnd;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/occursWithinEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "occursWithinEventId")
     private List<String> occursWithinEvent;
 
     @Indexed
     private List<String> occursWithinEventId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/includesEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "includesEventId")
     private List<String> includesEvent;
 
     @Indexed
     private List<String> includesEventId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/inEventSeries", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "inEventSeriesId")
     private List<String> inEventSeries;
 
     @Indexed
     private List<String> inEventSeriesId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/participant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "participantId")
     private List<String> participant;
 
@@ -103,7 +103,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> hasSubjectAreaId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/hasPrerequisite", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasPrerequisiteId")
     private List<String> hasPrerequisite;
 
@@ -114,7 +114,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> hasPrerequisiteId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/prerequisiteFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "prerequisiteForId")
     private List<String> prerequisiteFor;
 
@@ -125,11 +125,11 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> prerequisiteForId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/credits", predicate = "http://vivoweb.org/ontology/core#courseCredits")
     private String credits;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicFocusId")
     private List<String> geographicFocus;
 
@@ -140,7 +140,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> geographicFocusId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/outputPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outputPublicationOrOtherWorkId")
     private List<String> outputPublicationOrOtherWork;
 
@@ -151,7 +151,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> outputPublicationOrOtherWorkId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/relatedDocument", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "relatedDocumentId")
     private List<String> relatedDocument;
 
@@ -162,25 +162,25 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> relatedDocumentId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/contactInformation", predicate = "http://vivoweb.org/ontology/core#contactInformation")
     private List<String> contactInformation;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/heldInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "heldInFacilityId")
     private List<String> heldInFacility;
 
     @Indexed
     private List<String> heldInFacilityId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/heldInGeographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "heldInGeographicLocationId")
     private List<String> heldInGeographicLocation;
 
     @Indexed
     private List<String> heldInGeographicLocationId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/hasOutput", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasOutputId")
     private List<String> hasOutput;
 
@@ -191,7 +191,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> hasOutputId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/hasParticipant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasParticipantId")
     private List<String> hasParticipant;
 
@@ -202,7 +202,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed
     private List<String> hasParticipantId;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed
     @PropertySource(template = "process/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
