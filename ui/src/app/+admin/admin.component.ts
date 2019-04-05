@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
+
+import { Observable } from 'rxjs';
 
 import { AppState } from '../core/store';
-import { SidebarItemType } from '../core/model/sidebar';
 
-import * as fromSidebar from '../core/store/sidebar/sidebar.actions';
+import { WindowDimensions } from '../core/store/layout/layout.reducer';
+
+import { selectWindowDimensions } from '../core/store/layout';
+
+export interface AdminTab {
+    route: string[];
+    translateKey: string;
+}
 
 @Component({
     selector: 'scholars-admin',
@@ -14,52 +21,41 @@ import * as fromSidebar from '../core/store/sidebar/sidebar.actions';
 })
 export class AdminComponent implements OnInit {
 
-    constructor(
-        private store: Store<AppState>,
-        private translate: TranslateService
-    ) {
+    public windowDimensions: Observable<WindowDimensions>;
 
+    public tabs: AdminTab[];
+
+    constructor(private store: Store<AppState>) {
+        this.tabs = [
+            {
+                route: ['/admin/DirectoryViews'],
+                translateKey: 'SHARED.SIDEBAR.ADMINISTRATION.DIRECTORY_VIEWS'
+            },
+            {
+                route: ['/admin/DiscoveryViews'],
+                translateKey: 'SHARED.SIDEBAR.ADMINISTRATION.DISCOVERY_VIEWS'
+            },
+            {
+                route: ['/admin/DisplayViews'],
+                translateKey: 'SHARED.SIDEBAR.ADMINISTRATION.DISPLAY_VIEWS'
+            },
+            {
+                route: ['/admin/Themes'],
+                translateKey: 'SHARED.SIDEBAR.ADMINISTRATION.THEMES'
+            },
+            {
+                route: ['/admin/Users'],
+                translateKey: 'SHARED.SIDEBAR.ADMINISTRATION.USERS'
+            }
+        ];
     }
 
     ngOnInit() {
-        this.store.dispatch(new fromSidebar.LoadSidebarAction({
-            menu: {
-                sections: [
-                    {
-                        title: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.TITLE'),
-                        items: [
-                            {
-                                type: SidebarItemType.LINK,
-                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DIRECTORY_VIEWS'),
-                                route: ['/admin/DirectoryViews']
-                            },
-                            {
-                                type: SidebarItemType.LINK,
-                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DISCOVERY_VIEWS'),
-                                route: ['/admin/DiscoveryViews']
-                            },
-                            {
-                                type: SidebarItemType.LINK,
-                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.DISPLAY_VIEWS'),
-                                route: ['/admin/DisplayViews']
-                            },
-                            {
-                                type: SidebarItemType.LINK,
-                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.THEMES'),
-                                route: ['/admin/Themes']
-                            },
-                            {
-                                type: SidebarItemType.LINK,
-                                label: this.translate.get('SHARED.SIDEBAR.ADMINISTRATION.USERS'),
-                                route: ['/admin/Users']
-                            }
-                        ],
-                        collapsible: false,
-                        collapsed: false
-                    }
-                ]
-            }
-        }));
+        this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
+    }
+
+    public showTabs(windowDimensions: WindowDimensions): boolean {
+        return windowDimensions.width > 767;
     }
 
 }
