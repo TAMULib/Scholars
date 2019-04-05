@@ -12,13 +12,19 @@ facets:
   direction: DESC
   limit: 10
   hidden: true
-- name: Award Or Honor For
+- name: Year
+  field: yearAwarded
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Recipient
   field: awardOrHonorFor
   sort: COUNT
   direction: DESC
   limit: 10
   hidden: false
-- name: Award Conferred By
+- name: Conferred By
   field: awardConferredBy
   sort: COUNT
   direction: DESC

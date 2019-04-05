@@ -12,6 +12,12 @@ facets:
   direction: DESC
   limit: 10
   hidden: true
+- name: Instructor
+  field: participant
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
 - name: Offered By
   field: offeredBy
   sort: COUNT

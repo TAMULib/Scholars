@@ -12,14 +12,26 @@ facets:
   direction: DESC
   limit: 10
   hidden: true
-- name: Date Start
+- name: Year Start
   field: dateTimeIntervalStart
   sort: COUNT
   direction: DESC
   limit: 10
   hidden: false
-- name: Date End
+- name: Year End
   field: dateTimeIntervalEnd
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Awarded By
+  field: awardedBy
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Administered By
+  field: administeredBy
   sort: COUNT
   direction: DESC
   limit: 10

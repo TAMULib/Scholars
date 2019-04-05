@@ -6,14 +6,38 @@ templates:
   default: "defaults/discoveryViews/publications/default.html"
 styles: []
 facets:
-- name: Publications
+- name: Type
   field: type
   sort: COUNT
   direction: DESC
   limit: 10
   hidden: false
-- name: Date Published
+- name: Year
   field: publicationDate
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Author
+  field: author
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Author Organization
+  field: authorOrganization
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Published In
+  field: publicationVenue
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Publisher
+  field: publisher
   sort: COUNT
   direction: DESC
   limit: 10

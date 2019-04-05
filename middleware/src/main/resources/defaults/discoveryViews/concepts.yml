@@ -12,6 +12,18 @@ facets:
   direction: DESC
   limit: 10
   hidden: true
+- name: Associated Department
+  field: associatedDepartment
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Research Area Of
+  field: researchAreaOf
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
 filters: []
 sort:
 - field: name

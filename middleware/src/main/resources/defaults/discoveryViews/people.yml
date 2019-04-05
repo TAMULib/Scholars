@@ -24,6 +24,18 @@ facets:
   direction: DESC
   limit: 10
   hidden: false
+- name: Published In
+  field: selectedPublicationVenue
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Position
+  field: position
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
 filters: []
 sort:
 - field: name
