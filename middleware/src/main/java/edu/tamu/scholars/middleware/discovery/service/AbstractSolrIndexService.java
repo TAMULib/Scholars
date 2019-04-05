@@ -22,7 +22,6 @@ import org.apache.jena.rdf.model.ResIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
@@ -40,9 +39,6 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private Environment environment;
-
-    @Autowired
     private TemplateService templateService;
 
     @Autowired
@@ -53,7 +49,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
 
     public void index() {
         CollectionSource source = type().getAnnotation(CollectionSource.class);
-        String query = templateService.templateSparql(COLLECTION_SPARQL_TEMPLATE, resolve(source.key()));
+        String query = templateService.templateSparql(COLLECTION_SPARQL_TEMPLATE, source.predicate());
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("%s:\n%s", COLLECTION_SPARQL_TEMPLATE, query));
         }
@@ -113,7 +109,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
                     model.write(System.out, "RDF/XML");
                 }
                 builder.setModel(model);
-                String predicate = resolve(source.key());
+                String predicate = source.predicate();
                 ResIterator resources = model.listSubjects();
                 while (resources.hasNext()) {
                     builder.setResource(resources.next());
@@ -140,10 +136,6 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
                 }
             }
         }
-    }
-
-    private String resolve(String key) {
-        return environment.getProperty(key);
     }
 
     @SuppressWarnings("unchecked")

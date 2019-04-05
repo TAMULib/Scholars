@@ -33,7 +33,7 @@ vivo:
   sparql-query-endpoint: /api/sparqlQuery
   triplestore:
     type: TDB
-    directory:
+    directory: triplestore
     datasourceUrl: jdbc:mysql://localhost/vivo
     username:
     password:
@@ -78,7 +78,7 @@ spring:
   devtools:
     add-properties: false
     restart:
-      enabled: true
+      enabled: false
       exclude: src/main/resources,target
   h2:
     console:
@@ -120,7 +120,6 @@ spring:
     #        required: true
   profiles:
     active: default
-    include: organization,person,document,concept,relationship,process
   session:
     store-type: jdbc
     jdbc:

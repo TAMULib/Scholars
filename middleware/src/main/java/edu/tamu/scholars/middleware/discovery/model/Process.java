@@ -14,207 +14,207 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "processes")
-@CollectionSource(key = "process.class")
+@CollectionSource(predicate = "http://purl.obolibrary.org/obo/BFO_0000015")
 public class Process extends AbstractSolrDocument {
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/title", key = "process.title")
+    @PropertySource(template = "process/title", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String title;
 
     @Indexed
-    @PropertySource(template = "process/type", key = "process.type", parse = true)
+    @PropertySource(template = "process/type", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> type;
 
     @Indexed
-    @PropertySource(template = "process/image", key = "process.image")
+    @PropertySource(template = "process/image", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String image;
 
     @Indexed
-    @PropertySource(template = "process/thumbnail", key = "process.thumbnail")
+    @PropertySource(template = "process/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
     @Indexed
-    @PropertySource(template = "process/websiteUrl", key = "process.website.url")
+    @PropertySource(template = "process/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/websiteLabel", key = "process.website.label")
+    @PropertySource(template = "process/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> websiteLabel;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/description", key = "process.description")
+    @PropertySource(template = "process/description", predicate = "http://vivoweb.org/ontology/core#description")
     private String description;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/offeredBy", key = "process.offeredBy.name", id = "offeredById")
+    @PropertySource(template = "process/offeredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "offeredById")
     private List<String> offeredBy;
 
     @Indexed
-    @PropertySource(template = "process/offeredByType", key = "process.offeredBy.type", parse = true)
+    @PropertySource(template = "process/offeredByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> offeredByType;
 
     @Indexed
     private List<String> offeredById;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "process/dateTimeIntervalStart", key = "process.dateTimeInterval.start")
+    @PropertySource(template = "process/dateTimeIntervalStart", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateTimeIntervalStart;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "process/dateTimeIntervalEnd", key = "process.dateTimeInterval.end")
+    @PropertySource(template = "process/dateTimeIntervalEnd", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateTimeIntervalEnd;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/occursWithinEvent", key = "process.occursWithinEvent", id = "occursWithinEventId")
+    @PropertySource(template = "process/occursWithinEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "occursWithinEventId")
     private List<String> occursWithinEvent;
 
     @Indexed
     private List<String> occursWithinEventId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/includesEvent", key = "process.includesEvent", id = "includesEventId")
+    @PropertySource(template = "process/includesEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "includesEventId")
     private List<String> includesEvent;
 
     @Indexed
     private List<String> includesEventId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/inEventSeries", key = "process.inEventSeries", id = "inEventSeriesId")
+    @PropertySource(template = "process/inEventSeries", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "inEventSeriesId")
     private List<String> inEventSeries;
 
     @Indexed
     private List<String> inEventSeriesId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/participant", key = "process.participant.name", id = "participantId")
+    @PropertySource(template = "process/participant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "participantId")
     private List<String> participant;
 
     @Indexed
-    @PropertySource(template = "process/participantRole", key = "process.participant.role")
+    @PropertySource(template = "process/participantRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> participantRole;
 
     @Indexed
     private List<String> participantId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/hasSubjectArea", key = "process.hasSubjectArea")
+    @PropertySource(template = "process/hasSubjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasSubjectArea;
 
     @Indexed
     private List<String> hasSubjectAreaId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/hasPrerequisite", key = "process.hasPrerequisite.name", id = "hasPrerequisiteId")
+    @PropertySource(template = "process/hasPrerequisite", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasPrerequisiteId")
     private List<String> hasPrerequisite;
 
     @Indexed
-    @PropertySource(template = "process/hasPrerequisiteType", key = "process.hasPrerequisite.type", parse = true)
+    @PropertySource(template = "process/hasPrerequisiteType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> hasPrerequisiteType;
 
     @Indexed
     private List<String> hasPrerequisiteId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/prerequisiteFor", key = "process.prerequisiteFor.name", id = "prerequisiteForId")
+    @PropertySource(template = "process/prerequisiteFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "prerequisiteForId")
     private List<String> prerequisiteFor;
 
     @Indexed
-    @PropertySource(template = "process/prerequisiteForType", key = "process.prerequisiteFor.type", parse = true)
+    @PropertySource(template = "process/prerequisiteForType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> prerequisiteForType;
 
     @Indexed
     private List<String> prerequisiteForId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/credits", key = "process.credits")
+    @PropertySource(template = "process/credits", predicate = "http://vivoweb.org/ontology/core#courseCredits")
     private String credits;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/geographicFocus", key = "process.geographicFocus.name", id = "geographicFocusId")
+    @PropertySource(template = "process/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicFocusId")
     private List<String> geographicFocus;
 
     @Indexed
-    @PropertySource(template = "process/geographicFocusType", key = "process.geographicFocus.type", parse = true)
+    @PropertySource(template = "process/geographicFocusType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> geographicFocusType;
 
     @Indexed
     private List<String> geographicFocusId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/outputPublicationOrOtherWork", key = "process.outputPublicationOrOtherWork.name", id = "outputPublicationOrOtherWorkId")
+    @PropertySource(template = "process/outputPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outputPublicationOrOtherWorkId")
     private List<String> outputPublicationOrOtherWork;
 
     @Indexed
-    @PropertySource(template = "process/outputPublicationOrOtherWorkType", key = "process.outputPublicationOrOtherWork.type", parse = true)
+    @PropertySource(template = "process/outputPublicationOrOtherWorkType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> outputPublicationOrOtherWorkType;
 
     @Indexed
     private List<String> outputPublicationOrOtherWorkId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/relatedDocument", key = "process.relatedDocument.name", id = "relatedDocumentId")
+    @PropertySource(template = "process/relatedDocument", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "relatedDocumentId")
     private List<String> relatedDocument;
 
     @Indexed
-    @PropertySource(template = "process/relatedDocumentType", key = "process.relatedDocument.type", parse = true)
+    @PropertySource(template = "process/relatedDocumentType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> relatedDocumentType;
 
     @Indexed
     private List<String> relatedDocumentId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/contactInformation", key = "process.contactInformation")
+    @PropertySource(template = "process/contactInformation", predicate = "http://vivoweb.org/ontology/core#contactInformation")
     private List<String> contactInformation;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/heldInFacility", key = "process.heldInFacility", id = "heldInFacilityId")
+    @PropertySource(template = "process/heldInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "heldInFacilityId")
     private List<String> heldInFacility;
 
     @Indexed
     private List<String> heldInFacilityId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/heldInGeographicLocation", key = "process.heldInGeographicLocation", id = "heldInGeographicLocationId")
+    @PropertySource(template = "process/heldInGeographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "heldInGeographicLocationId")
     private List<String> heldInGeographicLocation;
 
     @Indexed
     private List<String> heldInGeographicLocationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/hasOutput", key = "process.hasOutput.name", id = "hasOutputId")
+    @PropertySource(template = "process/hasOutput", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasOutputId")
     private List<String> hasOutput;
 
     @Indexed
-    @PropertySource(template = "process/hasOutputType", key = "process.hasOutput.type", parse = true)
+    @PropertySource(template = "process/hasOutputType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> hasOutputType;
 
     @Indexed
     private List<String> hasOutputId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/hasParticipant", key = "process.hasParticipant.name", id = "hasParticipantId")
+    @PropertySource(template = "process/hasParticipant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasParticipantId")
     private List<String> hasParticipant;
 
     @Indexed
-    @PropertySource(template = "process/hasParticipantType", key = "process.hasParticipant.type", parse = true)
+    @PropertySource(template = "process/hasParticipantType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> hasParticipantType;
 
     @Indexed
     private List<String> hasParticipantId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/sameAs", key = "process.sameAs.name", id = "sameAsId")
+    @PropertySource(template = "process/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
     @Indexed
-    @PropertySource(template = "process/sameAs", key = "process.sameAs.type", parse = true)
+    @PropertySource(template = "process/sameAs", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> sameAsType;
 
     @Indexed
     private List<String> sameAsId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "process/modTime", key = "process.modTime")
+    @PropertySource(template = "process/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
     private String modTime;
 
     public Process() {

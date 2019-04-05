@@ -16,271 +16,271 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "relationships")
-@CollectionSource(key = "relationship.class")
+@CollectionSource(predicate = "http://vivoweb.org/ontology/core#Relationship")
 public class Relationship extends AbstractSolrDocument {
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/title", key = "relationship.title")
+    @PropertySource(template = "relationship/title", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String title;
 
     @Indexed
-    @PropertySource(template = "relationship/type", key = "relationship.type", parse = true)
+    @PropertySource(template = "relationship/type", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> type;
 
     @Indexed
-    @PropertySource(template = "relationship/image", key = "relationship.image")
+    @PropertySource(template = "relationship/image", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String image;
 
     @Indexed
-    @PropertySource(template = "relationship/thumbnail", key = "relationship.thumbnail")
+    @PropertySource(template = "relationship/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
     @Field("abstract")
     @Indexed(value = "abstract", copyTo = "_text_")
     @JsonProperty("abstract")
-    @PropertySource(template = "relationship/abstract", key = "relationship.abstract")
+    @PropertySource(template = "relationship/abstract", predicate = "http://purl.org/ontology/bibo/abstract")
     private String abstractText;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/description", key = "relationship.description")
+    @PropertySource(template = "relationship/description", predicate = "http://vivoweb.org/ontology/core#description")
     private String description;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/receiptOf", key = "relationship.receiptOf.name", id = "receiptOfId")
+    @PropertySource(template = "relationship/receiptOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "receiptOfId")
     private List<String> receiptOf;
 
     @Indexed
-    @PropertySource(template = "relationship/receiptOfType", key = "relationship.receiptOf.type", parse = true)
+    @PropertySource(template = "relationship/receiptOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> receiptOfType;
 
     @Indexed
     private List<String> receiptOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/awardOrHonorFor", key = "relationship.awardOrHonorFor.name", id = "awardOrHonorForId")
+    @PropertySource(template = "relationship/awardOrHonorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardOrHonorForId")
     private List<String> awardOrHonorFor;
 
     @Indexed
-    @PropertySource(template = "relationship/awardOrHonorForType", key = "relationship.awardOrHonorFor.type", parse = true)
+    @PropertySource(template = "relationship/awardOrHonorForType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> awardOrHonorForType;
 
     @Indexed
     private List<String> awardOrHonorForId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/awardConferredBy", key = "relationship.awardConferredBy.name", id = "awardConferredById")
+    @PropertySource(template = "relationship/awardConferredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardConferredById")
     private List<String> awardConferredBy;
 
     @Indexed
-    @PropertySource(template = "relationship/awardConferredByType", key = "relationship.awardConferredBy.type", parse = true)
+    @PropertySource(template = "relationship/awardConferredByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> awardConferredByType;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/awardConferredByPreferredLabel", key = "relationship.awardConferredBy.preferredLabel")
+    @PropertySource(template = "relationship/awardConferredByPreferredLabel", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#awardConferredBy_label")
     private List<String> awardConferredByPreferredLabel;
 
     @Indexed
     private List<String> awardConferredById;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/awardedBy", key = "relationship.awardedBy.name", id = "awardedById")
+    @PropertySource(template = "relationship/awardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardedById")
     private List<String> awardedBy;
 
     @Indexed
-    @PropertySource(template = "relationship/awardedByType", key = "relationship.awardedBy.type", parse = true)
+    @PropertySource(template = "relationship/awardedByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> awardedByType;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/awardedByPreferredLabel", key = "relationship.awardedBy.preferredLabel")
+    @PropertySource(template = "relationship/awardedByPreferredLabel", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#awardedBy_label")
     private List<String> awardedByPreferredLabel;
 
     @Indexed
     private List<String> awardedById;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/grantSubcontractedThrough", key = "relationship.grantSubcontractedThrough.name", id = "grantSubcontractedThroughId")
+    @PropertySource(template = "relationship/grantSubcontractedThrough", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "grantSubcontractedThroughId")
     private List<String> grantSubcontractedThrough;
 
     @Indexed
-    @PropertySource(template = "relationship/grantSubcontractedThroughType", key = "relationship.grantSubcontractedThrough.type", parse = true)
+    @PropertySource(template = "relationship/grantSubcontractedThroughType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> grantSubcontractedThroughType;
 
     @Indexed
     private List<String> grantSubcontractedThroughId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/administeredBy", key = "relationship.administeredBy.name", id = "administeredById")
+    @PropertySource(template = "relationship/administeredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "administeredById")
     private List<String> administeredBy;
 
     @Indexed
-    @PropertySource(template = "relationship/administeredByType", key = "relationship.administeredBy.type", parse = true)
+    @PropertySource(template = "relationship/administeredByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> administeredByType;
 
     @Indexed
     private List<String> administeredById;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/geographicFocus", key = "relationship.geographicFocus.name", id = "geographicFocusId")
+    @PropertySource(template = "relationship/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicFocusId")
     private List<String> geographicFocus;
 
     @Indexed
-    @PropertySource(template = "relationship/geographicFocusType", key = "relationship.geographicFocus.type", parse = true)
+    @PropertySource(template = "relationship/geographicFocusType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> geographicFocusType;
 
     @Indexed
     private List<String> geographicFocusId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/subGrant", key = "relationship.subGrant.name", id = "subGrantId")
+    @PropertySource(template = "relationship/subGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subGrantId")
     private List<String> subGrant;
 
     @Indexed
-    @PropertySource(template = "relationship/subGrantType", key = "relationship.subGrant.type", parse = true)
+    @PropertySource(template = "relationship/subGrantType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> subGrantType;
 
     @Indexed
     private List<String> subGrantId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/subGrantOf", key = "relationship.subGrantOf.name", id = "subGrantOfId")
+    @PropertySource(template = "relationship/subGrantOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subGrantOfId")
     private List<String> subGrantOf;
 
     @Indexed
-    @PropertySource(template = "relationship/subGrantOfType", key = "relationship.subGrantOf.type", parse = true)
+    @PropertySource(template = "relationship/subGrantOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> subGrantOfType;
 
     @Indexed
     private List<String> subGrantOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/providesFundingFor", key = "relationship.providesFundingFor.name", id = "providesFundingForId")
+    @PropertySource(template = "relationship/providesFundingFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "providesFundingForId")
     private List<String> providesFundingFor;
 
     @Indexed
-    @PropertySource(template = "relationship/providesFundingForType", key = "relationship.providesFundingFor.type", parse = true)
+    @PropertySource(template = "relationship/providesFundingForType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> providesFundingForType;
 
     @Indexed
     private List<String> providesFundingForId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/totalAwardAmount", key = "relationship.totalAwardAmount")
+    @PropertySource(template = "relationship/totalAwardAmount", predicate = "http://vivoweb.org/ontology/core#totalAwardAmount")
     private String totalAwardAmount;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/directCosts", key = "relationship.directCosts")
+    @PropertySource(template = "relationship/directCosts", predicate = "http://vivoweb.org/ontology/core#directCosts")
     private String directCosts;
 
     @Indexed
-    @PropertySource(template = "relationship/sponsorAwardId", key = "relationship.sponsorAwardId")
+    @PropertySource(template = "relationship/sponsorAwardId", predicate = "http://vivoweb.org/ontology/core#sponsorAwardId")
     private String sponsorAwardId;
 
     @Indexed
-    @PropertySource(template = "relationship/localAwardId", key = "relationship.localAwardId")
+    @PropertySource(template = "relationship/localAwardId", predicate = "http://vivoweb.org/ontology/core#localAwardId")
     private String localAwardId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/contributor", key = "relationship.contributor.name", id = "contributorId")
+    @PropertySource(template = "relationship/contributor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "contributorId")
     private List<String> contributor;
 
     @Indexed
-    @PropertySource(template = "relationship/contributorType", key = "relationship.contributor.type", parse = true)
+    @PropertySource(template = "relationship/contributorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> contributorType;
 
     @Indexed
     private List<String> contributorId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/supportedPublicationOrOtherWork", key = "relationship.supportedPublicationOrOtherWork.name", id = "supportedPublicationOrOtherWorkId")
+    @PropertySource(template = "relationship/supportedPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "supportedPublicationOrOtherWorkId")
     private List<String> supportedPublicationOrOtherWork;
 
     @Indexed
-    @PropertySource(template = "relationship/supportedPublicationOrOtherWorkType", key = "relationship.supportedPublicationOrOtherWork.type", parse = true)
+    @PropertySource(template = "relationship/supportedPublicationOrOtherWorkType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> supportedPublicationOrOtherWorkType;
 
     @Indexed
     private List<String> supportedPublicationOrOtherWorkId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "relationship/dateTimeIntervalStart", key = "relationship.dateTimeInterval.start")
+    @PropertySource(template = "relationship/dateTimeIntervalStart", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateTimeIntervalStart;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "relationship/dateTimeIntervalEnd", key = "relationship.dateTimeInterval.end")
+    @PropertySource(template = "relationship/dateTimeIntervalEnd", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateTimeIntervalEnd;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/subjectArea", key = "relationship.subjectArea.name", id = "subjectAreaId")
+    @PropertySource(template = "relationship/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subjectAreaId")
     private List<String> subjectArea;
 
     @Indexed
-    @PropertySource(template = "relationship/subjectAreaType", key = "relationship.subjectArea.type", parse = true)
+    @PropertySource(template = "relationship/subjectAreaType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> subjectAreaType;
 
     @Indexed
     private List<String> subjectAreaId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "relationship/yearAwarded", key = "relationship.yearAwarded")
+    @PropertySource(template = "relationship/yearAwarded", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> yearAwarded;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/sameAs", key = "relationship.sameAs.name", id = "sameAsId")
+    @PropertySource(template = "relationship/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
     @Indexed
-    @PropertySource(template = "relationship/sameAs", key = "relationship.sameAs.type", parse = true)
+    @PropertySource(template = "relationship/sameAs", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> sameAsType;
 
     @Indexed
     private List<String> sameAsId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/inheresIn", key = "relationship.inheresIn.name", id = "inheresInId")
+    @PropertySource(template = "relationship/inheresIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "inheresInId")
     private List<String> inheresIn;
 
     @Indexed
-    @PropertySource(template = "relationship/inheresIn", key = "relationship.inheresIn.type", parse = true)
+    @PropertySource(template = "relationship/inheresIn", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> inheresInType;
 
     @Indexed
     private List<String> inheresInId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/isSpecifiedOutputOf", key = "relationship.isSpecifiedOutputOf.name", id = "isSpecifiedOutputOfId")
+    @PropertySource(template = "relationship/isSpecifiedOutputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "isSpecifiedOutputOfId")
     private List<String> specifiedOutputOf;
 
     @Indexed
-    @PropertySource(template = "relationship/isSpecifiedOutputOfType", key = "relationship.isSpecifiedOutputOf.type", parse = true)
+    @PropertySource(template = "relationship/isSpecifiedOutputOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> specifiedOutputOfType;
 
     @Indexed
     private List<String> isSpecifiedOutputOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/outputOf", key = "relationship.outputOf.name", id = "outputOfId")
+    @PropertySource(template = "relationship/outputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outputOfId")
     private List<String> outputOf;
 
     @Indexed
-    @PropertySource(template = "relationship/outputOfType", key = "relationship.outputOf.type", parse = true)
+    @PropertySource(template = "relationship/outputOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> outputOfType;
 
     @Indexed
     private List<String> outputOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/participatesIn", key = "relationship.participatesIn.name", id = "participatesInId")
+    @PropertySource(template = "relationship/participatesIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "participatesInId")
     private List<String> participatesIn;
 
     @Indexed
-    @PropertySource(template = "relationship/participatesInType", key = "relationship.participatesIn.type", parse = true)
+    @PropertySource(template = "relationship/participatesInType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> participatesInType;
 
     @Indexed
     private List<String> participatesInId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "relationship/modTime", key = "relationship.modTime")
+    @PropertySource(template = "relationship/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
     private String modTime;
 
     public Relationship() {

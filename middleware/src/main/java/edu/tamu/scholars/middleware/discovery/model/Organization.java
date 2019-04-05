@@ -14,413 +14,413 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "organizations")
-@CollectionSource(key = "organization.class")
+@CollectionSource(predicate = "http://xmlns.com/foaf/0.1/Organization")
 public class Organization extends AbstractSolrDocument {
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/name", key = "organization.name")
+    @PropertySource(template = "organization/name", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String name;
 
     @Indexed
-    @PropertySource(template = "organization/type", key = "organization.type", parse = true)
+    @PropertySource(template = "organization/type", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> type;
 
     @Indexed
-    @PropertySource(template = "organization/image", key = "organization.image")
+    @PropertySource(template = "organization/image", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String image;
 
     @Indexed
-    @PropertySource(template = "organization/thumbnail", key = "organization.thumbnail")
+    @PropertySource(template = "organization/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
     @Indexed
-    @PropertySource(template = "organization/websiteUrl", key = "organization.website.url")
+    @PropertySource(template = "organization/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
     @Indexed
-    @PropertySource(template = "organization/websiteLabel", key = "organization.website.label")
+    @PropertySource(template = "organization/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> websiteLabel;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/overview", key = "organization.overview")
+    @PropertySource(template = "organization/overview", predicate = "http://vivoweb.org/ontology/core#overview")
     private String overview;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/offersDegree", key = "organization.offersDegree", id = "offersDegreeId")
+    @PropertySource(template = "organization/offersDegree", predicate = "organization.offersDegree", id = "offersDegreeId")
     private List<String> offersDegree;
 
     @Indexed
     private List<String> offersDegreeId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/abbreviation", key = "organization.abbreviation")
+    @PropertySource(template = "organization/abbreviation", predicate = "http://vivoweb.org/ontology/core#abbreviation")
     private String abbreviation;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/date", key = "organization.date")
+    @PropertySource(template = "organization/date", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> date;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/sponsorsAwardOrHonor", key = "organization.sponsorsAwardOrHonor.name", id = "sponsorsAwardOrHonorId")
+    @PropertySource(template = "organization/sponsorsAwardOrHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sponsorsAwardOrHonorId")
     private List<String> sponsorsAwardOrHonor;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/sponsorsAwardOrHonorDate", key = "organization.sponsorsAwardOrHonor.date")
+    @PropertySource(template = "organization/sponsorsAwardOrHonorDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> sponsorsAwardOrHonorDate;
 
     @Indexed
     private List<String> sponsorsAwardOrHonorId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/awardOrHonorGiven", key = "organization.awardOrHonorGiven.name", id = "awardOrHonorGivenId")
+    @PropertySource(template = "organization/awardOrHonorGiven", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardOrHonorGivenId")
     private List<String> awardOrHonorGiven;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/awardOrHonorGivenDate", key = "organization.awardOrHonorGiven.date")
+    @PropertySource(template = "organization/awardOrHonorGivenDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> awardOrHonorGivenDate;
 
     @Indexed
     private List<String> awardOrHonorGivenId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/awardOrHonorReceived", key = "organization.awardOrHonorReceived.name", id = "awardOrHonorReceivedId")
+    @PropertySource(template = "organization/awardOrHonorReceived", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardOrHonorReceivedId")
     private List<String> awardOrHonorReceived;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/awardOrHonorReceivedDate", key = "organization.awardOrHonorReceived.date")
+    @PropertySource(template = "organization/awardOrHonorReceivedDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> awardOrHonorReceivedDate;
 
     @Indexed
     private List<String> awardOrHonorReceivedId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/keyword", key = "organization.keyword")
+    @PropertySource(template = "organization/keyword", predicate = "http://vivoweb.org/ontology/core#freetextKeyword")
     private List<String> keyword;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/organizationForTraining", key = "organization.organizationForTraining", id = "organizationForTrainingId")
+    @PropertySource(template = "organization/organizationForTraining", predicate = "http://vivoweb.org/ontology/core#majorField", id = "organizationForTrainingId")
     private List<String> organizationForTraining;
 
     @Indexed
     private List<String> organizationForTrainingId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/people", key = "organization.people.name", id = "peopleId")
+    @PropertySource(template = "organization/people", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "peopleId")
     private List<String> people;
 
     @Indexed
-    @PropertySource(template = "organization/peopleType", key = "organization.people.type", parse = true)
+    @PropertySource(template = "organization/peopleType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> peopleType;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/peopleTitle", key = "organization.people.title")
+    @PropertySource(template = "organization/peopleTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
     private List<String> peopleTitle;
 
     @Indexed
     private List<String> peopleId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/hasSubOrganization", key = "organization.hasSubOrganization", id = "hasSubOrganizationId")
+    @PropertySource(template = "organization/hasSubOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasSubOrganizationId")
     private List<String> hasSubOrganization;
 
     @Indexed
     private List<String> hasSubOrganizationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/organizationWithin", key = "organization.organizationWithin", id = "organizationWithinId")
+    @PropertySource(template = "organization/organizationWithin", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "organizationWithinId")
     private List<String> organizationWithin;
 
     @Indexed
     private List<String> organizationWithinId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/leadOrganizationOf", key = "organization.leadOrganizationOf", id = "leadOrganizationOfId")
+    @PropertySource(template = "organization/leadOrganizationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "leadOrganizationOfId")
     private List<String> leadOrganizationOf;
 
     @Indexed
     private List<String> leadOrganizationOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", key = "organization.hasCollaboratingOrganizationOrGroup", id = "hasCollaboratingOrganizationOrGroupId")
+    @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasCollaboratingOrganizationOrGroupId")
     private List<String> hasCollaboratingOrganizationOrGroup;
 
     @Indexed
     private List<String> hasCollaboratingOrganizationOrGroupId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/hasAffiliatedOrganization", key = "organization.hasAffiliatedOrganization", id = "hasAffiliatedOrganizationId")
+    @PropertySource(template = "organization/hasAffiliatedOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasAffiliatedOrganizationId")
     private List<String> hasAffiliatedOrganization;
 
     @Indexed
     private List<String> hasAffiliatedOrganizationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/memberOf", key = "organization.memberOf", id = "memberOfId")
+    @PropertySource(template = "organization/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "memberOfId")
     private List<String> memberOf;
 
     @Indexed
     private List<String> memberOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/clinicalActivity", key = "organization.clinicalActivity", id = "clinicalActivityId")
+    @PropertySource(template = "organization/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "clinicalActivityId")
     private List<String> clinicalActivity;
 
     @Indexed
     private List<String> clinicalActivityId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/convenerOfEvent", key = "organization.convenerOfEvent.name", id = "convenerOfEventId")
+    @PropertySource(template = "organization/convenerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "convenerOfEventId")
     private List<String> convenerOfEvent;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/convenerOfEventDate", key = "organization.convenerOfEvent.date")
+    @PropertySource(template = "organization/convenerOfEventDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> convenerOfEventDate;
 
     @Indexed
     private List<String> convenerOfEventId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/attendedEvent", key = "organization.attendedEvent.name", id = "attendedEventId")
+    @PropertySource(template = "organization/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "attendedEventId")
     private List<String> attendedEvent;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/attendedEventDate", key = "organization.attendedEvent.date")
+    @PropertySource(template = "organization/attendedEventDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> attendedEventDate;
 
     @Indexed
     private List<String> attendedEventId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/selectedPublication", key = "organization.selectedPublication.title", id = "selectedPublicationId")
+    @PropertySource(template = "organization/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "selectedPublicationId")
     private List<String> selectedPublication;
 
     @Indexed
-    @PropertySource(template = "organization/selectedPublicationType", key = "organization.selectedPublication.type", parse = true)
+    @PropertySource(template = "organization/selectedPublicationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> selectedPublicationType;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/selectedPublicationDate", key = "organization.selectedPublication.date")
+    @PropertySource(template = "organization/selectedPublicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> selectedPublicationDate;
 
     @Indexed
     private List<String> selectedPublicationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/publisherOf", key = "organization.publisherOf.title", id = "publisherOfId", unique = true)
+    @PropertySource(template = "organization/publisherOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publisherOfId", unique = true)
     private List<String> publisherOf;
 
     @Indexed
-    @PropertySource(template = "organization/publisherOfType", key = "organization.publisherOf.type", parse = true)
+    @PropertySource(template = "organization/publisherOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> publisherOfType;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/publisherOfDate", key = "organization.publisherOf.date")
+    @PropertySource(template = "organization/publisherOfDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> publisherOfDate;
 
     @Indexed
     private List<String> publisherOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/presentation", key = "organization.presentation.title", id = "presentationId")
+    @PropertySource(template = "organization/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "presentationId")
     private List<String> presentation;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/presentationEvent", key = "organization.presentation.event")
+    @PropertySource(template = "organization/presentationEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentationEvent;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/presentationDate", key = "organization.presentation.date")
+    @PropertySource(template = "organization/presentationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> presentationDate;
 
     @Indexed
     private List<String> presentationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/featuredIn", key = "organization.featuredIn.title", id = "featuredInId")
+    @PropertySource(template = "organization/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "featuredInId")
     private List<String> featuredIn;
 
     @Indexed
-    @PropertySource(template = "organization/featuredInType", key = "organization.featuredIn.type", parse = true)
+    @PropertySource(template = "organization/featuredInType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> featuredInType;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/featuredInDate", key = "organization.featuredIn.date")
+    @PropertySource(template = "organization/featuredInDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> featuredInDate;
 
     @Indexed
     private List<String> featuredInId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/assigneeForPatent", key = "organization.assigneeForPatent.name", id = "assigneeForPatentId")
+    @PropertySource(template = "organization/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "assigneeForPatentId")
     private List<String> assigneeForPatent;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/assigneeForPatentDate", key = "organization.assigneeForPatent.date")
+    @PropertySource(template = "organization/assigneeForPatentDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> assigneeForPatentDate;
 
     @Indexed
     private List<String> assigneeForPatentId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/translatorOf", key = "organization.translatorOf.title", id = "translatorOfId")
+    @PropertySource(template = "organization/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translatorOfId")
     private List<String> translatorOf;
 
     @Indexed
-    @PropertySource(template = "organization/translatorOfType", key = "organization.translatorOf.type", parse = true)
+    @PropertySource(template = "organization/translatorOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translatorOfType;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/translatorOfDate", key = "organization.translatorOf.date")
+    @PropertySource(template = "organization/translatorOfDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> translatorOfDate;
 
     @Indexed
     private List<String> translatorOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/awardsGrant", key = "organization.awardsGrant.name", id = "awardsGrantId")
+    @PropertySource(template = "organization/awardsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardsGrantId")
     private List<String> awardsGrant;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/awardsGrantDate", key = "organization.awardsGrant.date")
+    @PropertySource(template = "organization/awardsGrantDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> awardsGrantDate;
 
     @Indexed
     private List<String> awardsGrantId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/administersGrant", key = "organization.administersGrant.name", id = "administersGrantId")
+    @PropertySource(template = "organization/administersGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "administersGrantId")
     private List<String> administersGrant;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/administersGrantDate", key = "organization.administersGrant.date")
+    @PropertySource(template = "organization/administersGrantDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> administersGrantDate;
 
     @Indexed
     private List<String> administersGrantId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/subcontractsGrant", key = "organization.subcontractsGrant.name", id = "subcontractsGrantId")
+    @PropertySource(template = "organization/subcontractsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subcontractsGrantId")
     private List<String> subcontractsGrant;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/subcontractsGrantDate", key = "organization.subcontractsGrant.date")
+    @PropertySource(template = "organization/subcontractsGrantDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> subcontractsGrantDate;
 
     @Indexed
     private List<String> subcontractsGrantId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/performsHumanStudy", key = "organization.performsHumanStudy", id = "performsHumanStudyId")
+    @PropertySource(template = "organization/performsHumanStudy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "performsHumanStudyId")
     private List<String> performsHumanStudy;
 
     @Indexed
     private List<String> performsHumanStudyId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/contractOrProviderForService", key = "organization.contractOrProviderForService", id = "contractOrProviderForServiceId")
+    @PropertySource(template = "organization/contractOrProviderForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "contractOrProviderForServiceId")
     private List<String> contractOrProviderForService;
 
     @Indexed
     private List<String> contractOrProviderForServiceId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/outreachAndCommunityServiceActivity", key = "organization.outreachAndCommunityServiceActivity", id = "outreachAndCommunityServiceActivityId")
+    @PropertySource(template = "organization/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outreachAndCommunityServiceActivityId")
     private List<String> outreachAndCommunityServiceActivity;
 
     @Indexed
     private List<String> outreachAndCommunityServiceActivityId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/hasEquipment", key = "organization.hasEquipment", id = "hasEquipmentId")
+    @PropertySource(template = "organization/hasEquipment", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasEquipmentId")
     private List<String> hasEquipment;
 
     @Indexed
     private List<String> hasEquipmentId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/offersCourse", key = "organization.offersCourse", id = "offersCourseId")
+    @PropertySource(template = "organization/offersCourse", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "offersCourseId")
     private List<String> offersCourse;
 
     @Indexed
     private List<String> offersCourseId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/orgId", key = "organization.orgId")
+    @PropertySource(template = "organization/orgId", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#OrgID")
     private String orgId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/sameAs", key = "organization.sameAs.label", id = "sameAsId")
+    @PropertySource(template = "organization/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
     @Indexed
-    @PropertySource(template = "organization/sameAsType", key = "organization.sameAs.type", parse = true)
+    @PropertySource(template = "organization/sameAsType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> sameAsType;
 
     @Indexed
     private List<String> sameAsId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/phone", key = "organization.phone")
+    @PropertySource(template = "organization/phone", predicate = "http://www.w3.org/2006/vcard/ns#telephone")
     private String phone;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/fax", key = "organization.fax")
+    @PropertySource(template = "organization/fax", predicate = "http://www.w3.org/2006/vcard/ns#fax")
     private String fax;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/emailAddress", key = "organization.emailAddress")
+    @PropertySource(template = "organization/emailAddress", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private String emailAddress;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/streetAddress", key = "organization.streetAddress")
+    @PropertySource(template = "organization/streetAddress", predicate = "organization.streetAddress")
     private String streetAddress;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/locality", key = "organization.locality")
+    @PropertySource(template = "organization/locality", predicate = "organization.locality")
     private String locality;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/region", key = "organization.region")
+    @PropertySource(template = "organization/region", predicate = "organization.region")
     private String region;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/postalCode", key = "organization.postalCode")
+    @PropertySource(template = "organization/postalCode", predicate = "organization.postalCode")
     private String postalCode;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/country", key = "organization.country")
+    @PropertySource(template = "organization/country", predicate = "organization.country")
     private String country;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/geographicLocation", key = "organization.geographicLocation", id = "geographicLocationId")
+    @PropertySource(template = "organization/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicLocationId")
     private String geographicLocation;
 
     @Indexed
     private String geographicLocationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/locatedAtFacility", key = "organization.locatedAtFacility", id = "locatedAtFacilityId")
+    @PropertySource(template = "organization/locatedAtFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "locatedAtFacilityId")
     private List<String> locatedAtFacility;
 
     @Indexed
     private List<String> locatedAtFacilityId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/predecessorOrganization", key = "organization.predecessorOrganization", id = "predecessorOrganizationId")
+    @PropertySource(template = "organization/predecessorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "predecessorOrganizationId")
     private List<String> predecessorOrganization;
 
     @Indexed
     private List<String> predecessorOrganizationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/successorOrganization", key = "organization.successorOrganization", id = "successorOrganizationId")
+    @PropertySource(template = "organization/successorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "successorOrganizationId")
     private List<String> successorOrganization;
 
     @Indexed
     private List<String> successorOrganizationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/governingAuthorityFor", key = "organization.governingAuthorityFor", id = "governingAuthorityForId")
+    @PropertySource(template = "organization/governingAuthorityFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "governingAuthorityForId")
     private List<String> governingAuthorityFor;
 
     @Indexed
@@ -428,14 +428,14 @@ public class Organization extends AbstractSolrDocument {
 
     // NOTE: unidirectional from Concept vivo:researchAreaOf
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/affiliatedResearchArea", key = "organization.affiliatedResearchArea", id = "affiliatedResearchAreaId", unique = true)
+    @PropertySource(template = "organization/affiliatedResearchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "affiliatedResearchAreaId", unique = true)
     private List<String> affiliatedResearchArea;
 
     @Indexed
     private List<String> affiliatedResearchAreaId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "organization/modTime", key = "organization.modTime")
+    @PropertySource(template = "organization/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
     private String modTime;
 
     public Organization() {

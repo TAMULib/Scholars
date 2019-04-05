@@ -14,101 +14,101 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "concepts")
-@CollectionSource(key = "concept.class")
+@CollectionSource(predicate = "http://www.w3.org/2004/02/skos/core#Concept")
 public class Concept extends AbstractSolrDocument {
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/name", key = "concept.name")
+    @PropertySource(template = "concept/name", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String name;
 
     @Indexed
-    @PropertySource(template = "concept/type", key = "concept.type", parse = true)
+    @PropertySource(template = "concept/type", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> type;
 
     @Indexed
-    @PropertySource(template = "concept/image", key = "concept.image")
+    @PropertySource(template = "concept/image", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String image;
 
     @Indexed
-    @PropertySource(template = "concept/thumbnail", key = "concept.thumbnail")
+    @PropertySource(template = "concept/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
     @Indexed
-    @PropertySource(template = "concept/websiteUrl", key = "concept.website.url")
+    @PropertySource(template = "concept/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/websiteLabel", key = "concept.website.label")
+    @PropertySource(template = "concept/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> websiteLabel;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/associatedDepartment", key = "concept.associatedDepartment", id = "associatedDepartmentId")
+    @PropertySource(template = "concept/associatedDepartment", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "associatedDepartmentId")
     private List<String> associatedDepartment;
 
     @Indexed
     private List<String> associatedDepartmentId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/researchAreaOf", key = "concept.researchAreaOf.name", id = "researchAreaOfId")
+    @PropertySource(template = "concept/researchAreaOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "researchAreaOfId")
     private List<String> researchAreaOf;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/researchAreaOfTitle", key = "concept.researchAreaOf.title")
+    @PropertySource(template = "concept/researchAreaOfTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
     private List<String> researchAreaOfTitle;
 
     @Indexed
-    @PropertySource(template = "concept/researchAreaOfOrganization", key = "concept.researchAreaOf.organization")
+    @PropertySource(template = "concept/researchAreaOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> researchAreaOfOrganization;
 
     @Indexed
     private List<String> researchAreaOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/broaderConcept", key = "concept.broaderConcept.label", id = "broaderConceptId")
+    @PropertySource(template = "concept/broaderConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "broaderConceptId")
     private List<String> broaderConcept;
 
     @Indexed
-    @PropertySource(template = "concept/broaderConceptType", key = "concept.broaderConcept.type", parse = true)
+    @PropertySource(template = "concept/broaderConceptType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> broaderConceptType;
 
     @Indexed
     private List<String> broaderConceptId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/narrowerConcept", key = "concept.narrowerConcept.label", id = "narrowerConceptId")
+    @PropertySource(template = "concept/narrowerConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "narrowerConceptId")
     private List<String> narrowerConcept;
 
     @Indexed
-    @PropertySource(template = "concept/narrowerConceptType", key = "concept.narrowerConcept.type", parse = true)
+    @PropertySource(template = "concept/narrowerConceptType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> narrowerConceptType;
 
     @Indexed
     private List<String> narrowerConceptId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/relatedConcept", key = "concept.relatedConcept.label", id = "relatedConceptId")
+    @PropertySource(template = "concept/relatedConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "relatedConceptId")
     private List<String> relatedConcept;
 
     @Indexed
-    @PropertySource(template = "concept/relatedConceptType", key = "concept.relatedConcept.type", parse = true)
+    @PropertySource(template = "concept/relatedConceptType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> relatedConceptType;
 
     @Indexed
     private List<String> relatedConceptId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "concept/sameAs", key = "concept.sameAs.label", id = "sameAsId")
+    @PropertySource(template = "concept/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
     @Indexed
-    @PropertySource(template = "concept/sameAsType", key = "concept.sameAs.type", parse = true)
+    @PropertySource(template = "concept/sameAsType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> sameAsType;
 
     @Indexed
     private List<String> sameAsId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "concept/modTime", key = "concept.modTime")
+    @PropertySource(template = "concept/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
     private String modTime;
 
     public Concept() {

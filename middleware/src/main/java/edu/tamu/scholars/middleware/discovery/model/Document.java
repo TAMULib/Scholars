@@ -16,495 +16,495 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
 @SolrDocument(collection = "documents")
-@CollectionSource(key = "document.class")
+@CollectionSource(predicate = "http://purl.org/ontology/bibo/Document")
 public class Document extends AbstractSolrDocument {
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/title", key = "document.title")
+    @PropertySource(template = "document/title", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String title;
 
     @Indexed
-    @PropertySource(template = "document/type", key = "document.type", parse = true)
+    @PropertySource(template = "document/type", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> type;
 
     @Indexed
-    @PropertySource(template = "document/image", key = "document.image")
+    @PropertySource(template = "document/image", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String image;
 
     @Indexed
-    @PropertySource(template = "document/thumbnail", key = "document.thumbnail")
+    @PropertySource(template = "document/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
     @Indexed
-    @PropertySource(template = "document/websiteUrl", key = "document.website.url")
+    @PropertySource(template = "document/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
     @Indexed
-    @PropertySource(template = "document/websiteLabel", key = "document.website.label")
+    @PropertySource(template = "document/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> websiteLabel;
 
     @Field("abstract")
     @Indexed(value = "abstract", copyTo = "_text_")
     @JsonProperty("abstract")
-    @PropertySource(template = "document/abstract", key = "document.abstract")
+    @PropertySource(template = "document/abstract", predicate = "http://purl.org/ontology/bibo/abstract")
     private String abstractText;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/abbreviation", key = "document.abbreviation")
+    @PropertySource(template = "document/abbreviation", predicate = "http://vivoweb.org/ontology/core#abbreviation")
     private String abbreviation;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/publicationVenue", key = "document.publicationVenue", id = "publicationVenueId", unique = true)
+    @PropertySource(template = "document/publicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publicationVenueId", unique = true)
     private List<String> publicationVenue;
 
     @Indexed
     private List<String> publicationVenueId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/publicationVenueFor", key = "document.publicationVenueFor", id = "publicationVenueForId", unique = true)
+    @PropertySource(template = "document/publicationVenueFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publicationVenueForId", unique = true)
     private List<String> publicationVenueFor;
 
     @Indexed
     private List<String> publicationVenueForId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/etdChairedBy", key = "document.etdChairedBy.name", id = "etdChairedById")
+    @PropertySource(template = "document/etdChairedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "etdChairedById")
     private List<String> etdChairedBy;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/etdChairedByOrganization", key = "document.etdChairedBy.organization")
+    @PropertySource(template = "document/etdChairedByOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairedByOrganization;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/etdChairedByEmail", key = "document.etdChairedBy.email")
+    @PropertySource(template = "document/etdChairedByEmail", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private List<String> etdChairedByEmail;
 
     @Indexed
     private List<String> etdChairedById;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/author", key = "document.author.name", id = "authorId")
+    @PropertySource(template = "document/author", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "authorId")
     private List<String> author;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/authorOrganization", key = "document.author.organization")
+    @PropertySource(template = "document/authorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> authorOrganization;
 
     @Indexed
-    @PropertySource(template = "document/authorType", key = "document.author.type", parse = true)
+    @PropertySource(template = "document/authorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> authorType;
 
     @Indexed
-    @PropertySource(template = "document/authorRank", key = "document.author.rank")
+    @PropertySource(template = "document/authorRank", predicate = "http://vivoweb.org/ontology/core#rank")
     private List<String> authorRank;
 
     @Indexed
     private List<String> authorId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/authorList", key = "document.authorList")
+    @PropertySource(template = "document/authorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList")
     private List<String> authorList;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/editor", key = "document.editor.name", id = "editorId")
+    @PropertySource(template = "document/editor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "editorId")
     private List<String> editor;
 
     @Indexed
-    @PropertySource(template = "document/editorType", key = "document.editor.type", parse = true)
+    @PropertySource(template = "document/editorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> editorType;
 
     @Indexed
-    @PropertySource(template = "document/editorRank", key = "document.editor.rank")
+    @PropertySource(template = "document/editorRank", predicate = "http://vivoweb.org/ontology/core#rank")
     private List<String> editorRank;
 
     @Indexed
     private List<String> editorId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/editorList", key = "document.editorList")
+    @PropertySource(template = "document/editorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullEditorList")
     private List<String> editorList;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/bookTitle", key = "document.bookTitle")
+    @PropertySource(template = "document/bookTitle", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter")
     private String bookTitle;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/translator", key = "document.translator.name", id = "translatorId")
+    @PropertySource(template = "document/translator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translatorId")
     private List<String> translator;
 
     @Indexed
-    @PropertySource(template = "document/translatorType", key = "document.translator.type", parse = true)
+    @PropertySource(template = "document/translatorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translatorType;
 
     @Indexed
     private List<String> translatorId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/status", key = "document.status", id = "statusId")
+    @PropertySource(template = "document/status", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "statusId")
     private List<String> status;
 
     @Indexed
     private List<String> statusId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "document/publicationDate", key = "document.publicationDate")
+    @PropertySource(template = "document/publicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> publicationDate;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/publisher", key = "document.publisher.name", id = "publisherId", unique = true)
+    @PropertySource(template = "document/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publisherId", unique = true)
     private List<String> publisher;
 
     @Indexed
-    @PropertySource(template = "document/publisherType", key = "document.publisher.type", parse = true)
+    @PropertySource(template = "document/publisherType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> publisherType;
 
     @Indexed
     private List<String> publisherId;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "document/dateFiled", key = "document.dateFiled")
+    @PropertySource(template = "document/dateFiled", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateFiled;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "document/dateIssued", key = "document.dateIssued")
+    @PropertySource(template = "document/dateIssued", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateIssued;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/subjectArea", key = "document.subjectArea", id = "subjectAreaId")
+    @PropertySource(template = "document/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subjectAreaId")
     private List<String> subjectArea;
 
     @Indexed
     private List<String> subjectAreaId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/restriction", key = "document.restriction")
+    @PropertySource(template = "document/restriction", predicate = "http://purl.obolibrary.org/obo/ERO_0000045")
     private List<String> restriction;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/documentPart", key = "document.documentPart.name", id = "documentPartId")
+    @PropertySource(template = "document/documentPart", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "documentPartId")
     private List<String> documentPart;
 
     @Indexed
-    @PropertySource(template = "document/documentPartType", key = "document.documentPart.type", parse = true)
+    @PropertySource(template = "document/documentPartType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> documentPartType;
 
     @Indexed
     private List<String> documentPartId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/chapter", key = "document.chapter")
+    @PropertySource(template = "document/chapter", predicate = "http://purl.org/ontology/bibo/chapter")
     private String chapter;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/feature", key = "document.feature.name", id = "featureId")
+    @PropertySource(template = "document/feature", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "featureId")
     private List<String> feature;
 
     @Indexed
-    @PropertySource(template = "document/featureType", key = "document.feature.type", parse = true)
+    @PropertySource(template = "document/featureType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> featureType;
 
     @Indexed
     private List<String> featureId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/edition", key = "document.edition")
+    @PropertySource(template = "document/edition", predicate = "http://purl.org/ontology/bibo/edition")
     private String edition;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/geographicFocus", key = "document.geographicFocus.name", id = "geographicFocusId")
+    @PropertySource(template = "document/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicFocusId")
     private List<String> geographicFocus;
 
     @Indexed
-    @PropertySource(template = "document/geographicFocusType", key = "document.geographicFocus.type", parse = true)
+    @PropertySource(template = "document/geographicFocusType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> geographicFocusType;
 
     @Indexed
     private List<String> geographicFocusId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/documentationForProjectOrResource", key = "document.documentationForProjectOrResource.name", id = "documentationForProjectOrResourceId")
+    @PropertySource(template = "document/documentationForProjectOrResource", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "documentationForProjectOrResourceId")
     private List<String> documentationForProjectOrResource;
 
     @Indexed
-    @PropertySource(template = "document/documentationForProjectOrResourceType", key = "document.documentationForProjectOrResource.type", parse = true)
+    @PropertySource(template = "document/documentationForProjectOrResourceType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> documentationForProjectOrResourceType;
 
     @Indexed
     private List<String> documentationForProjectOrResourceId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/outputOfProcessOrEvent", key = "document.outputOfProcessOrEvent.name", id = "outputOfProcessOrEventId")
+    @PropertySource(template = "document/outputOfProcessOrEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outputOfProcessOrEventId")
     private List<String> outputOfProcessOrEvent;
 
     @Indexed
-    @PropertySource(template = "document/outputOfProcessOrEventType", key = "document.outputOfProcessOrEvent.type", parse = true)
+    @PropertySource(template = "document/outputOfProcessOrEventType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> outputOfProcessOrEventType;
 
     @Indexed
     private List<String> outputOfProcessOrEventId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/presentedAt", key = "document.presentedAt.name", id = "presentedAtId")
+    @PropertySource(template = "document/presentedAt", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "presentedAtId")
     private List<String> presentedAt;
 
     @Indexed
-    @PropertySource(template = "document/presentedAtType", key = "document.presentedAt.type", parse = true)
+    @PropertySource(template = "document/presentedAtType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> presentedAtType;
 
     @Indexed
     private List<String> presentedAtId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/keyword", key = "document.keyword")
+    @PropertySource(template = "document/keyword", predicate = "http://vivoweb.org/ontology/core#freetextKeyword")
     private List<String> keyword;
 
     @Indexed
-    @PropertySource(template = "document/eanucc13", key = "document.eanucc13")
+    @PropertySource(template = "document/eanucc13", predicate = "http://purl.org/ontology/bibo/eanucc13")
     private String eanucc13;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/nihmsid", key = "document.nihmsid")
+    @PropertySource(template = "document/nihmsid", predicate = "http://vivoweb.org/ontology/core#nihmsid")
     private String nihmsid;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/pmcid", key = "document.pmcid")
+    @PropertySource(template = "document/pmcid", predicate = "http://vivoweb.org/ontology/core#pmcid")
     private String pmcid;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/identifier", key = "document.identifier")
+    @PropertySource(template = "document/identifier", predicate = "http://purl.org/ontology/bibo/identifier")
     private String identifier;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/patentNumber", key = "document.patentNumber")
+    @PropertySource(template = "document/patentNumber", predicate = "http://vivoweb.org/ontology/core#patentNumber")
     private List<String> patentNumber;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/sameAs", key = "document.sameAs.label", id = "sameAsId")
+    @PropertySource(template = "document/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
     private List<String> sameAs;
 
     @Indexed
-    @PropertySource(template = "document/sameAsType", key = "document.sameAs.type", parse = true)
+    @PropertySource(template = "document/sameAsType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> sameAsType;
 
     @Indexed
     private List<String> sameAsId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/doi", key = "document.doi")
+    @PropertySource(template = "document/doi", predicate = "http://purl.org/ontology/bibo/doi")
     private String doi;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/oclcnum", key = "document.oclcnum")
+    @PropertySource(template = "document/oclcnum", predicate = "http://purl.org/ontology/bibo/oclcnum")
     private String oclcnum;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/isbn10", key = "document.isbn10")
+    @PropertySource(template = "document/isbn10", predicate = "http://purl.org/ontology/bibo/isbn10")
     private String isbn10;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/isbn13", key = "document.isbn13")
+    @PropertySource(template = "document/isbn13", predicate = "http://purl.org/ontology/bibo/isbn13")
     private String isbn13;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/pmid", key = "document.pmid")
+    @PropertySource(template = "document/pmid", predicate = "http://purl.org/ontology/bibo/pmid")
     private String pmid;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/lccn", key = "document.lccn")
+    @PropertySource(template = "document/lccn", predicate = "http://purl.org/ontology/bibo/lccn")
     private String lccn;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/issn", key = "document.issn")
+    @PropertySource(template = "document/issn", predicate = "http://purl.org/ontology/bibo/issn")
     private String issn;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/eissn", key = "document.eissn")
+    @PropertySource(template = "document/eissn", predicate = "http://purl.org/ontology/bibo/eissn")
     private String eissn;
 
     @Indexed
-    @PropertySource(template = "document/uri", key = "document.uri")
+    @PropertySource(template = "document/uri", predicate = "http://purl.org/ontology/bibo/uri")
     private List<String> uri;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/citedBy", key = "document.citedBy.title", id = "citedById")
+    @PropertySource(template = "document/citedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "citedById")
     private List<String> citedBy;
 
     @Indexed
-    @PropertySource(template = "document/citedByType", key = "document.citedBy.type", parse = true)
+    @PropertySource(template = "document/citedByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> citedByType;
 
     @Indexed
     private List<String> citedById;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/citation", key = "document.citation.text", id = "citationId")
+    @PropertySource(template = "document/citation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "citationId")
     private List<String> citation;
 
     @Indexed
-    @PropertySource(template = "document/citationType", key = "document.citation.type", parse = true)
+    @PropertySource(template = "document/citationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> citationType;
 
     @Indexed
     private List<String> citationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/citesAsDataSource", key = "document.citesAsDataSource.label", id = "citesAsDataSourceId")
+    @PropertySource(template = "document/citesAsDataSource", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "citesAsDataSourceId")
     private List<String> citesAsDataSource;
 
     @Indexed
-    @PropertySource(template = "document/citesAsDataSourceType", key = "document.citesAsDataSource.type", parse = true)
+    @PropertySource(template = "document/citesAsDataSourceType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> citesAsDataSourceType;
 
     @Indexed
     private List<String> citesAsDataSourceId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/translation", key = "document.translation.title", id = "translationId")
+    @PropertySource(template = "document/translation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translationId")
     private List<String> translation;
 
     @Indexed
-    @PropertySource(template = "document/translationType", key = "document.translation.type", parse = true)
+    @PropertySource(template = "document/translationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translationType;
 
     @Indexed
     private List<String> translationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/translationOf", key = "document.translationOf.title", id = "translationOfId")
+    @PropertySource(template = "document/translationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translationOfId")
     private List<String> translationOf;
 
     @Indexed
-    @PropertySource(template = "document/translationOfType", key = "document.translationOf.type", parse = true)
+    @PropertySource(template = "document/translationOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translationOfType;
 
     @Indexed
     private List<String> translationOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/globalCitationFrequency", key = "document.globalCitationFrequency", id = "globalCitationFrequencyId")
+    @PropertySource(template = "document/globalCitationFrequency", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "globalCitationFrequencyId")
     private List<String> globalCitationFrequency;
 
     @Indexed
     private List<String> globalCitationFrequencyId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/iclCode", key = "document.iclCode")
+    @PropertySource(template = "document/iclCode", predicate = "http://vivoweb.org/ontology/core#iclCode")
     private String iclCode;
 
     @Indexed
-    @PropertySource(template = "document/numberOfPages", key = "document.numberOfPages")
+    @PropertySource(template = "document/numberOfPages", predicate = "http://purl.org/ontology/bibo/numPages")
     private String numberOfPages;
 
     @Indexed
-    @PropertySource(template = "document/pageStart", key = "document.pageStart")
+    @PropertySource(template = "document/pageStart", predicate = "http://purl.org/ontology/bibo/pageStart")
     private String pageStart;
 
     @Indexed
-    @PropertySource(template = "document/pageEnd", key = "document.pageEnd")
+    @PropertySource(template = "document/pageEnd", predicate = "http://purl.org/ontology/bibo/pageEnd")
     private String pageEnd;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/volume", key = "document.volume")
+    @PropertySource(template = "document/volume", predicate = "http://purl.org/ontology/bibo/volume")
     private String volume;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/issue", key = "document.issue")
+    @PropertySource(template = "document/issue", predicate = "http://purl.org/ontology/bibo/issue")
     private String issue;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/placeOfPublication", key = "document.placeOfPublication")
+    @PropertySource(template = "document/placeOfPublication", predicate = "http://vivoweb.org/ontology/core#placeOfPublication")
     private String placeOfPublication;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/assignee", key = "document.assignee.name", id = "assigneeId")
+    @PropertySource(template = "document/assignee", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "assigneeId")
     private List<String> assignee;
 
     @Indexed
-    @PropertySource(template = "document/assigneeType", key = "document.assignee.type", parse = true)
+    @PropertySource(template = "document/assigneeType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> assigneeType;
 
     @Indexed
     private List<String> assigneeId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/reproducedIn", key = "document.reproducedIn", id = "reproducedInId")
+    @PropertySource(template = "document/reproducedIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "reproducedInId")
     private List<String> reproducedIn;
 
     @Indexed
     private List<String> reproducedInId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/reproduces", key = "document.reproduces.title", id = "reproducesId")
+    @PropertySource(template = "document/reproduces", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "reproducesId")
     private List<String> reproduces;
 
     @Indexed
-    @PropertySource(template = "document/reproducesType", key = "document.reproduces.type", parse = true)
+    @PropertySource(template = "document/reproducesType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> reproducesType;
 
     @Indexed
     private List<String> reproducesId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/isAbout", key = "document.isAbout.label", id = "isAboutId")
+    @PropertySource(template = "document/isAbout", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "isAboutId")
     private List<String> isAbout;
 
     @Indexed
-    @PropertySource(template = "document/isAboutType", key = "document.isAbout.type", parse = true)
+    @PropertySource(template = "document/isAboutType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> isAboutType;
 
     @Indexed
     private List<String> isAboutId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/specifiedOutputOf", key = "document.specifiedOutputOf.name", id = "specifiedOutputOfId")
+    @PropertySource(template = "document/specifiedOutputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "specifiedOutputOfId")
     private List<String> specifiedOutputOf;
 
     @Indexed
-    @PropertySource(template = "document/specifiedOutputOfType", key = "document.specifiedOutputOf.type", parse = true)
+    @PropertySource(template = "document/specifiedOutputOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> specifiedOutputOfType;
 
     @Indexed
     private List<String> specifiedOutputOfId;
 
     @Indexed
-    @PropertySource(template = "document/isTemplate", key = "document.isTemplate")
+    @PropertySource(template = "document/isTemplate", predicate = "http://purl.obolibrary.org/obo/ARG_0000001")
     private String isTemplate;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/mention", key = "document.mention.name", id = "mentionId")
+    @PropertySource(template = "document/mention", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "mentionId")
     private List<String> mention;
 
     @Indexed
-    @PropertySource(template = "document/mentionType", key = "document.mention.type", parse = true)
+    @PropertySource(template = "document/mentionType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> mentionType;
 
     @Indexed
     private List<String> mentionId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/participatesIn", key = "document.participatesIn", id = "participatesInId")
+    @PropertySource(template = "document/participatesIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "participatesInId")
     private List<String> participatesIn;
 
     @Indexed
     private List<String> participatesInId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/supportedBy", key = "document.supportedBy.name", id = "supportedById")
+    @PropertySource(template = "document/supportedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "supportedById")
     private List<String> supportedBy;
 
     @Indexed
-    @PropertySource(template = "document/supportedByType", key = "document.supportedBy.type", parse = true)
+    @PropertySource(template = "document/supportedByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> supportedByType;
 
     @Indexed
     private List<String> supportedById;
 
     @Indexed(type = "pdate")
-    @PropertySource(template = "document/modTime", key = "document.modTime")
+    @PropertySource(template = "document/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
     private String modTime;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/receipt", key = "document.receipt", id = "receiptId")
+    @PropertySource(template = "document/receipt", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "receiptId")
     private List<String> receipt;
 
     @Indexed
