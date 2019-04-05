@@ -21,12 +21,12 @@ export class RecentPublicationsComponent implements AfterViewInit {
 
     constructor() {
         this.items = new BehaviorSubject<ScrollItem[]>([
-            { src: '/assets/images/abcs-of-research.png', link: '#', alt: 'ABCs of Research', hidden: true },
-            { src: '/assets/images/advanced-scientific-research.png', link: '#', alt: 'Advanced Scientific Research', hidden: true },
-            { src: '/assets/images/educational-research.png', link: '#', alt: 'Educational Research', hidden: true },
-            { src: '/assets/images/research-methods.png', link: '#', alt: 'Research Methods', hidden: true },
-            { src: '/assets/images/social-research.jpg', link: '#', alt: 'Social Research', hidden: true },
-            { src: '/assets/images/thinking-in-research.png', link: '#', alt: 'Thinking in Research', hidden: true }
+            { src: 'assets/images/abcs-of-research.png', link: '#', alt: 'ABCs of Research', hidden: true },
+            { src: 'assets/images/advanced-scientific-research.png', link: '#', alt: 'Advanced Scientific Research', hidden: true },
+            { src: 'assets/images/educational-research.png', link: '#', alt: 'Educational Research', hidden: true },
+            { src: 'assets/images/research-methods.png', link: '#', alt: 'Research Methods', hidden: true },
+            { src: 'assets/images/social-research.jpg', link: '#', alt: 'Social Research', hidden: true },
+            { src: 'assets/images/thinking-in-research.png', link: '#', alt: 'Thinking in Research', hidden: true }
         ]);
     }
 

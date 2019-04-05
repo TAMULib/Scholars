@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, APP_BASE_HREF } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -16,12 +16,12 @@ import { ComputedStyleLoader } from './core/computed-style-loader';
 
 import { CustomMissingTranslationHandler } from './core/handler/custom-missing-translation.handler';
 
-export function getRequest() {
-    return { headers: { cookie: document.cookie } };
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
-export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+export function getRequest() {
+    return { headers: { cookie: document.cookie } };
 }
 
 export function createStyleLoader(document: Document): ComputedStyleLoader {
@@ -30,6 +30,11 @@ export function createStyleLoader(document: Document): ComputedStyleLoader {
             return getComputedStyle(document.body);
         }
     } as ComputedStyleLoader;
+}
+
+export function getBaseHref(document: Document): string {
+    const baseTag = document.querySelector('head > base')
+    return baseTag.getAttribute('href');
 }
 
 @NgModule({
@@ -44,7 +49,7 @@ export function createStyleLoader(document: Document): ComputedStyleLoader {
             loader: {
                 provide: TranslateLoader,
                 useFactory: (createTranslateLoader),
-                deps: [HttpClient]
+                deps: [HttpClient, APP_BASE_HREF]
             }
         })
     ],
@@ -54,7 +59,15 @@ export function createStyleLoader(document: Document): ComputedStyleLoader {
         AppComponent
     ],
     providers: [
-        { provide: REQUEST, useFactory: (getRequest) },
+        {
+            provide: REQUEST,
+            useFactory: (getRequest)
+        },
+        {
+            provide: APP_BASE_HREF,
+            useFactory: (getBaseHref),
+            deps: [DOCUMENT]
+        },
         {
             provide: ComputedStyleLoader,
             useFactory: (createStyleLoader),

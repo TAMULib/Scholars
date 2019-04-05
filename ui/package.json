@@ -9,9 +9,14 @@
   "contributors": [
     "William Welling <wwelling@library.tamu.edu>"
   ],
+  "private": true,
   "scripts": {
     "ng": "ng",
     "clean": "rimraf .cache dist coverage",
+    "base": "node base.js",
+    "prestart": "yarn base",
+    "prestart:hmr": "yarn base",
+    "prestart:prod": "yarn base",
     "start": "ng serve",
     "start:hmr": "ng serve --c hmr",
     "start:prod": "ng serve --prod",
@@ -19,6 +24,8 @@
     "start:ssr:prod": "yarn build:ssr:prod && yarn serve:ssr",
     "start:prerender": "yarn build:prerender && yarn serve:prerender",
     "start:prerender:prod": "yarn build:prerender:prod && yarn serve:prerender",
+    "prebuild": "yarn base",
+    "prebuild:prod": "yarn base",
     "build": "ng build",
     "build:prod": "ng build --prod --aot --build-optimizer",
     "build:ssr": "yarn build && ng run scholars-discovery:server && yarn compile:server",
@@ -37,7 +44,6 @@
     "test:report": "cd .. && cat ./ui/coverage/lcov.info | ./ui/node_modules/coveralls/bin/coveralls.js",
     "test:ci": "yarn lint && yarn build:ssr:prod && yarn e2e && yarn test:coverage"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "7.2.12",
     "@angular/common": "7.2.12",

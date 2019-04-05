@@ -19,8 +19,12 @@ enableProdMode();
 const server = express();
 server.use(compression());
 
+const router = express.Router();
+
 const PORT = Number(process.env.PORT) || 4200;
 const HOST = process.env.HOST || 'localhost';
+const BASE_HREF = process.env.BASE_HREF || '/';
+
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
@@ -38,19 +42,22 @@ server.set('view engine', 'html');
 server.set('views', join(DIST_FOLDER, 'browser'));
 
 // Server static files from /browser
-server.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {
+router.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {
     maxAge: '1y'
 }));
 
 // All regular routes use the Universal engine
-server.get('*', (req, res) => {
+router.get('*', (req, res) => {
     res.render(join(DIST_FOLDER, 'browser', 'index.html'), {
         req,
         res
     });
 });
 
+// NOTE: this line must be exact to prebuild with base href, see base.js
+server.use('/', router);
+
 // Start up the Node server
 server.listen(PORT, HOST, () => {
-    console.log(`Node Express server listening on http://${HOST}:${PORT}`);
+    console.log(`Node Express server listening on http://${HOST}:${PORT}${BASE_HREF}`);
 });

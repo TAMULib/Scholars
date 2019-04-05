@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, APP_BASE_HREF } from '@angular/common';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
@@ -28,12 +28,12 @@ export function createUniversalTranslateLoader(): TranslateLoader {
     } as TranslateLoader;
 }
 
-export function createUniversalStyleLoader(document: Document): ComputedStyleLoader {
+export function createUniversalStyleLoader(document: Document, baseHref: string): ComputedStyleLoader {
     return {
         getComputedStyle(): any {
             const styleLinkTag = document.querySelector('head > link[rel=stylesheet]');
             const stylesheet = styleLinkTag.getAttribute('href');
-            const styles = readFileSync(`./dist/browser/${stylesheet}`, 'utf8');
+            const styles = readFileSync(`./dist/browser/${stylesheet.replace(baseHref, '')}`, 'utf8');
             const root = styles.match(/:root{([^}]+)}/g)[0];
             const cssTxt = root.replace(/\/\*(.|\s)*?\*\//g, ' ').replace(/\s+/g, ' ');
             const style = {}, [, ruleName, rule] = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [, , cssTxt];
@@ -42,6 +42,11 @@ export function createUniversalStyleLoader(document: Document): ComputedStyleLoa
             return { root, ruleName, style, getPropertyValue: (key) => style[key] };
         }
     } as ComputedStyleLoader;
+}
+
+export function getUniversalBaseHref(document: Document): string {
+    const baseTag = document.querySelector('head > base')
+    return baseTag.getAttribute('href');
 }
 
 @NgModule({
@@ -71,9 +76,14 @@ export function createUniversalStyleLoader(document: Document): ComputedStyleLoa
     ],
     providers: [
         {
+            provide: APP_BASE_HREF,
+            useFactory: (getUniversalBaseHref),
+            deps: [DOCUMENT]
+        },
+        {
             provide: ComputedStyleLoader,
             useFactory: (createUniversalStyleLoader),
-            deps: [DOCUMENT]
+            deps: [DOCUMENT, APP_BASE_HREF]
         }
     ]
 })
