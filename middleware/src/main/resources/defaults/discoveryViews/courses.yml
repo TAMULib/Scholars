@@ -1,0 +1,38 @@
+---
+name: Courses
+collection: processes
+layout: LIST
+templates:
+  default: "<span>{{title}}</span>"
+styles: []
+facets:
+- name: Courses
+  field: type
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: true
+- name: Offered By
+  field: offeredBy
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Date Start
+  field: dateTimeIntervalStart
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Date End
+  field: dateTimeIntervalEnd
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+filters:
+- field: type
+  value: Course
+sort:
+- field: title
+  direction: ASC

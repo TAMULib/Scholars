@@ -1,0 +1,50 @@
+---
+name: People
+collection: persons
+layout: LIST
+templates:
+  default: '<div style="display: flex"><div style="margin-right: 25px"><div>{{#thumbnail}}<img
+    src="https://scholars.library.tamu.edu/vivo{{thumbnail}}" style="border-radius:
+    50%" height="60" width="60">{{/thumbnail}}{{^thumbnail}}<img src="assets/images/default-avatar.png"
+    style="border-radius: 50%" height="60" width="60">{{/thumbnail}}</div></div><div
+    style="margin: auto 0"><div><a href="/display/{{collection}}/{{id}}">{{name}}</a></div><div><span>{{preferredTitle}}</span></div></div></div>'
+styles: []
+facets:
+- name: Type
+  field: type
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+filters: []
+sort: []
+index:
+  field: name
+  operationKey: STARTS_WITH
+  options:
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
+  - G
+  - H
+  - I
+  - J
+  - K
+  - L
+  - M
+  - N
+  - O
+  - P
+  - Q
+  - R
+  - S
+  - T
+  - U
+  - V
+  - W
+  - X
+  - Y
+  - Z

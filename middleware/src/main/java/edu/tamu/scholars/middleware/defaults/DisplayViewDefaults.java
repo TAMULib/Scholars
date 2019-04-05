@@ -11,6 +11,10 @@ import edu.tamu.scholars.middleware.view.model.repo.DisplayViewRepo;
 @Service
 public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayViewRepo> {
 
+    public DisplayViewDefaults() {
+        super();
+    }
+
     @Override
     public String path() {
         return "classpath:defaults/displayViews";

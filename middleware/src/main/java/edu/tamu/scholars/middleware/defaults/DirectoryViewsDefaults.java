@@ -11,6 +11,10 @@ import edu.tamu.scholars.middleware.view.model.repo.DirectoryViewRepo;
 @Service
 public class DirectoryViewsDefaults extends AbstractDefaults<DirectoryView, DirectoryViewRepo> {
 
+    public DirectoryViewsDefaults() {
+        super();
+    }
+
     @Override
     public String path() {
         return "classpath:defaults/directoryViews";

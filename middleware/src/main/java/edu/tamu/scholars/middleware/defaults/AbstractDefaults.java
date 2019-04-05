@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import edu.tamu.scholars.middleware.theme.model.Named;
 import edu.tamu.scholars.middleware.theme.model.repo.NamedRepo;
@@ -19,14 +20,17 @@ public abstract class AbstractDefaults<E extends Named, R extends NamedRepo<E>> 
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    protected final ObjectMapper mapper;
+
     @Autowired
     protected ResourcePatternResolver resolver;
 
     @Autowired
-    protected ObjectMapper mapper;
-
-    @Autowired
     protected R repo;
+
+    public AbstractDefaults() {
+        mapper = new ObjectMapper(new YAMLFactory());
+    }
 
     @Override
     public E load(String name) throws IOException {
@@ -41,7 +45,7 @@ public abstract class AbstractDefaults<E extends Named, R extends NamedRepo<E>> 
 
     @Override
     public void load() throws IOException {
-        Resource[] resources = resolver.getResources(String.format("%s/*.json", path()));
+        Resource[] resources = resolver.getResources(String.format("%s/*.yml", path()));
         for (Resource resource : resources) {
             E entity = load(resource.getFilename());
             process(entity);

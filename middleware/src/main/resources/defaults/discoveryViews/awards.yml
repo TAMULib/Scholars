@@ -1,0 +1,32 @@
+---
+name: Awards
+collection: relationships
+layout: LIST
+templates:
+  default: "<span>{{title}}</span>"
+styles: []
+facets:
+- name: Awards
+  field: type
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: true
+- name: Award Or Honor For
+  field: awardOrHonorFor
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+- name: Award Conferred By
+  field: awardConferredBy
+  sort: COUNT
+  direction: DESC
+  limit: 10
+  hidden: false
+filters:
+- field: type
+  value: AwardReceipt
+sort:
+- field: title
+  direction: ASC

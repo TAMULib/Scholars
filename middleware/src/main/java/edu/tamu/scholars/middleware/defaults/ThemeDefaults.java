@@ -11,6 +11,10 @@ import edu.tamu.scholars.middleware.theme.model.repo.ThemeRepo;
 @Service
 public class ThemeDefaults extends AbstractDefaults<Theme, ThemeRepo> {
 
+    public ThemeDefaults() {
+        super();
+    }
+
     @Override
     public String path() {
         return "classpath:defaults/themes";

@@ -11,6 +11,10 @@ import edu.tamu.scholars.middleware.view.model.repo.DiscoveryViewRepo;
 @Service
 public class DiscoveryViewsDefaults extends AbstractDefaults<DiscoveryView, DiscoveryViewRepo> {
 
+    public DiscoveryViewsDefaults() {
+        super();
+    }
+
     @Override
     public String path() {
         return "classpath:defaults/discoveryViews";
