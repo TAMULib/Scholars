@@ -9,6 +9,8 @@ import edu.tamu.scholars.middleware.auth.config.AuthConfig;
 @ConfigurationProperties(prefix = "middleware")
 public class MiddlewareConfig {
 
+    private boolean loadDefaults = false;
+
     private AuthConfig auth = new AuthConfig();
 
     private MailConfig mail = new MailConfig();
@@ -17,6 +19,14 @@ public class MiddlewareConfig {
 
     public MiddlewareConfig() {
 
+    }
+
+    public boolean isLoadDefaults() {
+        return loadDefaults;
+    }
+
+    public void setLoadDefaults(boolean loadDefaults) {
+        this.loadDefaults = loadDefaults;
     }
 
     public AuthConfig getAuth() {

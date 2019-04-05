@@ -1,8 +1,5 @@
 package edu.tamu.scholars.middleware.theme.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,30 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "themes")
-public class Theme implements Serializable {
+public class Theme extends Named {
 
     private static final long serialVersionUID = 3711737239238294248L;
-
-    @Id
-    @JsonInclude(Include.NON_EMPTY)
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
-
-    @NotNull(message = "${Theme.nameRequired}")
-    @Size(min = 2, max = 64, message = "${Theme.nameSize}")
-    @Column(unique = true, nullable = false)
-    private String name;
 
     @Column(nullable = false)
     private String organization;
@@ -72,24 +52,8 @@ public class Theme implements Serializable {
 
     public Theme(String name, String organization) {
         this();
-        this.name = name;
+        setName(name);
         this.organization = organization;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getOrganization() {

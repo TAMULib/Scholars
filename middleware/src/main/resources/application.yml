@@ -1,4 +1,5 @@
 middleware:
+  load-defaults: true
   auth:
     password:
       duration: 180
@@ -99,8 +100,6 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
-        hbm2ddl:
-          import_files: import/import-themes.sql,import/import-views.sql
         show_sql: false
     show-sql: false
   mail:

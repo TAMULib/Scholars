@@ -1,0 +1,46 @@
+{
+  "name": "People",
+  "collection": "persons",
+  "type": "FacultyMember",
+  "mainContentTemplate": "<div>Main Content</div>",
+  "leftScanTemplate": "<div>Left Scan</div>",
+  "rightScanTemplate": "<div>Right Scan</div>",
+  "tabs": [
+    {
+      "name": "Academic Background",
+      "hidden": false,
+      "sections": [
+        {
+          "name": "education and training",
+          "hidden": false,
+          "template": "<span>lots</span>"
+        }
+      ]
+    },
+    {
+      "name": "Publications",
+      "hidden": false,
+      "sections": []
+    },
+    {
+      "name": "Grants/Awards",
+      "hidden": false,
+      "sections": []
+    },
+    {
+      "name": "Recent Courses",
+      "hidden": false,
+      "sections": []
+    },
+    {
+      "name": "Identity",
+      "hidden": true,
+      "sections": []
+    },
+    {
+      "name": "Contact",
+      "hidden": false,
+      "sections": []
+    }
+  ]
+}

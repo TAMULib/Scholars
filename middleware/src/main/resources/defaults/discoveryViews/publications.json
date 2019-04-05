@@ -1,0 +1,34 @@
+{
+  "name": "Publications",
+  "collection": "documents",
+  "layout": "LIST",
+  "templates": {
+    "default": "<div style=\"display: flex\"> <span>{{title}}</span> <span style=\"margin-left: 5px\">|</span> <span style=\"margin-left: 5px\">{{type}}</span></div><div style=\"display: flex; margin-top: 10px;\"> {{#doi}} <span style=\"margin-right: 5px\"> <a href=\"https://dx.doi.org/{{doi}}\"><img src=\"assets/images/doi-badge.jpg\" width=\"100\" /></a> </span> {{/doi}} {{#pmid}} <span style=\"margin-right: 5px\"> <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/{{pmid}}\"><img src=\"assets/images/pubmed-badge.jpg\" width=\"100\" /></a> </span> {{/pmid}} {{#uri}} <span style=\"margin-right: 5px\"> <a href=\"{{uri}}\"><img src=\"assets/images/open-access-badge.jpg\" width=\"100\" /></a> </span> {{^doi}} <span style=\"margin-right: 5px\" class=\"altmetric-embed\" data-hide-no-mentions=\"true\" data-badge-popover=\"top\" data-handle=\"{{uri}}\"></span> {{/doi}} {{/uri}} {{#doi}} <span style=\"margin-right: 5px\" class=\"altmetric-embed\" data-hide-no-mentions=\"true\" data-badge-popover=\"top\" data-doi=\"{{doi}}\"></span> <span style=\"margin-right: 5px\" class=\"__dimensions_badge_embed__\" data-hide-zero-citations=\"true\" data-style=\"small_rectangle\" data-legend=\"hover-top\" data-doi=\"{{doi}}\"></span> {{/doi}}</div>"
+  },
+  "styles": [],
+  "facets": [
+    {
+      "name": "Publications",
+      "field": "type",
+      "sort": "COUNT",
+      "direction": "DESC",
+      "limit": 10,
+      "hidden": false
+    },
+    {
+      "name": "Date Published",
+      "field": "publicationDate",
+      "sort": "COUNT",
+      "direction": "DESC",
+      "limit": 10,
+      "hidden": false
+    }
+  ],
+  "filters": [],
+  "sort": [
+    {
+      "field": "title",
+      "direction": "ASC"
+    }
+  ]
+}

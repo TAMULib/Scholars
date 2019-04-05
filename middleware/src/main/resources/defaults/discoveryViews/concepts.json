@@ -1,0 +1,26 @@
+{
+  "name": "Concepts",
+  "collection": "concepts",
+  "layout": "LIST",
+  "templates": {
+    "default": "<span>{{name}}</span>"
+  },
+  "styles": [],
+  "facets": [
+    {
+      "name": "Concepts",
+      "field": "type",
+      "sort": "COUNT",
+      "direction": "DESC",
+      "limit": 10,
+      "hidden": true
+    }
+  ],
+  "filters": [],
+  "sort": [
+    {
+      "field": "name",
+      "direction": "ASC"
+    }
+  ]
+}
