@@ -3,13 +3,16 @@ package edu.tamu.scholars.middleware.view.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tab_views")
+@Table(name = "display_tabs")
 public class TabView extends View {
 
     private static final long serialVersionUID = -6232439954200363571L;
@@ -17,7 +20,8 @@ public class TabView extends View {
     @Column(nullable = false)
     private boolean hidden;
 
-    @ElementCollection
+    @JoinColumn(name = "tab_view_id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public List<DisplaySection> sections;
 
     public TabView() {

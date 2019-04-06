@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@Embeddable
+@Entity
+@Table(name = "tab_sections")
 public class DisplaySection {
 
     @Column(nullable = false)

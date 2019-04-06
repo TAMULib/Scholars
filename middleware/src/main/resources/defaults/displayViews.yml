@@ -13,6 +13,8 @@
     - name: education and training
       hidden: false
       template: "defaults/displayViews/people/educationAndTraining.html"
+      requiredFields:
+      - educationAndTraining
   - name: Publications
     hidden: false
     sections: []
