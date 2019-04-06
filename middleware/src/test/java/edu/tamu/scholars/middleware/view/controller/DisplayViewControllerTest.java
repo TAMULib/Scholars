@@ -58,7 +58,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
-                        describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>.")
+                        describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>.")
                     ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
@@ -73,7 +73,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
-                        describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>."),
+                        describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                         subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
                     )
                 )
@@ -103,7 +103,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
-                        describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>.")
+                        describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>.")
                     ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
@@ -118,7 +118,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
-                        describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>."),
+                        describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                         subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
                     )
                 )
@@ -156,7 +156,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                                 describeDisplayView.withParameter("mainContentTemplate", "The main content template of the Display View.").optional(),
                                 describeDisplayView.withParameter("leftScanTemplate", "The left scan template of the Display View.").optional(),
                                 describeDisplayView.withParameter("rightScanTemplate", "The right scan template of the Display View.").optional(),
-                                describeDisplayView.withParameter("tabs", "An array of <<resources-tabs, Tabe view resources>>.").optional()
+                                describeDisplayView.withParameter("tabs", "An array of <<resources-display-tabs, Display tab view resources>>.").optional()
                             ),
                             links(
                                 linkWithRel("self").description("Canonical link for this resource."),
@@ -171,7 +171,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                                 describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                                 describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                                 describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
-                                describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>."),
+                                describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                                 subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
                             )
                         )
@@ -208,7 +208,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                             describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                             describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
-                            describeDisplayView.withSubsection("tabs", "An array of <<resources-tabs, Tabe view resources>>."),
+                            describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                             subsectionWithPath("_links").description("<<resources-display-view-list-links, Links>> to other resources.")
                         )
                     )

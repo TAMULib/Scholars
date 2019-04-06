@@ -4,15 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import edu.tamu.scholars.middleware.view.model.DisplaySection;
+import edu.tamu.scholars.middleware.view.model.DisplayTabSectionView;
 import edu.tamu.scholars.middleware.view.model.DisplayView;
-import edu.tamu.scholars.middleware.view.model.TabView;
+import edu.tamu.scholars.middleware.view.model.DisplayTabView;
 import edu.tamu.scholars.middleware.view.model.repo.DisplayViewRepo;
 
 @Service
@@ -34,8 +33,8 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
             view.setMainContentTemplate(getTemplate(view.getMainContentTemplate()));
             view.setLeftScanTemplate(getTemplate(view.getLeftScanTemplate()));
             view.setRightScanTemplate(getTemplate(view.getRightScanTemplate()));
-            for (TabView tabView : view.getTabs()) {
-                for (DisplaySection section : tabView.getSections()) {
+            for (DisplayTabView tabView : view.getTabs()) {
+                for (DisplayTabSectionView section : tabView.getSections()) {
                     section.setTemplate(getTemplate(section.getTemplate()));
                 }
             }

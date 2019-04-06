@@ -13,20 +13,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "display_tabs")
-public class TabView extends View {
+public class DisplayTabView extends View {
 
     private static final long serialVersionUID = -6232439954200363571L;
 
     @Column(nullable = false)
     private boolean hidden;
 
-    @JoinColumn(name = "tab_view_id")
+    @JoinColumn(name = "display_tab_view_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public List<DisplaySection> sections;
+    public List<DisplayTabSectionView> sections;
 
-    public TabView() {
+    public DisplayTabView() {
         hidden = false;
-        sections = new ArrayList<DisplaySection>();
+        sections = new ArrayList<DisplayTabSectionView>();
     }
 
     public boolean isHidden() {
@@ -37,11 +37,11 @@ public class TabView extends View {
         this.hidden = hidden;
     }
 
-    public List<DisplaySection> getSections() {
+    public List<DisplayTabSectionView> getSections() {
         return sections;
     }
 
-    public void setSections(List<DisplaySection> sections) {
+    public void setSections(List<DisplayTabSectionView> sections) {
         this.sections = sections;
     }
 

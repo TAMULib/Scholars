@@ -10,7 +10,7 @@ import { TemplateService } from '../core/service/template.service';
 
 import { AppState } from '../core/store';
 
-import { DiscoveryView, DisplayView, TabView, DisplaySection } from '../core/model/view';
+import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView } from '../core/model/view';
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
@@ -78,12 +78,12 @@ export class DisplayComponent implements OnDestroy, OnInit {
         return this.template.render(template, document);
     }
 
-    public getTabsToShow(tabs: TabView[], document: SolrDocument): TabView[] {
-        return tabs.filter((tab: TabView) => !tab.hidden && this.getSectionsToShow(tab.sections, document).length > 0);
+    public getTabsToShow(tabs: DisplayTabView[], document: SolrDocument): DisplayTabView[] {
+        return tabs.filter((tab: DisplayTabView) => !tab.hidden && this.getSectionsToShow(tab.sections, document).length > 0);
     }
 
-    public getSectionsToShow(sections: DisplaySection[], document: SolrDocument): DisplaySection[] {
-        return sections.filter((section: DisplaySection) => !section.hidden && this.documentHasRequiredFields(section.requiredFields, document));
+    public getSectionsToShow(sections: DisplayTabSectionView[], document: SolrDocument): DisplayTabSectionView[] {
+        return sections.filter((section: DisplayTabSectionView) => !section.hidden && this.documentHasRequiredFields(section.requiredFields, document));
     }
 
     public getTabsetType(windowDimensions: WindowDimensions): string {

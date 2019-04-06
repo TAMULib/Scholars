@@ -31,11 +31,11 @@ public class DisplayView extends ResourceView {
 
     @JoinColumn(name = "display_view_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<TabView> tabs;
+    private List<DisplayTabView> tabs;
 
     public DisplayView() {
         super();
-        tabs = new ArrayList<TabView>();
+        tabs = new ArrayList<DisplayTabView>();
     }
 
     public String getType() {
@@ -70,11 +70,11 @@ public class DisplayView extends ResourceView {
         this.rightScanTemplate = rightScanTemplate;
     }
 
-    public List<TabView> getTabs() {
+    public List<DisplayTabView> getTabs() {
         return tabs;
     }
 
-    public void setTabs(List<TabView> tabs) {
+    public void setTabs(List<DisplayTabView> tabs) {
         this.tabs = tabs;
     }
 

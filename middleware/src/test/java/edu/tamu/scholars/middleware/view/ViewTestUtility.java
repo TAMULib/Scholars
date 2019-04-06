@@ -11,14 +11,14 @@ import org.springframework.data.solr.core.query.FacetOptions;
 
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
-import edu.tamu.scholars.middleware.view.model.DisplaySection;
+import edu.tamu.scholars.middleware.view.model.DisplayTabSectionView;
 import edu.tamu.scholars.middleware.view.model.DisplayView;
 import edu.tamu.scholars.middleware.view.model.Facet;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
 import edu.tamu.scholars.middleware.view.model.Layout;
 import edu.tamu.scholars.middleware.view.model.Sort;
-import edu.tamu.scholars.middleware.view.model.TabView;
+import edu.tamu.scholars.middleware.view.model.DisplayTabView;
 
 public class ViewTestUtility {
 
@@ -153,35 +153,35 @@ public class ViewTestUtility {
         displayView.setLeftScanTemplate("<div>Left Scan</div>");
         displayView.setRightScanTemplate("<div>Right Scan</div>");
 
-        List<TabView> tabs = new ArrayList<TabView>();
+        List<DisplayTabView> tabs = new ArrayList<DisplayTabView>();
 
-        tabs.add(getMockTabView());
+        tabs.add(getMockDisplayTabView());
 
         displayView.setTabs(tabs);
 
         return displayView;
     }
 
-    public static TabView getMockTabView() {
-        TabView tabView = new TabView();
-        tabView.setName("Test");
+    public static DisplayTabView getMockDisplayTabView() {
+        DisplayTabView tab = new DisplayTabView();
+        tab.setName("Test");
 
-        List<DisplaySection> sections = new ArrayList<DisplaySection>();
+        List<DisplayTabSectionView> sections = new ArrayList<DisplayTabSectionView>();
 
-        DisplaySection displaySection = new DisplaySection();
-        displaySection.setName("Test");
-        displaySection.setTemplate("<span>Hello, World!</span>");
+        DisplayTabSectionView section = new DisplayTabSectionView();
+        section.setName("Test");
+        section.setTemplate("<span>Hello, World!</span>");
 
         List<String> requiredFields = new ArrayList<String>();
         requiredFields.add("type");
 
-        displaySection.setRequiredFields(requiredFields);
+        section.setRequiredFields(requiredFields);
 
-        sections.add(displaySection);
+        sections.add(section);
 
-        tabView.setSections(sections);
+        tab.setSections(sections);
 
-        return tabView;
+        return tab;
     }
 
 }
