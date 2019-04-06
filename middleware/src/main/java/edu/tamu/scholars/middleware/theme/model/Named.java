@@ -24,8 +24,8 @@ public abstract class Named implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @NotNull(message = "${Theme.nameRequired}")
-    @Size(min = 2, max = 64, message = "${Theme.nameSize}")
+    @NotNull(message = "${Named.nameRequired}")
+    @Size(min = 2, max = 64, message = "${Named.nameSize}")
     @Column(nullable = false, unique = true)
     private String name;
 
