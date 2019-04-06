@@ -1,4 +1,4 @@
-package edu.tamu.scholars.middleware.theme.model;
+package edu.tamu.scholars.middleware.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

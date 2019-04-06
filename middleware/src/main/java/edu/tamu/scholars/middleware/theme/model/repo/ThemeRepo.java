@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+import edu.tamu.scholars.middleware.model.repo.NamedRepo;
 import edu.tamu.scholars.middleware.theme.model.Theme;
 
 @RepositoryRestResource

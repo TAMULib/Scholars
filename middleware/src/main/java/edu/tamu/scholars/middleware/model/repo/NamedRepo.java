@@ -1,4 +1,4 @@
-package edu.tamu.scholars.middleware.theme.model.repo;
+package edu.tamu.scholars.middleware.model.repo;
 
 import java.util.Optional;
 

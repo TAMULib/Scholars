@@ -11,29 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import edu.tamu.scholars.middleware.config.MiddlewareConfig;
-import edu.tamu.scholars.middleware.theme.model.Named;
-import edu.tamu.scholars.middleware.theme.model.repo.NamedRepo;
+import edu.tamu.scholars.middleware.model.Named;
+import edu.tamu.scholars.middleware.model.repo.NamedRepo;
 
 public abstract class AbstractDefaults<E extends Named, R extends NamedRepo<E>> implements Defaults<E, R> {
 
-    private static final String CREATED_DEFAULTS = "Created %s defaults.";
+    private static final String CREATED_DEFAULTS = "Created %s %s defaults.";
 
-    private static final String UPDATED_DEFAULTS = "Updated %s defaults.";
+    private static final String UPDATED_DEFAULTS = "Updated %s %s defaults.";
 
     protected static final String CLASSPATH = "classpath:%s";
 
     protected static final String IO_EXCEPTION_MESSAGE = "Could not read %s. Either does not exists or is not a file.";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    // @formatter:off
-    protected final TypeReference<List<E>> ENTITY_TYPE_REF = new TypeReference<List<E>>() {};
-    // @formatter:on
 
     protected final ObjectMapper mapper;
 
@@ -68,7 +63,7 @@ public abstract class AbstractDefaults<E extends Named, R extends NamedRepo<E>> 
             update(entity, existingEntity.get());
         } else {
             repo.save(entity);
-            logger.info(String.format(CREATED_DEFAULTS, entity.getName()));
+            logger.info(String.format(CREATED_DEFAULTS, this.getClass().getSimpleName(), entity.getName()));
         }
     }
 
@@ -77,7 +72,7 @@ public abstract class AbstractDefaults<E extends Named, R extends NamedRepo<E>> 
         if (middleware.isUpdateDefaults()) {
             BeanUtils.copyProperties(entity, existingEntity);
             repo.save(entity);
-            logger.info(String.format(UPDATED_DEFAULTS, entity.getName()));
+            logger.info(String.format(UPDATED_DEFAULTS, this.getClass().getSimpleName(), entity.getName()));
         }
     }
 

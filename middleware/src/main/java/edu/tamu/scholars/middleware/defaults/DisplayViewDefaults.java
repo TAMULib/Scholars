@@ -9,9 +9,11 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import edu.tamu.scholars.middleware.view.model.DisplayTabSectionView;
-import edu.tamu.scholars.middleware.view.model.DisplayView;
 import edu.tamu.scholars.middleware.view.model.DisplayTabView;
+import edu.tamu.scholars.middleware.view.model.DisplayView;
 import edu.tamu.scholars.middleware.view.model.repo.DisplayViewRepo;
 
 @Service
@@ -28,7 +30,9 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
 
     @Override
     public List<DisplayView> read(InputStream is) throws IOException {
-        List<DisplayView> views = mapper.readValue(is, ENTITY_TYPE_REF);
+        // @formatter:off
+        List<DisplayView> views = mapper.readValue(is, new TypeReference<List<DisplayView>>() {});
+        // @formatter:on
         for (DisplayView view : views) {
             view.setMainContentTemplate(getTemplate(view.getMainContentTemplate()));
             view.setLeftScanTemplate(getTemplate(view.getLeftScanTemplate()));

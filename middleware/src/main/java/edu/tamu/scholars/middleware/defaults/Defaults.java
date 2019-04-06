@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import edu.tamu.scholars.middleware.theme.model.Named;
-import edu.tamu.scholars.middleware.theme.model.repo.NamedRepo;
+import edu.tamu.scholars.middleware.model.Named;
+import edu.tamu.scholars.middleware.model.repo.NamedRepo;
 
 public interface Defaults<E extends Named, R extends NamedRepo<E>> {
 

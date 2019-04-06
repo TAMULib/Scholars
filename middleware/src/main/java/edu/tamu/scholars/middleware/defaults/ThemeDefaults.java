@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import edu.tamu.scholars.middleware.theme.model.Theme;
 import edu.tamu.scholars.middleware.theme.model.repo.ThemeRepo;
 
@@ -23,7 +25,9 @@ public class ThemeDefaults extends AbstractDefaults<Theme, ThemeRepo> {
 
     @Override
     public List<Theme> read(InputStream is) throws IOException {
-        return mapper.readValue(is, ENTITY_TYPE_REF);
+        // @formatter:off
+        return mapper.readValue(is, new TypeReference<List<Theme>>() {});
+        // @formatter:on
     }
 
 }

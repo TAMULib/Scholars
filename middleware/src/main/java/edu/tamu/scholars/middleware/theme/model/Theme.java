@@ -9,6 +9,8 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import edu.tamu.scholars.middleware.model.Named;
+
 @Entity
 @Table(name = "themes")
 public class Theme extends Named {

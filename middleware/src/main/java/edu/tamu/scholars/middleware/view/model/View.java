@@ -2,7 +2,7 @@ package edu.tamu.scholars.middleware.view.model;
 
 import javax.persistence.MappedSuperclass;
 
-import edu.tamu.scholars.middleware.theme.model.Named;
+import edu.tamu.scholars.middleware.model.Named;
 
 @MappedSuperclass
 public abstract class View extends Named {
