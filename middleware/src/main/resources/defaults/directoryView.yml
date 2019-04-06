@@ -1,0 +1,139 @@
+---
+
+- name: People
+  collection: persons
+  layout: LIST
+  templates:
+    default: "defaults/directoryViews/people/default.html"
+  styles: []
+  facets:
+  - name: Type
+    field: type
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    hidden: false
+  filters: []
+  sort: []
+  index:
+    field: name
+    operationKey: STARTS_WITH
+    options:
+    - A
+    - B
+    - C
+    - D
+    - E
+    - F
+    - G
+    - H
+    - I
+    - J
+    - K
+    - L
+    - M
+    - N
+    - O
+    - P
+    - Q
+    - R
+    - S
+    - T
+    - U
+    - V
+    - W
+    - X
+    - Y
+    - Z
+
+- name: Organizations
+  collection: organizations
+  layout: LIST
+  templates:
+    default: "defaults/directoryViews/organizations/default.html"
+  styles: []
+  facets:
+  - name: Type
+    field: type
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    hidden: false
+  filters: []
+  sort: []
+  index:
+    field: name
+    operationKey: STARTS_WITH
+    options:
+    - A
+    - B
+    - C
+    - D
+    - E
+    - F
+    - G
+    - H
+    - I
+    - J
+    - K
+    - L
+    - M
+    - N
+    - O
+    - P
+    - Q
+    - R
+    - S
+    - T
+    - U
+    - V
+    - W
+    - X
+    - Y
+    - Z
+
+- name: Research
+  collection: documents
+  layout: LIST
+  templates:
+    default: "defaults/directoryViews/research/default.html"
+  styles: []
+  facets:
+  - name: Type
+    field: type
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    hidden: false
+  filters: []
+  sort: []
+  index:
+    field: title
+    operationKey: STARTS_WITH
+    options:
+    - A
+    - B
+    - C
+    - D
+    - E
+    - F
+    - G
+    - H
+    - I
+    - J
+    - K
+    - L
+    - M
+    - N
+    - O
+    - P
+    - Q
+    - R
+    - S
+    - T
+    - U
+    - V
+    - W
+    - X
+    - Y
+    - Z

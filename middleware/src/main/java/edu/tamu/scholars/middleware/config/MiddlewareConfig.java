@@ -9,7 +9,9 @@ import edu.tamu.scholars.middleware.auth.config.AuthConfig;
 @ConfigurationProperties(prefix = "middleware")
 public class MiddlewareConfig {
 
-    private boolean loadDefaults = false;
+    private boolean loadDefaults = true;
+
+    private boolean updateDefaults = false;
 
     private AuthConfig auth = new AuthConfig();
 
@@ -27,6 +29,14 @@ public class MiddlewareConfig {
 
     public void setLoadDefaults(boolean loadDefaults) {
         this.loadDefaults = loadDefaults;
+    }
+
+    public boolean isUpdateDefaults() {
+        return updateDefaults;
+    }
+
+    public void setUpdateDefaults(boolean updateDefaults) {
+        this.updateDefaults = updateDefaults;
     }
 
     public AuthConfig getAuth() {

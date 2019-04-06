@@ -3,6 +3,8 @@ package edu.tamu.scholars.middleware.defaults;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
@@ -22,48 +24,31 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
 
     @Override
     public String path() {
-        return "classpath:defaults/displayViews";
+        return "classpath:defaults/displayViews.yml";
     }
 
     @Override
-    public DisplayView read(InputStream is) throws IOException {
-        DisplayView view = mapper.readValue(is, DisplayView.class);
-
-        Resource resource = resolver.getResource(String.format("classpath:%s", view.getMainContentTemplate()));
-        if (resource.exists() && resource.isFile()) {
-            view.setMainContentTemplate(IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8));
-        } else {
-            logger.warn(String.format("Could not read %s. Either does not exists or is not a file.", view.getMainContentTemplate()));
-        }
-
-        resource = resolver.getResource(String.format("classpath:%s", view.getLeftScanTemplate()));
-        if (resource.exists() && resource.isFile()) {
-            view.setLeftScanTemplate(IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8));
-        } else {
-            logger.warn(String.format("Could not read %s. Either does not exists or is not a file.", view.getLeftScanTemplate()));
-        }
-
-        resource = resolver.getResource(String.format("classpath:%s", view.getRightScanTemplate()));
-        if (resource.exists() && resource.isFile()) {
-            view.setRightScanTemplate(IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8));
-        } else {
-            logger.warn(String.format("Could not read %s. Either does not exists or is not a file.", view.getRightScanTemplate()));
-        }
-
-        for (TabView tabView : view.getTabs()) {
-            for (DisplaySection section : tabView.getSections()) {
-
-                resource = resolver.getResource(String.format("classpath:%s", section.getTemplate()));
-                if (resource.exists() && resource.isFile()) {
-                    section.setTemplate(IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8));
-                } else {
-                    logger.warn(String.format("Could not read %s. Either does not exists or is not a file.", section.getTemplate()));
+    public List<DisplayView> read(InputStream is) throws IOException {
+        List<DisplayView> views = mapper.readValue(is, ENTITY_TYPE_REF);
+        for (DisplayView view : views) {
+            view.setMainContentTemplate(getTemplate(view.getMainContentTemplate()));
+            view.setLeftScanTemplate(getTemplate(view.getLeftScanTemplate()));
+            view.setRightScanTemplate(getTemplate(view.getRightScanTemplate()));
+            for (TabView tabView : view.getTabs()) {
+                for (DisplaySection section : tabView.getSections()) {
+                    section.setTemplate(getTemplate(section.getTemplate()));
                 }
-
             }
         }
+        return views;
+    }
 
-        return view;
+    private String getTemplate(String path) throws IOException {
+        Resource resource = resolver.getResource(String.format(CLASSPATH, path));
+        if (resource.exists() && resource.isFile()) {
+            return IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
+        }
+        throw new IOException(String.format(IO_EXCEPTION_MESSAGE, path));
     }
 
 }

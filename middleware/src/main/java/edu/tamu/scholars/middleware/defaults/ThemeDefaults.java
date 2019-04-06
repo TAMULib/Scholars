@@ -2,6 +2,7 @@ package edu.tamu.scholars.middleware.defaults;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,12 @@ public class ThemeDefaults extends AbstractDefaults<Theme, ThemeRepo> {
 
     @Override
     public String path() {
-        return "classpath:defaults/themes";
+        return "classpath:defaults/themes.yml";
     }
 
     @Override
-    public Theme read(InputStream is) throws IOException {
-        return mapper.readValue(is, Theme.class);
+    public List<Theme> read(InputStream is) throws IOException {
+        return mapper.readValue(is, ENTITY_TYPE_REF);
     }
 
 }

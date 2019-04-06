@@ -1,5 +1,6 @@
 middleware:
-  load-defaults: true
+  load-defaults: false
+  update-defaults: false
   auth:
     password:
       duration: 180
