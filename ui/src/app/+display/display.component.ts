@@ -10,7 +10,7 @@ import { TemplateService } from '../core/service/template.service';
 
 import { AppState } from '../core/store';
 
-import { DiscoveryView, DisplayView } from '../core/model/view';
+import { DiscoveryView, DisplayView, TabView, DisplaySection } from '../core/model/view';
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
@@ -19,7 +19,6 @@ import { SolrDocument } from '../core/model/discovery';
 import { selectResourceById, selectDefaultDiscoveryView } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
-
 
 @Component({
     selector: 'scholars-display',
@@ -79,8 +78,29 @@ export class DisplayComponent implements OnDestroy, OnInit {
         return this.template.render(template, document);
     }
 
-    public showTabs(windowDimensions: WindowDimensions): boolean {
-        return windowDimensions.width > 767;
+    public getTabsToShow(tabs: TabView[], document: SolrDocument): TabView[] {
+        return tabs.filter((tab: TabView) => !tab.hidden && this.getSectionsToShow(tab.sections, document).length > 0);
+    }
+
+    public getSectionsToShow(sections: DisplaySection[], document: SolrDocument): DisplaySection[] {
+        return sections.filter((section: DisplaySection) => !section.hidden && this.documentHasRequiredFields(section.requiredFields, document));
+    }
+
+    public getTabsetType(windowDimensions: WindowDimensions): string {
+        return windowDimensions.width > 767 ? 'tabs' : 'pills';
+    }
+
+    public getTabOrientation(windowDimensions: WindowDimensions): string {
+        return windowDimensions.width > 767 ? 'horizontal' : 'vertical';
+    }
+
+    private documentHasRequiredFields(requiredFields: string[], document: SolrDocument): boolean {
+        for (const requiredField of requiredFields) {
+            if (document[requiredField] === undefined) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

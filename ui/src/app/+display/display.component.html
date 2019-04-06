@@ -21,11 +21,11 @@
 
     <div class="row mt-2">
       <div class="col-12">
-        <ngb-tabset>
-          <ngb-tab *ngFor="let tab of displayView.tabs | filter:{ hidden: false }" [title]="tab.name">
+        <ngb-tabset [type]="getTabsetType(windowDimensions | async)" [orientation]="getTabOrientation(windowDimensions | async)">
+          <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [title]="tab.name">
             <ng-template ngbTabContent>
 
-              <div class="row m-2" *ngFor="let section of tab.sections | filter:{ hidden: false }">
+              <div class="row m-2" *ngFor="let section of getSectionsToShow(tab.sections, document)">
 
                 <div class="col-12">
                   <h3>{{section.name}}</h3>

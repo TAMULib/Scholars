@@ -4,6 +4,7 @@ export interface DisplaySection {
     readonly name: string;
     readonly hidden: boolean;
     readonly template: string;
+    readonly requiredFields: string[];
 }
 
 export interface TabView extends View {

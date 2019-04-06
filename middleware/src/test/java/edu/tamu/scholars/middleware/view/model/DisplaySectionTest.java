@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -17,6 +20,7 @@ public class DisplaySectionTest {
         DisplaySection displaySection = new DisplaySection();
         assertNotNull(displaySection);
         assertFalse(displaySection.isHidden());
+        assertEquals(0, displaySection.getRequiredFields().size());
     }
 
     @Test
@@ -31,6 +35,13 @@ public class DisplaySectionTest {
 
         displaySection.setTemplate("<span>Hello, World!</span>");
         assertEquals("<span>Hello, World!</span>", displaySection.getTemplate());
+
+        List<String> requiredFields = new ArrayList<String>();
+        requiredFields.add("type");
+
+        displaySection.setRequiredFields(requiredFields);
+        assertEquals(1, displaySection.getRequiredFields().size());
+        assertEquals("type", displaySection.getRequiredFields().get(0));
     }
 
 }

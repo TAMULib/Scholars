@@ -172,6 +172,11 @@ public class ViewTestUtility {
         displaySection.setName("Test");
         displaySection.setTemplate("<span>Hello, World!</span>");
 
+        List<String> requiredFields = new ArrayList<String>();
+        requiredFields.add("type");
+
+        displaySection.setRequiredFields(requiredFields);
+
         sections.add(displaySection);
 
         tabView.setSections(sections);

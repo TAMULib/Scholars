@@ -1,6 +1,10 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -15,8 +19,12 @@ public class DisplaySection {
     @Column(columnDefinition = "TEXT")
     public String template;
 
+    @ElementCollection
+    private List<String> requiredFields;
+
     public DisplaySection() {
         hidden = false;
+        requiredFields = new ArrayList<String>();
     }
 
     public String getName() {
@@ -41,6 +49,14 @@ public class DisplaySection {
 
     public void setTemplate(String template) {
         this.template = template;
+    }
+
+    public List<String> getRequiredFields() {
+        return requiredFields;
+    }
+
+    public void setRequiredFields(List<String> requiredFields) {
+        this.requiredFields = requiredFields;
     }
 
 }
