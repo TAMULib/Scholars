@@ -6,18 +6,20 @@ import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
+import { TemplateService } from '../core/service/template.service';
+
 import { AppState } from '../core/store';
 
-import { DisplayView } from '../core/model/view';
+import { DiscoveryView, DisplayView } from '../core/model/view';
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
 
-import { selectResourceById } from '../core/store/sdr';
+import { selectResourceById, selectDefaultDiscoveryView } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
-import { TemplateService } from '../core/service/template.service';
+
 
 @Component({
     selector: 'scholars-display',
@@ -29,6 +31,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
     public windowDimensions: Observable<WindowDimensions>;
 
     public displayView: Observable<DisplayView>;
+
+    public discoveryView: Observable<DiscoveryView>;
 
     public document: Observable<SolrDocument>;
 
@@ -50,6 +54,10 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     ngOnInit() {
         this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
+        this.discoveryView = this.store.pipe(
+            select(selectDefaultDiscoveryView),
+            filter((view: DiscoveryView) => view !== undefined)
+        );
         this.subscriptions.push(this.route.params.subscribe((params: Params) => {
             if (params.collection && params.id) {
                 this.store.dispatch(new fromSdr.GetOneResourceAction(params.collection, { id: params.id }));

@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
+import { DiscoveryView } from '../core/model/view';
 
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
+import { selectDefaultDiscoveryView } from '../core/store/sdr';
 
 export interface AdminTab {
     route: string[];
@@ -20,6 +23,8 @@ export interface AdminTab {
     styleUrls: ['admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+
+    public discoveryView: Observable<DiscoveryView>;
 
     public windowDimensions: Observable<WindowDimensions>;
 
@@ -51,6 +56,10 @@ export class AdminComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.discoveryView = this.store.pipe(
+            select(selectDefaultDiscoveryView),
+            filter((view: DiscoveryView) => view !== undefined)
+        );
         this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
     }
 

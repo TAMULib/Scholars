@@ -1,3 +1,13 @@
+<div class="search">
+  <div class="container pt-2">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+        <scholars-search-box [view]="discoveryView | async"></scholars-search-box>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container mt-2">
   <h2 class="text-primary">{{ 'SHARED.SIDEBAR.ADMINISTRATION.TITLE' | translate }}</h2>
   <ul role="tablist" class="list-unstyled mt-3 nav" [ngClass]="{ 'nav-tabs nav-fill': showTabs(windowDimensions | async), 'nav-pills flex-column': !showTabs(windowDimensions | async) }">
