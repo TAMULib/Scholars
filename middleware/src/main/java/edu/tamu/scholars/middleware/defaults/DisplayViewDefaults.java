@@ -34,9 +34,31 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
         List<DisplayView> views = mapper.readValue(is, new TypeReference<List<DisplayView>>() {});
         // @formatter:on
         for (DisplayView view : views) {
-            view.setMainContentTemplate(getTemplate(view.getMainContentTemplate()));
-            view.setLeftScanTemplate(getTemplate(view.getLeftScanTemplate()));
-            view.setRightScanTemplate(getTemplate(view.getRightScanTemplate()));
+
+            if (view.getMainContentTemplate() != null && view.getMainContentTemplate().length() > 0) {
+                try {
+                    view.setMainContentTemplate(getTemplate(view.getMainContentTemplate()));
+                } catch (IOException e) {
+                    logger.warn(String.format(IO_EXCEPTION_MESSAGE, view.getMainContentTemplate()));
+                }
+            }
+
+            if (view.getLeftScanTemplate() != null && view.getLeftScanTemplate().length() > 0) {
+                try {
+                    view.setLeftScanTemplate(getTemplate(view.getLeftScanTemplate()));
+                } catch (IOException e) {
+                    logger.warn(String.format(IO_EXCEPTION_MESSAGE, view.getLeftScanTemplate()));
+                }
+            }
+
+            if (view.getRightScanTemplate() != null && view.getRightScanTemplate().length() > 0) {
+                try {
+                    view.setRightScanTemplate(getTemplate(view.getRightScanTemplate()));
+                } catch (IOException e) {
+                    logger.warn(String.format(IO_EXCEPTION_MESSAGE, view.getRightScanTemplate()));
+                }
+            }
+
             for (DisplayTabView tabView : view.getTabs()) {
                 for (DisplayTabSectionView section : tabView.getSections()) {
                     section.setTemplate(getTemplate(section.getTemplate()));

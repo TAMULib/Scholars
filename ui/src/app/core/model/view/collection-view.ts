@@ -6,6 +6,11 @@ export enum Layout {
     GRID = 'GRID'
 }
 
+export enum FacetType {
+    STRING = 'STRING',
+    DATE_TIME = 'DATE_TIME'
+}
+
 export enum FacetSort {
     COUNT = 'COUNT',
     INDEX = 'INDEX'
@@ -19,6 +24,7 @@ export interface Sort {
 export interface Facet {
     readonly name: string;
     readonly field: string;
+    readonly type: FacetType;
     readonly limit: number;
     readonly sort: FacetSort;
     readonly direction: Direction;

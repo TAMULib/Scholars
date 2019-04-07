@@ -9,36 +9,42 @@
   facets:
   - name: People
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Organization
     field: positionOrganization
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Research Area
     field: researchArea
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Published In
     field: selectedPublicationVenue
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Publisher
     field: publisher
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Position
     field: position
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
@@ -57,36 +63,42 @@
   facets:
   - name: Type
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Year
     field: publicationDate
+    type: DATE_YEAR
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Author
     field: author
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Author Organization
     field: authorOrganization
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Published In
     field: publicationVenue
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Publisher
     field: publisher
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
@@ -105,42 +117,49 @@
   facets:
   - name: Grants
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: true
   - name: Year Start
     field: dateTimeIntervalStart
+    type: DATE_YEAR
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Year End
     field: dateTimeIntervalEnd
+    type: DATE_YEAR
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Principal Investigator
     field: principalInvestigator
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Co-Principal Investigator
     field: coPrincipalInvestigator
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Awarded By
     field: awardedBy
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Administered By
     field: administeredBy
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
@@ -161,24 +180,28 @@
   facets:
   - name: Awards
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: true
   - name: Year
     field: yearAwarded
+    type: DATE_YEAR
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Recipient
     field: awardOrHonorFor
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Conferred By
     field: awardConferredBy
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
@@ -199,30 +222,35 @@
   facets:
   - name: Courses
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: true
   - name: Instructor
     field: participant
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Offered By
     field: offeredBy
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Date Start
     field: dateTimeIntervalStart
+    type: DATE_YEAR
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Date End
     field: dateTimeIntervalEnd
+    type: DATE_YEAR
     sort: COUNT
     direction: DESC
     limit: 10
@@ -243,18 +271,21 @@
   facets:
   - name: Concepts
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: true
   - name: Associated Department
     field: associatedDepartment
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
     hidden: false
   - name: Research Area Of
     field: researchAreaOf
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10

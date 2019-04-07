@@ -45,6 +45,7 @@ public class DiscoveryViewTest {
         assertEquals(1, discoveryView.getFacets().size());
         assertEquals("Name", discoveryView.getFacets().get(0).getName());
         assertEquals("name", discoveryView.getFacets().get(0).getField());
+        assertEquals(FacetType.STRING, discoveryView.getFacets().get(0).getType());
         assertEquals(20, discoveryView.getFacets().get(0).getLimit());
         assertEquals(FacetOptions.FacetSort.COUNT, discoveryView.getFacets().get(0).getSort());
         assertEquals(Sort.Direction.DESC, discoveryView.getFacets().get(0).getDirection());

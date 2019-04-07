@@ -9,6 +9,7 @@
   facets:
   - name: Type
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
@@ -55,6 +56,7 @@
   facets:
   - name: Type
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
@@ -101,6 +103,7 @@
   facets:
   - name: Type
     field: type
+    type: STRING
     sort: COUNT
     direction: DESC
     limit: 10

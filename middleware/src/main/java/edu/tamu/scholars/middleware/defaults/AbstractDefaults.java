@@ -28,7 +28,7 @@ public abstract class AbstractDefaults<E extends Named, R extends NamedRepo<E>> 
 
     protected static final String IO_EXCEPTION_MESSAGE = "Could not read %s. Either does not exists or is not a file.";
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected final ObjectMapper mapper;
 

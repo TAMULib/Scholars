@@ -12,13 +12,14 @@ import org.springframework.data.solr.core.query.FacetOptions;
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
 import edu.tamu.scholars.middleware.view.model.DisplayTabSectionView;
+import edu.tamu.scholars.middleware.view.model.DisplayTabView;
 import edu.tamu.scholars.middleware.view.model.DisplayView;
 import edu.tamu.scholars.middleware.view.model.Facet;
+import edu.tamu.scholars.middleware.view.model.FacetType;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
 import edu.tamu.scholars.middleware.view.model.Layout;
 import edu.tamu.scholars.middleware.view.model.Sort;
-import edu.tamu.scholars.middleware.view.model.DisplayTabView;
 
 public class ViewTestUtility {
 
@@ -48,6 +49,7 @@ public class ViewTestUtility {
 
         facet.setName("Name");
         facet.setField("name");
+        facet.setType(FacetType.STRING);
         facet.setLimit(20);
         facet.setSort(FacetOptions.FacetSort.COUNT);
         facet.setDirection(Direction.DESC);
@@ -111,6 +113,7 @@ public class ViewTestUtility {
 
         facet.setName("Name");
         facet.setField("name");
+        facet.setType(FacetType.STRING);
         facet.setLimit(20);
         facet.setSort(FacetOptions.FacetSort.COUNT);
         facet.setDirection(Direction.DESC);

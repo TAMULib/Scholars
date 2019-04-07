@@ -18,6 +18,7 @@ import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 
 import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry } from '../../model/sdr';
 import { SidebarMenu, SidebarSection, SidebarItem, SidebarItemType } from '../../model/sidebar';
+import { SolrDocument } from '../../model/discovery';
 import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
 import { OperationKey, Facet, DiscoveryView, DirectoryView, FacetSort } from '../../model/view';
 
@@ -32,7 +33,6 @@ import * as fromRouter from '../router/router.actions';
 import * as fromStomp from '../stomp/stomp.actions';
 import * as fromSdr from './sdr.actions';
 import * as fromSidebar from '../sidebar/sidebar.actions';
-import { SolrDocument } from '../../model/discovery';
 
 @Injectable()
 export class SdrEffects {
@@ -419,8 +419,9 @@ export class SdrEffects {
                             }
 
                             const sidebarItem: SidebarItem = {
-                                type: SidebarItemType.LINK,
+                                type: SidebarItemType.FACET,
                                 label: of(facetEntry.value),
+                                facet: facet,
                                 selected: selected,
                                 parenthetical: facetEntry.count,
                                 route: [],

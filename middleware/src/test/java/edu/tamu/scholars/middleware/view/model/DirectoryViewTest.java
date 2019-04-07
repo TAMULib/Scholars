@@ -46,6 +46,7 @@ public class DirectoryViewTest {
         assertEquals(1, directoryView.getFacets().size());
         assertEquals("Name", directoryView.getFacets().get(0).getName());
         assertEquals("name", directoryView.getFacets().get(0).getField());
+        assertEquals(FacetType.STRING, directoryView.getFacets().get(0).getType());
         assertEquals(20, directoryView.getFacets().get(0).getLimit());
         assertEquals(FacetOptions.FacetSort.COUNT, directoryView.getFacets().get(0).getSort());
         assertEquals(Sort.Direction.DESC, directoryView.getFacets().get(0).getDirection());

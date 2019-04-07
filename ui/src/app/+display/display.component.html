@@ -13,9 +13,9 @@
 
     <div class="row mt-2">
 
-      <div class="col-3" [innerHtml]="render(displayView.leftScanTemplate, document) | safeHtml"></div>
-      <div class="col-6" [innerHtml]="render(displayView.mainContentTemplate, document) | safeHtml"></div>
-      <div class="col-3" [innerHtml]="render(displayView.rightScanTemplate, document) | safeHtml"></div>
+      <div *ngIf="showLeftScan(displayView)" class="col-{{ getLeftScanColSize(displayView) }}" [innerHtml]="render(displayView.leftScanTemplate, document) | safeHtml"></div>
+      <div *ngIf="showMainContent(displayView)" class="col-{{ getMainContentColSize(displayView) }}" [innerHtml]="render(displayView.mainContentTemplate, document) | safeHtml"></div>
+      <div *ngIf="showRightScan(displayView)" class="col-{{ getRightScanColSize(displayView) }}" [innerHtml]="render(displayView.rightScanTemplate, document) | safeHtml"></div>
 
     </div>
 

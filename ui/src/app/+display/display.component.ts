@@ -78,6 +78,51 @@ export class DisplayComponent implements OnDestroy, OnInit {
         return this.template.render(template, document);
     }
 
+    public showMainContent(displayView: DisplayView): boolean {
+        return displayView.mainContentTemplate && displayView.mainContentTemplate.length > 0;
+    }
+
+    public showLeftScan(displayView: DisplayView): boolean {
+        return displayView.leftScanTemplate && displayView.leftScanTemplate.length > 0;
+    }
+
+    public showRightScan(displayView: DisplayView): boolean {
+        return displayView.rightScanTemplate && displayView.rightScanTemplate.length > 0;
+    }
+
+    public getMainContentColSize(displayView: DisplayView): number {
+        let colSize = 12;
+        if (this.showLeftScan(displayView)) {
+            colSize -= 3;
+        }
+        if (this.showRightScan(displayView)) {
+            colSize -= 3;
+        }
+        return colSize;
+    }
+
+    public getLeftScanColSize(displayView: DisplayView): number {
+        let colSize = 12;
+        if (this.showMainContent(displayView)) {
+            colSize -= 6;
+        }
+        if (this.showRightScan(displayView)) {
+            colSize -= 3;
+        }
+        return colSize;
+    }
+
+    public getRightScanColSize(displayView: DisplayView): number {
+        let colSize = 12;
+        if (this.showLeftScan(displayView)) {
+            colSize -= 3;
+        }
+        if (this.showMainContent(displayView)) {
+            colSize -= 6;
+        }
+        return colSize;
+    }
+
     public getTabsToShow(tabs: DisplayTabView[], document: SolrDocument): DisplayTabView[] {
         return tabs.filter((tab: DisplayTabView) => !tab.hidden && this.getSectionsToShow(tab.sections, document).length > 0);
     }

@@ -25,12 +25,14 @@ public class FacetTest {
 
         facet.setName("Test");
         facet.setField("test");
+        facet.setType(FacetType.DATE_YEAR);
         facet.setLimit(20);
         facet.setSort(FacetOptions.FacetSort.INDEX);
         facet.setDirection(Sort.Direction.ASC);
 
         assertEquals("Test", facet.getName());
         assertEquals("test", facet.getField());
+        assertEquals(FacetType.DATE_YEAR, facet.getType());
         assertEquals(20, facet.getLimit());
         assertEquals(FacetOptions.FacetSort.INDEX, facet.getSort());
         assertEquals(Sort.Direction.ASC, facet.getDirection());

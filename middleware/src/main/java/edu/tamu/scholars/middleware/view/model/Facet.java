@@ -1,5 +1,6 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static edu.tamu.scholars.middleware.view.model.FacetType.STRING;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.solr.core.query.FacetOptions.FacetSort.COUNT;
 
@@ -22,6 +23,10 @@ public class Facet {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    private FacetType type;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private FacetSort sort;
 
     @Column(nullable = false)
@@ -35,6 +40,7 @@ public class Facet {
     private boolean hidden;
 
     public Facet() {
+        type = STRING;
         sort = COUNT;
         direction = DESC;
         limit = 10;
@@ -55,6 +61,14 @@ public class Facet {
 
     public void setField(String field) {
         this.field = field;
+    }
+
+    public FacetType getType() {
+        return type;
+    }
+
+    public void setType(FacetType type) {
+        this.type = type;
     }
 
     public FacetSort getSort() {
