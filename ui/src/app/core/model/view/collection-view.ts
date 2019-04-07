@@ -28,6 +28,7 @@ export interface Facet {
     readonly limit: number;
     readonly sort: FacetSort;
     readonly direction: Direction;
+    readonly collapsed: boolean;
     readonly hidden: boolean;
 }
 

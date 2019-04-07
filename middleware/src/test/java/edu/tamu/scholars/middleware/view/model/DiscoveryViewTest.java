@@ -3,6 +3,7 @@ package edu.tamu.scholars.middleware.view.model;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.MOCK_VIEW_NAME;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDiscoveryView;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -46,9 +47,11 @@ public class DiscoveryViewTest {
         assertEquals("Name", discoveryView.getFacets().get(0).getName());
         assertEquals("name", discoveryView.getFacets().get(0).getField());
         assertEquals(FacetType.STRING, discoveryView.getFacets().get(0).getType());
-        assertEquals(20, discoveryView.getFacets().get(0).getLimit());
         assertEquals(FacetOptions.FacetSort.COUNT, discoveryView.getFacets().get(0).getSort());
         assertEquals(Sort.Direction.DESC, discoveryView.getFacets().get(0).getDirection());
+        assertEquals(20, discoveryView.getFacets().get(0).getLimit());
+        assertTrue(discoveryView.getFacets().get(0).isCollapsed());
+        assertFalse(discoveryView.getFacets().get(0).isHidden());
 
         assertEquals(1, discoveryView.getFilters().size());
         assertEquals("type", discoveryView.getFilters().get(0).getField());

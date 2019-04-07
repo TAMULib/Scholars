@@ -400,7 +400,7 @@ export class SdrEffects {
                             title: of(facet.name),
                             items: [],
                             collapsible: true,
-                            collapsed: false
+                            collapsed: facet.collapsed
                         };
 
                         Object.assign(sdrFacet, {

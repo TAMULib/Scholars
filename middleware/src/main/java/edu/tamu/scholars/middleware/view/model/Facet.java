@@ -37,6 +37,9 @@ public class Facet {
     private int limit;
 
     @Column(nullable = false)
+    private boolean collapsed;
+
+    @Column(nullable = false)
     private boolean hidden;
 
     public Facet() {
@@ -44,6 +47,7 @@ public class Facet {
         sort = COUNT;
         direction = DESC;
         limit = 10;
+        collapsed = true;
         hidden = false;
     }
 
@@ -87,6 +91,22 @@ public class Facet {
         this.direction = direction;
     }
 
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public boolean isCollapsed() {
+        return collapsed;
+    }
+
+    public void setCollapsed(boolean collapsed) {
+        this.collapsed = collapsed;
+    }
+
     public boolean isHidden() {
         return hidden;
     }
@@ -95,11 +115,4 @@ public class Facet {
         this.hidden = hidden;
     }
 
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
 }

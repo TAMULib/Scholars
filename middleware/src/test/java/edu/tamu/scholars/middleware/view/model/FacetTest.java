@@ -1,7 +1,9 @@
 package edu.tamu.scholars.middleware.view.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +19,8 @@ public class FacetTest {
         Facet facet = new Facet();
         assertNotNull(facet);
         assertEquals(10, facet.getLimit());
+        assertTrue(facet.isCollapsed());
+        assertFalse(facet.isHidden());
     }
 
     @Test
@@ -26,16 +30,20 @@ public class FacetTest {
         facet.setName("Test");
         facet.setField("test");
         facet.setType(FacetType.DATE_YEAR);
-        facet.setLimit(20);
         facet.setSort(FacetOptions.FacetSort.INDEX);
         facet.setDirection(Sort.Direction.ASC);
+        facet.setLimit(20);
+        facet.setCollapsed(false);
+        facet.setHidden(true);
 
         assertEquals("Test", facet.getName());
         assertEquals("test", facet.getField());
         assertEquals(FacetType.DATE_YEAR, facet.getType());
-        assertEquals(20, facet.getLimit());
         assertEquals(FacetOptions.FacetSort.INDEX, facet.getSort());
         assertEquals(Sort.Direction.ASC, facet.getDirection());
+        assertEquals(20, facet.getLimit());
+        assertFalse(facet.isCollapsed());
+        assertTrue(facet.isHidden());
     }
 
 }

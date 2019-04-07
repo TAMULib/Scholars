@@ -50,9 +50,9 @@ public class ViewTestUtility {
         facet.setName("Name");
         facet.setField("name");
         facet.setType(FacetType.STRING);
-        facet.setLimit(20);
         facet.setSort(FacetOptions.FacetSort.COUNT);
         facet.setDirection(Direction.DESC);
+        facet.setLimit(20);
 
         facets.add(facet);
 
@@ -114,9 +114,9 @@ public class ViewTestUtility {
         facet.setName("Name");
         facet.setField("name");
         facet.setType(FacetType.STRING);
-        facet.setLimit(20);
         facet.setSort(FacetOptions.FacetSort.COUNT);
         facet.setDirection(Direction.DESC);
+        facet.setLimit(20);
 
         facets.add(facet);
 

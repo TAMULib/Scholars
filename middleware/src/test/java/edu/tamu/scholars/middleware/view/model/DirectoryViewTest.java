@@ -3,6 +3,7 @@ package edu.tamu.scholars.middleware.view.model;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.MOCK_VIEW_NAME;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDirectoryView;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -47,9 +48,11 @@ public class DirectoryViewTest {
         assertEquals("Name", directoryView.getFacets().get(0).getName());
         assertEquals("name", directoryView.getFacets().get(0).getField());
         assertEquals(FacetType.STRING, directoryView.getFacets().get(0).getType());
-        assertEquals(20, directoryView.getFacets().get(0).getLimit());
         assertEquals(FacetOptions.FacetSort.COUNT, directoryView.getFacets().get(0).getSort());
         assertEquals(Sort.Direction.DESC, directoryView.getFacets().get(0).getDirection());
+        assertEquals(20, directoryView.getFacets().get(0).getLimit());
+        assertTrue(directoryView.getFacets().get(0).isCollapsed());
+        assertFalse(directoryView.getFacets().get(0).isHidden());
 
         assertEquals(1, directoryView.getFilters().size());
         assertEquals("type", directoryView.getFilters().get(0).getField());
