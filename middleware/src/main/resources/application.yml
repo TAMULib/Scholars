@@ -1,6 +1,8 @@
 middleware:
   load-defaults: true
   update-defaults: true
+  allowed-origins:
+  - http://localhost:4200
   auth:
     password:
       duration: 180

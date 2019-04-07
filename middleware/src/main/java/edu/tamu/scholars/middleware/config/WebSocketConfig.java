@@ -4,7 +4,7 @@ import static org.springframework.web.socket.server.support.HttpSessionHandshake
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -25,8 +25,8 @@ public class WebSocketConfig extends AbstractSessionWebSocketMessageBrokerConfig
 
     private static final String SPRING_SESSION_ID_ATTR_NAME = "SPRING.SESSION.ID";
 
-    @Value("${ui.url:http://localhost:4200}")
-    private String uiUrl;
+    @Autowired
+    private MiddlewareConfig config;
 
     @Override
     protected void configureStompEndpoints(StompEndpointRegistry registry) {
@@ -34,7 +34,7 @@ public class WebSocketConfig extends AbstractSessionWebSocketMessageBrokerConfig
         registry.setErrorHandler(new CustomStompSubProtocolErrorHandler());
         registry
             .addEndpoint("/connect")
-            .setAllowedOrigins(uiUrl).withSockJS()
+            .setAllowedOrigins(config.getAllowedOrigins().toArray(new String[config.getAllowedOrigins().size()])).withSockJS()
             .setInterceptors(
                 new HttpSessionHandshakeInterceptor(),
                 // TODO: remove when patched in spring-session, https://github.com/spring-projects/spring-session/issues/561

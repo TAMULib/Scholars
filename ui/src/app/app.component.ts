@@ -50,8 +50,8 @@ export class AppComponent implements OnInit {
 
     @HostListener('click', ['$event'])
     public clickEvent(event): void {
-        if (isPlatformBrowser && event.target.href) {
-            const path = event.target.href.substring(event.target.href.indexOf(event.target.host) + event.target.host.length);
+        if (this.isPlatformBrowser && event.target.href) {
+            const path = event.target.href.replace(event.target.baseURI, '');
             this.store.dispatch(new fromRouter.Link({ url: path }));
             event.preventDefault();
             event.stopPropagation();

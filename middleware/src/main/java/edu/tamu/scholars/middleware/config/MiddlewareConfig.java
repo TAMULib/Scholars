@@ -1,5 +1,8 @@
 package edu.tamu.scholars.middleware.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +16,8 @@ public class MiddlewareConfig {
 
     private boolean updateDefaults = false;
 
+    private List<String> allowedOrigins = new ArrayList<String>();
+
     private AuthConfig auth = new AuthConfig();
 
     private MailConfig mail = new MailConfig();
@@ -20,7 +25,7 @@ public class MiddlewareConfig {
     private HttpConfig http = new HttpConfig();
 
     public MiddlewareConfig() {
-
+        this.allowedOrigins.add("http://localhost:4200");
     }
 
     public boolean isLoadDefaults() {
@@ -33,6 +38,14 @@ public class MiddlewareConfig {
 
     public boolean isUpdateDefaults() {
         return updateDefaults;
+    }
+
+    public List<String> getAllowedOrigins() {
+        return allowedOrigins;
+    }
+
+    public void setAllowedOrigins(List<String> allowedOrigins) {
+        this.allowedOrigins = allowedOrigins;
     }
 
     public void setUpdateDefaults(boolean updateDefaults) {
