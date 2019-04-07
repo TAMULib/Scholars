@@ -2,6 +2,8 @@
 
 const fs = require("fs");
 
+const HOST = process.env.HOST || 'localhost';
+const PORT = Number(process.env.PORT) || 4200;
 const BASE_HREF = process.env.BASE_HREF || '/';
 
 if (!BASE_HREF.startsWith('/')) {
@@ -14,6 +16,8 @@ fs.readFile("angular.base.json", function (err, buf) {
     const deployUrl = BASE_HREF === '/' ? BASE_HREF : `${BASE_HREF}/`;
     angularFile = angularFile.replace(`"baseHref": "/"`, `"baseHref": "${baseHref}"`);
     angularFile = angularFile.replace(`"deployUrl": "/"`, `"deployUrl": "${deployUrl}"`);
+    angularFile = angularFile.replace(`"host": "localhost"`, `"host": "${HOST}"`);
+    angularFile = angularFile.replace(`"port": 4200`, `"port": ${PORT}`);
     fs.writeFile("angular.json", angularFile, function (err, data) {
         if (err) console.log(err);
     });
