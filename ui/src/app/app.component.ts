@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Component, Inject, OnInit, HostListener } from '@angular/core';
 import { SafeStyle } from '@angular/platform-browser';
 import { Store, select } from '@ngrx/store';
 
@@ -11,8 +12,9 @@ import { WindowDimensions } from './core/store/layout/layout.reducer';
 
 import { selectStyle } from './core/store/theme';
 
-import * as fromMetadata from './core/store/metadata/metadata.actions';
 import * as fromLayout from './core/store/layout/layout.actions';
+import * as fromMetadata from './core/store/metadata/metadata.actions';
+import * as fromRouter from './core/store/router/router.actions';
 
 @Component({
     selector: 'scholars-root',
@@ -21,12 +23,17 @@ import * as fromLayout from './core/store/layout/layout.actions';
 })
 export class AppComponent implements OnInit {
 
+    private isPlatformBrowser: boolean;
+
     public style: Observable<SafeStyle>;
 
     public location = AlertLocation.MAIN;
 
-    constructor(private store: Store<AppState>) {
-
+    constructor(
+        @Inject(PLATFORM_ID) platformId: string,
+        private store: Store<AppState>
+    ) {
+        this.isPlatformBrowser = isPlatformBrowser(platformId);
     }
 
     ngOnInit(): void {
@@ -39,6 +46,16 @@ export class AppComponent implements OnInit {
                 name: 'title', content: 'Scholars'
             }]
         }));
+    }
+
+    @HostListener('click', ['$event'])
+    public clickEvent(event): void {
+        if (isPlatformBrowser && event.target.href) {
+            const path = event.target.href.substring(event.target.href.indexOf(event.target.host) + event.target.host.length);
+            this.store.dispatch(new fromRouter.Link({ url: path }));
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 
     @HostListener('window:resize', ['$event'])

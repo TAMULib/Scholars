@@ -9,6 +9,7 @@ export type RouterNavigation = Readonly<{
 
 export enum RouterActionTypes {
     GO = '[Router] go',
+    LINK = '[Router] link',
     BACK = '[Router] back',
     FORWARD = '[Router] forward',
     CHANGED = '[Router] changed'
@@ -17,6 +18,11 @@ export enum RouterActionTypes {
 export class Go implements Action {
     readonly type = RouterActionTypes.GO;
     constructor(public payload: RouterNavigation) { }
+}
+
+export class Link implements Action {
+    readonly type = RouterActionTypes.LINK;
+    constructor(public payload: { url: string }) { }
 }
 
 export class Back implements Action {
@@ -33,6 +39,7 @@ export class Changed implements Action {
 
 export type RouterActions =
     Go |
+    Link |
     Back |
     Forward |
     Changed;
