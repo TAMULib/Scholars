@@ -1,5 +1,6 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
 
 CONSTRUCT {
     ?contributor rdfs:label ?label .
