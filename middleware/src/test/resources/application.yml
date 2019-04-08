@@ -83,7 +83,7 @@ spring:
     add-properties: false
     restart:
       enabled: false
-      exclude: src/main/resources,target
+      exclude: target
   h2:
     console:
       enabled: false
