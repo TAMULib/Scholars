@@ -1,9 +1,41 @@
 <div style="display: flex">
-  <span>{{=it.title}}</span>
+  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
   <span style="margin-left: 5px">|</span>
-  <span style="margin-left: 5px">{{=it.type}}</span>
+  <span style="margin-left: 5px; font-weight: 550;">{{=it.type}}</span>
 </div>
-<div style="display: flex; margin-top: 10px;">
+<div style="margin-top: 5px; margin-left: 5px">
+  <div>
+    <span style="font-weight: 550; margin-right: 2px;">Publication Date:</span>
+    {{ it.publicationDateYear = new Date(it.publicationDate).getFullYear(); { }}
+    <span>{{=it.publicationDateYear}}</span>
+    {{ } }}
+  </div>
+  {{? it.publicationVenue}}
+  <div>
+    <span style="font-weight: 550; margin-right: 2px;">Published In:</span>
+  </div>
+  <div>
+    <ul>
+      {{~it.publicationVenue :value:index}}
+      <li><span>{{=value}}</span></li>
+      {{~}}
+    </ul>  
+  </div>
+  {{?}}
+  {{? it.author && it.authorId}}
+  <div>
+    <span style="font-weight: 550">TAMU Faculty Authors (Claimed):</span>
+  </div>
+  <div>
+    <ul>
+      {{~it.author :value:index}}
+      <li><span><a href="display/persons/{{=it.authorId[index]}}">{{=value}}</a></span></li>
+      {{~}}
+    </ul>  
+  </div>
+  {{?}}
+</div>
+<div style="display: flex; margin-top: 5px; margin-left: 5px">
   {{? it.doi}}
   <span style="margin-right: 5px">
     <a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a>
