@@ -70,8 +70,11 @@ public class Person extends AbstractSolrDocument {
     private List<String> positionType;
 
     @Indexed
-    @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "positionOrganizationId")
     private List<String> positionOrganization;
+
+    @Indexed
+    private List<String> positionOrganizationId;
 
     @Indexed
     private List<String> positionId;
@@ -905,6 +908,14 @@ public class Person extends AbstractSolrDocument {
 
     public void setPositionOrganization(List<String> positionOrganization) {
         this.positionOrganization = positionOrganization;
+    }
+
+    public List<String> getPositionOrganizationId() {
+        return positionOrganizationId;
+    }
+
+    public void setPositionOrganizationId(List<String> positionOrganizationId) {
+        this.positionOrganizationId = positionOrganizationId;
     }
 
     public List<String> getPositionId() {
