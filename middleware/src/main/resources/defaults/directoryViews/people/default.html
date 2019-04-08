@@ -1,5 +1,5 @@
-<div style="display: flex">
-  <div style="margin-right: 25px">
+<div class="d-flex">
+  <div class="mr-4">
     <div>
       {{? it.thumbnail}}
       <img src="https://scholars.library.tamu.edu/vivo{{=it.thumbnail}}" style="border-radius: 50%" height="60" width="60">
@@ -9,8 +9,12 @@
       {{?}}
     </div>
   </div>
-  <div style="margin: auto 0">
-    <div><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></div>
-    <div><span>{{=it.preferredTitle}}</span></div>
+  <div class="align-self-center">
+    <div>
+      <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></span>
+    </div>
+    <div>
+      <span>{{=it.preferredTitle}}</span>
+    </div>
   </div>
 </div>

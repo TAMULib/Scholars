@@ -1,7 +1,10 @@
-<div style="display: flex">
-  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
-  <span style="margin-left: 5px">|</span>
-  <span style="margin-left: 5px; font-weight: 550;">{{=it.type}}</span>
+<div class="d-flex">
+  <div class="p-1">
+    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
+  </div>
+  <div class="p-1 justify-self-end">
+    <span class="badge badge-light">{{=it.type}}</span>
+  </div>
 </div>
 <div style="margin-top: 5px; margin-left: 5px">
   <div>
