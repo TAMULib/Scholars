@@ -14,7 +14,7 @@ import { WindowDimensions } from '../core/store/layout/layout.reducer';
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
 
-import { selectResourceById, selectDefaultDiscoveryView } from '../core/store/sdr';
+import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 
@@ -62,7 +62,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                     filter((document: SolrDocument) => document !== undefined),
                     tap((document: SolrDocument) => {
                         this.displayView = this.store.pipe(
-                            select(selectResourceById('displayViews', document.type[0])),
+                            select(selectDisplayViewByType(document.type[0])),
                             filter((view: DisplayView) => view !== undefined)
                         );
                     })

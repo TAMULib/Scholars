@@ -36,12 +36,16 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
 };
 
 export const getSdrReducer = <R extends SdrResource>(name: string) => {
-    const getTemplateFunction = (view: ResourceView, template: string) => (resource: any) => {
-        resource.collection = view.collection;
+    const getTemplateFunction = (template: string) => (resource: any) => {
         if (resource.uri !== undefined) {
             resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
         }
         const templateFunction = doT.template(template);
+        return templateFunction(resource);
+    };
+    const getResourceViewTemplateFunction = (view: ResourceView, template: string) => (resource: any) => {
+        resource.collection = view.collection;
+        const templateFunction = getTemplateFunction(template);
         return templateFunction(resource);
     };
     const augmentCollectionViewTemplates = (view: CollectionView) => {
@@ -49,7 +53,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         for (const k in view.templates) {
             if (view.templates.hasOwnProperty(k)) {
                 const template = view.templates[k];
-                view.templateFunctions[k] = getTemplateFunction(view, template);
+                view.templateFunctions[k] = getResourceViewTemplateFunction(view, template);
             }
         }
     };
@@ -59,7 +63,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         view.rightScanTemplateFunction = doT.template(view.rightScanTemplate);
         view.tabs.forEach(tab => {
             tab.sections.forEach(section => {
-                section.templateFunction = getTemplateFunction(view, section.template);
+                section.templateFunction = getTemplateFunction(section.template);
             });
         });
     };

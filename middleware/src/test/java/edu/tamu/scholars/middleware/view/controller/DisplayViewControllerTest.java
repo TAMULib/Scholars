@@ -12,7 +12,6 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
@@ -52,9 +51,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                     requestFields(
                         describeDisplayView.withField("name", "The name of the Display View."),
                         describeDisplayView.withField("type", "The type of document for Display View."),
-                        // describeDisplayView.withField("collection", "The collection of the Display View."),
-                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                        fieldWithPath("collection").description("The collection of the Display View."),
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -67,9 +63,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                     responseFields(
                         describeDisplayView.withField("name", "The name of the Display View."),
                         describeDisplayView.withField("type", "The type of document for Display View."),
-                        // describeDisplayView.withField("collection", "The collection of the Display View."),
-                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                        fieldWithPath("collection").description("The collection of the Display View."),
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -97,9 +90,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("id", "The Display View id."),
                         describeDisplayView.withField("name", "The name of the Display View."),
                         describeDisplayView.withField("type", "The type of document for Display View."),
-                        // describeDisplayView.withField("collection", "The collection of the Display View."),
-                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                        fieldWithPath("collection").description("The collection of the Display View."),
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -112,9 +102,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                     responseFields(
                         describeDisplayView.withField("name", "The name of the Display View."),
                         describeDisplayView.withField("type", "The type of document for Display View."),
-                        // describeDisplayView.withField("collection", "The collection of the Display View."),
-                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                        fieldWithPath("collection").description("The collection of the Display View."),
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -134,12 +121,12 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
         // @formatter:off
         mockMvc.perform(
             patch("/displayViews/{id}", displayView.getId())
-                .content("{\"name\": \"Organizations\", \"collection\": \"organizations\"}")
+                .content("{\"name\": \"Organizations\", \"type\": \"Publisher\"}")
                 .cookie(loginAdmin()))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                     .andExpect(jsonPath("name", equalTo("Organizations")))
-                    .andExpect(jsonPath("collection", equalTo("organizations")))
+                    .andExpect(jsonPath("type", equalTo("Publisher")))
                     .andDo(
                         document(
                             "displayViews/patch",
@@ -150,9 +137,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                                 describeDisplayView.withParameter("id", "The Display View id.").optional(),
                                 describeDisplayView.withParameter("name", "The name of the Display View.").optional(),
                                 describeDisplayView.withParameter("type", "The type of document for Display View.").optional(),
-                                // describeDisplayView.withParameter("collection", "The collection of the Display View.").optional(),
-                                // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                                parameterWithName("collection").description("The collection of the Display View.").optional(),
                                 describeDisplayView.withParameter("mainContentTemplate", "The main content template of the Display View.").optional(),
                                 describeDisplayView.withParameter("leftScanTemplate", "The left scan template of the Display View.").optional(),
                                 describeDisplayView.withParameter("rightScanTemplate", "The right scan template of the Display View.").optional(),
@@ -165,9 +149,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             responseFields(
                                 describeDisplayView.withField("name", "The name of the Display View."),
                                 describeDisplayView.withField("type", "The type of document for Display View."),
-                                // describeDisplayView.withField("collection", "The collection of the Display View."),
-                                // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                                fieldWithPath("collection").description("The collection of the Display View."),
                                 describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                                 describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                                 describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -202,9 +183,6 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         responseFields(
                             describeDisplayView.withField("name", "The name of the Display View."),
                             describeDisplayView.withField("type", "The type of document for Display View."),
-                            // describeDisplayView.withField("collection", "The collection of the Display View."),
-                            // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDisplayCollection.description
-                            fieldWithPath("collection").description("The collection of the Display View."),
                             describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                             describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                             describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -296,7 +274,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
     private ResultActions performUpdateDisplayView() throws JsonProcessingException, Exception {
         DisplayView displayView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         displayView.setName("Organizations");
-        displayView.setCollection("organizations");
+        displayView.setType("Publisher");
 
         // @formatter:off
         return mockMvc.perform(

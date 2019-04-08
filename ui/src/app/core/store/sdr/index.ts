@@ -1,6 +1,6 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
-import { DiscoveryView } from '../../model/view';
+import { DiscoveryView, DisplayView } from '../../model/view';
 import { SdrResource } from '../../model/sdr';
 
 import * as fromSdr from './sdr.reducer';
@@ -29,4 +29,9 @@ export const selectDefaultDiscoveryView = createSelector(
     selectReousrceIds<DiscoveryView>('discoveryViews'),
     selectReousrceEntities<DiscoveryView>('discoveryViews'),
     (ids, resources) => resources[ids[0]] ? resources[ids[0]] : undefined
+);
+
+export const selectDisplayViewByType = (type: string) => createSelector(
+    selectReousrceEntities<DisplayView>('displayViews'),
+    (resources) => resources[type] ? resources[type] : resources['default']
 );

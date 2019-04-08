@@ -1,7 +1,13 @@
 ---
 
+- name: Default
+  type: default
+  mainContentTemplate: "defaults/displayViews/default/mainContentTemplate.html"
+  leftScanTemplate: "defaults/displayViews/default/leftScanTemplate.html"
+  rightScanTemplate: "defaults/displayViews/default/rightScanTemplate.html"
+  tabs: []
+
 - name: People
-  collection: persons
   type: FacultyMember
   mainContentTemplate: "defaults/displayViews/people/mainContentTemplate.html"
   leftScanTemplate: "defaults/displayViews/people/leftScanTemplate.html"

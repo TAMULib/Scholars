@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "display_views")
-public class DisplayView extends ResourceView {
+public class DisplayView extends View {
 
     private static final long serialVersionUID = 7556127622115170597L;
 

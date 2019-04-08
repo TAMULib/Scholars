@@ -1,7 +1,6 @@
-import { ResourceView, View } from './';
+import { View } from './';
 
-export interface DisplayTabSectionView {
-    readonly name: string;
+export interface DisplayTabSectionView extends View {
     readonly hidden: boolean;
     readonly template: string;
     templateFunction?: Function;
@@ -13,7 +12,7 @@ export interface DisplayTabView extends View {
     readonly sections: DisplayTabSectionView[];
 }
 
-export interface DisplayView extends ResourceView {
+export interface DisplayView extends View {
     readonly mainContentTemplate: string;
     mainContentTemplateFunction?: Function;
     readonly leftScanTemplate: string;

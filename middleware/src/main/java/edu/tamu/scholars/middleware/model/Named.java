@@ -24,10 +24,9 @@ public abstract class Named implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @NotNull(message = "${Named.nameRequired}")
     @Size(min = 2, max = 64, message = "${Named.nameSize}")
     @Column(nullable = false, unique = true)
-    private String name;
+    protected String name;
 
     public Named() {
         super();
@@ -41,6 +40,7 @@ public abstract class Named implements Serializable {
         this.id = id;
     }
 
+    @NotNull(message = "${Named.nameRequired}")
     public String getName() {
         return name;
     }
