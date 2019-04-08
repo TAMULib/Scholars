@@ -1,20 +1,20 @@
 <div style="display: flex">
-  <a href="display/{{collection}}/{{id}}">{{title}}</a>
+  <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
 </div>
 <div style="display: flex; margin-top: 10px;">
-  {{#doi}}
+  {{? it.doi}}
   <span style="margin-right: 5px">
-    <a href="https://dx.doi.org/{{doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a>
+    <a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a>
   </span>
-  {{/doi}}
-  {{#pmid}}
+  {{?}}
+  {{? it.pmid}}
   <span style="margin-right: 5px">
-    <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{pmid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a>
+    <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a>
   </span>
-  {{/pmid}}
-  {{#uri}}
+  {{?}}
+  {{? it.uri}}
   <span style="margin-right: 5px">
-    <a href="{{uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a>
+    <a href="{{=it.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a>
   </span>
-  {{/uri}}
+  {{?}}
 </div>

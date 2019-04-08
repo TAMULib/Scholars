@@ -13,9 +13,9 @@
 
     <div class="row mt-2">
 
-      <div *ngIf="showLeftScan(displayView)" class="col-{{ getLeftScanColSize(displayView) }}" [innerHtml]="render(displayView.leftScanTemplate, document) | safeHtml"></div>
-      <div *ngIf="showMainContent(displayView)" class="col-{{ getMainContentColSize(displayView) }}" [innerHtml]="render(displayView.mainContentTemplate, document) | safeHtml"></div>
-      <div *ngIf="showRightScan(displayView)" class="col-{{ getRightScanColSize(displayView) }}" [innerHtml]="render(displayView.rightScanTemplate, document) | safeHtml"></div>
+      <div *ngIf="showLeftScan(displayView)" class="col-{{ getLeftScanColSize(displayView) }}" [innerHtml]="displayView.leftScanTemplateFunction(document) | safeHtml"></div>
+      <div *ngIf="showMainContent(displayView)" class="col-{{ getMainContentColSize(displayView) }}" [innerHtml]="displayView.mainContentTemplateFunction(document) | safeHtml"></div>
+      <div *ngIf="showRightScan(displayView)" class="col-{{ getRightScanColSize(displayView) }}" [innerHtml]="displayView.rightScanTemplateFunction(document) | safeHtml"></div>
 
     </div>
 
@@ -29,7 +29,7 @@
 
                 <div class="col-12">
                   <h3>{{section.name}}</h3>
-                  <div [innerHtml]="render(section.template, document)"></div>
+                  <div [innerHtml]="section.templateFunction(document)"></div>
                 </div>
 
               </div>

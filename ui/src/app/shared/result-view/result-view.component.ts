@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewEncapsulation, Inject, PLATFORM_ID } from
 import { isPlatformBrowser } from '@angular/common';
 
 import { CollectionView } from '../../core/model/view';
-import { TemplateService } from '../../core/service/template.service';
 
 @Component({
     selector: 'scholars-result-view',
@@ -20,24 +19,32 @@ export class ResultViewComponent implements OnInit {
 
     public resultHtml: string;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: string,
-        private template: TemplateService
-    ) {
+    constructor(@Inject(PLATFORM_ID) private platformId: string) {
 
     }
 
     ngOnInit() {
-        if (this.resource.uri !== undefined) {
-            this.resource.uri = this.resource.uri[0].replace('http://hdl.handle.net/', '');
-        }
-        this.resultHtml = this.template.renderResult(this.view, this.resource);
+        this.resultHtml = this.getResultHtml();
         if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
                 window['_altmetric_embed_init']();
                 window['__dimensions_embed'].addBadges();
             });
         }
+    }
+
+    private getResultHtml(): string {
+        const templateFunction = this.getTemplateFunction();
+        return templateFunction(this.resource);
+    }
+
+    private getTemplateFunction(): Function {
+        for (const type of this.resource.type) {
+            if (this.view.templateFunctions[type] !== undefined) {
+                return type;
+            }
+        }
+        return this.view.templateFunctions['default'];
     }
 
 }

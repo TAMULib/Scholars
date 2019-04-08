@@ -6,8 +6,6 @@ import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
-import { TemplateService } from '../core/service/template.service';
-
 import { AppState } from '../core/store';
 
 import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView } from '../core/model/view';
@@ -39,7 +37,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     constructor(
         private store: Store<AppState>,
-        private template: TemplateService,
         private route: ActivatedRoute
     ) {
         this.subscriptions = [];
@@ -72,10 +69,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
                 );
             }
         }));
-    }
-
-    public render(template: string, document: SolrDocument): string {
-        return this.template.render(template, document);
     }
 
     public showMainContent(displayView: DisplayView): boolean {

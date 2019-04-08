@@ -12,7 +12,6 @@ import { ThemeRepo } from './model/theme/repo/theme.repo';
 import { UserRepo } from './model/user/repo/user.repo';
 import { AlertService } from './service/alert.service';
 import { DialogService } from './service/dialog.service';
-import { TemplateService } from './service/template.service';
 
 const MODULES = [
     CommonModule
@@ -29,7 +28,6 @@ const PROVIDERS = [
     DialogService,
     MetadataService,
     RestService,
-    TemplateService,
     StompService,
     ThemeService,
     ThemeRepo,

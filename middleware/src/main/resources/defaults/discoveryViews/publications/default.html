@@ -1,33 +1,33 @@
 <div style="display: flex">
-  <span>{{title}}</span>
+  <span>{{=it.title}}</span>
   <span style="margin-left: 5px">|</span>
-  <span style="margin-left: 5px">{{type}}</span>
+  <span style="margin-left: 5px">{{=it.type}}</span>
 </div>
 <div style="display: flex; margin-top: 10px;">
-  {{#doi}}
+  {{? it.doi}}
   <span style="margin-right: 5px">
-    <a href="https://dx.doi.org/{{doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a>
+    <a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a>
   </span>
-  {{/doi}}
-  {{#pmid}}
+  {{?}}
+  {{? it.pmid}}
   <span style="margin-right: 5px">
-    <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{pmid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a>
+    <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a>
   </span>
-  {{/pmid}}
-  {{#uri}}
+  {{?}}
+  {{? it.uri}}
   <span style="margin-right: 5px">
-    <a href="{{uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a>
+    <a href="{{=it.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a>
   </span>
   <!--
-  {{^doi}}
-  <span style="margin-right: 5px" class="altmetric-embed" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{uri}}"></span>
-  {{/doi}}
+  {{? it.doi}}
+  <span style="margin-right: 5px" class="altmetric-embed" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{=it.uri}}"></span>
+  {{?}}
   -->
-  {{/uri}}
+  {{?}}
   <!--
-  {{#doi}}
-  <span style="margin-right: 5px" class="altmetric-embed" data-hide-no-mentions="true" data-badge-popover="top" data-doi="{{doi}}"></span>
-  <span style="margin-right: 5px" class="__dimensions_badge_embed__" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-top" data-doi="{{doi}}"></span>
-  {{/doi}}
+  {{? it.doi}}
+  <span style="margin-right: 5px" class="altmetric-embed" data-hide-no-mentions="true" data-badge-popover="top" data-doi="{{=it.doi}}"></span>
+  <span style="margin-right: 5px" class="__dimensions_badge_embed__" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-top" data-doi="{{=it.doi}}"></span>
+  {{?}}
   -->
 </div>

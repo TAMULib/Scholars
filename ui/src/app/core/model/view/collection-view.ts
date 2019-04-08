@@ -40,6 +40,7 @@ export interface Filter {
 export interface CollectionView extends ResourceView {
     readonly layout: Layout;
     readonly templates: any;
+    templateFunctions?: any;
     readonly styles: string[];
     readonly facets: Facet[];
     readonly filters: Filter[];

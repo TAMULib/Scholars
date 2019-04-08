@@ -3,7 +3,11 @@ import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { SdrActionTypes, SdrActions, getSdrAction } from './sdr.actions';
 import { SdrResource, SdrPage, SdrCollectionLinks, SdrFacet } from '../../model/sdr';
 
+import { ResourceView, CollectionView, DisplayView } from '../../model/view';
+
 import { keys } from '../../model/repos';
+
+import * as doT from 'dot';
 
 export interface SdrState<R extends SdrResource> extends EntityState<R> {
     page: SdrPage;
@@ -32,8 +36,62 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
 };
 
 export const getSdrReducer = <R extends SdrResource>(name: string) => {
+    const getTemplateFunction = (view: ResourceView, template: string) => (resource: any) => {
+        resource.collection = view.collection;
+        if (resource.uri !== undefined) {
+            resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
+        }
+        const templateFunction = doT.template(template);
+        return templateFunction(resource);
+    };
+    const augmentCollectionViewTemplates = (view: CollectionView) => {
+        view.templateFunctions = {};
+        for (const k in view.templates) {
+            if (view.templates.hasOwnProperty(k)) {
+                const template = view.templates[k];
+                view.templateFunctions[k] = getTemplateFunction(view, template);
+            }
+        }
+    };
+    const augmentDisplayViewTemplates = (view: DisplayView) => {
+        view.mainContentTemplateFunction = doT.template(view.mainContentTemplate);
+        view.leftScanTemplateFunction = doT.template(view.leftScanTemplate);
+        view.rightScanTemplateFunction = doT.template(view.rightScanTemplate);
+        view.tabs.forEach(tab => {
+            tab.sections.forEach(section => {
+                section.templateFunction = getTemplateFunction(view, section.template);
+            });
+        });
+    };
     const getResources = (action: SdrActions, key: string): R[] => {
-        return action.payload.collection._embedded !== undefined ? action.payload.collection._embedded[key] : [];
+        const resources = action.payload.collection._embedded !== undefined ? action.payload.collection._embedded[key] : [];
+        switch (key) {
+            case 'directoryViews':
+            case 'discoveryViews':
+                resources.forEach(view => {
+                    augmentCollectionViewTemplates(view);
+                });
+                break;
+            case 'displayViews':
+                resources.forEach(view => {
+                    augmentDisplayViewTemplates(view);
+                });
+                break;
+        }
+        return resources;
+    };
+    const getResource = (action: SdrActions, key: string): R => {
+        const resource = action.payload.document;
+        switch (key) {
+            case 'directoryViews':
+            case 'discoveryViews':
+                augmentCollectionViewTemplates(resource);
+                break;
+            case 'displayViews':
+                augmentDisplayViewTemplates(resource);
+                break;
+        }
+        return resource;
     };
     return (state = getSdrInitialState<R>(keys[name]), action: SdrActions): SdrState<R> => {
         switch (action.type) {
@@ -54,7 +112,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     error: undefined
                 });
             case getSdrAction(SdrActionTypes.GET_ONE_SUCCESS, name):
-                return getSdrAdapter<R>(keys[name]).addOne(action.payload.document, {
+                return getSdrAdapter<R>(keys[name]).addOne(getResource(action, name), {
                     ...state,
                     links: state.links,
                     loading: false,

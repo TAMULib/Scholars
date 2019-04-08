@@ -1,38 +1,43 @@
 <div style="display: flex">
   <div style="margin-right: 25px">
     <div>
-      {{#thumbnail}}
-      <img src="https://scholars.library.tamu.edu/vivo{{thumbnail}}" style="border-radius: 50%" height="60" width="60">{{/thumbnail}}{{^thumbnail}}<img src="assets/images/default-avatar.png" style="border-radius: 50%" height="60" width="60">
-      {{/thumbnail}}
+      {{? it.thumbnail}}
+      <img src="https://scholars.library.tamu.edu/vivo{{=it.thumbnail}}" style="border-radius: 50%" height="60" width="60">
+      {{?}}
+      {{? !it.thumbnail}}
+      <img src="assets/images/default-avatar.png" style="border-radius: 50%" height="60" width="60">
+      {{?}}
     </div>
   </div>
   <div style="margin: auto 0">
-    <div style="font-size: 15px"><a href>{{name}}</a></div>
-    <div style="margin-top: 10px"><span>{{preferredTitle}}</span></div>
+    <div style="font-size: 15px"><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></div>
+    <div style="margin-top: 10px"><span>{{=it.preferredTitle}}</span></div>
+    {{? it.positionOrganization && it.positionOrganizationId }}
     <div class="comma-seperated">
-      {{#positionOrganization}}
-      <span><a href>{{.}}</a></span>
-      {{/positionOrganization}}
+      {{~it.positionOrganization :value:index}}
+      <span><a href="display/organizations/{{=it.positionOrganizationId[index]}}">{{=value}}</a></span>
+      {{~}}
     </div>
-    {{#researchArea.length}}
+    {{?}}
+    {{? it.researchArea && it.researchAreaId }}
     <div style="margin-top: 10px">
       <span>Research Areas</span>
     </div>
     <div class="comma-seperated">
-      {{#researchArea}}
-      <span><a href>{{.}}</a></span>
-      {{/researchArea}}
+      {{~it.researchArea :value:index}}
+      <span><a href="display/concepts/{{=it.researchAreaId[index]}}">{{=value}}</a></span>
+      {{~}}
     </div>
-    {{/researchArea.length}}
+    {{?}}
   </div>
 </div>
-<div style="display:
-    flex; margin-top: 10px;">
-  <div style="margin: auto"> <a href style="color: black;
-    text-decoration: none">Co-Author Network</a> </div>
+<!--
+<div style="display: flex; margin-top: 10px;">
+  <div style="margin: auto"> <a href style="color: black; text-decoration: none">Co-Author Network</a> </div>
   <div style="margin: auto">
     <a href style="color: black; text-decoration: none">Map of Science</a> </div>
 </div>
+-->
 <style>
   .comma-seperated span:after {
     content: ", ";

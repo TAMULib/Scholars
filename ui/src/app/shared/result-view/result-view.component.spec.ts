@@ -5,7 +5,6 @@ import { SharedModule } from '../shared.module';
 import { ResultViewComponent } from './result-view.component';
 
 import { Layout } from '../../core/model/view';
-import { TemplateService } from '../../core/service/template.service';
 
 describe('ResultViewComponent', () => {
     let component: ResultViewComponent;
@@ -13,9 +12,6 @@ describe('ResultViewComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            providers: [
-                TemplateService
-            ],
             imports: [
                 SharedModule
             ]
@@ -30,7 +26,10 @@ describe('ResultViewComponent', () => {
             collection: 'tests',
             layout: Layout.GRID,
             templates: {
-                'default': '<span>Hello, World!</span>'
+                default: '<span>Hello, World!</span>'
+            },
+            templateFunctions: {
+                default: (resource: any) => component.view.templates.default
             },
             styles: [],
             facets: [],
