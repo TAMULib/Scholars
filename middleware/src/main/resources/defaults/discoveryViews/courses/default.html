@@ -1,1 +1,17 @@
 <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
+{{? it.participant && it.participantRole && it.participantRole == 'Instructor' }}
+<div>
+  <span class="label">Instructors:</span>
+  <ul>
+    {{~it.participant :value:index}}
+    <li><span><a href="display/concepts/{{=it.participantId[index]}}">{{=value}}</a></span></li>
+    {{~}}
+  </ul>
+</div>
+{{?}}
+<style>
+  .label {
+    font-weight: 550;
+    margin-right: 2px;
+  }
+</style>

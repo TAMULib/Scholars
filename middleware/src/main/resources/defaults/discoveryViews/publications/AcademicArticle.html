@@ -11,6 +11,16 @@
     <span>{{=it.publicationDateYear}}</span>
     {{ } }}
   </div>
+  {{? it.publicationVenue}}
+  <div>
+    <span class="label"">Published In:</span>
+    <ul>
+      {{~it.publicationVenue :value:index}}
+      <li><span>{{=value}}</span></li>
+      {{~}}
+    </ul>  
+  </div>
+  {{?}}
   {{? it.author && it.authorId}}
   <div>
     <span class="label">TAMU Faculty Authors (Claimed):</span>

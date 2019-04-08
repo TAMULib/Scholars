@@ -1,12 +1,10 @@
 <div class="d-flex">
-  <div class="p-1">
-    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
-  </div>
-  <div class="p-1 justify-self-end">
+  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
+  <div class="ml-2 justify-self-end">
     <span class="badge badge-light">{{=it.type}}</span>
   </div>
 </div>
-<div class="d-inline-flex pl-1 pr-1">
+<div class="d-inline-flex">
   {{? it.doi}}
   <span class="mr-1">
     <a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a>

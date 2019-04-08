@@ -1,14 +1,38 @@
-<div style="display: flex">
+<div class="d-flex">
   <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
 </div>
-<div style="margin-top: 5px; margin-left: 5px">
+<div>
   <div>
-    <span style="font-weight: 550; margin-right: 2px;">Awarded By:</span>
+    {{? it.dateTimeIntervalStart && it.dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
+    <span>{{=it.dateTimeIntervalStart}}</span>
+    {{ } }}
+    <span>-</span>
+    {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
+    <span>{{=it.dateTimeIntervalEnd}}</span>
+    {{ } }}
+    {{?}}
+    {{? it.dateTimeIntervalStart && !it.dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
+    <span>{{=it.dateTimeIntervalStart}}</span>
+    {{ } }}
+    {{?}}
+    {{? !it.dateTimeIntervalStart && it.dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
+    <span>{{=it.dateTimeIntervalEnd}}</span>
+    {{ } }}
+    {{?}}
+  </div>
+  <div>
+    <span class="label">Awarded By:</span>
     <span>{{=it.awardedBy}}</span>
   </div>
   {{? it.principalInvestigator && it.principalInvestigatorId}}
   <div>
-    <span style="font-weight: 550">Principal Investigator:</span>
+    <span class="label">Principal Investigator:</span>
   </div>
   <div>
     <ul>
@@ -20,7 +44,7 @@
   {{?}}
   {{? it.coPrincipalInvestigator && it.coPrincipalInvestigatorId}}
   <div>
-    <span style="font-weight: 550">Co-Principal Investigator:</span>
+    <span class="label">Co-Principal Investigator:</span>
   </div>
   <div>
     <ul>
@@ -31,3 +55,9 @@
   </div>
   {{?}}
 </div>
+<style>
+  .label {
+    font-weight: 550;
+    margin-right: 2px;
+  }
+</style>

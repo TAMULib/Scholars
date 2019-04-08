@@ -72,7 +72,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> etdChairedBy;
 
     @Indexed
-    @PropertySource(template = "document/etdChairedByOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    @PropertySource(template = "document/etdChairedByOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "etdChairedByOrganizationId")
     private List<String> etdChairedByOrganization;
 
     @Indexed
@@ -80,14 +80,17 @@ public class Document extends AbstractSolrDocument {
     private List<String> etdChairedByEmail;
 
     @Indexed
-    private List<String> etdChairedById;
+    private List<String> etdChairedByOrganizationId;
 
     @Indexed
+    private List<String> etdChairedById;
+
+    @Indexed(copyTo = "_text_")
     @PropertySource(template = "document/author", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "authorId")
     private List<String> author;
 
-    @Indexed
-    @PropertySource(template = "document/authorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    @Indexed(copyTo = "_text_")
+    @PropertySource(template = "document/authorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "authorOrganizationId")
     private List<String> authorOrganization;
 
     @Indexed
@@ -97,6 +100,9 @@ public class Document extends AbstractSolrDocument {
     @Indexed
     @PropertySource(template = "document/authorRank", predicate = "http://vivoweb.org/ontology/core#rank")
     private List<String> authorRank;
+
+    @Indexed
+    private List<String> authorOrganizationId;
 
     @Indexed
     private List<String> authorId;
@@ -634,6 +640,14 @@ public class Document extends AbstractSolrDocument {
         this.etdChairedByEmail = etdChairedByEmail;
     }
 
+    public List<String> getEtdChairedByOrganizationId() {
+        return etdChairedByOrganizationId;
+    }
+
+    public void setEtdChairedByOrganizationId(List<String> etdChairedByOrganizationId) {
+        this.etdChairedByOrganizationId = etdChairedByOrganizationId;
+    }
+
     public List<String> getEtdChairedById() {
         return etdChairedById;
     }
@@ -672,6 +686,14 @@ public class Document extends AbstractSolrDocument {
 
     public void setAuthorRank(List<String> authorRank) {
         this.authorRank = authorRank;
+    }
+
+    public List<String> getAuthorOrganizationId() {
+        return authorOrganizationId;
+    }
+
+    public void setAuthorOrganizationId(List<String> authorOrganizationId) {
+        this.authorOrganizationId = authorOrganizationId;
     }
 
     public List<String> getAuthorId() {
