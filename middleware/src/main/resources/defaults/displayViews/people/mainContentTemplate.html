@@ -1,1 +1,45 @@
-<div>Main Content</div>
+<div>
+  <h4><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></h4>
+  <div class="mt-1"><h5>{{=it.preferredTitle}}</h5></div>
+  {{? it.position && it.positionId}}
+  <div>
+    <span class="label">Positions:</span>
+    <ul class="list-unstyled">
+      {{~it.position :position}}
+      <li>
+        <div class="comma-seperated">
+      	  <span>{{=position}}</span>
+      	  {{~it.positionOrganization :organization:organizationIndex}}
+      	  <!-- TODO: when author organization id populated update href -->
+          <span><a href="display/organizations/{{=it.positionOrganizationId[organizationIndex]}}">{{=organization}}</a></span>
+          {{~}}
+      	</div>
+      </li>
+      {{~}}
+    </ul>  
+  </div>
+  {{?}}
+  {{? it.researchArea && it.researchAreaId }}
+  <div class="mt-1">
+    <span class="label">Research Areas:</span>
+  </div>
+  <div class="comma-seperated">
+    {{~it.researchArea :value:index}}
+    <span><a href="display/concepts/{{=it.researchAreaId[index]}}">{{=value}}</a></span>
+    {{~}}
+  </div>
+  {{?}}
+</div>
+<style>
+  .label {
+    font-weight: 550;
+    margin-right: 2px;
+  }
+  .comma-seperated span:after {
+    content: ", ";
+  }
+
+  .comma-seperated span:last-child:after {
+    content: "";
+  }
+</style>

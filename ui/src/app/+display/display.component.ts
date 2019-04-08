@@ -61,6 +61,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                     select(selectResourceById(params.collection, params.id)),
                     filter((document: SolrDocument) => document !== undefined),
                     tap((document: SolrDocument) => {
+                        console.log(document);
                         this.displayView = this.store.pipe(
                             select(selectDisplayViewByType(document.type[0])),
                             filter((view: DisplayView) => view !== undefined)
