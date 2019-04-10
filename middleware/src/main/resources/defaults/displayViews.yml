@@ -7,9 +7,9 @@
   types:
   - FacultyMember
   - NonFacultyAcademic
-  mainContentTemplate: "defaults/displayViews/persons/mainContentTemplate.html"
-  leftScanTemplate: "defaults/displayViews/persons/leftScanTemplate.html"
-  rightScanTemplate: "defaults/displayViews/persons/rightScanTemplate.html"
+  mainContentTemplate: "defaults/displayViews/people/mainContentTemplate.html"
+  leftScanTemplate: "defaults/displayViews/people/leftScanTemplate.html"
+  rightScanTemplate: "defaults/displayViews/people/rightScanTemplate.html"
   tabs:
   - name: Overview
     hidden: false
@@ -343,6 +343,7 @@
   - Library
   - University
   mainContentTemplate: "defaults/displayViews/organizations/mainContentTemplate.html"
+  leftScanTemplate: "defaults/displayViews/organizations/leftScanTemplate.html"
   rightScanTemplate: "defaults/displayViews/organizations/rightScanTemplate.html"
   tabs:
   - name: Overview
@@ -586,6 +587,556 @@
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
     - name: uses
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+
+- name: Publications
+  types:
+  - AcademicArticle
+  - ConferencePaper
+  - Thesis
+  - Chapter
+  - Book
+  - GrayLiterature
+  - Patent
+  - WorkingPaper
+  mainContentTemplate: "defaults/displayViews/publications/mainContentTemplate.html"
+  rightScanTemplate: "defaults/displayViews/publications/rightScanTemplate.html"
+  tabs:
+  - name: Overview
+    hidden: false
+    sections:
+    - name: abstract
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: authors
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: author list (cited authors)
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: editor list (cited editors)
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: editors
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: translator
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: status
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: publication date
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has subject area
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has restriction
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has document part
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: features
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: published in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: geographic focus
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: documentation for project or resource
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: output of process or event
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: presented at event
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: keywords
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Identity
+    hidden: false
+    sections:
+    - name: EAN International-Uniform Code Council (EAN-UCC) 13
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: NIH Manuscript Submission System ID
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: PubMed Central ID
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: identifier
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: same as
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: Digital Object Identifier (DOI)
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: Online Computer Library Center (OCLC) number
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: PubMed ID
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Related Documents
+    hidden: false
+    sections:
+    - name: cited by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: cites
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: cites as data source
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has translation
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: translation of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Additional Document Info
+    hidden: false
+    sections:
+    - name: has global citation frequency
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: number of pages
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: start page
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: end page
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: volume
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: issue
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: reproduced in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: reproduces
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Other
+    hidden: false
+    sections:
+    - name: is about
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: is specified output of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: is template
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: mentions
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: output of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: participates in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: related by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: supported by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: date/time value
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+
+- name: Grants
+  types:
+  - Grant
+  mainContentTemplate: "defaults/displayViews/grants/mainContentTemplate.html"
+  tabs:
+  - name: Overview
+    hidden: false
+    sections:
+    - name: abstract
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: date/time interval
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has subject area
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: awarded by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: subcontracted through
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: administered by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: geographic focus
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has sub grant
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: sub grant of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: provides funding for
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: total award amount
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: direct costs
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: sponsor award ID
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: local award ID
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Affiliation
+    hidden: false
+    sections:
+    - name: contributor
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Publications
+    hidden: false
+    sections:
+    - name: supported publications or other works
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Identity
+    hidden: false
+    sections:
+    - name: same as
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Other
+    hidden: false
+    sections:
+    - name: assigned by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: inheres in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: is specified output of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: output of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: participates in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: relates
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+
+- name: Awards
+  types:
+  - AwardReceipt
+  mainContentTemplate: "defaults/displayViews/awards/mainContentTemplate.html"
+  tabs:
+  - name: Overview
+    hidden: false
+    sections:
+    - name: description
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: receipt of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: award or honor for
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: award conferred by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: date/time interval
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: year awarded
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Identity
+    hidden: false
+    sections:
+    - name: same as
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Other
+    hidden: false
+    sections:
+    - name: assigned by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: inheres in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: is specified output of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: output of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: participates in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: relates
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: date/time value
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  
+- name: Courses
+  types:
+  - Course
+  mainContentTemplate: "defaults/displayViews/courses/mainContentTemplate.html"
+  tabs:
+  - name: Overview
+    hidden: false
+    sections:
+    - name: description
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: offered by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: date/time interval
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: occurs within event
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: includes event
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: in event series
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: participant
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has subject area
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has prerequisite
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: prerequisite for
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: credits
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: geographic focus
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Publications
+    hidden: false
+    sections:
+    - name: output publications or other works
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: related documents
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Identity
+    hidden: false
+    sections:
+    - name: same as
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Contact
+    hidden: false
+    sections:
+    - name: contact information
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: held in facility
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: held in geographic location
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Other
+    hidden: false
+    sections:
+    - name: has input
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has output
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has participant
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: located in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: realizes
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+
+- name: Concepts
+  types:
+  - Concept
+  mainContentTemplate: "defaults/displayViews/concepts/mainContentTemplate.html"
+  tabs:
+  - name: Overview
+    hidden: false
+    sections:
+    - name: research area of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: broader concept
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: narrower concept
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: related concept
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Identity
+    hidden: false
+    sections:
+    - name: same as
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
