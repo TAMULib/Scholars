@@ -316,6 +316,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
+    collapsed: false
     hidden: false
   - name: Research Area Of
     field: researchAreaOf
