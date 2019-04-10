@@ -81,9 +81,9 @@ export class LoaderDirective implements OnInit, OnDestroy {
             if (loading) {
                 setTimeout(() => {
                     if (this.loaderType === LoaderType.LINEAR) {
-                        this.backgroundImage = 'url(/assets/images/linear-loader.svg)';
+                        this.backgroundImage = 'url(assets/images/linear-loader.svg)';
                     } else if (this.loaderType === LoaderType.CIRCULAR) {
-                        this.backgroundImage = 'url(/assets/images/circular-loader.svg)';
+                        this.backgroundImage = 'url(assets/images/circular-loader.svg)';
                     }
                 }, 250);
 
@@ -101,7 +101,7 @@ export class LoaderDirective implements OnInit, OnDestroy {
                 this.backgroundSize = this.loaderSize;
                 this.backgroundPosition = this.loaderPosition;
             } else {
-                this.backgroundImage = 'url(/assets/images/transparent.png)';
+                this.backgroundImage = 'url(assets/images/transparent.png)';
 
                 this.elementsToBlur.forEach((elementToBlur: StyledElement) => {
                     if (elementToBlur.root) {

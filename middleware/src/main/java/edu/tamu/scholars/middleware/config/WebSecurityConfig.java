@@ -47,9 +47,6 @@ import edu.tamu.scholars.middleware.auth.handler.CustomLogoutSuccessHandler;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${ui.url:http://localhost:4200}")
-    private String uiUrl;
-
     @Value("${spring.profiles.active:default}")
     private String profile;
 
@@ -60,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private boolean halBrowserAuthorized;
 
     @Autowired
-    private TokenConfig tokenConfig;
+    private MiddlewareConfig config;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -87,6 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public TokenService tokenService() throws NoSuchAlgorithmException {
         KeyBasedPersistenceTokenService tokenService = new KeyBasedPersistenceTokenService();
+        TokenConfig tokenConfig = config.getAuth().getToken();
         tokenService.setServerInteger(tokenConfig.getServerInteger());
         tokenService.setServerSecret(tokenConfig.getServerSecret());
         tokenService.setPseudoRandomNumberBytes(tokenConfig.getPseudoRandomNumberBytes());
@@ -98,7 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Arrays.asList(uiUrl));
+        configuration.setAllowedOrigins(config.getAllowedOrigins());
         configuration.setAllowedMethods(Arrays.asList("GET", "DELETE", "PUT", "POST", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Origin", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

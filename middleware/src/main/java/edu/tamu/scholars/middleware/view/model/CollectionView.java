@@ -40,12 +40,16 @@ public abstract class CollectionView extends ResourceView {
     @ElementCollection
     private List<Filter> filters;
 
+    @ElementCollection
+    private List<Sort> sort;
+
     public CollectionView() {
         super();
         templates = new HashMap<String, String>();
         styles = new ArrayList<String>();
         facets = new ArrayList<Facet>();
         filters = new ArrayList<Filter>();
+        sort = new ArrayList<Sort>();
     }
 
     public Layout getLayout() {
@@ -88,8 +92,12 @@ public abstract class CollectionView extends ResourceView {
         this.filters = filters;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+    public List<Sort> getSort() {
+        return sort;
+    }
+
+    public void setSort(List<Sort> sort) {
+        this.sort = sort;
     }
 
 }

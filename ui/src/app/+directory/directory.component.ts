@@ -87,10 +87,12 @@ export class DirectoryComponent implements OnDestroy, OnInit {
         return queryParams;
     }
 
+    // NOTE: redundant with getDirectoryQueryParams in NavigationComponent
     public getResetQueryParams(directoryView: DirectoryView): Params {
         const queryParams: Params = {};
         queryParams.collection = directoryView.collection;
         queryParams.index = undefined;
+        queryParams.page = 1;
         if (directoryView.facets && directoryView.facets.length > 0) {
             let facets = '';
             directoryView.facets.forEach((facet: Facet) => {
@@ -104,8 +106,8 @@ export class DirectoryComponent implements OnDestroy, OnInit {
                 queryParams[`${filter.field}.filter`] = filter.value;
             });
         }
+        // NOTE: currently ignoring sort of CollectionView and applying sort asc by index field
         queryParams.sort = `${directoryView.index.field},asc`;
-        queryParams.page = 1;
         return queryParams;
     }
 

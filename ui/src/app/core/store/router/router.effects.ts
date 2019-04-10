@@ -13,7 +13,7 @@ import { selectLoginRedirect } from '../auth';
 import * as fromAuth from '../auth/auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
 import * as fromRouter from './router.actions';
-import * as fromSidebar from '../sidebar/sidebar.actions';
+// import * as fromSidebar from '../sidebar/sidebar.actions';
 
 @Injectable()
 export class RouterEffects {
@@ -36,6 +36,12 @@ export class RouterEffects {
             queryParams,
             ...extras
         }))
+    );
+
+    @Effect({ dispatch: false }) navigateByUrl = this.actions.pipe(
+        ofType(fromRouter.RouterActionTypes.LINK),
+        map((action: fromRouter.Link) => action.payload),
+        map(({ url }) => this.router.navigateByUrl(url))
     );
 
     @Effect({ dispatch: false }) navigateBack = this.actions.pipe(

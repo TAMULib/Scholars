@@ -1,0 +1,23 @@
+<div class="d-flex">
+  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
+  <div class="ml-2 justify-self-end">
+    <span class="badge badge-light">{{=it.type}}</span>
+  </div>
+</div>
+<div class="d-inline-flex">
+  {{? it.doi}}
+  <span class="mr-1">
+    <a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a>
+  </span>
+  {{?}}
+  {{? it.pmid}}
+  <span class="mr-1">
+    <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a>
+  </span>
+  {{?}}
+  {{? it.uri}}
+  <span class="mr-1">
+    <a href="{{=it.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a>
+  </span>
+  {{?}}
+</div>

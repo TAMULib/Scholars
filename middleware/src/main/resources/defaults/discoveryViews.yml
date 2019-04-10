@@ -1,0 +1,331 @@
+---
+
+- name: People
+  collection: persons
+  layout: GRID
+  templates:
+    default: "defaults/discoveryViews/people/default.html"
+  styles: []
+  facets:
+  - name: People
+    field: type
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Organization
+    field: positionOrganization
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Research Area
+    field: researchArea
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Published In
+    field: selectedPublicationVenue
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Publisher
+    field: publisher
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Position
+    field: position
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  filters: []
+  sort:
+  - field: name
+    direction: ASC
+
+- name: Publications
+  collection: documents
+  layout: LIST
+  templates:
+    default: "defaults/discoveryViews/publications/default.html"
+    AcademicArticle: "defaults/discoveryViews/publications/AcademicArticle.html"
+    Book: "defaults/discoveryViews/publications/Book.html"
+    Chapter: "defaults/discoveryViews/publications/Chapter.html"
+    ConferencePaper: "defaults/discoveryViews/publications/ConferencePaper.html"
+    Thesis: "defaults/discoveryViews/publications/Thesis.html"
+  styles: []
+  facets:
+  - name: Type
+    field: type
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Year
+    field: publicationDate
+    type: DATE_YEAR
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Author
+    field: author
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Author Organization
+    field: authorOrganization
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Published In
+    field: publicationVenue
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Publisher
+    field: publisher
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  filters: []
+  sort:
+  - field: title
+    direction: ASC
+
+- name: Grants
+  collection: relationships
+  layout: LIST
+  templates:
+    default: "defaults/discoveryViews/grants/default.html"
+  styles: []
+  facets:
+  - name: Grants
+    field: type
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: true
+    hidden: true
+  - name: Year Start
+    field: dateTimeIntervalStart
+    type: DATE_YEAR
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Year End
+    field: dateTimeIntervalEnd
+    type: DATE_YEAR
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Principal Investigator
+    field: principalInvestigator
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Co-Principal Investigator
+    field: coPrincipalInvestigator
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Awarded By
+    field: awardedBy
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Administered By
+    field: administeredBy
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  filters:
+  - field: type
+    value: Grant
+  sort:
+  - field: title
+    direction: ASC
+
+- name: Awards
+  collection: relationships
+  layout: LIST
+  templates:
+    default: "defaults/discoveryViews/awards/default.html"
+  styles: []
+  facets:
+  - name: Awards
+    field: type
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: true
+    hidden: true
+  - name: Year
+    field: yearAwarded
+    type: DATE_YEAR
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Recipient
+    field: awardOrHonorFor
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Conferred By
+    field: awardConferredBy
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  filters:
+  - field: type
+    value: AwardReceipt
+  sort:
+  - field: title
+    direction: ASC
+
+- name: Courses
+  collection: processes
+  layout: LIST
+  templates:
+    default: "defaults/discoveryViews/courses/default.html"
+  styles: []
+  facets:
+  - name: Courses
+    field: type
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: true
+    hidden: true
+  - name: Instructor
+    field: participant
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Offered By
+    field: offeredBy
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Date Start
+    field: dateTimeIntervalStart
+    type: DATE_YEAR
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  - name: Date End
+    field: dateTimeIntervalEnd
+    type: DATE_YEAR
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  filters:
+  - field: type
+    value: Course
+  sort:
+  - field: title
+    direction: ASC
+
+- name: Concepts
+  collection: concepts
+  layout: LIST
+  templates:
+    default: "defaults/discoveryViews/concepts/default.html"
+  styles: []
+  facets:
+  - name: Concepts
+    field: type
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: true
+    hidden: true
+  - name: Associated Department
+    field: associatedDepartment
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    hidden: false
+  - name: Research Area Of
+    field: researchAreaOf
+    type: STRING
+    sort: COUNT
+    direction: DESC
+    limit: 10
+    collapsed: false
+    hidden: false
+  filters: []
+  sort:
+  - field: name
+    direction: ASC

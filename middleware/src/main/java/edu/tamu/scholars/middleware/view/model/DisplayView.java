@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -13,14 +14,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "display_views")
-public class DisplayView extends ResourceView {
+public class DisplayView extends View {
 
     private static final long serialVersionUID = 7556127622115170597L;
 
-    @Column(unique = true)
-    private String type;
+    // TODO: add validation to prevent any given type belonging to multiple display views
+    @ElementCollection
+    private List<String> types;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String mainContentTemplate;
 
     @Column(columnDefinition = "TEXT")
@@ -31,19 +33,20 @@ public class DisplayView extends ResourceView {
 
     @JoinColumn(name = "display_view_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<TabView> tabs;
+    private List<DisplayTabView> tabs;
 
     public DisplayView() {
         super();
-        tabs = new ArrayList<TabView>();
+        types = new ArrayList<String>();
+        tabs = new ArrayList<DisplayTabView>();
     }
 
-    public String getType() {
-        return type;
+    public List<String> getTypes() {
+        return types;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypes(List<String> types) {
+        this.types = types;
     }
 
     public String getMainContentTemplate() {
@@ -70,11 +73,11 @@ public class DisplayView extends ResourceView {
         this.rightScanTemplate = rightScanTemplate;
     }
 
-    public List<TabView> getTabs() {
+    public List<DisplayTabView> getTabs() {
         return tabs;
     }
 
-    public void setTabs(List<TabView> tabs) {
+    public void setTabs(List<DisplayTabView> tabs) {
         this.tabs = tabs;
     }
 

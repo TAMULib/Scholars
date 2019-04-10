@@ -59,7 +59,8 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                         describeDirectoryView.withField("styles", "An array of result style strings of the Directory View."),
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
-                        describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>.")
+                        describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>.")
                     ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
@@ -76,6 +77,7 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                         describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                         subsectionWithPath("_links").description("<<resources-directory-views-list-links, Links>> to other resources.")
                     )
                 )
@@ -106,7 +108,8 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                         describeDirectoryView.withField("styles", "An array of result style strings of the Directory View."),
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
-                        describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>.")
+                        describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>.")
                     ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
@@ -123,6 +126,7 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                         describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                         subsectionWithPath("_links").description("<<resources-directory-views-list-links, Links>> to other resources.")
                     )
                 )
@@ -161,6 +165,7 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                                 describeDirectoryView.withParameter("templates", "The result templates of the Directory View.").optional(),
                                 describeDirectoryView.withParameter("styles", "An array of result style strings of the Directory View.").optional(),
                                 describeDirectoryView.withParameter("facets", "An array of <<resources-facets, Facet resources>>.").optional(),
+                                describeDirectoryView.withParameter("sort", "An array of <<resources-sort, Sort resources>>.").optional(),
                                 describeDirectoryView.withParameter("filters", "An array of <<resources-filters, Filters resources>>.").optional()
                             ),
                             links(
@@ -178,6 +183,7 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                                 describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                                 describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                                 describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                                describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                                 subsectionWithPath("_links").description("<<resources-directory-views-list-links, Links>> to other resources.")
                             )
                         )
@@ -216,6 +222,7 @@ public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<Dir
                             describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                             describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                             describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                            describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                             subsectionWithPath("_links").description("<<resources-directory-view-list-links, Links>> to other resources.")
                         )
                     )

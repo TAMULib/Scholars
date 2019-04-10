@@ -1,19 +1,24 @@
-import { ResourceView, View } from './';
+import { View } from './';
 
-export interface DisplaySection {
-    readonly name: string;
+export interface DisplayTabSectionView extends View {
     readonly hidden: boolean;
     readonly template: string;
+    templateFunction?: Function;
+    readonly requiredFields: string[];
 }
 
-export interface TabView extends View {
+export interface DisplayTabView extends View {
     readonly hidden: boolean;
-    readonly sections: DisplaySection[];
+    readonly sections: DisplayTabSectionView[];
 }
 
-export interface DisplayView extends ResourceView {
+export interface DisplayView extends View {
+    readonly types: string[];
     readonly mainContentTemplate: string;
+    mainContentTemplateFunction?: Function;
     readonly leftScanTemplate: string;
+    leftScanTemplateFunction?: Function;
     readonly rightScanTemplate: string;
-    readonly tabs: TabView[];
+    rightScanTemplateFunction?: Function;
+    readonly tabs: DisplayTabView[];
 }

@@ -30,3 +30,5 @@
 *.trace.db
 
 *.log*
+
+triplestore/

@@ -1,4 +1,8 @@
 middleware:
+  load-defaults: true
+  update-defaults: true
+  allowed-origins:
+  - http://localhost:4200
   auth:
     password:
       duration: 180
@@ -33,7 +37,7 @@ vivo:
   sparql-query-endpoint: /api/sparqlQuery
   triplestore:
     type: TDB
-    directory:
+    directory: triplestore
     datasourceUrl: jdbc:mysql://localhost/vivo
     username:
     password:
@@ -53,6 +57,8 @@ logging:
 
 server:
   port: 9000
+  servlet:
+    context-path:
 
 spring:
   data:
@@ -79,7 +85,7 @@ spring:
     add-properties: false
     restart:
       enabled: true
-      exclude: src/main/resources,target
+      exclude: target
   h2:
     console:
       enabled: false
@@ -99,8 +105,6 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
-        hbm2ddl:
-          import_files: import/import-themes.sql,import/import-views.sql
         show_sql: false
     show-sql: false
   mail:
@@ -120,7 +124,6 @@ spring:
     #        required: true
   profiles:
     active: default
-    include: organization,person,document,concept,relationship,process
   session:
     store-type: jdbc
     jdbc:

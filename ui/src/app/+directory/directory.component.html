@@ -10,7 +10,6 @@
 <scholars-sidebar>
   <div class="container mt-2" *ngIf="directoryView | async; let directoryView">
     <h3 class="text-primary">{{ directoryView.name }}</h3>
-    <p>{{query | async}}</p>
     <div class="index">
       <a class="option" [routerLink]="getDirectoryRouterLink(directoryView)" [queryParams]="getResetQueryParams(directoryView)" queryParamsHandling="merge">
         <span *ngIf="isActive(queryParams | async, 'All')" class="fa fa-caret-right mr-1"></span>

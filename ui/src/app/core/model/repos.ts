@@ -25,7 +25,7 @@ export const keys = {
     users: 'email',
     directoryViews: 'name',
     discoveryViews: 'name',
-    displayViews: 'type'
+    displayViews: 'name'
 };
 
 export const repos = {

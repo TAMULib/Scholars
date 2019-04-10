@@ -1,0 +1,63 @@
+<div class="d-flex">
+  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
+</div>
+<div>
+  <div>
+    {{? it.dateTimeIntervalStart && it.dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
+    <span>{{=it.dateTimeIntervalStart}}</span>
+    {{ } }}
+    <span>-</span>
+    {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
+    <span>{{=it.dateTimeIntervalEnd}}</span>
+    {{ } }}
+    {{?}}
+    {{? it.dateTimeIntervalStart && !it.dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
+    <span>{{=it.dateTimeIntervalStart}}</span>
+    {{ } }}
+    {{?}}
+    {{? !it.dateTimeIntervalStart && it.dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
+    <span>{{=it.dateTimeIntervalEnd}}</span>
+    {{ } }}
+    {{?}}
+  </div>
+  <div>
+    <span class="label">Awarded By:</span>
+    <span>{{=it.awardedBy}}</span>
+  </div>
+  {{? it.principalInvestigator && it.principalInvestigatorId}}
+  <div>
+    <span class="label">Principal Investigator:</span>
+  </div>
+  <div>
+    <ul>
+      {{~it.principalInvestigator :value:index}}
+      <li><span><a href="display/persons/{{=it.principalInvestigatorId[index]}}">{{=value}}</a></span></li>
+      {{~}}
+    </ul>  
+  </div>
+  {{?}}
+  {{? it.coPrincipalInvestigator && it.coPrincipalInvestigatorId}}
+  <div>
+    <span class="label">Co-Principal Investigator:</span>
+  </div>
+  <div>
+    <ul>
+      {{~it.coPrincipalInvestigator :value:index}}
+      <li><span><a href="display/persons/{{=it.coPrincipalInvestigatorId[index]}}">{{=value}}</a></span></li>
+      {{~}}
+    </ul>  
+  </div>
+  {{?}}
+</div>
+<style>
+  .label {
+    font-weight: 550;
+    margin-right: 2px;
+  }
+</style>

@@ -18,13 +18,13 @@
         <span *ngIf="showFilter(discoveryView, filter)">
           <span class="mr-1">{{filter.field}}:</span>
           <span class="mr-2">{{filter.value}}</span>
-          <a class="fa fa-close" [routerLink]="getDiscoveryRouteLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, page | async, query | async, filters, filter)"></a>
+          <a class="fa fa-close" [routerLink]="getDiscoveryRouterLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, page | async, query | async, filters, filter)"></a>
         </span>
       </span>
     </div>
     <ul role="tablist" class="list-unstyled mt-3 nav" *ngIf="discoveryViews | async; let discoveryViews" [ngClass]="{ 'nav-tabs nav-fill': showTabs(windowDimensions | async), 'nav-pills flex-column': !showTabs(windowDimensions | async) }">
       <li class="nav-item" *ngFor="let discoveryView of discoveryViews">
-        <a class="nav-link" [routerLink]="getDiscoveryRouteLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, page | async, query | async)" [class.active]="isActive(discoveryView, url | async)">{{ discoveryView.name }}</a>
+        <a class="nav-link" [routerLink]="getDiscoveryRouterLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, page | async, query | async)" [class.active]="isActive(discoveryView, url | async)">{{ discoveryView.name }}</a>
       </li>
     </ul>
     <scholars-pagination *ngIf="documents | async; let documents" [page]="page" [ngSwitch]="discoveryView.layout">

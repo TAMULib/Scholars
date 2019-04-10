@@ -5,19 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.solr.core.query.Criteria.OperationKey;
 import org.springframework.data.solr.core.query.FacetOptions;
 
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
-import edu.tamu.scholars.middleware.view.model.DisplaySection;
+import edu.tamu.scholars.middleware.view.model.DisplayTabSectionView;
+import edu.tamu.scholars.middleware.view.model.DisplayTabView;
 import edu.tamu.scholars.middleware.view.model.DisplayView;
 import edu.tamu.scholars.middleware.view.model.Facet;
+import edu.tamu.scholars.middleware.view.model.FacetType;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
 import edu.tamu.scholars.middleware.view.model.Layout;
-import edu.tamu.scholars.middleware.view.model.TabView;
+import edu.tamu.scholars.middleware.view.model.Sort;
 
 public class ViewTestUtility {
 
@@ -47,9 +49,10 @@ public class ViewTestUtility {
 
         facet.setName("Name");
         facet.setField("name");
-        facet.setLimit(20);
+        facet.setType(FacetType.STRING);
         facet.setSort(FacetOptions.FacetSort.COUNT);
-        facet.setDirection(Sort.Direction.DESC);
+        facet.setDirection(Direction.DESC);
+        facet.setLimit(20);
 
         facets.add(facet);
 
@@ -65,6 +68,16 @@ public class ViewTestUtility {
         filters.add(filter);
 
         directoryView.setFilters(filters);
+
+        List<Sort> sorting = new ArrayList<Sort>();
+
+        Sort sort = new Sort();
+        sort.setField("name");
+        sort.setDirection(Direction.ASC);
+
+        sorting.add(sort);
+
+        directoryView.setSort(sorting);
 
         Index index = new Index();
 
@@ -100,9 +113,10 @@ public class ViewTestUtility {
 
         facet.setName("Name");
         facet.setField("name");
-        facet.setLimit(20);
+        facet.setType(FacetType.STRING);
         facet.setSort(FacetOptions.FacetSort.COUNT);
-        facet.setDirection(Sort.Direction.DESC);
+        facet.setDirection(Direction.DESC);
+        facet.setLimit(20);
 
         facets.add(facet);
 
@@ -119,6 +133,16 @@ public class ViewTestUtility {
 
         discoveryView.setFilters(filters);
 
+        List<Sort> sorting = new ArrayList<Sort>();
+
+        Sort sort = new Sort();
+        sort.setField("name");
+        sort.setDirection(Direction.ASC);
+
+        sorting.add(sort);
+
+        discoveryView.setSort(sorting);
+
         return discoveryView;
     }
 
@@ -126,36 +150,44 @@ public class ViewTestUtility {
         DisplayView displayView = new DisplayView();
 
         displayView.setName(MOCK_VIEW_NAME);
-        displayView.setType("FacultyMember");
-        displayView.setCollection("persons");
         displayView.setMainContentTemplate("<div>Main</div>");
         displayView.setLeftScanTemplate("<div>Left Scan</div>");
         displayView.setRightScanTemplate("<div>Right Scan</div>");
 
-        List<TabView> tabs = new ArrayList<TabView>();
+        List<String> types = new ArrayList<String>();
+        types.add("FacultyMember");
 
-        tabs.add(getMockTabView());
+        displayView.setTypes(types);
+
+        List<DisplayTabView> tabs = new ArrayList<DisplayTabView>();
+
+        tabs.add(getMockDisplayTabView());
 
         displayView.setTabs(tabs);
 
         return displayView;
     }
 
-    public static TabView getMockTabView() {
-        TabView tabView = new TabView();
-        tabView.setName("Test");
+    public static DisplayTabView getMockDisplayTabView() {
+        DisplayTabView tab = new DisplayTabView();
+        tab.setName("Test");
 
-        List<DisplaySection> sections = new ArrayList<DisplaySection>();
+        List<DisplayTabSectionView> sections = new ArrayList<DisplayTabSectionView>();
 
-        DisplaySection displaySection = new DisplaySection();
-        displaySection.setName("Test");
-        displaySection.setTemplate("<span>Hello, World!</span>");
+        DisplayTabSectionView section = new DisplayTabSectionView();
+        section.setName("Test");
+        section.setTemplate("<span>Hello, World!</span>");
 
-        sections.add(displaySection);
+        List<String> requiredFields = new ArrayList<String>();
+        requiredFields.add("type");
 
-        tabView.setSections(sections);
+        section.setRequiredFields(requiredFields);
 
-        return tabView;
+        sections.add(section);
+
+        tab.setSections(sections);
+
+        return tab;
     }
 
 }

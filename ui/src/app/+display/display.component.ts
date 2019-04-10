@@ -8,16 +8,15 @@ import { filter, tap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { DisplayView } from '../core/model/view';
+import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView } from '../core/model/view';
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
 
-import { selectResourceById } from '../core/store/sdr';
+import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
-import { ResultViewService } from '../core/service/result-view.service';
 
 @Component({
     selector: 'scholars-display',
@@ -30,13 +29,14 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     public displayView: Observable<DisplayView>;
 
+    public discoveryView: Observable<DiscoveryView>;
+
     public document: Observable<SolrDocument>;
 
     private subscriptions: Subscription[];
 
     constructor(
         private store: Store<AppState>,
-        private resultViewService: ResultViewService,
         private route: ActivatedRoute
     ) {
         this.subscriptions = [];
@@ -50,6 +50,10 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     ngOnInit() {
         this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
+        this.discoveryView = this.store.pipe(
+            select(selectDefaultDiscoveryView),
+            filter((view: DiscoveryView) => view !== undefined)
+        );
         this.subscriptions.push(this.route.params.subscribe((params: Params) => {
             if (params.collection && params.id) {
                 this.store.dispatch(new fromSdr.GetOneResourceAction(params.collection, { id: params.id }));
@@ -57,9 +61,24 @@ export class DisplayComponent implements OnDestroy, OnInit {
                     select(selectResourceById(params.collection, params.id)),
                     filter((document: SolrDocument) => document !== undefined),
                     tap((document: SolrDocument) => {
+                        console.log(document);
                         this.displayView = this.store.pipe(
-                            select(selectResourceById('displayViews', document.type[0])),
-                            filter((view: DisplayView) => view !== undefined)
+                            select(selectDisplayViewByType(document.type)),
+                            filter((view: DisplayView) => view !== undefined),
+                            tap((displayView: DisplayView) => {
+                                const viewAllTabSections = [];
+                                const viewAllTab: DisplayTabView = {
+                                    name: 'View All',
+                                    hidden: false,
+                                    sections: viewAllTabSections
+                                };
+                                this.getTabsToShow(displayView.tabs, document).forEach((tab: DisplayTabView) => {
+                                    this.getSectionsToShow(tab.sections, document).forEach((section: DisplayTabSectionView) => {
+                                        viewAllTabSections.push(section);
+                                    });
+                                });
+                                displayView.tabs.push(viewAllTab);
+                            })
                         );
                     })
                 );
@@ -67,24 +86,74 @@ export class DisplayComponent implements OnDestroy, OnInit {
         }));
     }
 
-    public getLeftScan(displayView: DisplayView, document: SolrDocument): string {
-        return this.resultViewService.compileView(displayView.leftScanTemplate, document);
+    public showMainContent(displayView: DisplayView): boolean {
+        return displayView.mainContentTemplate && displayView.mainContentTemplate.length > 0;
     }
 
-    public getMainContent(displayView: DisplayView, document: SolrDocument): string {
-        return this.resultViewService.compileView(displayView.mainContentTemplate, document);
+    public showLeftScan(displayView: DisplayView): boolean {
+        return displayView.leftScanTemplate && displayView.leftScanTemplate.length > 0;
     }
 
-    public getRightScan(displayView: DisplayView, document: SolrDocument): string {
-        return this.resultViewService.compileView(displayView.rightScanTemplate, document);
+    public showRightScan(displayView: DisplayView): boolean {
+        return displayView.rightScanTemplate && displayView.rightScanTemplate.length > 0;
     }
 
-    public getSection(template: string, document: SolrDocument): string {
-        return this.resultViewService.compileView(template, document);
+    public getMainContentColSize(displayView: DisplayView): number {
+        let colSize = 12;
+        if (this.showLeftScan(displayView)) {
+            colSize -= 3;
+        }
+        if (this.showRightScan(displayView)) {
+            colSize -= 3;
+        }
+        return colSize;
     }
 
-    public showTabs(windowDimensions: WindowDimensions): boolean {
-        return windowDimensions.width > 767;
+    public getLeftScanColSize(displayView: DisplayView): number {
+        let colSize = 12;
+        if (this.showMainContent(displayView)) {
+            colSize -= 9;
+        }
+        if (this.showRightScan(displayView)) {
+            colSize -= 3;
+        }
+        return colSize;
+    }
+
+    public getRightScanColSize(displayView: DisplayView): number {
+        let colSize = 12;
+        if (this.showLeftScan(displayView)) {
+            colSize -= 3;
+        }
+        if (this.showMainContent(displayView)) {
+            colSize -= 9;
+        }
+        return colSize;
+    }
+
+    public getTabsToShow(tabs: DisplayTabView[], document: SolrDocument): DisplayTabView[] {
+        return tabs.filter((tab: DisplayTabView) => !tab.hidden && this.getSectionsToShow(tab.sections, document).length > 0);
+    }
+
+    public getSectionsToShow(sections: DisplayTabSectionView[], document: SolrDocument): DisplayTabSectionView[] {
+        return sections.filter((section: DisplayTabSectionView) => !section.hidden && this.documentHasRequiredFields(section.requiredFields, document));
+    }
+
+    public getTabsetType(windowDimensions: WindowDimensions): string {
+        return windowDimensions.width > 767 ? 'tabs' : 'pills';
+    }
+
+    public getTabOrientation(windowDimensions: WindowDimensions): string {
+        return windowDimensions.width > 767 ? 'horizontal' : 'vertical';
+    }
+
+    private documentHasRequiredFields(requiredFields: string[], document: SolrDocument): boolean {
+        for (const requiredField of requiredFields) {
+            if (document[requiredField] === undefined) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

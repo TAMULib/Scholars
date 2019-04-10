@@ -8,7 +8,7 @@ import { filter, tap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { DiscoveryView, Filter, Facet } from '../core/model/view';
+import { DiscoveryView, Filter, Facet, Sort } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
@@ -96,10 +96,11 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         return true;
     }
 
-    public getDiscoveryRouteLink(discoveryView: DiscoveryView): string[] {
+    public getDiscoveryRouterLink(discoveryView: DiscoveryView): string[] {
         return ['/discovery', discoveryView.name];
     }
 
+    // NOTE: redundant with getDiscoveryQueryParams from SearchBoxComponent
     public getDiscoveryQueryParams(discoveryView: DiscoveryView, page: SdrPage, query: string, filters: Filter[] = [], removeFilter: Filter): Params {
         const queryParams: Params = {};
         queryParams.collection = discoveryView.collection;
@@ -115,6 +116,13 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
             discoveryView.filters.forEach((filter: Filter) => {
                 queryParams[`${filter.field}.filter`] = filter.value;
             });
+        }
+        // NOTE: only first sort is applied to query
+        // Spring requires multiple sort parameters use multiple entries with the 'sort' key
+        // e.g. ?sort=name,asc&sort=preferredTitle,desc
+        // Angular unfortunately does not support constructing that with queryParams
+        if (discoveryView.sort && discoveryView.sort.length > 0) {
+            queryParams.sort = `${discoveryView.sort[0].field},${discoveryView.sort[0].direction}`;
         }
         // tslint:disable-next-line:no-shadowed-variable
         filters.filter((filter: Filter) => !this.equals(filter, removeFilter)).forEach((filter: Filter) => {

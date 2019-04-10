@@ -21,6 +21,17 @@ The data is compiled into a profile that you can edit to best represent your sch
 
 [%hardbreaks]
 
+== Discovery
+
+include::concepts.adoc[]
+include::documents.adoc[]
+include::organizations.adoc[]
+include::persons.adoc[]
+include::processes.adoc[]
+include::relationships.adoc[]
+
+[%hardbreaks]
+
 include::registration.adoc[]
 include::login.adoc[]
 include::logout.adoc[]
@@ -32,17 +43,6 @@ include::user.adoc[]
 
 include::themes.adoc[]
 include::users.adoc[]
-include::displayViews.adoc[]
 include::directoryViews.adoc[]
 include::discoveryViews.adoc[]
-
-[%hardbreaks]
-
-== Discovery
-
-include::concepts.adoc[]
-include::documents.adoc[]
-include::organizations.adoc[]
-include::persons.adoc[]
-include::processes.adoc[]
-include::relationships.adoc[]
+include::displayViews.adoc[]

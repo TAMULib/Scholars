@@ -14,7 +14,7 @@ public @interface PropertySource {
 
     String template();
 
-    String key();
+    String predicate();
 
     String id() default "";
 

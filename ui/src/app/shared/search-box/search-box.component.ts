@@ -156,6 +156,13 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
                 queryParams[`${filter.field}.filter`] = filter.value;
             });
         }
+        // NOTE: only first sort is applied to query
+        // Spring requires multiple sort parameters use multiple entries with the 'sort' key
+        // e.g. ?sort=name,asc&sort=preferredTitle,desc
+        // Angular unfortunately does not support constructing that with queryParams
+        if (this.view.sort && this.view.sort.length > 0) {
+            queryParams.sort = `${this.view.sort[0].field},${this.view.sort[0].direction}`;
+        }
         if (query && query.length > 0) {
             queryParams.query = query;
         } else {

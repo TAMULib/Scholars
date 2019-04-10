@@ -1,4 +1,8 @@
 middleware:
+  load-defaults: false
+  update-defaults: false
+  allowed-origins:
+  - http://localhost:4200
   auth:
     password:
       duration: 180
@@ -79,7 +83,7 @@ spring:
     add-properties: false
     restart:
       enabled: false
-      exclude: src/main/resources,target
+      exclude: target
   h2:
     console:
       enabled: false
@@ -116,7 +120,6 @@ spring:
             required: true
   profiles:
     active: test
-    include: organization,person,document,concept,relationship,process
   session:
     store-type: jdbc
     jdbc:

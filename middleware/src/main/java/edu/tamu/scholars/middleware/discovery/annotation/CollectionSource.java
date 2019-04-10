@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 public @interface CollectionSource {
 
-    String key();
+    String predicate();
 
 }

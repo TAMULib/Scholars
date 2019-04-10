@@ -63,7 +63,6 @@ export class NavigationComponent implements OnInit {
     public getDirectoryQueryParams(directoryView: DirectoryView): Params {
         const queryParams: Params = {};
         queryParams.collection = directoryView.collection;
-        queryParams.sort = `${directoryView.index.field},asc`;
         queryParams.index = undefined;
         if (directoryView.facets && directoryView.facets.length > 0) {
             let facets = '';
@@ -77,6 +76,8 @@ export class NavigationComponent implements OnInit {
                 queryParams[`${filter.field}.filter`] = filter.value;
             });
         }
+        // NOTE: currently ignoring sort of CollectionView and applying sort asc by index field
+        queryParams.sort = `${directoryView.index.field},asc`;
         return queryParams;
     }
 
