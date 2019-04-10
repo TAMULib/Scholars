@@ -20,7 +20,7 @@ public class DisplayView extends View {
     @Column(unique = true)
     private String type;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String mainContentTemplate;
 
     @Column(columnDefinition = "TEXT")

@@ -118,7 +118,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> headOfType;
 
     @Indexed
-    @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "headOfOrganizationId")
     private List<String> headOfOrganization;
 
     @Indexed(type = "pdate")
@@ -128,6 +128,9 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "pdate")
     @PropertySource(template = "person/headOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> headOfEndDate;
+
+    @Indexed
+    private List<String> headOfOrganizationId;
 
     @Indexed
     private List<String> headOfId;
@@ -141,7 +144,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> memberOfType;
 
     @Indexed
-    @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "memberOfOrganizationId")
     private List<String> memberOfOrganization;
 
     @Indexed(type = "pdate")
@@ -151,6 +154,9 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "pdate")
     @PropertySource(template = "person/memberOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> memberOfEndDate;
+
+    @Indexed
+    private List<String> memberOfOrganizationId;
 
     @Indexed
     private List<String> memberOfId;
@@ -1030,6 +1036,14 @@ public class Person extends AbstractSolrDocument {
         this.headOfEndDate = headOfEndDate;
     }
 
+    public List<String> getHeadOfOrganizationId() {
+        return headOfOrganizationId;
+    }
+
+    public void setHeadOfOrganizationId(List<String> headOfOrganizationId) {
+        this.headOfOrganizationId = headOfOrganizationId;
+    }
+
     public List<String> getHeadOfId() {
         return headOfId;
     }
@@ -1076,6 +1090,14 @@ public class Person extends AbstractSolrDocument {
 
     public void setMemberOfEndDate(List<String> memberOfEndDate) {
         this.memberOfEndDate = memberOfEndDate;
+    }
+
+    public List<String> getMemberOfOrganizationId() {
+        return memberOfOrganizationId;
+    }
+
+    public void setMemberOfOrganizationId(List<String> memberOfOrganizationId) {
+        this.memberOfOrganizationId = memberOfOrganizationId;
     }
 
     public List<String> getMemberOfId() {

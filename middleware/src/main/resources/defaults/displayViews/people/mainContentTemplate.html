@@ -1,10 +1,10 @@
 <div>
-  <h4><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></h4>
+  <h3><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></h3>
   <div class="mt-1"><h5>{{=it.preferredTitle}}</h5></div>
   {{? it.position && it.positionId}}
   <div>
     <span class="label">Positions:</span>
-    <ul class="list-unstyled">
+    <ul class="list-unstyled ml-1">
       {{~it.position :position}}
       <li>
         <div class="comma-seperated">
@@ -23,7 +23,7 @@
   <div class="mt-1">
     <span class="label">Research Areas:</span>
   </div>
-  <div class="comma-seperated">
+  <div class="comma-seperated ml-1">
     {{~it.researchArea :value:index}}
     <span><a href="display/concepts/{{=it.researchAreaId[index]}}">{{=value}}</a></span>
     {{~}}

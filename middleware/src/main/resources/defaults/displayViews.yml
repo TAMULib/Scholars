@@ -3,8 +3,6 @@
 - name: Default
   type: default
   mainContentTemplate: "defaults/displayViews/default/mainContentTemplate.html"
-  leftScanTemplate: "defaults/displayViews/default/leftScanTemplate.html"
-  rightScanTemplate: "defaults/displayViews/default/rightScanTemplate.html"
   tabs: []
 
 - name: People
@@ -13,20 +11,72 @@
   leftScanTemplate: "defaults/displayViews/people/leftScanTemplate.html"
   rightScanTemplate: "defaults/displayViews/people/rightScanTemplate.html"
   tabs:
+  - name: Overview
+    hidden: false
+    sections:
+    - name: HR job title
+      hidden: false
+      template: "defaults/displayViews/people/hrJobTitle.html"
+      requiredFields:
+      - hrJobTitle
+    - name: Keywords
+      hidden: false
+      template: "defaults/displayViews/people/keywords.html"
+      requiredFields:
+      - keyword
+  - name: Affiliation
+    hidden: false
+    sections:
+    - name: Head Of
+      hidden: false
+      template: "defaults/displayViews/people/headOf.html"
+      requiredFields:
+      - headOf
+      - headOfType
+      - headOfOrganization
+      - headOfOrganizationId
+      - headOfId
+    - name: Member Of
+      hidden: false
+      template: "defaults/displayViews/people/memberOf.html"
+      requiredFields:
+      - memberOf
+      - memberOfType
+      - memberOfOrganization
+      - memberOfOrganizationId
+      - memberOfId
+    - name: Has Collaborator
+      hidden: false
+      template: "defaults/displayViews/people/hasCollaborator.html"
+      requiredFields:
+      - hasCollaborator
+      - hasCollaboratorId
+    - name: Clinical Activities
+      hidden: false
+      template: "defaults/displayViews/people/clinicalActivities.html"
+      requiredFields:
+      - clinicalActivity
+      - clinicalActivityType
+      - clinicalActivityRole
+      - clinicalActivityId
+    - name: Attended Event
+      hidden: false
+      template: "defaults/displayViews/people/attendedEvent.html"
+      requiredFields:
+      - attendedEvent
+      - attendedEventType
+      - attendedEventId
   - name: Academic Background
     hidden: false
     sections:
-    - name: education and training
+    - name: Education and Training
       hidden: false
       template: "defaults/displayViews/people/educationAndTraining.html"
       requiredFields:
       - educationAndTraining
-  - name: Publications
-    hidden: false
-    sections: []
-  - name: Grants/Awards
-    hidden: false
-    sections: []
+      - educationAndTrainingRole
+      - educationAndTrainingType
+      - educationAndTrainingId
   - name: Recent Courses
     hidden: false
     sections: []

@@ -1,21 +1,21 @@
 <div>
   <div class="mt-2">
-  	<span class="fa fa-link"></span><span class="info">Contact Info</span>
+    <span class="fa fa-link"></span><span class="info">Contact Info</span>
   </div>
   <div>
-  	<span class="fa fa-envelope-o"></span><span class="info"><a href="mailto: {{=it.email}}">{{=it.email}}</a></span>
+    <span class="fa fa-envelope-o"></span><span class="info"><a href="mailto: {{=it.email}}">{{=it.email}}</a></span>
   </div>
   <div>
-  	<span class="fa fa-phone"></span><span class="info"><a href="tel: {{=it.email}}">{{=it.phone}}</a></span>
+    <span class="fa fa-phone"></span><span class="info"><a href="tel: {{=it.email}}">{{=it.phone}}</a></span>
   </div>
   {{? it.websiteLabel && it.websiteUrl}}
   <div>
     <span class="label">Websites</span>
-    <ul class="list-unstyled">
+    <ul class="list-unstyled ml-1">
       {{~it.websiteLabel :label:index}}
       <li><span><a href="{{=it.websiteUrl[index]}}">{{=label}}</a></span></li>
       {{~}}
-    </ul>  
+    </ul>
   </div>
   {{?}}
   {{? it.orcidId}}
@@ -23,7 +23,7 @@
     <span class="label">ORCID</span>
   </div>
   <div>
-    <span><a href="https://orcid.org/{{=it.orcidId}}">{{=it.orcidId}}</a></span>  
+    <span><a href="https://orcid.org/{{=it.orcidId}}">{{=it.orcidId}}</a></span>
   </div>
   {{?}}
   <div class="d-lg-none mt-2 mb-2">
@@ -44,9 +44,9 @@
 <style>
   .info,
   .fa {
-    font-size: 18px;
-  	width: 30px;
-  	height: 30px;
-  	margin: auto;
+    font-size: 16px;
+    width: 25px;
+    height: 25px;
+    margin: auto;
   }
 </style>

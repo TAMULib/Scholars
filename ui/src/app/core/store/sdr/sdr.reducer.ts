@@ -58,9 +58,15 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         }
     };
     const augmentDisplayViewTemplates = (view: DisplayView) => {
-        view.mainContentTemplateFunction = doT.template(view.mainContentTemplate);
-        view.leftScanTemplateFunction = doT.template(view.leftScanTemplate);
-        view.rightScanTemplateFunction = doT.template(view.rightScanTemplate);
+        if (view.mainContentTemplate && view.mainContentTemplate.length > 0) {
+            view.mainContentTemplateFunction = doT.template(view.mainContentTemplate);
+        }
+        if (view.leftScanTemplate && view.leftScanTemplate.length > 0) {
+            view.leftScanTemplateFunction = doT.template(view.leftScanTemplate);
+        }
+        if (view.rightScanTemplate && view.rightScanTemplate.length > 0) {
+            view.rightScanTemplateFunction = doT.template(view.rightScanTemplate);
+        }
         view.tabs.forEach(tab => {
             tab.sections.forEach(section => {
                 section.templateFunction = getTemplateFunction(section.template);

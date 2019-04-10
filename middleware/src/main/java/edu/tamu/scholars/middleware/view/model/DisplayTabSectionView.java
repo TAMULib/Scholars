@@ -19,7 +19,7 @@ public class DisplayTabSectionView extends View {
     @Column(nullable = false)
     private boolean hidden;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     public String template;
 
     @ElementCollection

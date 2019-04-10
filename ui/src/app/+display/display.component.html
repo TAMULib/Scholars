@@ -22,14 +22,14 @@
     <div class="row mt-2">
       <div class="col-12">
         <ngb-tabset [type]="getTabsetType(windowDimensions | async)" [orientation]="getTabOrientation(windowDimensions | async)">
-          <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [title]="tab.name">
+          <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [title]="tab.name" [id]="tab.name">
             <ng-template ngbTabContent>
 
-              <div class="row m-2" *ngFor="let section of getSectionsToShow(tab.sections, document)">
+              <div class="row mt-3 ml-2 mr-2 mb-2" *ngFor="let section of getSectionsToShow(tab.sections, document)">
 
                 <div class="col-12">
-                  <h3>{{section.name}}</h3>
-                  <div [innerHtml]="section.templateFunction(document)"></div>
+                  <h4>{{section.name}}</h4>
+                  <div class="p-1" [innerHtml]="section.templateFunction(document)"></div>
                 </div>
 
               </div>
