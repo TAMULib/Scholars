@@ -19,7 +19,7 @@
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
       - hrJobTitle
-    - name: Keywords
+    - name: keywords
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
@@ -27,157 +27,157 @@
   - name: Affiliation
     hidden: false
     sections:
-    - name: Head Of
+    - name: head of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Member Of
+    - name: member of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Has Collaborator
+    - name: has collaborator
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Clinical Activities
+    - name: clinical activities
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Attended Event
+    - name: attended event
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
   - name: Academic Background
     hidden: false
     sections:
-    - name: Education and Training
+    - name: education and training
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Credentials
+    - name: credentials
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Credential Eligibility Attained
+    - name: credential eligibility attained
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Advisee Of
+    - name: advisee of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
   - name: Publications
     hidden: false
     sections:
-    - name: Selected Publications
+    - name: selected publications
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Collection or Series Editor for
+    - name: collection or series editor for
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Editor Of
+    - name: editor of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Presentations
+    - name: presentations
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Featured In
+    - name: featured in
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Assignee for Patent
+    - name: assignee for patent
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Translator Of
+    - name: translator of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-  - name: Grants / Awards
+  - name: Grants/Awards
     hidden: false
     sections:
-    - name: Research Overview
+    - name: research overview
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Principal Investigator
+    - name: principal investigator
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Co-Principal Investigator On
+    - name: co-principal investigator on
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Investigator On
+    - name: investigator on
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Other Research Activities
+    - name: other research activities
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Awards and Honors
+    - name: awards and honors
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
   - name: Recent Courses
     hidden: false
     sections:
-    - name: Teaching Overview
+    - name: teaching overview
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Teaching Activities
+    - name: teaching activities
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Advisees
+    - name: advisees
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
   - name: Works By Students
     hidden: false
     sections:
-    - name: Chaired Theses and Dissertations
+    - name: chaired theses and dissertations
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
   - name: Service
     hidden: false
     sections:
-    - name: Outreach Overview
+    - name: outreach overview
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Reviewer of
+    - name: reviewer of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Contact or Provider for Service
+    - name: contact or provider for service
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Organizer Of Event
+    - name: organizer of event
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Professional Service Activities
+    - name: professional service activities
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Outreach and Community Service Activities
+    - name: outreach and community service activities
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Performs Technique
+    - name: performs technique
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Has Expertise In Technique
+    - name: has expertise in technique
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
@@ -192,7 +192,7 @@
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: ResearcherId
+    - name: ResearcherID
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
@@ -212,27 +212,27 @@
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Same As
+    - name: same as
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: ORCID Id
+    - name: ORCID iD
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: eRA Commons Id
+    - name: eRA Commons ID
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: ISI Researcher Id
+    - name: ISI Researcher ID
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Scopus Id
+    - name: Scopus ID
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Health Care Provider Id
+    - name: health care provider ID
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
@@ -251,74 +251,74 @@
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Middle Name or Initial
+    - name: middle name or initial
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Full Name
+    - name: full name
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Mailing Address
+    - name: mailing address
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Geographic Location
+    - name: geographic location
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Located in Facility
+    - name: located in facility
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Fax
+    - name: fax
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
   - name: Other
     hidden: false
     sections:
-    - name: Bearer Of
+    - name: bearer of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Has Collaborator
+    - name: has collaborator
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Has Contact Info
+    - name: has contact info
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Has Output
+    - name: has output
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Is Specified Output of
+    - name: is specified output of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Output of
+    - name: output of
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Participates In
+    - name: participates in
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Patient Id
+    - name: patient id
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Realized In
+    - name: realized in
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Related By
+    - name: related by
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
-    - name: Relates
+    - name: relates
       hidden: false
       template: "defaults/displayViews/defaults/default.html"
       requiredFields:
@@ -344,3 +344,248 @@
   - University
   mainContentTemplate: "defaults/displayViews/organizations/mainContentTemplate.html"
   rightScanTemplate: "defaults/displayViews/organizations/rightScanTemplate.html"
+  tabs:
+  - name: Overview
+    hidden: false
+    sections:
+    - name: offers degree
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: abbreviation
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: date/time interval
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: sponsors award or honor
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: award or honor given
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: awards and honors received
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: keywords
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Affiliation
+    hidden: false
+    sections:
+    - name: organization for training
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: people
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has sub-organization
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: organization within
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: lead organization of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has collaborating organization or group
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has affiliated organization
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: member of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: clinical activities
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: convener of event
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: attended event
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Publications
+    hidden: false
+    sections:
+    - name: selected publications
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: publisher of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: presentations
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: featured in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: assignee for patent
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: translator of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Grants/Awards
+    hidden: false
+    sections:
+    - name: awards grant
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: administers grant
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: subcontracts grant
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: performs human study
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Service
+    hidden: false
+    sections:
+    - name: contact or provider for service
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: outreach and community service activities
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has equipment
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: offers course
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Identity
+    hidden: false
+    sections:
+    - name: OrgID
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: same as
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Contact
+    hidden: false
+    sections:
+    - name: phone
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: fax
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: email address
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: mailing address
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: geographic location
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: located in facility
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: predecessor organization
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: successor organization
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: governing authority for
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+  - name: Other
+    hidden: false
+    sections:
+    - name: bearer of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has collaborator
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has contact info
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: has part
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: is specific output of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: located in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: output of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: part of
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: participates in
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: related by
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: relates
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:
+    - name: uses
+      hidden: false
+      template: "defaults/displayViews/defaults/default.html"
+      requiredFields:

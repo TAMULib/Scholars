@@ -21,7 +21,7 @@
             <ng-template ngbTabContent>
               <div class="row mt-3 ml-2 mr-2 mb-2" *ngFor="let section of getSectionsToShow(tab.sections, document)">
                 <div class="col-12">
-                  <h4 class="section-name">{{section.name}}</h4>
+                  <h4>{{section.name}}</h4>
                   <div class="p-1" [innerHtml]="section.templateFunction(document)"></div>
                 </div>
               </div>
