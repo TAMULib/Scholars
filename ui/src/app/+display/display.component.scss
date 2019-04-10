@@ -1,3 +1,6 @@
 :host {
   width: 100%;
+  .section-name {
+    text-transform: lowercase;
+  }
 }

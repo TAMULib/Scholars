@@ -59,11 +59,16 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
                 }
             }
 
-            for (DisplayTabView tabView : view.getTabs()) {
-                for (DisplayTabSectionView section : tabView.getSections()) {
-                    section.setTemplate(getTemplate(section.getTemplate()));
+            if (view.getTabs() != null) {
+                for (DisplayTabView tabView : view.getTabs()) {
+                    if (tabView.getSections() != null) {
+                        for (DisplayTabSectionView section : tabView.getSections()) {
+                            section.setTemplate(getTemplate(section.getTemplate()));
+                        }
+                    }
                 }
             }
+
         }
         return views;
     }

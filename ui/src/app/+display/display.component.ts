@@ -63,8 +63,22 @@ export class DisplayComponent implements OnDestroy, OnInit {
                     tap((document: SolrDocument) => {
                         console.log(document);
                         this.displayView = this.store.pipe(
-                            select(selectDisplayViewByType(document.type[0])),
-                            filter((view: DisplayView) => view !== undefined)
+                            select(selectDisplayViewByType(document.type)),
+                            filter((view: DisplayView) => view !== undefined),
+                            tap((displayView: DisplayView) => {
+                                const viewAllTabSections = [];
+                                const viewAllTab: DisplayTabView = {
+                                    name: 'View All',
+                                    hidden: false,
+                                    sections: viewAllTabSections
+                                };
+                                this.getTabsToShow(displayView.tabs, document).forEach((tab: DisplayTabView) => {
+                                    this.getSectionsToShow(tab.sections, document).forEach((section: DisplayTabSectionView) => {
+                                        viewAllTabSections.push(section);
+                                    });
+                                });
+                                displayView.tabs.push(viewAllTab);
+                            })
                         );
                     })
                 );

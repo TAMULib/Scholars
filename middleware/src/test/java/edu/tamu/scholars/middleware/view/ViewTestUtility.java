@@ -150,10 +150,14 @@ public class ViewTestUtility {
         DisplayView displayView = new DisplayView();
 
         displayView.setName(MOCK_VIEW_NAME);
-        displayView.setType("FacultyMember");
         displayView.setMainContentTemplate("<div>Main</div>");
         displayView.setLeftScanTemplate("<div>Left Scan</div>");
         displayView.setRightScanTemplate("<div>Right Scan</div>");
+
+        List<String> types = new ArrayList<String>();
+        types.add("FacultyMember");
+
+        displayView.setTypes(types);
 
         List<DisplayTabView> tabs = new ArrayList<DisplayTabView>();
 

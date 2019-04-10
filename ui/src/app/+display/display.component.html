@@ -8,38 +8,27 @@
   </div>
 </div>
 <div class="document container" *ngIf="document | async; let document">
-
   <div *ngIf="displayView | async; let displayView">
-
     <div class="row mt-2">
-
       <div *ngIf="showLeftScan(displayView)" class="col-lg-{{ getLeftScanColSize(displayView) }}" [innerHtml]="displayView.leftScanTemplateFunction(document) | safeHtml"></div>
       <div *ngIf="showMainContent(displayView)" class="col-lg-{{ getMainContentColSize(displayView) }}" [innerHtml]="displayView.mainContentTemplateFunction(document) | safeHtml"></div>
       <div *ngIf="showRightScan(displayView)" class="col-lg-{{ getRightScanColSize(displayView) }}" [innerHtml]="displayView.rightScanTemplateFunction(document) | safeHtml"></div>
-
     </div>
-
     <div class="row mt-2">
       <div class="col-12">
         <ngb-tabset [type]="getTabsetType(windowDimensions | async)" [orientation]="getTabOrientation(windowDimensions | async)">
           <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [title]="tab.name" [id]="tab.name">
             <ng-template ngbTabContent>
-
               <div class="row mt-3 ml-2 mr-2 mb-2" *ngFor="let section of getSectionsToShow(tab.sections, document)">
-
                 <div class="col-12">
-                  <h4>{{section.name}}</h4>
+                  <h4 class="section-name">{{section.name}}</h4>
                   <div class="p-1" [innerHtml]="section.templateFunction(document)"></div>
                 </div>
-
               </div>
-
             </ng-template>
           </ngb-tab>
         </ngb-tabset>
       </div>
     </div>
-
   </div>
-
 </div>

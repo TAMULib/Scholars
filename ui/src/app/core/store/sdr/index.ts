@@ -31,7 +31,24 @@ export const selectDefaultDiscoveryView = createSelector(
     (ids, resources) => resources[ids[0]] ? resources[ids[0]] : undefined
 );
 
-export const selectDisplayViewByType = (type: string) => createSelector(
+export const selectDisplayViewByType = (types: string[]) => createSelector(
     selectReousrceEntities<DisplayView>('displayViews'),
-    (resources) => resources[type] ? resources[type] : resources['default']
+    (displayViews) => {
+        let defaultDisplayView;
+        for (const key in displayViews) {
+            if (displayViews.hasOwnProperty(key)) {
+                for (const i in types) {
+                    if (displayViews.hasOwnProperty(key)) {
+                        if (displayViews[key].types.indexOf(types[i]) >= 0) {
+                            return displayViews[key];
+                        }
+                    }
+                }
+                if (displayViews[key].name === 'Default') {
+                    defaultDisplayView = displayViews[key];
+                }
+            }
+        }
+        return defaultDisplayView;
+    }
 );

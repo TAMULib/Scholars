@@ -27,11 +27,13 @@ public class DisplayViewTest {
 
         assertEquals(1L, displayView.getId(), 1);
         assertEquals(MOCK_VIEW_NAME, displayView.getName());
-        assertEquals("FacultyMember", displayView.getType());
 
         assertEquals("<div>Main</div>", displayView.getMainContentTemplate());
         assertEquals("<div>Left Scan</div>", displayView.getLeftScanTemplate());
         assertEquals("<div>Right Scan</div>", displayView.getRightScanTemplate());
+
+        assertEquals(1, displayView.getTypes().size());
+        assertEquals("FacultyMember", displayView.getTypes().get(0));
 
         assertEquals(1, displayView.getTabs().size());
         assertFalse(displayView.getTabs().get(0).isHidden());

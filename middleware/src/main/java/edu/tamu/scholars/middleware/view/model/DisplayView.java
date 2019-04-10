@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -17,8 +18,9 @@ public class DisplayView extends View {
 
     private static final long serialVersionUID = 7556127622115170597L;
 
-    @Column(unique = true)
-    private String type;
+    // TODO: add validation to prevent any given type belonging to multiple display views
+    @ElementCollection
+    private List<String> types;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String mainContentTemplate;
@@ -35,15 +37,16 @@ public class DisplayView extends View {
 
     public DisplayView() {
         super();
+        types = new ArrayList<String>();
         tabs = new ArrayList<DisplayTabView>();
     }
 
-    public String getType() {
-        return type;
+    public List<String> getTypes() {
+        return types;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypes(List<String> types) {
+        this.types = types;
     }
 
     public String getMainContentTemplate() {

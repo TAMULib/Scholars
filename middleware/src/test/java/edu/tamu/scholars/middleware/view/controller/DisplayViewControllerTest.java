@@ -22,6 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 
 import org.junit.jupiter.api.Test;
@@ -50,7 +52,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                     "displayViews/create",
                     requestFields(
                         describeDisplayView.withField("name", "The name of the Display View."),
-                        describeDisplayView.withField("type", "The type of document for Display View."),
+                        describeDisplayView.withField("types", "An array of types."),
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -62,7 +64,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                     ),
                     responseFields(
                         describeDisplayView.withField("name", "The name of the Display View."),
-                        describeDisplayView.withField("type", "The type of document for Display View."),
+                        describeDisplayView.withField("types", "An array of types."),
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -89,7 +91,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                     requestFields(
                         describeDisplayView.withField("id", "The Display View id."),
                         describeDisplayView.withField("name", "The name of the Display View."),
-                        describeDisplayView.withField("type", "The type of document for Display View."),
+                        describeDisplayView.withField("types", "An array of types."),
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -101,7 +103,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                     ),
                     responseFields(
                         describeDisplayView.withField("name", "The name of the Display View."),
-                        describeDisplayView.withField("type", "The type of document for Display View."),
+                        describeDisplayView.withField("types", "An array of types."),
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -121,12 +123,11 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
         // @formatter:off
         mockMvc.perform(
             patch("/displayViews/{id}", displayView.getId())
-                .content("{\"name\": \"Organizations\", \"type\": \"Publisher\"}")
+                .content("{\"name\": \"Organizations\"}")
                 .cookie(loginAdmin()))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                     .andExpect(jsonPath("name", equalTo("Organizations")))
-                    .andExpect(jsonPath("type", equalTo("Publisher")))
                     .andDo(
                         document(
                             "displayViews/patch",
@@ -136,7 +137,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             requestParameters(
                                 describeDisplayView.withParameter("id", "The Display View id.").optional(),
                                 describeDisplayView.withParameter("name", "The name of the Display View.").optional(),
-                                describeDisplayView.withParameter("type", "The type of document for Display View.").optional(),
+                                describeDisplayView.withParameter("types", "An array of types.").optional(),
                                 describeDisplayView.withParameter("mainContentTemplate", "The main content template of the Display View.").optional(),
                                 describeDisplayView.withParameter("leftScanTemplate", "The left scan template of the Display View.").optional(),
                                 describeDisplayView.withParameter("rightScanTemplate", "The right scan template of the Display View.").optional(),
@@ -148,7 +149,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             ),
                             responseFields(
                                 describeDisplayView.withField("name", "The name of the Display View."),
-                                describeDisplayView.withField("type", "The type of document for Display View."),
+                                describeDisplayView.withField("types", "An array of types."),
                                 describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                                 describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                                 describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -182,7 +183,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         ),
                         responseFields(
                             describeDisplayView.withField("name", "The name of the Display View."),
-                            describeDisplayView.withField("type", "The type of document for Display View."),
+                            describeDisplayView.withField("types", "An array of types."),
                             describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                             describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                             describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
@@ -274,7 +275,11 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
     private ResultActions performUpdateDisplayView() throws JsonProcessingException, Exception {
         DisplayView displayView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         displayView.setName("Organizations");
-        displayView.setType("Publisher");
+
+        List<String> types = displayView.getTypes();
+        types.add("NonFacultyMember");
+
+        displayView.setTypes(types);
 
         // @formatter:off
         return mockMvc.perform(

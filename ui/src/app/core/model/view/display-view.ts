@@ -13,6 +13,7 @@ export interface DisplayTabView extends View {
 }
 
 export interface DisplayView extends View {
+    readonly types: string[];
     readonly mainContentTemplate: string;
     mainContentTemplateFunction?: Function;
     readonly leftScanTemplate: string;
