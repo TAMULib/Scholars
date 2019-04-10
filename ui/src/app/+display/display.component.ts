@@ -112,7 +112,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
     public getLeftScanColSize(displayView: DisplayView): number {
         let colSize = 12;
         if (this.showMainContent(displayView)) {
-            colSize -= 6;
+            colSize -= 9;
         }
         if (this.showRightScan(displayView)) {
             colSize -= 3;
@@ -126,7 +126,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
             colSize -= 3;
         }
         if (this.showMainContent(displayView)) {
-            colSize -= 6;
+            colSize -= 9;
         }
         return colSize;
     }

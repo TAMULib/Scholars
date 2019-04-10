@@ -6,6 +6,7 @@
 - name: People
   types:
   - FacultyMember
+  - NonFacultyAcademic
   mainContentTemplate: "defaults/displayViews/persons/mainContentTemplate.html"
   leftScanTemplate: "defaults/displayViews/persons/leftScanTemplate.html"
   rightScanTemplate: "defaults/displayViews/persons/rightScanTemplate.html"
@@ -325,5 +326,21 @@
 - name: Organizations
   types:
   - Publisher
+  - otherUniversity
+  - Organization
+  - AcademicDepartment
+  - Center
+  - Institute
+  - College
+  - AdministrativeUnit
+  - AffiliatedAgency
+  - School
+  - BranchCampus
+  - Centerv
+  - Laboratory
+  - Association
+  - Department
+  - Library
+  - University
   mainContentTemplate: "defaults/displayViews/organizations/mainContentTemplate.html"
   rightScanTemplate: "defaults/displayViews/organizations/rightScanTemplate.html"
