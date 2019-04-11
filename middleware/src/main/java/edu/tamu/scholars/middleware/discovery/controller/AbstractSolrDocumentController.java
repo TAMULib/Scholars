@@ -54,14 +54,14 @@ public abstract class AbstractSolrDocumentController<D extends AbstractSolrDocum
     }
 
     class Count {
-        private final long count;
+        private final long value;
 
-        public Count(long count) {
-            this.count = count;
+        public Count(long value) {
+            this.value = value;
         }
 
-        public long getCount() {
-            return count;
+        public long getValue() {
+            return value;
         }
 
     }

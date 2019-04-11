@@ -16,7 +16,7 @@ import { CustomRouterState } from '../router/router.reducer';
 
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 
-import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry } from '../../model/sdr';
+import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry, Count } from '../../model/sdr';
 import { SidebarMenu, SidebarSection, SidebarItem, SidebarItemType } from '../../model/sidebar';
 import { SolrDocument } from '../../model/discovery';
 import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
@@ -201,6 +201,41 @@ export class SdrEffects {
         map((action: fromSdr.SearchResourcesFailureAction) => this.alert.searchFailureAlert(action.payload))
     );
 
+    @Effect() conceptsCount = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'concepts')),
+        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
+    );
+
+    @Effect() documentsCount = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'documents')),
+        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
+    );
+
+    @Effect() organizationsCount = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'organizations')),
+        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
+    );
+
+    @Effect() personsCount = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'persons')),
+        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
+    );
+
+    @Effect() processesCount = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'processes')),
+        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
+    );
+
+    @Effect() relationshipsCount = this.actions.pipe(
+        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'relationships')),
+        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
+    );
+
+    @Effect() countFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.COUNT_FAILURE)),
+        map((action: fromSdr.CountResourcesFailureAction) => this.alert.countFailureAlert(action.payload))
+    );
+
     @Effect() clearResourceSubscription = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.CLEAR)),
         map((action: fromSdr.PageResourcesSuccessAction) => new fromStomp.UnsubscribeAction({ channel: `/queue/${action.name}` }))
@@ -370,6 +405,13 @@ export class SdrEffects {
         return this.repos.get(name).getAll().pipe(
             map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(name, { collection })),
             catchError((response) => of(new fromSdr.GetAllResourcesFailureAction(name, { response })))
+        );
+    }
+
+    private countHandler(action: fromSdr.CountResourcesAction): Observable<fromSdr.CountResourcesSuccessAction | fromSdr.CountResourcesFailureAction> {
+        return this.repos.get(action.name).count(action.payload.request).pipe(
+            map((count: Count) => new fromSdr.CountResourcesSuccessAction(action.name, { count })),
+            catchError((response) => of(new fromSdr.CountResourcesFailureAction(action.name, { response })))
         );
     }
 

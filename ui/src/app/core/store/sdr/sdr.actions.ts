@@ -11,6 +11,9 @@ export enum SdrActionTypes {
     SEARCH = 'search resources',
     SEARCH_SUCCESS = 'sucessfully searched resources',
     SEARCH_FAILURE = 'failed searching resources',
+    COUNT = 'count resources',
+    COUNT_SUCCESS = 'sucessfully counted resources',
+    COUNT_FAILURE = 'failed counting resources',
     GET_ONE = 'get one resource by id',
     GET_ONE_SUCCESS = 'sucessfully got resource by id',
     GET_ONE_FAILURE = 'failed getting resource by id',
@@ -75,6 +78,21 @@ export class SearchResourcesSuccessAction implements Action {
 
 export class SearchResourcesFailureAction implements Action {
     readonly type = getSdrAction(SdrActionTypes.SEARCH_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class CountResourcesAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT, this.name);
+    constructor(public name: string, public payload: { request: SdrRequest }) { }
+}
+
+export class CountResourcesSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class CountResourcesFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT_FAILURE, this.name);
     constructor(public name: string, public payload: any) { }
 }
 
@@ -168,6 +186,9 @@ export type SdrActions =
     SearchResourcesAction |
     SearchResourcesSuccessAction |
     SearchResourcesFailureAction |
+    CountResourcesAction |
+    CountResourcesSuccessAction |
+    CountResourcesFailureAction |
     GetOneResourceAction |
     GetOneResourceSuccessAction |
     GetOneResourceFailureAction |
