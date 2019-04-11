@@ -10,7 +10,7 @@ import { AppState } from '../';
 
 import { MetadataService } from '../../service/metadata.service';
 
-import { selectMetadataTags } from '.';
+import { selectMetadataTags } from './';
 
 import * as fromMetadata from './metadata.actions';
 
