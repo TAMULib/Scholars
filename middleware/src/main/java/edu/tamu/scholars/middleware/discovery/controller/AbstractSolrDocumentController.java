@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.query.result.FacetPage;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.hateoas.PagedResources;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,30 @@ public abstract class AbstractSolrDocumentController<D extends AbstractSolrDocum
     // @formatter:on
         FacetPage<D> page = repo.search(query, index, facets, params, pageable);
         return ResponseEntity.ok(pagedResourcesAssembler.toResource(page, assembler));
+    }
+
+    @GetMapping(value = "/search/count", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    // @formatter:off
+    public ResponseEntity<Count> count(
+        @RequestParam(value = "query", required = false) String query,
+        @RequestParam(value = "fields", required = false) String[] facets,
+        @RequestParam MultiValueMap<String, String> params
+    ) {
+    // @formatter:on
+        return ResponseEntity.ok(new Count(repo.count(query, facets, params)));
+    }
+
+    class Count {
+        private final long count;
+
+        public Count(long count) {
+            this.count = count;
+        }
+
+        public long getCount() {
+            return count;
+        }
+
     }
 
 }

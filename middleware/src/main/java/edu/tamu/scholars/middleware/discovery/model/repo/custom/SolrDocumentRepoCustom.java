@@ -10,4 +10,6 @@ public interface SolrDocumentRepoCustom<D extends AbstractSolrDocument> {
 
     public FacetPage<D> search(String query, String index, String[] facets, MultiValueMap<String, String> params, Pageable page);
 
+    public long count(String query, String[] fields, MultiValueMap<String, String> params);
+
 }

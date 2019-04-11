@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.Criteria;
@@ -17,6 +19,7 @@ import org.springframework.data.solr.core.query.FilterQuery;
 import org.springframework.data.solr.core.query.Query.Operator;
 import org.springframework.data.solr.core.query.SimpleFacetQuery;
 import org.springframework.data.solr.core.query.SimpleFilterQuery;
+import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.data.solr.core.query.SimpleStringCriteria;
 import org.springframework.data.solr.core.query.result.FacetPage;
 import org.springframework.util.MultiValueMap;
@@ -99,6 +102,40 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
         facetQuery.setPageRequest(page);
 
         return solrTemplate.queryForFacetPage(collection(), facetQuery, type());
+    }
+
+    @Override
+    public long count(String query, String[] fields, MultiValueMap<String, String> params) {
+
+        SimpleQuery simpleQuery = new SimpleQuery();
+
+        if (query != null) {
+            simpleQuery.addCriteria(new SimpleStringCriteria(query));
+        } else {
+            simpleQuery.addCriteria(new Criteria(WILDCARD).expression(WILDCARD));
+        }
+
+        if (fields != null) {
+            for (String field : fields) {
+                List<String> filters = params.get(String.format(FILTER_TEMPLATE, field));
+                if (filters != null) {
+                    for (String filter : filters) {
+                        FilterQuery filterQuery = new SimpleFilterQuery(new Criteria(field).is(filter));
+                        simpleQuery.addFilterQuery(filterQuery);
+                    }
+                }
+            }
+        }
+
+        simpleQuery.setDefaultOperator(queryOperator);
+
+        simpleQuery.setDefType(queryParser);
+
+        simpleQuery.setPageRequest(PageRequest.of(0, 1));
+
+        Page<D> pageResult = solrTemplate.query(collection(), simpleQuery, type());
+
+        return pageResult.getTotalElements();
     }
 
     public abstract String collection();

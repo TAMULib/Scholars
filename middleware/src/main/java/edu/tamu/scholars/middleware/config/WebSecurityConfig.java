@@ -179,12 +179,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/directoryViews", "/directoryViews/{id}",
                         "/discoveryViews", "/discoveryViews/{id}",
                         "/displayViews", "/displayViews/{id}",
-                        "/concepts", "/concepts/search/facet", "/concepts/{id}",
-                        "/documents", "/documents/search/facet", "/documents/{id}",
-                        "/organizations", "/organizations/search/facet", "/organizations/{id}",
-                        "/persons", "/persons/search/facet", "/persons/{id}",
-                        "/processes", "/processes/search/facet", "/processes/{id}",
-                        "/relationships", "/relationships/search/facet", "/relationships/{id}"
+                        "/concepts", "/concepts/search/facet", "/concepts/search/count", "/concepts/{id}",
+                        "/documents", "/documents/search/facet", "/documents/search/count", "/documents/{id}",
+                        "/organizations", "/organizations/search/facet", "/organizations/search/count", "/organizations/{id}",
+                        "/persons", "/persons/search/facet", "/persons/search/count", "/persons/{id}",
+                        "/processes", "/processes/search/facet", "/processes/search/count", "/processes/{id}",
+                        "/relationships", "/relationships/search/facet", "/relationships/search/count", "/relationships/{id}"
                     )
                     .permitAll()
                 .antMatchers(GET,
