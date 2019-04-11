@@ -13,7 +13,6 @@ import { WindowDimensions } from './core/store/layout/layout.reducer';
 import { selectStyle } from './core/store/theme';
 
 import * as fromLayout from './core/store/layout/layout.actions';
-import * as fromMetadata from './core/store/metadata/metadata.actions';
 import * as fromRouter from './core/store/router/router.actions';
 
 @Component({
@@ -41,11 +40,6 @@ export class AppComponent implements OnInit {
             select(selectStyle),
             skipWhile((style: SafeStyle) => style === undefined)
         );
-        this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
-            tags: [{
-                name: 'title', content: 'Scholars'
-            }]
-        }));
     }
 
     @HostListener('click', ['$event'])

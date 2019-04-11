@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
@@ -9,6 +10,7 @@ import { filter, tap } from 'rxjs/operators';
 import { AppState } from '../core/store';
 
 import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView } from '../core/model/view';
+
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
@@ -17,6 +19,7 @@ import { SolrDocument } from '../core/model/discovery';
 import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
+import * as fromMetadata from '../core/store/metadata/metadata.actions';
 
 @Component({
     selector: 'scholars-display',
@@ -66,6 +69,9 @@ export class DisplayComponent implements OnDestroy, OnInit {
                             select(selectDisplayViewByType(document.type)),
                             filter((view: DisplayView) => view !== undefined),
                             tap((displayView: DisplayView) => {
+                                this.store.dispatch(new fromMetadata.SetMetadataTagsAction({
+                                    tags: this.buildDisplayMetaTags(displayView, document)
+                                }));
                                 const viewAllTabSections = [];
                                 const viewAllTab: DisplayTabView = {
                                     name: 'View All',
@@ -154,6 +160,19 @@ export class DisplayComponent implements OnDestroy, OnInit {
             }
         }
         return true;
+    }
+
+    private buildDisplayMetaTags(view: DisplayView, document: SolrDocument): MetaDefinition[] {
+        const metaTags: MetaDefinition[] = [];
+        for (const name in view.metaTemplateFunctions) {
+            if (view.metaTemplateFunctions.hasOwnProperty(name)) {
+                const metaTemplateFunction = view.metaTemplateFunctions[name];
+                metaTags.push({
+                    name: name, content: metaTemplateFunction(document)
+                });
+            }
+        }
+        return metaTags;
     }
 
 }

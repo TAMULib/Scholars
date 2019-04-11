@@ -159,6 +159,11 @@ public class ViewTestUtility {
 
         displayView.setTypes(types);
 
+        Map<String, String> metaTemplates = new HashMap<String, String>();
+        metaTemplates.put("default", "Meta tag template");
+
+        displayView.setMetaTemplates(metaTemplates);
+
         List<DisplayTabView> tabs = new ArrayList<DisplayTabView>();
 
         tabs.add(getMockDisplayTabView());
