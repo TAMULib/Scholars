@@ -38,6 +38,25 @@ include::{snippets}/documents/facet-search/http-response.adoc[]
 ===== CURL Sample
 include::{snippets}/documents/facet-search/curl-request.adoc[]
 
+==== Count
+
+This count will return a json response containing the count, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/concepts/count-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/concepts/count-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/concepts/count-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/concepts/count-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/concepts/count-search/curl-request.adoc[]
+
 ==== Find By Id
 
 This will find a document based on the _document id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific document querried as shown in the *Sample Response*.

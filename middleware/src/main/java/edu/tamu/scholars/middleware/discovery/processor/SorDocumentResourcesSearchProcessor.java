@@ -11,8 +11,10 @@ public class SorDocumentResourcesSearchProcessor implements ResourceProcessor<Re
     @Override
     public RepositorySearchesResource process(RepositorySearchesResource resource) {
         final String search = resource.getId().getHref();
-        final Link customLink = new Link(search + "/facet{?query,fields,page,size,sort}").withRel("facet");
-        resource.add(customLink);
+        final Link facetSearchLink = new Link(search + "/facet{?query,index,facets,page,size,sort}").withRel("facet");
+        final Link countSearchLink = new Link(search + "/count{?query,fields}").withRel("count");
+        resource.add(facetSearchLink);
+        resource.add(countSearchLink);
         return resource;
     }
 
