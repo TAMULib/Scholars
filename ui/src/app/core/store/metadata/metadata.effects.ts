@@ -32,13 +32,13 @@ export class MetadataEffects {
         map(([action, tags]) => this.metadataService.removeTags(tags))
     );
 
-    @Effect({ dispatch: false }) setTags = this.actions.pipe(
+    @Effect() setTags = this.actions.pipe(
         ofType(fromMetadata.MetadataActionTypes.SET_TAGS),
         map((action: fromMetadata.SetMetadataTagsAction) => action.payload),
         withLatestFrom(this.store.pipe(select(selectMetadataTags))),
-        map(([action, tags]) => {
+        map(([payload, tags]) => {
             this.metadataService.removeTags(tags);
-            this.metadataService.addTags(tags);
+            return new fromMetadata.AddMetadataTagsAction(payload);
         })
     );
 
@@ -82,9 +82,9 @@ export class MetadataEffects {
             filter(event => event instanceof ActivationStart)
         ).subscribe((event: ActivationStart) => {
             if (event.snapshot.data.tags) {
-                event.snapshot.data.tags.forEach((tag: MetaDefinition) => {
-                    this.store.dispatch(new fromMetadata.UpdateMetadataTagAction({ tag }));
-                });
+                this.store.dispatch(new fromMetadata.SetMetadataTagsAction({
+                    tags: event.snapshot.data.tags
+                }));
             }
         });
     }

@@ -3,7 +3,7 @@
 - name: Default
   mainContentTemplate: "defaults/displayViews/defaults/mainContentTemplate.html"
   metaTemplates:
-    title: "defaults/displayViews/defaults/meta/title.html"
+    title: "defaults/displayViews/defaults/meta/title.txt"
 
 - name: People
   types:
@@ -13,7 +13,10 @@
   leftScanTemplate: "defaults/displayViews/people/leftScanTemplate.html"
   rightScanTemplate: "defaults/displayViews/people/rightScanTemplate.html"
   metaTemplates:
-    title: "defaults/displayViews/people/meta/title.html"
+    title: "defaults/displayViews/people/meta/title.txt"
+    description: "defaults/displayViews/people/meta/description.txt"
+    keywords: "defaults/displayViews/people/meta/keywords.txt"
+    position: "defaults/displayViews/people/meta/position.txt"
   tabs:
   - name: Overview
     hidden: false
@@ -350,7 +353,9 @@
   leftScanTemplate: "defaults/displayViews/organizations/leftScanTemplate.html"
   rightScanTemplate: "defaults/displayViews/organizations/rightScanTemplate.html"
   metaTemplates:
-    title: "defaults/displayViews/organizations/meta/title.html"
+    title: "defaults/displayViews/organizations/meta/title.txt"
+    description: "defaults/displayViews/organizations/meta/description.txt"
+    keywords: "defaults/displayViews/organizations/meta/keywords.txt"
   tabs:
   - name: Overview
     hidden: false
@@ -610,7 +615,9 @@
   mainContentTemplate: "defaults/displayViews/publications/mainContentTemplate.html"
   rightScanTemplate: "defaults/displayViews/publications/rightScanTemplate.html"
   metaTemplates:
-    title: "defaults/displayViews/publications/meta/title.html"
+    title: "defaults/displayViews/publications/meta/title.txt"
+    description: "defaults/displayViews/publications/meta/description.txt"
+    keywords: "defaults/displayViews/publications/meta/keywords.txt"
   tabs:
   - name: Overview
     hidden: false
@@ -825,7 +832,7 @@
   - Grant
   mainContentTemplate: "defaults/displayViews/grants/mainContentTemplate.html"
   metaTemplates:
-    title: "defaults/displayViews/grants/meta/title.html"
+    title: "defaults/displayViews/grants/meta/title.txt"
   tabs:
   - name: Overview
     hidden: false
@@ -940,7 +947,7 @@
   - AwardReceipt
   mainContentTemplate: "defaults/displayViews/awards/mainContentTemplate.html"
   metaTemplates:
-    title: "defaults/displayViews/awards/meta/title.html"
+    title: "defaults/displayViews/awards/meta/title.txt"
   tabs:
   - name: Overview
     hidden: false
@@ -1013,7 +1020,7 @@
   - Course
   mainContentTemplate: "defaults/displayViews/courses/mainContentTemplate.html"
   metaTemplates:
-    title: "defaults/displayViews/courses/meta/title.html"
+    title: "defaults/displayViews/courses/meta/title.txt"
   tabs:
   - name: Overview
     hidden: false
@@ -1128,7 +1135,7 @@
   - Concept
   mainContentTemplate: "defaults/displayViews/concepts/mainContentTemplate.html"
   metaTemplates:
-    title: "defaults/displayViews/concepts/meta/title.html"
+    title: "defaults/displayViews/concepts/meta/title.txt"
   tabs:
   - name: Overview
     hidden: false

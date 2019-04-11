@@ -69,7 +69,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                             select(selectDisplayViewByType(document.type)),
                             filter((view: DisplayView) => view !== undefined),
                             tap((displayView: DisplayView) => {
-                                this.store.dispatch(new fromMetadata.SetMetadataTagsAction({
+                                this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
                                     tags: this.buildDisplayMetaTags(displayView, document)
                                 }));
                                 const viewAllTabSections = [];
