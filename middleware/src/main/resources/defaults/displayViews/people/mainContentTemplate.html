@@ -1,6 +1,8 @@
 <div>
   <h3><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></h3>
-  <div class="mt-1"><h5>{{=it.preferredTitle}}</h5></div>
+  <div class="mt-1">
+    <h5>{{=it.preferredTitle}}</h5>
+  </div>
   {{? it.position && it.positionId}}
   <div>
     <span class="label">Positions:</span>
@@ -8,15 +10,15 @@
       {{~it.position :position}}
       <li>
         <div class="comma-seperated">
-      	  <span>{{=position}}</span>
-      	  {{~it.positionOrganization :organization:organizationIndex}}
-      	  <!-- TODO: when author organization id populated update href -->
+          <span>{{=position}}</span>
+          {{~it.positionOrganization :organization:organizationIndex}}
+          <!-- TODO: when author organization id populated update href -->
           <span><a href="display/organizations/{{=it.positionOrganizationId[organizationIndex]}}">{{=organization}}</a></span>
           {{~}}
-      	</div>
+        </div>
       </li>
       {{~}}
-    </ul>  
+    </ul>
   </div>
   {{?}}
   {{? it.researchArea && it.researchAreaId }}
@@ -35,6 +37,7 @@
     font-weight: 550;
     margin-right: 2px;
   }
+
   .comma-seperated span:after {
     content: ", ";
   }

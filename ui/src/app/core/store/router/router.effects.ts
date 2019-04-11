@@ -13,7 +13,6 @@ import { selectLoginRedirect } from '../auth';
 import * as fromAuth from '../auth/auth.actions';
 import * as fromDialog from '../dialog/dialog.actions';
 import * as fromRouter from './router.actions';
-// import * as fromSidebar from '../sidebar/sidebar.actions';
 
 @Injectable()
 export class RouterEffects {
@@ -61,12 +60,6 @@ export class RouterEffects {
         skipWhile((redirect: fromRouter.RouterNavigation) => redirect === undefined),
         map(() => new fromAuth.UnsetLoginRedirectAction())
     );
-
-    // TODO: determine if this is necessary, possible check for route data flag to unload
-    // @Effect() unloadSidebar = this.actions.pipe(
-    //     ofType(fromRouter.RouterActionTypes.CHANGED),
-    //     map(() => new fromSidebar.UnloadSidebarAction())
-    // );
 
     @Effect() closeDialog = this.actions.pipe(
         ofType(fromRouter.RouterActionTypes.CHANGED),

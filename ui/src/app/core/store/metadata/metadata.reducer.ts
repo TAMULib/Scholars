@@ -29,6 +29,11 @@ export function reducer(state = initialState, action: MetadataActions): Metadata
         }
     };
     switch (action.type) {
+        case MetadataActionTypes.CLEAR_TAGS:
+            return {
+                ...state,
+                tags: []
+            };
         case MetadataActionTypes.ADD_TAGS:
             return {
                 ...state,

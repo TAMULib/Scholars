@@ -72,6 +72,13 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                 section.templateFunction = getTemplateFunction(section.template);
             });
         });
+        view.metaTemplateFunctions = {};
+        for (const k in view.metaTemplates) {
+            if (view.metaTemplates.hasOwnProperty(k)) {
+                const template = view.metaTemplates[k];
+                view.metaTemplateFunctions[k] = getTemplateFunction(template);
+            }
+        }
     };
     const getResources = (action: SdrActions, key: string): R[] => {
         const resources = action.payload.collection._embedded !== undefined ? action.payload.collection._embedded[key] : [];

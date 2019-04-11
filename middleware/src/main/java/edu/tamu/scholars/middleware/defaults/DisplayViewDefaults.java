@@ -34,7 +34,6 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
         List<DisplayView> views = mapper.readValue(is, new TypeReference<List<DisplayView>>() {});
         // @formatter:on
         for (DisplayView view : views) {
-
             if (view.getMainContentTemplate() != null && view.getMainContentTemplate().length() > 0) {
                 try {
                     view.setMainContentTemplate(getTemplate(view.getMainContentTemplate()));
@@ -42,7 +41,6 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
                     logger.warn(String.format(IO_EXCEPTION_MESSAGE, view.getMainContentTemplate()));
                 }
             }
-
             if (view.getLeftScanTemplate() != null && view.getLeftScanTemplate().length() > 0) {
                 try {
                     view.setLeftScanTemplate(getTemplate(view.getLeftScanTemplate()));
@@ -50,7 +48,6 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
                     logger.warn(String.format(IO_EXCEPTION_MESSAGE, view.getLeftScanTemplate()));
                 }
             }
-
             if (view.getRightScanTemplate() != null && view.getRightScanTemplate().length() > 0) {
                 try {
                     view.setRightScanTemplate(getTemplate(view.getRightScanTemplate()));
@@ -58,7 +55,6 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
                     logger.warn(String.format(IO_EXCEPTION_MESSAGE, view.getRightScanTemplate()));
                 }
             }
-
             if (view.getTabs() != null) {
                 for (DisplayTabView tabView : view.getTabs()) {
                     if (tabView.getSections() != null) {
@@ -68,7 +64,7 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
                     }
                 }
             }
-
+            loadTemplateMap(view.getMetaTemplates());
         }
         return views;
     }

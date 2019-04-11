@@ -2,11 +2,22 @@ import { Action } from '@ngrx/store';
 import { MetaDefinition } from '@angular/platform-browser';
 
 export enum MetadataActionTypes {
+    CLEAR_TAGS = '[Metadata] clear tags',
+    SET_TAGS = '[Metadata] set tags',
     ADD_TAGS = '[Metadata] add tags',
     REMOVE_TAGS = '[Metadata] remove tags',
     ADD_TAG = '[Metadata] add tag',
     REMOVE_TAG = '[Metadata] remove tag',
     UPDATE_TAG = '[Metadata] update tag'
+}
+
+export class ClearMetadataTagsAction implements Action {
+    readonly type = MetadataActionTypes.CLEAR_TAGS;
+}
+
+export class SetMetadataTagsAction implements Action {
+    readonly type = MetadataActionTypes.SET_TAGS;
+    constructor(public payload: { tags: MetaDefinition[] }) { }
 }
 
 export class AddMetadataTagsAction implements Action {
@@ -35,6 +46,8 @@ export class UpdateMetadataTagAction implements Action {
 }
 
 export type MetadataActions =
+    ClearMetadataTagsAction |
+    SetMetadataTagsAction |
     AddMetadataTagsAction |
     RemoveMetadataTagsAction |
     AddMetadataTagAction |

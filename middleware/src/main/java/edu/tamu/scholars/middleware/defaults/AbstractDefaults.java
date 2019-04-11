@@ -1,9 +1,12 @@
 package edu.tamu.scholars.middleware.defaults;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -73,6 +76,18 @@ public abstract class AbstractDefaults<E extends Named, R extends NamedRepo<E>> 
             BeanUtils.copyProperties(entity, existingEntity);
             repo.save(entity);
             logger.info(String.format(UPDATED_DEFAULTS, this.getClass().getSimpleName(), entity.getName()));
+        }
+    }
+
+    protected void loadTemplateMap(Map<String, String> templateMap) throws IOException {
+        for (Map.Entry<String, String> entry : templateMap.entrySet()) {
+            String path = entry.getValue();
+            Resource resource = resolver.getResource(String.format(CLASSPATH, path));
+            if (resource.exists() && resource.isFile()) {
+                entry.setValue(IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8));
+            } else {
+                throw new IOException(String.format(IO_EXCEPTION_MESSAGE, path));
+            }
         }
     }
 

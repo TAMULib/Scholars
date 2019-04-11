@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { MetaDefinition } from '@angular/platform-browser';
 import { Router, ActivationStart } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
-import { filter, map } from 'rxjs/operators';
+import { filter, map, withLatestFrom } from 'rxjs/operators';
 
 import { AppState } from '../';
 
 import { MetadataService } from '../../service/metadata.service';
+
+import { selectMetadataTags } from './';
 
 import * as fromMetadata from './metadata.actions';
 
@@ -23,6 +25,22 @@ export class MetadataEffects {
     ) {
         this.listenForRouteDataTags();
     }
+
+    @Effect({ dispatch: false }) clearTags = this.actions.pipe(
+        ofType(fromMetadata.MetadataActionTypes.CLEAR_TAGS),
+        withLatestFrom(this.store.pipe(select(selectMetadataTags))),
+        map(([action, tags]) => this.metadataService.removeTags(tags))
+    );
+
+    @Effect() setTags = this.actions.pipe(
+        ofType(fromMetadata.MetadataActionTypes.SET_TAGS),
+        map((action: fromMetadata.SetMetadataTagsAction) => action.payload),
+        withLatestFrom(this.store.pipe(select(selectMetadataTags))),
+        map(([payload, tags]) => {
+            this.metadataService.removeTags(tags);
+            return new fromMetadata.AddMetadataTagsAction(payload);
+        })
+    );
 
     @Effect({ dispatch: false }) addTags = this.actions.pipe(
         ofType(fromMetadata.MetadataActionTypes.ADD_TAGS),
@@ -64,9 +82,9 @@ export class MetadataEffects {
             filter(event => event instanceof ActivationStart)
         ).subscribe((event: ActivationStart) => {
             if (event.snapshot.data.tags) {
-                event.snapshot.data.tags.forEach((tag: MetaDefinition) => {
-                    this.store.dispatch(new fromMetadata.UpdateMetadataTagAction({ tag }));
-                });
+                this.store.dispatch(new fromMetadata.SetMetadataTagsAction({
+                    tags: event.snapshot.data.tags
+                }));
             }
         });
     }

@@ -15,7 +15,7 @@ export class MetadataService {
     }
 
     public removeTags(tags: MetaDefinition[]): void {
-        tags.forEach((tag: MetaDefinition) => this.removeTag(`name='${tag.name}'`));
+        tags.forEach((tag: MetaDefinition) => this.removeTag(`name="${tag.name}"`));
     }
 
     public addTag(tag: MetaDefinition): void {

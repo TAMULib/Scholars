@@ -1,7 +1,9 @@
 package edu.tamu.scholars.middleware.view.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +11,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,6 +34,11 @@ public class DisplayView extends View {
     @Column(columnDefinition = "TEXT")
     private String rightScanTemplate;
 
+    @ElementCollection
+    @MapKeyColumn(name = "name")
+    @Column(name = "meta_template", columnDefinition = "TEXT")
+    private Map<String, String> metaTemplates;
+
     @JoinColumn(name = "display_view_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<DisplayTabView> tabs;
@@ -38,6 +46,7 @@ public class DisplayView extends View {
     public DisplayView() {
         super();
         types = new ArrayList<String>();
+        metaTemplates = new HashMap<String, String>();
         tabs = new ArrayList<DisplayTabView>();
     }
 
@@ -71,6 +80,14 @@ public class DisplayView extends View {
 
     public void setRightScanTemplate(String rightScanTemplate) {
         this.rightScanTemplate = rightScanTemplate;
+    }
+
+    public Map<String, String> getMetaTemplates() {
+        return metaTemplates;
+    }
+
+    public void setMetaTemplates(Map<String, String> metaTemplates) {
+        this.metaTemplates = metaTemplates;
     }
 
     public List<DisplayTabView> getTabs() {

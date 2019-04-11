@@ -34,12 +34,12 @@
       {{~it.author :author:authorIndex}}
       <li>
         <div class="comma-seperated">
-      	  <span><a href="display/persons/{{=it.authorId[authorIndex]}}">{{=author}}</a></span>
-      	  {{~it.authorOrganization :organization:organizationIndex}}
-      	  <!-- TODO: when author organization id populated update href -->
+          <span><a href="display/persons/{{=it.authorId[authorIndex]}}">{{=author}}</a></span>
+          {{~it.authorOrganization :organization:organizationIndex}}
+          <!-- TODO: when author organization id populated update href -->
           <span><a href="display/organizations/">{{=organization}}</a></span>
           {{~}}
-      	</div>
+        </div>
       </li>
       {{~}}
     </ul>  

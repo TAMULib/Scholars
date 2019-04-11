@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
@@ -14,6 +15,8 @@ import { SdrPage, SdrFacet } from '../core/model/sdr';
 
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById, selectDefaultDiscoveryView } from '../core/store/sdr';
 import { selectRouterQueryParams } from '../core/store/router';
+
+import * as fromMetadata from '../core/store/metadata/metadata.actions';
 
 @Component({
     selector: 'scholars-directory',
