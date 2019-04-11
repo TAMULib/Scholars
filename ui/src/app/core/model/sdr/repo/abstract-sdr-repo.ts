@@ -6,6 +6,7 @@ import { RestService } from '../../../service/rest.service';
 import { SdrRepo } from './sdr-repo';
 
 import { Sort, Facetable, SdrRequest } from '../../request';
+import { Count } from '../count';
 import { SdrResource } from '../sdr-resource';
 import { SdrCollection } from '../sdr-collection';
 
@@ -22,6 +23,12 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
 
     public search(request: SdrRequest): Observable<SdrCollection> {
         return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}/search/facet${this.mapParameters(request)}`, {
+            withCredentials: true
+        });
+    }
+
+    public count(request: SdrRequest): Observable<Count> {
+        return this.restService.get<Count>(`${environment.service}/${this.path()}/search/count${this.mapParameters(request)}`, {
             withCredentials: true
         });
     }

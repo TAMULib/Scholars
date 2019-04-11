@@ -136,7 +136,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("count", equalTo(3)))
+                .andExpect(jsonPath("value", equalTo(3)))
                 .andDo(
                     document(
                         getPath().substring(1) + "/count-search",
@@ -144,7 +144,7 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                             parameterWithName("query").description("The search query")
                         ),
                         responseFields(
-                            subsectionWithPath("count").description("The resulting count.")
+                            subsectionWithPath("value").description("The resulting count.")
                         )
                     )
                 );

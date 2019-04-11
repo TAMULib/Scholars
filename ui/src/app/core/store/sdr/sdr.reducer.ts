@@ -12,7 +12,9 @@ import * as doT from 'dot';
 export interface SdrState<R extends SdrResource> extends EntityState<R> {
     page: SdrPage;
     facets: SdrFacet[];
+    count: number;
     links: SdrCollectionLinks;
+    counting: boolean;
     loading: boolean;
     updating: boolean;
     error: any;
@@ -28,7 +30,9 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
     return getSdrAdapter<R>(key).getInitialState({
         page: undefined,
         facets: [],
+        count: undefined,
         links: undefined,
+        counting: false,
         loading: false,
         updating: false,
         error: undefined
@@ -121,6 +125,12 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     loading: true,
                     error: undefined
                 };
+            case getSdrAction(SdrActionTypes.COUNT, name):
+                return {
+                    ...state,
+                    counting: true,
+                    error: undefined
+                };
             case getSdrAction(SdrActionTypes.GET_ALL_SUCCESS, name):
                 return getSdrAdapter<R>(keys[name]).addAll(getResources(action, name), {
                     ...state,
@@ -152,11 +162,18 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     loading: false,
                     error: undefined
                 });
+            case getSdrAction(SdrActionTypes.COUNT_SUCCESS, name):
+                return {
+                    ...state,
+                    count: action.payload.count.value,
+                    counting: false
+                };
             case getSdrAction(SdrActionTypes.GET_ALL_FAILURE, name):
             case getSdrAction(SdrActionTypes.GET_ONE_FAILURE, name):
             case getSdrAction(SdrActionTypes.PAGE_FAILURE, name):
             case getSdrAction(SdrActionTypes.SEARCH_FAILURE, name):
-                console.error('here', action);
+            case getSdrAction(SdrActionTypes.COUNT_FAILURE, name):
+                console.error(action);
                 return {
                     ...state,
                     loading: false,
@@ -211,7 +228,9 @@ export const selectTotal = <R extends SdrResource>(name: string) => getSdrAdapte
 export const getError = <R extends SdrResource>(state: SdrState<R>) => state.error;
 export const isLoading = <R extends SdrResource>(state: SdrState<R>) => state.loading;
 export const isUpdating = <R extends SdrResource>(state: SdrState<R>) => state.updating;
+export const isCounting = <R extends SdrResource>(state: SdrState<R>) => state.counting;
 
 export const getPage = <R extends SdrResource>(state: SdrState<R>) => state.page;
+export const getCount = <R extends SdrResource>(state: SdrState<R>) => state.count;
 export const getFacets = <R extends SdrResource>(state: SdrState<R>) => state.facets;
 export const getLinks = <R extends SdrResource>(state: SdrState<R>) => state.links;

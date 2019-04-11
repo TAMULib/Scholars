@@ -10,7 +10,7 @@ import { AppState } from '../../../core/store';
 import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
 import { Role, User } from '../../../core/model/user';
 
-import { selectReousrceIsUpdating } from '../../../core/store/sdr';
+import { selectResourceIsUpdating } from '../../../core/store/sdr';
 
 import * as fromDialog from '../../../core/store/dialog/dialog.actions';
 import * as fromSdr from '../../../core/store/sdr/sdr.actions';
@@ -65,7 +65,7 @@ export class UserEditComponent implements OnInit {
                 type: DialogButtonType.OUTLINE_WARNING,
                 label: this.translate.get('SHARED.DIALOG.USER_EDIT.CANCEL'),
                 action: () => this.store.dispatch(new fromDialog.CloseDialogAction()),
-                disabled: () => this.store.pipe(select(selectReousrceIsUpdating<User>('users')))
+                disabled: () => this.store.pipe(select(selectResourceIsUpdating<User>('users')))
             },
             submit: {
                 type: DialogButtonType.OUTLINE_PRIMARY,
@@ -77,7 +77,7 @@ export class UserEditComponent implements OnInit {
                 disabled: () => combineLatest(
                     of(this.dialog.form.invalid),
                     of(this.dialog.form.pristine),
-                    this.store.pipe(select(selectReousrceIsUpdating<User>('users')))
+                    this.store.pipe(select(selectResourceIsUpdating<User>('users')))
                 ).pipe(map(results => results[0] || results[1] || results[2]))
             }
         };

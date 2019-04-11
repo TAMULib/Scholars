@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 
 import { StatsBoxComponent } from './stats-box.component';
@@ -19,6 +20,7 @@ describe('StatsBoxComponent', () => {
                 StoreModule.forRoot(reducers, {
                     metaReducers
                 }),
+                RouterTestingModule.withRoutes([])
             ],
             schemas: [
                 CUSTOM_ELEMENTS_SCHEMA
@@ -29,6 +31,7 @@ describe('StatsBoxComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(StatsBoxComponent);
         component = fixture.componentInstance;
+        component.label = 'People';
         fixture.detectChanges();
     });
 

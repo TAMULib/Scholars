@@ -1,6 +1,6 @@
-<div class="stats-box link" (click)="onNavigate()">
+<div class="stats-box link" *ngIf="collection" [routerLink]="getRouterLink(direcrotyView | async)" [queryParams]="getQueryParams(direcrotyView | async)">
   <div class="stats-box-value text-center">
-    <span>{{value}}</span>
+    <span>{{format(count | async)}}</span>
   </div>
   <div class="stats-box-title text-center">
     <span>{{label}}</span>

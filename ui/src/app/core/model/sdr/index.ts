@@ -6,3 +6,4 @@ export { SdrLink } from './sdr-link';
 export { SdrPage } from './sdr-page';
 export { SdrResourceLinks } from './sdr-resource-links';
 export { SdrResource } from './sdr-resource';
+export { Count } from './count';
