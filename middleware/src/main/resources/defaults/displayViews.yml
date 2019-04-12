@@ -880,48 +880,48 @@
     sections:
     - name: contributor
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/affiliation/contributor.html"
       requiredFields:
   - name: Publications
     hidden: false
     sections:
     - name: supported publications or other works
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/publications/supportedPublicationsOrOtherWorks.html"
       requiredFields:
   - name: Identity
     hidden: false
     sections:
     - name: same as
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/identity/sameAs.html"
       requiredFields:
   - name: Other
     hidden: false
     sections:
     - name: assigned by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/other/assignedBy.html"
       requiredFields:
     - name: inheres in
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/other/inheresIn.html"
       requiredFields:
     - name: is specified output of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/other/isSpecifiedOutputOf.html"
       requiredFields:
     - name: output of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/other/outputOf.html"
       requiredFields:
     - name: participates in
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/other/participatesIn.html"
       requiredFields:
     - name: relates
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/other/relates.html"
       requiredFields:
 
 - name: Awards
@@ -934,65 +934,65 @@
     sections:
     - name: description
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/overview/description.html"
       requiredFields:
     - name: receipt of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/overview/receiptOf.html"
       requiredFields:
     - name: award or honor for
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/overview/awardOrHonorFor.html"
       requiredFields:
     - name: award conferred by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/overview/awardConferredBy.html"
       requiredFields:
     - name: date/time interval
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/overview/dateTimeInterval.html"
       requiredFields:
     - name: year awarded
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/overview/yearAwarded.html"
       requiredFields:
   - name: Identity
     hidden: false
     sections:
     - name: same as
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/identity/sameAs.html"
       requiredFields:
   - name: Other
     hidden: false
     sections:
     - name: assigned by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/other/assignedBy.html"
       requiredFields:
     - name: inheres in
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/other/inheresIn.html"
       requiredFields:
     - name: is specified output of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/other/isSpecifiedOutputOf.html"
       requiredFields:
     - name: output of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/other/outputOf.html"
       requiredFields:
     - name: participates in
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/other/participatesIn.html"
       requiredFields:
     - name: relates
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/other/relates.html"
       requiredFields:
     - name: date/time value
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/awards/other/dateTimeValue.html"
       requiredFields:
   
 - name: Courses
