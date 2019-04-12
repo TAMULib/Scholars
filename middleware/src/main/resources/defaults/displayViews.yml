@@ -1118,24 +1118,24 @@
     sections:
     - name: research area of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/concepts/overview/researchAreaOf.html"
       requiredFields:
     - name: broader concept
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/concepts/overview/broaderConcept.html"
       requiredFields:
     - name: narrower concept
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/concepts/overview/narrowerConcept.html"
       requiredFields:
     - name: related concept
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/concepts/overview/relatedConcept.html"
       requiredFields:
   - name: Identity
     hidden: false
     sections:
     - name: same as
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/concepts/identity/sameAs.html"
       requiredFields:
