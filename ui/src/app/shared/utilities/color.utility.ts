@@ -149,22 +149,22 @@ const nameToHex = {
     'yellowgreen': '#9acd32'
 };
 
-const expandHexShorthand = function (hex: string): string {
+const expandHexShorthand = (hex: string): string => {
     // expand shorthand form (e.g. "03f") to full form (e.g. "0033ff")
     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    return hex.replace(shorthandRegex, function (m, r, g, b) {
+    return hex.replace(shorthandRegex, (m, r, g, b) => {
         return r + r + g + g + b + b;
     });
 };
 
-const rgbToHex = function (rgb: string): string {
+const rgbToHex = (rgb: string): string => {
     // regex that parses a string such as 'rgb(191, 0, 46)' and produces an array
     const matches = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d\.]+))?\)$/);
     function hex(x) { return ('0' + parseInt(x, 10).toString(16)).slice(-2); }
     return (hex(matches[1]) + hex(matches[2]) + hex(matches[3])).toUpperCase();
 };
 
-const normalizeColor = function (color: string): string {
+const normalizeColor = (color: string): string => {
     color = color.trim();
     if (color.charAt(0) !== '#') {
         if (color.indexOf('rgb') !== 0) {
@@ -180,7 +180,7 @@ const normalizeColor = function (color: string): string {
     return color.replace(/#/g, '');
 };
 
-const hexToRgb = function (hex: string): any {
+const hexToRgb = (hex: string): any => {
     hex = normalizeColor(hex);
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -190,7 +190,7 @@ const hexToRgb = function (hex: string): any {
     } : null;
 };
 
-const mix = function (baseColor: string, color: string, weight: number): string {
+const mix = (baseColor: string, color: string, weight: number): string => {
     baseColor = normalizeColor(baseColor);
     color = normalizeColor(color);
     function d2h(d) { return d.toString(16); } // convert a decimal value to hex
@@ -209,7 +209,7 @@ const mix = function (baseColor: string, color: string, weight: number): string 
 };
 
 // TODO: replace with closer match to sass darken and lighten
-const luminance = function (color: string, lum: number): string {
+const luminance = (color: string, lum: number): string => {
     color = normalizeColor(color);
     lum = lum || 0;
     // convert to decimal and change luminosity
@@ -222,7 +222,7 @@ const luminance = function (color: string, lum: number): string {
     return rgb;
 };
 
-const yiq = function (color: string): number {
+const yiq = (color: string): number => {
     const rgb = hexToRgb(color);
     return Math.round(((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000);
 };

@@ -86,7 +86,6 @@ export class PaginationComponent {
     }
 
     public getQueryParams(page: number, size: number): Params {
-
         return { page, size };
     }
 

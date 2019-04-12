@@ -14,6 +14,8 @@ import { DiscoveryView, Facet, Filter } from '../../core/model/view';
 import { selectActiveThemeOrganization } from '../../core/store/theme';
 import { selectRouterSearchQuery } from '../../core/store/router';
 
+import { addFacetsToQueryParams, addFiltersToQueryParams, addSortToQueryParams } from '../utilities/view.utility';
+
 export interface SearchBoxStyles {
     labelColor: string;
     inputBoxShadow: string;
@@ -140,29 +142,13 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
         return `${filter.field}.filter`;
     }
 
-    // NOTE: redundant with getDiscoveryQueryParams from DiscoveryComponent
     private getDiscoveryQueryParams(query: string): Params {
         const queryParams: Params = {};
         queryParams.collection = this.view.collection;
-        if (this.view.facets && this.view.facets.length > 0) {
-            let facets = '';
-            this.view.facets.forEach((facet: Facet) => {
-                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
-            });
-            queryParams.facets = facets;
-        }
-        if (this.view.filters && this.view.filters.length > 0) {
-            this.view.filters.forEach((filter: Filter) => {
-                queryParams[`${filter.field}.filter`] = filter.value;
-            });
-        }
+        addFacetsToQueryParams(queryParams, this.view);
+        addFiltersToQueryParams(queryParams, this.view);
         // NOTE: only first sort is applied to query
-        // Spring requires multiple sort parameters use multiple entries with the 'sort' key
-        // e.g. ?sort=name,asc&sort=preferredTitle,desc
-        // Angular unfortunately does not support constructing that with queryParams
-        if (this.view.sort && this.view.sort.length > 0) {
-            queryParams.sort = `${this.view.sort[0].field},${this.view.sort[0].direction}`;
-        }
+        addSortToQueryParams(queryParams, this.view);
         if (query && query.length > 0) {
             queryParams.query = query;
         } else {

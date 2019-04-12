@@ -72,20 +72,19 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
                                     tags: this.buildDisplayMetaTags(displayView, document)
                                 }));
-                                if (displayView.tabs.filter((tab: DisplayTabView) => tab.name === 'View All').length === 0) {
-                                    const viewAllTabSections = [];
-                                    const viewAllTab: DisplayTabView = {
-                                        name: 'View All',
-                                        hidden: false,
-                                        sections: viewAllTabSections
-                                    };
-                                    this.getTabsToShow(displayView.tabs, document).forEach((tab: DisplayTabView) => {
-                                        this.getSectionsToShow(tab.sections, document).forEach((section: DisplayTabSectionView) => {
-                                            viewAllTabSections.push(section);
-                                        });
+                                displayView.tabs.splice(displayView.tabs.findIndex((tab: DisplayTabView) => tab.name === 'View All'), 1);
+                                const viewAllTabSections = [];
+                                const viewAllTab: DisplayTabView = {
+                                    name: 'View All',
+                                    hidden: false,
+                                    sections: viewAllTabSections
+                                };
+                                this.getTabsToShow(displayView.tabs, document).forEach((tab: DisplayTabView) => {
+                                    this.getSectionsToShow(tab.sections, document).forEach((section: DisplayTabSectionView) => {
+                                        viewAllTabSections.push(section);
                                     });
-                                    displayView.tabs.push(viewAllTab);
-                                }
+                                });
+                                displayView.tabs.push(viewAllTab);
                             })
                         );
                     })
