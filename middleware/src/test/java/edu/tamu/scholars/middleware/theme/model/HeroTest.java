@@ -27,7 +27,7 @@ public class HeroTest {
         hero.setFontColor("#ffffff");
         hero.setLinkColor("#000000");
         hero.setLinkHoverColor("#ffc222");
-        hero.setInterval(1500);
+        hero.setSlideInterval(1500);
 
         assertEquals("/assets/images/hero.png", hero.getImageUri());
         assertEquals("Hero", hero.getImageAlt());
@@ -37,7 +37,7 @@ public class HeroTest {
         assertEquals("#ffffff", hero.getFontColor());
         assertEquals("#000000", hero.getLinkColor());
         assertEquals("#ffc222", hero.getLinkHoverColor());
-        assertEquals(1500, hero.getInterval());
+        assertEquals(1500, hero.getSlideInterval());
     }
 
 }

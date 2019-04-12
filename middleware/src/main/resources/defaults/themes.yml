@@ -18,7 +18,7 @@
       fontColor: "#f3f3f3"
       linkColor: "#65a6d1"
       linkHoverColor: "#ffc222"
-      interval: 30
+      slideInterval: 30
     variables:
     - key: "--hero-color"
       value: "#f3f3f3"
