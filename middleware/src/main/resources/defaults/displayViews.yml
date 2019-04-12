@@ -608,207 +608,207 @@
     sections:
     - name: abstract
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/abstract.html"
       requiredFields:
     - name: authors
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/authors.html"
       requiredFields:
     - name: author list (cited authors)
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/authorList.html"
       requiredFields:
     - name: editor list (cited editors)
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/editorList.html"
       requiredFields:
     - name: editors
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/editors.html"
       requiredFields:
     - name: translator
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/translator.html"
       requiredFields:
     - name: status
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/status.html"
       requiredFields:
     - name: publication date
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/publicationDate.html"
       requiredFields:
     - name: has subject area
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/hasSubjectArea.html"
       requiredFields:
     - name: has restriction
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/hasRestriction.html"
       requiredFields:
     - name: has document part
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/hasDocumentPart.html"
       requiredFields:
     - name: features
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/features.html"
       requiredFields:
     - name: published in
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/publishedIn.html"
       requiredFields:
     - name: geographic focus
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/geographicFocus.html"
       requiredFields:
     - name: documentation for project or resource
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/documentationForProjectOrResource.html"
       requiredFields:
     - name: output of process or event
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/outputOfProcessOrEvent.html"
       requiredFields:
     - name: presented at event
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/presentedAtEvent.html"
       requiredFields:
     - name: keywords
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/overview/keywords.html"
       requiredFields:
   - name: Identity
     hidden: false
     sections:
     - name: EAN International-Uniform Code Council (EAN-UCC) 13
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/identity/eanInternationalUniformCodeCouncil.html"
       requiredFields:
     - name: NIH Manuscript Submission System ID
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/identity/nihManuscriptSubmissionSystemId.html"
       requiredFields:
     - name: PubMed Central ID
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/identity/pubMedCentralId.html"
       requiredFields:
     - name: identifier
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/identity/identifier.html"
       requiredFields:
     - name: same as
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/identity/sameAs.html"
       requiredFields:
     - name: Digital Object Identifier (DOI)
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/identity/digitalObjectIdentifier.html"
       requiredFields:
     - name: Online Computer Library Center (OCLC) number
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/identity/onlineComputerLibraryCenter.html"
       requiredFields:
     - name: PubMed ID
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/identity/pubMedId.html"
       requiredFields:
   - name: Related Documents
     hidden: false
     sections:
     - name: cited by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/relatedDocuments/citedBy.html"
       requiredFields:
     - name: cites
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/relatedDocuments/cites.html"
       requiredFields:
     - name: cites as data source
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/relatedDocuments/citesAsDataSource.html"
       requiredFields:
     - name: has translation
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/relatedDocuments/hasTranslation.html"
       requiredFields:
     - name: translation of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/relatedDocuments/translationOf.html"
       requiredFields:
   - name: Additional Document Info
     hidden: false
     sections:
     - name: has global citation frequency
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/additionalDocumentInfo/hasGlobalCitationFrequency.html"
       requiredFields:
     - name: number of pages
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/additionalDocumentInfo/numberOfPages.html"
       requiredFields:
     - name: start page
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/additionalDocumentInfo/startPage.html"
       requiredFields:
     - name: end page
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/additionalDocumentInfo/endPage.html"
       requiredFields:
     - name: volume
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/additionalDocumentInfo/volume.html"
       requiredFields:
     - name: issue
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/additionalDocumentInfo/issue.html"
       requiredFields:
     - name: reproduced in
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/additionalDocumentInfo/reproducedIn.html"
       requiredFields:
     - name: reproduces
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/additionalDocumentInfo/reproduces.html"
       requiredFields:
   - name: Other
     hidden: false
     sections:
     - name: is about
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/isAbout.html"
       requiredFields:
     - name: is specified output of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/isSpecifiedOutputOf.html"
       requiredFields:
     - name: is template
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/isTemplate.html"
       requiredFields:
     - name: mentions
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/mentions.html"
       requiredFields:
     - name: output of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/outputOf.html"
       requiredFields:
     - name: participates in
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/participatesIn.html"
       requiredFields:
     - name: related by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/relatedBy.html"
       requiredFields:
     - name: supported by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/supportedBy.html"
       requiredFields:
     - name: date/time value
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/publications/other/dateTimeValue.html"
       requiredFields:
 
 - name: Grants
