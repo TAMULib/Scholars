@@ -1005,107 +1005,107 @@
     sections:
     - name: description
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/description.html"
       requiredFields:
     - name: offered by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/offeredBy.html"
       requiredFields:
     - name: date/time interval
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/dateTimeInterval.html"
       requiredFields:
     - name: occurs within event
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/occursWithinEvent.html"
       requiredFields:
     - name: includes event
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/includesEvent.html"
       requiredFields:
     - name: in event series
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/inEventSeries.html"
       requiredFields:
     - name: participant
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/participant.html"
       requiredFields:
     - name: has subject area
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/hasSubjectArea.html"
       requiredFields:
     - name: has prerequisite
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/hasPrerequisite.html"
       requiredFields:
     - name: prerequisite for
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/prerequisiteFor.html"
       requiredFields:
     - name: credits
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/credits.html"
       requiredFields:
     - name: geographic focus
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/overview/geographicFocus.html"
       requiredFields:
   - name: Publications
     hidden: false
     sections:
     - name: output publications or other works
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/publications/outputPublicationsOrOtherWorks.html"
       requiredFields:
     - name: related documents
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/publications/relatedDocuments.html"
       requiredFields:
   - name: Identity
     hidden: false
     sections:
     - name: same as
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/identity/sameAs.html"
       requiredFields:
   - name: Contact
     hidden: false
     sections:
     - name: contact information
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/contact/contactInformation.html"
       requiredFields:
     - name: held in facility
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/contact/heldInFacility.html"
       requiredFields:
     - name: held in geographic location
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/contact/heldInGeographicLocation.html"
       requiredFields:
   - name: Other
     hidden: false
     sections:
     - name: has input
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/other/hasInput.html"
       requiredFields:
     - name: has output
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/other/hasOutput.html"
       requiredFields:
     - name: has participant
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/other/hasParticipant.html"
       requiredFields:
     - name: located in
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/other/locatedIn.html"
       requiredFields:
     - name: realizes
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/courses/other/realizes.html"
       requiredFields:
 
 - name: Concepts
