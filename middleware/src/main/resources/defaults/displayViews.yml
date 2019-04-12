@@ -821,59 +821,59 @@
     sections:
     - name: abstract
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/abstract.html"
       requiredFields:
     - name: date/time interval
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/dateTimeInterval.html"
       requiredFields:
     - name: has subject area
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/hasSubjectArea.html"
       requiredFields:
     - name: awarded by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/awardedBy.html"
       requiredFields:
     - name: subcontracted through
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/subcontractedThrough.html"
       requiredFields:
     - name: administered by
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/administeredBy.html"
       requiredFields:
     - name: geographic focus
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/geographicFocus.html"
       requiredFields:
     - name: has sub grant
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/hasSubGrant.html"
       requiredFields:
     - name: sub grant of
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/subGrantOf.html"
       requiredFields:
     - name: provides funding for
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/providesFundingFor.html"
       requiredFields:
     - name: total award amount
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/totalAwardAmount.html"
       requiredFields:
     - name: direct costs
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/directCosts.html"
       requiredFields:
     - name: sponsor award ID
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/sponsorAwardId.html"
       requiredFields:
     - name: local award ID
       hidden: false
-      template: "defaults/displayViews/defaults/default.html"
+      template: "defaults/displayViews/grants/overview/localAwardId.html"
       requiredFields:
   - name: Affiliation
     hidden: false
