@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
@@ -9,7 +8,7 @@ import { filter, tap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { DiscoveryView, Filter, Facet } from '../core/model/view';
+import { DiscoveryView, Filter } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
@@ -18,7 +17,7 @@ import { selectRouterSearchQuery, selectRouterUrl, selectRouterQueryParamFilters
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
 import { selectWindowDimensions } from '../core/store/layout';
 
-import * as fromMetadata from '../core/store/metadata/metadata.actions';
+import { addFacetsToQueryParams, addFiltersToQueryParams, addSortToQueryParams } from '../shared/utilities/view.utility';
 
 @Component({
     selector: 'scholars-discovery',
@@ -103,30 +102,13 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         return ['/discovery', discoveryView.name];
     }
 
-    // NOTE: redundant with getDiscoveryQueryParams from SearchBoxComponent
     public getDiscoveryQueryParams(discoveryView: DiscoveryView, page: SdrPage, query: string, filters: Filter[] = [], removeFilter: Filter): Params {
         const queryParams: Params = {};
         queryParams.collection = discoveryView.collection;
-        if (discoveryView.facets && discoveryView.facets.length > 0) {
-            let facets = '';
-            discoveryView.facets.forEach((facet: Facet) => {
-                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
-            });
-            queryParams.facets = facets;
-        }
-        if (discoveryView.filters && discoveryView.filters.length > 0) {
-            // tslint:disable-next-line:no-shadowed-variable
-            discoveryView.filters.forEach((filter: Filter) => {
-                queryParams[`${filter.field}.filter`] = filter.value;
-            });
-        }
+        addFacetsToQueryParams(queryParams, discoveryView);
+        addFiltersToQueryParams(queryParams, discoveryView);
         // NOTE: only first sort is applied to query
-        // Spring requires multiple sort parameters use multiple entries with the 'sort' key
-        // e.g. ?sort=name,asc&sort=preferredTitle,desc
-        // Angular unfortunately does not support constructing that with queryParams
-        if (discoveryView.sort && discoveryView.sort.length > 0) {
-            queryParams.sort = `${discoveryView.sort[0].field},${discoveryView.sort[0].direction}`;
-        }
+        addSortToQueryParams(queryParams, discoveryView);
         // tslint:disable-next-line:no-shadowed-variable
         filters.filter((filter: Filter) => !this.equals(filter, removeFilter)).forEach((filter: Filter) => {
             queryParams[`${filter.field}.filter`] = filter.value;
