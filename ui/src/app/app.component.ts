@@ -44,9 +44,9 @@ export class AppComponent implements OnInit {
 
     @HostListener('click', ['$event'])
     public clickEvent(event): void {
-        if (this.isPlatformBrowser && event.target.href) {
+        if (this.isPlatformBrowser && event.target.href && event.target.href.indexOf(event.target.baseURI) >= 0) {
             const path = event.target.href.replace(event.target.baseURI, '');
-            if (path.length > 0) {
+            if (path.length > 0 && path.indexOf('mailto:') < 0 && path.indexOf('tel:') < 0) {
                 this.store.dispatch(new fromRouter.Link({ url: path }));
                 event.preventDefault();
                 event.stopPropagation();
