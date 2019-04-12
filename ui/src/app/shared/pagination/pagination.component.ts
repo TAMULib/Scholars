@@ -1,16 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
+
+import { Store, select } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
+import { AppState } from '../../core/store';
+
 import { SdrPage } from '../../core/model/sdr';
+import { WindowDimensions } from '../../core/store/layout/layout.reducer';
+
+import { selectWindowDimensions } from '../../core/store/layout';
 
 @Component({
     selector: 'scholars-pagination',
     templateUrl: 'pagination.component.html',
     styleUrls: ['pagination.component.scss']
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnInit {
 
     @Input()
     public page: Observable<SdrPage>;
@@ -19,33 +26,42 @@ export class PaginationComponent {
     public size: 'sm' | 'lg';
 
     @Input()
-    public maxSize = 5;
-
-    @Input()
     public pageSizeOptions = [10, 25, 50, 100];
 
-    public getPages(page: SdrPage): number[] {
+    public windowDimensions: Observable<WindowDimensions>;
+
+    constructor(private store: Store<AppState>) {
+
+    }
+
+    ngOnInit() {
+        this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
+    }
+
+    public getPages(page: SdrPage, windowDimensions: WindowDimensions): number[] {
 
         let pages: number[] = [];
+
+        const maxSize = windowDimensions.width < 576 ? 1 : windowDimensions.width < 768 ? 3 : 5;
 
         for (let i = 1; i <= page.totalPages; i++) {
             pages.push(i);
         }
 
         // apply this.maxSize if necessary
-        if (this.maxSize > 0 && page.totalPages > this.maxSize) {
+        if (maxSize > 0 && page.totalPages > maxSize) {
             let start = 0;
             let end = page.totalPages;
 
-            const leftOffset = Math.floor(this.maxSize / 2);
-            const rightOffset = this.maxSize % 2 === 0 ? leftOffset - 1 : leftOffset;
+            const leftOffset = Math.floor(maxSize / 2);
+            const rightOffset = maxSize % 2 === 0 ? leftOffset - 1 : leftOffset;
 
             if (page.number <= leftOffset) {
                 // very beginning, no rotation -> [0..this.maxSize]
-                end = this.maxSize;
+                end = maxSize;
             } else if (page.totalPages - page.number < leftOffset) {
                 // very end, no rotation -> [len-this.maxSize..len]
-                start = page.totalPages - this.maxSize;
+                start = page.totalPages - maxSize;
             } else {
                 // rotate
                 start = page.number - leftOffset - 1;
