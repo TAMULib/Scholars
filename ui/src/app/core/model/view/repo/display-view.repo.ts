@@ -6,7 +6,7 @@ import { AbstractSdrRepo } from '../../sdr/repo';
 import { ViewRepo } from './view.repo';
 
 import { DisplayView } from '../';
-import { SdrCollection } from '../../sdr';
+import { SdrCollection, Count } from '../../sdr';
 import { SdrRequest } from '../../request';
 
 @Injectable({
@@ -20,6 +20,10 @@ export class DisplayViewRepo extends AbstractSdrRepo<DisplayView> implements Vie
 
     public search(request: SdrRequest): Observable<SdrCollection> {
         throw new Error('Display Views does not support faceted search!');
+    }
+
+    public count(request: SdrRequest): Observable<Count> {
+        throw new Error('Themes does not support count!');
     }
 
 }

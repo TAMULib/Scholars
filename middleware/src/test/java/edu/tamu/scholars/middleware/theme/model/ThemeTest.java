@@ -62,7 +62,7 @@ public class ThemeTest {
         hero.setFontColor("#ffffff");
         hero.setLinkColor("#000000");
         hero.setLinkHoverColor("#ffc222");
-        hero.setInterval(5000);
+        hero.setSlideInterval(5000);
 
         heroes.add(hero);
 
@@ -86,7 +86,7 @@ public class ThemeTest {
         assertEquals("#ffffff", theme.getHome().getHeroes().get(0).getFontColor());
         assertEquals("#000000", theme.getHome().getHeroes().get(0).getLinkColor());
         assertEquals("#ffc222", theme.getHome().getHeroes().get(0).getLinkHoverColor());
-        assertEquals(5000, theme.getHome().getHeroes().get(0).getInterval());
+        assertEquals(5000, theme.getHome().getHeroes().get(0).getSlideInterval());
 
         assertEquals(2, theme.getHome().getVariables().size());
 

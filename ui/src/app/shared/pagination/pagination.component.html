@@ -12,7 +12,7 @@
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <li *ngFor="let pageNumber of getPages(page)" class="page-item" [class.active]="pageNumber === page.number" [class.disabled]="isEllipsis(pageNumber)">
+      <li *ngFor="let pageNumber of getPages(page, windowDimensions | async)" class="page-item" [class.active]="pageNumber === page.number" [class.disabled]="isEllipsis(pageNumber)">
         <a *ngIf="isEllipsis(pageNumber)" class="page-link">
           <span>...</span>
         </a>

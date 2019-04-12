@@ -5,6 +5,7 @@ import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDisplayVi
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +28,9 @@ public class DisplayViewTest {
 
         assertEquals(1L, displayView.getId(), 1);
         assertEquals(MOCK_VIEW_NAME, displayView.getName());
+
+        assertTrue(displayView.getMetaTemplates().containsKey("default"));
+        assertEquals("Meta tag template", displayView.getMetaTemplates().get("default"));
 
         assertEquals("<div>Main</div>", displayView.getMainContentTemplate());
         assertEquals("<div>Left Scan</div>", displayView.getLeftScanTemplate());

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
@@ -9,6 +10,7 @@ import { filter, tap } from 'rxjs/operators';
 import { AppState } from '../core/store';
 
 import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView } from '../core/model/view';
+
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
@@ -17,6 +19,7 @@ import { SolrDocument } from '../core/model/discovery';
 import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
+import * as fromMetadata from '../core/store/metadata/metadata.actions';
 
 @Component({
     selector: 'scholars-display',
@@ -64,8 +67,12 @@ export class DisplayComponent implements OnDestroy, OnInit {
                         console.log(document);
                         this.displayView = this.store.pipe(
                             select(selectDisplayViewByType(document.type)),
-                            filter((view: DisplayView) => view !== undefined),
+                            filter((displayView: DisplayView) => displayView !== undefined),
                             tap((displayView: DisplayView) => {
+                                this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
+                                    tags: this.buildDisplayMetaTags(displayView, document)
+                                }));
+                                displayView.tabs.splice(displayView.tabs.findIndex((tab: DisplayTabView) => tab.name === 'View All'), 1);
                                 const viewAllTabSections = [];
                                 const viewAllTab: DisplayTabView = {
                                     name: 'View All',
@@ -145,6 +152,19 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     public getTabOrientation(windowDimensions: WindowDimensions): string {
         return windowDimensions.width > 767 ? 'horizontal' : 'vertical';
+    }
+
+    private buildDisplayMetaTags(displayView: DisplayView, document: SolrDocument): MetaDefinition[] {
+        const metaTags: MetaDefinition[] = [];
+        for (const name in displayView.metaTemplateFunctions) {
+            if (displayView.metaTemplateFunctions.hasOwnProperty(name)) {
+                const metaTemplateFunction = displayView.metaTemplateFunctions[name];
+                metaTags.push({
+                    name: name, content: metaTemplateFunction(document)
+                });
+            }
+        }
+        return metaTags;
     }
 
     private documentHasRequiredFields(requiredFields: string[], document: SolrDocument): boolean {

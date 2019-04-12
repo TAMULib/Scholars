@@ -18,12 +18,12 @@
       {{~it.etdChairedBy :etdChairedBy:etdChairedByIndex}}
       <li>
         <div class="comma-seperated">
-      	  <span><a href="display/persons/{{=it.etdChairedById[etdChairedByIndex]}}">{{=etdChairedBy}}</a></span>
-      	  {{~it.etdChairedByOrganization :organization:organizationIndex}}
-      	  <!-- TODO: when author organization id populated update href -->
+          <span><a href="display/persons/{{=it.etdChairedById[etdChairedByIndex]}}">{{=etdChairedBy}}</a></span>
+          {{~it.etdChairedByOrganization :organization:organizationIndex}}
+          <!-- TODO: when author organization id populated update href -->
           <span><a href="display/organizations/">{{=organization}}</a></span>
           {{~}}
-      	</div>
+        </div>
       </li>
       {{~}}
     </ul>  

@@ -1,10 +1,5 @@
 <div>
   <h3>
-    {{? it.name }}
-  	<a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a>
-  	{{?}}
-  	{{? it.title && !it.name }}
-  	<a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
-  	{{?}}
+    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a>
   </h3>
 </div>

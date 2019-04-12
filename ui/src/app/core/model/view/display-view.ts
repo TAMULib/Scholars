@@ -20,5 +20,7 @@ export interface DisplayView extends View {
     leftScanTemplateFunction?: Function;
     readonly rightScanTemplate: string;
     rightScanTemplateFunction?: Function;
+    readonly metaTemplates: any;
+    metaTemplateFunctions?: any;
     readonly tabs: DisplayTabView[];
 }

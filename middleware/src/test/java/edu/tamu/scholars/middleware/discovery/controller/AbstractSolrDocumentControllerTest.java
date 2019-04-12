@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -119,6 +120,31 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
                             subsectionWithPath("_links").description(String.format("<<resources-%s-list-links, Links>> to other resources.", getPath().substring(1, getPath().length() - 1))),
                             subsectionWithPath("page").description(String.format("Page details for <<resources-%s, %s resources>>.", getPath().substring(1, getPath().length() - 1), getType().getSimpleName())),
                             subsectionWithPath("facets").description(String.format("Facets for <<resources-%s, %s resources>>.", getPath().substring(1, getPath().length() - 1), getType().getSimpleName()))
+                        )
+                    )
+                );
+        // @formatter:on
+    }
+
+    @Test
+    public void testSearchSolrDocumentsCount() throws Exception {
+        // @formatter:off
+        mockMvc.perform(
+            get(
+                getPath() + "/search/count")
+                    .param("query", "*")
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("value", equalTo(3)))
+                .andDo(
+                    document(
+                        getPath().substring(1) + "/count-search",
+                        requestParameters(
+                            parameterWithName("query").description("The search query")
+                        ),
+                        responseFields(
+                            subsectionWithPath("value").description("The resulting count.")
                         )
                     )
                 );
