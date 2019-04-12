@@ -67,23 +67,25 @@ export class DisplayComponent implements OnDestroy, OnInit {
                         console.log(document);
                         this.displayView = this.store.pipe(
                             select(selectDisplayViewByType(document.type)),
-                            filter((view: DisplayView) => view !== undefined),
+                            filter((displayView: DisplayView) => displayView !== undefined),
                             tap((displayView: DisplayView) => {
                                 this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
                                     tags: this.buildDisplayMetaTags(displayView, document)
                                 }));
-                                const viewAllTabSections = [];
-                                const viewAllTab: DisplayTabView = {
-                                    name: 'View All',
-                                    hidden: false,
-                                    sections: viewAllTabSections
-                                };
-                                this.getTabsToShow(displayView.tabs, document).forEach((tab: DisplayTabView) => {
-                                    this.getSectionsToShow(tab.sections, document).forEach((section: DisplayTabSectionView) => {
-                                        viewAllTabSections.push(section);
+                                if (displayView.tabs.filter((tab: DisplayTabView) => tab.name === 'View All').length === 0) {
+                                    const viewAllTabSections = [];
+                                    const viewAllTab: DisplayTabView = {
+                                        name: 'View All',
+                                        hidden: false,
+                                        sections: viewAllTabSections
+                                    };
+                                    this.getTabsToShow(displayView.tabs, document).forEach((tab: DisplayTabView) => {
+                                        this.getSectionsToShow(tab.sections, document).forEach((section: DisplayTabSectionView) => {
+                                            viewAllTabSections.push(section);
+                                        });
                                     });
-                                });
-                                displayView.tabs.push(viewAllTab);
+                                    displayView.tabs.push(viewAllTab);
+                                }
                             })
                         );
                     })
@@ -153,6 +155,19 @@ export class DisplayComponent implements OnDestroy, OnInit {
         return windowDimensions.width > 767 ? 'horizontal' : 'vertical';
     }
 
+    private buildDisplayMetaTags(displayView: DisplayView, document: SolrDocument): MetaDefinition[] {
+        const metaTags: MetaDefinition[] = [];
+        for (const name in displayView.metaTemplateFunctions) {
+            if (displayView.metaTemplateFunctions.hasOwnProperty(name)) {
+                const metaTemplateFunction = displayView.metaTemplateFunctions[name];
+                metaTags.push({
+                    name: name, content: metaTemplateFunction(document)
+                });
+            }
+        }
+        return metaTags;
+    }
+
     private documentHasRequiredFields(requiredFields: string[], document: SolrDocument): boolean {
         for (const requiredField of requiredFields) {
             if (document[requiredField] === undefined) {
@@ -160,19 +175,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
             }
         }
         return true;
-    }
-
-    private buildDisplayMetaTags(view: DisplayView, document: SolrDocument): MetaDefinition[] {
-        const metaTags: MetaDefinition[] = [];
-        for (const name in view.metaTemplateFunctions) {
-            if (view.metaTemplateFunctions.hasOwnProperty(name)) {
-                const metaTemplateFunction = view.metaTemplateFunctions[name];
-                metaTags.push({
-                    name: name, content: metaTemplateFunction(document)
-                });
-            }
-        }
-        return metaTags;
     }
 
 }
