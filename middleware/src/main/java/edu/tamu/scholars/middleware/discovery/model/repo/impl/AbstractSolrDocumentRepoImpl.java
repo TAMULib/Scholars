@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.Criteria;
@@ -106,7 +104,6 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
 
     @Override
     public long count(String query, String[] fields, MultiValueMap<String, String> params) {
-
         SimpleQuery simpleQuery = new SimpleQuery();
 
         if (query != null) {
@@ -131,11 +128,7 @@ public abstract class AbstractSolrDocumentRepoImpl<D extends AbstractSolrDocumen
 
         simpleQuery.setDefType(queryParser);
 
-        simpleQuery.setPageRequest(PageRequest.of(0, 1));
-
-        Page<D> pageResult = solrTemplate.query(collection(), simpleQuery, type());
-
-        return pageResult.getTotalElements();
+        return solrTemplate.count(collection(), simpleQuery, type());
     }
 
     public abstract String collection();
