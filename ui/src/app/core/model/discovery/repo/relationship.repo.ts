@@ -30,4 +30,8 @@ export class RelationshipRepo extends AbstractSdrRepo<Relationship> {
         throw new Error('Relationships does not support delete!');
     }
 
+    public findByTypesIn(types: string[]): Observable<Relationship> {
+        throw new Error('Relationships does not support find by types in!');
+    }
+
 }

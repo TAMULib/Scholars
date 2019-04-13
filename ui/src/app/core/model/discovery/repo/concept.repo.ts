@@ -30,4 +30,8 @@ export class ConceptRepo extends AbstractSdrRepo<Concept> {
         throw new Error('Concepts does not support delete!');
     }
 
+    public findByTypesIn(types: string[]): Observable<Concept> {
+        throw new Error('Concepts does not support find by types in!');
+    }
+
 }

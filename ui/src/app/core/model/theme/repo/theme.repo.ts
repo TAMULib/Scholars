@@ -24,4 +24,8 @@ export class ThemeRepo extends AbstractSdrRepo<Theme> {
         throw new Error('Themes does not support count!');
     }
 
+    public findByTypesIn(types: string[]): Observable<Theme> {
+        throw new Error('Themes does not support find by types in!');
+    }
+
 }

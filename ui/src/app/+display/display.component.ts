@@ -5,7 +5,7 @@ import { MetaDefinition } from '@angular/platform-browser';
 import { Store, select } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, tap, map } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
@@ -16,7 +16,7 @@ import { WindowDimensions } from '../core/store/layout/layout.reducer';
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
 
-import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType } from '../core/store/sdr';
+import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByTypes } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
@@ -64,11 +64,17 @@ export class DisplayComponent implements OnDestroy, OnInit {
                     select(selectResourceById(params.collection, params.id)),
                     filter((document: SolrDocument) => document !== undefined),
                     tap((document: SolrDocument) => {
-                        console.log(document);
                         this.displayView = this.store.pipe(
-                            select(selectDisplayViewByType(document.type)),
-                            filter((displayView: DisplayView) => displayView !== undefined),
-                            tap((displayView: DisplayView) => {
+                            select(selectDisplayViewByTypes(document.type)),
+                            tap(([displayView, isLoading]) => {
+                                if (displayView === undefined && !isLoading) {
+                                    this.store.dispatch(new fromSdr.FindByTypesInResourceAction('displayViews', {
+                                        types: document.type
+                                    }));
+                                }
+                            }),
+                            filter(([displayView]) => displayView !== undefined),
+                            tap(([displayView]) => {
                                 this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
                                     tags: this.buildDisplayMetaTags(displayView, document)
                                 }));
@@ -85,7 +91,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                     });
                                 });
                                 displayView.tabs.push(viewAllTab);
-                            })
+                            }),
+                            map(([displayView]) => displayView)
                         );
                     })
                 );

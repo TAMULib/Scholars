@@ -178,7 +178,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/themes/search/active",
                         "/directoryViews", "/directoryViews/{id}",
                         "/discoveryViews", "/discoveryViews/{id}",
-                        "/displayViews", "/displayViews/{id}",
+                        "/displayViews", "/displayViews/{id}", "/displayViews/search/findByTypesIn",
                         "/concepts", "/concepts/search/facet", "/concepts/search/count", "/concepts/{id}",
                         "/documents", "/documents/search/facet", "/documents/search/count", "/documents/{id}",
                         "/organizations", "/organizations/search/facet", "/organizations/search/count", "/organizations/{id}",

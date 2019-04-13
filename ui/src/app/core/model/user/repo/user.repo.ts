@@ -21,7 +21,11 @@ export class UserRepo extends AbstractSdrRepo<User> {
     }
 
     public count(request: SdrRequest): Observable<Count> {
-        throw new Error('Themes does not support count!');
+        throw new Error('Users does not support count!');
+    }
+
+    public findByTypesIn(types: string[]): Observable<User> {
+        throw new Error('Users does not support find by types in!');
     }
 
 }

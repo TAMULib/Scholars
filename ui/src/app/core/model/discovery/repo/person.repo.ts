@@ -30,4 +30,8 @@ export class PersonRepo extends AbstractSdrRepo<Person> {
         throw new Error('Persons does not support delete!');
     }
 
+    public findByTypesIn(types: string[]): Observable<Person> {
+        throw new Error('Persons does not support find by types in!');
+    }
+
 }

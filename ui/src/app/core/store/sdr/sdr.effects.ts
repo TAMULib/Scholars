@@ -90,6 +90,26 @@ export class SdrEffects {
         map((action: fromSdr.GetOneResourceFailureAction) => this.alert.getOneFailureAlert(action.payload))
     );
 
+    @Effect() findByTypesIn = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN)),
+        switchMap((action: fromSdr.FindByTypesInResourceAction) => this.repos.get(action.name).findByTypesIn(action.payload.types).pipe(
+            map((document: SolrDocument) => new fromSdr.FindByTypesInResourceSuccessAction(action.name, { document })),
+            catchError((response) => of(new fromSdr.FindByTypesInResourceFailureAction(action.name, { response })))
+        ))
+    );
+
+    @Effect({ dispatch: false }) findByTypesInSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN_SUCCESS)),
+        switchMap((action: fromSdr.FindByTypesInResourceSuccessAction) => this.waitForStompConnection(action.name)),
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
+    );
+
+    @Effect() gfindByTypesIneFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN_FAILURE)),
+        map((action: fromSdr.FindByTypesInResourceFailureAction) => this.alert.findByTypesInFailureAlert(action.payload))
+    );
+
     @Effect() getDirectoryViews = this.actions.pipe(
         ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'directoryViews')),
         switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
@@ -352,7 +372,10 @@ export class SdrEffects {
         })
     );
 
-    @Effect() initViews = defer(() => of(new fromSdr.GetAllResourcesAction('directoryViews'), new fromSdr.GetAllResourcesAction('discoveryViews'), new fromSdr.GetAllResourcesAction('displayViews')));
+    @Effect() initViews = defer(() => of(
+        new fromSdr.GetAllResourcesAction('directoryViews'),
+        new fromSdr.GetAllResourcesAction('discoveryViews')
+    ));
 
     private injectRepos(): void {
         const injector = Injector.create({
@@ -433,9 +456,7 @@ export class SdrEffects {
             };
 
             facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
-
                 for (const sdrFacet of sdrFacets) {
-
                     if (sdrFacet.field === facet.field) {
 
                         const sidebarSection: SidebarSection = {
@@ -450,7 +471,6 @@ export class SdrEffects {
                         });
 
                         sdrFacet.entries.slice(0, facet.limit).forEach((facetEntry: SdrFacetEntry) => {
-
                             let selected = false;
 
                             for (const requestFacet of routerState.queryParams.facets.split(',')) {
@@ -473,7 +493,6 @@ export class SdrEffects {
                             sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !selected ? facetEntry.value : undefined;
 
                             sidebarSection.items.push(sidebarItem);
-
                         });
 
                         if (sdrFacet.entries.length > facet.limit) {
@@ -489,10 +508,8 @@ export class SdrEffects {
                     }
                 }
             });
-
             this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
         }
-
         this.subscribeToResourceQueue(action.name, store.stomp);
     }
 

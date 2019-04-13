@@ -75,6 +75,25 @@ include::{snippets}/displayViews/find-by-id/http-response.adoc[]
 ===== CURL Sample
 include::{snippets}/displayViews/find-by-id/curl-request.adoc[]
 
+==== Find by types in
+
+A user can find a display view by providing _displayView types_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the display view object as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/displayViews/find-by-types-in/path-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/displayViews/find-by-types-in/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/displayViews/find-by-types-in/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/displayViews/find-by-types-in/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/displayViews/find-by-types-in/curl-request.adoc[]
+
 ==== Patch
 
 This helps an admin user to partially update a display view. This process utilizes the http patch protocol.
@@ -99,7 +118,7 @@ include::{snippets}/displayViews/patch/curl-request.adoc[]
 
 ==== Update
 
-This helps an admin user to update a specifc display view based on the _displayView id_ provided in the path parameter. This utilizes the http put protocol.
+This helps an admin user to update a specifc display view based on the _displayView id_ provided in the query parameter. This utilizes the http put protocol.
 
 ===== Path Parameters
 include::{snippets}/displayViews/update/path-parameters.adoc[]

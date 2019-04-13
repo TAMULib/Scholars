@@ -118,6 +118,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         switch (action.type) {
             case getSdrAction(SdrActionTypes.GET_ALL, name):
             case getSdrAction(SdrActionTypes.GET_ONE, name):
+            case getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN, name):
             case getSdrAction(SdrActionTypes.PAGE, name):
             case getSdrAction(SdrActionTypes.SEARCH, name):
                 return {
@@ -139,6 +140,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                     error: undefined
                 });
             case getSdrAction(SdrActionTypes.GET_ONE_SUCCESS, name):
+            case getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN_SUCCESS, name):
                 return getSdrAdapter<R>(keys[name]).addOne(getResource(action, name), {
                     ...state,
                     links: state.links,
@@ -170,6 +172,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
                 };
             case getSdrAction(SdrActionTypes.GET_ALL_FAILURE, name):
             case getSdrAction(SdrActionTypes.GET_ONE_FAILURE, name):
+            case getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN_FAILURE, name):
             case getSdrAction(SdrActionTypes.PAGE_FAILURE, name):
             case getSdrAction(SdrActionTypes.SEARCH_FAILURE, name):
             case getSdrAction(SdrActionTypes.COUNT_FAILURE, name):

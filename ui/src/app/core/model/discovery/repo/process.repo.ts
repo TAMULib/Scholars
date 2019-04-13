@@ -30,4 +30,8 @@ export class ProcessRepo extends AbstractSdrRepo<Process> {
         throw new Error('Processes does not support delete!');
     }
 
+    public findByTypesIn(types: string[]): Observable<Process> {
+        throw new Error('Processes does not support find by types in!');
+    }
+
 }
