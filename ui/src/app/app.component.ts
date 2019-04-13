@@ -22,11 +22,11 @@ import * as fromRouter from './core/store/router/router.actions';
 })
 export class AppComponent implements OnInit {
 
-    private isPlatformBrowser: boolean;
-
     public style: Observable<SafeStyle>;
 
     public location = AlertLocation.MAIN;
+
+    private isPlatformBrowser: boolean;
 
     constructor(
         @Inject(PLATFORM_ID) platformId: string,
