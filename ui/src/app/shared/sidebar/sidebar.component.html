@@ -12,7 +12,7 @@
 
             <span *ngSwitchCase="'FACET'" [ngSwitch]="item.facet.type">
 
-              <span *ngSwitchCase="'STRING'">
+              <span *ngSwitchCase="'STRING'" class="d-flex flex-nowrap justify-content-between">
 
                 <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
                   <span>
@@ -20,11 +20,11 @@
                     <span>{{item.label | async}}</span>
                   </span>
                 </a>
-                <span class="badge badge-light pull-right" *ngIf="item.parenthetical">{{item.parenthetical}}</span>
+                <span class="badge badge-light" *ngIf="item.parenthetical">{{item.parenthetical}}</span>
 
               </span>
 
-              <span *ngSwitchCase="'DATE_YEAR'">
+              <span *ngSwitchCase="'DATE_YEAR'" class="d-flex flex-nowrap justify-content-between">
 
                 <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
                   <span>
@@ -32,7 +32,7 @@
                     <span>{{item.label | async | date:'yyyy' }}</span>
                   </span>
                 </a>
-                <span class="badge badge-light pull-right" *ngIf="item.parenthetical">{{item.parenthetical}}</span>
+                <span class="badge badge-light" *ngIf="item.parenthetical">{{item.parenthetical}}</span>
 
               </span>
 
