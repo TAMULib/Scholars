@@ -80,7 +80,14 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
                                     tags: this.buildDisplayMetaTags(displayView, document)
                                 }));
-                                displayView.tabs.splice(displayView.tabs.findIndex((tab: DisplayTabView) => tab.name === 'View All'), 1);
+                                for (const i in displayView.tabs) {
+                                    if (displayView.tabs.hasOwnProperty(i)) {
+                                        if (displayView.tabs[i].name === 'View All') {
+                                            displayView.tabs.splice(i, 1);
+                                            break;
+                                        }
+                                    }
+                                }
                                 const viewAllTabSections = [];
                                 const viewAllTab: DisplayTabView = {
                                     name: 'View All',
@@ -134,7 +141,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
     public getLeftScanColSize(displayView: DisplayView): number {
         let colSize = 12;
         if (this.showMainContent(displayView)) {
-            colSize -= 9;
+            colSize -= 6;
         }
         if (this.showRightScan(displayView)) {
             colSize -= 3;
@@ -148,7 +155,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
             colSize -= 3;
         }
         if (this.showMainContent(displayView)) {
-            colSize -= 9;
+            colSize -= 6;
         }
         return colSize;
     }
