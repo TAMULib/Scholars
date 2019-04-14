@@ -1,8 +1,8 @@
-<div class="d-flex">
-  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
-  <div class="ml-2 justify-self-end">
-    <span class="badge badge-light">{{=it.type}}</span>
-  </div>
+<div class="d-flex flex-nowrap justify-content-between mb-1">
+  <span>
+    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
+  </span>
+  <span class="badge badge-light">{{=it.type}}</span>
 </div>
 <div>
   <div>
@@ -13,12 +13,12 @@
   </div>
   {{? it.publicationVenue}}
   <div>
-    <span class="label"">Published In:</span>
+    <span class="label">Published In:</span>
     <ul>
       {{~it.publicationVenue :value:index}}
       <li><span>{{=value}}</span></li>
       {{~}}
-    </ul>  
+    </ul>
   </div>
   {{?}}
   {{? it.author && it.authorId}}
@@ -36,7 +36,7 @@
         </div>
       </li>
       {{~}}
-    </ul>  
+    </ul>
   </div>
   {{?}}
 </div>
@@ -67,11 +67,16 @@
     font-weight: 550;
     margin-right: 2px;
   }
+
   .comma-seperated span:after {
     content: ", ";
   }
 
   .comma-seperated span:last-child:after {
     content: "";
+  }
+
+  .badge {
+    height: 18px;
   }
 </style>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
@@ -20,6 +20,7 @@ import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'scholars-display',
@@ -39,6 +40,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
     private subscriptions: Subscription[];
 
     constructor(
+        @Inject(PLATFORM_ID) private platformId: string,
         private store: Store<AppState>,
         private route: ActivatedRoute
     ) {
@@ -91,6 +93,12 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                     });
                                 });
                                 displayView.tabs.push(viewAllTab);
+                                if (isPlatformBrowser(this.platformId)) {
+                                    setTimeout(() => {
+                                        window['_altmetric_embed_init']();
+                                        window['__dimensions_embed'].addBadges();
+                                    });
+                                }
                             }),
                             map(([displayView]) => displayView)
                         );

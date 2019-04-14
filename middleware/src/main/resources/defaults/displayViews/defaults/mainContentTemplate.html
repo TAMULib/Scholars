@@ -1,10 +1,15 @@
 <div>
-  <h3>
+  <span class="h3">
+    {{? it.title }}
+    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
+    {{?}}
     {{? it.name }}
     <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a>
     {{?}}
-    {{? it.title && !it.name }}
-    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
-    {{?}}
-  </h3>
+  </span>
+  <span class="h3 lead font-weight-normal text-nowrap text-secondary">
+    <span class="ml-1">|</span>
+    <span class="ml-1">{{=it.type}}</span>
+    <i class="fa fa-link ml-1"></i>
+  </span>
 </div>
