@@ -1143,18 +1143,22 @@
       hidden: false
       template: "defaults/displayViews/concepts/overview/researchAreaOf.html"
       requiredFields:
+      - researchAreaOf
     - name: broader concept
       hidden: false
       template: "defaults/displayViews/concepts/overview/broaderConcept.html"
       requiredFields:
+      - broaderConcept
     - name: narrower concept
       hidden: false
       template: "defaults/displayViews/concepts/overview/narrowerConcept.html"
       requiredFields:
+      - narrowerConcept
     - name: related concept
       hidden: false
       template: "defaults/displayViews/concepts/overview/relatedConcept.html"
       requiredFields:
+      - relatedConcept
   - name: Identity
     hidden: false
     sections:
@@ -1162,3 +1166,4 @@
       hidden: false
       template: "defaults/displayViews/concepts/identity/sameAs.html"
       requiredFields:
+      - sameAs
