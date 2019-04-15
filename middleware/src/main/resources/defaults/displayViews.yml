@@ -876,7 +876,7 @@
       hidden: false
       template: "defaults/displayViews/grants/overview/hasSubGrant.html"
       requiredFields:
-      - subGrant
+      - hasSubGrant
     - name: sub grant of
       hidden: false
       template: "defaults/displayViews/grants/overview/subGrantOf.html"
