@@ -840,58 +840,73 @@
       hidden: false
       template: "defaults/displayViews/grants/overview/abstract.html"
       requiredFields:
+      - abstract
     - name: date/time interval
       hidden: false
       template: "defaults/displayViews/grants/overview/dateTimeInterval.html"
       requiredFields:
+      - dateTimeIntervalStart
+      - dateTimeIntervalEnd
     - name: has subject area
       hidden: false
       template: "defaults/displayViews/grants/overview/hasSubjectArea.html"
       requiredFields:
+      - hasSubjectArea
     - name: awarded by
       hidden: false
       template: "defaults/displayViews/grants/overview/awardedBy.html"
       requiredFields:
+      - awardedBy
     - name: subcontracted through
       hidden: false
       template: "defaults/displayViews/grants/overview/subcontractedThrough.html"
       requiredFields:
+      - subcontractedThrough
     - name: administered by
       hidden: false
       template: "defaults/displayViews/grants/overview/administeredBy.html"
       requiredFields:
+      - administeredBy
     - name: geographic focus
       hidden: false
       template: "defaults/displayViews/grants/overview/geographicFocus.html"
       requiredFields:
+      - geographicFocus
     - name: has sub grant
       hidden: false
       template: "defaults/displayViews/grants/overview/hasSubGrant.html"
       requiredFields:
+      - subGrant
     - name: sub grant of
       hidden: false
       template: "defaults/displayViews/grants/overview/subGrantOf.html"
       requiredFields:
+       - subGrantOf
     - name: provides funding for
       hidden: false
       template: "defaults/displayViews/grants/overview/providesFundingFor.html"
       requiredFields:
+      - providesFundingFor
     - name: total award amount
       hidden: false
       template: "defaults/displayViews/grants/overview/totalAwardAmount.html"
       requiredFields:
+      - totalAwardAmount
     - name: direct costs
       hidden: false
       template: "defaults/displayViews/grants/overview/directCosts.html"
       requiredFields:
+      - directCosts
     - name: sponsor award ID
       hidden: false
       template: "defaults/displayViews/grants/overview/sponsorAwardId.html"
       requiredFields:
+      - sponsorAwardId
     - name: local award ID
       hidden: false
       template: "defaults/displayViews/grants/overview/localAwardId.html"
       requiredFields:
+      - localAwardId
   - name: Affiliation
     hidden: false
     sections:
@@ -899,6 +914,7 @@
       hidden: false
       template: "defaults/displayViews/grants/affiliation/contributor.html"
       requiredFields:
+      - contributor
   - name: Publications
     hidden: false
     sections:
@@ -906,6 +922,7 @@
       hidden: false
       template: "defaults/displayViews/grants/publications/supportedPublicationsOrOtherWorks.html"
       requiredFields:
+      - supportedPublicationOrOtherWork
   - name: Identity
     hidden: false
     sections:
@@ -913,6 +930,7 @@
       hidden: false
       template: "defaults/displayViews/grants/identity/sameAs.html"
       requiredFields:
+      - sameAs
   - name: Other
     hidden: false
     sections:
@@ -920,26 +938,32 @@
       hidden: false
       template: "defaults/displayViews/grants/other/assignedBy.html"
       requiredFields:
+      - assignedBy
     - name: inheres in
       hidden: false
       template: "defaults/displayViews/grants/other/inheresIn.html"
       requiredFields:
+      - inheresIn
     - name: is specified output of
       hidden: false
       template: "defaults/displayViews/grants/other/isSpecifiedOutputOf.html"
       requiredFields:
+      - specifiedOutputOf
     - name: output of
       hidden: false
       template: "defaults/displayViews/grants/other/outputOf.html"
       requiredFields:
+      - outputOf
     - name: participates in
       hidden: false
       template: "defaults/displayViews/grants/other/participatesIn.html"
       requiredFields:
+      - participatesIn
     - name: relates
       hidden: false
       template: "defaults/displayViews/grants/other/relates.html"
       requiredFields:
+      - relates
 
 - name: Awards
   types:
