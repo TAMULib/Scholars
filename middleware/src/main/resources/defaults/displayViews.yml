@@ -955,26 +955,33 @@
       hidden: false
       template: "defaults/displayViews/awards/overview/description.html"
       requiredFields:
+      - description
     - name: receipt of
       hidden: false
       template: "defaults/displayViews/awards/overview/receiptOf.html"
       requiredFields:
+      - receiptOf
     - name: award or honor for
       hidden: false
       template: "defaults/displayViews/awards/overview/awardOrHonorFor.html"
       requiredFields:
+      - awardOrHonorFor
     - name: award conferred by
       hidden: false
       template: "defaults/displayViews/awards/overview/awardConferredBy.html"
       requiredFields:
+      - awardConferredBy
     - name: date/time interval
       hidden: false
       template: "defaults/displayViews/awards/overview/dateTimeInterval.html"
       requiredFields:
+      - dateTimeIntervalStart
+      - dateTimeIntervalEnd
     - name: year awarded
       hidden: false
       template: "defaults/displayViews/awards/overview/yearAwarded.html"
       requiredFields:
+      - yearAwarded
   - name: Identity
     hidden: false
     sections:
@@ -982,6 +989,7 @@
       hidden: false
       template: "defaults/displayViews/awards/identity/sameAs.html"
       requiredFields:
+      - sameAs
   - name: Other
     hidden: false
     sections:
@@ -989,30 +997,37 @@
       hidden: false
       template: "defaults/displayViews/awards/other/assignedBy.html"
       requiredFields:
+      - assignedBy
     - name: inheres in
       hidden: false
       template: "defaults/displayViews/awards/other/inheresIn.html"
       requiredFields:
+      - inheresIn
     - name: is specified output of
       hidden: false
       template: "defaults/displayViews/awards/other/isSpecifiedOutputOf.html"
       requiredFields:
+      - specifiedOutputOf
     - name: output of
       hidden: false
       template: "defaults/displayViews/awards/other/outputOf.html"
       requiredFields:
+      - outputOf
     - name: participates in
       hidden: false
       template: "defaults/displayViews/awards/other/participatesIn.html"
       requiredFields:
+      - participatesIn
     - name: relates
       hidden: false
       template: "defaults/displayViews/awards/other/relates.html"
       requiredFields:
+      - relates
     - name: date/time value
       hidden: false
       template: "defaults/displayViews/awards/other/dateTimeValue.html"
       requiredFields:
+      - dateTimeValue
   
 - name: Courses
   types:
