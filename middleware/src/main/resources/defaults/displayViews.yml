@@ -1084,7 +1084,7 @@
       hidden: false
       template: "defaults/displayViews/courses/overview/geographicFocus.html"
       requiredFields:
-      - geographicFocusType
+      - geographicFocus
   - name: Publications
     hidden: false
     sections:
@@ -1131,6 +1131,7 @@
       hidden: false
       template: "defaults/displayViews/courses/other/hasInput.html"
       requiredFields:
+      - hasInput
     - name: has output
       hidden: false
       template: "defaults/displayViews/courses/other/hasOutput.html"
@@ -1145,10 +1146,12 @@
       hidden: false
       template: "defaults/displayViews/courses/other/locatedIn.html"
       requiredFields:
+      - locatedIn
     - name: realizes
       hidden: false
       template: "defaults/displayViews/courses/other/realizes.html"
       requiredFields:
+      - realizes
 
 - name: Concepts
   types:
