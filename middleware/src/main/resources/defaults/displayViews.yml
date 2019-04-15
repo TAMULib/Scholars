@@ -1028,50 +1028,63 @@
       hidden: false
       template: "defaults/displayViews/courses/overview/description.html"
       requiredFields:
+      - description
     - name: offered by
       hidden: false
       template: "defaults/displayViews/courses/overview/offeredBy.html"
       requiredFields:
+      - offeredBy
     - name: date/time interval
       hidden: false
       template: "defaults/displayViews/courses/overview/dateTimeInterval.html"
       requiredFields:
+      - dateTimeIntervalStart
+      - dateTimeIntervalEnd
     - name: occurs within event
       hidden: false
       template: "defaults/displayViews/courses/overview/occursWithinEvent.html"
       requiredFields:
+      - occursWithinEvent
     - name: includes event
       hidden: false
       template: "defaults/displayViews/courses/overview/includesEvent.html"
       requiredFields:
+      - includesEvent
     - name: in event series
       hidden: false
       template: "defaults/displayViews/courses/overview/inEventSeries.html"
       requiredFields:
+      - inEventSeries
     - name: participant
       hidden: false
       template: "defaults/displayViews/courses/overview/participant.html"
       requiredFields:
+      - participant
     - name: has subject area
       hidden: false
       template: "defaults/displayViews/courses/overview/hasSubjectArea.html"
       requiredFields:
+      - hasSubjectArea
     - name: has prerequisite
       hidden: false
       template: "defaults/displayViews/courses/overview/hasPrerequisite.html"
       requiredFields:
+      - hasPrerequisite
     - name: prerequisite for
       hidden: false
       template: "defaults/displayViews/courses/overview/prerequisiteFor.html"
       requiredFields:
+      - prerequisiteFor
     - name: credits
       hidden: false
       template: "defaults/displayViews/courses/overview/credits.html"
       requiredFields:
+      - credits
     - name: geographic focus
       hidden: false
       template: "defaults/displayViews/courses/overview/geographicFocus.html"
       requiredFields:
+      - geographicFocusType
   - name: Publications
     hidden: false
     sections:
@@ -1079,10 +1092,12 @@
       hidden: false
       template: "defaults/displayViews/courses/publications/outputPublicationsOrOtherWorks.html"
       requiredFields:
+      - outputPublicationOrOtherWork
     - name: related documents
       hidden: false
       template: "defaults/displayViews/courses/publications/relatedDocuments.html"
       requiredFields:
+      - relatedDocument
   - name: Identity
     hidden: false
     sections:
@@ -1090,6 +1105,7 @@
       hidden: false
       template: "defaults/displayViews/courses/identity/sameAs.html"
       requiredFields:
+      - sameAs
   - name: Contact
     hidden: false
     sections:
@@ -1097,14 +1113,17 @@
       hidden: false
       template: "defaults/displayViews/courses/contact/contactInformation.html"
       requiredFields:
+      - contactInformation
     - name: held in facility
       hidden: false
       template: "defaults/displayViews/courses/contact/heldInFacility.html"
       requiredFields:
+      - heldInFacility
     - name: held in geographic location
       hidden: false
       template: "defaults/displayViews/courses/contact/heldInGeographicLocation.html"
       requiredFields:
+      - heldInGeographicLocation
   - name: Other
     hidden: false
     sections:
@@ -1116,10 +1135,12 @@
       hidden: false
       template: "defaults/displayViews/courses/other/hasOutput.html"
       requiredFields:
+      - hasOutput
     - name: has participant
       hidden: false
       template: "defaults/displayViews/courses/other/hasParticipant.html"
       requiredFields:
+      - hasParticipant
     - name: located in
       hidden: false
       template: "defaults/displayViews/courses/other/locatedIn.html"
