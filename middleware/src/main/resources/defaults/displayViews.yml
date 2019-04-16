@@ -625,74 +625,92 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/abstract.html"
       requiredFields:
+      - abstractText
     - name: authors
       hidden: false
       template: "defaults/displayViews/publications/overview/authors.html"
       requiredFields:
+      - author
     - name: author list (cited authors)
       hidden: false
       template: "defaults/displayViews/publications/overview/authorList.html"
       requiredFields:
+      - authorList
     - name: editor list (cited editors)
       hidden: false
       template: "defaults/displayViews/publications/overview/editorList.html"
       requiredFields:
+      - editorList
     - name: editors
       hidden: false
       template: "defaults/displayViews/publications/overview/editors.html"
       requiredFields:
+      - editor
     - name: translator
       hidden: false
       template: "defaults/displayViews/publications/overview/translator.html"
       requiredFields:
+      - translator
     - name: status
       hidden: false
       template: "defaults/displayViews/publications/overview/status.html"
       requiredFields:
+      - status
     - name: publication date
       hidden: false
       template: "defaults/displayViews/publications/overview/publicationDate.html"
       requiredFields:
+      - publicationDate
     - name: has subject area
       hidden: false
       template: "defaults/displayViews/publications/overview/hasSubjectArea.html"
       requiredFields:
+      - subjectArea
     - name: has restriction
       hidden: false
       template: "defaults/displayViews/publications/overview/hasRestriction.html"
       requiredFields:
+      - restriction
     - name: has document part
       hidden: false
       template: "defaults/displayViews/publications/overview/hasDocumentPart.html"
       requiredFields:
+      - documentPart
     - name: features
       hidden: false
       template: "defaults/displayViews/publications/overview/features.html"
       requiredFields:
+      - feature
     - name: published in
       hidden: false
       template: "defaults/displayViews/publications/overview/publishedIn.html"
       requiredFields:
+      - publishedIn
     - name: geographic focus
       hidden: false
       template: "defaults/displayViews/publications/overview/geographicFocus.html"
       requiredFields:
+      - geographicFocus
     - name: documentation for project or resource
       hidden: false
       template: "defaults/displayViews/publications/overview/documentationForProjectOrResource.html"
       requiredFields:
+      - documentationForProjectOrResource
     - name: output of process or event
       hidden: false
       template: "defaults/displayViews/publications/overview/outputOfProcessOrEvent.html"
       requiredFields:
+      - outputOfProcessOrEvent
     - name: presented at event
       hidden: false
       template: "defaults/displayViews/publications/overview/presentedAtEvent.html"
       requiredFields:
+      - presentedAt
     - name: keywords
       hidden: false
       template: "defaults/displayViews/publications/overview/keywords.html"
       requiredFields:
+      - keyword
   - name: Identity
     hidden: false
     sections:
@@ -700,34 +718,42 @@
       hidden: false
       template: "defaults/displayViews/publications/identity/eanInternationalUniformCodeCouncil.html"
       requiredFields:
+      - eanucc13
     - name: NIH Manuscript Submission System ID
       hidden: false
       template: "defaults/displayViews/publications/identity/nihManuscriptSubmissionSystemId.html"
       requiredFields:
+      - nihmsid
     - name: PubMed Central ID
       hidden: false
       template: "defaults/displayViews/publications/identity/pubMedCentralId.html"
       requiredFields:
+      - pmcid
     - name: identifier
       hidden: false
       template: "defaults/displayViews/publications/identity/identifier.html"
       requiredFields:
+      - identifier
     - name: same as
       hidden: false
       template: "defaults/displayViews/publications/identity/sameAs.html"
       requiredFields:
+      - sameAs
     - name: Digital Object Identifier (DOI)
       hidden: false
       template: "defaults/displayViews/publications/identity/digitalObjectIdentifier.html"
       requiredFields:
+      - doi
     - name: Online Computer Library Center (OCLC) number
       hidden: false
       template: "defaults/displayViews/publications/identity/onlineComputerLibraryCenter.html"
       requiredFields:
+      - oclcnum
     - name: PubMed ID
       hidden: false
       template: "defaults/displayViews/publications/identity/pubMedId.html"
       requiredFields:
+      - pmid
   - name: Related Documents
     hidden: false
     sections:
@@ -735,22 +761,27 @@
       hidden: false
       template: "defaults/displayViews/publications/relatedDocuments/citedBy.html"
       requiredFields:
+      - citedBy
     - name: cites
       hidden: false
       template: "defaults/displayViews/publications/relatedDocuments/cites.html"
       requiredFields:
+      - cites
     - name: cites as data source
       hidden: false
       template: "defaults/displayViews/publications/relatedDocuments/citesAsDataSource.html"
       requiredFields:
+      - citesAsDataSource
     - name: has translation
       hidden: false
       template: "defaults/displayViews/publications/relatedDocuments/hasTranslation.html"
       requiredFields:
+      - hasTranslation
     - name: translation of
       hidden: false
       template: "defaults/displayViews/publications/relatedDocuments/translationOf.html"
       requiredFields:
+      - translationOf
   - name: Additional Document Info
     hidden: false
     sections:
@@ -758,34 +789,42 @@
       hidden: false
       template: "defaults/displayViews/publications/additionalDocumentInfo/hasGlobalCitationFrequency.html"
       requiredFields:
+      - hasGlobalCitationFrequency
     - name: number of pages
       hidden: false
       template: "defaults/displayViews/publications/additionalDocumentInfo/numberOfPages.html"
       requiredFields:
+      - numberOfPages
     - name: start page
       hidden: false
       template: "defaults/displayViews/publications/additionalDocumentInfo/startPage.html"
       requiredFields:
+      - pageStart
     - name: end page
       hidden: false
       template: "defaults/displayViews/publications/additionalDocumentInfo/endPage.html"
       requiredFields:
+      - pageEnd
     - name: volume
       hidden: false
       template: "defaults/displayViews/publications/additionalDocumentInfo/volume.html"
       requiredFields:
+      - volume
     - name: issue
       hidden: false
       template: "defaults/displayViews/publications/additionalDocumentInfo/issue.html"
       requiredFields:
+      - issue
     - name: reproduced in
       hidden: false
       template: "defaults/displayViews/publications/additionalDocumentInfo/reproducedIn.html"
       requiredFields:
+      - reproducedIn
     - name: reproduces
       hidden: false
       template: "defaults/displayViews/publications/additionalDocumentInfo/reproduces.html"
       requiredFields:
+      - reproduces
   - name: Other
     hidden: false
     sections:
@@ -793,38 +832,47 @@
       hidden: false
       template: "defaults/displayViews/publications/other/isAbout.html"
       requiredFields:
+      - isAbout
     - name: is specified output of
       hidden: false
       template: "defaults/displayViews/publications/other/isSpecifiedOutputOf.html"
       requiredFields:
+      - specifiedOutputOf
     - name: is template
       hidden: false
       template: "defaults/displayViews/publications/other/isTemplate.html"
       requiredFields:
+      - isTemplate
     - name: mentions
       hidden: false
       template: "defaults/displayViews/publications/other/mentions.html"
       requiredFields:
+      - mention
     - name: output of
       hidden: false
       template: "defaults/displayViews/publications/other/outputOf.html"
       requiredFields:
+      - outputOf
     - name: participates in
       hidden: false
       template: "defaults/displayViews/publications/other/participatesIn.html"
       requiredFields:
+      - participatesIn
     - name: related by
       hidden: false
       template: "defaults/displayViews/publications/other/relatedBy.html"
       requiredFields:
+      - relatedBy
     - name: supported by
       hidden: false
       template: "defaults/displayViews/publications/other/supportedBy.html"
       requiredFields:
+      - supportedBy
     - name: date/time value
       hidden: false
       template: "defaults/displayViews/publications/other/dateTimeValue.html"
       requiredFields:
+      - dateTimeValue
 
 - name: Grants
   types:
@@ -840,7 +888,7 @@
       hidden: false
       template: "defaults/displayViews/grants/overview/abstract.html"
       requiredFields:
-      - abstract
+      - abstractText
     - name: date/time interval
       hidden: false
       template: "defaults/displayViews/grants/overview/dateTimeInterval.html"
@@ -851,7 +899,7 @@
       hidden: false
       template: "defaults/displayViews/grants/overview/hasSubjectArea.html"
       requiredFields:
-      - hasSubjectArea
+      - subjectArea
     - name: awarded by
       hidden: false
       template: "defaults/displayViews/grants/overview/awardedBy.html"
@@ -861,7 +909,7 @@
       hidden: false
       template: "defaults/displayViews/grants/overview/subcontractedThrough.html"
       requiredFields:
-      - subcontractedThrough
+      - grantSubcontractedThrough
     - name: administered by
       hidden: false
       template: "defaults/displayViews/grants/overview/administeredBy.html"
