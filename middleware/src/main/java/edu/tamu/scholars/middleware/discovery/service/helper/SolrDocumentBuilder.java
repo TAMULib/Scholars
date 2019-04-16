@@ -26,7 +26,11 @@ public class SolrDocumentBuilder {
 
     private final static String HASH_TAG = "#";
 
-    private final static String ID = "id";
+    public final static String ID_PROPERTY_NAME = "id";
+
+    public final static String NESTED_ID_DELIMITER = "::";
+
+    private final static String NESTED_VALUE_TEMPLATE = NESTED_ID_DELIMITER + "%s";
 
     private final Map<String, List<String>> collections;
 
@@ -47,14 +51,11 @@ public class SolrDocumentBuilder {
         this.type = type;
         this.collections = new HashMap<String, List<String>>();
         for (Field field : getPropertySourceFields()) {
-            PropertySource source = field.getAnnotation(PropertySource.class);
             this.collections.put(field.getName(), new ArrayList<String>());
-            if (!source.id().isEmpty()) {
-                this.collections.put(source.id(), new ArrayList<String>());
-            }
         }
-        this.collections.put(ID, new ArrayList<String>());
-        add(ID, parse(subject), true);
+        List<String> id = new ArrayList<String>();
+        id.add(parse(subject));
+        this.collections.put(ID_PROPERTY_NAME, id);
     }
 
     public Field getField() {
@@ -135,31 +136,23 @@ public class SolrDocumentBuilder {
             Statement statement = statements.next();
             String object = statement.getObject().toString();
             String value = lookup.isParse() ? parse(object) : object;
-            if (add(lookup.getName(), value, lookup.isUnique())) {
-                if (lookup.hasId()) {
-                    String subject = statement.getSubject().toString();
-                    add(lookup.getId(), parse(subject), false);
+            if (this.collections.containsKey(lookup.getName())) {
+                if (value.contains("^^")) {
+                    value = value.substring(0, value.indexOf("^^"));
+                }
+                List<String> values = this.collections.get(lookup.getName());
+                if (lookup.isUnique() && values.stream().anyMatch(value::equalsIgnoreCase)) {
+                    if (logger.isDebugEnabled()) {
+                        logger.debug(String.format("%s has duplicate value %s", lookup.getName(), value));
+                    }
+                } else {
+                    if (lookup.isNested() || lookup.isId()) {
+                        value += String.format(NESTED_VALUE_TEMPLATE, parse(statement.getSubject().toString()));
+                    }
+                    values.add(value);
                 }
             }
         }
-    }
-
-    public boolean add(String property, String value, boolean unique) {
-        if (this.collections.containsKey(property)) {
-            if (value.contains("^^")) {
-                value = value.substring(0, value.indexOf("^^"));
-            }
-            List<String> values = this.collections.get(property);
-            if (unique && values.stream().anyMatch(value::equalsIgnoreCase)) {
-                if (logger.isDebugEnabled()) {
-                    logger.debug(String.format("%s has duplicate value %s", property, value));
-                }
-            } else {
-                values.add(value);
-                return true;
-            }
-        }
-        return false;
     }
 
     public static String parse(String uri) {

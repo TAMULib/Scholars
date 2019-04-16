@@ -64,7 +64,7 @@ spring:
   data:
     rest:
       # CAUTION: leaving this on will permit all requests from localhost, breaks various UI requests and SSR
-      authorize-hal-browser: false
+      authorize-hal-browser: true
       return-body-on-create: true
       return-body-on-update: true
     solr:

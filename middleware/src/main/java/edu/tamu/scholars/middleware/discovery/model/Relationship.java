@@ -46,7 +46,7 @@ public class Relationship extends AbstractSolrDocument {
     private String description;
 
     @Indexed
-    @PropertySource(template = "relationship/receiptOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "receiptOfId")
+    @PropertySource(template = "relationship/receiptOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> receiptOf;
 
     @Indexed
@@ -57,7 +57,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> receiptOfId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/awardOrHonorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardOrHonorForId")
+    @PropertySource(template = "relationship/awardOrHonorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> awardOrHonorFor;
 
     @Indexed
@@ -68,7 +68,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> awardOrHonorForId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/awardConferredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardConferredById")
+    @PropertySource(template = "relationship/awardConferredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> awardConferredBy;
 
     @Indexed
@@ -83,7 +83,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> awardConferredById;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/awardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardedById")
+    @PropertySource(template = "relationship/awardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> awardedBy;
 
     @Indexed
@@ -98,7 +98,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> awardedById;
 
     @Indexed
-    @PropertySource(template = "relationship/grantSubcontractedThrough", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "grantSubcontractedThroughId")
+    @PropertySource(template = "relationship/grantSubcontractedThrough", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> grantSubcontractedThrough;
 
     @Indexed
@@ -109,7 +109,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> grantSubcontractedThroughId;
 
     @Indexed
-    @PropertySource(template = "relationship/administeredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "administeredById")
+    @PropertySource(template = "relationship/administeredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> administeredBy;
 
     @Indexed
@@ -120,7 +120,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> administeredById;
 
     @Indexed
-    @PropertySource(template = "relationship/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicFocusId")
+    @PropertySource(template = "relationship/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> geographicFocus;
 
     @Indexed
@@ -131,7 +131,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> geographicFocusId;
 
     @Indexed
-    @PropertySource(template = "relationship/subGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subGrantId")
+    @PropertySource(template = "relationship/subGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> subGrant;
 
     @Indexed
@@ -142,7 +142,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> subGrantId;
 
     @Indexed
-    @PropertySource(template = "relationship/subGrantOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subGrantOfId")
+    @PropertySource(template = "relationship/subGrantOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> subGrantOf;
 
     @Indexed
@@ -153,7 +153,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> subGrantOfId;
 
     @Indexed
-    @PropertySource(template = "relationship/providesFundingFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "providesFundingForId")
+    @PropertySource(template = "relationship/providesFundingFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> providesFundingFor;
 
     @Indexed
@@ -180,7 +180,7 @@ public class Relationship extends AbstractSolrDocument {
     private String localAwardId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/contributor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "contributorId")
+    @PropertySource(template = "relationship/contributor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> contributor;
 
     @Indexed
@@ -191,21 +191,21 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> contributorId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/principalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "principalInvestigatorId")
+    @PropertySource(template = "relationship/principalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> principalInvestigator;
 
     @Indexed
     private List<String> principalInvestigatorId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/coPrincipalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "coPrincipalInvestigator")
+    @PropertySource(template = "relationship/coPrincipalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> coPrincipalInvestigator;
 
     @Indexed
     private List<String> coPrincipalInvestigatorId;
 
     @Indexed
-    @PropertySource(template = "relationship/supportedPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "supportedPublicationOrOtherWorkId")
+    @PropertySource(template = "relationship/supportedPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> supportedPublicationOrOtherWork;
 
     @Indexed
@@ -224,7 +224,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> dateTimeIntervalEnd;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "relationship/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subjectAreaId")
+    @PropertySource(template = "relationship/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> subjectArea;
 
     @Indexed
@@ -239,7 +239,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> yearAwarded;
 
     @Indexed
-    @PropertySource(template = "relationship/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
+    @PropertySource(template = "relationship/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> sameAs;
 
     @Indexed
@@ -250,7 +250,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> sameAsId;
 
     @Indexed
-    @PropertySource(template = "relationship/inheresIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "inheresInId")
+    @PropertySource(template = "relationship/inheresIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> inheresIn;
 
     @Indexed
@@ -261,7 +261,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> inheresInId;
 
     @Indexed
-    @PropertySource(template = "relationship/isSpecifiedOutputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "isSpecifiedOutputOfId")
+    @PropertySource(template = "relationship/isSpecifiedOutputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> specifiedOutputOf;
 
     @Indexed
@@ -272,7 +272,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> isSpecifiedOutputOfId;
 
     @Indexed
-    @PropertySource(template = "relationship/outputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outputOfId")
+    @PropertySource(template = "relationship/outputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> outputOf;
 
     @Indexed
@@ -283,7 +283,7 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> outputOfId;
 
     @Indexed
-    @PropertySource(template = "relationship/participatesIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "participatesInId")
+    @PropertySource(template = "relationship/participatesIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> participatesIn;
 
     @Indexed

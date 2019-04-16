@@ -31,14 +31,6 @@
     limit: 10
     collapsed: false
     hidden: false
-  - name: Published In
-    field: selectedPublicationVenue
-    type: STRING
-    sort: COUNT
-    direction: DESC
-    limit: 10
-    collapsed: false
-    hidden: false
   - name: Publisher
     field: publisher
     type: STRING

@@ -8,16 +8,19 @@ public class PropertyLookup {
 
     private final String name;
 
-    private final String id;
+    private final boolean id;
+
+    private final boolean nested;
 
     private final boolean parse;
 
     private final boolean unique;
 
-    public PropertyLookup(String predicate, String name, String id, boolean parse, boolean unique) {
+    public PropertyLookup(String predicate, String name, boolean id, boolean nested, boolean parse, boolean unique) {
         this.predicate = predicate;
         this.name = name;
         this.id = id;
+        this.nested = nested;
         this.parse = parse;
         this.unique = unique;
     }
@@ -30,12 +33,12 @@ public class PropertyLookup {
         return name;
     }
 
-    public String getId() {
+    public boolean isId() {
         return id;
     }
 
-    public boolean hasId() {
-        return !id.isEmpty();
+    public boolean isNested() {
+        return nested;
     }
 
     public boolean isParse() {
@@ -47,7 +50,7 @@ public class PropertyLookup {
     }
 
     public static PropertyLookup of(String predicate, String propertyName, PropertySource source) {
-        return new PropertyLookup(predicate, propertyName, source.id(), source.parse(), source.unique());
+        return new PropertyLookup(predicate, propertyName, source.id(), source.nested(), source.parse(), source.unique());
     }
 
 }

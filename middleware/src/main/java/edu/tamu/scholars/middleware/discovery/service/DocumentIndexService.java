@@ -13,4 +13,9 @@ public class DocumentIndexService extends AbstractSolrIndexService<Document, Doc
         return Document.class;
     }
 
+    @Override
+    public void index() {
+
+    }
+
 }
