@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(FIELD)
 @Retention(RUNTIME)
-public @interface NestedReferences {
+public @interface NestedObject {
 
     Reference[] value();
 
@@ -21,7 +21,7 @@ public @interface NestedReferences {
 
         String value();
 
-        String property();
+        String key();
 
     }
 

@@ -4,7 +4,7 @@ PREFIX bibo:  <http://purl.org/ontology/bibo/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
  
 CONSTRUCT {
-    ?publication vitro:mostSpecificType ?type .
+    ?publication vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?authorship .
     ?authorship a vivo:Authorship .
@@ -12,5 +12,6 @@ CONSTRUCT {
     ?publication a obo:IAO_0000030 .
     ?publication a bibo:Document .
     ?publication vitro:mostSpecificType ?type .
+    BIND( CONCAT( STR(?type), REPLACE(STR(?publication), "(^.*/)", "::") ) AS ?typeWithId ) .
     FILTER (contains(str(?type), "http://purl.org/ontology/bibo/"))
 }

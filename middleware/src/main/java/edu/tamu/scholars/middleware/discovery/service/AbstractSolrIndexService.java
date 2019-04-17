@@ -18,7 +18,6 @@ import org.apache.jena.graph.Triple;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ResIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,26 +95,25 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
     }
 
     private void lookupProperties(SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException {
-        for (Field field : builder.getPropertySourceFields()) {
-            builder.setField(field);
+        for (Field field : FieldUtils.getFieldsListWithAnnotation(builder.getType(), PropertySource.class)) {
             PropertySource source = field.getAnnotation(PropertySource.class);
-            String query = templateService.templateSparql(source.template(), builder.getSubject());
+            String subject = builder.getSubject();
+            Model model = queryForModel(source, subject);
+            builder.lookupProperty(field.getName(), source, model);
+        }
+    }
+
+    private Model queryForModel(PropertySource source, String subject) {
+        String query = templateService.templateSparql(source.template(), subject);
+        if (logger.isDebugEnabled()) {
+            logger.debug(String.format("%s:\n%s", source.template(), query));
+        }
+        try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
+            Model model = qe.execConstruct();
             if (logger.isDebugEnabled()) {
-                logger.debug(String.format("%s:\n%s", source.template(), query));
+                model.write(System.out, "RDF/XML");
             }
-            try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
-                Model model = qe.execConstruct();
-                if (logger.isDebugEnabled()) {
-                    model.write(System.out, "RDF/XML");
-                }
-                builder.setModel(model);
-                String predicate = source.predicate();
-                ResIterator resources = model.listSubjects();
-                while (resources.hasNext()) {
-                    builder.setResource(resources.next());
-                    builder.lookupProperty(source, predicate);
-                }
-            }
+            return model;
         }
     }
 

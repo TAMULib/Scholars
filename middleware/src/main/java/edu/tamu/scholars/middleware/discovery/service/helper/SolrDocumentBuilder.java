@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
@@ -15,22 +16,17 @@ import org.apache.jena.shared.InvalidPropertyURIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 public class SolrDocumentBuilder {
 
     private final static Logger logger = LoggerFactory.getLogger(SolrDocumentBuilder.class);
 
+    private final static String ID_PROPERTY_NAME = "id";
+
     private final static String FORWARD_SLASH = "/";
 
     private final static String HASH_TAG = "#";
-
-    public final static String ID_PROPERTY_NAME = "id";
-
-    public final static String NESTED_ID_DELIMITER = "::";
-
-    private final static String NESTED_VALUE_TEMPLATE = NESTED_ID_DELIMITER + "%s";
 
     private final Map<String, List<String>> collections;
 
@@ -38,56 +34,16 @@ public class SolrDocumentBuilder {
 
     private final Class<?> type;
 
-    private Field field;
-
-    private Model model;
-
-    private Resource resource;
-
-    private String[] predicates;
-
     public SolrDocumentBuilder(String subject, Class<?> type) {
         this.subject = subject;
         this.type = type;
         this.collections = new HashMap<String, List<String>>();
-        for (Field field : getPropertySourceFields()) {
+        for (Field field : FieldUtils.getFieldsListWithAnnotation(this.type, PropertySource.class)) {
             this.collections.put(field.getName(), new ArrayList<String>());
         }
         List<String> id = new ArrayList<String>();
         id.add(parse(subject));
         this.collections.put(ID_PROPERTY_NAME, id);
-    }
-
-    public Field getField() {
-        return field;
-    }
-
-    public void setField(Field field) {
-        this.field = field;
-    }
-
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
-    public Resource getResource() {
-        return resource;
-    }
-
-    public void setResource(Resource resource) {
-        this.resource = resource;
-    }
-
-    public String[] getPredicates() {
-        return predicates;
-    }
-
-    public void setPredicates(String[] predicates) {
-        this.predicates = predicates;
     }
 
     public Map<String, List<String>> getCollections() {
@@ -102,53 +58,38 @@ public class SolrDocumentBuilder {
         return type;
     }
 
-    public CollectionSource getCollectionSource() {
-        return type.getAnnotation(CollectionSource.class);
+    public void lookupProperty(String property, PropertySource source, Model model) {
+        ResIterator resources = model.listSubjects();
+        while (resources.hasNext()) {
+            Resource resource = resources.next();
+            lookupProperty(property, source, model, resource);
+        }
     }
 
-    public String getPropertyName() {
-        return field.getName();
-    }
-
-    public PropertySource getPropertySource() {
-        return field.getAnnotation(PropertySource.class);
-    }
-
-    public List<Field> getPropertySourceFields() {
-        return FieldUtils.getFieldsListWithAnnotation(type, PropertySource.class);
-    }
-
-    public void lookupProperty(PropertySource source, String predicate) {
-        lookupProperty(PropertyLookup.of(predicate, field.getName(), source));
-    }
-
-    public void lookupProperty(PropertyLookup lookup) {
-        Model model = getModel();
-        Resource resource = getResource();
+    public void lookupProperty(String property, PropertySource source, Model model, Resource resource) {
         StmtIterator statements;
         try {
-            statements = resource.listProperties(model.createProperty(lookup.getPredicate()));
+            statements = resource.listProperties(model.createProperty(source.predicate()));
         } catch (InvalidPropertyURIException exception) {
-            logger.error(String.format("%s lookup by %s", lookup.getName(), lookup.getPredicate()));
+            logger.error(String.format("%s lookup by %s", property, source.predicate()));
             throw exception;
         }
         while (statements.hasNext()) {
             Statement statement = statements.next();
             String object = statement.getObject().toString();
-            String value = lookup.isParse() ? parse(object) : object;
-            if (this.collections.containsKey(lookup.getName())) {
+            String value = source.parse() ? parse(object) : object;
+            if (this.collections.containsKey(property)) {
+
                 if (value.contains("^^")) {
                     value = value.substring(0, value.indexOf("^^"));
                 }
-                List<String> values = this.collections.get(lookup.getName());
-                if (lookup.isUnique() && values.stream().anyMatch(value::equalsIgnoreCase)) {
+
+                List<String> values = this.collections.get(property);
+                if (source.unique() && values.stream().anyMatch(value::equalsIgnoreCase)) {
                     if (logger.isDebugEnabled()) {
-                        logger.debug(String.format("%s has duplicate value %s", lookup.getName(), value));
+                        logger.debug(String.format("%s has duplicate value %s", property, value));
                     }
                 } else {
-                    if (lookup.isNested() || lookup.isId()) {
-                        value += String.format(NESTED_VALUE_TEMPLATE, parse(statement.getSubject().toString()));
-                    }
                     values.add(value);
                 }
             }

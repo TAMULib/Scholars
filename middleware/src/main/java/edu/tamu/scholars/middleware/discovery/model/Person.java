@@ -10,8 +10,8 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
-import edu.tamu.scholars.middleware.discovery.annotation.NestedReferences;
-import edu.tamu.scholars.middleware.discovery.annotation.NestedReferences.Reference;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject.Reference;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
@@ -64,8 +64,8 @@ public class Person extends AbstractSolrDocument {
     private String preferredTitle;
 
     @Indexed(type = "nested_strings")
-    @NestedReferences({ @Reference(value = "positionType", property = "type"), @Reference(value = "positionOrganization", property = "organization") })
-    @PropertySource(template = "person/position", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @NestedObject({ @Reference(value = "positionType", key = "type"), @Reference(value = "positionOrganization", key = "organization") })
+    @PropertySource(template = "person/position", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> position;
 
     @Indexed(type = "nested_strings")
@@ -73,7 +73,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> positionType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, id = true)
+    @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> positionOrganization;
 
     @Indexed(type = "whole_string", copyTo = "_text_")
@@ -81,12 +81,12 @@ public class Person extends AbstractSolrDocument {
     private String overview;
 
     @Indexed(type = "whole_strings", copyTo = "_text_")
-    @PropertySource(template = "person/researchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/researchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> researchArea;
 
     @Indexed(type = "whole_strings")
-    @NestedReferences({ @Reference(value = "geographicFocusType", property = "type") })
-    @PropertySource(template = "person/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @NestedObject({ @Reference(value = "geographicFocusType", key = "type") })
+    @PropertySource(template = "person/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> geographicFocus;
 
     @Indexed(type = "whole_strings")
@@ -102,7 +102,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> keyword;
 
     @Indexed(type = "nested_strings")
-    @NestedReferences({ @Reference(value = "headOfType", property = "type"), @Reference(value = "headOfOrganization", property = "organization"), @Reference(value = "headOfStartDate", property = "startDate"), @Reference(value = "headOfEndDate", property = "endDate") })
+    @NestedObject({ @Reference(value = "headOfType", key = "type"), @Reference(value = "headOfOrganization", key = "organization"), @Reference(value = "headOfStartDate", key = "startDate"), @Reference(value = "headOfEndDate", key = "endDate") })
     @PropertySource(template = "person/headOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> headOf;
 
@@ -247,7 +247,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> adviseeOfEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @NestedReferences({ @Reference(value = "selectedPublicationType", property = "type"), @Reference(value = "selectedPublicationVenue", property = "venue"), @Reference(value = "selectedPublicationDate", property = "date") })
+    @NestedObject({ @Reference(value = "selectedPublicationType", key = "type"), @Reference(value = "selectedPublicationVenue", key = "venue"), @Reference(value = "selectedPublicationDate", key = "date") })
     @PropertySource(template = "person/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
     private List<String> selectedPublication;
 
