@@ -46,7 +46,7 @@ public class Process extends AbstractSolrDocument {
     private String description;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "process/offeredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/offeredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> offeredBy;
 
     @Indexed
@@ -65,28 +65,28 @@ public class Process extends AbstractSolrDocument {
     private List<String> dateTimeIntervalEnd;
 
     @Indexed
-    @PropertySource(template = "process/occursWithinEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/occursWithinEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> occursWithinEvent;
 
     @Indexed
     private List<String> occursWithinEventId;
 
     @Indexed
-    @PropertySource(template = "process/includesEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/includesEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> includesEvent;
 
     @Indexed
     private List<String> includesEventId;
 
     @Indexed
-    @PropertySource(template = "process/inEventSeries", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/inEventSeries", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> inEventSeries;
 
     @Indexed
     private List<String> inEventSeriesId;
 
     @Indexed
-    @PropertySource(template = "process/participant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/participant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> participant;
 
     @Indexed
@@ -104,7 +104,7 @@ public class Process extends AbstractSolrDocument {
     private List<String> hasSubjectAreaId;
 
     @Indexed
-    @PropertySource(template = "process/hasPrerequisite", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/hasPrerequisite", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasPrerequisite;
 
     @Indexed
@@ -115,7 +115,7 @@ public class Process extends AbstractSolrDocument {
     private List<String> hasPrerequisiteId;
 
     @Indexed
-    @PropertySource(template = "process/prerequisiteFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/prerequisiteFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> prerequisiteFor;
 
     @Indexed
@@ -130,7 +130,7 @@ public class Process extends AbstractSolrDocument {
     private String credits;
 
     @Indexed
-    @PropertySource(template = "process/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> geographicFocus;
 
     @Indexed
@@ -141,7 +141,7 @@ public class Process extends AbstractSolrDocument {
     private List<String> geographicFocusId;
 
     @Indexed
-    @PropertySource(template = "process/outputPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/outputPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> outputPublicationOrOtherWork;
 
     @Indexed
@@ -152,7 +152,7 @@ public class Process extends AbstractSolrDocument {
     private List<String> outputPublicationOrOtherWorkId;
 
     @Indexed
-    @PropertySource(template = "process/relatedDocument", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/relatedDocument", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> relatedDocument;
 
     @Indexed
@@ -167,21 +167,21 @@ public class Process extends AbstractSolrDocument {
     private List<String> contactInformation;
 
     @Indexed
-    @PropertySource(template = "process/heldInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/heldInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> heldInFacility;
 
     @Indexed
     private List<String> heldInFacilityId;
 
     @Indexed
-    @PropertySource(template = "process/heldInGeographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/heldInGeographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> heldInGeographicLocation;
 
     @Indexed
     private List<String> heldInGeographicLocationId;
 
     @Indexed
-    @PropertySource(template = "process/hasOutput", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/hasOutput", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasOutput;
 
     @Indexed
@@ -192,7 +192,7 @@ public class Process extends AbstractSolrDocument {
     private List<String> hasOutputId;
 
     @Indexed
-    @PropertySource(template = "process/hasParticipant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/hasParticipant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasParticipant;
 
     @Indexed
@@ -203,7 +203,7 @@ public class Process extends AbstractSolrDocument {
     private List<String> hasParticipantId;
 
     @Indexed
-    @PropertySource(template = "process/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "process/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> sameAs;
 
     @Indexed

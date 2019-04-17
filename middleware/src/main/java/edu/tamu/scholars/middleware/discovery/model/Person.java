@@ -103,7 +103,7 @@ public class Person extends AbstractSolrDocument {
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "headOfType", key = "type"), @Reference(value = "headOfOrganization", key = "organization"), @Reference(value = "headOfStartDate", key = "startDate"), @Reference(value = "headOfEndDate", key = "endDate") })
-    @PropertySource(template = "person/headOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/headOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> headOf;
 
     @Indexed(type = "nested_strings")
@@ -111,7 +111,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> headOfType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, id = true)
+    @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> headOfOrganization;
 
     @Indexed(type = "nested_dates")
@@ -123,7 +123,8 @@ public class Person extends AbstractSolrDocument {
     private List<String> headOfEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @NestedObject({ @Reference(value = "memberOfType", key = "type"), @Reference(value = "memberOfOrganization", key = "organization"), @Reference(value = "memberOfStartDate", key = "startDate"), @Reference(value = "memberOfEndDate", key = "endDate") })
+    @PropertySource(template = "person/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> memberOf;
 
     @Indexed(type = "nested_strings")
@@ -131,7 +132,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> memberOfType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, id = true)
+    @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> memberOfOrganization;
 
     @Indexed(type = "nested_strings")
@@ -143,11 +144,11 @@ public class Person extends AbstractSolrDocument {
     private List<String> memberOfEndDate;
 
     @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/hasCollaborator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/hasCollaborator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasCollaborator;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> clinicalActivity;
 
     @Indexed(type = "nested_strings")
@@ -167,7 +168,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> clinicalActivityEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> attendedEvent;
 
     @Indexed(type = "nested_strings")
@@ -183,7 +184,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> attendedEventEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/educationAndTraining", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/educationAndTraining", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> educationAndTraining;
 
     @Indexed(type = "nested_strings")
@@ -203,7 +204,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> educationAndTrainingEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/credentials", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/credentials", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> credentials;
 
     @Indexed(type = "nested_dates")
@@ -211,7 +212,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> credentialsDateIssued;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/credentialEligibilityAttained", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/credentialEligibilityAttained", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> credentialEligibilityAttained;
 
     @Indexed(type = "nested_strings")
@@ -219,7 +220,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> credentialEligibilityAttainedType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/awardAndHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/awardAndHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> awardAndHonor;
 
     @Indexed(type = "nested_dates")
@@ -227,7 +228,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> awardAndHonorDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/adviseeOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/adviseeOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> adviseeOf;
 
     @Indexed(type = "nested_strings")
@@ -248,7 +249,7 @@ public class Person extends AbstractSolrDocument {
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @NestedObject({ @Reference(value = "selectedPublicationType", key = "type"), @Reference(value = "selectedPublicationVenue", key = "venue"), @Reference(value = "selectedPublicationDate", key = "date") })
-    @PropertySource(template = "person/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> selectedPublication;
 
     @Indexed(type = "nested_strings")
@@ -264,11 +265,11 @@ public class Person extends AbstractSolrDocument {
     private List<String> selectedPublicationDate;
 
     @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> publisher;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/collectionOrSeriesEditorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/collectionOrSeriesEditorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> collectionOrSeriesEditorFor;
 
     @Indexed(type = "nested_strings")
@@ -288,7 +289,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> collectionOrSeriesEditorForEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/editorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/editorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> editorOf;
 
     @Indexed(type = "nested_strings")
@@ -316,7 +317,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> editorOfDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> presentation;
 
     @Indexed(type = "nested_strings")
@@ -340,7 +341,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> presentationEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> featuredIn;
 
     @Indexed(type = "nested_strings")
@@ -352,7 +353,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> featuredInDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> assigneeForPatent;
 
     @Indexed(type = "nested_strings")
@@ -364,7 +365,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> assigneeForPatentDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> translatorOf;
 
     @Indexed(type = "nested_strings")
@@ -380,7 +381,7 @@ public class Person extends AbstractSolrDocument {
     private String researchOverview;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/principalInvestigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/principalInvestigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> principalInvestigatorOn;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
@@ -396,7 +397,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> principalInvestigatorOnEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/coPrincipalInvestigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/coPrincipalInvestigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> coPrincipalInvestigatorOn;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
@@ -412,7 +413,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> coPrincipalInvestigatorOnEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/investigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/investigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> investigatorOn;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
@@ -428,7 +429,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> investigatorOnEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/otherResearchActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/otherResearchActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> otherResearchActivity;
 
     @Indexed(type = "nested_strings")
@@ -448,7 +449,7 @@ public class Person extends AbstractSolrDocument {
     private String teachingOverview;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/teachingActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/teachingActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> teachingActivity;
 
     @Indexed(type = "nested_strings")
@@ -456,7 +457,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> teachingActivityRole;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/advisee", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/advisee", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> advisee;
 
     @Indexed(type = "nested_strings")
@@ -480,7 +481,7 @@ public class Person extends AbstractSolrDocument {
     private String outreachOverview;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/reviewerOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/reviewerOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> reviewerOf;
 
     @Indexed(type = "nested_strings")
@@ -496,7 +497,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> reviewerOfEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/contactOrProvidorForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/contactOrProvidorForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> contactOrProvidorForService;
 
     @Indexed(type = "nested_strings")
@@ -504,7 +505,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> contactOrProvidorForServiceType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/organizerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/organizerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> organizerOfEvent;
 
     @Indexed(type = "nested_strings")
@@ -520,7 +521,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> organizerOfEventEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/professionalServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/professionalServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> professionalServiceActivity;
 
     @Indexed(type = "nested_strings")
@@ -540,7 +541,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> professionalServiceActivityEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> outreachAndCommunityServiceActivity;
 
     @Indexed(type = "nested_strings")
@@ -560,7 +561,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> outreachAndCommunityServiceActivityEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/performsTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/performsTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> performsTechnique;
 
     @Indexed(type = "nested_strings")
@@ -568,7 +569,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> performsTechniqueType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/hasExpertiseInTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/hasExpertiseInTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasExpertiseInTechnique;
 
     @Indexed(type = "nested_strings")
@@ -604,7 +605,7 @@ public class Person extends AbstractSolrDocument {
     private String youtube;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> sameAs;
 
     @Indexed(type = "nested_strings")
@@ -664,11 +665,11 @@ public class Person extends AbstractSolrDocument {
     private String country;
 
     @Indexed(type = "whole_string")
-    @PropertySource(template = "person/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private String geographicLocation;
 
     @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/locatedInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/locatedInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> locatedInFacility;
 
     @Indexed(type = "whole_string")
@@ -676,7 +677,7 @@ public class Person extends AbstractSolrDocument {
     private String fax;
 
     @Indexed(type = "whole_strings", copyTo = "_text_")
-    @PropertySource(template = "person/etdChairOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = true)
+    @PropertySource(template = "person/etdChairOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> etdChairOf;
 
     @Indexed(type = "pdate")

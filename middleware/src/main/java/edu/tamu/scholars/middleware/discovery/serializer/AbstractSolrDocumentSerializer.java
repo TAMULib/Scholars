@@ -33,20 +33,18 @@ public abstract class AbstractSolrDocumentSerializer<D extends AbstractSolrDocum
     public void serialize(D document, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
         jsonGenerator.writeStartObject();
 
+        // serialize all non nested fields
         for (Field field : FieldUtils.getFieldsListWithAnnotation(document.getClass(), PropertySource.class)) {
             field.setAccessible(true);
-
             Object value = null;
             try {
                 value = field.get(document);
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-
             if (value != null) {
                 String name = field.getName();
                 PropertySource source = field.getAnnotation(PropertySource.class);
-
                 if (!source.nested()) {
                     jsonGenerator.writeObjectField(name, value);
                 }
