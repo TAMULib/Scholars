@@ -17,36 +17,6 @@
     "Veterinary Physiology and Pharmacology"
   ],
   "hrJobTitle": "Clinical Associate Professor",
-  "educationAndTraining": [
-    "VTPP691 Research",
-    "VTPP685 Directed Studies",
-    "VTPP438 Analy Of Genomic Signals",
-    "BIOT685 Directed Studies",
-    "VTPP638 Analy Of Genomic Signals",
-    "VTPP689 Sptp: Relational Biology Model",
-    "BIMS101 Intro To Biomedical Sc",
-    "VTPP489 Sptp: Relational Bio Models"
-  ],
-  "educationAndTrainingRole": [
-    "Instructor",
-    "Instructor",
-    "Instructor",
-    "Instructor",
-    "Instructor",
-    "Instructor",
-    "Instructor",
-    "Instructor"
-  ],
-  "educationAndTrainingType": [
-    "Course",
-    "Course",
-    "Course",
-    "Course",
-    "Course",
-    "Course",
-    "Course",
-    "Course"
-  ],
   "selectedPublication": [
     "The PSA<sup>-/lo</sup>prostate cancer cell population harbors self-renewing long-term tumor-propagating cells that resist castration",
     "Boolean models of genomic regulatory networks: Reduction mappings, inference, and external control",
