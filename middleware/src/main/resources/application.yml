@@ -64,7 +64,7 @@ spring:
   data:
     rest:
       # CAUTION: leaving this on will permit all requests from localhost, breaks various UI requests and SSR
-      authorize-hal-browser: true
+      authorize-hal-browser: false
       return-body-on-create: true
       return-body-on-update: true
     solr:
@@ -84,7 +84,7 @@ spring:
   devtools:
     add-properties: false
     restart:
-      enabled: true
+      enabled: false
       exclude: target
   h2:
     console:

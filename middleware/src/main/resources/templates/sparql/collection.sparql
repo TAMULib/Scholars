@@ -2,4 +2,4 @@ CONSTRUCT {
     ?model a <[(${uri})]> .
 } WHERE {
     ?model a <[(${uri})]> .
-} LIMIT 1
+}

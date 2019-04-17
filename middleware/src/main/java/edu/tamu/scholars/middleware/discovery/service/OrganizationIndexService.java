@@ -13,9 +13,4 @@ public class OrganizationIndexService extends AbstractSolrIndexService<Organizat
         return Organization.class;
     }
 
-    @Override
-    public void index() {
-
-    }
-
 }

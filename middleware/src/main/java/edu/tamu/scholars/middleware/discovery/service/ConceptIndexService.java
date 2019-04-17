@@ -13,9 +13,4 @@ public class ConceptIndexService extends AbstractSolrIndexService<Concept, Conce
         return Concept.class;
     }
 
-    @Override
-    public void index() {
-
-    }
-
 }

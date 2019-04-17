@@ -13,9 +13,4 @@ public class RelationshipIndexService extends AbstractSolrIndexService<Relations
         return Relationship.class;
     }
 
-    @Override
-    public void index() {
-
-    }
-
 }

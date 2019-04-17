@@ -13,9 +13,4 @@ public class ProcessIndexService extends AbstractSolrIndexService<Process, Proce
         return Process.class;
     }
 
-    @Override
-    public void index() {
-
-    }
-
 }
