@@ -3,7 +3,7 @@ PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?date vivo:dateTime ?dateTime .
+    ?date vivo:dateTime ?dateTimeWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?editor .
     ?editor a vivo:Editorship .
@@ -11,4 +11,5 @@ CONSTRUCT {
     ?document a bibo:Document .
     ?document ?dateTimeValue ?date .
     ?date vivo:dateTime ?dateTime .
+    BIND( CONCAT( STR(?dateTime), REPLACE(STR(?document), "(^.*/)", "::") ) AS ?dateTimeWithId ) .
 }

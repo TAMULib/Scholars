@@ -32,7 +32,7 @@
     collapsed: false
     hidden: false
   - name: Publisher
-    field: publisher
+    field: selectedPublicationPublisher
     type: STRING
     sort: COUNT
     direction: DESC

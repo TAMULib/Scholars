@@ -3,11 +3,12 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
  
 CONSTRUCT {
-    ?presentation vitro:mostSpecificType ?type .
+    ?presentation vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:PresenterRole .
     ?role obo:BFO_0000054 ?event .
     ?event obo:BFO_0000051 ?presentation .
     ?presentation vitro:mostSpecificType ?type .
+    BIND( CONCAT( STR(?type), REPLACE(STR(?presentation), "(^.*/)", "::") ) AS ?typeWithId ) .
 }

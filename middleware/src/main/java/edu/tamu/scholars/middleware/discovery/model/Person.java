@@ -328,21 +328,18 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/selectedPublicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
     private List<String> selectedPublicationDate;
 
-    @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
-    private List<String> publisher;
-
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "collectionOrSeriesEditorForType", key = "type"), @Reference(value = "collectionOrSeriesEditorForRole", key = "role"), @Reference(value = "collectionOrSeriesEditorForStartDate", key = "startDate"), @Reference(value = "collectionOrSeriesEditorForEndDate", key = "endDate") })
     @PropertySource(template = "person/collectionOrSeriesEditorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> collectionOrSeriesEditorFor;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/collectionOrSeriesEditorForRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
-    private List<String> collectionOrSeriesEditorForRole;
-
-    @Indexed(type = "nested_strings")
     @PropertySource(template = "person/collectionOrSeriesEditorForType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
     private List<String> collectionOrSeriesEditorForType;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/collectionOrSeriesEditorForRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    private List<String> collectionOrSeriesEditorForRole;
 
     @Indexed(type = "nested_dates")
     @PropertySource(template = "person/collectionOrSeriesEditorForStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
@@ -353,6 +350,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> collectionOrSeriesEditorForEndDate;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "editorOfType", key = "type"), @Reference(value = "editorOfPublisher", key = "publisher"), @Reference(value = "editorOfFullAuthorList", key = "authors"), @Reference(value = "editorOfPageStart", key = "pageStart"), @Reference(value = "editorOfPageEnd", key = "pageEnd"), @Reference(value = "editorOfDate", key = "date") })
     @PropertySource(template = "person/editorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> editorOf;
 
@@ -381,6 +379,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> editorOfDate;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "presentationType", key = "type"), @Reference(value = "presentationRole", key = "role"), @Reference(value = "presentationEvent", key = "event"), @Reference(value = "presentationStartDate", key = "startDate"), @Reference(value = "presentationEndDate", key = "endDate") })
     @PropertySource(template = "person/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> presentation;
 
@@ -405,6 +404,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> presentationEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
+    @NestedObject({ @Reference(value = "featuredInType", key = "type"), @Reference(value = "featuredInDate", key = "date") })
     @PropertySource(template = "person/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> featuredIn;
 
@@ -1312,14 +1312,6 @@ public class Person extends AbstractSolrDocument {
         this.selectedPublicationDate = selectedPublicationDate;
     }
 
-    public List<String> getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(List<String> publisher) {
-        this.publisher = publisher;
-    }
-
     public List<String> getCollectionOrSeriesEditorFor() {
         return collectionOrSeriesEditorFor;
     }
@@ -1328,20 +1320,20 @@ public class Person extends AbstractSolrDocument {
         this.collectionOrSeriesEditorFor = collectionOrSeriesEditorFor;
     }
 
-    public List<String> getCollectionOrSeriesEditorForRole() {
-        return collectionOrSeriesEditorForRole;
-    }
-
-    public void setCollectionOrSeriesEditorForRole(List<String> collectionOrSeriesEditorForRole) {
-        this.collectionOrSeriesEditorForRole = collectionOrSeriesEditorForRole;
-    }
-
     public List<String> getCollectionOrSeriesEditorForType() {
         return collectionOrSeriesEditorForType;
     }
 
     public void setCollectionOrSeriesEditorForType(List<String> collectionOrSeriesEditorForType) {
         this.collectionOrSeriesEditorForType = collectionOrSeriesEditorForType;
+    }
+
+    public List<String> getCollectionOrSeriesEditorForRole() {
+        return collectionOrSeriesEditorForRole;
+    }
+
+    public void setCollectionOrSeriesEditorForRole(List<String> collectionOrSeriesEditorForRole) {
+        this.collectionOrSeriesEditorForRole = collectionOrSeriesEditorForRole;
     }
 
     public List<String> getCollectionOrSeriesEditorForStartDate() {

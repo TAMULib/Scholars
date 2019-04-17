@@ -44,6 +44,9 @@ public abstract class AbstractUnwrappingSolrDocumentSerializer<D extends Abstrac
     @Override
     public void serialize(D document, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
+        // serialize id
+        jsonGenerator.writeObjectField(nameTransformer.transform(ID_PROPERTY_NAME), document.getId());
+        
         // serialize all non nested fields
         for (Field field : FieldUtils.getFieldsListWithAnnotation(document.getClass(), PropertySource.class)) {
             field.setAccessible(true);
@@ -62,6 +65,7 @@ public abstract class AbstractUnwrappingSolrDocumentSerializer<D extends Abstrac
             }
         }
 
+        // serialize nested objects
         for (Field field : FieldUtils.getFieldsListWithAnnotation(document.getClass(), NestedObject.class)) {
             field.setAccessible(true);
 

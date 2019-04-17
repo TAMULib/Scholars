@@ -5,7 +5,7 @@ PREFIX owl: <http://purl.org/NET/c4dm/event.owl#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?event rdfs:label ?name .
+    ?event rdfs:label ?nameWithId .
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:PresenterRole .
@@ -14,5 +14,6 @@ CONSTRUCT {
     ?event a owl:Event .
     ?event rdfs:label ?name .
     ?event vitro:mostSpecificType ?type .
+    BIND( CONCAT( STR(?name), REPLACE(STR(?presentation), "(^.*/)", "::") ) AS ?nameWithId ) .
     FILTER (contains(str(?type), "http://purl.org/ontology/bibo/"))
 }
