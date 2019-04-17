@@ -1,15 +1,13 @@
 package edu.tamu.scholars.middleware.discovery.service;
 
-import static edu.tamu.scholars.middleware.discovery.service.helper.SolrDocumentBuilder.parse;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -19,6 +17,10 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ResIterator;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.shared.InvalidPropertyURIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +30,18 @@ import org.springframework.data.solr.repository.SolrCrudRepository;
 import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 import edu.tamu.scholars.middleware.discovery.model.AbstractSolrDocument;
-import edu.tamu.scholars.middleware.discovery.service.helper.SolrDocumentBuilder;
 import edu.tamu.scholars.middleware.service.TemplateService;
 import edu.tamu.scholars.middleware.service.Triplestore;
 
 public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R extends SolrCrudRepository<D, String>> implements SolrIndexService {
 
     private final static String COLLECTION_SPARQL_TEMPLATE = "collection";
+
+    private final static String ID_PROPERTY_NAME = "id";
+
+    private final static String FORWARD_SLASH = "/";
+
+    private final static String HASH_TAG = "#";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -68,7 +75,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
     public void index(String subject) {
         Instant start = Instant.now();
         try {
-            D document = createDocument(SolrDocumentBuilder.of(subject, type()));
+            D document = createDocument(subject);
             repo.save(document);
             logger.info(String.format("%s %s indexed in %f seconds", name(), parse(subject), Duration.between(start, Instant.now()).toMillis() / 1000.0));
         } catch (DataAccessResourceFailureException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -88,52 +95,86 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         return type().getSimpleName();
     }
 
-    private D createDocument(SolrDocumentBuilder builder) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    private D createDocument(String subject) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         D document = construct();
-        lookupProperties(builder);
-        populate(document, builder);
+        Field field = FieldUtils.getField(type(), ID_PROPERTY_NAME, true);
+        field.set(document, parse(subject));
+        lookupProperties(document, subject);
         return document;
     }
 
-    private void lookupProperties(SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException {
-        for (Field field : builder.getPropertySourceFields()) {
-            builder.setField(field);
+    private void lookupProperties(D document, String subject) throws IllegalArgumentException, IllegalAccessException {
+        for (Field field : FieldUtils.getFieldsListWithAnnotation(type(), PropertySource.class)) {
             PropertySource source = field.getAnnotation(PropertySource.class);
-            String query = templateService.templateSparql(source.template(), builder.getSubject());
-            if (logger.isDebugEnabled()) {
-                logger.debug(String.format("%s:\n%s", source.template(), query));
-            }
-            try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
-                Model model = qe.execConstruct();
-                if (logger.isDebugEnabled()) {
-                    model.write(System.out, "RDF/XML");
-                }
-                builder.setModel(model);
-                String predicate = source.predicate();
-                ResIterator resources = model.listSubjects();
-                while (resources.hasNext()) {
-                    builder.setResource(resources.next());
-                    builder.lookupProperty(source, predicate);
-                }
-            }
+            Model model = queryForModel(source, subject);
+            String property = field.getName();
+            List<String> values = lookupProperty(property, source, model);
+            populate(document, field, values);
         }
     }
 
-    private void populate(D document, SolrDocumentBuilder builder) throws IllegalArgumentException, IllegalAccessException {
-        for (Map.Entry<String, List<String>> entry : builder.getCollections().entrySet()) {
-            List<String> values = entry.getValue();
-            if (values.isEmpty()) {
+    private Model queryForModel(PropertySource source, String subject) {
+        String query = templateService.templateSparql(source.template(), subject);
+        if (logger.isDebugEnabled()) {
+            logger.debug(String.format("%s:\n%s", source.template(), query));
+        }
+        try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
+            Model model = qe.execConstruct();
+            if (logger.isDebugEnabled()) {
+                model.write(System.out, "RDF/XML");
+            }
+            return model;
+        }
+    }
+
+    private List<String> lookupProperty(String property, PropertySource source, Model model) {
+        List<String> values = new ArrayList<String>();
+        ResIterator resources = model.listSubjects();
+        while (resources.hasNext()) {
+            Resource resource = resources.next();
+            values.addAll(lookupProperty(property, source, model, resource));
+        }
+        return values;
+    }
+
+    public List<String> lookupProperty(String property, PropertySource source, Model model, Resource resource) {
+        List<String> values = new ArrayList<String>();
+        StmtIterator statements;
+        try {
+            statements = resource.listProperties(model.createProperty(source.predicate()));
+        } catch (InvalidPropertyURIException exception) {
+            logger.error(String.format("%s lookup by %s", property, source.predicate()));
+            throw exception;
+        }
+        while (statements.hasNext()) {
+            Statement statement = statements.next();
+            String object = statement.getObject().toString();
+            String value = source.parse() ? parse(object) : object;
+            if (value.contains("^^")) {
+                value = value.substring(0, value.indexOf("^^"));
+            }
+            if (source.unique() && values.stream().anyMatch(value::equalsIgnoreCase)) {
                 if (logger.isDebugEnabled()) {
-                    logger.debug(String.format("Could not find values for %s", entry.getKey()));
+                    logger.debug(String.format("%s has duplicate value %s", property, value));
                 }
             } else {
-                Field field = field(entry.getKey());
-                field.setAccessible(true);
-                if (Collection.class.isAssignableFrom(field.getType())) {
-                    field.set(document, values);
-                } else {
-                    field.set(document, values.get(0));
-                }
+                values.add(value);
+            }
+        }
+        return values;
+    }
+
+    private void populate(D document, Field field, List<String> values) throws IllegalArgumentException, IllegalAccessException {
+        if (values.isEmpty()) {
+            if (logger.isDebugEnabled()) {
+                logger.debug(String.format("Could not find values for %s", field.getName()));
+            }
+        } else {
+            field.setAccessible(true);
+            if (Collection.class.isAssignableFrom(field.getType())) {
+                field.set(document, values);
+            } else {
+                field.set(document, values.get(0));
             }
         }
     }
@@ -143,12 +184,8 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         return (D) type().getConstructor().newInstance(new Object[0]);
     }
 
-    private Field field(String name) {
-        Field field = FieldUtils.getField(type(), name, true);
-        if (field != null) {
-            return field;
-        }
-        throw new RuntimeException(String.format("%s does not have property %s!", name(), name));
+    private static String parse(String uri) {
+        return uri.substring(uri.lastIndexOf(uri.contains(HASH_TAG) ? HASH_TAG : FORWARD_SLASH) + 1);
     }
 
 }

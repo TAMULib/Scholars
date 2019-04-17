@@ -46,7 +46,7 @@ public class Organization extends AbstractSolrDocument {
     private String overview;
 
     @Indexed
-    @PropertySource(template = "organization/offersDegree", predicate = "organization.offersDegree", id = "offersDegreeId")
+    @PropertySource(template = "organization/offersDegree", predicate = "organization.offersDegree", nested = true)
     private List<String> offersDegree;
 
     @Indexed
@@ -61,7 +61,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> date;
 
     @Indexed
-    @PropertySource(template = "organization/sponsorsAwardOrHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sponsorsAwardOrHonorId")
+    @PropertySource(template = "organization/sponsorsAwardOrHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> sponsorsAwardOrHonor;
 
     @Indexed(type = "pdate")
@@ -72,7 +72,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> sponsorsAwardOrHonorId;
 
     @Indexed
-    @PropertySource(template = "organization/awardOrHonorGiven", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardOrHonorGivenId")
+    @PropertySource(template = "organization/awardOrHonorGiven", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> awardOrHonorGiven;
 
     @Indexed(type = "pdate")
@@ -83,7 +83,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> awardOrHonorGivenId;
 
     @Indexed
-    @PropertySource(template = "organization/awardOrHonorReceived", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardOrHonorReceivedId")
+    @PropertySource(template = "organization/awardOrHonorReceived", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> awardOrHonorReceived;
 
     @Indexed(type = "pdate")
@@ -98,14 +98,14 @@ public class Organization extends AbstractSolrDocument {
     private List<String> keyword;
 
     @Indexed
-    @PropertySource(template = "organization/organizationForTraining", predicate = "http://vivoweb.org/ontology/core#majorField", id = "organizationForTrainingId")
+    @PropertySource(template = "organization/organizationForTraining", predicate = "http://vivoweb.org/ontology/core#majorField", nested = true)
     private List<String> organizationForTraining;
 
     @Indexed
     private List<String> organizationForTrainingId;
 
     @Indexed
-    @PropertySource(template = "organization/people", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "peopleId")
+    @PropertySource(template = "organization/people", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> people;
 
     @Indexed
@@ -120,56 +120,56 @@ public class Organization extends AbstractSolrDocument {
     private List<String> peopleId;
 
     @Indexed
-    @PropertySource(template = "organization/hasSubOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasSubOrganizationId")
+    @PropertySource(template = "organization/hasSubOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasSubOrganization;
 
     @Indexed
     private List<String> hasSubOrganizationId;
 
     @Indexed
-    @PropertySource(template = "organization/organizationWithin", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "organizationWithinId")
+    @PropertySource(template = "organization/organizationWithin", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> organizationWithin;
 
     @Indexed
     private List<String> organizationWithinId;
 
     @Indexed
-    @PropertySource(template = "organization/leadOrganizationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "leadOrganizationOfId")
+    @PropertySource(template = "organization/leadOrganizationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> leadOrganizationOf;
 
     @Indexed
     private List<String> leadOrganizationOfId;
 
     @Indexed
-    @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasCollaboratingOrganizationOrGroupId")
+    @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasCollaboratingOrganizationOrGroup;
 
     @Indexed
     private List<String> hasCollaboratingOrganizationOrGroupId;
 
     @Indexed
-    @PropertySource(template = "organization/hasAffiliatedOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasAffiliatedOrganizationId")
+    @PropertySource(template = "organization/hasAffiliatedOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasAffiliatedOrganization;
 
     @Indexed
     private List<String> hasAffiliatedOrganizationId;
 
     @Indexed
-    @PropertySource(template = "organization/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "memberOfId")
+    @PropertySource(template = "organization/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> memberOf;
 
     @Indexed
     private List<String> memberOfId;
 
     @Indexed
-    @PropertySource(template = "organization/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "clinicalActivityId")
+    @PropertySource(template = "organization/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> clinicalActivity;
 
     @Indexed
     private List<String> clinicalActivityId;
 
     @Indexed
-    @PropertySource(template = "organization/convenerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "convenerOfEventId")
+    @PropertySource(template = "organization/convenerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> convenerOfEvent;
 
     @Indexed(type = "pdate")
@@ -180,7 +180,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> convenerOfEventId;
 
     @Indexed
-    @PropertySource(template = "organization/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "attendedEventId")
+    @PropertySource(template = "organization/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> attendedEvent;
 
     @Indexed(type = "pdate")
@@ -191,7 +191,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> attendedEventId;
 
     @Indexed
-    @PropertySource(template = "organization/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "selectedPublicationId")
+    @PropertySource(template = "organization/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> selectedPublication;
 
     @Indexed
@@ -206,7 +206,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> selectedPublicationId;
 
     @Indexed
-    @PropertySource(template = "organization/publisherOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "publisherOfId", unique = true)
+    @PropertySource(template = "organization/publisherOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, unique = true)
     private List<String> publisherOf;
 
     @Indexed
@@ -221,7 +221,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> publisherOfId;
 
     @Indexed
-    @PropertySource(template = "organization/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "presentationId")
+    @PropertySource(template = "organization/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> presentation;
 
     @Indexed
@@ -236,7 +236,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> presentationId;
 
     @Indexed
-    @PropertySource(template = "organization/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "featuredInId")
+    @PropertySource(template = "organization/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> featuredIn;
 
     @Indexed
@@ -251,7 +251,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> featuredInId;
 
     @Indexed
-    @PropertySource(template = "organization/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "assigneeForPatentId")
+    @PropertySource(template = "organization/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> assigneeForPatent;
 
     @Indexed(type = "pdate")
@@ -262,7 +262,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> assigneeForPatentId;
 
     @Indexed
-    @PropertySource(template = "organization/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "translatorOfId")
+    @PropertySource(template = "organization/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> translatorOf;
 
     @Indexed
@@ -277,7 +277,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> translatorOfId;
 
     @Indexed
-    @PropertySource(template = "organization/awardsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "awardsGrantId")
+    @PropertySource(template = "organization/awardsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> awardsGrant;
 
     @Indexed(type = "pdate")
@@ -288,7 +288,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> awardsGrantId;
 
     @Indexed
-    @PropertySource(template = "organization/administersGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "administersGrantId")
+    @PropertySource(template = "organization/administersGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> administersGrant;
 
     @Indexed(type = "pdate")
@@ -299,7 +299,7 @@ public class Organization extends AbstractSolrDocument {
     private List<String> administersGrantId;
 
     @Indexed
-    @PropertySource(template = "organization/subcontractsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "subcontractsGrantId")
+    @PropertySource(template = "organization/subcontractsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> subcontractsGrant;
 
     @Indexed(type = "pdate")
@@ -310,35 +310,35 @@ public class Organization extends AbstractSolrDocument {
     private List<String> subcontractsGrantId;
 
     @Indexed
-    @PropertySource(template = "organization/performsHumanStudy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "performsHumanStudyId")
+    @PropertySource(template = "organization/performsHumanStudy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> performsHumanStudy;
 
     @Indexed
     private List<String> performsHumanStudyId;
 
     @Indexed
-    @PropertySource(template = "organization/contractOrProviderForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "contractOrProviderForServiceId")
+    @PropertySource(template = "organization/contractOrProviderForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> contractOrProviderForService;
 
     @Indexed
     private List<String> contractOrProviderForServiceId;
 
     @Indexed
-    @PropertySource(template = "organization/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "outreachAndCommunityServiceActivityId")
+    @PropertySource(template = "organization/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> outreachAndCommunityServiceActivity;
 
     @Indexed
     private List<String> outreachAndCommunityServiceActivityId;
 
     @Indexed
-    @PropertySource(template = "organization/hasEquipment", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "hasEquipmentId")
+    @PropertySource(template = "organization/hasEquipment", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> hasEquipment;
 
     @Indexed
     private List<String> hasEquipmentId;
 
     @Indexed
-    @PropertySource(template = "organization/offersCourse", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "offersCourseId")
+    @PropertySource(template = "organization/offersCourse", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> offersCourse;
 
     @Indexed
@@ -349,7 +349,7 @@ public class Organization extends AbstractSolrDocument {
     private String orgId;
 
     @Indexed
-    @PropertySource(template = "organization/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "sameAsId")
+    @PropertySource(template = "organization/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> sameAs;
 
     @Indexed
@@ -392,35 +392,35 @@ public class Organization extends AbstractSolrDocument {
     private String country;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "geographicLocationId")
+    @PropertySource(template = "organization/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private String geographicLocation;
 
     @Indexed
     private String geographicLocationId;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/locatedAtFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "locatedAtFacilityId")
+    @PropertySource(template = "organization/locatedAtFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> locatedAtFacility;
 
     @Indexed
     private List<String> locatedAtFacilityId;
 
     @Indexed
-    @PropertySource(template = "organization/predecessorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "predecessorOrganizationId")
+    @PropertySource(template = "organization/predecessorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> predecessorOrganization;
 
     @Indexed
     private List<String> predecessorOrganizationId;
 
     @Indexed
-    @PropertySource(template = "organization/successorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "successorOrganizationId")
+    @PropertySource(template = "organization/successorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> successorOrganization;
 
     @Indexed
     private List<String> successorOrganizationId;
 
     @Indexed
-    @PropertySource(template = "organization/governingAuthorityFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "governingAuthorityForId")
+    @PropertySource(template = "organization/governingAuthorityFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> governingAuthorityFor;
 
     @Indexed
@@ -428,7 +428,7 @@ public class Organization extends AbstractSolrDocument {
 
     // NOTE: unidirectional from Concept vivo:researchAreaOf
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "organization/affiliatedResearchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", id = "affiliatedResearchAreaId", unique = true)
+    @PropertySource(template = "organization/affiliatedResearchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, unique = true)
     private List<String> affiliatedResearchArea;
 
     @Indexed

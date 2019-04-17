@@ -16,9 +16,6 @@
   "positionOrganization": [
     "Veterinary Physiology and Pharmacology"
   ],
-  "positionId": [
-    "nd1b97b27"
-  ],
   "hrJobTitle": "Clinical Associate Professor",
   "educationAndTraining": [
     "VTPP691 Research",
@@ -49,16 +46,6 @@
     "Course",
     "Course",
     "Course"
-  ],
-  "educationAndTrainingId": [
-    "n253fc78b",
-    "n6753855e",
-    "n1fa738c0",
-    "n196ed30a",
-    "n19305ccc",
-    "nfd0a11ab",
-    "n2e0a4313",
-    "ncdc8bf2d"
   ],
   "selectedPublication": [
     "The PSA<sup>-/lo</sup>prostate cancer cell population harbors self-renewing long-term tumor-propagating cells that resist castration",
@@ -309,95 +296,6 @@
     "Mon Dec 31 18:00:00 CST 2007",
     "Mon Dec 31 18:00:00 CST 2012"
   ],
-  "selectedPublicationId": [
-    "n148150SE",
-    "n229575SE",
-    "n177661SE",
-    "n225184SE",
-    "n177636SE",
-    "n74436SE",
-    "n163354SE",
-    "n225190SE",
-    "n140707SE",
-    "n229571SE",
-    "n229579SE",
-    "n132153SE",
-    "n77824SE",
-    "n74400SE",
-    "n177409SE",
-    "n184802SE",
-    "n229565SE",
-    "n229561SE",
-    "n177627SE",
-    "n95198SE",
-    "n158857SE",
-    "n76254SE",
-    "n110528SE",
-    "n367651SE",
-    "n65345SE",
-    "n159676SE",
-    "n74413SE",
-    "n229569SE",
-    "n213191SE",
-    "n74408SE",
-    "n177477SE",
-    "n348988SE",
-    "n177395SE",
-    "n229570SE",
-    "n292528SE",
-    "n229574SE",
-    "n177419SE",
-    "n79594SE",
-    "n229564SE",
-    "n140383SE",
-    "n184805SE",
-    "n95199SE",
-    "n140712SE",
-    "n65346SE",
-    "n229560SE",
-    "n177551SE",
-    "n229568SE",
-    "n160560SE",
-    "n225186SE",
-    "n177640SE",
-    "n229558SE",
-    "n142919SE",
-    "n229573SE",
-    "n229577SE",
-    "n292531SE",
-    "n44780SE",
-    "n184804SE",
-    "n229563SE",
-    "n74448SE",
-    "n352831SE",
-    "n95196SE",
-    "n229567SE",
-    "n110526SE",
-    "n160559SE",
-    "n229576SE",
-    "n110519SE",
-    "n199948SE",
-    "n177448SE",
-    "n74437SE",
-    "n197083SE",
-    "n74443SE",
-    "n229572SE",
-    "n177656SE",
-    "n306734SE",
-    "n74406SE",
-    "n229559SE",
-    "n110532SE",
-    "n74426SE",
-    "n74450SE",
-    "n110529SE",
-    "n229562SE",
-    "n184803SE",
-    "n74447SE",
-    "n177377SE",
-    "n177666SE",
-    "n225177SE",
-    "n229566SE"
-  ],
   "editorOf": [
     "Emerging Research in the Analysis and Modeling of Gene Regulatory Networks"
   ],
@@ -412,9 +310,6 @@
   ],
   "editorOfDate": [
     "Thu Dec 31 18:00:00 CST 2015"
-  ],
-  "editorOfId": [
-    "n229578SE"
   ],
   "teachingActivity": [
     "VTPP691 Research",
@@ -436,16 +331,6 @@
     "Instructor",
     "Instructor"
   ],
-  "teachingActivityId": [
-    "n253fc78b",
-    "n6753855e",
-    "n1fa738c0",
-    "n196ed30a",
-    "n19305ccc",
-    "nfd0a11ab",
-    "n2e0a4313",
-    "ncdc8bf2d"
-  ],
   "netid": "ivanov",
   "uid": "b69cf83e9c2893afecb9a4789a78333c",
   "email": "ivanov@tamu.edu",
@@ -459,9 +344,5 @@
   "etdChairOf": [
     "Knight, Jason Matthew (2015-05). Optimal Model-Based Approaches for Predictive Inference in Biology. Doctoral Dissertation.",
     "Zhao, Chen (2012-05). Stochastic Modeling and Analysis of Pathway Regulation and Dynamics. Doctoral Dissertation."
-  ],
-  "etdChairOfId": [
-    "n4cfffbc1",
-    "n7e9101ab"
   ]
 }

@@ -2,10 +2,10 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?geographicFocus vitro:mostSpecificType ?mostSpecificType .
+    ?geographicFocus vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> vivo:geographicFocus ?geographicFocus .
-    ?geographicFocus vitro:mostSpecificType ?mostSpecificType .
-    
-    FILTER (STRSTARTS (str(?mostSpecificType), str(vivo:))) .
+    ?geographicFocus vitro:mostSpecificType ?type .
+    BIND( CONCAT( STR(?type), REPLACE(STR(?geographicFocus), "(^.*/)", "::") ) AS ?typeWithId ) .
+    FILTER (STRSTARTS (str(?type), str(vivo:))) .
 }

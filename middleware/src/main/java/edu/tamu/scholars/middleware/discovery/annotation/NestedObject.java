@@ -10,17 +10,19 @@ import java.lang.annotation.Target;
 @Documented
 @Target(FIELD)
 @Retention(RUNTIME)
-public @interface PropertySource {
+public @interface NestedObject {
 
-    String template();
+    Reference[] value();
 
-    String predicate();
+    @Documented
+    @Target(FIELD)
+    @Retention(RUNTIME)
+    public @interface Reference {
 
-    boolean nested() default false;
+        String value();
 
-    // NOTE: extracts identifier from url, after last / or #
-    boolean parse() default false;
+        String key();
 
-    boolean unique() default false;
+    }
 
 }
