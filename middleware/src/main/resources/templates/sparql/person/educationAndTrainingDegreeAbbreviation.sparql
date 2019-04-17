@@ -1,13 +1,12 @@
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
  
 CONSTRUCT {
-    ?training rdfs:label ?nameWithId .
+    ?training vivo:abbreviation ?abbreviationWithId .
 } WHERE {
     <[(${uri})]> obo:RO_0000056 ?training .
     ?training obo:RO_0002234 ?info .
     ?info vivo:relates ?degree .
-    ?degree rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?training), "(^.*/)", "::") ) AS ?nameWithId ) .
+    ?degree vivo:abbreviation ?abbreviation .
+    BIND( CONCAT( STR(?abbreviation), REPLACE(STR(?training), "(^.*/)", "::") ) AS ?abbreviationWithId ) .
 }

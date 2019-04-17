@@ -53,11 +53,11 @@ public class Concept extends AbstractSolrDocument {
     private List<String> researchAreaOf;
 
     @Indexed
-    @PropertySource(template = "concept/researchAreaOfTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
+    @PropertySource(template = "concept/researchAreaOfTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle", nested = true)
     private List<String> researchAreaOfTitle;
 
     @Indexed
-    @PropertySource(template = "concept/researchAreaOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    @PropertySource(template = "concept/researchAreaOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> researchAreaOfOrganization;
 
     @Indexed

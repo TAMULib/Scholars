@@ -107,10 +107,6 @@ public class Person extends AbstractSolrDocument {
     private List<String> headOf;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/headOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
-    private List<String> headOfType;
-
-    @Indexed(type = "nested_strings")
     @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> headOfOrganization;
 
@@ -126,10 +122,6 @@ public class Person extends AbstractSolrDocument {
     @NestedObject({ @Reference(value = "memberOfType", key = "type"), @Reference(value = "memberOfOrganization", key = "organization"), @Reference(value = "memberOfStartDate", key = "startDate"), @Reference(value = "memberOfEndDate", key = "endDate") })
     @PropertySource(template = "person/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> memberOf;
-
-    @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/memberOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
-    private List<String> memberOfType;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
@@ -148,6 +140,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> hasCollaborator;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "clinicalActivityType", key = "type"), @Reference(value = "clinicalActivityRole", key = "role"), @Reference(value = "clinicalActivityStartDate", key = "startDate"), @Reference(value = "clinicalActivityEndDate", key = "endDate") })
     @PropertySource(template = "person/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> clinicalActivity;
 
@@ -168,6 +161,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> clinicalActivityEndDate;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "attendedEventType", key = "type"), @Reference(value = "attendedEventStartDate", key = "startDate"), @Reference(value = "attendedEventEndDate", key = "endDate") })
     @PropertySource(template = "person/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> attendedEvent;
 
@@ -184,16 +178,21 @@ public class Person extends AbstractSolrDocument {
     private List<String> attendedEventEndDate;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "educationAndTrainingOrganization", key = "organization"), @Reference(value = "educationAndTrainingMajorField", key = "field"), @Reference(value = "educationAndTrainingDegreeAbbreviation", key = "abbreviation"), @Reference(value = "educationAndTrainingStartDate", key = "startDate"), @Reference(value = "educationAndTrainingEndDate", key = "endDate") })
     @PropertySource(template = "person/educationAndTraining", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> educationAndTraining;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/educationAndTrainingRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
-    private List<String> educationAndTrainingRole;
+    @PropertySource(template = "person/educationAndTrainingOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    private List<String> educationAndTrainingOrganization;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/educationAndTrainingType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
-    private List<String> educationAndTrainingType;
+    @PropertySource(template = "person/educationAndTrainingMajorField", predicate = "http://vivoweb.org/ontology/core#majorField", nested = true)
+    private List<String> educationAndTrainingMajorField;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/educationAndTrainingDegreeAbbreviation", predicate = "http://vivoweb.org/ontology/core#abbreviation", nested = true)
+    private List<String> educationAndTrainingDegreeAbbreviation;
 
     @Indexed(type = "nested_dates")
     @PropertySource(template = "person/educationAndTrainingStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
@@ -204,6 +203,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> educationAndTrainingEndDate;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "credentialsDateIssued", key = "dateIssued") })
     @PropertySource(template = "person/credentials", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> credentials;
 
@@ -212,6 +212,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> credentialsDateIssued;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "credentialEligibilityAttainedType", key = "type") })
     @PropertySource(template = "person/credentialEligibilityAttained", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> credentialEligibilityAttained;
 
@@ -220,6 +221,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> credentialEligibilityAttainedType;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "awardAndHonorDate", key = "date") })
     @PropertySource(template = "person/awardAndHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> awardAndHonor;
 
@@ -228,6 +230,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> awardAndHonorDate;
 
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "adviseeOfType", key = "type"), @Reference(value = "adviseeOfCandidacy", key = "candidacy"), @Reference(value = "adviseeOfStartDate", key = "startDate"), @Reference(value = "adviseeOfEndDate", key = "endDate") })
     @PropertySource(template = "person/adviseeOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> adviseeOf;
 
@@ -248,7 +251,24 @@ public class Person extends AbstractSolrDocument {
     private List<String> adviseeOfEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @NestedObject({ @Reference(value = "selectedPublicationType", key = "type"), @Reference(value = "selectedPublicationVenue", key = "venue"), @Reference(value = "selectedPublicationDate", key = "date") })
+    // @formatter:off
+    @NestedObject({
+        @Reference(value = "selectedPublicationType", key = "type"),
+        @Reference(value = "selectedPublicationAuthorList", key = "authors"),
+        @Reference(value = "selectedPublicationBookTitle", key = "title"),
+        @Reference(value = "selectedPublicationPublisher", key = "publisher"),
+        @Reference(value = "selectedPublicationVenue", key = "venue"),
+        @Reference(value = "selectedPublicationNumberOfPages", key = "numberOfPages"),
+        @Reference(value = "selectedPublicationPageStart", key = "pageStart"),
+        @Reference(value = "selectedPublicationPageEnd", key = "pageEnd"),
+        @Reference(value = "selectedPublicationVolume", key = "volume"),
+        @Reference(value = "selectedPublicationIssue", key = "issue"),
+        @Reference(value = "selectedPublicationDoi", key = "doi"),
+        @Reference(value = "selectedPublicationPmid", key = "pmid"),
+        @Reference(value = "selectedPublicationUri", key = "uri"),
+        @Reference(value = "selectedPublicationDate", key = "date")
+    })
+    // @formatter:on
     @PropertySource(template = "person/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> selectedPublication;
 
@@ -256,9 +276,53 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/selectedPublicationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
     private List<String> selectedPublicationType;
 
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationAuthorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList", nested = true)
+    private List<String> selectedPublicationAuthorList;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationBookTitle", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter", nested = true)
+    private List<String> selectedPublicationBookTitle;
+
+    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @PropertySource(template = "person/selectedPublicationPublisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    private List<String> selectedPublicationPublisher;
+
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "person/selectedPublicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
     private List<String> selectedPublicationVenue;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationNumberOfPages", predicate = "http://purl.org/ontology/bibo/numPages", nested = true)
+    private List<String> selectedPublicationNumberOfPages;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationPageStart", predicate = "http://purl.org/ontology/bibo/pageStart", nested = true)
+    private List<String> selectedPublicationPageStart;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationPageEnd", predicate = "http://purl.org/ontology/bibo/pageEnd", nested = true)
+    private List<String> selectedPublicationPageEnd;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationVolume", predicate = "http://purl.org/ontology/bibo/volume", nested = true)
+    private List<String> selectedPublicationVolume;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationIssue", predicate = "http://purl.org/ontology/bibo/issue", nested = true)
+    private List<String> selectedPublicationIssue;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationDoi", predicate = "http://purl.org/ontology/bibo/doi", nested = true)
+    private List<String> selectedPublicationDoi;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationPmid", predicate = "http://purl.org/ontology/bibo/pmid", nested = true)
+    private List<String> selectedPublicationPmid;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/selectedPublicationUri", predicate = "http://purl.org/ontology/bibo/uri", nested = true)
+    private List<String> selectedPublicationUri;
 
     @Indexed(type = "nested_dates")
     @PropertySource(template = "person/selectedPublicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
@@ -856,14 +920,6 @@ public class Person extends AbstractSolrDocument {
         this.headOf = headOf;
     }
 
-    public List<String> getHeadOfType() {
-        return headOfType;
-    }
-
-    public void setHeadOfType(List<String> headOfType) {
-        this.headOfType = headOfType;
-    }
-
     public List<String> getHeadOfOrganization() {
         return headOfOrganization;
     }
@@ -894,14 +950,6 @@ public class Person extends AbstractSolrDocument {
 
     public void setMemberOf(List<String> memberOf) {
         this.memberOf = memberOf;
-    }
-
-    public List<String> getMemberOfType() {
-        return memberOfType;
-    }
-
-    public void setMemberOfType(List<String> memberOfType) {
-        this.memberOfType = memberOfType;
     }
 
     public List<String> getMemberOfOrganization() {
@@ -1016,20 +1064,28 @@ public class Person extends AbstractSolrDocument {
         this.educationAndTraining = educationAndTraining;
     }
 
-    public List<String> getEducationAndTrainingRole() {
-        return educationAndTrainingRole;
+    public List<String> getEducationAndTrainingOrganization() {
+        return educationAndTrainingOrganization;
     }
 
-    public void setEducationAndTrainingRole(List<String> educationAndTrainingRole) {
-        this.educationAndTrainingRole = educationAndTrainingRole;
+    public void setEducationAndTrainingOrganization(List<String> educationAndTrainingOrganization) {
+        this.educationAndTrainingOrganization = educationAndTrainingOrganization;
     }
 
-    public List<String> getEducationAndTrainingType() {
-        return educationAndTrainingType;
+    public List<String> getEducationAndTrainingMajorField() {
+        return educationAndTrainingMajorField;
     }
 
-    public void setEducationAndTrainingType(List<String> educationAndTrainingType) {
-        this.educationAndTrainingType = educationAndTrainingType;
+    public void setEducationAndTrainingMajorField(List<String> educationAndTrainingMajorField) {
+        this.educationAndTrainingMajorField = educationAndTrainingMajorField;
+    }
+
+    public List<String> getEducationAndTrainingDegreeAbbreviation() {
+        return educationAndTrainingDegreeAbbreviation;
+    }
+
+    public void setEducationAndTrainingDegreeAbbreviation(List<String> educationAndTrainingDegreeAbbreviation) {
+        this.educationAndTrainingDegreeAbbreviation = educationAndTrainingDegreeAbbreviation;
     }
 
     public List<String> getEducationAndTrainingStartDate() {
@@ -1152,12 +1208,100 @@ public class Person extends AbstractSolrDocument {
         this.selectedPublicationType = selectedPublicationType;
     }
 
+    public List<String> getSelectedPublicationAuthorList() {
+        return selectedPublicationAuthorList;
+    }
+
+    public void setSelectedPublicationAuthorList(List<String> selectedPublicationAuthorList) {
+        this.selectedPublicationAuthorList = selectedPublicationAuthorList;
+    }
+
+    public List<String> getSelectedPublicationBookTitle() {
+        return selectedPublicationBookTitle;
+    }
+
+    public void setSelectedPublicationBookTitle(List<String> selectedPublicationBookTitle) {
+        this.selectedPublicationBookTitle = selectedPublicationBookTitle;
+    }
+
+    public List<String> getSelectedPublicationPublisher() {
+        return selectedPublicationPublisher;
+    }
+
+    public void setSelectedPublicationPublisher(List<String> selectedPublicationPublisher) {
+        this.selectedPublicationPublisher = selectedPublicationPublisher;
+    }
+
     public List<String> getSelectedPublicationVenue() {
         return selectedPublicationVenue;
     }
 
     public void setSelectedPublicationVenue(List<String> selectedPublicationVenue) {
         this.selectedPublicationVenue = selectedPublicationVenue;
+    }
+
+    public List<String> getSelectedPublicationNumberOfPages() {
+        return selectedPublicationNumberOfPages;
+    }
+
+    public void setSelectedPublicationNumberOfPages(List<String> selectedPublicationNumberOfPages) {
+        this.selectedPublicationNumberOfPages = selectedPublicationNumberOfPages;
+    }
+
+    public List<String> getSelectedPublicationPageStart() {
+        return selectedPublicationPageStart;
+    }
+
+    public void setSelectedPublicationPageStart(List<String> selectedPublicationPageStart) {
+        this.selectedPublicationPageStart = selectedPublicationPageStart;
+    }
+
+    public List<String> getSelectedPublicationPageEnd() {
+        return selectedPublicationPageEnd;
+    }
+
+    public void setSelectedPublicationPageEnd(List<String> selectedPublicationPageEnd) {
+        this.selectedPublicationPageEnd = selectedPublicationPageEnd;
+    }
+
+    public List<String> getSelectedPublicationVolume() {
+        return selectedPublicationVolume;
+    }
+
+    public void setSelectedPublicationVolume(List<String> selectedPublicationVolume) {
+        this.selectedPublicationVolume = selectedPublicationVolume;
+    }
+
+    public List<String> getSelectedPublicationIssue() {
+        return selectedPublicationIssue;
+    }
+
+    public void setSelectedPublicationIssue(List<String> selectedPublicationIssue) {
+        this.selectedPublicationIssue = selectedPublicationIssue;
+    }
+
+    public List<String> getSelectedPublicationDoi() {
+        return selectedPublicationDoi;
+    }
+
+    public void setSelectedPublicationDoi(List<String> selectedPublicationDoi) {
+        this.selectedPublicationDoi = selectedPublicationDoi;
+    }
+
+    public List<String> getSelectedPublicationPmid() {
+        return selectedPublicationPmid;
+    }
+
+    public void setSelectedPublicationPmid(List<String> selectedPublicationPmid) {
+        this.selectedPublicationPmid = selectedPublicationPmid;
+    }
+
+    public List<String> getSelectedPublicationUri() {
+        return selectedPublicationUri;
+    }
+
+    public void setSelectedPublicationUri(List<String> selectedPublicationUri) {
+        this.selectedPublicationUri = selectedPublicationUri;
     }
 
     public List<String> getSelectedPublicationDate() {

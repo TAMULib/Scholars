@@ -7,5 +7,5 @@ CONSTRUCT {
     <[(${uri})]> vivo:relatedBy ?position .
     ?position a vivo:Position .
     ?position vitro:mostSpecificType ?type .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?position), "(^.*/)", "::") ) AS ?typeWithId ) .
+    BIND( CONCAT( STR(?type), REPLACE(STR(?position), "(^.*/)", "::") ) AS ?typeWithId ) .
 }
