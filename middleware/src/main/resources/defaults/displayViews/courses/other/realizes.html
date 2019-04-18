@@ -1,1 +1,10 @@
-<span>Work In Progress</span>
+<div>
+{{? it.participant }}
+{{~ it.participant :participant}}
+<div class="mb-1">
+	<span class="mr-1"><a href="display/processes/{{=participant.label.id}}">{{=participant.label}}</a>,</span>
+	<span>{{=researchAreaOf.role}}</span>
+</div>
+{{~}}
+{{?}}
+</div>
