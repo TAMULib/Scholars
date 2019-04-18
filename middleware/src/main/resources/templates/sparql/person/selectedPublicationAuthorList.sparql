@@ -1,0 +1,14 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX tamu: <http://vivo.library.tamu.edu/ontology/TAMU#>
+ 
+CONSTRUCT {
+    ?publication tamu:fullAuthorList ?fullAuthorListWithId .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?authorship .
+    ?authorship a vivo:Authorship .
+    ?authorship vivo:relates ?publication .
+    ?publication a obo:IAO_0000030 .
+    ?publication tamu:fullAuthorList ?fullAuthorList .
+    BIND( CONCAT( STR(?fullAuthorList), REPLACE(STR(?publication), "(^.*/)", "::") ) AS ?fullAuthorListWithId ) .
+}

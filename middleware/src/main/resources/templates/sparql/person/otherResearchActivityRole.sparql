@@ -4,11 +4,17 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?role rdfs:label ?name .
+    ?role rdfs:label ?nameWithId .
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:ResearcherRole .
     ?role vitro:mostSpecificType ?type .
+    {
+        ?role vivo:relatedBy ?research .
+    } UNION {
+        ?role obo:BFO_0000054 ?research .
+    }
     ?role rdfs:label ?name .
+    BIND( CONCAT( STR(?name), REPLACE(STR(?research), "(^.*/)", "::") ) AS ?nameWithId ) .
     FILTER(?type = vivo:ResearcherRole)
 }

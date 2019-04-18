@@ -1,14 +1,14 @@
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+ 
 CONSTRUCT {
-    ?publisher rdfs:label ?label .
+    ?publication bibo:pageStart ?pageStartWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?authorship .
     ?authorship a vivo:Authorship .
     ?authorship vivo:relates ?publication .
     ?publication a obo:IAO_0000030 .
-    ?publication vivo:publisher ?publisher .
-    ?publisher rdfs:label ?label
+    ?publication bibo:pageStart ?pageStart .
+    BIND( CONCAT( STR(?pageStart), REPLACE(STR(?publication), "(^.*/)", "::") ) AS ?pageStartWithId ) .
 }

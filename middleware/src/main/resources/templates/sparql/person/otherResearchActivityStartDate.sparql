@@ -4,13 +4,19 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?date vivo:dateTime ?dateTime .
+    ?date vivo:dateTime ?dateTimeWithId .
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:ResearcherRole .
     ?role vitro:mostSpecificType ?type .
+    {
+        ?role vivo:relatedBy ?research .
+    } UNION {
+        ?role obo:BFO_0000054 ?research .
+    }
     ?role vivo:dateTimeInterval ?dateTimeInterval .
     ?dateTimeInterval vivo:start ?date .
     ?date vivo:dateTime ?dateTime .
+    BIND( CONCAT( STR(?dateTime), REPLACE(STR(?research), "(^.*/)", "::") ) AS ?dateTimeWithId ) .
     FILTER(?type = vivo:ResearcherRole)
 }

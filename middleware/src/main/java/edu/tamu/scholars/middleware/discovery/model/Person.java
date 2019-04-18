@@ -10,6 +10,7 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedMultiValuedProperty;
 import edu.tamu.scholars.middleware.discovery.annotation.NestedObject;
 import edu.tamu.scholars.middleware.discovery.annotation.NestedObject.Reference;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
@@ -48,12 +49,13 @@ public class Person extends AbstractSolrDocument {
     private String phone;
 
     @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
-    private List<String> websiteUrl;
+    @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
+    @PropertySource(template = "person/website", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> website;
 
     @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> websiteLabel;
+    @PropertySource(template = "person/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
+    private List<String> websiteUrl;
 
     @Indexed(type = "whole_string")
     @PropertySource(template = "person/orcidId", predicate = "http://vivoweb.org/ontology/core#orcidId", parse = true)
@@ -65,32 +67,34 @@ public class Person extends AbstractSolrDocument {
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "positionType", key = "type"), @Reference(value = "positionOrganization", key = "organization") })
-    @PropertySource(template = "person/position", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/position", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> position;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/positionType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/positionType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> positionType;
 
+    @NestedMultiValuedProperty
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> positionOrganization;
 
     @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "person/overview", predicate = "http://vivoweb.org/ontology/core#overview")
     private String overview;
 
-    @Indexed(type = "whole_strings", copyTo = "_text_")
-    @PropertySource(template = "person/researchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject
+    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @PropertySource(template = "person/researchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> researchArea;
 
-    @Indexed(type = "whole_strings")
+    @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "geographicFocusType", key = "type") })
-    @PropertySource(template = "person/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> geographicFocus;
 
-    @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/geographicFocusType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/geographicFocusType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> geographicFocusType;
 
     @Indexed(type = "whole_string")
@@ -103,277 +107,287 @@ public class Person extends AbstractSolrDocument {
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "headOfType", key = "type"), @Reference(value = "headOfOrganization", key = "organization"), @Reference(value = "headOfStartDate", key = "startDate"), @Reference(value = "headOfEndDate", key = "endDate") })
-    @PropertySource(template = "person/headOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/headOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> headOf;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/headOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
-    private List<String> headOfType;
-
-    @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> headOfOrganization;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/headOfStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/headOfStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> headOfStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/headOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/headOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> headOfEndDate;
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "memberOfType", key = "type"), @Reference(value = "memberOfOrganization", key = "organization"), @Reference(value = "memberOfStartDate", key = "startDate"), @Reference(value = "memberOfEndDate", key = "endDate") })
-    @PropertySource(template = "person/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> memberOf;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/memberOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
-    private List<String> memberOfType;
-
-    @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> memberOfOrganization;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/memberOfStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/memberOfStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> memberOfStartDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/memberOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/memberOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> memberOfEndDate;
 
-    @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/hasCollaborator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/hasCollaborator", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasCollaborator;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "clinicalActivityType", key = "type"), @Reference(value = "clinicalActivityRole", key = "role"), @Reference(value = "clinicalActivityStartDate", key = "startDate"), @Reference(value = "clinicalActivityEndDate", key = "endDate") })
+    @PropertySource(template = "person/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> clinicalActivity;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/clinicalActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/clinicalActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> clinicalActivityType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/clinicalActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/clinicalActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> clinicalActivityRole;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/clinicalActivityStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/clinicalActivityStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> clinicalActivityStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/clinicalActivityEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/clinicalActivityEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> clinicalActivityEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "attendedEventType", key = "type"), @Reference(value = "attendedEventStartDate", key = "startDate"), @Reference(value = "attendedEventEndDate", key = "endDate") })
+    @PropertySource(template = "person/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> attendedEvent;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/attendedEventType", predicate = "person.attendedEvent.name", nested = true, parse = true)
+    @PropertySource(template = "person/attendedEventType", predicate = "person.attendedEvent.name", parse = true)
     private List<String> attendedEventType;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/attendedEventStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/attendedEventStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> attendedEventStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/attendedEventEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/attendedEventEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> attendedEventEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/educationAndTraining", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "educationAndTrainingOrganization", key = "organization"), @Reference(value = "educationAndTrainingMajorField", key = "field"), @Reference(value = "educationAndTrainingDegreeAbbreviation", key = "abbreviation"), @Reference(value = "educationAndTrainingStartDate", key = "startDate"), @Reference(value = "educationAndTrainingEndDate", key = "endDate") })
+    @PropertySource(template = "person/educationAndTraining", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> educationAndTraining;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/educationAndTrainingRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
-    private List<String> educationAndTrainingRole;
+    @PropertySource(template = "person/educationAndTrainingOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> educationAndTrainingOrganization;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/educationAndTrainingType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
-    private List<String> educationAndTrainingType;
+    @PropertySource(template = "person/educationAndTrainingMajorField", predicate = "http://vivoweb.org/ontology/core#majorField")
+    private List<String> educationAndTrainingMajorField;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/educationAndTrainingDegreeAbbreviation", predicate = "http://vivoweb.org/ontology/core#abbreviation")
+    private List<String> educationAndTrainingDegreeAbbreviation;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/educationAndTrainingStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/educationAndTrainingStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> educationAndTrainingStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/educationAndTrainingEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/educationAndTrainingEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> educationAndTrainingEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/credentials", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "credentialsDateIssued", key = "dateIssued") })
+    @PropertySource(template = "person/credentials", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> credentials;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/credentialsDateIssued", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/credentialsDateIssued", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> credentialsDateIssued;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/credentialEligibilityAttained", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "credentialEligibilityAttainedType", key = "type") })
+    @PropertySource(template = "person/credentialEligibilityAttained", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> credentialEligibilityAttained;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/credentialEligibilityAttainedType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/credentialEligibilityAttainedType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> credentialEligibilityAttainedType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/awardAndHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "awardAndHonorDate", key = "date") })
+    @PropertySource(template = "person/awardAndHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> awardAndHonor;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/awardAndHonorDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/awardAndHonorDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> awardAndHonorDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/adviseeOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "adviseeOfType", key = "type"), @Reference(value = "adviseeOfCandidacy", key = "candidacy"), @Reference(value = "adviseeOfStartDate", key = "startDate"), @Reference(value = "adviseeOfEndDate", key = "endDate") })
+    @PropertySource(template = "person/adviseeOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> adviseeOf;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/adviseeOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/adviseeOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> adviseeOfType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/adviseeOfCandidacy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/adviseeOfCandidacy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> adviseeOfCandidacy;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/adviseeOfStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/adviseeOfStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> adviseeOfStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/adviseeOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/adviseeOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> adviseeOfEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @NestedObject({ @Reference(value = "selectedPublicationType", key = "type"), @Reference(value = "selectedPublicationVenue", key = "venue"), @Reference(value = "selectedPublicationDate", key = "date") })
-    @PropertySource(template = "person/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "selectedPublicationType", key = "type"), @Reference(value = "selectedPublicationPublisher", key = "publisher"), @Reference(value = "selectedPublicationVenue", key = "venue"), @Reference(value = "selectedPublicationDate", key = "date") })
+    @PropertySource(template = "person/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> selectedPublication;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/selectedPublicationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/selectedPublicationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> selectedPublicationType;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/selectedPublicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/selectedPublicationPublisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
+    private List<String> selectedPublicationPublisher;
+
+    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @PropertySource(template = "person/selectedPublicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> selectedPublicationVenue;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/selectedPublicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/selectedPublicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> selectedPublicationDate;
 
-    @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
-    private List<String> publisher;
-
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/collectionOrSeriesEditorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "collectionOrSeriesEditorForType", key = "type"), @Reference(value = "collectionOrSeriesEditorForRole", key = "role"), @Reference(value = "collectionOrSeriesEditorForStartDate", key = "startDate"), @Reference(value = "collectionOrSeriesEditorForEndDate", key = "endDate") })
+    @PropertySource(template = "person/collectionOrSeriesEditorFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> collectionOrSeriesEditorFor;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/collectionOrSeriesEditorForRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
-    private List<String> collectionOrSeriesEditorForRole;
-
-    @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/collectionOrSeriesEditorForType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/collectionOrSeriesEditorForType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> collectionOrSeriesEditorForType;
 
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/collectionOrSeriesEditorForRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> collectionOrSeriesEditorForRole;
+
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/collectionOrSeriesEditorForStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/collectionOrSeriesEditorForStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> collectionOrSeriesEditorForStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/collectionOrSeriesEditorForEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/collectionOrSeriesEditorForEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> collectionOrSeriesEditorForEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/editorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "editorOfType", key = "type"), @Reference(value = "editorOfPublisher", key = "publisher"), @Reference(value = "editorOfFullAuthorList", key = "authors"), @Reference(value = "editorOfPageStart", key = "pageStart"), @Reference(value = "editorOfPageEnd", key = "pageEnd"), @Reference(value = "editorOfDate", key = "date") })
+    @PropertySource(template = "person/editorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> editorOf;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/editorOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/editorOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> editorOfType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/editorOfPublisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, unique = true)
+    @PropertySource(template = "person/editorOfPublisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> editorOfPublisher;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/editorOfFullAuthorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList", nested = true)
+    @PropertySource(template = "person/editorOfFullAuthorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList")
     private List<String> editorOfFullAuthorList;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/editorOfPageStart", predicate = "http://purl.org/ontology/bibo/pageStart", nested = true)
+    @PropertySource(template = "person/editorOfPageStart", predicate = "http://purl.org/ontology/bibo/pageStart")
     private List<String> editorOfPageStart;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/editorOfPageEnd", predicate = "http://purl.org/ontology/bibo/pageEnd", nested = true)
+    @PropertySource(template = "person/editorOfPageEnd", predicate = "http://purl.org/ontology/bibo/pageEnd")
     private List<String> editorOfPageEnd;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/editorOfDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/editorOfDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> editorOfDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "presentationType", key = "type"), @Reference(value = "presentationRole", key = "role"), @Reference(value = "presentationEvent", key = "event"), @Reference(value = "presentationStartDate", key = "startDate"), @Reference(value = "presentationEndDate", key = "endDate") })
+    @PropertySource(template = "person/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentation;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/presentationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/presentationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> presentationType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/presentationRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/presentationRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentationRole;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/presentationEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, parse = true)
+    @PropertySource(template = "person/presentationEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", parse = true)
     private List<String> presentationEvent;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/presentationStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/presentationStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> presentationStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/presentationEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/presentationEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> presentationEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "featuredInType", key = "type"), @Reference(value = "featuredInDate", key = "date") })
+    @PropertySource(template = "person/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> featuredIn;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/featuredInType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/featuredInType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> featuredInType;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/featuredInDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/featuredInDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> featuredInDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "assigneeForPatentType", key = "type"), @Reference(value = "assigneeForPatentDate", key = "date") })
+    @PropertySource(template = "person/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> assigneeForPatent;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/assigneeForPatentType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/assigneeForPatentType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> assigneeForPatentType;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/assigneeForPatentDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/assigneeForPatentDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> assigneeForPatentDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "translatorOfType", key = "type"), @Reference(value = "translatorOfDate", key = "date") })
+    @PropertySource(template = "person/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> translatorOf;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/translatorOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/translatorOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translatorOfType;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/translatorOfDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/translatorOfDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> translatorOfDate;
 
     @Indexed(type = "whole_string", copyTo = "_text_")
@@ -381,67 +395,71 @@ public class Person extends AbstractSolrDocument {
     private String researchOverview;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/principalInvestigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "principalInvestigatorOnAwardedBy", key = "awardedBy"), @Reference(value = "principalInvestigatorOnStartDate", key = "startDate"), @Reference(value = "principalInvestigatorOnEndDate", key = "endDate") })
+    @PropertySource(template = "person/principalInvestigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> principalInvestigatorOn;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/principalInvestigatorOnAwardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/principalInvestigatorOnAwardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> principalInvestigatorOnAwardedBy;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/principalInvestigatorOnStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/principalInvestigatorOnStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> principalInvestigatorOnStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/principalInvestigatorOnEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/principalInvestigatorOnEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> principalInvestigatorOnEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/coPrincipalInvestigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "coPrincipalInvestigatorOnAwardedBy", key = "awardedBy"), @Reference(value = "coPrincipalInvestigatorOnStartDate", key = "startDate"), @Reference(value = "coPrincipalInvestigatorOnEndDate", key = "endDate") })
+    @PropertySource(template = "person/coPrincipalInvestigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> coPrincipalInvestigatorOn;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/coPrincipalInvestigatorOnAwardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/coPrincipalInvestigatorOnAwardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> coPrincipalInvestigatorOnAwardedBy;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/coPrincipalInvestigatorOnStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/coPrincipalInvestigatorOnStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> coPrincipalInvestigatorOnStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/coPrincipalInvestigatorOnEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/coPrincipalInvestigatorOnEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> coPrincipalInvestigatorOnEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/investigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "investigatorOnAwardedBy", key = "awardedBy"), @Reference(value = "investigatorOnStartDate", key = "startDate"), @Reference(value = "investigatorOnEndDate", key = "endDate") })
+    @PropertySource(template = "person/investigatorOn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> investigatorOn;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/investigatorOnAwardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/investigatorOnAwardedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> investigatorOnAwardedBy;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/investigatorOnStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/investigatorOnStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> investigatorOnStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/investigatorOnEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/investigatorOnEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> investigatorOnEndDate;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/otherResearchActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "otherResearchActivityRole", key = "role"), @Reference(value = "otherResearchActivityStartDate", key = "startDate"), @Reference(value = "otherResearchActivityEndDate", key = "endDate") })
+    @PropertySource(template = "person/otherResearchActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> otherResearchActivity;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/otherResearchActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/otherResearchActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> otherResearchActivityRole;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/otherResearchActivityStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/otherResearchActivityStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> otherResearchActivityStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/otherResearchActivityEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/otherResearchActivityEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> otherResearchActivityEndDate;
 
     @Indexed(type = "whole_string", copyTo = "_text_")
@@ -449,31 +467,33 @@ public class Person extends AbstractSolrDocument {
     private String teachingOverview;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/teachingActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "teachingActivityRole", key = "role") })
+    @PropertySource(template = "person/teachingActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> teachingActivity;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/teachingActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/teachingActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> teachingActivityRole;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/advisee", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "adviseeType", key = "type"), @Reference(value = "adviseeCandidacy", key = "candidacy"), @Reference(value = "adviseeStartDate", key = "startDate"), @Reference(value = "adviseeEndDate", key = "endDate") })
+    @PropertySource(template = "person/advisee", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> advisee;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/adviseeCandidacy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
-    private List<String> adviseeCandidacy;
-
-    @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/adviseeType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/adviseeType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> adviseeType;
 
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/adviseeCandidacy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> adviseeCandidacy;
+
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/adviseeStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/adviseeStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> adviseeStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/adviseeEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/adviseeEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> adviseeEndDate;
 
     @Indexed(type = "whole_string", copyTo = "_text_")
@@ -481,99 +501,106 @@ public class Person extends AbstractSolrDocument {
     private String outreachOverview;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @PropertySource(template = "person/reviewerOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "reviewerOfType", key = "type"), @Reference(value = "reviewerOfStartDate", key = "startDate"), @Reference(value = "reviewerOfEndDate", key = "endDate") })
+    @PropertySource(template = "person/reviewerOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> reviewerOf;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/reviewerOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/reviewerOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> reviewerOfType;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/reviewerOfStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/reviewerOfStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> reviewerOfStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/reviewerOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/reviewerOfEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> reviewerOfEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/contactOrProvidorForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "contactOrProvidorForServiceType", key = "type") })
+    @PropertySource(template = "person/contactOrProvidorForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> contactOrProvidorForService;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/contactOrProvidorForServiceType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/contactOrProvidorForServiceType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> contactOrProvidorForServiceType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/organizerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "organizerOfEventType", key = "type"), @Reference(value = "organizerOfEventStartDate", key = "startDate"), @Reference(value = "organizerOfEventEndDate", key = "endDate") })
+    @PropertySource(template = "person/organizerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> organizerOfEvent;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/organizerOfEventType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/organizerOfEventType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> organizerOfEventType;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/organizerOfEventStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/organizerOfEventStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> organizerOfEventStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/organizerOfEventEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/organizerOfEventEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> organizerOfEventEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/professionalServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "professionalServiceActivityType", key = "type"), @Reference(value = "professionalServiceActivityRole", key = "role"), @Reference(value = "professionalServiceActivityStartDate", key = "startDate"), @Reference(value = "professionalServiceActivityEndDate", key = "endDate") })
+    @PropertySource(template = "person/professionalServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> professionalServiceActivity;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/professionalServiceActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
-    private List<String> professionalServiceActivityType;
-
-    @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/professionalServiceActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/professionalServiceActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> professionalServiceActivityRole;
 
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/professionalServiceActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
+    private List<String> professionalServiceActivityType;
+
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/professionalServiceActivityStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/professionalServiceActivityStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> professionalServiceActivityStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/professionalServiceActivityEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/professionalServiceActivityEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> professionalServiceActivityEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "outreachAndCommunityServiceActivityType", key = "type"), @Reference(value = "outreachAndCommunityServiceActivityRole", key = "role"), @Reference(value = "outreachAndCommunityServiceActivityStartDate", key = "startDate"), @Reference(value = "outreachAndCommunityServiceActivityEndDate", key = "endDate") })
+    @PropertySource(template = "person/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> outreachAndCommunityServiceActivity;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/professionalServiceActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
-    private List<String> outreachAndCommunityServiceActivityRole;
-
-    @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/professionalServiceActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/professionalServiceActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> outreachAndCommunityServiceActivityType;
 
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/professionalServiceActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> outreachAndCommunityServiceActivityRole;
+
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/professionalServiceActivityStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/professionalServiceActivityStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> outreachAndCommunityServiceActivityStartDate;
 
     @Indexed(type = "nested_dates")
-    @PropertySource(template = "person/professionalServiceActivityEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime", nested = true)
+    @PropertySource(template = "person/professionalServiceActivityEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> outreachAndCommunityServiceActivityEndDate;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/performsTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "performsTechniqueType", key = "type") })
+    @PropertySource(template = "person/performsTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> performsTechnique;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/performsTechniqueType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/performsTechniqueType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> performsTechniqueType;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/hasExpertiseInTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "hasExpertiseInTechniqueType", key = "type") })
+    @PropertySource(template = "person/hasExpertiseInTechnique", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasExpertiseInTechnique;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/hasExpertiseInTechniqueType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", nested = true, parse = true)
+    @PropertySource(template = "person/hasExpertiseInTechniqueType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> hasExpertiseInTechniqueType;
 
     @Indexed(type = "whole_string")
@@ -605,7 +632,8 @@ public class Person extends AbstractSolrDocument {
     private String youtube;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject({ @Reference(value = "sameAsType", key = "type") })
+    @PropertySource(template = "person/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sameAs;
 
     @Indexed(type = "nested_strings")
@@ -665,19 +693,20 @@ public class Person extends AbstractSolrDocument {
     private String country;
 
     @Indexed(type = "whole_string")
-    @PropertySource(template = "person/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String geographicLocation;
 
     @Indexed(type = "whole_strings")
-    @PropertySource(template = "person/locatedInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "person/locatedInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> locatedInFacility;
 
     @Indexed(type = "whole_string")
     @PropertySource(template = "person/fax", predicate = "http://www.w3.org/2006/vcard/ns#fax")
     private String fax;
 
-    @Indexed(type = "whole_strings", copyTo = "_text_")
-    @PropertySource(template = "person/etdChairOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @NestedObject
+    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @PropertySource(template = "person/etdChairOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairOf;
 
     @Indexed(type = "pdate")
@@ -744,20 +773,20 @@ public class Person extends AbstractSolrDocument {
         this.phone = phone;
     }
 
+    public List<String> getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(List<String> website) {
+        this.website = website;
+    }
+
     public List<String> getWebsiteUrl() {
         return websiteUrl;
     }
 
     public void setWebsiteUrl(List<String> websiteUrl) {
         this.websiteUrl = websiteUrl;
-    }
-
-    public List<String> getWebsiteLabel() {
-        return websiteLabel;
-    }
-
-    public void setWebsiteLabel(List<String> websiteLabel) {
-        this.websiteLabel = websiteLabel;
     }
 
     public String getOrcidId() {
@@ -856,14 +885,6 @@ public class Person extends AbstractSolrDocument {
         this.headOf = headOf;
     }
 
-    public List<String> getHeadOfType() {
-        return headOfType;
-    }
-
-    public void setHeadOfType(List<String> headOfType) {
-        this.headOfType = headOfType;
-    }
-
     public List<String> getHeadOfOrganization() {
         return headOfOrganization;
     }
@@ -894,14 +915,6 @@ public class Person extends AbstractSolrDocument {
 
     public void setMemberOf(List<String> memberOf) {
         this.memberOf = memberOf;
-    }
-
-    public List<String> getMemberOfType() {
-        return memberOfType;
-    }
-
-    public void setMemberOfType(List<String> memberOfType) {
-        this.memberOfType = memberOfType;
     }
 
     public List<String> getMemberOfOrganization() {
@@ -1016,20 +1029,28 @@ public class Person extends AbstractSolrDocument {
         this.educationAndTraining = educationAndTraining;
     }
 
-    public List<String> getEducationAndTrainingRole() {
-        return educationAndTrainingRole;
+    public List<String> getEducationAndTrainingOrganization() {
+        return educationAndTrainingOrganization;
     }
 
-    public void setEducationAndTrainingRole(List<String> educationAndTrainingRole) {
-        this.educationAndTrainingRole = educationAndTrainingRole;
+    public void setEducationAndTrainingOrganization(List<String> educationAndTrainingOrganization) {
+        this.educationAndTrainingOrganization = educationAndTrainingOrganization;
     }
 
-    public List<String> getEducationAndTrainingType() {
-        return educationAndTrainingType;
+    public List<String> getEducationAndTrainingMajorField() {
+        return educationAndTrainingMajorField;
     }
 
-    public void setEducationAndTrainingType(List<String> educationAndTrainingType) {
-        this.educationAndTrainingType = educationAndTrainingType;
+    public void setEducationAndTrainingMajorField(List<String> educationAndTrainingMajorField) {
+        this.educationAndTrainingMajorField = educationAndTrainingMajorField;
+    }
+
+    public List<String> getEducationAndTrainingDegreeAbbreviation() {
+        return educationAndTrainingDegreeAbbreviation;
+    }
+
+    public void setEducationAndTrainingDegreeAbbreviation(List<String> educationAndTrainingDegreeAbbreviation) {
+        this.educationAndTrainingDegreeAbbreviation = educationAndTrainingDegreeAbbreviation;
     }
 
     public List<String> getEducationAndTrainingStartDate() {
@@ -1152,6 +1173,14 @@ public class Person extends AbstractSolrDocument {
         this.selectedPublicationType = selectedPublicationType;
     }
 
+    public List<String> getSelectedPublicationPublisher() {
+        return selectedPublicationPublisher;
+    }
+
+    public void setSelectedPublicationPublisher(List<String> selectedPublicationPublisher) {
+        this.selectedPublicationPublisher = selectedPublicationPublisher;
+    }
+
     public List<String> getSelectedPublicationVenue() {
         return selectedPublicationVenue;
     }
@@ -1168,14 +1197,6 @@ public class Person extends AbstractSolrDocument {
         this.selectedPublicationDate = selectedPublicationDate;
     }
 
-    public List<String> getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(List<String> publisher) {
-        this.publisher = publisher;
-    }
-
     public List<String> getCollectionOrSeriesEditorFor() {
         return collectionOrSeriesEditorFor;
     }
@@ -1184,20 +1205,20 @@ public class Person extends AbstractSolrDocument {
         this.collectionOrSeriesEditorFor = collectionOrSeriesEditorFor;
     }
 
-    public List<String> getCollectionOrSeriesEditorForRole() {
-        return collectionOrSeriesEditorForRole;
-    }
-
-    public void setCollectionOrSeriesEditorForRole(List<String> collectionOrSeriesEditorForRole) {
-        this.collectionOrSeriesEditorForRole = collectionOrSeriesEditorForRole;
-    }
-
     public List<String> getCollectionOrSeriesEditorForType() {
         return collectionOrSeriesEditorForType;
     }
 
     public void setCollectionOrSeriesEditorForType(List<String> collectionOrSeriesEditorForType) {
         this.collectionOrSeriesEditorForType = collectionOrSeriesEditorForType;
+    }
+
+    public List<String> getCollectionOrSeriesEditorForRole() {
+        return collectionOrSeriesEditorForRole;
+    }
+
+    public void setCollectionOrSeriesEditorForRole(List<String> collectionOrSeriesEditorForRole) {
+        this.collectionOrSeriesEditorForRole = collectionOrSeriesEditorForRole;
     }
 
     public List<String> getCollectionOrSeriesEditorForStartDate() {
@@ -1560,20 +1581,20 @@ public class Person extends AbstractSolrDocument {
         this.advisee = advisee;
     }
 
-    public List<String> getAdviseeCandidacy() {
-        return adviseeCandidacy;
-    }
-
-    public void setAdviseeCandidacy(List<String> adviseeCandidacy) {
-        this.adviseeCandidacy = adviseeCandidacy;
-    }
-
     public List<String> getAdviseeType() {
         return adviseeType;
     }
 
     public void setAdviseeType(List<String> adviseeType) {
         this.adviseeType = adviseeType;
+    }
+
+    public List<String> getAdviseeCandidacy() {
+        return adviseeCandidacy;
+    }
+
+    public void setAdviseeCandidacy(List<String> adviseeCandidacy) {
+        this.adviseeCandidacy = adviseeCandidacy;
     }
 
     public List<String> getAdviseeStartDate() {
@@ -1688,20 +1709,20 @@ public class Person extends AbstractSolrDocument {
         this.professionalServiceActivity = professionalServiceActivity;
     }
 
-    public List<String> getProfessionalServiceActivityType() {
-        return professionalServiceActivityType;
-    }
-
-    public void setProfessionalServiceActivityType(List<String> professionalServiceActivityType) {
-        this.professionalServiceActivityType = professionalServiceActivityType;
-    }
-
     public List<String> getProfessionalServiceActivityRole() {
         return professionalServiceActivityRole;
     }
 
     public void setProfessionalServiceActivityRole(List<String> professionalServiceActivityRole) {
         this.professionalServiceActivityRole = professionalServiceActivityRole;
+    }
+
+    public List<String> getProfessionalServiceActivityType() {
+        return professionalServiceActivityType;
+    }
+
+    public void setProfessionalServiceActivityType(List<String> professionalServiceActivityType) {
+        this.professionalServiceActivityType = professionalServiceActivityType;
     }
 
     public List<String> getProfessionalServiceActivityStartDate() {
@@ -1728,20 +1749,20 @@ public class Person extends AbstractSolrDocument {
         this.outreachAndCommunityServiceActivity = outreachAndCommunityServiceActivity;
     }
 
-    public List<String> getOutreachAndCommunityServiceActivityRole() {
-        return outreachAndCommunityServiceActivityRole;
-    }
-
-    public void setOutreachAndCommunityServiceActivityRole(List<String> outreachAndCommunityServiceActivityRole) {
-        this.outreachAndCommunityServiceActivityRole = outreachAndCommunityServiceActivityRole;
-    }
-
     public List<String> getOutreachAndCommunityServiceActivityType() {
         return outreachAndCommunityServiceActivityType;
     }
 
     public void setOutreachAndCommunityServiceActivityType(List<String> outreachAndCommunityServiceActivityType) {
         this.outreachAndCommunityServiceActivityType = outreachAndCommunityServiceActivityType;
+    }
+
+    public List<String> getOutreachAndCommunityServiceActivityRole() {
+        return outreachAndCommunityServiceActivityRole;
+    }
+
+    public void setOutreachAndCommunityServiceActivityRole(List<String> outreachAndCommunityServiceActivityRole) {
+        this.outreachAndCommunityServiceActivityRole = outreachAndCommunityServiceActivityRole;
     }
 
     public List<String> getOutreachAndCommunityServiceActivityStartDate() {

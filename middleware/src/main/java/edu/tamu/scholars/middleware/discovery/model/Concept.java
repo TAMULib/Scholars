@@ -42,14 +42,14 @@ public class Concept extends AbstractSolrDocument {
     private List<String> websiteLabel;
 
     @Indexed
-    @PropertySource(template = "concept/associatedDepartment", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "concept/associatedDepartment", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> associatedDepartment;
 
     @Indexed
     private List<String> associatedDepartmentId;
 
     @Indexed
-    @PropertySource(template = "concept/researchAreaOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "concept/researchAreaOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> researchAreaOf;
 
     @Indexed
@@ -64,7 +64,7 @@ public class Concept extends AbstractSolrDocument {
     private List<String> researchAreaOfId;
 
     @Indexed
-    @PropertySource(template = "concept/broaderConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "concept/broaderConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> broaderConcept;
 
     @Indexed
@@ -75,7 +75,7 @@ public class Concept extends AbstractSolrDocument {
     private List<String> broaderConceptId;
 
     @Indexed
-    @PropertySource(template = "concept/narrowerConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "concept/narrowerConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> narrowerConcept;
 
     @Indexed
@@ -86,7 +86,7 @@ public class Concept extends AbstractSolrDocument {
     private List<String> narrowerConceptId;
 
     @Indexed
-    @PropertySource(template = "concept/relatedConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "concept/relatedConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> relatedConcept;
 
     @Indexed
@@ -97,7 +97,7 @@ public class Concept extends AbstractSolrDocument {
     private List<String> relatedConceptId;
 
     @Indexed
-    @PropertySource(template = "concept/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "concept/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sameAs;
 
     @Indexed

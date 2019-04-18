@@ -12,20 +12,20 @@
   <div class="align-self-center">
     <div class="name"><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></div>
     <div class="mt-1"><span>{{=it.preferredTitle}}</span></div>
-    {{? it.positionOrganization && it.positionOrganizationId }}
+    {{~it.position :position}}
     <div class="comma-seperated">
-      {{~it.positionOrganization :value:index}}
-      <span><a href="display/organizations/{{=it.positionOrganizationId[index]}}">{{=value}}</a></span>
+      {{~position.organization :organization}}      
+      <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
       {{~}}
     </div>
-    {{?}}
-    {{? it.researchArea && it.researchAreaId }}
+    {{~}}
+    {{? it.researchArea }}
     <div class="mt-1">
       <span>Research Areas</span>
     </div>
     <div class="comma-seperated">
-      {{~it.researchArea :value:index}}
-      <span><a href="display/concepts/{{=it.researchAreaId[index]}}">{{=value}}</a></span>
+      {{~it.researchArea :researchArea}}
+      <span><a href="display/concepts/{{=researchArea.id}}">{{=researchArea.label}}</a></span>
       {{~}}
     </div>
     {{?}}

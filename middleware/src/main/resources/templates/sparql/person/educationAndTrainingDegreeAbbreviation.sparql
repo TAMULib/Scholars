@@ -1,0 +1,12 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+ 
+CONSTRUCT {
+    ?training vivo:abbreviation ?abbreviationWithId .
+} WHERE {
+    <[(${uri})]> obo:RO_0000056 ?training .
+    ?training obo:RO_0002234 ?info .
+    ?info vivo:relates ?degree .
+    ?degree vivo:abbreviation ?abbreviation .
+    BIND( CONCAT( STR(?abbreviation), REPLACE(STR(?training), "(^.*/)", "::") ) AS ?abbreviationWithId ) .
+}

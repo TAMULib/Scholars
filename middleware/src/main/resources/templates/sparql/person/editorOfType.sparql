@@ -3,12 +3,12 @@ PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?document vitro:mostSpecificType ?type .
+    ?document vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?editor .
     ?editor a vivo:Editorship .
     ?editor vivo:relates ?document .
     ?document a bibo:Document .
     ?document vitro:mostSpecificType ?type .
-    FILTER (contains(str(?type), "http://purl.org/ontology/bibo/"))
+    BIND( CONCAT( STR(?type), REPLACE(STR(?document), "(^.*/)", "::") ) AS ?typeWithId ) .
 }

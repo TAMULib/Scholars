@@ -13,7 +13,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Organization
     field: positionOrganization
@@ -21,7 +21,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Research Area
     field: researchArea
@@ -29,15 +29,15 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Publisher
-    field: publisher
+    field: selectedPublicationPublisher
     type: STRING
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Position
     field: position
@@ -45,7 +45,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   filters: []
   sort:
@@ -70,7 +70,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Year
     field: publicationDate
@@ -78,7 +78,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Author
     field: author
@@ -86,7 +86,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Author Organization
     field: authorOrganization
@@ -94,7 +94,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Published In
     field: publicationVenue
@@ -102,7 +102,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Publisher
     field: publisher
@@ -110,7 +110,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   filters: []
   sort:
@@ -138,7 +138,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Year End
     field: dateTimeIntervalEnd
@@ -146,7 +146,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Principal Investigator
     field: principalInvestigator
@@ -154,7 +154,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Co-Principal Investigator
     field: coPrincipalInvestigator
@@ -162,7 +162,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Awarded By
     field: awardedBy
@@ -170,7 +170,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Administered By
     field: administeredBy
@@ -178,7 +178,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   filters:
   - field: type
@@ -208,7 +208,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Recipient
     field: awardOrHonorFor
@@ -216,7 +216,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Conferred By
     field: awardConferredBy
@@ -224,7 +224,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   filters:
   - field: type
@@ -254,7 +254,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Offered By
     field: offeredBy
@@ -262,7 +262,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Date Start
     field: dateTimeIntervalStart
@@ -270,7 +270,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Date End
     field: dateTimeIntervalEnd
@@ -278,7 +278,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   filters:
   - field: type
@@ -308,7 +308,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   - name: Research Area Of
     field: researchAreaOf
@@ -316,7 +316,7 @@
     sort: COUNT
     direction: DESC
     limit: 10
-    collapsed: false
+    collapsed: true
     hidden: false
   filters: []
   sort:

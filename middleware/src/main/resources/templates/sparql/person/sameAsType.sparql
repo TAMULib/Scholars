@@ -2,8 +2,9 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?sameAs vitro:mostSpecificType ?mostSpecificType .
+    ?sameAs vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> owl:sameAs ?sameAs .
-    ?sameAs vitro:mostSpecificType ?mostSpecificType .
+    ?sameAs vitro:mostSpecificType ?type .
+    BIND( CONCAT( STR(?type), REPLACE(STR(?sameAs), "(^.*/)", "::") ) AS ?typeWithId ) .
 }

@@ -1,0 +1,14 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+ 
+CONSTRUCT {
+    ?publication bibo:volume ?volumeWithId .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?authorship .
+    ?authorship a vivo:Authorship .
+    ?authorship vivo:relates ?publication .
+    ?publication a obo:IAO_0000030 .
+    ?publication bibo:volume ?volume .
+    BIND( CONCAT( STR(?volume), REPLACE(STR(?publication), "(^.*/)", "::") ) AS ?volumeWithId ) .
+}
