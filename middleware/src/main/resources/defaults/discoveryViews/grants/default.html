@@ -30,26 +30,26 @@
     <span class="label">Awarded By:</span>
     <span>{{=it.awardedBy}}</span>
   </div>
-  {{? it.principalInvestigator && it.principalInvestigatorId}}
+  {{? it.principalInvestigator}}
   <div>
     <span class="label">Principal Investigator:</span>
   </div>
   <div>
     <ul>
-      {{~it.principalInvestigator :value:index}}
-      <li><span><a href="display/persons/{{=it.principalInvestigatorId[index]}}">{{=value}}</a></span></li>
+      {{~it.principalInvestigator :principalInvestigator}}
+      <li><span><a href="display/persons/{{=principalInvestigator.id}}">{{=principalInvestigator.label}}</a></span></li>
       {{~}}
     </ul>
   </div>
   {{?}}
-  {{? it.coPrincipalInvestigator && it.coPrincipalInvestigatorId}}
+  {{? it.coPrincipalInvestigator}}
   <div>
     <span class="label">Co-Principal Investigator:</span>
   </div>
   <div>
     <ul>
-      {{~it.coPrincipalInvestigator :value:index}}
-      <li><span><a href="display/persons/{{=it.coPrincipalInvestigatorId[index]}}">{{=value}}</a></span></li>
+      {{~it.coPrincipalInvestigator :coPrincipalInvestigator}}
+      <li><span><a href="display/persons/{{=coPrincipalInvestigator.id}}">{{=coPrincipalInvestigator.label}}</a></span></li>
       {{~}}
     </ul>
   </div>
