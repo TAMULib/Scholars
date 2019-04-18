@@ -1,1 +1,9 @@
-<span>Work In Progress</span>
+<div>
+  {{? it.awardedBy }}
+  {{~ it.awardedBy :awardedBy}}
+  <div class="mb-1">
+    <span class="mr-1"><a href="display/relationships/{{=awardedBy.id}}">{{=awardedBy.label}}</a></span>
+  </div>
+  {{~}}
+  {{?}}
+</div>
