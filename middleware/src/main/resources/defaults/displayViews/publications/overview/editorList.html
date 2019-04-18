@@ -1,1 +1,9 @@
-<span>Work In Progress</span>
+<div>
+  {{? it.editorList }}
+  {{~ it.editorList :editorList}}
+  <div class="mb-1">
+    <span class="mr-1">{{=editorList.label}} , </span>
+  </div>
+  {{~}}
+  {{?}}
+</div>

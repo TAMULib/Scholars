@@ -1,1 +1,9 @@
-<span>Work In Progress</span>
+<div>
+  {{? it.publicationDate }}
+  {{~ it.publicationDate :publicationDate}}
+  <div class="mb-1">
+    <span class="mr-1">{{=publicationDate.label}}</span>
+  </div>
+  {{~}}
+  {{?}}
+</div>
