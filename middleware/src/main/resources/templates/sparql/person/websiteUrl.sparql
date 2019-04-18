@@ -7,4 +7,5 @@ CONSTRUCT {
     <[(${uri})]> obo:ARG_2000028 ?vcard .
     ?vcard vcard:hasURL ?hasURL .
     ?hasURL vcard:url ?url .
+    BIND( CONCAT( STR(?url), REPLACE(STR(?hasURL), "(^.*/)", "::") ) AS ?urlWithLabel ) .
 }

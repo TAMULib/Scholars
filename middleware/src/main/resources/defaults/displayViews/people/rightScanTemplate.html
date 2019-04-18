@@ -8,12 +8,12 @@
   <div>
     <i class="fa fa-phone"></i><span class="info"><a href="tel: {{=it.email}}">{{=it.phone}}</a></span>
   </div>
-  {{? it.websiteLabel && it.websiteUrl}}
+  {{? it.website}}
   <div>
     <span class="label">Websites</span>
     <ul class="list-unstyled ml-1">
-      {{~it.websiteLabel :label:index}}
-      <li><span><a href="{{=it.websiteUrl[index]}}">{{=label}}</a></span></li>
+      {{~it.website :website}}
+      <li><span><a href="{{=website.url}}">{{=website.label}}</a></span></li>
       {{~}}
     </ul>
   </div>

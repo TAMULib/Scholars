@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.util.NameTransformer;
 
+import edu.tamu.scholars.middleware.discovery.annotation.NestedMultiValuedProperty;
 import edu.tamu.scholars.middleware.discovery.annotation.NestedObject;
 import edu.tamu.scholars.middleware.discovery.annotation.NestedObject.Reference;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
@@ -39,163 +40,118 @@ public abstract class AbstractUnwrappingSolrDocumentSerializer<D extends Abstrac
         return true;
     }
 
-    // TODO: rewrite, reduce redundancy, use recursion to supported n depth nested objects
-
     @Override
     public void serialize(D document, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
-        // serialize id
         jsonGenerator.writeObjectField(nameTransformer.transform(ID_PROPERTY_NAME), document.getId());
-        
-        // serialize all non nested fields
+
         for (Field field : FieldUtils.getFieldsListWithAnnotation(document.getClass(), PropertySource.class)) {
             field.setAccessible(true);
+
             Object value = null;
             try {
                 value = field.get(document);
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 e.printStackTrace();
             }
+
             if (value != null) {
                 String name = field.getName();
-                PropertySource source = field.getAnnotation(PropertySource.class);
-                if (!source.nested()) {
-                    jsonGenerator.writeObjectField(nameTransformer.transform(name), value);
+                NestedObject nested = field.getAnnotation(NestedObject.class);
+                if (nested != null) {
+                    if (List.class.isAssignableFrom(value.getClass())) {
+                        @SuppressWarnings("unchecked")
+                        List<String> values = (List<String>) value;
+                        ArrayNode array = JsonNodeFactory.instance.arrayNode();
+                        for (String v : values) {
+                            String[] vParts = v.split(NESTED_ID_DELIMITER);
+                            if (vParts.length > 1) {
+                                array.add(processValue(document, field, vParts, 1));
+                            }
+                        }
+                        jsonGenerator.writeObjectField(nameTransformer.transform(name), array);
+                    } else {
+                        String v = value.toString();
+                        String[] vParts = v.split(NESTED_ID_DELIMITER);
+                        if (vParts.length > 1) {
+                            ObjectNode node = processValue(document, field, vParts, 1);
+                            jsonGenerator.writeObjectField(nameTransformer.transform(name), node);
+                        }
+                    }
+                } else {
+                    if (!value.toString().contains(NESTED_ID_DELIMITER)) {
+                        jsonGenerator.writeObjectField(nameTransformer.transform(name), value);
+                    }
                 }
             }
         }
+    }
 
-        // serialize nested objects
-        for (Field field : FieldUtils.getFieldsListWithAnnotation(document.getClass(), NestedObject.class)) {
-            field.setAccessible(true);
+    private ObjectNode processValue(D document, Field field, String[] vParts, int index) {
+        ObjectNode node = JsonNodeFactory.instance.objectNode();
+        node.put(LABEL_PROPERTY_NAME, vParts[0]);
+        node.put(ID_PROPERTY_NAME, vParts[index]);
+        processNestedReferences(document, field, node, vParts, index + 1);
+        return node;
+    }
 
-            Object value = null;
-            try {
-                value = field.get(document);
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+    private void processNestedReferences(D document, Field field, ObjectNode node, String[] vParts, int depth) {
+        NestedObject references = field.getAnnotation(NestedObject.class);
+        if (references != null) {
+            for (Reference reference : references.value()) {
+                String ref = reference.value();
+                String property = reference.key();
 
-            if (value != null) {
-                String name = field.getName();
+                Field nestedField = FieldUtils.getField(document.getClass(), ref, true);
 
-                NestedObject references = field.getAnnotation(NestedObject.class);
+                Object nestedValue = null;
+                try {
+                    nestedValue = nestedField.get(document);
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
 
-                if (List.class.isAssignableFrom(value.getClass())) {
-                    @SuppressWarnings("unchecked")
-                    List<String> values = (List<String>) value;
-
-                    ArrayNode array = JsonNodeFactory.instance.arrayNode();
-
-                    for (String v : values) {
-
-                        ObjectNode node = JsonNodeFactory.instance.objectNode();
-
-                        String[] vParts = v.split(NESTED_ID_DELIMITER);
-
-                        node.put(LABEL_PROPERTY_NAME, vParts[0]);
-
-                        if (vParts.length == 2) {
-                            node.put(ID_PROPERTY_NAME, vParts[1]);
-
-                            for (Reference reference : references.value()) {
-                                String ref = reference.value();
-                                String property = reference.key();
-
-                                Field nestedField = FieldUtils.getField(document.getClass(), ref, true);
-
-                                Object nestedValue = null;
-                                try {
-                                    nestedValue = nestedField.get(document);
-                                } catch (IllegalArgumentException | IllegalAccessException e) {
-                                    e.printStackTrace();
-                                }
-
-                                if (nestedValue != null) {
-
-                                    @SuppressWarnings("unchecked")
-                                    List<String> nestedValues = (List<String>) nestedValue;
-
-                                    for (String nv : nestedValues) {
-                                        if (nv.contains(vParts[1])) {
-
-                                            String[] nvParts = nv.split(NESTED_ID_DELIMITER);
-
-                                            if (nvParts.length == 3) {
-
-                                                ObjectNode subNode = JsonNodeFactory.instance.objectNode();
-
-                                                subNode.put(LABEL_PROPERTY_NAME, nvParts[0]);
-
-                                                subNode.put(ID_PROPERTY_NAME, nvParts[2]);
-
-                                                node.set(property, subNode);
-
-                                            } else {
-                                                node.put(property, nvParts[0]);
-                                            }
-
-                                            break;
-                                        }
+                if (nestedValue != null) {
+                    if (List.class.isAssignableFrom(nestedValue.getClass())) {
+                        @SuppressWarnings("unchecked")
+                        List<String> nestedValues = (List<String>) nestedValue;
+                        ArrayNode array = JsonNodeFactory.instance.arrayNode();
+                        boolean multiValued = nestedField.getAnnotation(NestedMultiValuedProperty.class) != null;
+                        for (String nv : nestedValues) {
+                            if (nv.contains(vParts[depth - 1])) {
+                                String[] nvParts = nv.split(NESTED_ID_DELIMITER);
+                                if (nvParts.length > depth) {
+                                    ObjectNode subNode = processValue(document, nestedField, nvParts, depth);
+                                    array.add(subNode);
+                                } else {
+                                    if (nvParts[0] != null) {
+                                        array.add(nvParts[0]);
                                     }
                                 }
-                            }
-                        }
-
-                        array.add(node);
-                    }
-                    jsonGenerator.writeObjectField(nameTransformer.transform(name), array);
-                } else {
-
-                    ObjectNode node = JsonNodeFactory.instance.objectNode();
-
-                    String v = value.toString();
-
-                    String[] vParts = v.split(NESTED_ID_DELIMITER);
-
-                    node.put(LABEL_PROPERTY_NAME, vParts[0]);
-
-                    if (vParts.length == 2) {
-                        node.put(ID_PROPERTY_NAME, vParts[1]);
-
-                        for (Reference reference : references.value()) {
-                            String ref = reference.value();
-                            String property = reference.key();
-
-                            Field nestedField = FieldUtils.getField(document.getClass(), ref, true);
-
-                            Object nestedValue = null;
-                            try {
-                                nestedValue = nestedField.get(document);
-                            } catch (IllegalArgumentException | IllegalAccessException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (nestedValue != null) {
-
-                                String nv = nestedValue.toString();
-
-                                String[] nvParts = nv.split(NESTED_ID_DELIMITER);
-
-                                if (nvParts.length == 3) {
-
-                                    ObjectNode subNode = JsonNodeFactory.instance.objectNode();
-
-                                    subNode.put(LABEL_PROPERTY_NAME, nvParts[0]);
-
-                                    subNode.put(ID_PROPERTY_NAME, nvParts[2]);
-
-                                    node.set(property, subNode);
-
-                                } else {
-                                    node.put(property, nvParts[0]);
+                                if (!multiValued) {
+                                    break;
                                 }
-
                             }
                         }
-
+                        if (array.size() > 0) {
+                            if (multiValued) {
+                                node.set(property, array);
+                            } else {
+                                node.set(property, array.get(0));
+                            }
+                        }
+                    } else {
+                        String nv = nestedValue.toString();
+                        String[] nvParts = nv.split(NESTED_ID_DELIMITER);
+                        if (nvParts.length > depth) {
+                            ObjectNode subNode = processValue(document, nestedField, nvParts, depth);
+                            node.set(property, subNode);
+                        } else {
+                            if (nvParts[0] != null) {
+                                node.put(property, nvParts[0]);
+                            }
+                        }
                     }
-                    jsonGenerator.writeObjectField(nameTransformer.transform(name), node);
                 }
             }
         }

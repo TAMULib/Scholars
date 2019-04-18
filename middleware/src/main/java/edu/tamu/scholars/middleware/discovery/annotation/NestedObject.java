@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 public @interface NestedObject {
 
-    Reference[] value();
+    Reference[] value() default {};
 
     @Documented
     @Target(FIELD)

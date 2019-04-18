@@ -2,8 +2,9 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
  
 CONSTRUCT {
-    ?patent vitro:mostSpecificType ?type .
+    ?patent vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> vivo:assigneeFor ?patent .
     ?patent vitro:mostSpecificType ?type .
+    BIND( CONCAT( STR(?type), REPLACE(STR(?patent), "(^.*/)", "::") ) AS ?typeWithId ) .
 }

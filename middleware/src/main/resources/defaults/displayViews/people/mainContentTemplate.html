@@ -5,17 +5,16 @@
   <div class="mt-1">
     <h5>{{=it.preferredTitle}}</h5>
   </div>
-  {{? it.position && it.positionId}}
+  {{? it.position}}
   <div>
     <span class="label">Positions:</span>
     <ul class="list-unstyled ml-1">
       {{~it.position :position}}
       <li>
         <div class="comma-seperated">
-          <span>{{=position}}</span>
-          {{~it.positionOrganization :organization:organizationIndex}}
-          <!-- TODO: when author organization id populated update href -->
-          <span><a href="display/organizations/{{=it.positionOrganizationId[organizationIndex]}}">{{=organization}}</a></span>
+          <span>{{=position.label}}</span>
+          {{~position.organization :organization}}
+          <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
           {{~}}
         </div>
       </li>
@@ -23,13 +22,13 @@
     </ul>
   </div>
   {{?}}
-  {{? it.researchArea && it.researchAreaId }}
+  {{? it.researchArea }}
   <div class="mt-1">
     <span class="label">Research Areas:</span>
   </div>
   <div class="comma-seperated ml-1">
-    {{~it.researchArea :value:index}}
-    <span><a href="display/concepts/{{=it.researchAreaId[index]}}">{{=value}}</a></span>
+    {{~it.researchArea :researchArea}}
+    <span><a href="display/concepts/{{=researchArea.id}}">{{=researchArea.label}}</a></span>
     {{~}}
   </div>
   {{?}}

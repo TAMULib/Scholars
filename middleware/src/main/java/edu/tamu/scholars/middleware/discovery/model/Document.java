@@ -54,25 +54,25 @@ public class Document extends AbstractSolrDocument {
     private String abbreviation;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/publicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, unique = true)
+    @PropertySource(template = "document/publicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> publicationVenue;
 
     @Indexed
     private List<String> publicationVenueId;
 
     @Indexed
-    @PropertySource(template = "document/publicationVenueFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, unique = true)
+    @PropertySource(template = "document/publicationVenueFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> publicationVenueFor;
 
     @Indexed
     private List<String> publicationVenueForId;
 
     @Indexed
-    @PropertySource(template = "document/etdChairedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/etdChairedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairedBy;
 
     @Indexed
-    @PropertySource(template = "document/etdChairedByOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/etdChairedByOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairedByOrganization;
 
     @Indexed
@@ -86,11 +86,11 @@ public class Document extends AbstractSolrDocument {
     private List<String> etdChairedById;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/author", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/author", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> author;
 
     @Indexed(copyTo = "_text_")
-    @PropertySource(template = "document/authorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/authorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> authorOrganization;
 
     @Indexed
@@ -112,7 +112,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> authorList;
 
     @Indexed
-    @PropertySource(template = "document/editor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/editor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> editor;
 
     @Indexed
@@ -135,7 +135,7 @@ public class Document extends AbstractSolrDocument {
     private String bookTitle;
 
     @Indexed
-    @PropertySource(template = "document/translator", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/translator", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> translator;
 
     @Indexed
@@ -146,7 +146,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> translatorId;
 
     @Indexed
-    @PropertySource(template = "document/status", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/status", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> status;
 
     @Indexed
@@ -157,7 +157,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> publicationDate;
 
     @Indexed
-    @PropertySource(template = "document/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true, unique = true)
+    @PropertySource(template = "document/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> publisher;
 
     @Indexed
@@ -176,7 +176,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> dateIssued;
 
     @Indexed
-    @PropertySource(template = "document/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> subjectArea;
 
     @Indexed
@@ -187,7 +187,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> restriction;
 
     @Indexed
-    @PropertySource(template = "document/documentPart", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/documentPart", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> documentPart;
 
     @Indexed
@@ -202,7 +202,7 @@ public class Document extends AbstractSolrDocument {
     private String chapter;
 
     @Indexed
-    @PropertySource(template = "document/feature", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/feature", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> feature;
 
     @Indexed
@@ -217,7 +217,7 @@ public class Document extends AbstractSolrDocument {
     private String edition;
 
     @Indexed
-    @PropertySource(template = "document/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> geographicFocus;
 
     @Indexed
@@ -228,7 +228,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> geographicFocusId;
 
     @Indexed
-    @PropertySource(template = "document/documentationForProjectOrResource", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/documentationForProjectOrResource", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> documentationForProjectOrResource;
 
     @Indexed
@@ -239,7 +239,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> documentationForProjectOrResourceId;
 
     @Indexed
-    @PropertySource(template = "document/outputOfProcessOrEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/outputOfProcessOrEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> outputOfProcessOrEvent;
 
     @Indexed
@@ -250,7 +250,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> outputOfProcessOrEventId;
 
     @Indexed
-    @PropertySource(template = "document/presentedAt", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/presentedAt", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentedAt;
 
     @Indexed
@@ -285,7 +285,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> patentNumber;
 
     @Indexed
-    @PropertySource(template = "document/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sameAs;
 
     @Indexed
@@ -332,7 +332,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> uri;
 
     @Indexed
-    @PropertySource(template = "document/citedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/citedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> citedBy;
 
     @Indexed
@@ -343,7 +343,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> citedById;
 
     @Indexed
-    @PropertySource(template = "document/citation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/citation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> citation;
 
     @Indexed
@@ -354,7 +354,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> citationId;
 
     @Indexed
-    @PropertySource(template = "document/citesAsDataSource", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/citesAsDataSource", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> citesAsDataSource;
 
     @Indexed
@@ -365,7 +365,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> citesAsDataSourceId;
 
     @Indexed
-    @PropertySource(template = "document/translation", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/translation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> translation;
 
     @Indexed
@@ -376,7 +376,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> translationId;
 
     @Indexed
-    @PropertySource(template = "document/translationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/translationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> translationOf;
 
     @Indexed
@@ -387,7 +387,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> translationOfId;
 
     @Indexed
-    @PropertySource(template = "document/globalCitationFrequency", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/globalCitationFrequency", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> globalCitationFrequency;
 
     @Indexed
@@ -422,7 +422,7 @@ public class Document extends AbstractSolrDocument {
     private String placeOfPublication;
 
     @Indexed
-    @PropertySource(template = "document/assignee", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/assignee", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> assignee;
 
     @Indexed
@@ -433,14 +433,14 @@ public class Document extends AbstractSolrDocument {
     private List<String> assigneeId;
 
     @Indexed
-    @PropertySource(template = "document/reproducedIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/reproducedIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> reproducedIn;
 
     @Indexed
     private List<String> reproducedInId;
 
     @Indexed
-    @PropertySource(template = "document/reproduces", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/reproduces", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> reproduces;
 
     @Indexed
@@ -451,7 +451,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> reproducesId;
 
     @Indexed
-    @PropertySource(template = "document/isAbout", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/isAbout", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> isAbout;
 
     @Indexed
@@ -462,7 +462,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> isAboutId;
 
     @Indexed
-    @PropertySource(template = "document/specifiedOutputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/specifiedOutputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> specifiedOutputOf;
 
     @Indexed
@@ -477,7 +477,7 @@ public class Document extends AbstractSolrDocument {
     private String isTemplate;
 
     @Indexed
-    @PropertySource(template = "document/mention", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/mention", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> mention;
 
     @Indexed
@@ -488,14 +488,14 @@ public class Document extends AbstractSolrDocument {
     private List<String> mentionId;
 
     @Indexed
-    @PropertySource(template = "document/participatesIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/participatesIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> participatesIn;
 
     @Indexed
     private List<String> participatesInId;
 
     @Indexed
-    @PropertySource(template = "document/supportedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/supportedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> supportedBy;
 
     @Indexed
@@ -510,7 +510,7 @@ public class Document extends AbstractSolrDocument {
     private String modTime;
 
     @Indexed
-    @PropertySource(template = "document/receipt", predicate = "http://www.w3.org/2000/01/rdf-schema#label", nested = true)
+    @PropertySource(template = "document/receipt", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> receipt;
 
     @Indexed
