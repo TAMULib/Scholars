@@ -19,7 +19,7 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(predicate = "http://xmlns.com/foaf/0.1/Organization")
 public class Organization extends AbstractSolrDocument {
 
-    @Indexed(type = "whole_string", copyTo = "_text_")
+    @Indexed(type = "sorting_string", copyTo = "_text_")
     @PropertySource(template = "organization/name", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String name;
 

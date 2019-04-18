@@ -196,52 +196,44 @@
     <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true" docValues="true" />
 
     <!-- Scholars whole string type  -->
-    <fieldType name="whole_string" class="solr.TextField" sortMissingLast="true">
-      <analyzer type="index">
+    <fieldType name="sorting_string" class="solr.TextField" sortMissingLast="true">
+      <analyzer>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory" />
       </analyzer>
-      <analyzer type="query">
+    </fieldType>
+
+    <!-- Scholars whole string type  -->
+    <fieldType name="whole_string" class="solr.TextField" sortMissingLast="true">
+      <analyzer>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
       </analyzer>
     </fieldType>
 
     <!-- Scholars whole strings type -->
     <fieldType name="whole_strings" class="solr.TextField" sortMissingLast="true" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
-      </analyzer>
-      <analyzer type="query">
+      <analyzer>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
       </analyzer>
     </fieldType>
 
     <!-- Scholars delimited string type  -->
     <fieldType name="delimited_string" class="solr.TextField" sortMissingLast="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-      </analyzer>
-      <analyzer type="query">
+      <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
       </analyzer>
     </fieldType>
 
     <!-- Scholars delimited strings type -->
     <fieldType name="delimited_strings" class="solr.TextField" sortMissingLast="true" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-      </analyzer>
-      <analyzer type="query">
+      <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
       </analyzer>
     </fieldType>
 
     <!-- Scholars nested string type  -->
     <fieldType name="nested_string" class="solr.TextField" sortMissingLast="true">
-      <analyzer type="index">
-        <charFilter class="solr.PatternReplaceFilterFactory" pattern="^(.*?)(::.*)$" replacement="$1"/>
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
-      </analyzer>
-      <analyzer type="query">
+      <analyzer>
         <charFilter class="solr.PatternReplaceFilterFactory" pattern="^(.*?)(::.*)$" replacement="$1"/>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
       </analyzer>
@@ -249,11 +241,7 @@
 
     <!-- Scholars nested strings type -->
     <fieldType name="nested_strings" class="solr.TextField" sortMissingLast="true" multiValued="true">
-      <analyzer type="index">
-        <charFilter class="solr.PatternReplaceFilterFactory" pattern="^(.*?)(::.*)$" replacement="$1"/>
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
-      </analyzer>
-      <analyzer type="query">
+      <analyzer>
         <charFilter class="solr.PatternReplaceFilterFactory" pattern="^(.*?)(::.*)$" replacement="$1"/>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
       </analyzer>
