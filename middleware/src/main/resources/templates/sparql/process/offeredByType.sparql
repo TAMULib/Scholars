@@ -3,9 +3,9 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
 CONSTRUCT {
-    ?offeredBy vitro:mostSpecificType ?type .
+    ?offeredBy vitro:mostSpecificType ?mostSpecificType .
 } WHERE {
     <[(${uri})]> vivo:offeredBy ?offeredBy .
-    ?offeredBy vitro:mostSpecificType ?type .
-    FILTER(?type != foaf:Organization)
+    ?offeredBy vitro:mostSpecificType ?mostSpecificType .
+    FILTER(?mostSpecificType != foaf:Organization)
 }

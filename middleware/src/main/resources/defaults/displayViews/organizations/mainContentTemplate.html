@@ -5,21 +5,21 @@
   <span class="h3 lead font-weight-normal text-nowrap text-secondary">
     <span class="ml-1">|</span>
     <span class="pipe-seperated">
-      {{~it.type :value}}
-      <span>{{=value}}</span>
+      {{~it.type :type}}
+      <span>{{=type}}</span>
       {{~}}
     </span>
     <a href="http://scholars.library.tamu.edu/vivo/individual/{{=it.id}}"><i class="fa fa-link ml-1"></i></a>
   </span>
 </div>
 <div>
-  {{? it.affiliatedResearchArea && it.affiliatedResearchAreaId }}
+  {{? it.affiliatedResearchArea }}
   <div class="mt-1">
     <span class="label">Research Areas:</span>
   </div>
   <div id="affiliated-research-area" class="comma-seperated ml-1">
-    {{~it.affiliatedResearchArea :value:index}}
-    <span><a href="display/concepts/{{=it.affiliatedResearchAreaId[index]}}">{{=value}}</a></span>
+    {{~it.affiliatedResearchArea :affiliatedResearchArea}}
+    <span><a href="display/concepts/{{=affiliatedResearchArea.id}}">{{=affiliatedResearchArea.label}}</a></span>
     {{~}}
   </div>
   {{?}}

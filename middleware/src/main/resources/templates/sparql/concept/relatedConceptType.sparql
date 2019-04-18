@@ -2,8 +2,8 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?related vitro:mostSpecificType ?type .
+    ?related vitro:mostSpecificType ?mostSpecificType .
 } WHERE {
     <[(${uri})]> skos:related ?related .
-    ?related vitro:mostSpecificType ?type .
+    ?related vitro:mostSpecificType ?mostSpecificType .
 }

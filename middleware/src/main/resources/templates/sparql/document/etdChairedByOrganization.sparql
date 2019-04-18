@@ -5,15 +5,15 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?organization rdfs:label ?nameWithId .
+    ?organization rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> tamu:ETDChairedBy ?chair .
     ?chair vivo:relatedBy ?position .
     ?position a vivo:Position .
     ?position vivo:relatedBy ?organization .
     ?organization a foaf:Organization .
-    ?organization rdfs:label ?name .
+    ?organization rdfs:label ?label .
     ?organization vitro:mostSpecificType ?mostSpecificType .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?chair), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithId ) .
-    FILTER(lang(?name) = '' && ?mostSpecificType = vivo:AcademicDepartment)
+    BIND( CONCAT( STR(?label), REPLACE(STR(?chair), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?labelWithId ) .
+    FILTER(lang(?label) = '' && ?mostSpecificType = vivo:AcademicDepartment)
 }

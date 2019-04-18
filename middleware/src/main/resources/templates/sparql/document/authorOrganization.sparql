@@ -5,7 +5,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
-    ?organization rdfs:label ?nameWithId .
+    ?organization rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?relatedBy .
     ?relatedBy rdf:type vivo:Authorship .
@@ -14,8 +14,8 @@ CONSTRUCT {
     ?position a vivo:Position .
     ?position vivo:relatedBy ?organization .
     ?organization a foaf:Organization .
-    ?organization rdfs:label ?name .
+    ?organization rdfs:label ?label .
     ?organization vitro:mostSpecificType ?mostSpecificType .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?author), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithId ) .
-    FILTER(lang(?name) = '' && ?mostSpecificType = vivo:AcademicDepartment)
+    BIND( CONCAT( STR(?label), REPLACE(STR(?author), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?labelWithId ) .
+    FILTER(lang(?label) = '' && ?mostSpecificType = vivo:AcademicDepartment)
 }

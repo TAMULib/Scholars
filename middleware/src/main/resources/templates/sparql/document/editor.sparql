@@ -4,13 +4,13 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
-    ?editor rdfs:label ?nameWithId .
+    ?editor rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?relatedBy .
     ?relatedBy a vivo:Editorship .
     ?relatedBy vivo:relates ?editor .
     ?editor rdf:type ?type .
-    ?editor rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?editor), "(^.*/)", "::") ) AS ?nameWithId ) .
+    ?editor rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?editor), "(^.*/)", "::") ) AS ?labelWithId ) .
     FILTER(?type = foaf:Person || ?type = foaf:Organization)
 }

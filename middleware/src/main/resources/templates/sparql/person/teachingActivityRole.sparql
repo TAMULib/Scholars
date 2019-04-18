@@ -10,8 +10,8 @@ CONSTRUCT {
     ?role a vivo:TeacherRole .
     ?role obo:BFO_0000054 ?course .
     ?course obo:BFO_0000055 ?person .
-    ?person vitro:mostSpecificType ?type .
+    ?person vitro:mostSpecificType ?mostSpecificType .
     ?person rdfs:label ?title .
     BIND( CONCAT( STR(?title), REPLACE(STR(?course), "(^.*/)", "::") ) AS ?titleWithId ) .
-    FILTER(?type = vivo:TeacherRole)
+    FILTER(?mostSpecificType = vivo:TeacherRole)
 }

@@ -3,7 +3,7 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?organization rdfs:label ?name .
+    ?organization rdfs:label ?label .
 } WHERE {
     <[(${uri})]> vivo:researchAreaOf ?researchAreaOf .
     ?researchAreaOf a foaf:Person .
@@ -11,6 +11,6 @@ CONSTRUCT {
     ?position a vivo:Position .
     ?position vivo:relates ?organization .
     ?organization a foaf:Organization .
-    ?organization rdfs:label ?name .
-    FILTER(lang(?name) = '')
+    ?organization rdfs:label ?label .
+    FILTER(lang(?label) = '')
 }

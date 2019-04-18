@@ -3,11 +3,11 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?role rdfs:label ?nameWithId .
+    ?role rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:OutreachProviderRole .
     ?role vivo:roleContributesTo ?roleContributesTo .
-    ?role rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?roleContributesTo), "(^.*/)", "::") ) AS ?nameWithId ) .
+    ?role rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?roleContributesTo), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

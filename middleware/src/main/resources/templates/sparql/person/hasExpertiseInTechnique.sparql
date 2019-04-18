@@ -5,6 +5,6 @@ CONSTRUCT {
     ?technique rdfs:label ?type .
 } WHERE {
     <[(${uri})]> obo:ERO_0000033 ?technique .
-    ?technique rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?technique), "(^.*/)", "::") ) AS ?nameWithId ) .
+    ?technique rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?technique), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

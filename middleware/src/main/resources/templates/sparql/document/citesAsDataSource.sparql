@@ -4,7 +4,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 CONSTRUCT {
     ?dataSource rdfs:label ?labelWithId .
 } WHERE {
-    <[(${uri})]> cito:citesAsDataSource ?dataSource .
-    ?dataSource rdfs:label ?label .
-    BIND( CONCAT( STR(?label), REPLACE(STR(?dataSource), "(^.*/)", "::") ) AS ?labelWithId ) .
+    <[(${uri})]> cito:citesAsDataSource ?citesAsDataSource .
+    ?citesAsDataSource rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?citesAsDataSource), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

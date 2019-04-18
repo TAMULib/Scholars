@@ -2,10 +2,10 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
  
 CONSTRUCT {
-    ?document vitro:mostSpecificType ?typeWithId .
+    ?document vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> vivo:translatorOf ?document .
-    ?document vitro:mostSpecificType ?type .
-    BIND( CONCAT( STR(?type), REPLACE(STR(?document), "(^.*/)", "::") ) AS ?typeWithId ) .
-    FILTER (contains(str(?type), "http://purl.org/ontology/bibo/"))
+    ?document vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?document), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
+    FILTER (CONTAINS(STR(?mostSpecificType), "http://purl.org/ontology/bibo/"))
 }

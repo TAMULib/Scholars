@@ -2,10 +2,10 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?informationResource vitro:mostSpecificType ?typeWithId .
+    ?informationResource vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> vivo:informationResourceSupportedBy ?informationResource .
-    ?informationResource vitro:mostSpecificType ?type .
-    BIND( CONCAT( STR(?type), REPLACE(STR(?informationResource), "(^.*/)", "::") ) AS ?typeWithId ) .
-    FILTER (?type != vivo:DateTimeValue) .
+    ?informationResource vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?informationResource), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
+    FILTER (?mostSpecificType != vivo:DateTimeValue) .
 }

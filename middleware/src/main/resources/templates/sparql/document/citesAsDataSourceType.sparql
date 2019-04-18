@@ -4,7 +4,7 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 CONSTRUCT {
     ?dataSource vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
-    <[(${uri})]> cito:citesAsDataSource ?dataSource .
-    ?dataSource vitro:mostSpecificType ?mostSpecificType .
-    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?dataSource), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
+    <[(${uri})]> cito:citesAsDataSource ?citesAsDataSource .
+    ?citesAsDataSource vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?citesAsDataSource), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
 }

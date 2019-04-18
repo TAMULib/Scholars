@@ -9,7 +9,7 @@ CONSTRUCT {
     ?position a vivo:Position .
     ?position vivo:relatedBy ?organization .
     ?organization a foaf:Organization .
-    ?organization rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?position), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithIds ) .
-    FILTER(lang(?name) = '')
+    ?organization rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?position), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithIds ) .
+    FILTER(lang(?label) = '')
 }

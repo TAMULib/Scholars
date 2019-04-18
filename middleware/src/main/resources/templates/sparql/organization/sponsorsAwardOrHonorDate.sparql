@@ -1,10 +1,11 @@
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?award vivo:dateTime ?dateTime .
+    ?award vivo:dateTime ?dateTimeWithId .
 } WHERE {
     <[(${uri})]> vivo:sponsors ?award .
     ?award a vivo:Award .
     ?award vivo:dateTimeValue ?date .
     ?date vivo:dateTime ?dateTime .
+    BIND( CONCAT( STR(?dateTime), REPLACE(STR(?award), "(^.*/)", "::") ) AS ?dateTimeWithId ) .
 }

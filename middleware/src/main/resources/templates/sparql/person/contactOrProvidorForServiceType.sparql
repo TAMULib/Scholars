@@ -2,9 +2,9 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
  
 CONSTRUCT {
-    ?service vitro:mostSpecificType ?typeWithId .
+    ?service vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> obo:ERO_0000037 ?service .
-    ?service vitro:mostSpecificType ?type .
-    BIND( CONCAT( STR(?type), REPLACE(STR(?service), "(^.*/)", "::") ) AS ?typeWithId ) .
+    ?service vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?service), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
 }

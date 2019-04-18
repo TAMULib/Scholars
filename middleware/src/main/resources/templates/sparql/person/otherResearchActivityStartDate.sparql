@@ -8,7 +8,7 @@ CONSTRUCT {
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:ResearcherRole .
-    ?role vitro:mostSpecificType ?type .
+    ?role vitro:mostSpecificType ?mostSpecificType .
     {
         ?role vivo:relatedBy ?research .
     } UNION {
@@ -18,5 +18,5 @@ CONSTRUCT {
     ?dateTimeInterval vivo:start ?date .
     ?date vivo:dateTime ?dateTime .
     BIND( CONCAT( STR(?dateTime), REPLACE(STR(?research), "(^.*/)", "::") ) AS ?dateTimeWithId ) .
-    FILTER(?type = vivo:ResearcherRole)
+    FILTER(?mostSpecificType = vivo:ResearcherRole)
 }
