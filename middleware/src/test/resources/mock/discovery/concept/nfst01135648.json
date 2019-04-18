@@ -9,11 +9,6 @@
     "Aerospace Engineering",
     "Materials Science and Engineering"
   ],
-  "associatedDepartmentId": [
-    "n2702d149",
-    "nc59ef216",
-    "n09ed9c6e"
-  ],
   "researchAreaOf": [
     "Benzerga, Amine"
   ],
@@ -21,8 +16,5 @@
     "Center for Intelligent Multifunctional Materials and Structures",
     "Aerospace Engineering",
     "Materials Science and Engineering"
-  ],
-  "researchAreaOfId": [
-    "nf13b335b"
   ]
 }

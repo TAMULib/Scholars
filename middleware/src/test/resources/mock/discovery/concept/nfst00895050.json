@@ -9,11 +9,6 @@
     "School of Law",
     "Health and Kinesiology"
   ],
-  "associatedDepartmentId": [
-    "n51f47fb6",
-    "n52ff53af",
-    "n5f8cc79d"
-  ],
   "researchAreaOf": [
     "Green, Michael",
     "Cunningham, George",
@@ -24,11 +19,5 @@
     "Center for Sport Management Research and Education",
     "School of Law",
     "Health and Kinesiology"
-  ],
-  "researchAreaOfId": [
-    "na80996b8",
-    "n73234984",
-    "n73234984",
-    "ne72b58ac"
   ]
 }

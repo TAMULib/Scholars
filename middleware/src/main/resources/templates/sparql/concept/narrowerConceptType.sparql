@@ -2,8 +2,9 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?narrower vitro:mostSpecificType ?mostSpecificType .
+    ?narrower vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> skos:narrower ?narrower .
     ?narrower vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?narrower), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
 }
