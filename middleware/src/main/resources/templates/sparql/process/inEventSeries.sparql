@@ -3,9 +3,9 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?process rdfs:label ?name .
+    ?process rdfs:label ?label .
 } WHERE {
     <[(${uri})]> obo:BFO_0000050 ?process .
     ?process a vivo:EventSeries .
-    ?process rdfs:label ?name .
+    ?process rdfs:label ?label .
 }

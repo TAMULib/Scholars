@@ -3,10 +3,10 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?event vitro:mostSpecificType ?type .
+    ?event vitro:mostSpecificType ?mostSpecificType .
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:OrganizerRole .
     ?role obo:BFO_0000054 ?event .
-    ?event vitro:mostSpecificType ?type .
+    ?event vitro:mostSpecificType ?mostSpecificType .
 }

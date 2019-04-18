@@ -2,9 +2,9 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
  
 CONSTRUCT {
-    ?technique rdfs:label ?nameWithId .
+    ?technique rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> obo:ERO_0000397 ?technique .
-    ?technique rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?technique), "(^.*/)", "::") ) AS ?nameWithId ) .
+    ?technique rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?technique), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

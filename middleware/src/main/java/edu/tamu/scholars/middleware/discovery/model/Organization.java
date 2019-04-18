@@ -10,6 +10,8 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject.Reference;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
@@ -17,42 +19,41 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(predicate = "http://xmlns.com/foaf/0.1/Organization")
 public class Organization extends AbstractSolrDocument {
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/name", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String name;
 
-    @Indexed
+    @Indexed(type = "whole_strings")
     @PropertySource(template = "organization/type", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> type;
 
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "organization/image", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String image;
 
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "organization/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
-    @Indexed
+    @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "organization/website", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> website;
+
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
-    @Indexed
-    @PropertySource(template = "organization/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> websiteLabel;
-
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/overview", predicate = "http://vivoweb.org/ontology/core#overview")
     private String overview;
 
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/offersDegree", predicate = "organization.offersDegree")
     private List<String> offersDegree;
 
-    @Indexed
-    private List<String> offersDegreeId;
-
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/abbreviation", predicate = "http://vivoweb.org/ontology/core#abbreviation")
     private String abbreviation;
 
@@ -60,379 +61,304 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/date", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> date;
 
-    @Indexed
+    @NestedObject({ @Reference(value = "sponsorsAwardOrHonorDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/sponsorsAwardOrHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sponsorsAwardOrHonor;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/sponsorsAwardOrHonorDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> sponsorsAwardOrHonorDate;
 
-    @Indexed
-    private List<String> sponsorsAwardOrHonorId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "awardOrHonorGivenDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/awardOrHonorGiven", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> awardOrHonorGiven;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/awardOrHonorGivenDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> awardOrHonorGivenDate;
 
-    @Indexed
-    private List<String> awardOrHonorGivenId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "awardOrHonorReceivedDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/awardOrHonorReceived", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> awardOrHonorReceived;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/awardOrHonorReceivedDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> awardOrHonorReceivedDate;
 
-    @Indexed
-    private List<String> awardOrHonorReceivedId;
-
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "delimited_strings", copyTo = "_text_")
     @PropertySource(template = "organization/keyword", predicate = "http://vivoweb.org/ontology/core#freetextKeyword")
     private List<String> keyword;
 
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/organizationForTraining", predicate = "http://vivoweb.org/ontology/core#majorField")
     private List<String> organizationForTraining;
 
-    @Indexed
-    private List<String> organizationForTrainingId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "peopleType", key = "type"), @Reference(value = "peopleTitle", key = "title") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/people", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> people;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/peopleType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> peopleType;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/peopleTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
     private List<String> peopleTitle;
 
-    @Indexed
-    private List<String> peopleId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/hasSubOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasSubOrganization;
 
-    @Indexed
-    private List<String> hasSubOrganizationId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/organizationWithin", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> organizationWithin;
 
-    @Indexed
-    private List<String> organizationWithinId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/leadOrganizationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> leadOrganizationOf;
 
-    @Indexed
-    private List<String> leadOrganizationOfId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/hasCollaboratingOrganizationOrGroup", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasCollaboratingOrganizationOrGroup;
 
-    @Indexed
-    private List<String> hasCollaboratingOrganizationOrGroupId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/hasAffiliatedOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasAffiliatedOrganization;
 
-    @Indexed
-    private List<String> hasAffiliatedOrganizationId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> memberOf;
 
-    @Indexed
-    private List<String> memberOfId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> clinicalActivity;
 
-    @Indexed
-    private List<String> clinicalActivityId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "convenerOfEventDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/convenerOfEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> convenerOfEvent;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/convenerOfEventDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> convenerOfEventDate;
 
-    @Indexed
-    private List<String> convenerOfEventId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "attendedEventDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> attendedEvent;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/attendedEventDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> attendedEventDate;
 
-    @Indexed
-    private List<String> attendedEventId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "selectedPublicationType", key = "type"), @Reference(value = "selectedPublicationDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> selectedPublication;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/selectedPublicationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> selectedPublicationType;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/selectedPublicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> selectedPublicationDate;
 
-    @Indexed
-    private List<String> selectedPublicationId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "publisherOfType", key = "type"), @Reference(value = "publisherOfDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/publisherOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> publisherOf;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/publisherOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> publisherOfType;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/publisherOfDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> publisherOfDate;
 
-    @Indexed
-    private List<String> publisherOfId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "presentationEvent", key = "event"), @Reference(value = "presentationDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentation;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/presentationEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentationEvent;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/presentationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> presentationDate;
 
-    @Indexed
-    private List<String> presentationId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "featuredInType", key = "type"), @Reference(value = "featuredInDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/featuredIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> featuredIn;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/featuredInType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> featuredInType;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/featuredInDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> featuredInDate;
 
-    @Indexed
-    private List<String> featuredInId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "assigneeForPatentDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/assigneeForPatent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> assigneeForPatent;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/assigneeForPatentDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> assigneeForPatentDate;
 
-    @Indexed
-    private List<String> assigneeForPatentId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "translatorOfType", key = "type"), @Reference(value = "translatorOfDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/translatorOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> translatorOf;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/translatorOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translatorOfType;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/translatorOfDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> translatorOfDate;
 
-    @Indexed
-    private List<String> translatorOfId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "awardsGrantDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/awardsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> awardsGrant;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/awardsGrantDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> awardsGrantDate;
 
-    @Indexed
-    private List<String> awardsGrantId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "administersGrantDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/administersGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> administersGrant;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/administersGrantDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> administersGrantDate;
 
-    @Indexed
-    private List<String> administersGrantId;
-
-    @Indexed
+    @NestedObject({ @Reference(value = "subcontractsGrantDate", key = "date") })
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/subcontractsGrant", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> subcontractsGrant;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "nested_dates")
     @PropertySource(template = "organization/subcontractsGrantDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> subcontractsGrantDate;
 
-    @Indexed
-    private List<String> subcontractsGrantId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/performsHumanStudy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> performsHumanStudy;
 
-    @Indexed
-    private List<String> performsHumanStudyId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/contractOrProviderForService", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> contractOrProviderForService;
 
-    @Indexed
-    private List<String> contractOrProviderForServiceId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> outreachAndCommunityServiceActivity;
 
-    @Indexed
-    private List<String> outreachAndCommunityServiceActivityId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/hasEquipment", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasEquipment;
 
-    @Indexed
-    private List<String> hasEquipmentId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/offersCourse", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> offersCourse;
 
-    @Indexed
-    private List<String> offersCourseId;
-
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "organization/orgId", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#OrgID")
     private String orgId;
 
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sameAs;
 
-    @Indexed
-    @PropertySource(template = "organization/sameAsType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
-    private List<String> sameAsType;
-
-    @Indexed
-    private List<String> sameAsId;
-
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "organization/phone", predicate = "http://www.w3.org/2006/vcard/ns#telephone")
     private String phone;
 
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "organization/fax", predicate = "http://www.w3.org/2006/vcard/ns#fax")
     private String fax;
 
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "organization/emailAddress", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private String emailAddress;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/streetAddress", predicate = "organization.streetAddress")
     private String streetAddress;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/locality", predicate = "organization.locality")
     private String locality;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/region", predicate = "organization.region")
     private String region;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/postalCode", predicate = "organization.postalCode")
     private String postalCode;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/country", predicate = "organization.country")
     private String country;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "organization/geographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String geographicLocation;
 
-    @Indexed
-    private String geographicLocationId;
-
-    @Indexed(copyTo = "_text_")
+    @NestedObject
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "organization/locatedAtFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> locatedAtFacility;
 
-    @Indexed
-    private List<String> locatedAtFacilityId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/predecessorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> predecessorOrganization;
 
-    @Indexed
-    private List<String> predecessorOrganizationId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/successorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> successorOrganization;
 
-    @Indexed
-    private List<String> successorOrganizationId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/governingAuthorityFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> governingAuthorityFor;
 
-    @Indexed
-    private List<String> governingAuthorityForId;
-
     // NOTE: unidirectional from Concept vivo:researchAreaOf
-    @Indexed(copyTo = "_text_")
+    @NestedObject
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "organization/affiliatedResearchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> affiliatedResearchArea;
-
-    @Indexed
-    private List<String> affiliatedResearchAreaId;
 
     @Indexed(type = "pdate")
     @PropertySource(template = "organization/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
@@ -474,20 +400,20 @@ public class Organization extends AbstractSolrDocument {
         this.thumbnail = thumbnail;
     }
 
+    public List<String> getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(List<String> website) {
+        this.website = website;
+    }
+
     public List<String> getWebsiteUrl() {
         return websiteUrl;
     }
 
     public void setWebsiteUrl(List<String> websiteUrl) {
         this.websiteUrl = websiteUrl;
-    }
-
-    public List<String> getWebsiteLabel() {
-        return websiteLabel;
-    }
-
-    public void setWebsiteLabel(List<String> websiteLabel) {
-        this.websiteLabel = websiteLabel;
     }
 
     public String getOverview() {
@@ -504,14 +430,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setOffersDegree(List<String> offersDegree) {
         this.offersDegree = offersDegree;
-    }
-
-    public List<String> getOffersDegreeId() {
-        return offersDegreeId;
-    }
-
-    public void setOffersDegreeId(List<String> offersDegreeId) {
-        this.offersDegreeId = offersDegreeId;
     }
 
     public String getAbbreviation() {
@@ -546,14 +464,6 @@ public class Organization extends AbstractSolrDocument {
         this.sponsorsAwardOrHonorDate = sponsorsAwardOrHonorDate;
     }
 
-    public List<String> getSponsorsAwardOrHonorId() {
-        return sponsorsAwardOrHonorId;
-    }
-
-    public void setSponsorsAwardOrHonorId(List<String> sponsorsAwardOrHonorId) {
-        this.sponsorsAwardOrHonorId = sponsorsAwardOrHonorId;
-    }
-
     public List<String> getAwardOrHonorGiven() {
         return awardOrHonorGiven;
     }
@@ -568,14 +478,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAwardOrHonorGivenDate(List<String> awardOrHonorGivenDate) {
         this.awardOrHonorGivenDate = awardOrHonorGivenDate;
-    }
-
-    public List<String> getAwardOrHonorGivenId() {
-        return awardOrHonorGivenId;
-    }
-
-    public void setAwardOrHonorGivenId(List<String> awardOrHonorGivenId) {
-        this.awardOrHonorGivenId = awardOrHonorGivenId;
     }
 
     public List<String> getAwardOrHonorReceived() {
@@ -594,14 +496,6 @@ public class Organization extends AbstractSolrDocument {
         this.awardOrHonorReceivedDate = awardOrHonorReceivedDate;
     }
 
-    public List<String> getAwardOrHonorReceivedId() {
-        return awardOrHonorReceivedId;
-    }
-
-    public void setAwardOrHonorReceivedId(List<String> awardOrHonorReceivedId) {
-        this.awardOrHonorReceivedId = awardOrHonorReceivedId;
-    }
-
     public List<String> getKeyword() {
         return keyword;
     }
@@ -616,14 +510,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setOrganizationForTraining(List<String> organizationForTraining) {
         this.organizationForTraining = organizationForTraining;
-    }
-
-    public List<String> getOrganizationForTrainingId() {
-        return organizationForTrainingId;
-    }
-
-    public void setOrganizationForTrainingId(List<String> organizationForTrainingId) {
-        this.organizationForTrainingId = organizationForTrainingId;
     }
 
     public List<String> getPeople() {
@@ -650,28 +536,12 @@ public class Organization extends AbstractSolrDocument {
         this.peopleTitle = peopleTitle;
     }
 
-    public List<String> getPeopleId() {
-        return peopleId;
-    }
-
-    public void setPeopleId(List<String> peopleId) {
-        this.peopleId = peopleId;
-    }
-
     public List<String> getHasSubOrganization() {
         return hasSubOrganization;
     }
 
     public void setHasSubOrganization(List<String> hasSubOrganization) {
         this.hasSubOrganization = hasSubOrganization;
-    }
-
-    public List<String> getHasSubOrganizationId() {
-        return hasSubOrganizationId;
-    }
-
-    public void setHasSubOrganizationId(List<String> hasSubOrganizationId) {
-        this.hasSubOrganizationId = hasSubOrganizationId;
     }
 
     public List<String> getOrganizationWithin() {
@@ -682,28 +552,12 @@ public class Organization extends AbstractSolrDocument {
         this.organizationWithin = organizationWithin;
     }
 
-    public List<String> getOrganizationWithinId() {
-        return organizationWithinId;
-    }
-
-    public void setOrganizationWithinId(List<String> organizationWithinId) {
-        this.organizationWithinId = organizationWithinId;
-    }
-
     public List<String> getLeadOrganizationOf() {
         return leadOrganizationOf;
     }
 
     public void setLeadOrganizationOf(List<String> leadOrganizationOf) {
         this.leadOrganizationOf = leadOrganizationOf;
-    }
-
-    public List<String> getLeadOrganizationOfId() {
-        return leadOrganizationOfId;
-    }
-
-    public void setLeadOrganizationOfId(List<String> leadOrganizationOfId) {
-        this.leadOrganizationOfId = leadOrganizationOfId;
     }
 
     public List<String> getHasCollaboratingOrganizationOrGroup() {
@@ -714,28 +568,12 @@ public class Organization extends AbstractSolrDocument {
         this.hasCollaboratingOrganizationOrGroup = hasCollaboratingOrganizationOrGroup;
     }
 
-    public List<String> getHasCollaboratingOrganizationOrGroupId() {
-        return hasCollaboratingOrganizationOrGroupId;
-    }
-
-    public void setHasCollaboratingOrganizationOrGroupId(List<String> hasCollaboratingOrganizationOrGroupId) {
-        this.hasCollaboratingOrganizationOrGroupId = hasCollaboratingOrganizationOrGroupId;
-    }
-
     public List<String> getHasAffiliatedOrganization() {
         return hasAffiliatedOrganization;
     }
 
     public void setHasAffiliatedOrganization(List<String> hasAffiliatedOrganization) {
         this.hasAffiliatedOrganization = hasAffiliatedOrganization;
-    }
-
-    public List<String> getHasAffiliatedOrganizationId() {
-        return hasAffiliatedOrganizationId;
-    }
-
-    public void setHasAffiliatedOrganizationId(List<String> hasAffiliatedOrganizationId) {
-        this.hasAffiliatedOrganizationId = hasAffiliatedOrganizationId;
     }
 
     public List<String> getMemberOf() {
@@ -746,28 +584,12 @@ public class Organization extends AbstractSolrDocument {
         this.memberOf = memberOf;
     }
 
-    public List<String> getMemberOfId() {
-        return memberOfId;
-    }
-
-    public void setMemberOfId(List<String> memberOfId) {
-        this.memberOfId = memberOfId;
-    }
-
     public List<String> getClinicalActivity() {
         return clinicalActivity;
     }
 
     public void setClinicalActivity(List<String> clinicalActivity) {
         this.clinicalActivity = clinicalActivity;
-    }
-
-    public List<String> getClinicalActivityId() {
-        return clinicalActivityId;
-    }
-
-    public void setClinicalActivityId(List<String> clinicalActivityId) {
-        this.clinicalActivityId = clinicalActivityId;
     }
 
     public List<String> getConvenerOfEvent() {
@@ -786,14 +608,6 @@ public class Organization extends AbstractSolrDocument {
         this.convenerOfEventDate = convenerOfEventDate;
     }
 
-    public List<String> getConvenerOfEventId() {
-        return convenerOfEventId;
-    }
-
-    public void setConvenerOfEventId(List<String> convenerOfEventId) {
-        this.convenerOfEventId = convenerOfEventId;
-    }
-
     public List<String> getAttendedEvent() {
         return attendedEvent;
     }
@@ -808,14 +622,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAttendedEventDate(List<String> attendedEventDate) {
         this.attendedEventDate = attendedEventDate;
-    }
-
-    public List<String> getAttendedEventId() {
-        return attendedEventId;
-    }
-
-    public void setAttendedEventId(List<String> attendedEventId) {
-        this.attendedEventId = attendedEventId;
     }
 
     public List<String> getSelectedPublication() {
@@ -842,14 +648,6 @@ public class Organization extends AbstractSolrDocument {
         this.selectedPublicationDate = selectedPublicationDate;
     }
 
-    public List<String> getSelectedPublicationId() {
-        return selectedPublicationId;
-    }
-
-    public void setSelectedPublicationId(List<String> selectedPublicationId) {
-        this.selectedPublicationId = selectedPublicationId;
-    }
-
     public List<String> getPublisherOf() {
         return publisherOf;
     }
@@ -872,14 +670,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setPublisherOfDate(List<String> publisherOfDate) {
         this.publisherOfDate = publisherOfDate;
-    }
-
-    public List<String> getPublisherOfId() {
-        return publisherOfId;
-    }
-
-    public void setPublisherOfId(List<String> publisherOfId) {
-        this.publisherOfId = publisherOfId;
     }
 
     public List<String> getPresentation() {
@@ -906,14 +696,6 @@ public class Organization extends AbstractSolrDocument {
         this.presentationDate = presentationDate;
     }
 
-    public List<String> getPresentationId() {
-        return presentationId;
-    }
-
-    public void setPresentationId(List<String> presentationId) {
-        this.presentationId = presentationId;
-    }
-
     public List<String> getFeaturedIn() {
         return featuredIn;
     }
@@ -938,14 +720,6 @@ public class Organization extends AbstractSolrDocument {
         this.featuredInDate = featuredInDate;
     }
 
-    public List<String> getFeaturedInId() {
-        return featuredInId;
-    }
-
-    public void setFeaturedInId(List<String> featuredInId) {
-        this.featuredInId = featuredInId;
-    }
-
     public List<String> getAssigneeForPatent() {
         return assigneeForPatent;
     }
@@ -960,14 +734,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAssigneeForPatentDate(List<String> assigneeForPatentDate) {
         this.assigneeForPatentDate = assigneeForPatentDate;
-    }
-
-    public List<String> getAssigneeForPatentId() {
-        return assigneeForPatentId;
-    }
-
-    public void setAssigneeForPatentId(List<String> assigneeForPatentId) {
-        this.assigneeForPatentId = assigneeForPatentId;
     }
 
     public List<String> getTranslatorOf() {
@@ -994,14 +760,6 @@ public class Organization extends AbstractSolrDocument {
         this.translatorOfDate = translatorOfDate;
     }
 
-    public List<String> getTranslatorOfId() {
-        return translatorOfId;
-    }
-
-    public void setTranslatorOfId(List<String> translatorOfId) {
-        this.translatorOfId = translatorOfId;
-    }
-
     public List<String> getAwardsGrant() {
         return awardsGrant;
     }
@@ -1016,14 +774,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setAwardsGrantDate(List<String> awardsGrantDate) {
         this.awardsGrantDate = awardsGrantDate;
-    }
-
-    public List<String> getAwardsGrantId() {
-        return awardsGrantId;
-    }
-
-    public void setAwardsGrantId(List<String> awardsGrantId) {
-        this.awardsGrantId = awardsGrantId;
     }
 
     public List<String> getAdministersGrant() {
@@ -1042,14 +792,6 @@ public class Organization extends AbstractSolrDocument {
         this.administersGrantDate = administersGrantDate;
     }
 
-    public List<String> getAdministersGrantId() {
-        return administersGrantId;
-    }
-
-    public void setAdministersGrantId(List<String> administersGrantId) {
-        this.administersGrantId = administersGrantId;
-    }
-
     public List<String> getSubcontractsGrant() {
         return subcontractsGrant;
     }
@@ -1066,28 +808,12 @@ public class Organization extends AbstractSolrDocument {
         this.subcontractsGrantDate = subcontractsGrantDate;
     }
 
-    public List<String> getSubcontractsGrantId() {
-        return subcontractsGrantId;
-    }
-
-    public void setSubcontractsGrantId(List<String> subcontractsGrantId) {
-        this.subcontractsGrantId = subcontractsGrantId;
-    }
-
     public List<String> getPerformsHumanStudy() {
         return performsHumanStudy;
     }
 
     public void setPerformsHumanStudy(List<String> performsHumanStudy) {
         this.performsHumanStudy = performsHumanStudy;
-    }
-
-    public List<String> getPerformsHumanStudyId() {
-        return performsHumanStudyId;
-    }
-
-    public void setPerformsHumanStudyId(List<String> performsHumanStudyId) {
-        this.performsHumanStudyId = performsHumanStudyId;
     }
 
     public List<String> getContractOrProviderForService() {
@@ -1098,28 +824,12 @@ public class Organization extends AbstractSolrDocument {
         this.contractOrProviderForService = contractOrProviderForService;
     }
 
-    public List<String> getContractOrProviderForServiceId() {
-        return contractOrProviderForServiceId;
-    }
-
-    public void setContractOrProviderForServiceId(List<String> contractOrProviderForServiceId) {
-        this.contractOrProviderForServiceId = contractOrProviderForServiceId;
-    }
-
     public List<String> getOutreachAndCommunityServiceActivity() {
         return outreachAndCommunityServiceActivity;
     }
 
     public void setOutreachAndCommunityServiceActivity(List<String> outreachAndCommunityServiceActivity) {
         this.outreachAndCommunityServiceActivity = outreachAndCommunityServiceActivity;
-    }
-
-    public List<String> getOutreachAndCommunityServiceActivityId() {
-        return outreachAndCommunityServiceActivityId;
-    }
-
-    public void setOutreachAndCommunityServiceActivityId(List<String> outreachAndCommunityServiceActivityId) {
-        this.outreachAndCommunityServiceActivityId = outreachAndCommunityServiceActivityId;
     }
 
     public List<String> getHasEquipment() {
@@ -1130,28 +840,12 @@ public class Organization extends AbstractSolrDocument {
         this.hasEquipment = hasEquipment;
     }
 
-    public List<String> getHasEquipmentId() {
-        return hasEquipmentId;
-    }
-
-    public void setHasEquipmentId(List<String> hasEquipmentId) {
-        this.hasEquipmentId = hasEquipmentId;
-    }
-
     public List<String> getOffersCourse() {
         return offersCourse;
     }
 
     public void setOffersCourse(List<String> offersCourse) {
         this.offersCourse = offersCourse;
-    }
-
-    public List<String> getOffersCourseId() {
-        return offersCourseId;
-    }
-
-    public void setOffersCourseId(List<String> offersCourseId) {
-        this.offersCourseId = offersCourseId;
     }
 
     public String getOrgId() {
@@ -1168,22 +862,6 @@ public class Organization extends AbstractSolrDocument {
 
     public void setSameAs(List<String> sameAs) {
         this.sameAs = sameAs;
-    }
-
-    public List<String> getSameAsType() {
-        return sameAsType;
-    }
-
-    public void setSameAsType(List<String> sameAsType) {
-        this.sameAsType = sameAsType;
-    }
-
-    public List<String> getSameAsId() {
-        return sameAsId;
-    }
-
-    public void setSameAsId(List<String> sameAsId) {
-        this.sameAsId = sameAsId;
     }
 
     public String getPhone() {
@@ -1258,28 +936,12 @@ public class Organization extends AbstractSolrDocument {
         this.geographicLocation = geographicLocation;
     }
 
-    public String getGeographicLocationId() {
-        return geographicLocationId;
-    }
-
-    public void setGeographicLocationId(String geographicLocationId) {
-        this.geographicLocationId = geographicLocationId;
-    }
-
     public List<String> getLocatedAtFacility() {
         return locatedAtFacility;
     }
 
     public void setLocatedAtFacility(List<String> locatedAtFacility) {
         this.locatedAtFacility = locatedAtFacility;
-    }
-
-    public List<String> getLocatedAtFacilityId() {
-        return locatedAtFacilityId;
-    }
-
-    public void setLocatedAtFacilityId(List<String> locatedAtFacilityId) {
-        this.locatedAtFacilityId = locatedAtFacilityId;
     }
 
     public List<String> getPredecessorOrganization() {
@@ -1290,28 +952,12 @@ public class Organization extends AbstractSolrDocument {
         this.predecessorOrganization = predecessorOrganization;
     }
 
-    public List<String> getPredecessorOrganizationId() {
-        return predecessorOrganizationId;
-    }
-
-    public void setPredecessorOrganizationId(List<String> predecessorOrganizationId) {
-        this.predecessorOrganizationId = predecessorOrganizationId;
-    }
-
     public List<String> getSuccessorOrganization() {
         return successorOrganization;
     }
 
     public void setSuccessorOrganization(List<String> successorOrganization) {
         this.successorOrganization = successorOrganization;
-    }
-
-    public List<String> getSuccessorOrganizationId() {
-        return successorOrganizationId;
-    }
-
-    public void setSuccessorOrganizationId(List<String> successorOrganizationId) {
-        this.successorOrganizationId = successorOrganizationId;
     }
 
     public List<String> getGoverningAuthorityFor() {
@@ -1322,28 +968,12 @@ public class Organization extends AbstractSolrDocument {
         this.governingAuthorityFor = governingAuthorityFor;
     }
 
-    public List<String> getGoverningAuthorityForId() {
-        return governingAuthorityForId;
-    }
-
-    public void setGoverningAuthorityForId(List<String> governingAuthorityForId) {
-        this.governingAuthorityForId = governingAuthorityForId;
-    }
-
     public List<String> getAffiliatedResearchArea() {
         return affiliatedResearchArea;
     }
 
     public void setAffiliatedResearchArea(List<String> affiliatedResearchArea) {
         this.affiliatedResearchArea = affiliatedResearchArea;
-    }
-
-    public List<String> getAffiliatedResearchAreaId() {
-        return affiliatedResearchAreaId;
-    }
-
-    public void setAffiliatedResearchAreaId(List<String> affiliatedResearchAreaId) {
-        this.affiliatedResearchAreaId = affiliatedResearchAreaId;
     }
 
     public String getModTime() {

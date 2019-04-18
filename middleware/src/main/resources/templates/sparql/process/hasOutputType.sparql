@@ -3,9 +3,9 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?output vitro:mostSpecificType ?type .
+    ?output vitro:mostSpecificType ?mostSpecificType .
 } WHERE {
     <[(${uri})]> obo:RO_0002234 ?output .
-    ?output vitro:mostSpecificType ?type .
-    FILTER (?type != vivo:DateTimeValue)
+    ?output vitro:mostSpecificType ?tmostSpecificTypeype .
+    FILTER (?mostSpecificType != vivo:DateTimeValue)
 }

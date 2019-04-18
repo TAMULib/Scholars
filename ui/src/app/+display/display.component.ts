@@ -139,25 +139,11 @@ export class DisplayComponent implements OnDestroy, OnInit {
     }
 
     public getLeftScanColSize(displayView: DisplayView): number {
-        let colSize = 12;
-        if (this.showMainContent(displayView)) {
-            colSize -= 6;
-        }
-        if (this.showRightScan(displayView)) {
-            colSize -= 3;
-        }
-        return colSize;
+        return 3;
     }
 
     public getRightScanColSize(displayView: DisplayView): number {
-        let colSize = 12;
-        if (this.showLeftScan(displayView)) {
-            colSize -= 3;
-        }
-        if (this.showMainContent(displayView)) {
-            colSize -= 6;
-        }
-        return colSize;
+        return 3;
     }
 
     public getTabsToShow(tabs: DisplayTabView[], document: SolrDocument): DisplayTabView[] {

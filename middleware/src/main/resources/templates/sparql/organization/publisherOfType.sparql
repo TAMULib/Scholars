@@ -3,10 +3,11 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?publication vitro:mostSpecificType ?type .
+    ?publication vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> vivo:publisherOf ?publication .
     ?publication a obo:IAO_0000030 .
-    ?publication vitro:mostSpecificType ?type .
+    ?publication vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?publication), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
     FILTER (?type != vivo:DateTimeValue)
 }

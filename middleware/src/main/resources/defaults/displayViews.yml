@@ -731,7 +731,7 @@
   - Thesis
   - Chapter
   - Book
-  - GrayLiterature
+  - GreyLiterature
   - Patent
   - WorkingPaper
   mainContentTemplate: "defaults/displayViews/publications/mainContentTemplate.html"

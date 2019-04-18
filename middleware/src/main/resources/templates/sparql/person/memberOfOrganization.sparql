@@ -8,6 +8,6 @@ CONSTRUCT {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:MemberRole .
     ?role vivo:roleContributesTo ?organization .
-    ?organization rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?role), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithIds ) .
+    ?organization rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?role), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithIds ) .
 }

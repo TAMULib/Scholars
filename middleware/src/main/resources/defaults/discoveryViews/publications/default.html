@@ -11,17 +11,16 @@
     <span>{{=it.publicationDateYear}}</span>
     {{ } }}
   </div>
-  {{? it.author && it.authorId}}
+  {{? it.author}}
   <div>
     <span class="label">TAMU Faculty Authors (Claimed):</span>
     <ul>
-      {{~it.author :author:authorIndex}}
+      {{~it.author :author}}
       <li>
         <div class="comma-seperated">
-          <span><a href="display/persons/{{=it.authorId[authorIndex]}}">{{=author}}</a></span>
-          {{~it.authorOrganization :organization:organizationIndex}}
-          <!-- TODO: when author organization id populated update href -->
-          <span><a href="display/organizations/">{{=organization}}</a></span>
+          <span><a href="display/persons/{{=it.authorId[authorIndex]}}">{{=author.label}}</a></span>
+          {{~author.organization :organization}}
+          <span><a href="display/organizations/organization.id">{{=organization.label}}</a></span>
           {{~}}
         </div>
       </li>
@@ -34,8 +33,8 @@
   {{? it.doi}}
   <span clsas="mr-1"><a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a></span>
   {{?}}
-  {{? it.pmid}}
-  <span clsas="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a></span>
+  {{? it.pmcid}}
+  <span clsas="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a></span>
   {{?}}
   {{? it.uri}}
   <span clsas="mr-1"><a href="{{=it.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a></span>

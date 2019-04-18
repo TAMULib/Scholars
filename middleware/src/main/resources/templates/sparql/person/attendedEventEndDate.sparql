@@ -7,7 +7,7 @@ CONSTRUCT {
 } WHERE {
     <[(${uri})]> obo:RO_0000053 ?role .
     ?role a vivo:AttendeeRole .
-    ?event vitro:mostSpecificType ?type .
+    ?event vitro:mostSpecificType ?mostSpecificType .
     ?role vivo:dateTimeInterval ?dateTimeInterval .
     ?dateTimeInterval vivo:end ?date .
     ?date vivo:dateTime ?dateTime .

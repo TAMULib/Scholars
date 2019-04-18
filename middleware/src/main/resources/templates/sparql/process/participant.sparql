@@ -3,9 +3,9 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?person rdfs:label ?name .
+    ?person rdfs:label ?label .
 } WHERE {
     <[(${uri})]> obo:BFO_0000055 ?person .
     ?person a foaf:Person .
-    ?person rdfs:label ?name .
+    ?person rdfs:label ?label .
 }

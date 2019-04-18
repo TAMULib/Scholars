@@ -69,7 +69,9 @@ public abstract class AbstractUnwrappingSolrDocumentSerializer<D extends Abstrac
                                 array.add(processValue(document, field, vParts, 1));
                             }
                         }
-                        jsonGenerator.writeObjectField(nameTransformer.transform(name), array);
+                        if(array.size() > 0) {
+                            jsonGenerator.writeObjectField(nameTransformer.transform(name), array);
+                        }
                     } else {
                         String v = value.toString();
                         String[] vParts = v.split(NESTED_ID_DELIMITER);

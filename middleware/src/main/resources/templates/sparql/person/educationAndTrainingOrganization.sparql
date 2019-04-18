@@ -8,6 +8,6 @@ CONSTRUCT {
     <[(${uri})]> obo:RO_0000056 ?training .
     ?training obo:RO_0000057 ?organization .
     ?organization a foaf:Organization .
-    ?organization rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?training), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithIds ) .
+    ?organization rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?training), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithIds ) .
 }
