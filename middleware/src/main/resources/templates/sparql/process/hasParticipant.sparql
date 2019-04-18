@@ -2,8 +2,9 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?participant rdfs:label ?label .
+    ?participant rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> obo:RO_0000057 ?participant .
     ?participant rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?participant), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

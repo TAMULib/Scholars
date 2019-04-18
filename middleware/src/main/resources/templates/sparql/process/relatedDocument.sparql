@@ -2,8 +2,9 @@ PREFIX bibo:  <http://purl.org/ontology/bibo/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?document rdfs:label ?label .
+    ?document rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> bibo:presents ?document .
     ?document rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?document), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

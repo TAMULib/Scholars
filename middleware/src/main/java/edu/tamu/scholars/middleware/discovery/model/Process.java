@@ -10,6 +10,8 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject.Reference;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
@@ -21,197 +23,162 @@ public class Process extends AbstractSolrDocument {
     @PropertySource(template = "process/title", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String title;
 
-    @Indexed
+    @Indexed(type = "whole_strings")
     @PropertySource(template = "process/type", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> type;
 
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "process/image", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String image;
 
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "process/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
+    @PropertySource(template = "process/website", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> website;
+
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
-
-    @Indexed
-    @PropertySource(template = "process/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> websiteLabel;
 
     @Indexed(copyTo = "_text_")
     @PropertySource(template = "process/description", predicate = "http://vivoweb.org/ontology/core#description")
     private String description;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @NestedObject({ @Reference(value = "offeredByType", key = "type") })
     @PropertySource(template = "process/offeredBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> offeredBy;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/offeredByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> offeredByType;
 
-    @Indexed
-    private List<String> offeredById;
-
-    @Indexed(type = "pdate")
+    @Indexed(type = "pdates")
     @PropertySource(template = "process/dateTimeIntervalStart", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateTimeIntervalStart;
 
-    @Indexed(type = "pdate")
+    @Indexed(type = "pdates")
     @PropertySource(template = "process/dateTimeIntervalEnd", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateTimeIntervalEnd;
 
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/occursWithinEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> occursWithinEvent;
 
-    @Indexed
-    private List<String> occursWithinEventId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/includesEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> includesEvent;
 
-    @Indexed
-    private List<String> includesEventId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/inEventSeries", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> inEventSeries;
 
-    @Indexed
-    private List<String> inEventSeriesId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "participantRole", key = "role") })
     @PropertySource(template = "process/participant", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> participant;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/participantRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> participantRole;
 
-    @Indexed
-    private List<String> participantId;
-
-    @Indexed(copyTo = "_text_")
+    @NestedObject
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "process/hasSubjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasSubjectArea;
 
-    @Indexed
-    private List<String> hasSubjectAreaId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "hasPrerequisiteType", key = "type") })
     @PropertySource(template = "process/hasPrerequisite", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasPrerequisite;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/hasPrerequisiteType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> hasPrerequisiteType;
 
-    @Indexed
-    private List<String> hasPrerequisiteId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "prerequisiteForType", key = "type") })
     @PropertySource(template = "process/prerequisiteFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> prerequisiteFor;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/prerequisiteForType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> prerequisiteForType;
 
-    @Indexed
-    private List<String> prerequisiteForId;
-
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "process/credits", predicate = "http://vivoweb.org/ontology/core#courseCredits")
     private String credits;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "geographicFocusType", key = "type") })
     @PropertySource(template = "process/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> geographicFocus;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/geographicFocusType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> geographicFocusType;
 
-    @Indexed
-    private List<String> geographicFocusId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "outputPublicationOrOtherWorkType", key = "type") })
     @PropertySource(template = "process/outputPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> outputPublicationOrOtherWork;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/outputPublicationOrOtherWorkType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> outputPublicationOrOtherWorkType;
 
-    @Indexed
-    private List<String> outputPublicationOrOtherWorkId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "relatedDocumentType", key = "type") })
     @PropertySource(template = "process/relatedDocument", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> relatedDocument;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/relatedDocumentType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> relatedDocumentType;
 
-    @Indexed
-    private List<String> relatedDocumentId;
-
-    @Indexed
+    @Indexed(type = "whole_strings")
     @PropertySource(template = "process/contactInformation", predicate = "http://vivoweb.org/ontology/core#contactInformation")
     private List<String> contactInformation;
 
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/heldInFacility", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> heldInFacility;
 
-    @Indexed
-    private List<String> heldInFacilityId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/heldInGeographicLocation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> heldInGeographicLocation;
 
-    @Indexed
-    private List<String> heldInGeographicLocationId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "hasOutputType", key = "type") })
     @PropertySource(template = "process/hasOutput", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasOutput;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/hasOutputType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> hasOutputType;
 
-    @Indexed
-    private List<String> hasOutputId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "hasParticipantType", key = "type") })
     @PropertySource(template = "process/hasParticipant", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> hasParticipant;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/hasParticipantType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> hasParticipantType;
 
-    @Indexed
-    private List<String> hasParticipantId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "process/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sameAs;
-
-    @Indexed
-    @PropertySource(template = "process/sameAs", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
-    private List<String> sameAsType;
-
-    @Indexed
-    private List<String> sameAsId;
 
     @Indexed(type = "pdate")
     @PropertySource(template = "process/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
@@ -253,20 +220,20 @@ public class Process extends AbstractSolrDocument {
         this.thumbnail = thumbnail;
     }
 
+    public List<String> getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(List<String> website) {
+        this.website = website;
+    }
+
     public List<String> getWebsiteUrl() {
         return websiteUrl;
     }
 
     public void setWebsiteUrl(List<String> websiteUrl) {
         this.websiteUrl = websiteUrl;
-    }
-
-    public List<String> getWebsiteLabel() {
-        return websiteLabel;
-    }
-
-    public void setWebsiteLabel(List<String> websiteLabel) {
-        this.websiteLabel = websiteLabel;
     }
 
     public String getDescription() {
@@ -293,14 +260,6 @@ public class Process extends AbstractSolrDocument {
         this.offeredByType = offeredByType;
     }
 
-    public List<String> getOfferedById() {
-        return offeredById;
-    }
-
-    public void setOfferedById(List<String> offeredById) {
-        this.offeredById = offeredById;
-    }
-
     public List<String> getDateTimeIntervalStart() {
         return dateTimeIntervalStart;
     }
@@ -325,14 +284,6 @@ public class Process extends AbstractSolrDocument {
         this.occursWithinEvent = occursWithinEvent;
     }
 
-    public List<String> getOccursWithinEventId() {
-        return occursWithinEventId;
-    }
-
-    public void setOccursWithinEventId(List<String> occursWithinEventId) {
-        this.occursWithinEventId = occursWithinEventId;
-    }
-
     public List<String> getIncludesEvent() {
         return includesEvent;
     }
@@ -341,28 +292,12 @@ public class Process extends AbstractSolrDocument {
         this.includesEvent = includesEvent;
     }
 
-    public List<String> getIncludesEventId() {
-        return includesEventId;
-    }
-
-    public void setIncludesEventId(List<String> includesEventId) {
-        this.includesEventId = includesEventId;
-    }
-
     public List<String> getInEventSeries() {
         return inEventSeries;
     }
 
     public void setInEventSeries(List<String> inEventSeries) {
         this.inEventSeries = inEventSeries;
-    }
-
-    public List<String> getInEventSeriesId() {
-        return inEventSeriesId;
-    }
-
-    public void setInEventSeriesId(List<String> inEventSeriesId) {
-        this.inEventSeriesId = inEventSeriesId;
     }
 
     public List<String> getParticipant() {
@@ -381,28 +316,12 @@ public class Process extends AbstractSolrDocument {
         this.participantRole = participantRole;
     }
 
-    public List<String> getParticipantId() {
-        return participantId;
-    }
-
-    public void setParticipantId(List<String> participantId) {
-        this.participantId = participantId;
-    }
-
     public List<String> getHasSubjectArea() {
         return hasSubjectArea;
     }
 
     public void setHasSubjectArea(List<String> hasSubjectArea) {
         this.hasSubjectArea = hasSubjectArea;
-    }
-
-    public List<String> getHasSubjectAreaId() {
-        return hasSubjectAreaId;
-    }
-
-    public void setHasSubjectAreaId(List<String> hasSubjectAreaId) {
-        this.hasSubjectAreaId = hasSubjectAreaId;
     }
 
     public List<String> getHasPrerequisite() {
@@ -421,14 +340,6 @@ public class Process extends AbstractSolrDocument {
         this.hasPrerequisiteType = hasPrerequisiteType;
     }
 
-    public List<String> getHasPrerequisiteId() {
-        return hasPrerequisiteId;
-    }
-
-    public void setHasPrerequisiteId(List<String> hasPrerequisiteId) {
-        this.hasPrerequisiteId = hasPrerequisiteId;
-    }
-
     public List<String> getPrerequisiteFor() {
         return prerequisiteFor;
     }
@@ -443,14 +354,6 @@ public class Process extends AbstractSolrDocument {
 
     public void setPrerequisiteForType(List<String> prerequisiteForType) {
         this.prerequisiteForType = prerequisiteForType;
-    }
-
-    public List<String> getPrerequisiteForId() {
-        return prerequisiteForId;
-    }
-
-    public void setPrerequisiteForId(List<String> prerequisiteForId) {
-        this.prerequisiteForId = prerequisiteForId;
     }
 
     public String getCredits() {
@@ -477,14 +380,6 @@ public class Process extends AbstractSolrDocument {
         this.geographicFocusType = geographicFocusType;
     }
 
-    public List<String> getGeographicFocusId() {
-        return geographicFocusId;
-    }
-
-    public void setGeographicFocusId(List<String> geographicFocusId) {
-        this.geographicFocusId = geographicFocusId;
-    }
-
     public List<String> getOutputPublicationOrOtherWork() {
         return outputPublicationOrOtherWork;
     }
@@ -499,14 +394,6 @@ public class Process extends AbstractSolrDocument {
 
     public void setOutputPublicationOrOtherWorkType(List<String> outputPublicationOrOtherWorkType) {
         this.outputPublicationOrOtherWorkType = outputPublicationOrOtherWorkType;
-    }
-
-    public List<String> getOutputPublicationOrOtherWorkId() {
-        return outputPublicationOrOtherWorkId;
-    }
-
-    public void setOutputPublicationOrOtherWorkId(List<String> outputPublicationOrOtherWorkId) {
-        this.outputPublicationOrOtherWorkId = outputPublicationOrOtherWorkId;
     }
 
     public List<String> getRelatedDocument() {
@@ -525,14 +412,6 @@ public class Process extends AbstractSolrDocument {
         this.relatedDocumentType = relatedDocumentType;
     }
 
-    public List<String> getRelatedDocumentId() {
-        return relatedDocumentId;
-    }
-
-    public void setRelatedDocumentId(List<String> relatedDocumentId) {
-        this.relatedDocumentId = relatedDocumentId;
-    }
-
     public List<String> getContactInformation() {
         return contactInformation;
     }
@@ -549,28 +428,12 @@ public class Process extends AbstractSolrDocument {
         this.heldInFacility = heldInFacility;
     }
 
-    public List<String> getHeldInFacilityId() {
-        return heldInFacilityId;
-    }
-
-    public void setHeldInFacilityId(List<String> heldInFacilityId) {
-        this.heldInFacilityId = heldInFacilityId;
-    }
-
     public List<String> getHeldInGeographicLocation() {
         return heldInGeographicLocation;
     }
 
     public void setHeldInGeographicLocation(List<String> heldInGeographicLocation) {
         this.heldInGeographicLocation = heldInGeographicLocation;
-    }
-
-    public List<String> getHeldInGeographicLocationId() {
-        return heldInGeographicLocationId;
-    }
-
-    public void setHeldInGeographicLocationId(List<String> heldInGeographicLocationId) {
-        this.heldInGeographicLocationId = heldInGeographicLocationId;
     }
 
     public List<String> getHasOutput() {
@@ -589,14 +452,6 @@ public class Process extends AbstractSolrDocument {
         this.hasOutputType = hasOutputType;
     }
 
-    public List<String> getHasOutputId() {
-        return hasOutputId;
-    }
-
-    public void setHasOutputId(List<String> hasOutputId) {
-        this.hasOutputId = hasOutputId;
-    }
-
     public List<String> getHasParticipant() {
         return hasParticipant;
     }
@@ -613,14 +468,6 @@ public class Process extends AbstractSolrDocument {
         this.hasParticipantType = hasParticipantType;
     }
 
-    public List<String> getHasParticipantId() {
-        return hasParticipantId;
-    }
-
-    public void setHasParticipantId(List<String> hasParticipantId) {
-        this.hasParticipantId = hasParticipantId;
-    }
-
     public List<String> getSameAs() {
         return sameAs;
     }
@@ -629,28 +476,12 @@ public class Process extends AbstractSolrDocument {
         this.sameAs = sameAs;
     }
 
-    public List<String> getSameAsType() {
-        return sameAsType;
-    }
-
-    public void setSameAsType(List<String> sameAsType) {
-        this.sameAsType = sameAsType;
-    }
-
     public String getModTime() {
         return modTime;
     }
 
     public void setModTime(String modTime) {
         this.modTime = modTime;
-    }
-
-    public List<String> getSameAsId() {
-        return sameAsId;
-    }
-
-    public void setSameAsId(List<String> sameAsId) {
-        this.sameAsId = sameAsId;
     }
 
 }
