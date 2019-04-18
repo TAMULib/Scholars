@@ -10,6 +10,9 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedMultiValuedProperty;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject.Reference;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @JsonInclude(NON_EMPTY)
@@ -17,95 +20,81 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(predicate = "http://www.w3.org/2004/02/skos/core#Concept")
 public class Concept extends AbstractSolrDocument {
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "sorting_string", copyTo = "_text_")
     @PropertySource(template = "concept/name", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String name;
 
-    @Indexed
+    @Indexed(type = "whole_strings")
     @PropertySource(template = "concept/type", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> type;
 
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "concept/image", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String image;
 
-    @Indexed
+    @Indexed(type = "whole_string")
     @PropertySource(template = "concept/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
+    @PropertySource(template = "concept/website", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> website;
+
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "concept/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
-    @Indexed
-    @PropertySource(template = "concept/websiteLabel", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> websiteLabel;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "concept/associatedDepartment", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> associatedDepartment;
 
-    @Indexed
-    private List<String> associatedDepartmentId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "researchAreaOfTitle", key = "title"), @Reference(value = "researchAreaOfOrganization", key = "organization") })
     @PropertySource(template = "concept/researchAreaOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> researchAreaOf;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "concept/researchAreaOfTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
     private List<String> researchAreaOfTitle;
 
-    @Indexed
+    @NestedMultiValuedProperty
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "concept/researchAreaOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> researchAreaOfOrganization;
 
-    @Indexed
-    private List<String> researchAreaOfId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "broaderConceptType", key = "type") })
     @PropertySource(template = "concept/broaderConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> broaderConcept;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "concept/broaderConceptType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> broaderConceptType;
 
-    @Indexed
-    private List<String> broaderConceptId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "narrowerConceptType", key = "type") })
     @PropertySource(template = "concept/narrowerConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> narrowerConcept;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "concept/narrowerConceptType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> narrowerConceptType;
 
-    @Indexed
-    private List<String> narrowerConceptId;
-
-    @Indexed
+    @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "relatedConceptType", key = "type") })
     @PropertySource(template = "concept/relatedConcept", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> relatedConcept;
 
-    @Indexed
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "concept/relatedConceptType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> relatedConceptType;
 
-    @Indexed
-    private List<String> relatedConceptId;
-
-    @Indexed
+    @NestedObject
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "concept/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sameAs;
-
-    @Indexed
-    @PropertySource(template = "concept/sameAsType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
-    private List<String> sameAsType;
-
-    @Indexed
-    private List<String> sameAsId;
 
     @Indexed(type = "pdate")
     @PropertySource(template = "concept/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
@@ -147,6 +136,14 @@ public class Concept extends AbstractSolrDocument {
         this.thumbnail = thumbnail;
     }
 
+    public List<String> getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(List<String> website) {
+        this.website = website;
+    }
+
     public List<String> getWebsiteUrl() {
         return websiteUrl;
     }
@@ -155,28 +152,12 @@ public class Concept extends AbstractSolrDocument {
         this.websiteUrl = websiteUrl;
     }
 
-    public List<String> getWebsiteLabel() {
-        return websiteLabel;
-    }
-
-    public void setWebsiteLabel(List<String> websiteLabel) {
-        this.websiteLabel = websiteLabel;
-    }
-
     public List<String> getAssociatedDepartment() {
         return associatedDepartment;
     }
 
     public void setAssociatedDepartment(List<String> associatedDepartment) {
         this.associatedDepartment = associatedDepartment;
-    }
-
-    public List<String> getAssociatedDepartmentId() {
-        return associatedDepartmentId;
-    }
-
-    public void setAssociatedDepartmentId(List<String> associatedDepartmentId) {
-        this.associatedDepartmentId = associatedDepartmentId;
     }
 
     public List<String> getResearchAreaOf() {
@@ -203,14 +184,6 @@ public class Concept extends AbstractSolrDocument {
         this.researchAreaOfOrganization = researchAreaOfOrganization;
     }
 
-    public List<String> getResearchAreaOfId() {
-        return researchAreaOfId;
-    }
-
-    public void setResearchAreaOfId(List<String> researchAreaOfId) {
-        this.researchAreaOfId = researchAreaOfId;
-    }
-
     public List<String> getBroaderConcept() {
         return broaderConcept;
     }
@@ -225,14 +198,6 @@ public class Concept extends AbstractSolrDocument {
 
     public void setBroaderConceptType(List<String> broaderConceptType) {
         this.broaderConceptType = broaderConceptType;
-    }
-
-    public List<String> getBroaderConceptId() {
-        return broaderConceptId;
-    }
-
-    public void setBroaderConceptId(List<String> broaderConceptId) {
-        this.broaderConceptId = broaderConceptId;
     }
 
     public List<String> getNarrowerConcept() {
@@ -251,14 +216,6 @@ public class Concept extends AbstractSolrDocument {
         this.narrowerConceptType = narrowerConceptType;
     }
 
-    public List<String> getNarrowerConceptId() {
-        return narrowerConceptId;
-    }
-
-    public void setNarrowerConceptId(List<String> narrowerConceptId) {
-        this.narrowerConceptId = narrowerConceptId;
-    }
-
     public List<String> getRelatedConcept() {
         return relatedConcept;
     }
@@ -275,36 +232,12 @@ public class Concept extends AbstractSolrDocument {
         this.relatedConceptType = relatedConceptType;
     }
 
-    public List<String> getRelatedConceptId() {
-        return relatedConceptId;
-    }
-
-    public void setRelatedConceptId(List<String> relatedConceptId) {
-        this.relatedConceptId = relatedConceptId;
-    }
-
     public List<String> getSameAs() {
         return sameAs;
     }
 
     public void setSameAs(List<String> sameAs) {
         this.sameAs = sameAs;
-    }
-
-    public List<String> getSameAsType() {
-        return sameAsType;
-    }
-
-    public void setSameAsType(List<String> sameAsType) {
-        this.sameAsType = sameAsType;
-    }
-
-    public List<String> getSameAsId() {
-        return sameAsId;
-    }
-
-    public void setSameAsId(List<String> sameAsId) {
-        this.sameAsId = sameAsId;
     }
 
     public String getModTime() {

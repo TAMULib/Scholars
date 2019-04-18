@@ -22,7 +22,7 @@ import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 @CollectionSource(predicate = "http://purl.org/ontology/bibo/Document")
 public class Document extends AbstractSolrDocument {
 
-    @Indexed(type = "whole_string", copyTo = "_text_")
+    @Indexed(type = "sorting_string", copyTo = "_text_")
     @PropertySource(template = "document/title", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private String title;
 
@@ -38,8 +38,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/thumbnail", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl")
     private String thumbnail;
 
-    @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
     @PropertySource(template = "document/website", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> website;
 
@@ -48,8 +48,9 @@ public class Document extends AbstractSolrDocument {
     private List<String> websiteUrl;
 
     @Field("abstract")
-    @Indexed(type = "whole_string", value = "abstract", copyTo = "_text_")
+
     @JsonProperty("abstract")
+    @Indexed(type = "whole_string", value = "abstract", copyTo = "_text_")
     @PropertySource(template = "document/abstract", predicate = "http://purl.org/ontology/bibo/abstract")
     private String abstractText;
 
@@ -67,8 +68,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/publicationVenueFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> publicationVenueFor;
 
-    @NestedObject({ @Reference(value = "etdChairedByEmail", key = "email"), @Reference(value = "etdChairedByOrganization", key = "organization") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "etdChairedByEmail", key = "email"), @Reference(value = "etdChairedByOrganization", key = "organization") })
     @PropertySource(template = "document/etdChairedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairedBy;
 
@@ -81,8 +82,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/etdChairedByOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairedByOrganization;
 
-    @NestedObject({ @Reference(value = "authorType", key = "type"), @Reference(value = "authorRank", key = "rank"), @Reference(value = "authorOrganization", key = "organization") })
     @Indexed(type = "nested_strings", copyTo = "_text_")
+    @NestedObject({ @Reference(value = "authorType", key = "type"), @Reference(value = "authorRank", key = "rank"), @Reference(value = "authorOrganization", key = "organization") })
     @PropertySource(template = "document/author", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> author;
 
@@ -103,8 +104,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/authorList", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#fullAuthorList")
     private List<String> authorList;
 
-    @NestedObject({ @Reference(value = "editorType", key = "type"), @Reference(value = "editorRank", key = "rank") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "editorType", key = "type"), @Reference(value = "editorRank", key = "rank") })
     @PropertySource(template = "document/editor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> editor;
 
@@ -124,8 +125,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/bookTitle", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#bookTitleForChapter")
     private String bookTitle;
 
-    @NestedObject({ @Reference(value = "translatorType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "translatorType", key = "type") })
     @PropertySource(template = "document/translator", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> translator;
 
@@ -141,8 +142,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/publicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> publicationDate;
 
-    @NestedObject({ @Reference(value = "publisherType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "publisherType", key = "type") })
     @PropertySource(template = "document/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> publisher;
 
@@ -167,8 +168,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/restriction", predicate = "http://purl.obolibrary.org/obo/ERO_0000045")
     private List<String> restriction;
 
-    @NestedObject({ @Reference(value = "documentPartType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "documentPartType", key = "type") })
     @PropertySource(template = "document/documentPart", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> documentPart;
 
@@ -180,8 +181,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/chapter", predicate = "http://purl.org/ontology/bibo/chapter")
     private String chapter;
 
-    @NestedObject({ @Reference(value = "featureType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "featureType", key = "type") })
     @PropertySource(template = "document/feature", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> feature;
 
@@ -193,8 +194,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/edition", predicate = "http://purl.org/ontology/bibo/edition")
     private String edition;
 
-    @NestedObject({ @Reference(value = "geographicFocusType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "geographicFocusType", key = "type") })
     @PropertySource(template = "document/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> geographicFocus;
 
@@ -202,8 +203,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/geographicFocusType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> geographicFocusType;
 
-    @NestedObject({ @Reference(value = "documentationForProjectOrResourceType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "documentationForProjectOrResourceType", key = "type") })
     @PropertySource(template = "document/documentationForProjectOrResource", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> documentationForProjectOrResource;
 
@@ -211,8 +212,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/documentationForProjectOrResourceType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> documentationForProjectOrResourceType;
 
-    @NestedObject({ @Reference(value = "outputOfProcessOrEventType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "outputOfProcessOrEventType", key = "type") })
     @PropertySource(template = "document/outputOfProcessOrEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> outputOfProcessOrEvent;
 
@@ -220,8 +221,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/outputOfProcessOrEventType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> outputOfProcessOrEventType;
 
-    @NestedObject({ @Reference(value = "presentedAtType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "presentedAtType", key = "type") })
     @PropertySource(template = "document/presentedAt", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> presentedAt;
 
@@ -289,8 +290,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/uri", predicate = "http://purl.org/ontology/bibo/uri")
     private List<String> uri;
 
-    @NestedObject({ @Reference(value = "citedByType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "citedByType", key = "type") })
     @PropertySource(template = "document/citedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> citedBy;
 
@@ -298,8 +299,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/citedByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> citedByType;
 
-    @NestedObject({ @Reference(value = "citationType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "citationType", key = "type") })
     @PropertySource(template = "document/citation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> citation;
 
@@ -307,8 +308,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/citationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> citationType;
 
-    @NestedObject({ @Reference(value = "citesAsDataSourceType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "citesAsDataSourceType", key = "type") })
     @PropertySource(template = "document/citesAsDataSource", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> citesAsDataSource;
 
@@ -316,8 +317,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/citesAsDataSourceType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> citesAsDataSourceType;
 
-    @NestedObject({ @Reference(value = "translationType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "translationType", key = "type") })
     @PropertySource(template = "document/translation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> translation;
 
@@ -325,8 +326,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/translationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translationType;
 
-    @NestedObject({ @Reference(value = "translationOfType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "translationOfType", key = "type") })
     @PropertySource(template = "document/translationOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> translationOf;
 
@@ -367,8 +368,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/placeOfPublication", predicate = "http://vivoweb.org/ontology/core#placeOfPublication")
     private String placeOfPublication;
 
-    @NestedObject({ @Reference(value = "assigneeType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "assigneeType", key = "type") })
     @PropertySource(template = "document/assignee", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> assignee;
 
@@ -376,8 +377,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/assigneeType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> assigneeType;
 
-    @NestedObject({ @Reference(value = "reproducedInType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "reproducedInType", key = "type") })
     @PropertySource(template = "document/reproducedIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> reproducedIn;
 
@@ -385,8 +386,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/reproducedInType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> reproducedInType;
 
-    @NestedObject({ @Reference(value = "reproducesType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "reproducesType", key = "type") })
     @PropertySource(template = "document/reproduces", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> reproduces;
 
@@ -394,8 +395,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/reproducesType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> reproducesType;
 
-    @NestedObject({ @Reference(value = "isAboutType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "isAboutType", key = "type") })
     @PropertySource(template = "document/isAbout", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> isAbout;
 
@@ -403,8 +404,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/isAboutType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> isAboutType;
 
-    @NestedObject({ @Reference(value = "specifiedOutputOfType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "specifiedOutputOfType", key = "type") })
     @PropertySource(template = "document/specifiedOutputOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> specifiedOutputOf;
 
@@ -416,8 +417,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/isTemplate", predicate = "http://purl.obolibrary.org/obo/ARG_0000001")
     private String isTemplate;
 
-    @NestedObject({ @Reference(value = "mentionType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "mentionType", key = "type") })
     @PropertySource(template = "document/mention", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> mention;
 
@@ -430,8 +431,8 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/participatesIn", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> participatesIn;
 
-    @NestedObject({ @Reference(value = "suppoertedByType", key = "type") })
     @Indexed(type = "nested_strings")
+    @NestedObject({ @Reference(value = "suppoertedByType", key = "type") })
     @PropertySource(template = "document/supportedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> supportedBy;
 
