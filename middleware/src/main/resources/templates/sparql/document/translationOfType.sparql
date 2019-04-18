@@ -3,10 +3,10 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?translationOf vitro:MostSpecificType ?mostSpecificType .
+    ?translationOf vitro:MostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> bibo:translationOf ?translationOf .
     ?translationOf vitro:mostSpecificType ?mostSpecificType .
-
+	BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?translationOf), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
     FILTER (?mostSpecificType != vivo:DateTimeValue) .
 }

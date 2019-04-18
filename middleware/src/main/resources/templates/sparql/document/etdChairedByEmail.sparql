@@ -2,8 +2,9 @@ PREFIX tamu: <http://vivo.library.tamu.edu/ontology/TAMU#>
 PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
 CONSTRUCT {
-    ?chair vcard:email ?email .
+    ?chair vcard:email ?emailWithId .
 } WHERE {
     <[(${uri})]> tamu:ETDChairedBy ?chair .
     ?chair vcard:email ?email .
+    BIND( CONCAT( STR(?email), REPLACE(STR(?chair), "(^.*/)", "::") ) AS ?emailWithId ) .
 }

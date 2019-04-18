@@ -2,7 +2,7 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
 CONSTRUCT {
-    ?hasURL vcard:url ?url .
+    ?hasURL vcard:url ?urlWithLabel .
 } WHERE {
     <[(${uri})]> obo:ARG_2000028 ?vcard .
     ?vcard vcard:hasURL ?hasURL .

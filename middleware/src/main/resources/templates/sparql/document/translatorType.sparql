@@ -2,8 +2,9 @@ PREFIX bibo: <http://purl.org/ontology/bibo/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?translator vitro:mostSpecificType ?mostSpecificType .
+    ?translator vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> bibo:translator ?translator .
-    ?translator vitro:mostSpecificType ?mostSpecificType .
+    ?translator vitro:mostSpecificType ?type .
+    BIND( CONCAT( STR(?type), REPLACE(STR(?translator), "(^.*/)", "::") ) AS ?typeWithId ) .
 }

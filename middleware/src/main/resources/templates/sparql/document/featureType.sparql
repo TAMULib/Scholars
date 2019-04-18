@@ -2,8 +2,9 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?feature vitro:mostSpecificType ?mostSpecificType .
+    ?feature vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> vivo:features ?feature .
-    ?feature vitro:mostSpecificType ?mostSpecificType .
+    ?feature vitro:mostSpecificType ?type .
+    BIND( CONCAT( STR(?type), REPLACE(STR(?feature), "(^.*/)", "::") ) AS ?typeWithId ) .
 }

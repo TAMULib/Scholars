@@ -15,23 +15,22 @@
   <div>
     <span class="label">Published In:</span>
     <ul>
-      {{~it.publicationVenue :value:index}}
-      <li><span>{{=value}}</span></li>
+      {{~it.publicationVenue :publicationVenue}}
+      <li><span>{{=publicationVenue.label}}</span></li>
       {{~}}
     </ul>
   </div>
   {{?}}
-  {{? it.author && it.authorId}}
+  {{? it.author}}
   <div>
     <span class="label">TAMU Faculty Authors (Claimed):</span>
     <ul>
-      {{~it.author :author:authorIndex}}
+      {{~it.author :author}}
       <li>
         <div class="comma-seperated">
-          <span><a href="display/persons/{{=it.authorId[authorIndex]}}">{{=author}}</a></span>
-          {{~it.authorOrganization :organization:organizationIndex}}
-          <!-- TODO: when author organization id populated update href -->
-          <span><a href="display/organizations/">{{=organization}}</a></span>
+          <span><a href="display/persons/{{=it.authorId[authorIndex]}}">{{=author.label}}</a></span>
+          {{~author.organization :organization}}
+          <span><a href="display/organizations/organization.id">{{=organization.label}}</a></span>
           {{~}}
         </div>
       </li>

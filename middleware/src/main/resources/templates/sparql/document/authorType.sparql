@@ -4,12 +4,13 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 
 CONSTRUCT {
-    ?author vitro:mostSpecificType ?mostSpecificType .
+    ?author vitro:mostSpecificType ?typeWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?relatedBy .
     ?relatedBy a vivo:Authorship .
     ?relatedBy vivo:relates ?author .
     ?author rdf:type ?type .
     ?author vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?author), "(^.*/)", "::") ) AS ?typeWithId ) .
     FILTER(?type = foaf:Person || ?type = foaf:Organization)
 }
