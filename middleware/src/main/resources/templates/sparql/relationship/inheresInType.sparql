@@ -3,8 +3,9 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?inheresInType vitro:mostSpecificType ?mostSpecificType .
+    ?inheresInType vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> obo:RO_0000052 ?inheresInType .
     ?inheresInType vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?inheresInType), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
 }
