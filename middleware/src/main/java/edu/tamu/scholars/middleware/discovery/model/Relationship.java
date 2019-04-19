@@ -171,21 +171,21 @@ public class Relationship extends AbstractSolrDocument {
     private List<String> contributorType;
 
     @NestedObject
-    @Indexed(value = "nested_strings", copyTo = "_text_")
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "relationship/principalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> principalInvestigator;
 
     @NestedObject
-    @Indexed(value = "nested_strings", copyTo = "_text_")
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "relationship/coPrincipalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> coPrincipalInvestigator;
 
-    @Indexed(value = "nested_strings")
+    @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "supportedPublicationOrOtherWorkType", key = "type") })
     @PropertySource(template = "relationship/supportedPublicationOrOtherWork", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> supportedPublicationOrOtherWork;
 
-    @Indexed(value = "nested_strings")
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "relationship/supportedPublicationOrOtherWorkType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> supportedPublicationOrOtherWorkType;
 
@@ -197,12 +197,12 @@ public class Relationship extends AbstractSolrDocument {
     @PropertySource(template = "relationship/dateTimeIntervalEnd", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> dateTimeIntervalEnd;
 
-    @Indexed(value = "nested_strings", copyTo = "_text_")
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @NestedObject({ @Reference(value = "subjectAreaType", key = "type") })
     @PropertySource(template = "relationship/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> subjectArea;
 
-    @Indexed(value = "nested_strings")
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "relationship/subjectAreaType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> subjectAreaType;
 
