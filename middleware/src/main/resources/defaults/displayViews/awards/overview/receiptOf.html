@@ -1,9 +1,5 @@
-<div>
-  {{? it.receiptOf }}
-  {{~ it.receiptOf :receiptOf}}
-  <div class="mb-1">
-    <span class="mr-1"><a href="display/relationships/{{=receiptOf.id}}">{{=receiptOf.label}}</a></span>
-  </div>
-  {{~}}
-  {{?}}
+{{~ it.receiptOf :receiptOf}}
+<div class="mb-1">
+  <span class="mr-1">{{=receiptOf.label}}</span>
 </div>
+{{~}}

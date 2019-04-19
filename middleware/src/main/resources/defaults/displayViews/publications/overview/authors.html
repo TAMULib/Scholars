@@ -1,9 +1,5 @@
-<div>
-  {{? it.author }}
-  {{~ it.author :author}}
-  <div class="mb-1">
-    <span class="mr-1"><a href="display/documents/{{=author.id}}">{{=author.label}}</a></span>
-  </div>
-  {{~}}
-  {{?}}
+{{~ it.author :author}}
+<div class="mb-1">
+  <span class="mr-1"><a href="display/documents/{{=author.id}}">{{=author.label}}</a></span>
 </div>
+{{~}}
