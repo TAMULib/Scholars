@@ -494,6 +494,10 @@ export class SdrEffects {
 
                             sidebarItem.queryParams.page = 1;
 
+                            if (selected) {
+                                sidebarSection.collapsed = false;
+                            }
+
                             sidebarSection.items.push(sidebarItem);
                         });
 
