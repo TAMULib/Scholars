@@ -1,1 +1,10 @@
-<span>Work In Progress</span>
+<div>
+  {{? it.people }}
+  {{~ it.people :people}}
+  <div class="mb-1">
+	<span class="mr-1"><a href="display/organizations/{{=people.id}}">{{=people.label}} ,</a></span>
+    <span class="mr-1">{{=people.title}}</span>
+  </div>
+  {{~}}
+  {{?}}
+</div>

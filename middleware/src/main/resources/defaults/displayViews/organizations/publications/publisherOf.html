@@ -1,1 +1,11 @@
-<span>Work In Progress </span>
+<div>
+  {{? it.publisherOf }}
+  {{~ it.publisherOf :publisherOf}}
+  <div class="mb-1">
+	<span class="mr-1"><a href="display/organizations/{{=publisherOf.id}}">{{=publisherOf.label}}</a></span>
+    <span class="mr-1">{{=publisherOf.type}},</span>
+    <span>{{=publisherOf.date}}</span>
+  </div>
+  {{~}}
+  {{?}}
+</div>

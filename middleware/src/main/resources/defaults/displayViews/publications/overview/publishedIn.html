@@ -1,1 +1,10 @@
-<span>Work In Progress</span>
+<div>
+  {{? it.publishedIn }}
+  {{~ it.publishedIn :publishedIn}}
+  <div class="mb-1">
+    <span><a href="display/publications/{{=publishedIn.id}}">{{=publishedIn.label}}</a></span>
+    <span>{{=publishedIn.type}}</span>
+  </div>
+  {{~}}
+  {{?}}
+</div>

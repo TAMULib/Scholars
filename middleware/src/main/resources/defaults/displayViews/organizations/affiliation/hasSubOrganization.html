@@ -1,1 +1,9 @@
-<span>Work In Progress</span>
+<div>
+  {{? it.hasSubOrganization }}
+  {{~ it.hasSubOrganization :hasSubOrganization}}
+  <div class="mb-1">
+    <span class="mr-1"><a href="display/organizations/{{=hasSubOrganization.id}}">{{=hasSubOrganization.label}}</a></span>
+  </div>
+  {{~}}
+  {{?}}
+</div>

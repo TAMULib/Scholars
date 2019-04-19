@@ -1,1 +1,9 @@
-<span>Work In Progress</span>
+<div>
+  {{? it.organizationWithin }}
+  {{~ it.organizationWithin :organizationWithin}}
+  <div class="mb-1">
+	<span class="mr-1"><a href="display/organizations/{{=organizationWithin.id}}">{{=organizationWithin.label}}</a></span>
+  </div>
+  {{~}}
+  {{?}}
+</div>
