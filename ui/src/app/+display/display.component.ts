@@ -77,7 +77,9 @@ export class DisplayComponent implements OnDestroy, OnInit {
                             }),
                             filter(([displayView]) => displayView !== undefined),
                             mergeMap(([displayView]) => {
-                                const lazyObservables: Observable<any>[] = [];
+                                const lazyObservables: Observable<any>[] = [
+                                    of([{}, false])
+                                ];
                                 const isLoaded = {};
                                 displayView.tabs.forEach((tab: DisplayTabView) => {
                                     tab.sections.forEach((section: DisplayTabSectionView) => {
@@ -140,9 +142,11 @@ export class DisplayComponent implements OnDestroy, OnInit {
                             }),
                             tap(([displayView, lazyReferences]) => {
                                 lazyReferences.forEach((lazyReference) => {
-                                    const property = {};
-                                    property[lazyReference[0].field] = lazyReference[0].value;
-                                    Object.assign(document, property);
+                                    if (lazyReference[0].field && lazyReference[0].value) {
+                                        const property = {};
+                                        property[lazyReference[0].field] = lazyReference[0].value;
+                                        Object.assign(document, property);
+                                    }
                                 });
                                 this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
                                     tags: this.buildDisplayMetaTags(displayView, document)
