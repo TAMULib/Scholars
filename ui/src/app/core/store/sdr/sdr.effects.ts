@@ -492,6 +492,8 @@ export class SdrEffects {
 
                             sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !selected ? facetEntry.value : undefined;
 
+                            sidebarItem.queryParams.page = 1;
+
                             sidebarSection.items.push(sidebarItem);
                         });
 
