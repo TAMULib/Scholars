@@ -19,11 +19,9 @@
         <ngb-tabset [type]="getTabsetType(windowDimensions | async)" [orientation]="getTabOrientation(windowDimensions | async)">
           <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [title]="tab.name" [id]="tab.name">
             <ng-template ngbTabContent>
-              <div class="row mt-3 ml-2 mr-2 mb-2" *ngFor="let section of getSectionsToShow(tab.sections, document)">
-                <div class="col-12">
-                  <h4>{{section.name}}</h4>
-                  <div class="p-1" [innerHtml]="section.templateFunction(document)"></div>
-                </div>
+              <div class="ml-3 mr-3 mt-3 card" *ngFor="let section of getSectionsToShow(tab.sections, document)">
+                <div class="card-header font-weight-bold text-primary">{{section.name}}</div>
+                <div class="card-body" [innerHtml]="section.templateFunction(document)"></div>
               </div>
             </ng-template>
           </ngb-tab>
