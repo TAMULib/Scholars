@@ -30,4 +30,8 @@ export class DirectoryViewRepo extends AbstractSdrRepo<DirectoryView> implements
         throw new Error('Directory Views does not support find by types in!');
     }
 
+    public findByIdIn(ids: string[]): Observable<SdrCollection> {
+        throw new Error('Directory Views does not support find by id in!');
+    }
+
 }

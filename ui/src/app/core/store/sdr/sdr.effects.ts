@@ -90,6 +90,26 @@ export class SdrEffects {
         map((action: fromSdr.GetOneResourceFailureAction) => this.alert.getOneFailureAlert(action.payload))
     );
 
+    @Effect() findByIdIn = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_ID_IN)),
+        switchMap((action: fromSdr.FindByIdInResourceAction) => this.repos.get(action.name).findByIdIn(action.payload.ids).pipe(
+            map((collection: SdrCollection) => new fromSdr.FindByIdInResourceSuccessAction(action.name, { collection })),
+            catchError((response) => of(new fromSdr.FindByIdInResourceFailureAction(action.name, { response })))
+        ))
+    );
+
+    @Effect({ dispatch: false }) findByIdInSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_ID_IN_SUCCESS)),
+        switchMap((action: fromSdr.FindByIdInResourceSuccessAction) => this.waitForStompConnection(action.name)),
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
+    );
+
+    @Effect() gfindByIdInFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_ID_IN_FAILURE)),
+        map((action: fromSdr.FindByIdInResourceFailureAction) => this.alert.findByIdInFailureAlert(action.payload))
+    );
+
     @Effect() findByTypesIn = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN)),
         switchMap((action: fromSdr.FindByTypesInResourceAction) => this.repos.get(action.name).findByTypesIn(action.payload.types).pipe(
@@ -105,7 +125,7 @@ export class SdrEffects {
         map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
     );
 
-    @Effect() gfindByTypesIneFailure = this.actions.pipe(
+    @Effect() gfindByTypesInFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN_FAILURE)),
         map((action: fromSdr.FindByTypesInResourceFailureAction) => this.alert.findByTypesInFailureAlert(action.payload))
     );

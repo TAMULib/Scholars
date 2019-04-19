@@ -93,6 +93,10 @@ export class AlertService {
         return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
     }
 
+    public findByIdInFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
     public findByTypesInFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
         return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
     }

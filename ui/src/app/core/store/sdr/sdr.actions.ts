@@ -17,6 +17,9 @@ export enum SdrActionTypes {
     GET_ONE = 'get one resource by id',
     GET_ONE_SUCCESS = 'sucessfully got resource by id',
     GET_ONE_FAILURE = 'failed getting resource by id',
+    FIND_BY_ID_IN = 'find resource by id in',
+    FIND_BY_ID_IN_SUCCESS = 'sucessfully found resource by id in',
+    FIND_BY_ID_IN_FAILURE = 'failed finding resource by id is',
     FIND_BY_TYPES_IN = 'find resource by types in',
     FIND_BY_TYPES_IN_SUCCESS = 'sucessfully found resource by types in',
     FIND_BY_TYPES_IN_FAILURE = 'failed finding resource by types is',
@@ -111,6 +114,21 @@ export class GetOneResourceSuccessAction implements Action {
 
 export class GetOneResourceFailureAction implements Action {
     readonly type = getSdrAction(SdrActionTypes.GET_ONE_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByIdInResourceAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN, this.name);
+    constructor(public name: string, public payload: { ids: string[] }) { }
+}
+
+export class FindByIdInResourceSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByIdInResourceFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN_FAILURE, this.name);
     constructor(public name: string, public payload: any) { }
 }
 
@@ -210,6 +228,9 @@ export type SdrActions =
     GetOneResourceAction |
     GetOneResourceSuccessAction |
     GetOneResourceFailureAction |
+    FindByIdInResourceAction |
+    FindByIdInResourceSuccessAction |
+    FindByIdInResourceFailureAction |
     FindByTypesInResourceAction |
     FindByTypesInResourceSuccessAction |
     FindByTypesInResourceFailureAction |

@@ -28,4 +28,8 @@ export class UserRepo extends AbstractSdrRepo<User> {
         throw new Error('Users does not support find by types in!');
     }
 
+    public findByIdIn(ids: string[]): Observable<SdrCollection> {
+        throw new Error('Users does not support find by id in!');
+    }
+
 }

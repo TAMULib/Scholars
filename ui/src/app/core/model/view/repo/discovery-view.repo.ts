@@ -30,4 +30,8 @@ export class DiscoveryViewRepo extends AbstractSdrRepo<DiscoveryView> implements
         throw new Error('Discovery Views does not support find by types in!');
     }
 
+    public findByIdIn(ids: string[]): Observable<SdrCollection> {
+        throw new Error('Discovery Views does not support find by id in!');
+    }
+
 }

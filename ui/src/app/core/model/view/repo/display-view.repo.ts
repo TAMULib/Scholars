@@ -23,7 +23,11 @@ export class DisplayViewRepo extends AbstractSdrRepo<DisplayView> implements Vie
     }
 
     public count(request: SdrRequest): Observable<Count> {
-        throw new Error('Themes does not support count!');
+        throw new Error('Display Views does not support count!');
+    }
+
+    public findByIdIn(ids: string[]): Observable<SdrCollection> {
+        throw new Error('Display Views does not support find by types in!');
     }
 
 }

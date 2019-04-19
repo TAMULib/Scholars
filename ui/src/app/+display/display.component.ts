@@ -4,19 +4,19 @@ import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
-import { Observable, Subscription } from 'rxjs';
-import { filter, tap, map } from 'rxjs/operators';
+import { Observable, Subscription, forkJoin, combineLatest, of, timer } from 'rxjs';
+import { filter, tap, map, withLatestFrom, mapTo, switchMap, mergeMap, distinctUntilChanged, take } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView } from '../core/model/view';
+import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView, LazyReference } from '../core/model/view';
 
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
 
-import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByTypes } from '../core/store/sdr';
+import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByTypes, selectResourceIsLoading, selectAllResources } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
@@ -76,17 +76,80 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 }
                             }),
                             filter(([displayView]) => displayView !== undefined),
-                            tap(([displayView]) => {
+                            mergeMap(([displayView]) => {
+                                const lazyObservables: Observable<any>[] = [];
+                                const isLoaded = {};
+                                displayView.tabs.forEach((tab: DisplayTabView) => {
+                                    tab.sections.forEach((section: DisplayTabSectionView) => {
+                                        section.lazyReferences.forEach((lazyReference: LazyReference) => {
+                                            if (document[lazyReference.field] !== undefined) {
+                                                if (document[lazyReference.field] instanceof Array) {
+                                                    const ids = document[lazyReference.field].map((property) => property.id);
+                                                    this.store.dispatch(new fromSdr.FindByIdInResourceAction(lazyReference.collection, { ids }));
+                                                    const lazyObservable = combineLatest(
+                                                        this.store.pipe(
+                                                            select(selectAllResources(lazyReference.collection)),
+                                                            map((values) => {
+                                                                return {
+                                                                    field: lazyReference.field,
+                                                                    value: values
+                                                                };
+                                                            })
+                                                        ),
+                                                        this.store.pipe(
+                                                            select(selectResourceIsLoading(lazyReference.collection)),
+                                                            filter((isLoading) => {
+                                                                if (isLoading) {
+                                                                    isLoaded[lazyReference.collection] = isLoading;
+                                                                }
+                                                                return !isLoading && isLoaded[lazyReference.collection];
+                                                            })
+                                                        )
+                                                    );
+                                                    lazyObservables.push(lazyObservable);
+                                                } else {
+                                                    const id = document[lazyReference.field].id;
+                                                    this.store.dispatch(new fromSdr.GetOneResourceAction(lazyReference.collection, { id }));
+                                                    const lazyObservable = combineLatest(
+                                                        this.store.pipe(
+                                                            select(selectResourceById(lazyReference.collection, id)),
+                                                            map((value) => {
+                                                                return {
+                                                                    field: lazyReference.field,
+                                                                    value: value
+                                                                };
+                                                            })
+                                                        ),
+                                                        this.store.pipe(
+                                                            select(selectResourceIsLoading(lazyReference.collection)),
+                                                            filter((isLoading) => {
+                                                                if (isLoading) {
+                                                                    isLoaded[lazyReference.collection] = isLoading;
+                                                                }
+                                                                return !isLoading && isLoaded[lazyReference.collection];
+                                                            })
+                                                        )
+                                                    );
+                                                    lazyObservables.push(lazyObservable);
+                                                }
+                                            }
+                                        });
+                                    });
+                                });
+                                return combineLatest(of(displayView), combineLatest(lazyObservables));
+                            }),
+                            tap(([displayView, lazyReferences]) => {
+                                lazyReferences.forEach((lazyReference) => {
+                                    const property = {};
+                                    property[lazyReference[0].field] = lazyReference[0].value;
+                                    Object.assign(document, property);
+                                });
                                 this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
                                     tags: this.buildDisplayMetaTags(displayView, document)
                                 }));
-                                for (const i in displayView.tabs) {
-                                    if (displayView.tabs.hasOwnProperty(i)) {
-                                        if (displayView.tabs[i].name === 'View All') {
-                                            displayView.tabs.splice(i, 1);
-                                            break;
-                                        }
-                                    }
+                                const tabCount = displayView.tabs.length - 1;
+                                if (displayView.tabs[tabCount].name === 'View All') {
+                                    displayView.tabs.splice(tabCount, 1);
                                 }
                                 const viewAllTabSections = [];
                                 const viewAllTab: DisplayTabView = {
@@ -106,6 +169,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                         window['__dimensions_embed'].addBadges();
                                     });
                                 }
+                                console.log(document);
                             }),
                             map(([displayView]) => displayView)
                         );

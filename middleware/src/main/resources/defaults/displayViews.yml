@@ -90,6 +90,9 @@
       template: "defaults/displayViews/people/publications/selectedPublications.html"
       requiredFields:
       - selectedPublication
+      lazyReferences:
+      - field: selectedPublication
+        collection: documents
     - name: collection or series editor for
       hidden: false
       template: "defaults/displayViews/people/publications/collectionOrSeriesEditorFor.html"

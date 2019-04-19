@@ -28,4 +28,8 @@ export class ThemeRepo extends AbstractSdrRepo<Theme> {
         throw new Error('Themes does not support find by types in!');
     }
 
+    public findByIdIn(ids: string[]): Observable<SdrCollection> {
+        throw new Error('Themes does not support find by id in!');
+    }
+
 }

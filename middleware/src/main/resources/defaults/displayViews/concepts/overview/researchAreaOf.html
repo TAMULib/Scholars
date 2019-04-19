@@ -1,11 +1,7 @@
-<div>
-  {{? it.researchAreaOf }}
-  {{~ it.researchAreaOf :researchAreaOf}}
-  <div class="mb-1">
-    <span class="mr-1">{{=researchAreaOf.label}},</span>
-    <span class="mr-1">{{=researchAreaOf.title}},</span>
-    <span><a href="display/organizations/{{=researchAreaOf.organization.id}}">{{=researchAreaOf.organization.label}}</a></span>
-  </div>
-  {{~}}
-  {{?}}
+{{~ it.researchAreaOf :researchAreaOf}}
+<div class="mb-1">
+  <span class="mr-1">{{=researchAreaOf.label}},</span>
+  <span class="mr-1">{{=researchAreaOf.title}},</span>
+  <span><a href="display/organizations/{{=researchAreaOf.organization.id}}">{{=researchAreaOf.organization.label}}</a></span>
 </div>
+{{~}}
