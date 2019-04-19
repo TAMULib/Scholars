@@ -20,7 +20,7 @@
           <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [title]="tab.name" [id]="tab.name">
             <ng-template ngbTabContent>
               <div class="ml-3 mr-3 mt-3 card" *ngFor="let section of getSectionsToShow(tab.sections, document)">
-                <div class="card-header font-weight-bold text-primary">{{section.name}}</div>
+                <div class="card-header font-weight-bold text-primary text-capitalize">{{section.name}}</div>
                 <div class="card-body" [innerHtml]="section.templateFunction(document)"></div>
               </div>
             </ng-template>
