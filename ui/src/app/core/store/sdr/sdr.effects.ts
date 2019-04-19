@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { of, combineLatest, defer, Observable } from 'rxjs';
-import { map, switchMap, catchError, withLatestFrom, skipWhile, take, filter } from 'rxjs/operators';
+import { map, switchMap, catchError, withLatestFrom, skipWhile, take, filter, mergeMap } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
 import { DialogService } from '../../service/dialog.service';
@@ -54,19 +54,22 @@ export class SdrEffects {
     // TODO: alerts should be in dialog location if a dialog is opened
 
     @Effect() getAll = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL, ['directoryViews', 'discoveryViews', 'displayViews'])),
-        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL)),
+        mergeMap((action: fromSdr.GetAllResourcesAction) => this.repos.get(action.name).getAll().pipe(
+            map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(action.name, { collection })),
+            catchError((response) => of(new fromSdr.GetAllResourcesFailureAction(action.name, { response })))
+        ))
     );
 
     @Effect({ dispatch: false }) getAllSuccess = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, ['directoryViews', 'discoveryViews', 'displayViews'])),
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS)),
         switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
         withLatestFrom(this.store.pipe(select(selectStompState))),
         map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
     );
 
     @Effect() getAllFailure = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE, ['directoryViews', 'discoveryViews', 'displayViews'])),
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE)),
         map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
     );
 
@@ -92,7 +95,7 @@ export class SdrEffects {
 
     @Effect() findByIdIn = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_ID_IN)),
-        switchMap((action: fromSdr.FindByIdInResourceAction) => this.repos.get(action.name).findByIdIn(action.payload.ids).pipe(
+        mergeMap((action: fromSdr.FindByIdInResourceAction) => this.repos.get(action.name).findByIdIn(action.payload.ids).pipe(
             map((collection: SdrCollection) => new fromSdr.FindByIdInResourceSuccessAction(action.name, { collection })),
             catchError((response) => of(new fromSdr.FindByIdInResourceFailureAction(action.name, { response })))
         ))
@@ -128,57 +131,6 @@ export class SdrEffects {
     @Effect() gfindByTypesInFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN_FAILURE)),
         map((action: fromSdr.FindByTypesInResourceFailureAction) => this.alert.findByTypesInFailureAlert(action.payload))
-    );
-
-    @Effect() getDirectoryViews = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'directoryViews')),
-        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
-    );
-
-    @Effect({ dispatch: false }) getDirectoryViewsSuccess = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, 'directoryViews')),
-        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
-        withLatestFrom(this.store.pipe(select(selectStompState))),
-        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
-    );
-
-    @Effect() getDirectoryViewsFailure = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'directoryViews')),
-        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
-    );
-
-    @Effect() getDiscoveryViews = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'discoveryViews')),
-        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
-    );
-
-    @Effect({ dispatch: false }) getDiscoveryViewsSuccess = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, 'discoveryViews')),
-        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
-        withLatestFrom(this.store.pipe(select(selectStompState))),
-        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
-    );
-
-    @Effect() getDiscoveryViewsFailure = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'discoveryViews')),
-        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
-    );
-
-    @Effect() getDisplayViews = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'displayViews')),
-        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
-    );
-
-    @Effect({ dispatch: false }) getDisplayViewsSuccess = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, 'displayViews')),
-        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
-        withLatestFrom(this.store.pipe(select(selectStompState))),
-        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
-    );
-
-    @Effect() getDisplayViewsFailure = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'displayViews')),
-        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
     );
 
     @Effect() page = this.actions.pipe(
@@ -241,34 +193,12 @@ export class SdrEffects {
         map((action: fromSdr.SearchResourcesFailureAction) => this.alert.searchFailureAlert(action.payload))
     );
 
-    @Effect() conceptsCount = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'concepts')),
-        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
-    );
-
-    @Effect() documentsCount = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'documents')),
-        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
-    );
-
-    @Effect() organizationsCount = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'organizations')),
-        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
-    );
-
-    @Effect() personsCount = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'persons')),
-        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
-    );
-
-    @Effect() processesCount = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'processes')),
-        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
-    );
-
-    @Effect() relationshipsCount = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.COUNT, 'relationships')),
-        switchMap((action: fromSdr.CountResourcesAction) => this.countHandler(action))
+    @Effect() count = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.COUNT)),
+        mergeMap((action: fromSdr.CountResourcesAction) => this.repos.get(action.name).count(action.payload.request).pipe(
+            map((count: Count) => new fromSdr.CountResourcesSuccessAction(action.name, { count })),
+            catchError((response) => of(new fromSdr.CountResourcesFailureAction(action.name, { response })))
+        ))
     );
 
     @Effect() countFailure = this.actions.pipe(
@@ -442,20 +372,6 @@ export class SdrEffects {
                 }
             }));
         }
-    }
-
-    private getAllHandler(name: string): Observable<fromSdr.GetAllResourcesSuccessAction | fromSdr.GetAllResourcesFailureAction> {
-        return this.repos.get(name).getAll().pipe(
-            map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(name, { collection })),
-            catchError((response) => of(new fromSdr.GetAllResourcesFailureAction(name, { response })))
-        );
-    }
-
-    private countHandler(action: fromSdr.CountResourcesAction): Observable<fromSdr.CountResourcesSuccessAction | fromSdr.CountResourcesFailureAction> {
-        return this.repos.get(action.name).count(action.payload.request).pipe(
-            map((count: Count) => new fromSdr.CountResourcesSuccessAction(action.name, { count })),
-            catchError((response) => of(new fromSdr.CountResourcesFailureAction(action.name, { response })))
-        );
     }
 
     private searchSuccessHandler(action: fromSdr.SearchResourcesSuccessAction, routerState: CustomRouterState, store: AppState): void {

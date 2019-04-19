@@ -1,11 +1,12 @@
+import { isPlatformBrowser } from '@angular/common';
 import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
-import { Observable, Subscription, forkJoin, combineLatest, of, timer } from 'rxjs';
-import { filter, tap, map, withLatestFrom, mapTo, switchMap, mergeMap, distinctUntilChanged, take } from 'rxjs/operators';
+import { Observable, Subscription, combineLatest, of } from 'rxjs';
+import { filter, tap, map, mergeMap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
@@ -20,7 +21,6 @@ import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'scholars-display',
