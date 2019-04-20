@@ -37,10 +37,10 @@ include::{snippets}/concepts/find-by-id/curl-request.adoc[]
 
 ==== Find By Id In
 
-This will find a list of concepts based on the _concept ids_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific concepts as shown in the *Sample Response*.
+This will find a list of concepts based on the _concept ids_ provided as a parameter as shown in *Request Parameters*. The json response will have the specific concepts as shown in the *Sample Response*.
 
-===== Path Parameters
-include::{snippets}/concepts/find-by-id-in/path-parameters.adoc[]
+===== Request Parameters
+include::{snippets}/concepts/find-by-id-in/request-parameters.adoc[]
 
 ===== Sample Request
 include::{snippets}/concepts/find-by-id-in/http-request.adoc[]
