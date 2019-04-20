@@ -41,14 +41,13 @@ public class Document extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
     @PropertySource(template = "document/website", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> website;
+    private List<String> websites;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
     @Field("abstract")
-
     @JsonProperty("abstract")
     @Indexed(type = "whole_string", value = "abstract", copyTo = "_text_")
     @PropertySource(template = "document/abstract", predicate = "http://purl.org/ontology/bibo/abstract")
@@ -59,14 +58,14 @@ public class Document extends AbstractSolrDocument {
     private String abbreviation;
 
     @NestedObject
-    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @Indexed(type = "nested_string", copyTo = "_text_")
     @PropertySource(template = "document/publicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
-    private List<String> publicationVenue;
+    private String publicationVenue;
 
     @NestedObject
-    @Indexed(type = "nested_strings")
+    @Indexed(type = "nested_string")
     @PropertySource(template = "document/publicationVenueFor", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
-    private List<String> publicationVenueFor;
+    private String publicationVenueFor;
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "etdChairedByEmail", key = "email"), @Reference(value = "etdChairedByOrganization", key = "organization") })
@@ -82,10 +81,10 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/etdChairedByOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairedByOrganization;
 
-    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "authorType", key = "type"), @Reference(value = "authorRank", key = "rank"), @Reference(value = "authorOrganization", key = "organization") })
     @PropertySource(template = "document/author", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> author;
+    private List<String> authors;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/authorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -96,7 +95,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> authorRank;
 
     @NestedMultiValuedProperty
-    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @Indexed(type = "nested_strings")
     @PropertySource(template = "document/authorOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> authorOrganization;
 
@@ -107,7 +106,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "editorType", key = "type"), @Reference(value = "editorRank", key = "rank") })
     @PropertySource(template = "document/editor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> editor;
+    private List<String> editors;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/editorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -128,28 +127,28 @@ public class Document extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "translatorType", key = "type") })
     @PropertySource(template = "document/translator", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> translator;
+    private List<String> translators;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/translatorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translatorType;
 
-    @Indexed(type = "whole_strings")
+    @Indexed(type = "whole_string")
     @PropertySource(template = "document/status", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> status;
+    private String status;
 
-    @Indexed(type = "pdates")
+    @Indexed(type = "pdate")
     @PropertySource(template = "document/publicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
-    private List<String> publicationDate;
+    private String publicationDate;
 
-    @Indexed(type = "nested_strings")
+    @Indexed(type = "nested_string")
     @NestedObject({ @Reference(value = "publisherType", key = "type") })
     @PropertySource(template = "document/publisher", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
-    private List<String> publisher;
+    private String publisher;
 
-    @Indexed(type = "nested_strings")
+    @Indexed(type = "nested_string")
     @PropertySource(template = "document/publisherType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
-    private List<String> publisherType;
+    private String publisherType;
 
     @Indexed(type = "pdate")
     @PropertySource(template = "document/dateFiled", predicate = "http://vivoweb.org/ontology/core#dateTime")
@@ -161,17 +160,17 @@ public class Document extends AbstractSolrDocument {
 
     @NestedObject
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "document/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> subjectArea;
+    @PropertySource(template = "document/hasSubjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> subjectAreas;
 
     @Indexed(type = "whole_strings")
-    @PropertySource(template = "document/restriction", predicate = "http://purl.obolibrary.org/obo/ERO_0000045")
-    private List<String> restriction;
+    @PropertySource(template = "document/hasRestriction", predicate = "http://purl.obolibrary.org/obo/ERO_0000045")
+    private List<String> restrictions;
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "documentPartType", key = "type") })
     @PropertySource(template = "document/documentPart", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> documentPart;
+    private List<String> documentParts;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/documentPartType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -184,7 +183,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "featureType", key = "type") })
     @PropertySource(template = "document/feature", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> feature;
+    private List<String> features;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/featureType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -232,7 +231,7 @@ public class Document extends AbstractSolrDocument {
 
     @Indexed(type = "delimited_strings", copyTo = "_text_")
     @PropertySource(template = "document/keyword", predicate = "http://vivoweb.org/ontology/core#freetextKeyword")
-    private List<String> keyword;
+    private List<String> keywords;
 
     @Indexed(type = "whole_string")
     @PropertySource(template = "document/eanucc13", predicate = "http://purl.org/ontology/bibo/eanucc13")
@@ -250,9 +249,9 @@ public class Document extends AbstractSolrDocument {
     @PropertySource(template = "document/identifier", predicate = "http://purl.org/ontology/bibo/identifier")
     private String identifier;
 
-    @Indexed(type = "whole_strings")
+    @Indexed(type = "whole_string")
     @PropertySource(template = "document/patentNumber", predicate = "http://vivoweb.org/ontology/core#patentNumber")
-    private List<String> patentNumber;
+    private String patentNumber;
 
     @Indexed(type = "whole_string")
     @PropertySource(template = "document/doi", predicate = "http://purl.org/ontology/bibo/doi")
@@ -302,7 +301,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "citationType", key = "type") })
     @PropertySource(template = "document/citation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> citation;
+    private List<String> citations;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/citationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -319,11 +318,11 @@ public class Document extends AbstractSolrDocument {
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "translationType", key = "type") })
-    @PropertySource(template = "document/translation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> translation;
+    @PropertySource(template = "document/hasTranslation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> translations;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "document/translationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
+    @PropertySource(template = "document/hasTranslationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> translationType;
 
     @Indexed(type = "nested_strings")
@@ -371,7 +370,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "assigneeType", key = "type") })
     @PropertySource(template = "document/assignee", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> assignee;
+    private List<String> assignees;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/assigneeType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -420,7 +419,7 @@ public class Document extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "mentionType", key = "type") })
     @PropertySource(template = "document/mention", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> mention;
+    private List<String> mentions;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/mentionType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -443,7 +442,7 @@ public class Document extends AbstractSolrDocument {
     @NestedObject
     @Indexed(type = "nested_strings")
     @PropertySource(template = "document/receipt", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> receipt;
+    private List<String> receipts;
 
     @NestedObject
     @Indexed(type = "nested_strings")
@@ -490,12 +489,12 @@ public class Document extends AbstractSolrDocument {
         this.thumbnail = thumbnail;
     }
 
-    public List<String> getWebsite() {
-        return website;
+    public List<String> getWebsites() {
+        return websites;
     }
 
-    public void setWebsite(List<String> website) {
-        this.website = website;
+    public void setWebsites(List<String> websites) {
+        this.websites = websites;
     }
 
     public List<String> getWebsiteUrl() {
@@ -522,19 +521,19 @@ public class Document extends AbstractSolrDocument {
         this.abbreviation = abbreviation;
     }
 
-    public List<String> getPublicationVenue() {
+    public String getPublicationVenue() {
         return publicationVenue;
     }
 
-    public void setPublicationVenue(List<String> publicationVenue) {
+    public void setPublicationVenue(String publicationVenue) {
         this.publicationVenue = publicationVenue;
     }
 
-    public List<String> getPublicationVenueFor() {
+    public String getPublicationVenueFor() {
         return publicationVenueFor;
     }
 
-    public void setPublicationVenueFor(List<String> publicationVenueFor) {
+    public void setPublicationVenueFor(String publicationVenueFor) {
         this.publicationVenueFor = publicationVenueFor;
     }
 
@@ -562,12 +561,12 @@ public class Document extends AbstractSolrDocument {
         this.etdChairedByOrganization = etdChairedByOrganization;
     }
 
-    public List<String> getAuthor() {
-        return author;
+    public List<String> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(List<String> author) {
-        this.author = author;
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
     }
 
     public List<String> getAuthorType() {
@@ -602,12 +601,12 @@ public class Document extends AbstractSolrDocument {
         this.authorList = authorList;
     }
 
-    public List<String> getEditor() {
-        return editor;
+    public List<String> getEditors() {
+        return editors;
     }
 
-    public void setEditor(List<String> editor) {
-        this.editor = editor;
+    public void setEditors(List<String> editors) {
+        this.editors = editors;
     }
 
     public List<String> getEditorType() {
@@ -642,12 +641,12 @@ public class Document extends AbstractSolrDocument {
         this.bookTitle = bookTitle;
     }
 
-    public List<String> getTranslator() {
-        return translator;
+    public List<String> getTranslators() {
+        return translators;
     }
 
-    public void setTranslator(List<String> translator) {
-        this.translator = translator;
+    public void setTranslators(List<String> translators) {
+        this.translators = translators;
     }
 
     public List<String> getTranslatorType() {
@@ -658,35 +657,35 @@ public class Document extends AbstractSolrDocument {
         this.translatorType = translatorType;
     }
 
-    public List<String> getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(List<String> status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public List<String> getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(List<String> publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 
-    public List<String> getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(List<String> publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
-    public List<String> getPublisherType() {
+    public String getPublisherType() {
         return publisherType;
     }
 
-    public void setPublisherType(List<String> publisherType) {
+    public void setPublisherType(String publisherType) {
         this.publisherType = publisherType;
     }
 
@@ -706,28 +705,28 @@ public class Document extends AbstractSolrDocument {
         this.dateIssued = dateIssued;
     }
 
-    public List<String> getSubjectArea() {
-        return subjectArea;
+    public List<String> getSubjectAreas() {
+        return subjectAreas;
     }
 
-    public void setSubjectArea(List<String> subjectArea) {
-        this.subjectArea = subjectArea;
+    public void setSubjectAreas(List<String> subjectAreas) {
+        this.subjectAreas = subjectAreas;
     }
 
-    public List<String> getRestriction() {
-        return restriction;
+    public List<String> getRestrictions() {
+        return restrictions;
     }
 
-    public void setRestriction(List<String> restriction) {
-        this.restriction = restriction;
+    public void setRestrictions(List<String> restrictions) {
+        this.restrictions = restrictions;
     }
 
-    public List<String> getDocumentPart() {
-        return documentPart;
+    public List<String> getDocumentParts() {
+        return documentParts;
     }
 
-    public void setDocumentPart(List<String> documentPart) {
-        this.documentPart = documentPart;
+    public void setDocumentParts(List<String> documentParts) {
+        this.documentParts = documentParts;
     }
 
     public List<String> getDocumentPartType() {
@@ -746,12 +745,12 @@ public class Document extends AbstractSolrDocument {
         this.chapter = chapter;
     }
 
-    public List<String> getFeature() {
-        return feature;
+    public List<String> getFeatures() {
+        return features;
     }
 
-    public void setFeature(List<String> feature) {
-        this.feature = feature;
+    public void setFeatures(List<String> features) {
+        this.features = features;
     }
 
     public List<String> getFeatureType() {
@@ -834,12 +833,12 @@ public class Document extends AbstractSolrDocument {
         this.presentedAtType = presentedAtType;
     }
 
-    public List<String> getKeyword() {
-        return keyword;
+    public List<String> getKeywords() {
+        return keywords;
     }
 
-    public void setKeyword(List<String> keyword) {
-        this.keyword = keyword;
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
     }
 
     public String getEanucc13() {
@@ -874,11 +873,11 @@ public class Document extends AbstractSolrDocument {
         this.identifier = identifier;
     }
 
-    public List<String> getPatentNumber() {
+    public String getPatentNumber() {
         return patentNumber;
     }
 
-    public void setPatentNumber(List<String> patentNumber) {
+    public void setPatentNumber(String patentNumber) {
         this.patentNumber = patentNumber;
     }
 
@@ -970,12 +969,12 @@ public class Document extends AbstractSolrDocument {
         this.citedByType = citedByType;
     }
 
-    public List<String> getCitation() {
-        return citation;
+    public List<String> getCitations() {
+        return citations;
     }
 
-    public void setCitation(List<String> citation) {
-        this.citation = citation;
+    public void setCitations(List<String> citations) {
+        this.citations = citations;
     }
 
     public List<String> getCitationType() {
@@ -1002,12 +1001,12 @@ public class Document extends AbstractSolrDocument {
         this.citesAsDataSourceType = citesAsDataSourceType;
     }
 
-    public List<String> getTranslation() {
-        return translation;
+    public List<String> getTranslations() {
+        return translations;
     }
 
-    public void setTranslation(List<String> translation) {
-        this.translation = translation;
+    public void setTranslations(List<String> translations) {
+        this.translations = translations;
     }
 
     public List<String> getTranslationType() {
@@ -1098,12 +1097,12 @@ public class Document extends AbstractSolrDocument {
         this.placeOfPublication = placeOfPublication;
     }
 
-    public List<String> getAssignee() {
-        return assignee;
+    public List<String> getAssignees() {
+        return assignees;
     }
 
-    public void setAssignee(List<String> assignee) {
-        this.assignee = assignee;
+    public void setAssignees(List<String> assignees) {
+        this.assignees = assignees;
     }
 
     public List<String> getAssigneeType() {
@@ -1186,12 +1185,12 @@ public class Document extends AbstractSolrDocument {
         this.isTemplate = isTemplate;
     }
 
-    public List<String> getMention() {
-        return mention;
+    public List<String> getMentions() {
+        return mentions;
     }
 
-    public void setMention(List<String> mention) {
-        this.mention = mention;
+    public void setMentions(List<String> mentions) {
+        this.mentions = mentions;
     }
 
     public List<String> getMentionType() {
@@ -1226,12 +1225,12 @@ public class Document extends AbstractSolrDocument {
         this.supportedByType = supportedByType;
     }
 
-    public List<String> getReceipt() {
-        return receipt;
+    public List<String> getReceipts() {
+        return receipts;
     }
 
-    public void setReceipt(List<String> receipt) {
-        this.receipt = receipt;
+    public void setReceipts(List<String> receipts) {
+        this.receipts = receipts;
     }
 
     public List<String> getSameAs() {

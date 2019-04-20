@@ -19,6 +19,7 @@ import edu.tamu.scholars.middleware.view.model.FacetType;
 import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
 import edu.tamu.scholars.middleware.view.model.Layout;
+import edu.tamu.scholars.middleware.view.model.LazyReference;
 import edu.tamu.scholars.middleware.view.model.Sort;
 
 public class ViewTestUtility {
@@ -187,6 +188,16 @@ public class ViewTestUtility {
         requiredFields.add("type");
 
         section.setRequiredFields(requiredFields);
+
+        LazyReference lazyReference = new LazyReference();
+
+        lazyReference.setField("publications");
+        lazyReference.setCollection("documents");
+
+        List<LazyReference> lazyReferences = new ArrayList<LazyReference>();
+        lazyReferences.add(lazyReference);
+
+        section.setLazyReferences(lazyReferences);
 
         sections.add(section);
 

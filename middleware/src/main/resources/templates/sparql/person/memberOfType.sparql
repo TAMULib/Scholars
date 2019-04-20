@@ -1,0 +1,13 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+CONSTRUCT {
+    ?headOf vitro:mostSpecificType ?mostSpecificTypeWithId .
+} WHERE {
+    <[(${uri})]> obo:RO_0000053 ?role .
+    ?role a vivo:MemberRole .
+    ?role vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?role), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
+    FILTER (STRSTARTS (STR(?mostSpecificType), STR(vivo:))) .
+}

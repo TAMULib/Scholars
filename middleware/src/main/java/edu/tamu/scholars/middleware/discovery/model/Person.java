@@ -42,7 +42,7 @@ public class Person extends AbstractSolrDocument {
 
     @Indexed(type = "whole_strings")
     @PropertySource(template = "person/additionalEmail", predicate = "http://www.w3.org/2006/vcard/ns#email")
-    private List<String> additionalEmail;
+    private List<String> additionalEmails;
 
     @Indexed(type = "whole_string")
     @PropertySource(template = "person/phone", predicate = "http://www.w3.org/2006/vcard/ns#telephone")
@@ -51,7 +51,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "whole_strings")
     @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
     @PropertySource(template = "person/website", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> website;
+    private List<String> websites;
 
     @Indexed(type = "whole_strings")
     @PropertySource(template = "person/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
@@ -66,9 +66,9 @@ public class Person extends AbstractSolrDocument {
     private String preferredTitle;
 
     @Indexed(type = "nested_strings")
-    @NestedObject({ @Reference(value = "positionType", key = "type"), @Reference(value = "positionOrganization", key = "organization") })
+    @NestedObject({ @Reference(value = "positionType", key = "type"), @Reference(value = "positionOrganization", key = "organizations") })
     @PropertySource(template = "person/position", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> position;
+    private List<String> positions;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/positionType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -86,16 +86,16 @@ public class Person extends AbstractSolrDocument {
     @NestedObject
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "person/researchArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> researchArea;
+    private List<String> researchAreas;
 
     @Indexed(type = "nested_strings")
-    @NestedObject({ @Reference(value = "geographicFocusType", key = "type") })
+    @NestedObject({ @Reference(value = "geographicFocusTypes", key = "type") })
     @PropertySource(template = "person/geographicFocus", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> geographicFocus;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/geographicFocusType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
-    private List<String> geographicFocusType;
+    private List<String> geographicFocusTypes;
 
     @Indexed(type = "whole_string")
     @PropertySource(template = "person/hrJobTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
@@ -103,12 +103,16 @@ public class Person extends AbstractSolrDocument {
 
     @Indexed(type = "delimited_strings")
     @PropertySource(template = "person/keyword", predicate = "http://vivoweb.org/ontology/core#freetextKeyword")
-    private List<String> keyword;
+    private List<String> keywords;
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "headOfType", key = "type"), @Reference(value = "headOfOrganization", key = "organization"), @Reference(value = "headOfStartDate", key = "startDate"), @Reference(value = "headOfEndDate", key = "endDate") })
     @PropertySource(template = "person/headOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> headOf;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/headOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
+    private List<String> headOfType;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/headOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
@@ -126,6 +130,10 @@ public class Person extends AbstractSolrDocument {
     @NestedObject({ @Reference(value = "memberOfType", key = "type"), @Reference(value = "memberOfOrganization", key = "organization"), @Reference(value = "memberOfStartDate", key = "startDate"), @Reference(value = "memberOfEndDate", key = "endDate") })
     @PropertySource(template = "person/memberOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> memberOf;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/memberOfType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
+    private List<String> memberOfType;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/memberOfOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
@@ -147,7 +155,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "clinicalActivityType", key = "type"), @Reference(value = "clinicalActivityRole", key = "role"), @Reference(value = "clinicalActivityStartDate", key = "startDate"), @Reference(value = "clinicalActivityEndDate", key = "endDate") })
     @PropertySource(template = "person/clinicalActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> clinicalActivity;
+    private List<String> clinicalActivities;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/clinicalActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -168,7 +176,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "attendedEventType", key = "type"), @Reference(value = "attendedEventStartDate", key = "startDate"), @Reference(value = "attendedEventEndDate", key = "endDate") })
     @PropertySource(template = "person/attendedEvent", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> attendedEvent;
+    private List<String> attendedEvents;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/attendedEventType", predicate = "person.attendedEvent.name", parse = true)
@@ -182,16 +190,16 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/attendedEventEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private List<String> attendedEventEndDate;
 
-    @Indexed(type = "nested_strings")
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @NestedObject({ @Reference(value = "educationAndTrainingOrganization", key = "organization"), @Reference(value = "educationAndTrainingMajorField", key = "field"), @Reference(value = "educationAndTrainingDegreeAbbreviation", key = "abbreviation"), @Reference(value = "educationAndTrainingStartDate", key = "startDate"), @Reference(value = "educationAndTrainingEndDate", key = "endDate") })
     @PropertySource(template = "person/educationAndTraining", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> educationAndTraining;
 
-    @Indexed(type = "nested_strings")
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "person/educationAndTrainingOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> educationAndTrainingOrganization;
 
-    @Indexed(type = "nested_strings")
+    @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "person/educationAndTrainingMajorField", predicate = "http://vivoweb.org/ontology/core#majorField")
     private List<String> educationAndTrainingMajorField;
 
@@ -228,7 +236,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "awardAndHonorDate", key = "date") })
     @PropertySource(template = "person/awardAndHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> awardAndHonor;
+    private List<String> awardsAndHonors;
 
     @Indexed(type = "nested_dates")
     @PropertySource(template = "person/awardAndHonorDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
@@ -258,7 +266,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @NestedObject({ @Reference(value = "selectedPublicationType", key = "type"), @Reference(value = "selectedPublicationPublisher", key = "publisher"), @Reference(value = "selectedPublicationVenue", key = "venue"), @Reference(value = "selectedPublicationDate", key = "date") })
     @PropertySource(template = "person/selectedPublication", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> selectedPublication;
+    private List<String> publications;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/selectedPublicationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -329,7 +337,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "presentationType", key = "type"), @Reference(value = "presentationRole", key = "role"), @Reference(value = "presentationEvent", key = "event"), @Reference(value = "presentationStartDate", key = "startDate"), @Reference(value = "presentationEndDate", key = "endDate") })
     @PropertySource(template = "person/presentation", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> presentation;
+    private List<String> presentations;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/presentationType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -448,7 +456,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @NestedObject({ @Reference(value = "otherResearchActivityRole", key = "role"), @Reference(value = "otherResearchActivityStartDate", key = "startDate"), @Reference(value = "otherResearchActivityEndDate", key = "endDate") })
     @PropertySource(template = "person/otherResearchActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> otherResearchActivity;
+    private List<String> otherResearchActivities;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/otherResearchActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
@@ -469,7 +477,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @NestedObject({ @Reference(value = "teachingActivityRole", key = "role") })
     @PropertySource(template = "person/teachingActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> teachingActivity;
+    private List<String> teachingActivities;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/teachingActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
@@ -546,7 +554,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "professionalServiceActivityType", key = "type"), @Reference(value = "professionalServiceActivityRole", key = "role"), @Reference(value = "professionalServiceActivityStartDate", key = "startDate"), @Reference(value = "professionalServiceActivityEndDate", key = "endDate") })
     @PropertySource(template = "person/professionalServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> professionalServiceActivity;
+    private List<String> professionalServiceActivities;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/professionalServiceActivityRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
@@ -567,7 +575,7 @@ public class Person extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "outreachAndCommunityServiceActivityType", key = "type"), @Reference(value = "outreachAndCommunityServiceActivityRole", key = "role"), @Reference(value = "outreachAndCommunityServiceActivityStartDate", key = "startDate"), @Reference(value = "outreachAndCommunityServiceActivityEndDate", key = "endDate") })
     @PropertySource(template = "person/outreachAndCommunityServiceActivity", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> outreachAndCommunityServiceActivity;
+    private List<String> outreachAndCommunityServiceActivities;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/professionalServiceActivityType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -631,14 +639,10 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/youtube", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#youtube")
     private String youtube;
 
+    @NestedObject
     @Indexed(type = "nested_strings")
-    @NestedObject({ @Reference(value = "sameAsType", key = "type") })
     @PropertySource(template = "person/sameAs", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sameAs;
-
-    @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/sameAsType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
-    private List<String> sameAsType;
 
     @Indexed(type = "whole_string")
     @PropertySource(template = "person/eraCommonsId", predicate = "http://vivoweb.org/ontology/core#eRACommonsId")
@@ -660,15 +664,15 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/email", predicate = "http://www.w3.org/2006/vcard/ns#email")
     private String email;
 
-    @Indexed(type = "whole_string", copyTo = "_text_")
+    @Indexed(type = "whole_string")
     @PropertySource(template = "person/firstName", predicate = "http://www.w3.org/2006/vcard/ns#givenName")
     private String firstName;
 
-    @Indexed(type = "whole_string", copyTo = "_text_")
+    @Indexed(type = "whole_string")
     @PropertySource(template = "person/middleName", predicate = "http://www.w3.org/2006/vcard/ns#middleName")
     private String middleName;
 
-    @Indexed(type = "whole_string", copyTo = "_text_")
+    @Indexed(type = "whole_string")
     @PropertySource(template = "person/lastName", predicate = "http://www.w3.org/2006/vcard/ns#familyName")
     private String lastName;
 
@@ -757,12 +761,12 @@ public class Person extends AbstractSolrDocument {
         this.primaryEmail = primaryEmail;
     }
 
-    public List<String> getAdditionalEmail() {
-        return additionalEmail;
+    public List<String> getAdditionalEmails() {
+        return additionalEmails;
     }
 
-    public void setAdditionalEmail(List<String> additionalEmail) {
-        this.additionalEmail = additionalEmail;
+    public void setAdditionalEmails(List<String> additionalEmails) {
+        this.additionalEmails = additionalEmails;
     }
 
     public String getPhone() {
@@ -773,12 +777,12 @@ public class Person extends AbstractSolrDocument {
         this.phone = phone;
     }
 
-    public List<String> getWebsite() {
-        return website;
+    public List<String> getWebsites() {
+        return websites;
     }
 
-    public void setWebsite(List<String> website) {
-        this.website = website;
+    public void setWebsites(List<String> websites) {
+        this.websites = websites;
     }
 
     public List<String> getWebsiteUrl() {
@@ -805,12 +809,12 @@ public class Person extends AbstractSolrDocument {
         this.preferredTitle = preferredTitle;
     }
 
-    public List<String> getPosition() {
-        return position;
+    public List<String> getPositions() {
+        return positions;
     }
 
-    public void setPosition(List<String> position) {
-        this.position = position;
+    public void setPositions(List<String> positions) {
+        this.positions = positions;
     }
 
     public List<String> getPositionType() {
@@ -837,12 +841,12 @@ public class Person extends AbstractSolrDocument {
         this.overview = overview;
     }
 
-    public List<String> getResearchArea() {
-        return researchArea;
+    public List<String> getResearchAreas() {
+        return researchAreas;
     }
 
-    public void setResearchArea(List<String> researchArea) {
-        this.researchArea = researchArea;
+    public void setResearchAreas(List<String> researchAreas) {
+        this.researchAreas = researchAreas;
     }
 
     public List<String> getGeographicFocus() {
@@ -853,12 +857,12 @@ public class Person extends AbstractSolrDocument {
         this.geographicFocus = geographicFocus;
     }
 
-    public List<String> getGeographicFocusType() {
-        return geographicFocusType;
+    public List<String> getGeographicFocusTypes() {
+        return geographicFocusTypes;
     }
 
-    public void setGeographicFocusType(List<String> geographicFocusType) {
-        this.geographicFocusType = geographicFocusType;
+    public void setGeographicFocusTypes(List<String> geographicFocusTypes) {
+        this.geographicFocusTypes = geographicFocusTypes;
     }
 
     public String getHrJobTitle() {
@@ -869,12 +873,12 @@ public class Person extends AbstractSolrDocument {
         this.hrJobTitle = hrJobTitle;
     }
 
-    public List<String> getKeyword() {
-        return keyword;
+    public List<String> getKeywords() {
+        return keywords;
     }
 
-    public void setKeyword(List<String> keyword) {
-        this.keyword = keyword;
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
     }
 
     public List<String> getHeadOf() {
@@ -883,6 +887,14 @@ public class Person extends AbstractSolrDocument {
 
     public void setHeadOf(List<String> headOf) {
         this.headOf = headOf;
+    }
+
+    public List<String> getHeadOfType() {
+        return headOfType;
+    }
+
+    public void setHeadOfType(List<String> headOfType) {
+        this.headOfType = headOfType;
     }
 
     public List<String> getHeadOfOrganization() {
@@ -917,6 +929,14 @@ public class Person extends AbstractSolrDocument {
         this.memberOf = memberOf;
     }
 
+    public List<String> getMemberOfType() {
+        return memberOfType;
+    }
+
+    public void setMemberOfType(List<String> memberOfType) {
+        this.memberOfType = memberOfType;
+    }
+
     public List<String> getMemberOfOrganization() {
         return memberOfOrganization;
     }
@@ -949,12 +969,12 @@ public class Person extends AbstractSolrDocument {
         this.hasCollaborator = hasCollaborator;
     }
 
-    public List<String> getClinicalActivity() {
-        return clinicalActivity;
+    public List<String> getClinicalActivities() {
+        return clinicalActivities;
     }
 
-    public void setClinicalActivity(List<String> clinicalActivity) {
-        this.clinicalActivity = clinicalActivity;
+    public void setClinicalActivities(List<String> clinicalActivities) {
+        this.clinicalActivities = clinicalActivities;
     }
 
     public List<String> getClinicalActivityType() {
@@ -989,12 +1009,12 @@ public class Person extends AbstractSolrDocument {
         this.clinicalActivityEndDate = clinicalActivityEndDate;
     }
 
-    public List<String> getAttendedEvent() {
-        return attendedEvent;
+    public List<String> getAttendedEvents() {
+        return attendedEvents;
     }
 
-    public void setAttendedEvent(List<String> attendedEvent) {
-        this.attendedEvent = attendedEvent;
+    public void setAttendedEvents(List<String> attendedEvents) {
+        this.attendedEvents = attendedEvents;
     }
 
     public List<String> getAttendedEventType() {
@@ -1101,12 +1121,12 @@ public class Person extends AbstractSolrDocument {
         this.credentialEligibilityAttainedType = credentialEligibilityAttainedType;
     }
 
-    public List<String> getAwardAndHonor() {
-        return awardAndHonor;
+    public List<String> getAwardsAndHonors() {
+        return awardsAndHonors;
     }
 
-    public void setAwardAndHonor(List<String> awardAndHonor) {
-        this.awardAndHonor = awardAndHonor;
+    public void setAwardsAndHonors(List<String> awardsAndHonors) {
+        this.awardsAndHonors = awardsAndHonors;
     }
 
     public List<String> getAwardAndHonorDate() {
@@ -1157,12 +1177,12 @@ public class Person extends AbstractSolrDocument {
         this.adviseeOfEndDate = adviseeOfEndDate;
     }
 
-    public List<String> getSelectedPublication() {
-        return selectedPublication;
+    public List<String> getPublications() {
+        return publications;
     }
 
-    public void setSelectedPublication(List<String> selectedPublication) {
-        this.selectedPublication = selectedPublication;
+    public void setPublications(List<String> publications) {
+        this.publications = publications;
     }
 
     public List<String> getSelectedPublicationType() {
@@ -1293,12 +1313,12 @@ public class Person extends AbstractSolrDocument {
         this.editorOfDate = editorOfDate;
     }
 
-    public List<String> getPresentation() {
-        return presentation;
+    public List<String> getPresentations() {
+        return presentations;
     }
 
-    public void setPresentation(List<String> presentation) {
-        this.presentation = presentation;
+    public void setPresentations(List<String> presentations) {
+        this.presentations = presentations;
     }
 
     public List<String> getPresentationType() {
@@ -1517,12 +1537,12 @@ public class Person extends AbstractSolrDocument {
         this.investigatorOnEndDate = investigatorOnEndDate;
     }
 
-    public List<String> getOtherResearchActivity() {
-        return otherResearchActivity;
+    public List<String> getOtherResearchActivities() {
+        return otherResearchActivities;
     }
 
-    public void setOtherResearchActivity(List<String> otherResearchActivity) {
-        this.otherResearchActivity = otherResearchActivity;
+    public void setOtherResearchActivities(List<String> otherResearchActivities) {
+        this.otherResearchActivities = otherResearchActivities;
     }
 
     public List<String> getOtherResearchActivityRole() {
@@ -1557,12 +1577,12 @@ public class Person extends AbstractSolrDocument {
         this.teachingOverview = teachingOverview;
     }
 
-    public List<String> getTeachingActivity() {
-        return teachingActivity;
+    public List<String> getTeachingActivities() {
+        return teachingActivities;
     }
 
-    public void setTeachingActivity(List<String> teachingActivity) {
-        this.teachingActivity = teachingActivity;
+    public void setTeachingActivities(List<String> teachingActivities) {
+        this.teachingActivities = teachingActivities;
     }
 
     public List<String> getTeachingActivityRole() {
@@ -1701,12 +1721,12 @@ public class Person extends AbstractSolrDocument {
         this.organizerOfEventEndDate = organizerOfEventEndDate;
     }
 
-    public List<String> getProfessionalServiceActivity() {
-        return professionalServiceActivity;
+    public List<String> getProfessionalServiceActivities() {
+        return professionalServiceActivities;
     }
 
-    public void setProfessionalServiceActivity(List<String> professionalServiceActivity) {
-        this.professionalServiceActivity = professionalServiceActivity;
+    public void setProfessionalServiceActivities(List<String> professionalServiceActivities) {
+        this.professionalServiceActivities = professionalServiceActivities;
     }
 
     public List<String> getProfessionalServiceActivityRole() {
@@ -1741,12 +1761,12 @@ public class Person extends AbstractSolrDocument {
         this.professionalServiceActivityEndDate = professionalServiceActivityEndDate;
     }
 
-    public List<String> getOutreachAndCommunityServiceActivity() {
-        return outreachAndCommunityServiceActivity;
+    public List<String> getOutreachAndCommunityServiceActivities() {
+        return outreachAndCommunityServiceActivities;
     }
 
-    public void setOutreachAndCommunityServiceActivity(List<String> outreachAndCommunityServiceActivity) {
-        this.outreachAndCommunityServiceActivity = outreachAndCommunityServiceActivity;
+    public void setOutreachAndCommunityServiceActivities(List<String> outreachAndCommunityServiceActivities) {
+        this.outreachAndCommunityServiceActivities = outreachAndCommunityServiceActivities;
     }
 
     public List<String> getOutreachAndCommunityServiceActivityType() {
@@ -1875,14 +1895,6 @@ public class Person extends AbstractSolrDocument {
 
     public void setSameAs(List<String> sameAs) {
         this.sameAs = sameAs;
-    }
-
-    public List<String> getSameAsType() {
-        return sameAsType;
-    }
-
-    public void setSameAsType(List<String> sameAsType) {
-        this.sameAsType = sameAsType;
     }
 
     public String getEraCommonsId() {

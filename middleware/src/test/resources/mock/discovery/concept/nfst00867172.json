@@ -1,0 +1,18 @@
+{
+  "id": "nfst00867172",
+  "name": "Collection development (Libraries)",
+  "type": [
+    "Concept"
+  ],
+  "associatedDepartments": [
+    "University Libraries::nb7f16f5c"
+  ],
+  "researchAreaOf": [
+    "Hubbard, David::nfc5401e7",
+    "Tabacaru, Simona::nb3f90c0a"
+  ],
+  "researchAreaOfOrganization": [
+    "University Libraries::nb3f90c0a::nb7f16f5c",
+    "University Libraries::nfc5401e7::nb7f16f5c"
+  ]
+}

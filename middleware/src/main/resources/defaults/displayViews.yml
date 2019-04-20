@@ -30,7 +30,7 @@
       hidden: false
       template: "defaults/displayViews/people/overview/keywords.html"
       requiredFields:
-      - keyword
+      - keywords
   - name: Affiliation
     hidden: false
     sections:
@@ -53,12 +53,12 @@
       hidden: false
       template: "defaults/displayViews/people/affiliation/clinicalActivities.html"
       requiredFields:
-      - clinicalActivity
+      - clinicalActivities
     - name: attended event
       hidden: false
       template: "defaults/displayViews/people/affiliation/attendedEvent.html"
       requiredFields:
-      - attendedEvent
+      - attendedEvents
   - name: Academic Background
     hidden: false
     sections:
@@ -89,9 +89,9 @@
       hidden: false
       template: "defaults/displayViews/people/publications/selectedPublications.html"
       requiredFields:
-      - selectedPublication
+      - publications
       lazyReferences:
-      - field: selectedPublication
+      - field: publications
         collection: documents
     - name: collection or series editor for
       hidden: false
@@ -107,7 +107,7 @@
       hidden: false
       template: "defaults/displayViews/people/publications/presentations.html"
       requiredFields:
-      - presentation
+      - presentations
     - name: featured in
       hidden: false
       template: "defaults/displayViews/people/publications/featuredIn.html"
@@ -168,7 +168,7 @@
       hidden: false
       template: "defaults/displayViews/people/recentCourses/teachingActivities.html"
       requiredFields:
-      - teachingActivity
+      - teachingActivities
     - name: advisees
       hidden: false
       template: "defaults/displayViews/people/recentCourses/advisees.html"
@@ -181,7 +181,7 @@
       hidden: false
       template: "defaults/displayViews/people/worksByStudents/chairedThesesAndDissertations.html"
       requiredFields:
-      - chairedThesesAndDissertations
+      - etdChairOf
   - name: Service
     hidden: false
     sections:
@@ -209,12 +209,12 @@
       hidden: false
       template: "defaults/displayViews/people/service/professionalServiceActivities.html"
       requiredFields:
-      - professionalServiceActivity
+      - professionalServiceActivities
     - name: outreach and community service activities
       hidden: false
       template: "defaults/displayViews/people/service/outreachAndCommunityServiceActivities.html"
       requiredFields:
-      - outreachAndCommunityServiceActivity
+      - outreachAndCommunityServiceActivities
     - name: performs technique
       hidden: false
       template: "defaults/displayViews/people/service/performsTechnique.html"
@@ -434,7 +434,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/overview/offersDegree.html"
       requiredFields:
-      - offersDegree
+      - degrees
     - name: abbreviation
       hidden: false
       template: "defaults/displayViews/organizations/overview/abbreviation.html"
@@ -464,7 +464,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/overview/keywords.html"
       requiredFields:
-      - keyword
+      - keywords
   - name: Affiliation
     hidden: false
     sections:
@@ -482,7 +482,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/hasSubOrganization.html"
       requiredFields:
-      - hasSubOrganization
+      - hasSubOrganizations
     - name: organization within
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/organizationWithin.html"
@@ -512,7 +512,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/clinicalActivities.html"
       requiredFields:
-      - clinicalActivity
+      - clinicalActivities
     - name: convener of event
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/convenerOfEvent.html"
@@ -522,7 +522,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/attendedEvent.html"
       requiredFields:
-      - attendedEvent
+      - attendedEvents
   - name: Publications
     hidden: false
     sections:
@@ -530,7 +530,10 @@
       hidden: false
       template: "defaults/displayViews/organizations/publications/selectedPublications.html"
       requiredFields:
-      - selectedPublication
+      - publications
+      lazyReferences:
+      - field: publications
+        collection: documents
     - name: publisher of
       hidden: false
       template: "defaults/displayViews/organizations/publications/publisherOf.html"
@@ -540,7 +543,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/publications/presentations.html"
       requiredFields:
-      - presentation
+      - presentations
     - name: featured in
       hidden: false
       template: "defaults/displayViews/organizations/publications/featuredIn.html"
@@ -591,7 +594,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/service/outreachAndCommunityServiceActivities.html"
       requiredFields:
-      - outreachAndCommunityServiceActivity
+      - outreachAndCommunityServiceActivities
     - name: has equipment
       hidden: false
       template: "defaults/displayViews/organizations/service/hasEquipment.html"
@@ -601,7 +604,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/service/offersCourse.html"
       requiredFields:
-      - offersCourse
+      - courses
   - name: Identity
     hidden: false
     sections:
@@ -647,7 +650,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/contact/locatedInFacility.html"
       requiredFields:
-      - locatedAtFacility
+      - locatedAtFacilities
     - name: predecessor organization
       hidden: false
       template: "defaults/displayViews/organizations/contact/predecessorOrganization.html"
@@ -725,7 +728,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/other/uses.html"
       requiredFields:
-      - relates
+      - uses
 
 - name: Publications
   types:
@@ -756,7 +759,7 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/authors.html"
       requiredFields:
-      - author
+      - authors
     - name: author list (cited authors)
       hidden: false
       template: "defaults/displayViews/publications/overview/authorList.html"
@@ -771,12 +774,12 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/editors.html"
       requiredFields:
-      - editor
+      - editors
     - name: translator
       hidden: false
       template: "defaults/displayViews/publications/overview/translator.html"
       requiredFields:
-      - translator
+      - translators
     - name: status
       hidden: false
       template: "defaults/displayViews/publications/overview/status.html"
@@ -791,22 +794,22 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/hasSubjectArea.html"
       requiredFields:
-      - subjectArea
+      - subjectAreas
     - name: has restriction
       hidden: false
       template: "defaults/displayViews/publications/overview/hasRestriction.html"
       requiredFields:
-      - restriction
+      - restrictions
     - name: has document part
       hidden: false
       template: "defaults/displayViews/publications/overview/hasDocumentPart.html"
       requiredFields:
-      - documentPart
+      - documentParts
     - name: features
       hidden: false
       template: "defaults/displayViews/publications/overview/features.html"
       requiredFields:
-      - feature
+      - features
     - name: published in
       hidden: false
       template: "defaults/displayViews/publications/overview/publishedIn.html"
@@ -836,7 +839,7 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/keywords.html"
       requiredFields:
-      - keyword
+      - keywords
   - name: Identity
     hidden: false
     sections:
@@ -902,7 +905,7 @@
       hidden: false
       template: "defaults/displayViews/publications/relatedDocuments/hasTranslation.html"
       requiredFields:
-      - hasTranslation
+      - translations
     - name: translation of
       hidden: false
       template: "defaults/displayViews/publications/relatedDocuments/translationOf.html"
@@ -1025,7 +1028,7 @@
       hidden: false
       template: "defaults/displayViews/grants/overview/hasSubjectArea.html"
       requiredFields:
-      - subjectArea
+      - subjectAreas
     - name: awarded by
       hidden: false
       template: "defaults/displayViews/grants/overview/awardedBy.html"
@@ -1088,7 +1091,7 @@
       hidden: false
       template: "defaults/displayViews/grants/affiliation/contributor.html"
       requiredFields:
-      - contributor
+      - contributors
   - name: Publications
     hidden: false
     sections:
@@ -1277,7 +1280,7 @@
       hidden: false
       template: "defaults/displayViews/courses/overview/hasSubjectArea.html"
       requiredFields:
-      - hasSubjectArea
+      - subjectAreas
     - name: has prerequisite
       hidden: false
       template: "defaults/displayViews/courses/overview/hasPrerequisite.html"
@@ -1385,17 +1388,17 @@
       hidden: false
       template: "defaults/displayViews/concepts/overview/broaderConcept.html"
       requiredFields:
-      - broaderConcept
+      - broaderConcepts
     - name: narrower concept
       hidden: false
       template: "defaults/displayViews/concepts/overview/narrowerConcept.html"
       requiredFields:
-      - narrowerConcept
+      - narrowerConcepts
     - name: related concept
       hidden: false
       template: "defaults/displayViews/concepts/overview/relatedConcept.html"
       requiredFields:
-      - relatedConcept
+      - relatedConcepts
   - name: Identity
     hidden: false
     sections:

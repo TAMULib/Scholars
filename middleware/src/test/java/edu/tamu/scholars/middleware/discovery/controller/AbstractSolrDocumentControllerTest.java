@@ -18,6 +18,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,20 +82,38 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
     }
 
     @Test
+    public void testGetSolrDocument() throws Exception {
+        for (D mockDocument : mockDocuments) {
+            ConstraintDescriptionsHelper describeDocument = new ConstraintDescriptionsHelper(mockDocument.getClass());
+
+            // @formatter:off
+            mockMvc.perform(get(getPath() + "/{id}", mockDocument.getId()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+                .andDo(
+                    document(
+                        getPath().substring(1) + "/find-by-id",
+                        pathParameters(
+                            describeDocument.withParameter("id", String.format("The %s id.", getType().getSimpleName()))
+                        )
+                    )
+                );
+            // @formatter:on
+        }
+    }
+
+    @Test
     public void testSearchSolrDocumentsFacetPage() throws Exception {
         // @formatter:off
-        mockMvc.perform(
-            get(
-                getPath() + "/search/facet")
-                    .param("query", "*")
-                    .param("facets", "type")
-                    .param("type.limit", "5")
-                    .param("type.offset", "0")
-                    .param("type.sort", "COUNT")
-                    .param("page", "0")
-                    .param("size", "20")
-                    .param("sort", "id")
-                )
+        mockMvc.perform(get(getPath() + "/search/facet")
+            .param("query", "*")
+            .param("facets", "type")
+            .param("type.limit", "5")
+            .param("type.offset", "0")
+            .param("type.sort", "COUNT")
+            .param("page", "0")
+            .param("size", "20")
+            .param("sort", "id"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("page.size", equalTo(20)))
@@ -129,47 +150,51 @@ public abstract class AbstractSolrDocumentControllerTest<D extends AbstractSolrD
     @Test
     public void testSearchSolrDocumentsCount() throws Exception {
         // @formatter:off
-        mockMvc.perform(
-            get(
-                getPath() + "/search/count")
-                    .param("query", "*")
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("value", equalTo(3)))
-                .andDo(
-                    document(
-                        getPath().substring(1) + "/count-search",
-                        requestParameters(
-                            parameterWithName("query").description("The search query")
-                        ),
-                        responseFields(
-                            subsectionWithPath("value").description("The resulting count.")
-                        )
+        mockMvc.perform(get(getPath() + "/search/count").param("query", "*"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("value", equalTo(3)))
+            .andDo(
+                document(
+                    getPath().substring(1) + "/count-search",
+                    requestParameters(
+                        parameterWithName("query").description("The search query")
+                    ),
+                    responseFields(
+                        subsectionWithPath("value").description("The resulting count.")
                     )
-                );
+                )
+            );
         // @formatter:on
     }
 
     @Test
-    public void testGetSolrDocument() throws Exception {
+    public void testFindByIdInSolrDocument() throws Exception {
+        List<String> ids = new ArrayList<String>();
         for (D mockDocument : mockDocuments) {
-            ConstraintDescriptionsHelper describeDocument = new ConstraintDescriptionsHelper(mockDocument.getClass());
-
-            // @formatter:off
-            mockMvc.perform(get(getPath() + "/{id}", mockDocument.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
-                .andDo(
-                    document(
-                        getPath().substring(1) + "/find-by-id",
-                        pathParameters(
-                            describeDocument.withParameter("id", String.format("The %s id.", getType().getSimpleName()))
-                        )
-                    )
-                );
-            // @formatter:on
+            ids.add(mockDocument.getId());
         }
+        ConstraintDescriptionsHelper describeDocument = new ConstraintDescriptionsHelper(getType());
+        // @formatter:off
+        mockMvc.perform(get(getPath() + "/search/findByIdIn").param("ids", String.join(",", ids)))            
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+            .andDo(
+                document(
+                    getPath().substring(1) + "/find-by-id-in",
+                    requestParameters(
+                        describeDocument.withParameter("ids", String.format("The %s ids.", getType().getSimpleName()))
+                    ),
+                    links(
+                        linkWithRel("self").description("Canonical link for this resource")
+                    ),
+                    responseFields(
+                        subsectionWithPath("_embedded." + getPath().substring(1)).description(String.format("An array of <<resources-%s, %s resources>>.", getPath().substring(1, getPath().length() - 1), getType().getSimpleName())),
+                        subsectionWithPath("_links").description(String.format("<<resources-%s-list-links, Links>> to other resources.", getPath().substring(1, getPath().length() - 1)))
+                    )
+                )
+            );
+        // @formatter:on
     }
 
     @Test

@@ -1,13 +1,22 @@
 {
-    "id": "n13af146b",
-    "title": "Liquid-Fuel Combustion at Engine Conditions Using Laminar Flames and an Aerosol Shock Tube in Qatar",
-    "type": [
-        "Grant"
-    ],
-    "awardedBy": [
-        "Qatar Foundation"
-    ],
-    "awardedByType": [
-        "Organization"
-    ]
+  "id": "n13af146b",
+  "title": "Liquid-Fuel Combustion at Engine Conditions Using Laminar Flames and an Aerosol Shock Tube in Qatar",
+  "type": [
+    "Grant"
+  ],
+  "awardedBy": [
+    "Qatar Foundation::ngrid.418818.c"
+  ],
+  "awardedByType": [
+    "Organization::ngrid.418818.c"
+  ],
+  "contributors": [
+    "Guo, Bing::n08c7f257"
+  ],
+  "contributorType": [
+    "CoPrincipalInvestigatorRole::n487e2545"
+  ],
+  "coPrincipalInvestigators": [
+    "Guo, Bing::n08c7f257"
+  ]
 }

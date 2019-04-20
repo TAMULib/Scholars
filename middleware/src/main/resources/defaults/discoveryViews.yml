@@ -24,7 +24,7 @@
     collapsed: true
     hidden: false
   - name: Research Area
-    field: researchArea
+    field: researchAreas
     type: STRING
     sort: COUNT
     direction: DESC
@@ -40,7 +40,7 @@
     collapsed: true
     hidden: false
   - name: Position
-    field: position
+    field: positions
     type: STRING
     sort: COUNT
     direction: DESC
@@ -81,7 +81,7 @@
     collapsed: true
     hidden: false
   - name: Author
-    field: author
+    field: authors
     type: STRING
     sort: COUNT
     direction: DESC
@@ -149,7 +149,7 @@
     collapsed: true
     hidden: false
   - name: Principal Investigator
-    field: principalInvestigator
+    field: principalInvestigators
     type: STRING
     sort: COUNT
     direction: DESC
@@ -157,7 +157,7 @@
     collapsed: true
     hidden: false
   - name: Co-Principal Investigator
-    field: coPrincipalInvestigator
+    field: coPrincipalInvestigators
     type: STRING
     sort: COUNT
     direction: DESC
@@ -249,7 +249,7 @@
     collapsed: true
     hidden: true
   - name: Instructor
-    field: participant
+    field: participants
     type: STRING
     sort: COUNT
     direction: DESC
@@ -303,7 +303,7 @@
     collapsed: true
     hidden: true
   - name: Associated Department
-    field: associatedDepartment
+    field: associatedDepartments
     type: STRING
     sort: COUNT
     direction: DESC

@@ -1,18 +1,14 @@
 {
-    "id": "nf32a4434",
-    "title": "Metadata design award (test) (Lee, Dong Joon)",
-    "type": [
-        "AwardReceipt"
-    ],
-    "receiptOf": [
-        "Test 002@en-US",
-        "Metadata design award (test)"
-    ],
-    "receiptOfType": [
-        "Award",
-        "Award"
-    ],
-    "yearAwarded": [
-        "Thu Dec 31 18:00:00 CST 2009"
-    ]
+  "id": "nf32a4434",
+  "title": "Metadata design award (test) (Lee, Dong Joon)",
+  "type": [
+    "AwardReceipt"
+  ],
+  "receiptOf": [
+    "Metadata design award (test)::nc7b1101c"
+  ],
+  "receiptOfType": [
+    "Award::nc7b1101c"
+  ],
+  "yearAwarded": "2010-01-01T00:00:00"
 }

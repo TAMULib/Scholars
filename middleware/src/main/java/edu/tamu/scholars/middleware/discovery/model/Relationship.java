@@ -161,10 +161,10 @@ public class Relationship extends AbstractSolrDocument {
     @PropertySource(template = "relationship/localAwardId", predicate = "http://vivoweb.org/ontology/core#localAwardId")
     private String localAwardId;
 
-    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "contributorType", key = "type") })
     @PropertySource(template = "relationship/contributor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> contributor;
+    private List<String> contributors;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "relationship/contributorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
@@ -173,12 +173,12 @@ public class Relationship extends AbstractSolrDocument {
     @NestedObject
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "relationship/principalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> principalInvestigator;
+    private List<String> principalInvestigators;
 
     @NestedObject
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "relationship/coPrincipalInvestigator", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> coPrincipalInvestigator;
+    private List<String> coPrincipalInvestigators;
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "supportedPublicationOrOtherWorkType", key = "type") })
@@ -189,26 +189,26 @@ public class Relationship extends AbstractSolrDocument {
     @PropertySource(template = "relationship/supportedPublicationOrOtherWorkType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> supportedPublicationOrOtherWorkType;
 
-    @Indexed(type = "pdates")
+    @Indexed(type = "pdate")
     @PropertySource(template = "relationship/dateTimeIntervalStart", predicate = "http://vivoweb.org/ontology/core#dateTime")
-    private List<String> dateTimeIntervalStart;
+    private String dateTimeIntervalStart;
 
-    @Indexed(type = "pdates")
+    @Indexed(type = "pdate")
     @PropertySource(template = "relationship/dateTimeIntervalEnd", predicate = "http://vivoweb.org/ontology/core#dateTime")
-    private List<String> dateTimeIntervalEnd;
+    private String dateTimeIntervalEnd;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @NestedObject({ @Reference(value = "subjectAreaType", key = "type") })
-    @PropertySource(template = "relationship/subjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> subjectArea;
+    @PropertySource(template = "relationship/hasSubjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> subjectAreas;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "relationship/subjectAreaType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
+    @PropertySource(template = "relationship/hasSubjectAreaType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> subjectAreaType;
 
-    @Indexed(type = "pdates")
+    @Indexed(type = "pdate")
     @PropertySource(template = "relationship/yearAwarded", predicate = "http://vivoweb.org/ontology/core#dateTime")
-    private List<String> yearAwarded;
+    private String yearAwarded;
 
     @NestedObject
     @Indexed(type = "nested_strings")
@@ -515,12 +515,12 @@ public class Relationship extends AbstractSolrDocument {
         this.localAwardId = localAwardId;
     }
 
-    public List<String> getContributor() {
-        return contributor;
+    public List<String> getContributors() {
+        return contributors;
     }
 
-    public void setContributor(List<String> contributor) {
-        this.contributor = contributor;
+    public void setContributors(List<String> contributors) {
+        this.contributors = contributors;
     }
 
     public List<String> getContributorType() {
@@ -531,20 +531,20 @@ public class Relationship extends AbstractSolrDocument {
         this.contributorType = contributorType;
     }
 
-    public List<String> getPrincipalInvestigator() {
-        return principalInvestigator;
+    public List<String> getPrincipalInvestigators() {
+        return principalInvestigators;
     }
 
-    public void setPrincipalInvestigator(List<String> principalInvestigator) {
-        this.principalInvestigator = principalInvestigator;
+    public void setPrincipalInvestigators(List<String> principalInvestigators) {
+        this.principalInvestigators = principalInvestigators;
     }
 
-    public List<String> getCoPrincipalInvestigator() {
-        return coPrincipalInvestigator;
+    public List<String> getCoPrincipalInvestigators() {
+        return coPrincipalInvestigators;
     }
 
-    public void setCoPrincipalInvestigator(List<String> coPrincipalInvestigator) {
-        this.coPrincipalInvestigator = coPrincipalInvestigator;
+    public void setCoPrincipalInvestigators(List<String> coPrincipalInvestigators) {
+        this.coPrincipalInvestigators = coPrincipalInvestigators;
     }
 
     public List<String> getSupportedPublicationOrOtherWork() {
@@ -563,28 +563,28 @@ public class Relationship extends AbstractSolrDocument {
         this.supportedPublicationOrOtherWorkType = supportedPublicationOrOtherWorkType;
     }
 
-    public List<String> getDateTimeIntervalStart() {
+    public String getDateTimeIntervalStart() {
         return dateTimeIntervalStart;
     }
 
-    public void setDateTimeIntervalStart(List<String> dateTimeIntervalStart) {
+    public void setDateTimeIntervalStart(String dateTimeIntervalStart) {
         this.dateTimeIntervalStart = dateTimeIntervalStart;
     }
 
-    public List<String> getDateTimeIntervalEnd() {
+    public String getDateTimeIntervalEnd() {
         return dateTimeIntervalEnd;
     }
 
-    public void setDateTimeIntervalEnd(List<String> dateTimeIntervalEnd) {
+    public void setDateTimeIntervalEnd(String dateTimeIntervalEnd) {
         this.dateTimeIntervalEnd = dateTimeIntervalEnd;
     }
 
-    public List<String> getSubjectArea() {
-        return subjectArea;
+    public List<String> getSubjectAreas() {
+        return subjectAreas;
     }
 
-    public void setSubjectArea(List<String> subjectArea) {
-        this.subjectArea = subjectArea;
+    public void setSubjectAreas(List<String> subjectAreas) {
+        this.subjectAreas = subjectAreas;
     }
 
     public List<String> getSubjectAreaType() {
@@ -595,11 +595,11 @@ public class Relationship extends AbstractSolrDocument {
         this.subjectAreaType = subjectAreaType;
     }
 
-    public List<String> getYearAwarded() {
+    public String getYearAwarded() {
         return yearAwarded;
     }
 
-    public void setYearAwarded(List<String> yearAwarded) {
+    public void setYearAwarded(String yearAwarded) {
         this.yearAwarded = yearAwarded;
     }
 

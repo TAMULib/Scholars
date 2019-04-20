@@ -38,13 +38,13 @@ public class Process extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "websiteUrl", key = "url") })
     @PropertySource(template = "process/website", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> website;
+    private List<String> websites;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "process/websiteUrl", predicate = "http://www.w3.org/2006/vcard/ns#url")
     private List<String> websiteUrl;
 
-    @Indexed(copyTo = "_text_")
+    @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "process/description", predicate = "http://vivoweb.org/ontology/core#description")
     private String description;
 
@@ -57,13 +57,13 @@ public class Process extends AbstractSolrDocument {
     @PropertySource(template = "process/offeredByType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> offeredByType;
 
-    @Indexed(type = "pdates")
+    @Indexed(type = "pdate")
     @PropertySource(template = "process/dateTimeIntervalStart", predicate = "http://vivoweb.org/ontology/core#dateTime")
-    private List<String> dateTimeIntervalStart;
+    private String dateTimeIntervalStart;
 
-    @Indexed(type = "pdates")
+    @Indexed(type = "pdate")
     @PropertySource(template = "process/dateTimeIntervalEnd", predicate = "http://vivoweb.org/ontology/core#dateTime")
-    private List<String> dateTimeIntervalEnd;
+    private String dateTimeIntervalEnd;
 
     @NestedObject
     @Indexed(type = "nested_strings")
@@ -83,7 +83,7 @@ public class Process extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "participantRole", key = "role") })
     @PropertySource(template = "process/participant", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> participant;
+    private List<String> participants;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "process/participantRole", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
@@ -92,7 +92,7 @@ public class Process extends AbstractSolrDocument {
     @NestedObject
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "process/hasSubjectArea", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> hasSubjectArea;
+    private List<String> subjectAreas;
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "hasPrerequisiteType", key = "type") })
@@ -137,15 +137,15 @@ public class Process extends AbstractSolrDocument {
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "relatedDocumentType", key = "type") })
     @PropertySource(template = "process/relatedDocument", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> relatedDocument;
+    private List<String> relatedDocuments;
 
     @Indexed(type = "nested_strings")
     @PropertySource(template = "process/relatedDocumentType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> relatedDocumentType;
 
-    @Indexed(type = "whole_strings")
+    @Indexed(type = "whole_string")
     @PropertySource(template = "process/contactInformation", predicate = "http://vivoweb.org/ontology/core#contactInformation")
-    private List<String> contactInformation;
+    private String contactInformation;
 
     @NestedObject
     @Indexed(type = "nested_strings")
@@ -220,12 +220,12 @@ public class Process extends AbstractSolrDocument {
         this.thumbnail = thumbnail;
     }
 
-    public List<String> getWebsite() {
-        return website;
+    public List<String> getWebsites() {
+        return websites;
     }
 
-    public void setWebsite(List<String> website) {
-        this.website = website;
+    public void setWebsites(List<String> websites) {
+        this.websites = websites;
     }
 
     public List<String> getWebsiteUrl() {
@@ -260,19 +260,19 @@ public class Process extends AbstractSolrDocument {
         this.offeredByType = offeredByType;
     }
 
-    public List<String> getDateTimeIntervalStart() {
+    public String getDateTimeIntervalStart() {
         return dateTimeIntervalStart;
     }
 
-    public void setDateTimeIntervalStart(List<String> dateTimeIntervalStart) {
+    public void setDateTimeIntervalStart(String dateTimeIntervalStart) {
         this.dateTimeIntervalStart = dateTimeIntervalStart;
     }
 
-    public List<String> getDateTimeIntervalEnd() {
+    public String getDateTimeIntervalEnd() {
         return dateTimeIntervalEnd;
     }
 
-    public void setDateTimeIntervalEnd(List<String> dateTimeIntervalEnd) {
+    public void setDateTimeIntervalEnd(String dateTimeIntervalEnd) {
         this.dateTimeIntervalEnd = dateTimeIntervalEnd;
     }
 
@@ -300,12 +300,12 @@ public class Process extends AbstractSolrDocument {
         this.inEventSeries = inEventSeries;
     }
 
-    public List<String> getParticipant() {
-        return participant;
+    public List<String> getParticipants() {
+        return participants;
     }
 
-    public void setParticipant(List<String> participant) {
-        this.participant = participant;
+    public void setParticipants(List<String> participants) {
+        this.participants = participants;
     }
 
     public List<String> getParticipantRole() {
@@ -316,12 +316,12 @@ public class Process extends AbstractSolrDocument {
         this.participantRole = participantRole;
     }
 
-    public List<String> getHasSubjectArea() {
-        return hasSubjectArea;
+    public List<String> getSubjectAreas() {
+        return subjectAreas;
     }
 
-    public void setHasSubjectArea(List<String> hasSubjectArea) {
-        this.hasSubjectArea = hasSubjectArea;
+    public void setSubjectAreas(List<String> subjectAreas) {
+        this.subjectAreas = subjectAreas;
     }
 
     public List<String> getHasPrerequisite() {
@@ -396,12 +396,12 @@ public class Process extends AbstractSolrDocument {
         this.outputPublicationOrOtherWorkType = outputPublicationOrOtherWorkType;
     }
 
-    public List<String> getRelatedDocument() {
-        return relatedDocument;
+    public List<String> getRelatedDocuments() {
+        return relatedDocuments;
     }
 
-    public void setRelatedDocument(List<String> relatedDocument) {
-        this.relatedDocument = relatedDocument;
+    public void setRelatedDocuments(List<String> relatedDocuments) {
+        this.relatedDocuments = relatedDocuments;
     }
 
     public List<String> getRelatedDocumentType() {
@@ -412,11 +412,11 @@ public class Process extends AbstractSolrDocument {
         this.relatedDocumentType = relatedDocumentType;
     }
 
-    public List<String> getContactInformation() {
+    public String getContactInformation() {
         return contactInformation;
     }
 
-    public void setContactInformation(List<String> contactInformation) {
+    public void setContactInformation(String contactInformation) {
         this.contactInformation = contactInformation;
     }
 

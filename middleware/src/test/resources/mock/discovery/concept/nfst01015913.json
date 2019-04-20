@@ -1,0 +1,18 @@
+{
+  "id": "nfst01015913",
+  "name": "Memory",
+  "type": [
+    "Concept"
+  ],
+  "associatedDepartments": [
+    "Center for Health Systems and Design::naaf1953a",
+    "College of Nursing::n699ce527"
+  ],
+  "researchAreaOf": [
+    "Dormire, Sharon::nd08ea40b"
+  ],
+  "researchAreaOfOrganization": [
+    "Center for Health Systems and Design::nd08ea40b::naaf1953a",
+    "College of Nursing::nd08ea40b::n699ce527"
+  ]
+}

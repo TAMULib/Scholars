@@ -47,6 +47,10 @@ public class DisplayViewTest {
         assertFalse(displayView.getTabs().get(0).getSections().get(0).isHidden());
         assertEquals("Test", displayView.getTabs().get(0).getSections().get(0).getName());
         assertEquals("<span>Hello, World!</span>", displayView.getTabs().get(0).getSections().get(0).getTemplate());
+
+        assertEquals(1, displayView.getTabs().get(0).getSections().get(0).getLazyReferences().size());
+        assertEquals("publications", displayView.getTabs().get(0).getSections().get(0).getLazyReferences().get(0).getField());
+        assertEquals("documents", displayView.getTabs().get(0).getSections().get(0).getLazyReferences().get(0).getCollection());
     }
 
 }
