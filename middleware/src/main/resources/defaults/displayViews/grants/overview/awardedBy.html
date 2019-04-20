@@ -1,9 +1,7 @@
-<div>
-  {{? it.awardedBy }}
+<ul>
   {{~ it.awardedBy :awardedBy}}
-  <div class="mb-1">
-    <span class="mr-1"><a href="display/relationships/{{=awardedBy.id}}">{{=awardedBy.label}}</a></span>
-  </div>
+  <li>
+    <span><a href="display/organizations/{{=awardedBy.id}}">{{=awardedBy.label}}</a></span>
+  </li>
   {{~}}
-  {{?}}
-</div>
+</ul>

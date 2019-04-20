@@ -1,9 +1,7 @@
-<div>
-  {{? it.hasSubOrganization }}
-  {{~ it.hasSubOrganization :hasSubOrganization}}
-  <div class="mb-1">
-    <span class="mr-1"><a href="display/organizations/{{=hasSubOrganization.id}}">{{=hasSubOrganization.label}}</a></span>
-  </div>
+<ul>
+  {{~ it.hasSubOrganization :organization}}
+  <li>
+    <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
+  </li>
   {{~}}
-  {{?}}
-</div>
+</ul>

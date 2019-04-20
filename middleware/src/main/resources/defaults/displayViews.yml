@@ -754,7 +754,7 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/abstract.html"
       requiredFields:
-      - abstractText
+      - abstract
     - name: authors
       hidden: false
       template: "defaults/displayViews/publications/overview/authors.html"

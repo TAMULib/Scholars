@@ -1,11 +1,22 @@
-<div>
-  {{? it.publisherOf }}
+<ul>
   {{~ it.publisherOf :publisherOf}}
-  <div class="mb-1">
-	<span class="mr-1"><a href="display/organizations/{{=publisherOf.id}}">{{=publisherOf.label}}</a></span>
-    <span class="mr-1">{{=publisherOf.type}},</span>
-    <span>{{=publisherOf.date}}</span>
-  </div>
+  <li>
+    <div class="comma-seperated">
+      <span><a href="display/documents/{{=publisherOf.id}}">{{=publisherOf.label}}</a></span>
+      <span>{{=publisherOf.type}}</span>
+      {{ publisherOf.dateYear = new Date(publisherOf.date).getFullYear(); { }}
+      <span>{{=publisherOf.dateYear}}</span>
+      {{ } }}
+    </div>
+  </li>
   {{~}}
-  {{?}}
-</div>
+</ul>
+<style>
+  .comma-seperated span:after {
+    content: ", ";
+  }
+
+  .comma-seperated span:last-child:after {
+    content: "";
+  }
+</style>

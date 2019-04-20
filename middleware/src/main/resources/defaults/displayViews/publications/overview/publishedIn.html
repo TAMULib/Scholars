@@ -1,10 +1,7 @@
-<div>
-  {{? it.publishedIn }}
+<ul>
   {{~ it.publishedIn :publishedIn}}
-  <div class="mb-1">
-    <span><a href="display/publications/{{=publishedIn.id}}">{{=publishedIn.label}}</a></span>
-    <span>{{=publishedIn.type}}</span>
-  </div>
+  <li>
+    <span>{{=publishedIn.label}}</span>
+  </li>
   {{~}}
-  {{?}}
-</div>
+</ul>

@@ -51,7 +51,7 @@ public class Concept extends AbstractSolrDocument {
     private List<String> associatedDepartments;
 
     @Indexed(type = "nested_strings")
-    @NestedObject({ @Reference(value = "researchAreaOfTitle", key = "title"), @Reference(value = "researchAreaOfOrganization", key = "organization") })
+    @NestedObject({ @Reference(value = "researchAreaOfTitle", key = "title"), @Reference(value = "researchAreaOfOrganization", key = "organizations") })
     @PropertySource(template = "concept/researchAreaOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> researchAreaOf;
 

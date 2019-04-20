@@ -1,10 +1,19 @@
-<div>
-{{? it.participant }}
-{{~ it.participant :participant}}
-<div class="mb-1">
-	<span class="mr-1"><a href="display/processes/{{=participant.label.id}}">{{=participant.label}}</a>,</span>
-	<span>{{=researchAreaOf.participantRole}}</span>
-</div>
-{{~}}
-{{?}}
-</div>
+<ul>
+  {{~ it.participants :participant}}
+  <li>
+    <div class="comma-seperated">
+      <span><a href="display/persons/{{=participant.id}}">{{=participant.label}}</a></span>
+      <span>{{=participant.role}}</span>
+    </div>
+  </li>
+  {{~}}
+</ul>
+<style>
+  .comma-seperated span:after {
+    content: ", ";
+  }
+
+  .comma-seperated span:last-child:after {
+    content: "";
+  }
+</style>

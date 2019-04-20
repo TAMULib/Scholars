@@ -1,10 +1,19 @@
-<div>
-  {{? it.people }}
+<ul>
   {{~ it.people :people}}
-  <div class="mb-1">
-	<span class="mr-1"><a href="display/organizations/{{=people.id}}">{{=people.label}} ,</a></span>
-    <span class="mr-1">{{=people.title}}</span>
-  </div>
+  <li>
+    <div class="comma-seperated">
+      <span><a href="display/persons/{{=people.id}}">{{=people.label}}</a></span>
+      <span>{{=people.title}}</span>
+    </div>
+  </li>
   {{~}}
-  {{?}}
-</div>
+</ul>
+<style>
+  .comma-seperated span:after {
+    content: ", ";
+  }
+
+  .comma-seperated span:last-child:after {
+    content: "";
+  }
+</style>

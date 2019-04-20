@@ -1,1 +1,21 @@
-<span>Work In Progress</span>
+<div>
+  {{? it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
+  {{ it.dateTimeIntervalStartYear = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
+  <span>{{=it.dateTimeIntervalStartYear}}</span>
+  {{ } }}
+  <span>-</span>
+  {{ it.dateTimeIntervalEndYear = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
+  <span>{{=it.dateTimeIntervalEndYear}}</span>
+  {{ } }}
+  {{?}}
+  {{? it.dateTimeIntervalStart && !it.dateTimeIntervalEnd }}
+  {{ it.dateTimeIntervalStartYear = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
+  <span>{{=it.dateTimeIntervalStartYear}}</span>
+  {{ } }}
+  {{?}}
+  {{? !it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
+  {{ it.dateTimeIntervalEndYear = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
+  <span>{{=it.dateTimeIntervalEndYear}}</span>
+  {{ } }}
+  {{?}}
+</div>
