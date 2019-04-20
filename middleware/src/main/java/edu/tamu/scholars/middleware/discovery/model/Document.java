@@ -82,7 +82,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> etdChairedByOrganization;
 
     @Indexed(type = "nested_strings")
-    @NestedObject({ @Reference(value = "authorType", key = "type"), @Reference(value = "authorRank", key = "rank"), @Reference(value = "authorOrganization", key = "organization") })
+    @NestedObject({ @Reference(value = "authorType", key = "type"), @Reference(value = "authorRank", key = "rank"), @Reference(value = "authorOrganization", key = "organizations") })
     @PropertySource(template = "document/author", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> authors;
 

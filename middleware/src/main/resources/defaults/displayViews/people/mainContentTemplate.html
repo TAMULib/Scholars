@@ -5,15 +5,15 @@
   <div class="mt-1">
     <h5>{{=it.preferredTitle}}</h5>
   </div>
-  {{? it.position}}
+  {{? it.positions }}
   <div>
     <span class="label">Positions:</span>
     <ul class="list-unstyled ml-1">
-      {{~it.position :position}}
+      {{~it.positions :position}}
       <li>
         <div class="comma-seperated">
           <span>{{=position.label}}</span>
-          {{~position.organization :organization}}
+          {{~position.organizations :organization}}
           <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
           {{~}}
         </div>
@@ -22,12 +22,12 @@
     </ul>
   </div>
   {{?}}
-  {{? it.researchArea }}
+  {{? it.researchAreas }}
   <div class="mt-1">
     <span class="label">Research Areas:</span>
   </div>
   <div class="comma-seperated ml-1">
-    {{~it.researchArea :researchArea}}
+    {{~it.researchAreas :researchArea}}
     <span><a href="display/concepts/{{=researchArea.id}}">{{=researchArea.label}}</a></span>
     {{~}}
   </div>

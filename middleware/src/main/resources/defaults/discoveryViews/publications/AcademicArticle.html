@@ -11,25 +11,21 @@
     <span>{{=it.publicationDateYear}}</span>
     {{ } }}
   </div>
-  {{? it.publicationVenue}}
+  {{? it.publicationVenue }}
   <div>
     <span class="label">Published In:</span>
-    <ul>
-      {{~it.publicationVenue :publicationVenue}}
-      <li><span>{{=publicationVenue.label}}</span></li>
-      {{~}}
-    </ul>
+    <span>{{=it.publicationVenue.label}}</span>
   </div>
   {{?}}
-  {{? it.author}}
+  {{? it.authors }}
   <div>
     <span class="label">TAMU Faculty Authors (Claimed):</span>
     <ul>
-      {{~it.author :author}}
+      {{~it.authors :author}}
       <li>
         <div class="comma-seperated">
           <span><a href="display/persons/{{=author.id}}">{{=author.label}}</a></span>
-          {{~author.organization :organization}}
+          {{~author.organizations :organization}}
           <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
           {{~}}
         </div>

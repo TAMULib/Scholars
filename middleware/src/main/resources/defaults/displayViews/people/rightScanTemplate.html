@@ -8,11 +8,11 @@
   <div>
     <i class="fa fa-phone"></i><span class="info"><a href="tel: {{=it.email}}">{{=it.phone}}</a></span>
   </div>
-  {{? it.website}}
+  {{? it.websites }}
   <div>
     <span class="label">Websites</span>
     <ul class="list-unstyled ml-1">
-      {{~it.website :website}}
+      {{~it.websites :website}}
       <li><span><a href="{{=website.url}}">{{=website.label}}</a></span></li>
       {{~}}
     </ul>

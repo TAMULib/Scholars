@@ -1,9 +1,10 @@
 <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
-{{? it.participant && it.participant.role && it.participant.role == 'Instructor' }}
+<!-- TODO: ensure participants have role Instructor -->
+{{? it.participants }}
 <div>
   <span class="label">Instructors:</span>
   <ul>
-    {{~it.participant :participant}}
+    {{~it.participants :participant}}
     <li><span><a href="display/concepts/{{=participant.id}}">{{=participant.label}}</a></span></li>
     {{~}}
   </ul>

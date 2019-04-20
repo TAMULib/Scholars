@@ -13,12 +13,12 @@
   </span>
 </div>
 <div>
-  {{? it.affiliatedResearchArea }}
+  {{? it.affiliatedResearchAreas }}
   <div class="mt-1">
     <span class="label">Research Areas:</span>
   </div>
   <div id="affiliated-research-area" class="comma-seperated ml-1">
-    {{~it.affiliatedResearchArea :affiliatedResearchArea}}
+    {{~it.affiliatedResearchAreas :affiliatedResearchArea}}
     <span><a href="display/concepts/{{=affiliatedResearchArea.id}}">{{=affiliatedResearchArea.label}}</a></span>
     {{~}}
   </div>

@@ -3,7 +3,7 @@
 </div>
 <div>
   <div>
-    {{? it.dateTimeIntervalStart && it.dateTimeIntervalEnd}}
+    {{? it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
     <span class="label">Date:</span>
     {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
     <span>{{=it.dateTimeIntervalStart}}</span>
@@ -13,42 +13,50 @@
     <span>{{=it.dateTimeIntervalEnd}}</span>
     {{ } }}
     {{?}}
-    {{? it.dateTimeIntervalStart && !it.dateTimeIntervalEnd}}
+    {{? it.dateTimeIntervalStart && !it.dateTimeIntervalEnd }}
     <span class="label">Date:</span>
     {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
     <span>{{=it.dateTimeIntervalStart}}</span>
     {{ } }}
     {{?}}
-    {{? !it.dateTimeIntervalStart && it.dateTimeIntervalEnd}}
+    {{? !it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
     <span class="label">Date:</span>
     {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
     <span>{{=it.dateTimeIntervalEnd}}</span>
     {{ } }}
     {{?}}
   </div>
+  {{? it.awardedBy }}
   <div>
     <span class="label">Awarded By:</span>
-    <span>{{=it.awardedBy[0].label}}</span>
-  </div>
-  {{? it.principalInvestigator}}
-  <div>
-    <span class="label">Principal Investigator:</span>
   </div>
   <div>
     <ul>
-      {{~it.principalInvestigator :principalInvestigator}}
+      {{~it.awardedBy :awardedBy}}
+      <li><span><a href="display/organizations/{{=awardedBy.id}}">{{=awardedBy.label}}</a></span></li>
+      {{~}}
+    </ul>
+  </div>
+  {{?}}
+  {{? it.principalInvestigators }}
+  <div>
+    <span class="label">Principal Investigators:</span>
+  </div>
+  <div>
+    <ul>
+      {{~it.principalInvestigators :principalInvestigator}}
       <li><span><a href="display/persons/{{=principalInvestigator.id}}">{{=principalInvestigator.label}}</a></span></li>
       {{~}}
     </ul>
   </div>
   {{?}}
-  {{? it.coPrincipalInvestigator}}
+  {{? it.coPrincipalInvestigators}}
   <div>
-    <span class="label">Co-Principal Investigator:</span>
+    <span class="label">Co-Principal Investigators:</span>
   </div>
   <div>
     <ul>
-      {{~it.coPrincipalInvestigator :coPrincipalInvestigator}}
+      {{~it.coPrincipalInvestigators :coPrincipalInvestigator}}
       <li><span><a href="display/persons/{{=coPrincipalInvestigator.id}}">{{=coPrincipalInvestigator.label}}</a></span></li>
       {{~}}
     </ul>

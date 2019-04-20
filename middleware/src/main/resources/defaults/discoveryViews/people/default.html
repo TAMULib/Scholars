@@ -12,19 +12,19 @@
   <div class="align-self-center">
     <div class="name"><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a></div>
     <div class="mt-1"><span>{{=it.preferredTitle}}</span></div>
-    {{~it.position :position}}
+    {{~it.positions :position}}
     <div class="comma-seperated">
-      {{~position.organization :organization}}      
+      {{~position.organizations :organization}}
       <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
       {{~}}
     </div>
     {{~}}
-    {{? it.researchArea }}
+    {{? it.researchAreas }}
     <div class="mt-1">
       <span>Research Areas</span>
     </div>
     <div class="comma-seperated">
-      {{~it.researchArea :researchArea}}
+      {{~it.researchAreas :researchArea}}
       <span><a href="display/concepts/{{=researchArea.id}}">{{=researchArea.label}}</a></span>
       {{~}}
     </div>
@@ -35,6 +35,7 @@
   .name {
     font-size: 15px;
   }
+
   .comma-seperated span:after {
     content: ", ";
   }
