@@ -1,5 +1,9 @@
-{{~ it.selectedPublication :publication}}
-<div class="mb-1">
-    <span class="mr-1">{{=publication.title}}</span>
-</div>
-{{~}}
+<ul>
+  {{~ it.publications :publication}}
+  <li>
+    <div>
+      <span><a href="display/documents/{{=publication.id}}">{{=publication.title}}</a></span>
+    </div>
+  </li>
+  {{~}}
+</ul>

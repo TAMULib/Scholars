@@ -1,1 +1,8 @@
-<span>Work In Progress</span>
+<ul class="list-unstyled">
+  {{~ it.teachingActivities :teachingActivity}}
+  <li class="mb-1">
+    <span class="mr-2"><a href="display/processes/{{=teachingActivity.id}}">{{=teachingActivity.label}}</a></span>
+    <span>{{=teachingActivity.role}}</span>
+  </li>
+  {{~}}
+</ul>
