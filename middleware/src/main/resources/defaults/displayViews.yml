@@ -1282,9 +1282,9 @@
       - inEventSeries
     - name: participant
       hidden: false
-      template: "defaults/displayViews/courses/overview/participant.html"
+      template: "defaults/displayViews/courses/overview/participants.html"
       requiredFields:
-      - participant
+      - participants
     - name: has subject area
       hidden: false
       template: "defaults/displayViews/courses/overview/hasSubjectArea.html"

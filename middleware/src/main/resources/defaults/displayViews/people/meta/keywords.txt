@@ -1,1 +1,1 @@
-{{=it.researchAreas}}
+{{? it.researchAreas }}{{=it.researchAreas}}{{?}}

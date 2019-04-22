@@ -1,14 +1,15 @@
-<ul>
+<ul class="list-unstyled">
   {{~ it.researchAreaOf :researchAreaOf}}
   <li>
     <div class="comma-seperated">
       <span><a href="display/persons/{{=researchAreaOf.id}}">{{=researchAreaOf.label}}</a></span>
-      <span>{{=researchAreaOf.title}}</span>
+      <!-- <span>{{=researchAreaOf.title}}</span> -->
       {{~ researchAreaOf.organizations :organization}}
       <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
       {{~}}
     </div>
   </li>
+  {{~}}
 </ul>
 <style>
   .comma-seperated span:after {
