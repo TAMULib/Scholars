@@ -1,1 +1,1 @@
-{{=it.name}}{{? it.organizationWithin}} - {{=it.organizationWithin}}{{?}}{{? it.geographicLocation}} - {{=it.geographicLocation}}{{?}}
+{{=it.name}}{{? it.organizationWithin }} - {{=it.organizationWithin}};{{?}} {{? it.geographicLocation}} - {{=it.geographicLocation}}{{?}}
