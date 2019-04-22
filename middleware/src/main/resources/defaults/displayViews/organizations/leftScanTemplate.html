@@ -1,1 +1,15 @@
-<div>Under Construction</div>
+<div>
+  <div class="text-center mb-4">
+    {{? it.image}}
+    <img class="organization" src="https://scholars.library.tamu.edu/vivo{{=it.image}}" height="150" width="150">
+    {{?}}
+    {{? !it.image}}
+    <img class="organization" src="https://via.placeholder.com/150" height="150" width="150">
+    {{?}}
+  </div>
+</div>
+<style>
+  img.organization {
+    box-shadow: 2px 2px 4px -1px grey;
+  }
+</style>

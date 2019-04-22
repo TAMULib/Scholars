@@ -23,7 +23,15 @@ export class DirectoryViewRepo extends AbstractSdrRepo<DirectoryView> implements
     }
 
     public count(request: SdrRequest): Observable<Count> {
-        throw new Error('Themes does not support count!');
+        throw new Error('Directory Views does not support count!');
+    }
+
+    public findByTypesIn(types: string[]): Observable<DirectoryView> {
+        throw new Error('Directory Views does not support find by types in!');
+    }
+
+    public findByIdIn(ids: string[]): Observable<SdrCollection> {
+        throw new Error('Directory Views does not support find by id in!');
     }
 
 }

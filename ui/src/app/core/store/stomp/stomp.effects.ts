@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { defer, of } from 'rxjs';
-import { catchError, map, switchMap, withLatestFrom, skipWhile } from 'rxjs/operators';
+import { catchError, map, switchMap, withLatestFrom, skipWhile, mergeMap } from 'rxjs/operators';
 
 import { AppState } from '../';
 import { StompSubscription } from '../../model/stomp';
@@ -71,7 +71,7 @@ export class StompEffects {
     @Effect() subscribe = this.actions.pipe(
         ofType(fromStomp.StompActionTypes.SUBSCRIBE),
         map((action: fromStomp.SubscribeAction) => action.payload),
-        switchMap((payload: { channel: string, handle: Function }) =>
+        mergeMap((payload: { channel: string, handle: Function }) =>
             this.stomp.subscribe(payload.channel, payload.handle).pipe(
                 map((subscription: StompSubscription) => new fromStomp.SubscribeSuccessAction({ channel: payload.channel, subscription })),
                 catchError((response) => of(new fromStomp.SubscribeFailureAction({ channel: payload.channel, response })))

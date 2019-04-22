@@ -2,11 +2,11 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
  
 CONSTRUCT {
-    ?date vivo:dateTime ?dateTime .
+    ?date vivo:dateTime ?dateTimeWithId .
 } WHERE {
-    <[(${uri})]> obo:RO_0000053 ?role .
-    ?role a vivo:TeacherRole .
-    ?role vivo:dateTimeInterval ?dateTimeInterval .
+    <[(${uri})]> obo:RO_0000056 ?training .
+    ?training vivo:dateTimeInterval ?dateTimeInterval .
     ?dateTimeInterval vivo:end ?date .
     ?date vivo:dateTime ?dateTime .
+    BIND( CONCAT( STR(?dateTime), REPLACE(STR(?training), "(^.*/)", "::") ) AS ?dateTimeWithId ) .
 }

@@ -2,8 +2,9 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
  
 CONSTRUCT {
-    ?document rdfs:label ?title .
+    ?document rdfs:label ?titleWithId .
 } WHERE {
     <[(${uri})]> vivo:featuredIn ?document .
     ?document rdfs:label ?title .
+    BIND( CONCAT( STR(?title), REPLACE(STR(?document), "(^.*/)", "::") ) AS ?titleWithId ) .
 }

@@ -1,8 +1,8 @@
-<div class="d-flex">
-  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
-  <div class="ml-2 justify-self-end">
-    <span class="badge badge-light">{{=it.type}}</span>
-  </div>
+<div class="d-flex flex-nowrap justify-content-between mb-1">
+  <span>
+    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
+  </span>
+  <span class="badge badge-light">{{=it.type}}</span>
 </div>
 <div>
   <div>
@@ -11,22 +11,21 @@
     <span>{{=it.publicationDateYear}}</span>
     {{ } }}
   </div>
-  {{? it.author && it.authorId}}
+  {{? it.authors }}
   <div>
     <span class="label">TAMU Faculty Authors (Claimed):</span>
     <ul>
-      {{~it.author :author:authorIndex}}
+      {{~it.authors :author}}
       <li>
         <div class="comma-seperated">
-          <span><a href="display/persons/{{=it.authorId[authorIndex]}}">{{=author}}</a></span>
-          {{~it.authorOrganization :organization:organizationIndex}}
-          <!-- TODO: when author organization id populated update href -->
-          <span><a href="display/organizations/">{{=organization}}</a></span>
+          <span><a href="display/persons/{{=author.id}}">{{=author.label}}</a></span>
+          {{~author.organizations :organization}}
+          <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
           {{~}}
         </div>
       </li>
       {{~}}
-    </ul>  
+    </ul>
   </div>
   {{?}}
 </div>
@@ -34,34 +33,28 @@
   {{? it.doi}}
   <span clsas="mr-1"><a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a></span>
   {{?}}
-  {{? it.pmid}}
-  <span clsas="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a></span>
+  {{? it.pmcid}}
+  <span clsas="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a></span>
   {{?}}
   {{? it.uri}}
   <span clsas="mr-1"><a href="{{=it.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a></span>
-  <!--
-  {{? it.doi}}
-  <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{=it.uri}}"></span>
   {{?}}
-  -->
-  {{?}}
-  <!--
-  {{? it.doi}}
-  <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-doi="{{=it.doi}}"></span>
-  <span class="__dimensions_badge_embed__ mr-1" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-top" data-doi="{{=it.doi}}"></span>
-  {{?}}
-  -->
 </div>
 <style>
   .label {
     font-weight: 550;
     margin-right: 2px;
   }
+
   .comma-seperated span:after {
     content: ", ";
   }
 
   .comma-seperated span:last-child:after {
     content: "";
+  }
+
+  .badge {
+    height: 18px;
   }
 </style>

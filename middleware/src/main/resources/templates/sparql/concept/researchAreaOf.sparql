@@ -3,8 +3,9 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?researchAreaOf rdfs:label ?label .
+    ?researchAreaOf rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> vivo:researchAreaOf ?researchAreaOf .
     ?researchAreaOf rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?researchAreaOf), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

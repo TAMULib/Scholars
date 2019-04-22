@@ -2,11 +2,12 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX bibo: <http://purl.org/ontology/bibo/>
 
 CONSTRUCT {
-    ?document bibo:pageStart ?pageStart
+    ?document bibo:pageStart ?pageStartWithId
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?editor .
     ?editor a vivo:Editorship .
     ?editor vivo:relates ?document .
     ?document a bibo:Document .
-    ?document bibo:pageStart ?pageStart
+    ?document bibo:pageStart ?pageStart .
+    BIND( CONCAT( STR(?pageStart), REPLACE(STR(?document), "(^.*/)", "::") ) AS ?pageStartWithId ) .
 }

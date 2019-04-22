@@ -51,6 +51,18 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
         });
     }
 
+    public findByIdIn(ids: string[]): Observable<SdrCollection> {
+        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}/search/findByIdIn?ids=${ids.join(',')}`, {
+            withCredentials: true
+        });
+    }
+
+    public findByTypesIn(types: string[]): Observable<R> {
+        return this.restService.get<R>(`${environment.service}/${this.path()}/search/findByTypesIn?types=${types.join(',')}`, {
+            withCredentials: true
+        });
+    }
+
     public post(resource: R): Observable<R> {
         return this.restService.post<R>(`${environment.service}/${this.path()}`, resource, { withCredentials: true });
     }

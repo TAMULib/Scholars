@@ -1,8 +1,11 @@
-<div class="d-flex">
-  <div>
+<div class="d-flex flex-nowrap justify-content-between">
+  <span>
     <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a>
-  </div>
-  <div class="ml-2 justify-self-end">
-    <span class="badge badge-light">{{=it.type}}</span>
-  </div>
+  </span>
+  <span class="badge badge-light">{{=it.type}}</span>
 </div>
+<style>
+  .badge {
+    height: 18px;
+  }
+</style>

@@ -46,16 +46,17 @@ export const selectDirectoryViewByCollection = (collection: string) => createSel
     }
 );
 
-export const selectDisplayViewByType = (types: string[]) => createSelector(
+export const selectDisplayViewByTypes = (types: string[]) => createSelector(
     selectResourceEntities<DisplayView>('displayViews'),
-    (displayViews) => {
+    selectResourceIsLoading<DisplayView>('displayViews'),
+    (displayViews, isLoading) => {
         let defaultDisplayView;
         for (const key in displayViews) {
             if (displayViews.hasOwnProperty(key)) {
                 for (const i in types) {
                     if (displayViews.hasOwnProperty(key)) {
                         if (displayViews[key].types.indexOf(types[i]) >= 0) {
-                            return displayViews[key];
+                            return [displayViews[key], isLoading];
                         }
                     }
                 }
@@ -64,6 +65,6 @@ export const selectDisplayViewByType = (types: string[]) => createSelector(
                 }
             }
         }
-        return defaultDisplayView;
+        return [defaultDisplayView, isLoading];
     }
 );

@@ -4,10 +4,10 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?fundingVehicleFor vitro:mostSpecificType ?mostSpecificType .
+    ?fundingVehicleFor vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> vivo:fundingVehicleFor ?fundingVehicleFor .
     ?fundingVehicleFor vitro:mostSpecificType ?mostSpecificType .
-
+	BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?fundingVehicleFor), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
     FILTER (?mostSpecificType != vivo:DateTimeValue)
 }

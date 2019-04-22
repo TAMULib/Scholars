@@ -1,0 +1,24 @@
+{
+  "id": "ndcac0c82_bc8951b7_730827c3",
+  "type": [
+    "EducationalProcess"
+  ],
+  "dateTimeIntervalEnd": "1992-01-01T00:00:00",
+  "outputPublicationOrOtherWork": [
+    "Ahmed, Anwer: Ph.D. Doctor of Philosophy::ndcac0c82_730827c3"
+  ],
+  "outputPublicationOrOtherWorkType": [
+    "AwardedDegree::ndcac0c82_730827c3"
+  ],
+  "hasOutput": [
+    "Ahmed, Anwer: Ph.D. Doctor of Philosophy::ndcac0c82_730827c3"
+  ],
+  "hasParticipant": [
+    "University of Rochester::nbc8951b7",
+    "Ahmed, Anwer::ndcac0c82"
+  ],
+  "hasParticipantType": [
+    "otherUniversity::nbc8951b7",
+    "FacultyMember::ndcac0c82"
+  ]
+}

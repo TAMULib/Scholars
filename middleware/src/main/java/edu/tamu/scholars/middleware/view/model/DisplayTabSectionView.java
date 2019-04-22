@@ -25,10 +25,14 @@ public class DisplayTabSectionView extends View {
     @ElementCollection
     private List<String> requiredFields;
 
+    @ElementCollection
+    private List<LazyReference> lazyReferences;
+
     public DisplayTabSectionView() {
         super();
         hidden = false;
         requiredFields = new ArrayList<String>();
+        lazyReferences = new ArrayList<LazyReference>();
     }
 
     public String getName() {
@@ -57,6 +61,14 @@ public class DisplayTabSectionView extends View {
 
     public void setRequiredFields(List<String> requiredFields) {
         this.requiredFields = requiredFields;
+    }
+
+    public List<LazyReference> getLazyReferences() {
+        return lazyReferences;
+    }
+
+    public void setLazyReferences(List<LazyReference> lazyReferences) {
+        this.lazyReferences = lazyReferences;
     }
 
 }

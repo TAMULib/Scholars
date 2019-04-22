@@ -1,10 +1,16 @@
 import { View } from './';
 
+export interface LazyReference {
+    readonly field: string;
+    readonly collection: string;
+}
+
 export interface DisplayTabSectionView extends View {
     readonly hidden: boolean;
     readonly template: string;
     templateFunction?: Function;
     readonly requiredFields: string[];
+    readonly lazyReferences: LazyReference[];
 }
 
 export interface DisplayTabView extends View {

@@ -1,0 +1,11 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?subjectArea rdfs:label ?labelWithId .
+} WHERE {
+    <[(${uri})]> vivo:hasSubjectArea ?subjectArea ; a vivo:Grant .
+    ?subjectArea rdfs:label ?label ; a skos:Concept .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?subjectArea), "(^.*/)", "::") ) AS ?labelWithId ) .
+}

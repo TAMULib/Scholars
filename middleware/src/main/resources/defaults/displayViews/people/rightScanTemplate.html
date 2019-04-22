@@ -1,19 +1,19 @@
 <div>
   <div class="mt-2">
-    <span class="fa fa-link"></span><span class="info">Contact Info</span>
+    <a href="http://scholars.library.tamu.edu/vivo/individual/{{=it.id}}"><i class="fa fa-link ml-1"></i></a><span class="info">Contact Info</span>
   </div>
   <div>
-    <span class="fa fa-envelope-o"></span><span class="info"><a href="mailto: {{=it.email}}">{{=it.email}}</a></span>
+    <i class="fa fa-envelope-o"></i><span class="info"><a href="mailto: {{=it.email}}">{{=it.email}}</a></span>
   </div>
   <div>
-    <span class="fa fa-phone"></span><span class="info"><a href="tel: {{=it.email}}">{{=it.phone}}</a></span>
+    <i class="fa fa-phone"></i><span class="info"><a href="tel: {{=it.email}}">{{=it.phone}}</a></span>
   </div>
-  {{? it.websiteLabel && it.websiteUrl}}
+  {{? it.websites }}
   <div>
     <span class="label">Websites</span>
     <ul class="list-unstyled ml-1">
-      {{~it.websiteLabel :label:index}}
-      <li><span><a href="{{=it.websiteUrl[index]}}">{{=label}}</a></span></li>
+      {{~it.websites :website}}
+      <li><span><a href="{{=website.url}}">{{=website.label}}</a></span></li>
       {{~}}
     </ul>
   </div>

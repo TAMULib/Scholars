@@ -1,22 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
-import { Observable, Subscription } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { Observable, Subscription, combineLatest, of } from 'rxjs';
+import { filter, tap, map, mergeMap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView } from '../core/model/view';
+import { DiscoveryView, DisplayView, DisplayTabView, DisplayTabSectionView, LazyReference } from '../core/model/view';
 
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
 
-import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType } from '../core/store/sdr';
+import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByTypes, selectResourceIsLoading, selectAllResources } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
@@ -39,6 +40,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
     private subscriptions: Subscription[];
 
     constructor(
+        @Inject(PLATFORM_ID) private platformId: string,
         private store: Store<AppState>,
         private route: ActivatedRoute
     ) {
@@ -64,15 +66,95 @@ export class DisplayComponent implements OnDestroy, OnInit {
                     select(selectResourceById(params.collection, params.id)),
                     filter((document: SolrDocument) => document !== undefined),
                     tap((document: SolrDocument) => {
-                        console.log(document);
                         this.displayView = this.store.pipe(
-                            select(selectDisplayViewByType(document.type)),
-                            filter((displayView: DisplayView) => displayView !== undefined),
-                            tap((displayView: DisplayView) => {
+                            select(selectDisplayViewByTypes(document.type)),
+                            tap(([displayView, isLoading]) => {
+                                if (displayView === undefined && !isLoading) {
+                                    this.store.dispatch(new fromSdr.FindByTypesInResourceAction('displayViews', {
+                                        types: document.type
+                                    }));
+                                }
+                            }),
+                            filter(([displayView]) => displayView !== undefined),
+                            mergeMap(([displayView]) => {
+                                const lazyObservables: Observable<any>[] = [
+                                    of([{}, false])
+                                ];
+                                const isLoaded = {};
+                                displayView.tabs.forEach((tab: DisplayTabView) => {
+                                    tab.sections.forEach((section: DisplayTabSectionView) => {
+                                        section.lazyReferences.forEach((lazyReference: LazyReference) => {
+                                            if (document[lazyReference.field] !== undefined) {
+                                                if (document[lazyReference.field] instanceof Array) {
+                                                    const ids = document[lazyReference.field].map((property) => property.id);
+                                                    this.store.dispatch(new fromSdr.FindByIdInResourceAction(lazyReference.collection, { ids }));
+                                                    const lazyObservable = combineLatest(
+                                                        this.store.pipe(
+                                                            select(selectAllResources(lazyReference.collection)),
+                                                            map((values) => {
+                                                                return {
+                                                                    field: lazyReference.field,
+                                                                    value: values
+                                                                };
+                                                            })
+                                                        ),
+                                                        this.store.pipe(
+                                                            select(selectResourceIsLoading(lazyReference.collection)),
+                                                            filter((isLoading) => {
+                                                                if (isLoading) {
+                                                                    isLoaded[lazyReference.collection] = isLoading;
+                                                                }
+                                                                return !isLoading && isLoaded[lazyReference.collection];
+                                                            })
+                                                        )
+                                                    );
+                                                    lazyObservables.push(lazyObservable);
+                                                } else {
+                                                    const id = document[lazyReference.field].id;
+                                                    this.store.dispatch(new fromSdr.GetOneResourceAction(lazyReference.collection, { id }));
+                                                    const lazyObservable = combineLatest(
+                                                        this.store.pipe(
+                                                            select(selectResourceById(lazyReference.collection, id)),
+                                                            map((value) => {
+                                                                return {
+                                                                    field: lazyReference.field,
+                                                                    value: value
+                                                                };
+                                                            })
+                                                        ),
+                                                        this.store.pipe(
+                                                            select(selectResourceIsLoading(lazyReference.collection)),
+                                                            filter((isLoading) => {
+                                                                if (isLoading) {
+                                                                    isLoaded[lazyReference.collection] = isLoading;
+                                                                }
+                                                                return !isLoading && isLoaded[lazyReference.collection];
+                                                            })
+                                                        )
+                                                    );
+                                                    lazyObservables.push(lazyObservable);
+                                                }
+                                            }
+                                        });
+                                    });
+                                });
+                                return combineLatest(of(displayView), combineLatest(lazyObservables));
+                            }),
+                            tap(([displayView, lazyReferences]) => {
+                                lazyReferences.forEach((lazyReference) => {
+                                    if (lazyReference[0].field && lazyReference[0].value) {
+                                        const property = {};
+                                        property[lazyReference[0].field] = lazyReference[0].value;
+                                        Object.assign(document, property);
+                                    }
+                                });
                                 this.store.dispatch(new fromMetadata.AddMetadataTagsAction({
                                     tags: this.buildDisplayMetaTags(displayView, document)
                                 }));
-                                displayView.tabs.splice(displayView.tabs.findIndex((tab: DisplayTabView) => tab.name === 'View All'), 1);
+                                const tabCount = displayView.tabs.length - 1;
+                                if (displayView.tabs[tabCount].name === 'View All') {
+                                    displayView.tabs.splice(tabCount, 1);
+                                }
                                 const viewAllTabSections = [];
                                 const viewAllTab: DisplayTabView = {
                                     name: 'View All',
@@ -85,12 +167,25 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                     });
                                 });
                                 displayView.tabs.push(viewAllTab);
-                            })
+                                console.log(document);
+                            }),
+                            map(([displayView]) => displayView)
                         );
                     })
                 );
             }
         }));
+    }
+
+    public openTab(tabName: string): void {
+        if (tabName === 'Publications') {
+            if (isPlatformBrowser(this.platformId)) {
+                setTimeout(() => {
+                    window['_altmetric_embed_init']();
+                    window['__dimensions_embed'].addBadges();
+                }, 500);
+            }
+        }
     }
 
     public showMainContent(displayView: DisplayView): boolean {
@@ -117,25 +212,11 @@ export class DisplayComponent implements OnDestroy, OnInit {
     }
 
     public getLeftScanColSize(displayView: DisplayView): number {
-        let colSize = 12;
-        if (this.showMainContent(displayView)) {
-            colSize -= 9;
-        }
-        if (this.showRightScan(displayView)) {
-            colSize -= 3;
-        }
-        return colSize;
+        return 3;
     }
 
     public getRightScanColSize(displayView: DisplayView): number {
-        let colSize = 12;
-        if (this.showLeftScan(displayView)) {
-            colSize -= 3;
-        }
-        if (this.showMainContent(displayView)) {
-            colSize -= 9;
-        }
-        return colSize;
+        return 3;
     }
 
     public getTabsToShow(tabs: DisplayTabView[], document: SolrDocument): DisplayTabView[] {

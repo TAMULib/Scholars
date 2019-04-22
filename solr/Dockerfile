@@ -7,10 +7,10 @@ USER root
 RUN chown -R solr /opt/solr/server/solr
 USER solr
 
-RUN precreate-core organizations
-RUN precreate-core persons
-RUN precreate-core documents
-RUN precreate-core relationships
-RUN precreate-core processes
-RUN precreate-core roles
-RUN precreate-core concepts
+RUN precreate-core persons /opt/solr/server/solr/persons
+RUN precreate-core organizations /opt/solr/server/solr/organizations
+RUN precreate-core documents /opt/solr/server/solr/documents
+RUN precreate-core relationships /opt/solr/server/solr/relationships
+RUN precreate-core processes /opt/solr/server/solr/processes
+RUN precreate-core roles /opt/solr/server/solr/roles
+RUN precreate-core concepts /opt/solr/server/solr/concepts

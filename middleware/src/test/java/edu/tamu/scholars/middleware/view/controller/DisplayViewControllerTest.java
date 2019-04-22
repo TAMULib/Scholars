@@ -203,6 +203,40 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
     }
 
     @Test
+    public void testFindDisplayViewByTypesIn() throws JsonProcessingException, Exception {
+        performCreateDisplayView();
+        // @formatter:off
+        mockMvc.perform(
+            get("/displayViews/search/findByTypesIn").param("types", "FacultyMember"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("name", equalTo(MOCK_VIEW_NAME)))
+                .andDo(
+                    document(
+                        "displayViews/find-by-type-in",
+                        requestParameters(
+                            parameterWithName("types").description("The types the display view is for.")
+                        ),
+                        links(
+                            linkWithRel("self").description("Canonical link for this resource."),
+                            linkWithRel("displayView").description("The Display View link for this resource.")
+                        ),
+                        responseFields(
+                            describeDisplayView.withField("name", "The name of the Display View."),
+                            describeDisplayView.withField("types", "An array of types."),
+                            describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
+                            describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
+                            describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
+                            describeDisplayView.withSubsection("metaTemplates", "The meta tag templates of the Display View."),
+                            describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
+                            subsectionWithPath("_links").description("<<resources-display-view-list-links, Links>> to other resources.")
+                        )
+                    )
+                );
+        // @formatter:on
+    }
+
+    @Test
     public void testGetDisplayViews() throws JsonProcessingException, Exception {
         performCreateDisplayView();
         // @formatter:off
@@ -225,7 +259,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         ),
                         links(
                             linkWithRel("self").description("Canonical link for this resource."),
-                            linkWithRel("profile").description("The ALPS profile for this resource.")
+                            linkWithRel("profile").description("The ALPS profile for this resource."),
+                            linkWithRel("search").description("Search link for this resource.")
                         ),
                         responseFields(
                             subsectionWithPath("_embedded.displayViews").description("An array of <<resources-display-views, Display View resources>>."),

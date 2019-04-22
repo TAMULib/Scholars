@@ -30,4 +30,8 @@ export class DocumentRepo extends AbstractSdrRepo<Document> {
         throw new Error('Documents does not support delete!');
     }
 
+    public findByTypesIn(types: string[]): Observable<Document> {
+        throw new Error('Documents does not support find by types in!');
+    }
+
 }

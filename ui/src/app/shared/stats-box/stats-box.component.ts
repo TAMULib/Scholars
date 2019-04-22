@@ -6,11 +6,13 @@ import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
 
-import { DirectoryView, Facet, Filter } from '../../core/model/view';
+import { DirectoryView } from '../../core/model/view';
 
 import * as fromSdr from '../../core/store/sdr/sdr.actions';
 
 import { selectResourcesCount, selectDirectoryViewByCollection } from '../../core/store/sdr';
+
+import { addFacetsToQueryParams, addFiltersToQueryParams } from '../utilities/view.utility';
 
 @Component({
     selector: 'scholars-stats-box',
@@ -25,14 +27,14 @@ export class StatsBoxComponent implements OnInit {
 
     public count: Observable<number>;
 
-    public direcrotyView: Observable<DirectoryView>;
+    public directoryView: Observable<DirectoryView>;
 
     constructor(private store: Store<AppState>) {
 
     }
 
     public ngOnInit() {
-        this.direcrotyView = this.store.pipe(select(selectDirectoryViewByCollection(this.collection)));
+        this.directoryView = this.store.pipe(select(selectDirectoryViewByCollection(this.collection)));
         this.store.dispatch(new fromSdr.CountResourcesAction(this.collection, {
             request: {}
         }));
@@ -51,29 +53,17 @@ export class StatsBoxComponent implements OnInit {
         }
     }
 
-    public getRouterLink(direcrotyView: DirectoryView): string[] {
-        return [`/directory/${direcrotyView.name}`];
+    public getRouterLink(directoryView: DirectoryView): string[] {
+        return [`/directory/${directoryView.name}`];
     }
 
-    // NOTE: redundant with getResetQueryParams in DirectoryComponent
     public getQueryParams(directoryView: DirectoryView): Params {
         const queryParams: Params = {};
         queryParams.collection = directoryView.collection;
         queryParams.index = undefined;
         queryParams.page = 1;
-        if (directoryView.facets && directoryView.facets.length > 0) {
-            let facets = '';
-            directoryView.facets.forEach((facet: Facet) => {
-                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
-            });
-            queryParams.facets = facets;
-        }
-        if (directoryView.filters && directoryView.filters.length > 0) {
-            // tslint:disable-next-line:no-shadowed-variable
-            directoryView.filters.forEach((filter: Filter) => {
-                queryParams[`${filter.field}.filter`] = filter.value;
-            });
-        }
+        addFacetsToQueryParams(queryParams, directoryView);
+        addFiltersToQueryParams(queryParams, directoryView);
         // NOTE: currently ignoring sort of CollectionView and applying sort asc by index field
         queryParams.sort = `${directoryView.index.field},asc`;
         return queryParams;

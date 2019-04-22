@@ -16,8 +16,6 @@ public @interface PropertySource {
 
     String predicate();
 
-    String id() default "";
-
     // NOTE: extracts identifier from url, after last / or #
     boolean parse() default false;
 
