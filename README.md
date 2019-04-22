@@ -3,7 +3,7 @@
 
 # TAMULib Scholars
 
-Texas A&M University has been using VIVO for a few years now and our Scholarly Communications unit has quite a bit of traction here in its use.  While other options existed at the time of this project none of them took advantage of current technology trends.  This combined with the requirements and deadline of internal units at Texas A&M University we decided to create our own front end.  This project was conceived, and started prior to the creation of the VIVO Scholar Task Force.  But, it does follow the same idea.  
+Texas A&M University has been using VIVO for a few years now and our Scholarly Communications unit has quite a bit of traction here in its use.  While other options existed at the time of this project none of them took advantage of current technology trends.  This combined with the requirements and deadline of internal units at Texas A&M University we decided to create our own front end.  This project was conceived, and started prior to the creation of the <a href="https://wiki.duraspace.org/display/VIVO/VIVO+Scholar+Task+Force" target="_blank">VIVO Scholar Task Force</a>.  But, it does follow the same idea.  
 
 <img src="https://webassets.library.tamu.edu/public/files/scholars-ui.png">
 
