@@ -1,1 +1,95 @@
-<span>Work In Progress</span>
+{{? it.etdChairOf.length > 0 }}
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+    {{~ it.etdChairOf.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(0, 5) :workByStudent}}
+    <li class="mb-2">
+      <div class="work">
+        {{ workByStudent.parts = workByStudent.label.match(/(^.*\)\.) (.*?\.) ([Master's|Doctoral].*\.$)/); { }}
+        <span>{{=workByStudent.parts[1]}}</span>
+        <span><u><a href="display/documents/{{=workByStudent.id}}">{{=workByStudent.parts[2]}}</a></u></span>
+        {{? workByStudent.parts[3] }}
+        <div>
+          {{? workByStudent.parts[3] === "Master's Thesis." }}
+          <img src="assets/images/masters.png">
+          {{?}}
+          {{? workByStudent.parts[3] === "Doctoral Dissertation." }}
+          <img src="assets/images/doctoral.png">
+          {{?}}
+        </div>
+        {{?}}
+        {{ } }}
+      </div>
+    </li>
+    {{~}}
+  </ul>
+  {{? it.etdChairOf.length > 5 }}
+  <div class="wrapper">
+    <input id="toggle" type="checkbox">
+    <label for="toggle" class="badge badge-light font-weight-bold p-2 ml-2 align-self-start" tabindex="0"> </label>
+    <div id="expand">
+      <ul class="list-unstyled ml-2 mr-2 mb-0">
+        {{~ it.etdChairOf.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(5, it.etdChairOf.length) :workByStudent}}
+        <li class="mb-2">
+          <div class="work">
+            {{ workByStudent.parts = workByStudent.label.match(/(^.*\)\.) (.*?\.) ([Master's|Doctoral].*\.$)/); { }}
+            <span>{{=workByStudent.parts[1]}}</span>
+            <span><u><a href="display/documents/{{=workByStudent.id}}">{{=workByStudent.parts[2]}}</a></u></span>
+            {{? workByStudent.parts[3] }}
+            <div>
+              {{? workByStudent.parts[3] === "Master's Thesis." }}
+              <img src="assets/images/masters.png">
+              {{?}}
+              {{? workByStudent.parts[3] === "Doctoral Dissertation." }}
+              <img src="assets/images/doctoral.png">
+              {{?}}
+            </div>
+            {{?}}
+            {{ } }}
+          </div>
+        </li>
+        {{~}}
+      </ul>
+    </div>
+  </div>
+  {{?}}
+</div>
+{{?}}
+<style>
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  label.badge {
+    font-size: 14px;
+  }
+
+  label.badge:hover {
+    color: #fff;
+    background: #888;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  #expand {
+    height: 0px;
+    overflow: hidden;
+  }
+
+  #toggle:checked~#expand {
+    height: auto;
+  }
+
+  #toggle~.badge:hover {
+    cursor: pointer;
+  }
+
+  #toggle:not(:checked)~.badge::after {
+    content: "...more";
+  }
+
+  #toggle:checked~.badge::after {
+    content: "less";
+  }
+</style>

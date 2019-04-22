@@ -1,1 +1,5 @@
-<span>Work In Progress</span>
+{{~ it.streetAddress.split(';') :address }}
+<div><span>{{=address}}</span></div>
+{{~}}
+<div><span>{{=it.locality}}, {{=it.region}} {{=it.postalCode}}</span></div>
+<div><span>{{=it.country}}</span></div>

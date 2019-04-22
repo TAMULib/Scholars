@@ -326,6 +326,10 @@
       template: "defaults/displayViews/people/contact/mailingAddress.html"
       requiredFields:
       - streetAddress
+      - locality
+      - region
+      - postalCode
+      - country
     - name: geographic location
       hidden: false
       template: "defaults/displayViews/people/contact/geographicLocation.html"
@@ -754,7 +758,7 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/abstract.html"
       requiredFields:
-      - abstract
+      - abstractText
     - name: authors
       hidden: false
       template: "defaults/displayViews/publications/overview/authors.html"
@@ -790,6 +794,11 @@
       template: "defaults/displayViews/publications/overview/publicationDate.html"
       requiredFields:
       - publicationDate
+    - name: publisher
+      hidden: false
+      template: "defaults/displayViews/publications/overview/publishers.html"
+      requiredFields:
+      - publisher
     - name: has subject area
       hidden: false
       template: "defaults/displayViews/publications/overview/hasSubjectArea.html"
@@ -814,7 +823,7 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/publishedIn.html"
       requiredFields:
-      - publishedIn
+      - publicationVenue
     - name: geographic focus
       hidden: false
       template: "defaults/displayViews/publications/overview/geographicFocus.html"

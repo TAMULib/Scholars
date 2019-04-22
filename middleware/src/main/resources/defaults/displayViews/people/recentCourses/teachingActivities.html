@@ -1,8 +1,71 @@
-<ul class="list-unstyled">
-  {{~ it.teachingActivities :teachingActivity}}
-  <li class="mb-1">
-    <span class="mr-2"><a href="display/processes/{{=teachingActivity.id}}">{{=teachingActivity.label}}</a></span>
-    <span>{{=teachingActivity.role}}</span>
-  </li>
-  {{~}}
-</ul>
+{{? it.teachingActivities.length > 0 }}
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+    {{~ it.teachingActivities.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(0, 5) :course}}
+    <li class="mb-2">
+      <div class="course">
+        <span class="mr-2"><a href="display/processes/{{=course.id}}">{{=course.label}}</a></span>
+        <span>{{=course.role}}</span>
+      </div>
+    </li>
+    {{~}}
+  </ul>
+  {{? it.teachingActivities.length > 5 }}
+  <div class="wrapper">
+    <input id="toggle" type="checkbox">
+    <label for="toggle" class="badge badge-light font-weight-bold p-2 ml-2 align-self-start" tabindex="0"> </label>
+    <div id="expand">
+      <ul class="list-unstyled ml-2 mr-2 mb-0">
+        {{~ it.teachingActivities.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(5, it.teachingActivities.length) :course}}
+        <li class="mb-2">
+          <div class="course">
+            <span class="mr-2"><a href="display/processes/{{=course.id}}">{{=course.label}}</a></span>
+            <span>{{=course.role}}</span>
+          </div>
+        </li>
+        {{~}}
+      </ul>
+    </div>
+  </div>
+  {{?}}
+</div>
+{{?}}
+<style>
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  label.badge {
+    font-size: 14px;
+  }
+
+  label.badge:hover {
+    color: #fff;
+    background: #888;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  #expand {
+    height: 0px;
+    overflow: hidden;
+  }
+
+  #toggle:checked~#expand {
+    height: auto;
+  }
+
+  #toggle~.badge:hover {
+    cursor: pointer;
+  }
+
+  #toggle:not(:checked)~.badge::after {
+    content: "...more";
+  }
+
+  #toggle:checked~.badge::after {
+    content: "less";
+  }
+</style>

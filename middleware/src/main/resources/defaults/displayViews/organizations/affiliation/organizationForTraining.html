@@ -1,10 +1,6 @@
-<div>
-  {{? it.organizationForTraining }}
-  {{~ it.organizationForTraining :organizationForTraining}}
-  <div class="mb-1">
-	<span class="mr-1"><a href="display/organizations/{{=organizationForTraining.people.id}}">{{=organizationForTraining.people.label}}</a></span>
-    <span>{{=organizationForTraining.people.title}}</span>
-  </div>
-  {{~}}
-  {{?}}
+{{~ it.organizationForTraining :organizationForTraining}}
+<div class="mb-1">
+<span class="mr-1"><a href="display/organizations/{{=organizationForTraining.people.id}}">{{=organizationForTraining.people.label}}</a></span>
+  <span>{{=organizationForTraining.people.title}}</span>
 </div>
+{{~}}

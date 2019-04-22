@@ -1,7 +1,7 @@
 <ul class="list-unstyled">
-  {{~ it.educationAndTraining :educationAndTraining}}
+  {{~ it.educationAndTraining.sort((a, b) => (new Date(b.endDate) > new Date(a.endDate)) ? 1 : ((new Date(a.endDate) > new Date(b.endDate)) ? -1 : 0)) :educationAndTraining}}
   <li class="mb-1">
-    <span class="mr-1">{{=educationAndTraining.label}},</span>
+    <span class="mr-1">{{=educationAndTraining.abbreviation}} in {{=educationAndTraining.field}},</span>
     <span class="mr-1"><a href="display/organizations/{{=educationAndTraining.organization.id}}">{{=educationAndTraining.organization.label}}</a></span>
     {{ educationAndTraining.dateYear = new Date(educationAndTraining.endDate).getFullYear(); { }}
     <span class="badge badge-light">{{=educationAndTraining.dateYear}}</span>

@@ -1,13 +1,35 @@
-<ul>
-  {{~ it.people :people}}
-  <li>
-    <div class="comma-seperated">
-      <span><a href="display/persons/{{=people.id}}">{{=people.label}}</a></span>
-      <span>{{=people.title}}</span>
+{{? it.people.length > 0 }}
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+    {{~ it.people.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(0, 5) :person}}
+    <li class="mb-2">
+      <div class="person comma-seperated">
+        <span><a href="display/persons/{{=person.id}}">{{=person.label}}</a></span>
+        <span>{{=person.title}}</span>
+      </div>
+    </li>
+    {{~}}
+  </ul>
+  {{? it.people.length > 5 }}
+  <div class="wrapper">
+    <input id="toggle" type="checkbox">
+    <label for="toggle" class="badge badge-light font-weight-bold p-2 ml-2 align-self-start" tabindex="0"> </label>
+    <div id="expand">
+      <ul class="list-unstyled ml-2 mr-2 mb-0">
+        {{~ it.people.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(5, it.people.length) :person}}
+        <li class="mb-2">
+          <div class="person comma-seperated">
+            <span><a href="display/persons/{{=person.id}}">{{=person.label}}</a></span>
+            <span>{{=person.title}}</span>
+          </div>
+        </li>
+        {{~}}
+      </ul>
     </div>
-  </li>
-  {{~}}
-</ul>
+  </div>
+  {{?}}
+</div>
+{{?}}
 <style>
   .comma-seperated span:after {
     content: ", ";
@@ -15,5 +37,43 @@
 
   .comma-seperated span:last-child:after {
     content: "";
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  label.badge {
+    font-size: 14px;
+  }
+
+  label.badge:hover {
+    color: #fff;
+    background: #888;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  #expand {
+    height: 0px;
+    overflow: hidden;
+  }
+
+  #toggle:checked~#expand {
+    height: auto;
+  }
+
+  #toggle~.badge:hover {
+    cursor: pointer;
+  }
+
+  #toggle:not(:checked)~.badge::after {
+    content: "...more";
+  }
+
+  #toggle:checked~.badge::after {
+    content: "less";
   }
 </style>

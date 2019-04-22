@@ -1,9 +1,229 @@
-<ul>
-  {{~ it.publications :publication}}
-  <li>
-    <div>
-      <span><a href="display/documents/{{=publication.id}}">{{=publication.title}}</a></span>
+{{ it.publicationTypes = ["AcademicArticle", "Book", "Chapter", "GreyLiterature", "ConferencePaper", "Patent", "Thesis", "WorkingPaper"]; { }}
+{{~it.publicationTypes :type}}
+
+  {{ it[type] = it.publications
+    .filter((publication) => publication.type.indexOf(type) >= 0)
+    .sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+    .sort((a, b) => (new Date(b.publicationDate) > new Date(a.publicationDate)) ? 1 : ((new Date(a.publicationDate) > new Date(b.publicationDate)) ? -1 : 0));
+  { }}
+  
+  {{? it[type].length > 0 }}
+  <div class="mb-2">
+    <label class="font-weight-bold">{{=type.replace(/([a-z])([A-Z])/g, '$1 $2')}}</label>
+
+    <ul class="list-unstyled ml-2 mr-2 mb-0">
+      {{~ it[type].slice(0, 5) :publication}}
+      <li class="mb-1">
+
+        <div class="citation">
+
+          <span>{{=publication.authorList}}</span>
+          {{ publication.publicationDateYear = new Date(publication.publicationDate).getFullYear() + 1; { }}
+          <span>({{=publication.publicationDateYear}}).</span>
+          {{ } }}
+          <span><a href="display/documents/{{=publication.id}}"><u>{{=publication.title}}</u>.</a></span>
+          
+          {{? publication.publicationVenue }}
+          <span><em>{{=publication.publicationVenue.label}}</em>. </span>
+          {{?}}
+
+          {{? type === "Chapter" }}
+          {{? publication.editorList }}
+          <span>{{=publication.editorList}} (Eds.),</span>
+          {{?}}
+          <span>{{=publication.bookTitle}}.</span>
+          {{? publication.pageStart && publication.pageEnd }}
+          <span>(pp. {{=publication.pageStart}}-{{=publication.pageEnd}}).</span>
+          {{?}}
+          {{? publication.publisher }}
+          <span>{{=publication.publisher.label}}.</span>
+          {{?}}
+          {{?}}
+
+          {{? type === "Book" }}
+          {{? publication.publisher }}
+          <span>{{=publication.publisher.label}}.</span>
+          {{?}}
+          {{?}}
+
+          {{? publication.volume && publication.issue }}
+          <span>{{=publication.volume}}({{=publication.issue}}), </span>
+          {{?}}          
+          {{? publication.volume && !publication.issue }}
+          <span>{{=publication.volume}}, </span>
+          {{?}}
+          {{? !publication.volume && publication.issue }}
+          <span>({{=publication.issue}}), </span>
+          {{?}}
+
+          {{? type !== "Chapter" }}
+          {{? publication.pageStart && publication.pageEnd }}
+          <span>{{=publication.pageStart}}-{{=publication.pageEnd}}.</span>
+          {{?}}
+          {{?}}
+
+        </div>
+        <div class="d-flex">
+          {{? publication.doi }}
+          <span class="mr-1"><a href="https://dx.doi.org/{{=publication.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a></span>
+          {{?}}
+          {{? publication.pmcid }}
+          <span class="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=publication.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a></span>
+          {{?}}          
+          {{? publication.uri }}
+          <span class="mr-1"><a href="{{=publication.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a></span>
+          <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{=publication.uri}}"></span>
+          {{?}}
+          {{? publication.isbn10 }}
+          <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-isbn="{{=publication.isbn10}}"></span>
+          {{?}}
+          {{? publication.doi }}
+          {{? !publication.uri }}
+          <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-doi="{{=publication.doi}}"></span>
+          {{?}}
+          <span class="__dimensions_badge_embed__ mr-1" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-top" data-doi="{{=publication.doi}}"></span>
+          {{?}}
+        </div>
+
+      </li>
+      {{~}}
+    </ul>
+
+    {{? it[type].length > 5 }}
+    <div class="wrapper">
+      <input id="toggle{{=type}}" type="checkbox">
+      <label for="toggle{{=type}}" class="{{=type}} badge badge-light font-weight-bold p-2 ml-2 align-self-start" tabindex="0"> </label>
+      <div id="expand{{=type}}">
+        <ul class="list-unstyled ml-2 mr-2 mb-0">
+          {{~ it[type].slice(5, it[type].length) :publication}}
+          <li class="mb-1">
+
+            <div class="citation">
+
+              <span>{{=publication.authorList}}</span>
+              {{ publication.publicationDateYear = new Date(publication.publicationDate).getFullYear() + 1; { }}
+              <span>({{=publication.publicationDateYear}}).</span>
+              {{ } }}
+              <span><a href="display/documents/{{=publication.id}}"><u>{{=publication.title}}</u>.</a></span>
+              
+              {{? publication.publicationVenue }}
+              <span><em>{{=publication.publicationVenue.label}}</em>. </span>
+              {{?}}
+    
+              {{? type === "Chapter" }}
+              {{? publication.editorList }}
+              <span>{{=publication.editorList}} (Eds.),</span>
+              {{?}}
+              <span>{{=publication.bookTitle}}.</span>
+              {{? publication.pageStart && publication.pageEnd }}
+              <span>(pp. {{=publication.pageStart}}-{{=publication.pageEnd}}).</span>
+              {{?}}
+              {{? publication.publisher }}
+              <span>{{=publication.publisher.label}}.</span>
+              {{?}}
+              {{?}}
+    
+              {{? type === "Book" }}
+              {{? publication.publisher }}
+              <span>{{=publication.publisher.label}}.</span>
+              {{?}}
+              {{?}}
+    
+              {{? publication.volume && publication.issue }}
+              <span>{{=publication.volume}}({{=publication.issue}}), </span>
+              {{?}}          
+              {{? publication.volume && !publication.issue }}
+              <span>{{=publication.volume}}, </span>
+              {{?}}
+              {{? !publication.volume && publication.issue }}
+              <span>({{=publication.issue}}), </span>
+              {{?}}
+    
+              {{? type !== "Chapter" }}
+              {{? publication.pageStart && publication.pageEnd }}
+              <span>{{=publication.pageStart}}-{{=publication.pageEnd}}.</span>
+              {{?}}
+              {{?}}
+    
+            </div>
+            <div class="d-flex">
+              {{? publication.doi }}
+              <span class="mr-1"><a href="https://dx.doi.org/{{=publication.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a></span>
+              {{?}}
+              {{? publication.pmcid }}
+              <span class="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=publication.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a></span>
+              {{?}}          
+              {{? publication.uri }}
+              <span class="mr-1"><a href="{{=publication.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a></span>
+              <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{=publication.uri}}"></span>
+              {{?}}
+              {{? publication.isbn10 }}
+              <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-isbn="{{=publication.isbn10}}"></span>
+              {{?}}
+              {{? publication.doi }}
+              {{? !publication.uri }}
+              <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-doi="{{=publication.doi}}"></span>
+              {{?}}
+              <span class="__dimensions_badge_embed__ mr-1" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-top" data-doi="{{=publication.doi}}"></span>
+              {{?}}
+            </div>
+
+          </li>
+          {{~}}
+        </ul>
+      </div>
     </div>
-  </li>
-  {{~}}
-</ul>
+    {{?}}
+  </div>
+  {{?}}
+
+  {{ } }}
+
+  <style>
+    #expand{{=type}} {
+      height: 0px;
+      overflow: hidden;
+    }
+
+    #toggle{{=type}}:checked~#expand{{=type}} {
+      height: auto;
+    }
+
+    #toggle{{=type}}~.{{=type}}:hover {
+      cursor: pointer;
+    }
+
+    #toggle{{=type}}:not(:checked)~.{{=type}}::after {
+      content: "...more";
+    }
+
+    #toggle{{=type}}:checked~.{{=type}}::after {
+      content: "less";
+    }
+  </style>
+
+{{~}}
+{{ } }}
+<style>
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  label.badge {
+    font-size: 14px;
+  }
+
+  label.badge:hover {
+    color: #fff;
+    background: #888;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .__dimensions_badge_embed__ {
+    margin-top: 1px;
+  }
+</style>

@@ -167,12 +167,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                     });
                                 });
                                 displayView.tabs.push(viewAllTab);
-                                if (isPlatformBrowser(this.platformId)) {
-                                    setTimeout(() => {
-                                        window['_altmetric_embed_init']();
-                                        window['__dimensions_embed'].addBadges();
-                                    });
-                                }
                                 console.log(document);
                             }),
                             map(([displayView]) => displayView)
@@ -181,6 +175,17 @@ export class DisplayComponent implements OnDestroy, OnInit {
                 );
             }
         }));
+    }
+
+    public openTab(tabName: string): void {
+        if (tabName === 'Publications') {
+            if (isPlatformBrowser(this.platformId)) {
+                setTimeout(() => {
+                    window['_altmetric_embed_init']();
+                    window['__dimensions_embed'].addBadges();
+                }, 500);
+            }
+        }
     }
 
     public showMainContent(displayView: DisplayView): boolean {
