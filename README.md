@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/TAMULib/Scholars.svg?branch=master)](https://travis-ci.org/TAMULib/Scholars)
 [![Coverage Status](https://coveralls.io/repos/github/TAMULib/Scholars/badge.svg)](https://coveralls.io/github/TAMULib/Scholars)
 
-# TAMULib Scholars
+# TAMU Scholars
 
 Texas A&M University has been using <a href="https://wiki.duraspace.org/display/VIVO/VIVO">VIVO</a> for a few years now and our Scholarly Communications unit has quite a bit of traction here in its use.  While other options existed at the time of this project none of them took advantage of current technology trends.  This combined with the requirements and deadline of internal units at Texas A&M University we decided to create our own front end.  This project was conceived, and started prior to the creation of the <a href="https://wiki.duraspace.org/display/VIVO/VIVO+Scholar+Task+Force">VIVO Scholar Task Force</a>.  But, it does follow the same idea.  
 
