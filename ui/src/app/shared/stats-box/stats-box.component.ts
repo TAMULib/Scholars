@@ -43,9 +43,9 @@ export class StatsBoxComponent implements OnInit {
 
     public format(count: number): string | number {
         if (count >= 1.0e+9) {
-            return (Math.abs(count) / 1.0e+9).toFixed(1).replace('.0', '') + 'm';
+            return (Math.abs(count) / 1.0e+9).toFixed(1).replace('.0', '') + 'b';
         } else if (count >= 1.0e+6) {
-            return (Math.abs(count) / 1.0e+6).toFixed(1).replace('.0', '') + 'b';
+            return (Math.abs(count) / 1.0e+6).toFixed(1).replace('.0', '') + 'm';
         } else if (count >= 1.0e+3) {
             return (Math.abs(count) / 1.0e+3).toFixed(1).replace('.0', '') + 'k';
         } else {
