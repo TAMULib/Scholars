@@ -1,9 +1,9 @@
 <div class="wrapper container">
   <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu" [ngClass]="{ 'd-none': (isSidebarCollapsed | async) }">
     <div class="card" *ngFor="let section of menu.sections; let sectionIndex = index">
-      <div class="card-header font-weight-bold {{section.classes}}" *ngIf="section.title | async; let sectionTitle">
+      <div class="card-header font-weight-bold {{section.classes}}" *ngIf="section.title | async; let sectionTitle" (click)="toggleSectionCollapse(sectionIndex)">
         <span>{{sectionTitle}}</span>
-        <span *ngIf="section.collapsible" class="section-collapse float-right fa" [ngClass]="{ 'fa-caret-right': section.collapsed, 'fa-caret-down': !section.collapsed }" (click)="toggleSectionCollapse(sectionIndex)" aria-role="button" attr.aria-label="{{ (section.collapsed ? 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_EXPAND' : 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_COLLAPSE') | translate:{ label: sectionTitle } }}"></span>
+        <span *ngIf="section.collapsible" class="section-collapse float-right fa" [ngClass]="{ 'fa-caret-right': section.collapsed, 'fa-caret-down': !section.collapsed }" aria-role="button" attr.aria-label="{{ (section.collapsed ? 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_EXPAND' : 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_COLLAPSE') | translate:{ label: sectionTitle } }}"></span>
       </div>
       <div class="card-items" [ngbCollapse]="section.collapsed">
         <ul class="list-group list-group-flush" *ngFor="let item of section.items">

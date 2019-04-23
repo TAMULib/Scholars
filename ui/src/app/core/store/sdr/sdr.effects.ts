@@ -350,14 +350,14 @@ export class SdrEffects {
     }
 
     private waitForStompConnection(name: string): Observable<[string, boolean]> {
-        return combineLatest(
+        return combineLatest([
             of(name),
             this.store.pipe(
                 select(selectIsStompConnected),
                 skipWhile((connected: boolean) => !connected),
                 take(1)
             )
-        );
+        ]);
     }
 
     private subscribeToResourceQueue(name: string, stomp: StompState): void {
@@ -441,7 +441,8 @@ export class SdrEffects {
                             sidebarSection.items.push({
                                 type: SidebarItemType.ACTION,
                                 action: this.dialog.facetEntriesDialog(facet.name, sdrFacet),
-                                label: this.translate.get('SHARED.SIDEBAR.ACTION.MORE')
+                                label: this.translate.get('SHARED.SIDEBAR.ACTION.MORE'),
+                                classes: 'font-weight-bold'
                             });
                         }
 

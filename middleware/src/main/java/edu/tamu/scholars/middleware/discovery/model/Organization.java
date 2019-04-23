@@ -133,7 +133,7 @@ public class Organization extends AbstractSolrDocument {
     @NestedObject
     @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/hasAffiliatedOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
-    private List<String> hasAffiliatedOrganization;
+    private List<String> hasAffiliatedOrganizations;
 
     @NestedObject
     @Indexed(type = "nested_strings")
@@ -568,12 +568,12 @@ public class Organization extends AbstractSolrDocument {
         this.hasCollaboratingOrganizationOrGroup = hasCollaboratingOrganizationOrGroup;
     }
 
-    public List<String> getHasAffiliatedOrganization() {
-        return hasAffiliatedOrganization;
+    public List<String> getHasAffiliatedOrganizations() {
+        return hasAffiliatedOrganizations;
     }
 
-    public void setHasAffiliatedOrganization(List<String> hasAffiliatedOrganization) {
-        this.hasAffiliatedOrganization = hasAffiliatedOrganization;
+    public void setHasAffiliatedOrganizations(List<String> hasAffiliatedOrganizations) {
+        this.hasAffiliatedOrganizations = hasAffiliatedOrganizations;
     }
 
     public List<String> getMemberOf() {

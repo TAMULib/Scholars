@@ -88,7 +88,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                                 if (document[lazyReference.field] instanceof Array) {
                                                     const ids = document[lazyReference.field].map((property) => property.id);
                                                     this.store.dispatch(new fromSdr.FindByIdInResourceAction(lazyReference.collection, { ids }));
-                                                    const lazyObservable = combineLatest(
+                                                    const lazyObservable = combineLatest([
                                                         this.store.pipe(
                                                             select(selectAllResources(lazyReference.collection)),
                                                             map((values) => {
@@ -107,12 +107,12 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                                                 return !isLoading && isLoaded[lazyReference.collection];
                                                             })
                                                         )
-                                                    );
+                                                    ]);
                                                     lazyObservables.push(lazyObservable);
                                                 } else {
                                                     const id = document[lazyReference.field].id;
                                                     this.store.dispatch(new fromSdr.GetOneResourceAction(lazyReference.collection, { id }));
-                                                    const lazyObservable = combineLatest(
+                                                    const lazyObservable = combineLatest([
                                                         this.store.pipe(
                                                             select(selectResourceById(lazyReference.collection, id)),
                                                             map((value) => {
@@ -131,14 +131,14 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                                                 return !isLoading && isLoaded[lazyReference.collection];
                                                             })
                                                         )
-                                                    );
+                                                    ]);
                                                     lazyObservables.push(lazyObservable);
                                                 }
                                             }
                                         });
                                     });
                                 });
-                                return combineLatest(of(displayView), combineLatest(lazyObservables));
+                                return combineLatest([of(displayView), combineLatest(lazyObservables)]);
                             }),
                             tap(([displayView, lazyReferences]) => {
                                 lazyReferences.forEach((lazyReference) => {
@@ -183,7 +183,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                 setTimeout(() => {
                     window['_altmetric_embed_init']();
                     window['__dimensions_embed'].addBadges();
-                }, 500);
+                }, 1000);
             }
         }
     }

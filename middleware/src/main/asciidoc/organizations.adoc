@@ -75,16 +75,16 @@ include::{snippets}/organizations/facet-search/curl-request.adoc[]
 This count will return a json response containing the count, based on the query parameters as shown in *Request Parameters*.
 
 ===== Request Parameters
-include::{snippets}/concepts/count-search/request-parameters.adoc[]
+include::{snippets}/organizations/count-search/request-parameters.adoc[]
 
 ===== Response Fields
-include::{snippets}/concepts/count-search/response-fields.adoc[]
+include::{snippets}/organizations/count-search/response-fields.adoc[]
 
 ===== Sample Request
-include::{snippets}/concepts/count-search/http-request.adoc[]
+include::{snippets}/organizations/count-search/http-request.adoc[]
 
 ===== Sample Response
-include::{snippets}/concepts/count-search/http-response.adoc[]
+include::{snippets}/organizations/count-search/http-response.adoc[]
 
 ===== CURL Sample
-include::{snippets}/concepts/count-search/curl-request.adoc[]
+include::{snippets}/organizations/count-search/curl-request.adoc[]

@@ -1,1 +1,7 @@
-<span>Work In Progress</span>
+<ul class="list-unstyled">
+  {{~it.hasAffiliatedOrganizations :organization}}
+  <li>
+    <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
+  </li>
+  {{~}}
+</ul>

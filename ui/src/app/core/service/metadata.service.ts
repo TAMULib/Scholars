@@ -11,7 +11,7 @@ export class MetadataService {
     }
 
     public addTags(tags: MetaDefinition[]): void {
-        this.meta.addTags(tags);
+        tags.forEach((tag: MetaDefinition) => this.addTag(tag));
     }
 
     public removeTags(tags: MetaDefinition[]): void {
@@ -19,7 +19,9 @@ export class MetadataService {
     }
 
     public addTag(tag: MetaDefinition): void {
-        this.meta.addTag(tag);
+        if (tag.content && tag.content.length > 0) {
+            this.meta.addTag(tag);
+        }
     }
 
     public removeTag(selector: string): void {
@@ -27,7 +29,9 @@ export class MetadataService {
     }
 
     public updateTag(tag: MetaDefinition): void {
-        this.meta.updateTag(tag);
+        if (tag.content && tag.content.length > 0) {
+            this.meta.updateTag(tag);
+        }
     }
 
 }

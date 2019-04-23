@@ -74,11 +74,11 @@ export class UserEditComponent implements OnInit {
                     // TODO: come up with strategy to strip off disabled properies during patch, requires HATEOS self links
                     resource: Object.assign(this.user, this.dialog.form.value)
                 })),
-                disabled: () => combineLatest(
+                disabled: () => combineLatest([
                     of(this.dialog.form.invalid),
                     of(this.dialog.form.pristine),
                     this.store.pipe(select(selectResourceIsUpdating<User>('users')))
-                ).pipe(map(results => results[0] || results[1] || results[2]))
+                ]).pipe(map(results => results[0] || results[1] || results[2]))
             }
         };
     }

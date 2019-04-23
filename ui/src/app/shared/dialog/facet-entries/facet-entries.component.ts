@@ -11,7 +11,6 @@ import { SdrFacet } from '../../../core/model/sdr';
 
 import * as fromDialog from '../../../core/store/dialog/dialog.actions';
 
-
 @Component({
     selector: 'scholars-facet-entries',
     templateUrl: './facet-entries.component.html',
@@ -23,7 +22,7 @@ export class FacetEntriesComponent implements OnInit {
 
     @Input() facet: SdrFacet;
 
-    public page = 1;
+    public page = 2;
 
     public size = 10;
 

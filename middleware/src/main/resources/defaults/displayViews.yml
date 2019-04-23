@@ -19,13 +19,21 @@
     position: "defaults/displayViews/people/meta/position.txt"
   tabs:
   - name: Overview
-    hidden: false
+    hidden: true
     sections:
     - name: HR job title
       hidden: false
       template: "defaults/displayViews/people/overview/hrJobTitle.html"
       requiredFields:
       - hrJobTitle
+  - name: About
+    hidden: false
+    sections:
+    - name: overview
+      hidden: false
+      template: "defaults/displayViews/people/about/overview.html"
+      requiredFields:
+      - overview
     - name: keywords
       hidden: false
       template: "defaults/displayViews/people/overview/keywords.html"
@@ -506,7 +514,7 @@
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/hasAffiliatedOrganization.html"
       requiredFields:
-      - hasAffiliatedOrganization
+      - hasAffiliatedOrganizations
     - name: member of
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/memberOf.html"

@@ -22,8 +22,8 @@
               <label (click)="openTab(tab.name)">{{tab.name}}</label>
             </ng-template>
             <ng-template ngbTabContent>
-              <div class="ml-3 mr-3 mt-3 card" *ngFor="let section of getSectionsToShow(tab.sections, document)">
-                <div class="card-header font-weight-bold text-primary text-capitalize">{{section.name}}</div>
+              <div class="ml-3 mr-3 mt-3 card" *ngFor="let section of getSectionsToShow(tab.sections, document);">
+                <div class="card-header font-weight-bold text-primary text-capitalize">{{section.name}} {{last}}</div>
                 <div class="card-body" [innerHtml]="section.templateFunction(document) | safeHtml"></div>
               </div>
             </ng-template>

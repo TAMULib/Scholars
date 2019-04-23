@@ -193,7 +193,7 @@ export class AuthEffects {
 
     @Effect() getUserSuccess = this.actions.pipe(
         ofType(fromAuth.AuthActionTypes.GET_USER_SUCCESS),
-        switchMap(() => combineLatest(
+        switchMap(() => combineLatest([
             this.store.pipe(
                 select(selectUser),
                 take(1)
@@ -203,7 +203,7 @@ export class AuthEffects {
                 skipWhile((connected: boolean) => !connected),
                 take(1)
             )
-        )),
+        ])),
         map(([user]) => new fromStomp.SubscribeAction({
             channel: '/user/queue/users',
             handle: (frame: any) => {

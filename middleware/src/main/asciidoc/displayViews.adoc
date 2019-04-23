@@ -7,19 +7,19 @@ This section describes about the display views of the application. This object i
 This displays a list of all the display view objects based on parameters like page, size or sort feature based on name, collection etc as shown in *Request Parameters*.
 
 ===== Request Parameters
-include::{snippets}/displayViews/display/request-parameters.adoc[]
+include::{snippets}/displayViews/directory/request-parameters.adoc[]
 
 ===== Response Fields
-include::{snippets}/displayViews/display/response-fields.adoc[]
+include::{snippets}/displayViews/directory/response-fields.adoc[]
 
 ===== Sample Request
-include::{snippets}/displayViews/display/http-request.adoc[]
+include::{snippets}/displayViews/directory/http-request.adoc[]
 
 ===== Sample Response
-include::{snippets}/displayViews/display/http-response.adoc[]
+include::{snippets}/displayViews/directory/http-response.adoc[]
 
 ===== CURL Sample
-include::{snippets}/displayViews/display/curl-request.adoc[]
+include::{snippets}/displayViews/directory/curl-request.adoc[]
 
 ==== Create
 

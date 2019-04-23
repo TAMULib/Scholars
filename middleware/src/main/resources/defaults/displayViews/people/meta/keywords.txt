@@ -1,1 +1,1 @@
-{{? it.researchAreas }}{{=it.researchAreas}}{{?}}
+{{~it.researchAreas :researchArea:index}}{{=researchArea.label}}{{? index < it.researchAreas.length - 1 }}, {{?}}{{~}}

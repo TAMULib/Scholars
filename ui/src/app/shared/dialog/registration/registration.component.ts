@@ -141,17 +141,17 @@ export class RegistrationComponent implements OnInit {
 
     private isSubmitDisabled(): Observable<boolean> {
         if (this.isSubmit()) {
-            return combineLatest(
+            return combineLatest([
                 of(this.dialog.form.invalid),
                 of(this.dialog.form.pristine),
                 this.store.pipe(select(selectIsSubmittingRegistration))
-            ).pipe(map(results => results[0] || results[1] || results[2]));
+            ]).pipe(map(results => results[0] || results[1] || results[2]));
         } else if (this.isComplete()) {
-            return combineLatest(
+            return combineLatest([
                 of(this.dialog.form.invalid),
                 of(this.dialog.form.pristine),
                 this.store.pipe(select(selectIsCompletingRegistration))
-            ).pipe(map(results => results[0] || results[1] || results[2]));
+            ]).pipe(map(results => results[0] || results[1] || results[2]));
         } else {
             throw new Error('Unknown registration step!');
         }
