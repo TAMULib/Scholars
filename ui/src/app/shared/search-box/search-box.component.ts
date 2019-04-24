@@ -1,5 +1,5 @@
 import { Component, Input, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer, APP_BASE_HREF } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router, Params, UrlTree } from '@angular/router';
 
@@ -48,6 +48,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     private setup = false;
 
     constructor(
+        @Inject(APP_BASE_HREF) private baseHref: string,
         @Inject(PLATFORM_ID) private platformId: string,
         private formBuilder: FormBuilder,
         private store: Store<AppState>,
@@ -135,7 +136,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     }
 
     public getAction(): string {
-        return `/discovery/${this.view.name}`;
+        return `${this.baseHref}discovery/${this.view.name}`;
     }
 
     public getFilterName(filter: Filter): string {
