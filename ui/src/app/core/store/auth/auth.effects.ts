@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 
-import { defer, of, combineLatest } from 'rxjs';
+import { defer, combineLatest, scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 import { catchError, map, switchMap, withLatestFrom, skipWhile, take } from 'rxjs/operators';
 
 import { AppState } from '../';
@@ -49,7 +50,7 @@ export class AuthEffects {
         switchMap((payload: { login: LoginRequest }) =>
             this.authService.login(payload.login).pipe(
                 map((user: User) => new fromAuth.LoginSuccessAction({ user })),
-                catchError((response) => of(new fromAuth.LoginFailureAction({ response })))
+                catchError((response) => scheduled([new fromAuth.LoginFailureAction({ response })], asap))
             )
         )
     );
@@ -82,7 +83,7 @@ export class AuthEffects {
         switchMap((payload: { registration: RegistrationRequest }) =>
             this.authService.submitRegistration(payload.registration).pipe(
                 map((registration: RegistrationRequest) => new fromAuth.SubmitRegistrationSuccessAction({ registration })),
-                catchError((response) => of(new fromAuth.SubmitRegistrationFailureAction({ response })))
+                catchError((response) => scheduled([new fromAuth.SubmitRegistrationFailureAction({ response })], asap))
             )
         )
     );
@@ -108,7 +109,7 @@ export class AuthEffects {
         switchMap((payload: { key: string }) =>
             this.authService.confirmRegistration(payload.key).pipe(
                 map((registration: RegistrationRequest) => new fromAuth.ConfirmRegistrationSuccessAction({ registration })),
-                catchError((response) => of(new fromAuth.ConfirmRegistrationFailureAction({ response })))
+                catchError((response) => scheduled([new fromAuth.ConfirmRegistrationFailureAction({ response })], asap))
             )
         )
     );
@@ -142,7 +143,7 @@ export class AuthEffects {
         switchMap((payload: { registration: RegistrationRequest }) =>
             this.authService.completeRegistration(payload.registration).pipe(
                 map((user: User) => new fromAuth.CompleteRegistrationSuccessAction({ user })),
-                catchError((response) => of(new fromAuth.CompleteRegistrationFailureAction({ response })))
+                catchError((response) => scheduled([new fromAuth.CompleteRegistrationFailureAction({ response })], asap))
             )
         )
     );
@@ -167,7 +168,7 @@ export class AuthEffects {
         switchMap(() =>
             this.authService.logout().pipe(
                 map((response: any) => new fromAuth.LogoutSuccessAction({ message: response.message })),
-                catchError((response) => of(new fromAuth.LogoutFailureAction({ response })))
+                catchError((response) => scheduled([new fromAuth.LogoutFailureAction({ response })], asap))
             )
         )
     );
@@ -186,7 +187,7 @@ export class AuthEffects {
         switchMap(() =>
             this.authService.getUser().pipe(
                 map((user: User) => new fromAuth.GetUserSuccessAction({ user })),
-                catchError((response) => of(new fromAuth.GetUserFailureAction({ response })))
+                catchError((response) => scheduled([new fromAuth.GetUserFailureAction({ response })], asap))
             )
         )
     );
@@ -261,7 +262,7 @@ export class AuthEffects {
     );
 
     @Effect() init = defer(() => {
-        return of(new fromAuth.CheckSessionAction());
+        return scheduled([new fromAuth.CheckSessionAction()], asap);
     });
 
 }

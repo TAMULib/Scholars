@@ -8,7 +8,7 @@ export interface LazyReference {
 export interface DisplayTabSectionView extends View {
     readonly hidden: boolean;
     readonly template: string;
-    templateFunction?: Function;
+    templateFunction?: (document: any) => string;
     readonly requiredFields: string[];
     readonly lazyReferences: LazyReference[];
 }
@@ -21,11 +21,11 @@ export interface DisplayTabView extends View {
 export interface DisplayView extends View {
     readonly types: string[];
     readonly mainContentTemplate: string;
-    mainContentTemplateFunction?: Function;
+    mainContentTemplateFunction?: (document: any) => string;
     readonly leftScanTemplate: string;
-    leftScanTemplateFunction?: Function;
+    leftScanTemplateFunction?: (document: any) => string;
     readonly rightScanTemplate: string;
-    rightScanTemplateFunction?: Function;
+    rightScanTemplateFunction?: (document: any) => string;
     readonly metaTemplates: any;
     metaTemplateFunctions?: any;
     readonly tabs: DisplayTabView[];

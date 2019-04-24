@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, Validators, ValidatorFn, AbstractControl } fr
 import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
 
-import { combineLatest, of, Observable } from 'rxjs';
+import { combineLatest, scheduled, Observable } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
@@ -22,7 +23,7 @@ export enum RegistrationStep {
 
 export function confirmPasswordValidator(password: FormControl): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-        return password.value !== control.value ? { 'confirmPassword': { value: control.value } } : null;
+        return password.value !== control.value ? { confirmPassword: { value: control.value } } : null;
     };
 }
 
@@ -115,7 +116,7 @@ export class RegistrationComponent implements OnInit {
                     case 'minlength': return this.translate.get('SHARED.DIALOG.VALIDATION.MIN_LENGTH', { field, min: errors[validation].requiredLength });
                     case 'maxlength': return this.translate.get('SHARED.DIALOG.VALIDATION.MAX_LENGTH', { field, max: errors[validation].requiredLength });
                     case 'confirmPassword': return this.translate.get('SHARED.DIALOG.VALIDATION.CONFIRM_PASSWORD', { field });
-                    default: return of('unknown error');
+                    default: return scheduled(['unknown error'], asap);
                 }
             }
         }
@@ -142,14 +143,14 @@ export class RegistrationComponent implements OnInit {
     private isSubmitDisabled(): Observable<boolean> {
         if (this.isSubmit()) {
             return combineLatest([
-                of(this.dialog.form.invalid),
-                of(this.dialog.form.pristine),
+                scheduled([this.dialog.form.invalid], asap),
+                scheduled([this.dialog.form.pristine], asap),
                 this.store.pipe(select(selectIsSubmittingRegistration))
             ]).pipe(map(results => results[0] || results[1] || results[2]));
         } else if (this.isComplete()) {
             return combineLatest([
-                of(this.dialog.form.invalid),
-                of(this.dialog.form.pristine),
+                scheduled([this.dialog.form.invalid], asap),
+                scheduled([this.dialog.form.pristine], asap),
                 this.store.pipe(select(selectIsCompletingRegistration))
             ]).pipe(map(results => results[0] || results[1] || results[2]));
         } else {

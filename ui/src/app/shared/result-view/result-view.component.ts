@@ -38,7 +38,7 @@ export class ResultViewComponent implements OnInit {
         return templateFunction(this.resource);
     }
 
-    private getTemplateFunction(): Function {
+    private getTemplateFunction(): (document: any) => string {
         for (const type of this.resource.type) {
             if (this.view.templateFunctions[type] !== undefined) {
                 return this.view.templateFunctions[type];

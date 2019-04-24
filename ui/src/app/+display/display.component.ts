@@ -5,7 +5,8 @@ import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
-import { Observable, Subscription, combineLatest, of } from 'rxjs';
+import { Observable, Subscription, combineLatest, scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 import { filter, tap, map, mergeMap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
@@ -78,7 +79,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                             filter(([displayView]) => displayView !== undefined),
                             mergeMap(([displayView]) => {
                                 const lazyObservables: Observable<any>[] = [
-                                    of([{}, false])
+                                    scheduled([[{}, false]], asap)
                                 ];
                                 const isLoaded = {};
                                 displayView.tabs.forEach((tab: DisplayTabView) => {
@@ -138,7 +139,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                         });
                                     });
                                 });
-                                return combineLatest([of(displayView), combineLatest(lazyObservables)]);
+                                return combineLatest([scheduled([displayView], asap), combineLatest(lazyObservables)]);
                             }),
                             tap(([displayView, lazyReferences]) => {
                                 lazyReferences.forEach((lazyReference) => {

@@ -3,7 +3,8 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 
-import { of, defer, EMPTY } from 'rxjs';
+import { defer, scheduled, EMPTY } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 import { map, withLatestFrom } from 'rxjs/operators';
 
 import { AppState } from '../';
@@ -40,12 +41,12 @@ export class LayoutEffects {
 
     @Effect() initLayout = defer(() => {
         if (isPlatformBrowser(this.platformId)) {
-            return of(new fromLayout.ResizeWindowAction({
+            return scheduled([new fromLayout.ResizeWindowAction({
                 windowDimensions: {
                     width: window.innerWidth,
                     height: window.innerHeight
                 }
-            }));
+            })], asap);
         }
         return EMPTY;
     });

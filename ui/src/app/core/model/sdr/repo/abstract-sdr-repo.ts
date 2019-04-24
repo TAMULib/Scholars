@@ -82,7 +82,7 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
         });
     }
 
-    protected mapParameters(request: SdrRequest): String {
+    protected mapParameters(request: SdrRequest): string {
         const parameters: string[] = [];
 
         if (request.pageable) {

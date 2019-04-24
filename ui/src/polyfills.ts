@@ -18,6 +18,8 @@
  * BROWSER POLYFILLS
  */
 
+// tslint:disable: jsdoc-format
+
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
 import 'core-js/es6/symbol';
 import 'core-js/es6/object';
@@ -46,9 +48,9 @@ import 'core-js/es7/map';
 
 
 /**
- * Required to support Web Animations `@angular/animation`.
- * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
- **/
+  * Required to support Web Animations `@angular/animation`.
+  * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
+  **/
 import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 
@@ -76,3 +78,5 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 // Add global to window, assigning the value of window itself.
 (window as any).global = window;
+
+// tslint:enable: jsdoc-format
