@@ -1,3 +1,4 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -9,7 +10,6 @@ import { SearchBoxComponent } from './search-box.component';
 import { metaReducers, reducers } from '../../core/store';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '../shared.module';
-
 
 describe('SearchBoxComponent', () => {
     let component: SearchBoxComponent;
@@ -25,6 +25,12 @@ describe('SearchBoxComponent', () => {
                 }),
                 TranslateModule.forRoot(),
                 RouterTestingModule.withRoutes([])
+            ],
+            providers: [
+                {
+                    provide: APP_BASE_HREF,
+                    useValue: '/'
+                }
             ],
             schemas: [
                 CUSTOM_ELEMENTS_SCHEMA
