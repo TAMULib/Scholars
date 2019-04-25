@@ -2,12 +2,11 @@ package edu.tamu.scholars.middleware.discovery.service;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -43,6 +42,8 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
 
     private final static String HASH_TAG = "#";
 
+    private final static int BATCH_SIZE = 10000;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -62,10 +63,33 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         }
         try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
             Iterator<Triple> tripleIterator = qe.execConstructTriples();
+            ConcurrentLinkedDeque<D> documents = new ConcurrentLinkedDeque<D>();
             if (tripleIterator.hasNext()) {
                 Iterable<Triple> tripleIterable = () -> tripleIterator;
                 Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), true);
-                tripleStream.forEach(triple -> index(triple.getSubject().toString()));
+                tripleStream.forEach(triple -> {
+                    String subject = triple.getSubject().toString();
+                    try {
+                        documents.add(createDocument(subject));
+                    } catch (DataAccessResourceFailureException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                        logger.error(String.format("Unable to index %s: %s", name(), parse(subject)));
+                        logger.error(String.format("Error: %s", e.getMessage()));
+                        if (logger.isDebugEnabled()) {
+                            e.printStackTrace();
+                        }
+                    } catch (NullPointerException e) {
+                        if (logger.isDebugEnabled()) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (documents.size() == BATCH_SIZE) {
+                        repo.saveAll(documents);
+                        documents.clear();
+                    }
+                });
+                if (documents.size() > 0) {
+                    repo.saveAll(documents);
+                }
             } else {
                 logger.warn(String.format("No %s found!", name()));
             }
@@ -73,11 +97,9 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
     }
 
     public void index(String subject) {
-        Instant start = Instant.now();
         try {
             D document = createDocument(subject);
             repo.save(document);
-            logger.info(String.format("%s %s indexed in %f seconds", name(), parse(subject), Duration.between(start, Instant.now()).toMillis() / 1000.0));
         } catch (DataAccessResourceFailureException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             logger.error(String.format("Unable to index %s: %s", name(), parse(subject)));
             logger.error(String.format("Error: %s", e.getMessage()));
@@ -95,7 +117,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         return type().getSimpleName();
     }
 
-    private D createDocument(String subject) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    private D createDocument(String subject) throws InstantiationException, InvocationTargetException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException {
         D document = construct();
         Field field = FieldUtils.getField(type(), ID_PROPERTY_NAME, true);
         field.set(document, parse(subject));
@@ -103,14 +125,22 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         return document;
     }
 
-    private void lookupProperties(D document, String subject) throws IllegalArgumentException, IllegalAccessException {
-        for (Field field : FieldUtils.getFieldsListWithAnnotation(type(), PropertySource.class)) {
+    private void lookupProperties(D document, String subject) {
+        FieldUtils.getFieldsListWithAnnotation(type(), PropertySource.class).parallelStream().forEach(field -> {
             PropertySource source = field.getAnnotation(PropertySource.class);
             Model model = queryForModel(source, subject);
             String property = field.getName();
             List<String> values = lookupProperty(property, source, model);
-            populate(document, field, values);
-        }
+            try {
+                populate(document, field, values);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                logger.error(String.format("Unable to populat document %s: %s", name(), parse(subject)));
+                logger.error(String.format("Error: %s", e.getMessage()));
+                if (logger.isDebugEnabled()) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private Model queryForModel(PropertySource source, String subject) {

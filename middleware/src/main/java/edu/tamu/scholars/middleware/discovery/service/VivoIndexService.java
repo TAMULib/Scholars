@@ -30,12 +30,12 @@ public class VivoIndexService {
         }
         indexing = true;
         Instant allIndexStart = Instant.now();
-        for (SolrIndexService indexer : indexers) {
+        indexers.stream().forEach(indexer -> {
             logger.info(String.format("Indexing %s", indexer.name()));
             Instant indexStart = Instant.now();
             indexer.index();
             logger.info(String.format("Indexing %s finished. %f seconds", indexer.name(), Duration.between(indexStart, Instant.now()).toMillis() / 1000.0));
-        }
+        });
         logger.info(String.format("Indexing finished. %s seconds", Duration.between(allIndexStart, Instant.now()).toMillis() / 1000.0));
         indexing = false;
     }
