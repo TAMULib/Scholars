@@ -2,7 +2,7 @@
 
 This section describes about the display views of the application. This object is a persistent representation of a display UI.
 
-==== Display
+==== Directory
 
 This displays a list of all the display view objects based on parameters like page, size or sort feature based on name, collection etc as shown in *Request Parameters*.
 
