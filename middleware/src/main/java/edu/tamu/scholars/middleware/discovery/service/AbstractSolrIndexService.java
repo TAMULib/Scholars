@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -65,7 +65,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         }
         try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
             Iterator<Triple> triples = qe.execConstructTriples();
-            ArrayBlockingQueue<D> documents = new ArrayBlockingQueue<D>(indexBatchSize, true);
+            ConcurrentLinkedDeque<D> documents = new ConcurrentLinkedDeque<D>();
             if (triples.hasNext()) {
                 Iterable<Triple> tripleIterable = () -> triples;
                 Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), true);
