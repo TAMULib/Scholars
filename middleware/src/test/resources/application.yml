@@ -22,8 +22,10 @@ middleware:
     request-timeout: 30000
     socket-timeout: 60000
   index:
-    fixedDelay: 86400000
-    initialDelay: 5000
+    cron: 0 0 0 * * SUN
+    zone: America/Chicago
+    onStartup: false
+    batchSize: 10000
 
 ui:
   url: http://localhost:4200

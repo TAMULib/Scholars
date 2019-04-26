@@ -6,14 +6,24 @@
       "description": "A description for 'ui.url'"
     },
     {
-      "name": "middleware.index.fixedDelay",
-      "type": "java.lang.Integer",
-      "description": "A description for 'middleware.index.fixedDelay'"
+      "name": "middleware.index.cron",
+      "type": "java.lang.String",
+      "description": "A description for 'middleware.index.cron'"
     },
     {
-      "name": "middleware.index.initialDelay",
+      "name": "middleware.index.zone",
+      "type": "java.lang.String",
+      "description": "A description for 'middleware.index.zone'"
+    },
+    {
+      "name": "middleware.index.onStartup",
+      "type": "java.lang.Boolean",
+      "description": "A description for 'middleware.index.onStartup'"
+    },
+    {
+      "name": "middleware.index.batchSize",
       "type": "java.lang.Integer",
-      "description": "A description for 'middleware.index.initialDelay'"
+      "description": "A description for 'middleware.index.batchSize'"
     },
     {
       "name": "spring.data.rest.authorize-hal-browser",

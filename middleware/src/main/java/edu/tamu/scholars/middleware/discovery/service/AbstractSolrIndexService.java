@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -23,6 +23,7 @@ import org.apache.jena.shared.InvalidPropertyURIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
@@ -42,9 +43,10 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
 
     private final static String HASH_TAG = "#";
 
-    private final static int BATCH_SIZE = 10000;
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Value("${middleware.index.batchSize:10000}")
+    public int indexBatchSize;
 
     @Autowired
     private TemplateService templateService;
@@ -62,10 +64,10 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
             logger.debug(String.format("%s:\n%s", COLLECTION_SPARQL_TEMPLATE, query));
         }
         try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
-            Iterator<Triple> tripleIterator = qe.execConstructTriples();
-            ConcurrentLinkedDeque<D> documents = new ConcurrentLinkedDeque<D>();
-            if (tripleIterator.hasNext()) {
-                Iterable<Triple> tripleIterable = () -> tripleIterator;
+            Iterator<Triple> triples = qe.execConstructTriples();
+            ArrayBlockingQueue<D> documents = new ArrayBlockingQueue<D>(indexBatchSize, true);
+            if (triples.hasNext()) {
+                Iterable<Triple> tripleIterable = () -> triples;
                 Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), true);
                 tripleStream.forEach(triple -> {
                     String subject = triple.getSubject().toString();
@@ -82,7 +84,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
                             e.printStackTrace();
                         }
                     }
-                    if (documents.size() == BATCH_SIZE) {
+                    if (documents.size() == indexBatchSize) {
                         repo.saveAll(documents);
                         documents.clear();
                     }
