@@ -1,8 +1,5 @@
 package edu.tamu.scholars.middleware.service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.apache.jena.query.Dataset;
 import org.apache.jena.tdb.TDB;
 import org.apache.jena.tdb.TDBFactory;
@@ -17,21 +14,21 @@ public class TDBTriplestore implements Triplestore {
 
     private Dataset dataset;
 
-    @PostConstruct
-    public void open() {
+    @Override
+    public void init() {
         // TODO: handle missing configurations
         TDB.getContext().setTrue(TDB.symUnionDefaultGraph);
         dataset = TDBFactory.createDataset(triplestoreConfig.getDirectory());
     }
 
     @Override
-    public Dataset dataset() {
-        return dataset;
+    public void destroy() {
+        dataset.close();
     }
 
-    @PreDestroy
-    public void close() {
-        dataset.close();
+    @Override
+    public Dataset getDataset() {
+        return dataset;
     }
 
 }

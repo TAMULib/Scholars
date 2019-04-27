@@ -25,7 +25,7 @@ middleware:
     cron: 0 0 0 * * SUN
     zone: America/Chicago
     onStartup: true
-    batchSize: 10000
+    batchSize: 1000000
 
 ui:
   url: http://localhost:4200
@@ -40,7 +40,7 @@ vivo:
   triplestore:
     type: TDB
     directory: triplestore
-    datasourceUrl: jdbc:mysql://localhost/vivo
+    datasourceUrl: jdbc:mysql://localhost/vivo?useLegacyDatetimeCode=false&serverTimezone=America/Chicago
     username:
     password:
 

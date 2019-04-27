@@ -1,9 +1,8 @@
 package edu.tamu.scholars.middleware.service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.apache.jena.query.Dataset;
+import org.apache.jena.query.DatasetFactory;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.sdb.SDB;
 import org.apache.jena.sdb.SDBFactory;
 import org.apache.jena.sdb.Store;
@@ -24,8 +23,8 @@ public class SDBTriplestore implements Triplestore {
 
     private Dataset dataset;
 
-    @PostConstruct
-    public void open() {
+    @Override
+    public void init() {
         // TODO: handle missing configurations
         SDB.getContext().setTrue(SDB.unionDefaultGraph);
         SDB.getContext().set(SDB.jdbcStream, triplestoreConfig.isJdbcStream());
@@ -35,19 +34,21 @@ public class SDBTriplestore implements Triplestore {
         StoreDesc storeDesc = new StoreDesc(LayoutType.fetch(triplestoreConfig.getLayoutType()), DatabaseType.fetch(triplestoreConfig.getDatabaseType()));
         SDBConnection conn = new SDBConnection(triplestoreConfig.getDatasourceUrl(), triplestoreConfig.getUsername(), triplestoreConfig.getPassword());
         store = SDBFactory.connectStore(conn, storeDesc);
-        dataset = SDBFactory.connectDataset(store);
+        dataset = DatasetFactory.create();
+        Model model = SDBFactory.connectDefaultModel(store);
+        dataset.setDefaultModel(model);
     }
 
     @Override
-    public Dataset dataset() {
-        return dataset;
-    }
-
-    @PreDestroy
-    public void close() {
+    public void destroy() {
         store.getConnection().close();
         store.close();
         dataset.close();
+    }
+
+    @Override
+    public Dataset getDataset() {
+        return dataset;
     }
 
 }

@@ -5,10 +5,20 @@ import org.apache.jena.tdb.TDBFactory;
 
 public class TestTriplestore implements Triplestore {
 
-    private Dataset dataset = TDBFactory.createDataset();
+    private Dataset dataset;
 
     @Override
-    public Dataset dataset() {
+    public void init() {
+        dataset = TDBFactory.createDataset();
+    }
+
+    @Override
+    public void destroy() {
+        dataset.close();
+    }
+
+    @Override
+    public Dataset getDataset() {
         return dataset;
     }
 

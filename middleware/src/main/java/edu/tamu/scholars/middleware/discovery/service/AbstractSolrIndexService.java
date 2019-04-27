@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -45,7 +44,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${middleware.index.batchSize:10000}")
+    @Value("${middleware.index.batchSize:100000}")
     public int indexBatchSize;
 
     @Autowired
@@ -63,14 +62,15 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("%s:\n%s", COLLECTION_SPARQL_TEMPLATE, query));
         }
-        try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
+        try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.getDataset())) {
             Iterator<Triple> triples = qe.execConstructTriples();
-            ConcurrentLinkedDeque<D> documents = new ConcurrentLinkedDeque<D>();
+            List<D> documents = new ArrayList<D>();
             if (triples.hasNext()) {
                 Iterable<Triple> tripleIterable = () -> triples;
-                Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), true);
+                Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), false);
                 tripleStream.forEach(triple -> {
                     String subject = triple.getSubject().toString();
+                    // logger.info(String.format("Indexing %s %s", type().getSimpleName(), subject));
                     try {
                         documents.add(createDocument(subject));
                     } catch (DataAccessResourceFailureException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -94,23 +94,6 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
                 }
             } else {
                 logger.warn(String.format("No %s found!", name()));
-            }
-        }
-    }
-
-    public void index(String subject) {
-        try {
-            D document = createDocument(subject);
-            repo.save(document);
-        } catch (DataAccessResourceFailureException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            logger.error(String.format("Unable to index %s: %s", name(), parse(subject)));
-            logger.error(String.format("Error: %s", e.getMessage()));
-            if (logger.isDebugEnabled()) {
-                e.printStackTrace();
-            }
-        } catch (NullPointerException e) {
-            if (logger.isDebugEnabled()) {
-                e.printStackTrace();
             }
         }
     }
@@ -150,7 +133,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("%s:\n%s", source.template(), query));
         }
-        try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.dataset())) {
+        try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.getDataset())) {
             Model model = qe.execConstruct();
             if (logger.isDebugEnabled()) {
                 model.write(System.out, "RDF/XML");

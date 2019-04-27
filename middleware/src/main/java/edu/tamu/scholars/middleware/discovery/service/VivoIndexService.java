@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import edu.tamu.scholars.middleware.service.Triplestore;
+
 @Service
 @Profile("!test")
 public class VivoIndexService {
@@ -29,6 +31,9 @@ public class VivoIndexService {
     @Autowired
     private List<SolrIndexService> indexers;
 
+    @Autowired
+    private Triplestore triplestore;
+
     @PostConstruct
     public void indexOnStartup() {
         if (indexOnStartup) {
@@ -39,15 +44,19 @@ public class VivoIndexService {
     @Scheduled(cron = "${middleware.index.cron}", zone = "${middleware.index.zone}")
     public void index() {
         if (indexing.compareAndSet(false, true)) {
+            Instant start = Instant.now();
             logger.info("Indexing...");
-            Instant allIndexStart = Instant.now();
+            logger.info("Loading dataset...");
+            triplestore.init();
+            logger.info(String.format("Loading finished. %s seconds", Duration.between(start, Instant.now()).toMillis() / 1000.0));
             indexers.stream().forEach(indexer -> {
                 logger.info(String.format("Indexing %s documents", indexer.name()));
                 Instant indexStart = Instant.now();
                 indexer.index();
                 logger.info(String.format("Indexing %s documents finished. %f seconds", indexer.name(), Duration.between(indexStart, Instant.now()).toMillis() / 1000.0));
             });
-            logger.info(String.format("Indexing finished. %s seconds", Duration.between(allIndexStart, Instant.now()).toMillis() / 1000.0));
+            logger.info(String.format("Indexing finished. %s seconds", Duration.between(start, Instant.now()).toMillis() / 1000.0));
+            triplestore.destroy();
             indexing.set(false);
         } else {
             logger.info("Already indexing. Waiting for next schedule.");
