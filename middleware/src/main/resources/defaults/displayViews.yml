@@ -766,7 +766,7 @@
       hidden: false
       template: "defaults/displayViews/publications/overview/abstract.html"
       requiredFields:
-      - abstractText
+      - abstract
     - name: authors
       hidden: false
       template: "defaults/displayViews/publications/overview/authors.html"
@@ -1034,7 +1034,7 @@
       hidden: false
       template: "defaults/displayViews/grants/overview/abstract.html"
       requiredFields:
-      - abstractText
+      - abstract
     - name: date/time interval
       hidden: false
       template: "defaults/displayViews/grants/overview/dateTimeInterval.html"

@@ -11,5 +11,5 @@ CONSTRUCT {
     ?publication a obo:IAO_0000030 .
     ?publication vivo:hasPublicationVenue ?publicationVenue .
     ?publicationVenue rdfs:label ?label .
-    BIND( CONCAT( STR(?label), REPLACE(STR(?publication), "(^.*/)", "::") ) AS ?labelWithId ) .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?publication), "(^.*/)", "::"), REPLACE(STR(?publicationVenue), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

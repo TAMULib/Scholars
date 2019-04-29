@@ -76,11 +76,10 @@ public class Person extends AbstractSolrDocument {
 
     @NestedMultiValuedProperty
     @Indexed(type = "nested_strings")
-    @NestedObject({ @Reference(value = "positionOrganizationParent", key = "parent") })
+    @NestedObject(root = false, value = { @Reference(value = "positionOrganizationParent", key = "parent") })
     @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> positionOrganization;
 
-    @NestedObject
     @NestedMultiValuedProperty
     @Indexed(type = "nested_strings")
     @PropertySource(template = "person/positionOrganizationParent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
@@ -284,7 +283,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> selectedPublicationPublisher;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
-    @NestedObject({ @Reference(value = "selectedPublicationVenueType", key = "type") })
+    @NestedObject(root = false, value = { @Reference(value = "selectedPublicationVenueType", key = "type") })
     @PropertySource(template = "person/selectedPublicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> selectedPublicationVenue;
 

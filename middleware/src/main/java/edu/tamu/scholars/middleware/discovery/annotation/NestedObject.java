@@ -13,6 +13,8 @@ import java.lang.annotation.Target;
 public @interface NestedObject {
 
     Reference[] value() default {};
+    
+    boolean root() default true;
 
     @Documented
     @Target(FIELD)

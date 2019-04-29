@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -56,28 +57,31 @@ public abstract class AbstractUnwrappingSolrDocumentSerializer<D extends Abstrac
             }
 
             if (value != null) {
-                String name = field.getName();
+                JsonProperty jsonProperty = field.getAnnotation(JsonProperty.class);
+                String name = jsonProperty != null ? jsonProperty.value() : field.getName();
                 NestedObject nested = field.getAnnotation(NestedObject.class);
                 if (nested != null) {
-                    if (List.class.isAssignableFrom(value.getClass())) {
-                        @SuppressWarnings("unchecked")
-                        List<String> values = (List<String>) value;
-                        ArrayNode array = JsonNodeFactory.instance.arrayNode();
-                        for (String v : values) {
+                    if (nested.root()) {
+                        if (List.class.isAssignableFrom(value.getClass())) {
+                            @SuppressWarnings("unchecked")
+                            List<String> values = (List<String>) value;
+                            ArrayNode array = JsonNodeFactory.instance.arrayNode();
+                            for (String v : values) {
+                                String[] vParts = v.split(NESTED_ID_DELIMITER);
+                                if (vParts.length > 1) {
+                                    array.add(processValue(document, field, vParts, 1));
+                                }
+                            }
+                            if (array.size() > 0) {
+                                jsonGenerator.writeObjectField(nameTransformer.transform(name), array);
+                            }
+                        } else {
+                            String v = value.toString();
                             String[] vParts = v.split(NESTED_ID_DELIMITER);
                             if (vParts.length > 1) {
-                                array.add(processValue(document, field, vParts, 1));
+                                ObjectNode node = processValue(document, field, vParts, 1);
+                                jsonGenerator.writeObjectField(nameTransformer.transform(name), node);
                             }
-                        }
-                        if(array.size() > 0) {
-                            jsonGenerator.writeObjectField(nameTransformer.transform(name), array);
-                        }
-                    } else {
-                        String v = value.toString();
-                        String[] vParts = v.split(NESTED_ID_DELIMITER);
-                        if (vParts.length > 1) {
-                            ObjectNode node = processValue(document, field, vParts, 1);
-                            jsonGenerator.writeObjectField(nameTransformer.transform(name), node);
                         }
                     }
                 } else {
@@ -102,9 +106,11 @@ public abstract class AbstractUnwrappingSolrDocumentSerializer<D extends Abstrac
         if (references != null) {
             for (Reference reference : references.value()) {
                 String ref = reference.value();
-                String property = reference.key();
 
                 Field nestedField = FieldUtils.getField(document.getClass(), ref, true);
+
+                JsonProperty jsonProperty = nestedField.getAnnotation(JsonProperty.class);
+                String name = jsonProperty != null ? jsonProperty.value() : reference.key();
 
                 Object nestedValue = null;
                 try {
@@ -137,9 +143,9 @@ public abstract class AbstractUnwrappingSolrDocumentSerializer<D extends Abstrac
                         }
                         if (array.size() > 0) {
                             if (multiValued) {
-                                node.set(property, array);
+                                node.set(name, array);
                             } else {
-                                node.set(property, array.get(0));
+                                node.set(name, array.get(0));
                             }
                         }
                     } else {
@@ -147,10 +153,10 @@ public abstract class AbstractUnwrappingSolrDocumentSerializer<D extends Abstrac
                         String[] nvParts = nv.split(NESTED_ID_DELIMITER);
                         if (nvParts.length > depth) {
                             ObjectNode subNode = processValue(document, nestedField, nvParts, depth);
-                            node.set(property, subNode);
+                            node.set(name, subNode);
                         } else {
                             if (nvParts[0] != null) {
-                                node.put(property, nvParts[0]);
+                                node.put(name, nvParts[0]);
                             }
                         }
                     }
