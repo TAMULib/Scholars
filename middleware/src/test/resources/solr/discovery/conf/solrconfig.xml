@@ -72,7 +72,6 @@
        The examples below can be used to load some solr-contribs along
        with their external dependencies.
     -->
-  <!-- 
   <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
   <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar" />
 
@@ -84,7 +83,6 @@
 
   <lib dir="${solr.install.dir:../../../..}/contrib/velocity/lib" regex=".*\.jar" />
   <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-velocity-\d.*\.jar" />
-  -->
   <!-- an exact 'path' can be used instead of a 'dir' to specify a
        specific jar file.  This will cause a serious error to be logged
        if it can't be loaded.
@@ -206,7 +204,7 @@
          More details on the nuances of each LockFactory...
          http://wiki.apache.org/lucene-java/AvailableLockFactories
     -->
-    <lockType>${solr.lock.type:single}</lockType>
+    <lockType>${solr.lock.type:native}</lockType>
 
     <!-- Commit Deletion Policy
          Custom deletion policies can be specified here. The class must
@@ -1158,6 +1156,23 @@
       <str>yyyy-MM-dd HH:mmZ</str>
       <str>yyyy-MM-dd HH:mm</str>
       <str>yyyy-MM-dd</str>
+      <str>yyyy-MM'T'HH:mm:ss.SSSZ</str>
+      <str>yyyy-MM'T'HH:mm:ss,SSSZ</str>
+      <str>yyyy-MM'T'HH:mm:ss.SSS</str>
+      <str>yyyy-MM'T'HH:mm:ss,SSS</str>
+      <str>yyyy-MM'T'HH:mm:ssZ</str>
+      <str>yyyy-MM'T'HH:mm:ss</str>
+      <str>yyyy-MM'T'HH:mmZ</str>
+      <str>yyyy-MM'T'HH:mm</str>
+      <str>yyyy-MM HH:mm:ss.SSSZ</str>
+      <str>yyyy-MM HH:mm:ss,SSSZ</str>
+      <str>yyyy-MM HH:mm:ss.SSS</str>
+      <str>yyyy-MM HH:mm:ss,SSS</str>
+      <str>yyyy-MM HH:mm:ssZ</str>
+      <str>yyyy-MM HH:mm:ss</str>
+      <str>yyyy-MM HH:mmZ</str>
+      <str>yyyy-MM HH:mm</str>
+      <str>yyyy-MM</str>
     </arr>
   </updateProcessor>
   <updateProcessor class="solr.AddSchemaFieldsUpdateProcessorFactory" name="add-schema-fields">
@@ -1287,14 +1302,6 @@
      <queryResponseWriter name="csv" class="solr.CSVResponseWriter"/>
      <queryResponseWriter name="schema.xml" class="solr.SchemaXmlResponseWriter"/>
     -->
-
-  <queryResponseWriter name="json" class="solr.JSONResponseWriter">
-    <!-- For the purposes of the tutorial, JSON responses are written as
-     plain text so that they are easy to read in *any* browser.
-     If you expect a MIME type of "application/json" just remove this override.
-    -->
-    <str name="content-type">text/plain; charset=UTF-8</str>
-  </queryResponseWriter>
 
   <!--
      Custom response writers can be declared as needed...

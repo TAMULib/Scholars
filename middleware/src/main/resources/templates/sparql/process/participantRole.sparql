@@ -1,11 +1,14 @@
 PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
     ?role rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> obo:BFO_0000055 ?role .
+    <[(${uri})]> obo:BFO_0000055 ?person .
+    ?person a foaf:Person .
     ?role a obo:BFO_0000017 .
     ?role rdfs:label ?label .
-    BIND( CONCAT( STR(?label), REPLACE(STR(?role), "(^.*/)", "::") ) AS ?labelWithId ) .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?person), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

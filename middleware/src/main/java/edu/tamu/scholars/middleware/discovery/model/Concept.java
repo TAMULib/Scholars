@@ -56,7 +56,7 @@ public class Concept extends AbstractSolrDocument {
     private List<String> researchAreaOf;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "concept/researchAreaOfTitle", predicate = "http://vivoweb.org/ontology/core#hrJobTitle")
+    @PropertySource(template = "concept/researchAreaOfTitle", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> researchAreaOfTitle;
 
     @NestedMultiValuedProperty

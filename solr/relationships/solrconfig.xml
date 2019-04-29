@@ -1156,6 +1156,23 @@
       <str>yyyy-MM-dd HH:mmZ</str>
       <str>yyyy-MM-dd HH:mm</str>
       <str>yyyy-MM-dd</str>
+      <str>yyyy-MM'T'HH:mm:ss.SSSZ</str>
+      <str>yyyy-MM'T'HH:mm:ss,SSSZ</str>
+      <str>yyyy-MM'T'HH:mm:ss.SSS</str>
+      <str>yyyy-MM'T'HH:mm:ss,SSS</str>
+      <str>yyyy-MM'T'HH:mm:ssZ</str>
+      <str>yyyy-MM'T'HH:mm:ss</str>
+      <str>yyyy-MM'T'HH:mmZ</str>
+      <str>yyyy-MM'T'HH:mm</str>
+      <str>yyyy-MM HH:mm:ss.SSSZ</str>
+      <str>yyyy-MM HH:mm:ss,SSSZ</str>
+      <str>yyyy-MM HH:mm:ss.SSS</str>
+      <str>yyyy-MM HH:mm:ss,SSS</str>
+      <str>yyyy-MM HH:mm:ssZ</str>
+      <str>yyyy-MM HH:mm:ss</str>
+      <str>yyyy-MM HH:mmZ</str>
+      <str>yyyy-MM HH:mm</str>
+      <str>yyyy-MM</str>
     </arr>
   </updateProcessor>
   <updateProcessor class="solr.AddSchemaFieldsUpdateProcessorFactory" name="add-schema-fields">

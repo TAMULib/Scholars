@@ -76,8 +76,15 @@ public class Person extends AbstractSolrDocument {
 
     @NestedMultiValuedProperty
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    @NestedObject({ @Reference(value = "positionOrganizationParent", key = "parent") })
+    @PropertySource(template = "person/positionOrganization", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> positionOrganization;
+
+    @NestedObject
+    @NestedMultiValuedProperty
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/positionOrganizationParent", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
+    private List<String> positionOrganizationParent;
 
     @Indexed(type = "whole_string", copyTo = "_text_")
     @PropertySource(template = "person/overview", predicate = "http://vivoweb.org/ontology/core#overview")
@@ -277,8 +284,13 @@ public class Person extends AbstractSolrDocument {
     private List<String> selectedPublicationPublisher;
 
     @Indexed(type = "nested_strings", copyTo = "_text_")
+    @NestedObject({ @Reference(value = "selectedPublicationVenueType", key = "type") })
     @PropertySource(template = "person/selectedPublicationVenue", predicate = "http://www.w3.org/2000/01/rdf-schema#label", unique = true)
     private List<String> selectedPublicationVenue;
+
+    @Indexed(type = "nested_strings", copyTo = "_text_")
+    @PropertySource(template = "person/selectedPublicationVenueType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
+    private List<String> selectedPublicationVenueType;
 
     @Indexed(type = "nested_dates")
     @PropertySource(template = "person/selectedPublicationDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
@@ -833,6 +845,14 @@ public class Person extends AbstractSolrDocument {
         this.positionOrganization = positionOrganization;
     }
 
+    public List<String> getPositionOrganizationParent() {
+        return positionOrganizationParent;
+    }
+
+    public void setPositionOrganizationParent(List<String> positionOrganizationParent) {
+        this.positionOrganizationParent = positionOrganizationParent;
+    }
+
     public String getOverview() {
         return overview;
     }
@@ -1207,6 +1227,14 @@ public class Person extends AbstractSolrDocument {
 
     public void setSelectedPublicationVenue(List<String> selectedPublicationVenue) {
         this.selectedPublicationVenue = selectedPublicationVenue;
+    }
+
+    public List<String> getSelectedPublicationVenueType() {
+        return selectedPublicationVenueType;
+    }
+
+    public void setSelectedPublicationVenueType(List<String> selectedPublicationVenueType) {
+        this.selectedPublicationVenueType = selectedPublicationVenueType;
     }
 
     public List<String> getSelectedPublicationDate() {

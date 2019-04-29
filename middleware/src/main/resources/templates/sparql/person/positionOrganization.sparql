@@ -3,13 +3,13 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?organization rdfs:label ?nameWithIds .
+    ?organization rdfs:label ?labelWithIds .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?position .
     ?position a vivo:Position .
     ?position vivo:relatedBy ?organization .
     ?organization a foaf:Organization .
     ?organization rdfs:label ?label .
-    BIND( CONCAT( STR(?label), REPLACE(STR(?position), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithIds ) .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?position), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?labelWithIds ) .
     FILTER(lang(?label) = '')
 }

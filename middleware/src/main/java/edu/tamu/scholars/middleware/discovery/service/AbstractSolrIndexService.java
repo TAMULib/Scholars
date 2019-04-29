@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -64,10 +65,10 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         }
         try (QueryExecution qe = QueryExecutionFactory.create(query, triplestore.getDataset())) {
             Iterator<Triple> triples = qe.execConstructTriples();
-            List<D> documents = new ArrayList<D>();
+            ConcurrentLinkedDeque<D> documents = new ConcurrentLinkedDeque<D>();
             if (triples.hasNext()) {
                 Iterable<Triple> tripleIterable = () -> triples;
-                Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), false);
+                Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), true);
                 tripleStream.forEach(triple -> {
                     String subject = triple.getSubject().toString();
                     // logger.info(String.format("Indexing %s %s", type().getSimpleName(), subject));
@@ -84,10 +85,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
                             e.printStackTrace();
                         }
                     }
-                    if (documents.size() == indexBatchSize) {
-                        repo.saveAll(documents);
-                        documents.clear();
-                    }
+                    batchCheck(documents);
                 });
                 if (documents.size() > 0) {
                     repo.saveAll(documents);
@@ -95,6 +93,13 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
             } else {
                 logger.warn(String.format("No %s found!", name()));
             }
+        }
+    }
+
+    private synchronized void batchCheck(ConcurrentLinkedDeque<D> documents) {
+        if (documents.size() == indexBatchSize) {
+            repo.saveAll(documents);
+            documents.clear();
         }
     }
 
