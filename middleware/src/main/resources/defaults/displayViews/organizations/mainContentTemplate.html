@@ -17,10 +17,20 @@
   <div class="mt-1">
     <span class="label">Research Areas:</span>
   </div>
-  <div id="affiliated-research-area" class="comma-seperated ml-1">
-    {{~it.affiliatedResearchAreas :affiliatedResearchArea}}
-    <span><a href="display/concepts/{{=affiliatedResearchArea.id}}">{{=affiliatedResearchArea.label}}</a></span>
-    {{~}}
+  <div class="ml-1">
+    <div class="comma-seperated">
+      {{~it.affiliatedResearchAreas.slice(0, 10) :affiliatedResearchArea}}
+      <span><a href="display/concepts/{{=affiliatedResearchArea.id}}">{{=affiliatedResearchArea.label}}</a></span>
+      {{~}}
+      {{? it.affiliatedResearchAreas.length > 10 }}
+      <div class="more badge badge-light" tabindex="0">...more</div>
+      <div class="area comma-seperated">
+        {{~it.affiliatedResearchAreas.slice(10, it.affiliatedResearchAreas.length) :affiliatedResearchArea}}
+ 	    <span><a href="display/concepts/{{=affiliatedResearchArea.id}}">{{=affiliatedResearchArea.label}}</a></span>
+        {{~}}
+      </div>
+      {{?}}
+    </div>
   </div>
   {{?}}
 </div>
@@ -46,4 +56,34 @@
   .comma-seperated span:last-child:after {
     content: "";
   }
+  
+  .more {
+    display: inline;
+  }
+
+  .area {
+  	opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    margin-left: -5px;
+    margin-right: 5px;
+    padding: 5px;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+  }
+
+  .area:hover {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .more:hover ~ .area {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+  }
+
 </style>
