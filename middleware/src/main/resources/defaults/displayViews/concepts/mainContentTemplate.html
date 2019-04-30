@@ -7,4 +7,28 @@
     <span class="ml-1">{{=it.type}}</span>
     <i class="fa fa-link ml-1"></i>
   </span>
+  {{? it.associatedDepartments }}
+  <div class="mt-1">
+    <span class="label">Associated Departments:</span>
+  </div>
+  <div class="comma-seperated ml-1">
+    {{~it.associatedDepartments :associatedDepartment}}
+    <span><a href="display/organizations/{{=associatedDepartment.id}}">{{=associatedDepartment.label}}</a></span>
+    {{~}}
+  </div>
+  {{?}}
 </div>
+<style>
+  .label {
+    font-weight: 550;
+    margin-right: 2px;
+  }
+
+  .comma-seperated span:after {
+    content: ", ";
+  }
+
+  .comma-seperated span:last-child:after {
+    content: "";
+  }
+</style>

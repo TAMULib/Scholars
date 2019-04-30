@@ -21,7 +21,11 @@
           {{ publication.publicationDateYear = new Date(publication.publicationDate).getFullYear() + 1; { }}
           <span>({{=publication.publicationDateYear}}).</span>
           {{ } }}
-          <span><a href="display/documents/{{=publication.id}}"><u>{{=publication.title}}</u>.</a></span>
+          <span>
+            {{ publication.unescapedTitle = publication.title.replace(/\\/g, ""); { }}
+            <a href="display/documents/{{=publication.id}}"><u>{{=publication.unescapedTitle}}</u>.</a>
+            {{ } }}
+          </span>
           
           {{? publication.publicationVenue }}
           <span><em>{{=publication.publicationVenue.label}}</em>. </span>
@@ -104,7 +108,11 @@
               {{ publication.publicationDateYear = new Date(publication.publicationDate).getFullYear() + 1; { }}
               <span>({{=publication.publicationDateYear}}).</span>
               {{ } }}
-              <span><a href="display/documents/{{=publication.id}}"><u>{{=publication.title}}</u>.</a></span>
+              <span>
+                {{ publication.unescapedTitle = publication.title.replace(/\\/g, ""); { }}
+                <a href="display/documents/{{=publication.id}}"><u>{{=publication.unescapedTitle}}</u>.</a>
+                {{ } }}
+              </span>
               
               {{? publication.publicationVenue }}
               <span><em>{{=publication.publicationVenue.label}}</em>. </span>

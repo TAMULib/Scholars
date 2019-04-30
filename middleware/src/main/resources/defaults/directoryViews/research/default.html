@@ -1,6 +1,8 @@
 <div class="d-flex flex-nowrap justify-content-between mb-1">
   <span>
-    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
+    {{ it.unescapedTitle = it.title.replace(/\\/g, ""); { }}
+    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.unescapedTitle}}</a>
+    {{ } }}
   </span>
   <span class="badge badge-light">{{=it.type}}</span>
 </div>
