@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
 
 import { combineLatest, scheduled, Observable } from 'rxjs';
-import { asap } from 'rxjs/internal/scheduler/asap';
+import { queue } from 'rxjs/internal/scheduler/queue';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
                 label: this.translate.get('SHARED.DIALOG.LOGIN.SUBMIT'),
                 action: () => this.store.dispatch(new fromAuth.LoginAction({ login: this.dialog.form.value })),
                 disabled: () => combineLatest([
-                    scheduled([this.dialog.form.invalid], asap),
-                    scheduled([this.dialog.form.pristine], asap),
+                    scheduled([this.dialog.form.invalid], queue),
+                    scheduled([this.dialog.form.pristine], queue),
                     this.store.pipe(select(selectIsLoggingIn))
             ]   ).pipe(map(results => results[0] || results[1] || results[2]))
             }
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
                 switch (validation) {
                     case 'required': return this.translate.get('SHARED.DIALOG.VALIDATION.REQUIRED', { field });
                     case 'email': return this.translate.get('SHARED.DIALOG.VALIDATION.EMAIL', { field });
-                    default: return scheduled(['unknown error'], asap);
+                    default: return scheduled(['unknown error'], queue);
                 }
             }
         }

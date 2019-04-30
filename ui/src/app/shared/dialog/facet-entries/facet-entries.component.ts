@@ -4,7 +4,7 @@ import { Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { scheduled } from 'rxjs';
-import { asap } from 'rxjs/internal/scheduler/asap';
+import { queue } from 'rxjs/internal/scheduler/queue';
 
 import { AppState } from '../../../core/store';
 import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
@@ -40,12 +40,12 @@ export class FacetEntriesComponent implements OnInit {
 
     ngOnInit() {
         this.dialog = {
-            title: scheduled([this.name], asap),
+            title: scheduled([this.name], queue),
             close: {
                 type: DialogButtonType.OUTLINE_WARNING,
                 label: this.translate.get('SHARED.DIALOG.FACET_ENTRIES.CANCEL'),
                 action: () => this.store.dispatch(new fromDialog.CloseDialogAction()),
-                disabled: () => scheduled([false], asap)
+                disabled: () => scheduled([false], queue)
             }
         };
     }

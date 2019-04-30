@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
 
 import { combineLatest, scheduled, Observable } from 'rxjs';
-import { asap } from 'rxjs/internal/scheduler/asap';
+import { queue } from 'rxjs/internal/scheduler/queue';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
@@ -116,7 +116,7 @@ export class RegistrationComponent implements OnInit {
                     case 'minlength': return this.translate.get('SHARED.DIALOG.VALIDATION.MIN_LENGTH', { field, min: errors[validation].requiredLength });
                     case 'maxlength': return this.translate.get('SHARED.DIALOG.VALIDATION.MAX_LENGTH', { field, max: errors[validation].requiredLength });
                     case 'confirmPassword': return this.translate.get('SHARED.DIALOG.VALIDATION.CONFIRM_PASSWORD', { field });
-                    default: return scheduled(['unknown error'], asap);
+                    default: return scheduled(['unknown error'], queue);
                 }
             }
         }
@@ -143,14 +143,14 @@ export class RegistrationComponent implements OnInit {
     private isSubmitDisabled(): Observable<boolean> {
         if (this.isSubmit()) {
             return combineLatest([
-                scheduled([this.dialog.form.invalid], asap),
-                scheduled([this.dialog.form.pristine], asap),
+                scheduled([this.dialog.form.invalid], queue),
+                scheduled([this.dialog.form.pristine], queue),
                 this.store.pipe(select(selectIsSubmittingRegistration))
             ]).pipe(map(results => results[0] || results[1] || results[2]));
         } else if (this.isComplete()) {
             return combineLatest([
-                scheduled([this.dialog.form.invalid], asap),
-                scheduled([this.dialog.form.pristine], asap),
+                scheduled([this.dialog.form.invalid], queue),
+                scheduled([this.dialog.form.pristine], queue),
                 this.store.pipe(select(selectIsCompletingRegistration))
             ]).pipe(map(results => results[0] || results[1] || results[2]));
         } else {

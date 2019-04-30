@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
 import { scheduled } from 'rxjs';
-import { asap } from 'rxjs/internal/scheduler/asap';
+import { queue } from 'rxjs/internal/scheduler/queue';
 
 import { AppState } from '../../../core/store';
 import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
@@ -35,7 +35,7 @@ export class NotificationComponent implements OnInit {
                 type: DialogButtonType.OUTLINE_WARNING,
                 label: this.translate.get('SHARED.DIALOG.NOTIFICATION.CLOSE'),
                 action: () => this.store.dispatch(new fromDialog.CloseDialogAction()),
-                disabled: () => scheduled([false], asap)
+                disabled: () => scheduled([false], queue)
             }
         };
     }
