@@ -26,6 +26,7 @@ import { LoaderDirective } from './loader/loader.directive';
 
 import { SafeHtmlPipe } from './utilities/safe-html.pipe';
 import { FilterPipe } from './utilities/filter.pipe';
+import { FormalizePipe } from './utilities/formalize.pipe';
 
 const MODULES = [
     CommonModule,
@@ -38,6 +39,7 @@ const MODULES = [
 
 const PIPES = [
     FilterPipe,
+    FormalizePipe,
     SafeHtmlPipe
 ];
 
