@@ -7,6 +7,8 @@ import { ResourceView, CollectionView, DisplayView } from '../../model/view';
 
 import { keys } from '../../model/repos';
 
+import { environment } from '../../../../environments/environment';
+
 import * as doT from 'dot';
 
 export interface SdrState<R extends SdrResource> extends EntityState<R> {
@@ -44,6 +46,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         if (resource.uri !== undefined) {
             resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
         }
+        resource.vivoUrl = environment.vivoUrl;
         const templateFunction = doT.template(template);
         return templateFunction(resource);
     };

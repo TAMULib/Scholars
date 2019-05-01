@@ -26,7 +26,7 @@ import { environment } from '../../../environments/environment';
 })
 export class NavigationComponent implements OnInit {
 
-    public editProfileLink: string;
+    public vivoEditorUrl: string;
 
     public hasMenu: Observable<boolean>;
 
@@ -41,7 +41,7 @@ export class NavigationComponent implements OnInit {
     public directoryViews: Observable<DirectoryView[]>;
 
     constructor(private store: Store<AppState>) {
-        this.editProfileLink = environment.editProfileLink;
+        this.vivoEditorUrl = environment.vivoEditorUrl;
     }
 
     ngOnInit() {
