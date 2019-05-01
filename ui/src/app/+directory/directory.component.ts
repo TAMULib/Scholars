@@ -4,16 +4,18 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { DirectoryView, Facet, Filter, DiscoveryView } from '../core/model/view';
+import { DirectoryView, DiscoveryView } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById, selectDefaultDiscoveryView } from '../core/store/sdr';
 import { selectRouterQueryParams } from '../core/store/router';
+
+import { addFacetsToQueryParams, addFiltersToQueryParams } from '../shared/utilities/view.utility';
 
 @Component({
     selector: 'scholars-directory',
@@ -59,13 +61,13 @@ export class DirectoryComponent implements OnDestroy, OnInit {
             if (params.view) {
                 this.directoryView = this.store.pipe(
                     select(selectResourceById('directoryViews', params.view)),
-                    filter((view: DirectoryView) => view !== undefined)
+                    filter((view: DirectoryView) => view !== undefined),
+                    tap((view: DirectoryView) => {
+                        this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(view.collection)));
+                        this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(view.collection)));
+                        this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(view.collection)));
+                    })
                 );
-                this.subscriptions.push(this.directoryView.subscribe((directoryView: DirectoryView) => {
-                    this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(directoryView.collection)));
-                    this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(directoryView.collection)));
-                    this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(directoryView.collection)));
-                }));
             }
         }));
     }
@@ -90,23 +92,12 @@ export class DirectoryComponent implements OnDestroy, OnInit {
     public getResetQueryParams(directoryView: DirectoryView): Params {
         const queryParams: Params = {};
         queryParams.collection = directoryView.collection;
-        queryParams.sort = `${directoryView.index.field},asc`;
         queryParams.index = undefined;
-        if (directoryView.facets && directoryView.facets.length > 0) {
-            let facets = '';
-            directoryView.facets.forEach((facet: Facet) => {
-                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
-            });
-            queryParams.facets = facets;
-        }
-        if (directoryView.filters && directoryView.filters.length > 0) {
-            // tslint:disable-next-line:no-shadowed-variable
-            directoryView.filters.forEach((filter: Filter) => {
-                queryParams[`${filter.field}.filter`] = filter.value;
-            });
-        }
-        queryParams.sort = `${directoryView.index.field},asc`;
         queryParams.page = 1;
+        addFacetsToQueryParams(queryParams, directoryView);
+        addFiltersToQueryParams(queryParams, directoryView);
+        // NOTE: currently ignoring sort of CollectionView and applying sort asc by index field
+        queryParams.sort = `${directoryView.index.field},asc`;
         return queryParams;
     }
 

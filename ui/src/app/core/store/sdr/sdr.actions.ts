@@ -11,6 +11,18 @@ export enum SdrActionTypes {
     SEARCH = 'search resources',
     SEARCH_SUCCESS = 'sucessfully searched resources',
     SEARCH_FAILURE = 'failed searching resources',
+    COUNT = 'count resources',
+    COUNT_SUCCESS = 'sucessfully counted resources',
+    COUNT_FAILURE = 'failed counting resources',
+    GET_ONE = 'get one resource by id',
+    GET_ONE_SUCCESS = 'sucessfully got resource by id',
+    GET_ONE_FAILURE = 'failed getting resource by id',
+    FIND_BY_ID_IN = 'find resource by id in',
+    FIND_BY_ID_IN_SUCCESS = 'sucessfully found resource by id in',
+    FIND_BY_ID_IN_FAILURE = 'failed finding resource by id is',
+    FIND_BY_TYPES_IN = 'find resource by types in',
+    FIND_BY_TYPES_IN_SUCCESS = 'sucessfully found resource by types in',
+    FIND_BY_TYPES_IN_FAILURE = 'failed finding resource by types is',
     POST = 'post resource',
     POST_SUCCESS = 'sucessfully posted resource',
     POST_FAILURE = 'failed posting resource',
@@ -72,6 +84,66 @@ export class SearchResourcesSuccessAction implements Action {
 
 export class SearchResourcesFailureAction implements Action {
     readonly type = getSdrAction(SdrActionTypes.SEARCH_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class CountResourcesAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT, this.name);
+    constructor(public name: string, public payload: { request: SdrRequest }) { }
+}
+
+export class CountResourcesSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class CountResourcesFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class GetOneResourceAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ONE, this.name);
+    constructor(public name: string, public payload: { id: number }) { }
+}
+
+export class GetOneResourceSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ONE_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class GetOneResourceFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ONE_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByIdInResourceAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN, this.name);
+    constructor(public name: string, public payload: { ids: string[] }) { }
+}
+
+export class FindByIdInResourceSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByIdInResourceFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByTypesInResourceAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN, this.name);
+    constructor(public name: string, public payload: { types: string[] }) { }
+}
+
+export class FindByTypesInResourceSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByTypesInResourceFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN_FAILURE, this.name);
     constructor(public name: string, public payload: any) { }
 }
 
@@ -150,6 +222,18 @@ export type SdrActions =
     SearchResourcesAction |
     SearchResourcesSuccessAction |
     SearchResourcesFailureAction |
+    CountResourcesAction |
+    CountResourcesSuccessAction |
+    CountResourcesFailureAction |
+    GetOneResourceAction |
+    GetOneResourceSuccessAction |
+    GetOneResourceFailureAction |
+    FindByIdInResourceAction |
+    FindByIdInResourceSuccessAction |
+    FindByIdInResourceFailureAction |
+    FindByTypesInResourceAction |
+    FindByTypesInResourceSuccessAction |
+    FindByTypesInResourceFailureAction |
     PostResourceAction |
     PostResourceSuccessAction |
     PostResourceFailureAction |

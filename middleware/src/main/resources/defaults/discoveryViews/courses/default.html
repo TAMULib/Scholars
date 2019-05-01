@@ -1,0 +1,18 @@
+<span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
+<!-- TODO: ensure participants have role Instructor -->
+{{? it.participants }}
+<div>
+  <span class="label">Instructors:</span>
+  <ul>
+    {{~it.participants :participant}}
+    <li><span><a href="display/concepts/{{=participant.id}}">{{=participant.label}}</a></span></li>
+    {{~}}
+  </ul>
+</div>
+{{?}}
+<style>
+  .label {
+    font-weight: 550;
+    margin-right: 2px;
+  }
+</style>

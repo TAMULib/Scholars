@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 
-import { of } from 'rxjs';
+import { scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 
 import { SharedModule } from '../shared.module';
 
@@ -33,13 +34,13 @@ describe('DialogComponent', () => {
         fixture = TestBed.createComponent(DialogComponent);
         component = fixture.componentInstance;
         component.dialog = {
-            title: of('Login'),
+            title: scheduled(['Login'], asap),
             form: undefined,
             close: {
                 type: DialogButtonType.OUTLINE_WARNING,
-                label: of('Cancel'),
+                label: scheduled(['Cancel'], asap),
                 action: () => { },
-                disabled: () => of(false)
+                disabled: () => scheduled([false], asap)
             }
         };
         fixture.detectChanges();

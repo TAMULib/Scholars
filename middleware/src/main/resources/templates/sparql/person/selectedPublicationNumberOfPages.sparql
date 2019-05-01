@@ -1,0 +1,14 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+ 
+CONSTRUCT {
+    ?publication bibo:numPages ?numPagesWithId .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?authorship .
+    ?authorship a vivo:Authorship .
+    ?authorship vivo:relates ?publication .
+    ?publication a obo:IAO_0000030 .
+    ?publication bibo:numPages ?numPages .
+    BIND( CONCAT( STR(?numPages), REPLACE(STR(?publication), "(^.*/)", "::") ) AS ?numPagesWithId ) .
+}

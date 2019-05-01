@@ -6,6 +6,7 @@ import { RestService } from '../../../service/rest.service';
 import { SdrRepo } from './sdr-repo';
 
 import { Sort, Facetable, SdrRequest } from '../../request';
+import { Count } from '../count';
 import { SdrResource } from '../sdr-resource';
 import { SdrCollection } from '../sdr-collection';
 
@@ -26,6 +27,12 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
         });
     }
 
+    public count(request: SdrRequest): Observable<Count> {
+        return this.restService.get<Count>(`${environment.service}/${this.path()}/search/count${this.mapParameters(request)}`, {
+            withCredentials: true
+        });
+    }
+
     public page(request: SdrRequest): Observable<SdrCollection> {
         return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}${this.mapParameters(request)}`, {
             withCredentials: true
@@ -40,6 +47,18 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
 
     public getOne(id: string | number): Observable<R> {
         return this.restService.get<R>(`${environment.service}/${this.path()}/${id}`, {
+            withCredentials: true
+        });
+    }
+
+    public findByIdIn(ids: string[]): Observable<SdrCollection> {
+        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}/search/findByIdIn?ids=${ids.join(',')}`, {
+            withCredentials: true
+        });
+    }
+
+    public findByTypesIn(types: string[]): Observable<R> {
+        return this.restService.get<R>(`${environment.service}/${this.path()}/search/findByTypesIn?types=${types.join(',')}`, {
             withCredentials: true
         });
     }
@@ -63,7 +82,7 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
         });
     }
 
-    protected mapParameters(request: SdrRequest): String {
+    protected mapParameters(request: SdrRequest): string {
         const parameters: string[] = [];
 
         if (request.pageable) {

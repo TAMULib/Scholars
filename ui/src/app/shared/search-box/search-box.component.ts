@@ -1,5 +1,5 @@
 import { Component, Input, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer, APP_BASE_HREF } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router, Params, UrlTree } from '@angular/router';
 
@@ -13,6 +13,8 @@ import { DiscoveryView, Facet, Filter } from '../../core/model/view';
 
 import { selectActiveThemeOrganization } from '../../core/store/theme';
 import { selectRouterSearchQuery } from '../../core/store/router';
+
+import { addFacetsToQueryParams, addFiltersToQueryParams, addSortToQueryParams } from '../utilities/view.utility';
 
 export interface SearchBoxStyles {
     labelColor: string;
@@ -46,6 +48,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     private setup = false;
 
     constructor(
+        @Inject(APP_BASE_HREF) private baseHref: string,
         @Inject(PLATFORM_ID) private platformId: string,
         private formBuilder: FormBuilder,
         private store: Store<AppState>,
@@ -133,29 +136,20 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     }
 
     public getAction(): string {
-        return `/discovery/${this.view.name}`;
+        return `${this.baseHref}discovery/${this.view.name}`;
     }
 
     public getFilterName(filter: Filter): string {
         return `${filter.field}.filter`;
     }
 
-    // NOTE: redundant with getDiscoveryQueryParams from DiscoveryComponent
     private getDiscoveryQueryParams(query: string): Params {
         const queryParams: Params = {};
         queryParams.collection = this.view.collection;
-        if (this.view.facets && this.view.facets.length > 0) {
-            let facets = '';
-            this.view.facets.forEach((facet: Facet) => {
-                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
-            });
-            queryParams.facets = facets;
-        }
-        if (this.view.filters && this.view.filters.length > 0) {
-            this.view.filters.forEach((filter: Filter) => {
-                queryParams[`${filter.field}.filter`] = filter.value;
-            });
-        }
+        addFacetsToQueryParams(queryParams, this.view);
+        addFiltersToQueryParams(queryParams, this.view);
+        // NOTE: only first sort is applied to query
+        addSortToQueryParams(queryParams, this.view);
         if (query && query.length > 0) {
             queryParams.query = query;
         } else {

@@ -3,12 +3,13 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
-    ?relatedBy vivo:rank ?rank .
+    ?relatedBy vivo:rank ?rankWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?relatedBy .
     ?relatedBy a vivo:Authorship .
     ?relatedBy vivo:relates ?author .
     ?author rdf:type ?type .
     ?relatedBy vivo:rank ?rank .
+    BIND( CONCAT( STR(?rank), REPLACE(STR(?author), "(^.*/)", "::") ) AS ?rankWithId ) .
     FILTER(?type = foaf:Person || ?type = foaf:Organization)
 }

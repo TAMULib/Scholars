@@ -1,21 +1,49 @@
 <div class="wrapper container">
   <nav class="sidebar {{menu.classes}}" *ngIf="menu | async; let menu" [ngClass]="{ 'd-none': (isSidebarCollapsed | async) }">
     <div class="card" *ngFor="let section of menu.sections; let sectionIndex = index">
-      <div class="card-header font-weight-bold {{section.classes}}" *ngIf="section.title | async; let sectionTitle">
+      <div class="card-header font-weight-bold {{section.classes}}" *ngIf="section.title | async; let sectionTitle" (click)="toggleSectionCollapse(sectionIndex)">
         <span>{{sectionTitle}}</span>
-        <span *ngIf="section.collapsible" class="section-collapse float-right fa" [ngClass]="{ 'fa-caret-right': section.collapsed, 'fa-caret-down': !section.collapsed }" (click)="toggleSectionCollapse(sectionIndex)" aria-role="button" attr.aria-label="{{ (section.collapsed ? 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_EXPAND' : 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_COLLAPSE') | translate:{ label: sectionTitle } }}"></span>
+        <span *ngIf="section.collapsible" class="section-collapse float-right fa" [ngClass]="{ 'fa-caret-right': section.collapsed, 'fa-caret-down': !section.collapsed }" aria-role="button" attr.aria-label="{{ (section.collapsed ? 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_EXPAND' : 'SHARED.SIDEBAR.SECTION.ARIA_LABEL_COLLAPSE') | translate:{ label: sectionTitle } }}"></span>
       </div>
       <div class="card-items" [ngbCollapse]="section.collapsed">
         <ul class="list-group list-group-flush" *ngFor="let item of section.items">
-          <li class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" aria-role="link" attr.aria-label="{{ 'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate }}">
-            <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
-              <span>
-                <span *ngIf="item.selected" class="fa fa-caret-right mr-2"></span>
-                <span>{{item.label | async}}</span>
+
+          <li [ngSwitch]="item.type" class="list-group-item list-group-item-action list-group-item-light link {{item.classes}}" aria-role="link" attr.aria-label="{{ 'SHARED.SIDEBAR.LINK.ARIA_LABEL' | translate }}">
+
+            <span *ngSwitchCase="'FACET'" [ngSwitch]="item.facet.type">
+
+              <span *ngSwitchCase="'STRING'" class="d-flex flex-nowrap justify-content-between">
+
+                <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
+                  <span>
+                    <span *ngIf="item.selected" class="fa fa-close mr-2"></span>
+                    <span>{{item.label | async}}</span>
+                  </span>
+                </a>
+                <span class="badge badge-light" *ngIf="item.parenthetical">{{item.parenthetical}}</span>
+
               </span>
-            </a>
-            <span *ngIf="item.total"> ({{item.total}})</span>
+
+              <span *ngSwitchCase="'DATE_YEAR'" class="d-flex flex-nowrap justify-content-between">
+
+                <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
+                  <span>
+                    <span *ngIf="item.selected" class="fa fa-close mr-2"></span>
+                    <span>{{item.label | async | date:'yyyy' }}</span>
+                  </span>
+                </a>
+                <span class="badge badge-light" *ngIf="item.parenthetical">{{item.parenthetical}}</span>
+
+              </span>
+
+            </span>
+
+            <span *ngSwitchCase="'ACTION'">
+              <span class="link" (click)="dispatchAction(item.action)">{{item.label | async }}</span>
+            </span>
+
           </li>
+
         </ul>
       </div>
     </div>

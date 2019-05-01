@@ -15,9 +15,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponents;
 
-import edu.tamu.scholars.middleware.discovery.model.Facet;
-import edu.tamu.scholars.middleware.discovery.model.Facet.Entry;
-
 @Component
 public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> {
 
@@ -57,7 +54,7 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
                 }
 
                 if (field.isPresent()) {
-                    facets.add(new Facet(field.get(), entries, facetFieldEntryPage.getPageable()));
+                    facets.add(new Facet(field.get(), entries));
                 }
 
             });
@@ -71,6 +68,48 @@ public class FacetPagedResourcesAssembler<T> extends PagedResourcesAssembler<T> 
 
         public void setFacets(List<Facet> facets) {
             this.facets = facets;
+        }
+
+        class Facet {
+
+            private final String field;
+
+            private final List<Entry> entries;
+
+            public Facet(String field, List<Entry> entries) {
+                this.field = field;
+                this.entries = entries;
+            }
+
+            public String getField() {
+                return field;
+            }
+
+            public List<Entry> getEntries() {
+                return entries;
+            }
+
+        }
+
+        class Entry {
+
+            private final String value;
+
+            private final long count;
+
+            public Entry(String value, long count) {
+                this.value = value;
+                this.count = count;
+            }
+
+            public String getValue() {
+                return value;
+            }
+
+            public long getCount() {
+                return count;
+            }
+
         }
 
     }

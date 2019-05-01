@@ -1,0 +1,11 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ 
+CONSTRUCT {
+    ?training vivo:majorField ?majorFieldWithId .
+} WHERE {
+    <[(${uri})]> obo:RO_0000056 ?training .
+    ?training vivo:majorField ?majorField .
+    BIND( CONCAT( STR(?majorField), REPLACE(STR(?training), "(^.*/)", "::") ) AS ?majorFieldWithId ) .
+}

@@ -1,4 +1,8 @@
 middleware:
+  load-defaults: false
+  update-defaults: false
+  allowed-origins:
+  - http://localhost:4200
   auth:
     password:
       duration: 180
@@ -18,8 +22,10 @@ middleware:
     request-timeout: 30000
     socket-timeout: 60000
   index:
-    fixedDelay: 86400000
-    initialDelay: 5000
+    cron: 0 0 0 * * SUN
+    zone: America/Chicago
+    onStartup: false
+    batchSize: 100000
 
 ui:
   url: http://localhost:4200
@@ -53,6 +59,8 @@ logging:
 
 server:
   port: 9001
+  servlet:
+    contextPath:
 
 spring:
   data:
@@ -60,6 +68,9 @@ spring:
       authorize-hal-browser: false
       return-body-on-create: true
       return-body-on-update: true
+    solr:
+      operator: AND
+      parser: edismax
     # NOTE: this does not work yet, https://jira.spring.io/browse/DATAREST-1290
     web:
       pageable:
@@ -74,7 +85,7 @@ spring:
     add-properties: false
     restart:
       enabled: false
-      exclude: src/main/resources,target
+      exclude: target
   h2:
     console:
       enabled: false
@@ -111,7 +122,6 @@ spring:
             required: true
   profiles:
     active: test
-    include: organization,person,document,concept,relationship,process
   session:
     store-type: jdbc
     jdbc:

@@ -1,5 +1,6 @@
 package edu.tamu.scholars.middleware.view.model.repo;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.MOCK_VIEW_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -28,14 +29,14 @@ public abstract class ViewRepoTest<V extends View, R extends ViewRepo<V>> extend
     @Test
     public void testRead() {
         testCreate();
-        Optional<V> view = viewRepo.findByName("People");
+        Optional<V> view = viewRepo.findByName(MOCK_VIEW_NAME);
         assertTrue(view.isPresent());
     }
 
     @Test
     public void testUpdate() {
         testCreate();
-        Optional<V> view = viewRepo.findByName("People");
+        Optional<V> view = viewRepo.findByName(MOCK_VIEW_NAME);
         view.get().setName("Scholars");
 
         viewRepo.save(view.get());
@@ -50,7 +51,7 @@ public abstract class ViewRepoTest<V extends View, R extends ViewRepo<V>> extend
     public void testDelete() {
         testCreate();
         assertEquals(1, viewRepo.count());
-        Optional<V> view = viewRepo.findByName("People");
+        Optional<V> view = viewRepo.findByName(MOCK_VIEW_NAME);
         viewRepo.delete(view.get());
         assertEquals(0, viewRepo.count());
     }

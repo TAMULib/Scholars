@@ -1,11 +1,15 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static edu.tamu.scholars.middleware.view.model.FacetType.STRING;
+import static org.springframework.data.domain.Sort.Direction.DESC;
+import static org.springframework.data.solr.core.query.FacetOptions.FacetSort.COUNT;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-import org.springframework.data.solr.core.query.FacetOptions;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.solr.core.query.FacetOptions.FacetSort;
 
 @Embeddable
@@ -17,19 +21,33 @@ public class Facet {
     @Column(nullable = false)
     private String field;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FacetType type;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FacetSort sort;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Direction direction;
+
     @Column(nullable = false, name = "default_limit")
     private int limit;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "default_sort")
-    private FacetOptions.FacetSort sort;
+    @Column(nullable = false)
+    private boolean collapsed;
 
     @Column(nullable = false)
     private boolean hidden;
 
     public Facet() {
+        type = STRING;
+        sort = COUNT;
+        direction = DESC;
         limit = 10;
-        sort = FacetSort.COUNT;
+        collapsed = true;
         hidden = false;
     }
 
@@ -49,6 +67,30 @@ public class Facet {
         this.field = field;
     }
 
+    public FacetType getType() {
+        return type;
+    }
+
+    public void setType(FacetType type) {
+        this.type = type;
+    }
+
+    public FacetSort getSort() {
+        return sort;
+    }
+
+    public void setSort(FacetSort sort) {
+        this.sort = sort;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
     public int getLimit() {
         return limit;
     }
@@ -57,12 +99,12 @@ public class Facet {
         this.limit = limit;
     }
 
-    public FacetOptions.FacetSort getSort() {
-        return sort;
+    public boolean isCollapsed() {
+        return collapsed;
     }
 
-    public void setSort(FacetOptions.FacetSort sort) {
-        this.sort = sort;
+    public void setCollapsed(boolean collapsed) {
+        this.collapsed = collapsed;
     }
 
     public boolean isHidden() {

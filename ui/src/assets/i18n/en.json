@@ -12,6 +12,11 @@
       "COLLECTION": "Collection",
       "LAYOUT": "Layout"
     },
+    "DISPLAY_VIEWS": {
+      "TITLE": "Display Views",
+      "NAME": "Name",
+      "COLLECTION": "Collection"
+    },
     "THEMES": {
       "TITLE": "Themes",
       "NAME": "Name",
@@ -73,6 +78,10 @@
       "DELETE_SUCCESS": "Delete successful."
     },
     "DIALOG": {
+      "FACET_ENTRIES": {
+        "ARIA_LABELLED_BY": "{{name}} facet entries dialog",
+        "CANCEL": "Close"
+      },
       "LOGIN": {
         "EMAIL": "Enter email",
         "PASSWORD": "Enter password",
@@ -115,7 +124,7 @@
       }
     },
     "NAVIGATION": {
-      "EDIT_PROFILE": "Ediy my profile",
+      "EDIT_PROFILE": "Edit my profile",
       "HOME": "Home",
       "ABOUT": "About"
     },
@@ -134,6 +143,7 @@
         "TITLE": "Administration",
         "DIRECTORY_VIEWS": "Directory Views",
         "DISCOVERY_VIEWS": "Discovery Views",
+        "DISPLAY_VIEWS": "Display Views",
         "THEMES": "Themes",
         "USERS": "Users"
       },
@@ -141,6 +151,9 @@
       "BACK": "Back",
       "LINK": {
         "ARIA_LABEL": "Navigation link."
+      },
+      "ACTION": {
+        "MORE": "more..."
       },
       "SECTION": {
         "ARIA_LABEL_COLLAPSE": "Collapse the {{label}} section.",

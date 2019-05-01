@@ -3,9 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedModule } from '../shared.module';
 
 import { ResultViewComponent } from './result-view.component';
+
 import { Layout } from '../../core/model/view';
-import { ResultViewService } from '../../core/service/result-view.service';
-import { Compiler } from '@angular/core';
 
 describe('ResultViewComponent', () => {
     let component: ResultViewComponent;
@@ -13,10 +12,6 @@ describe('ResultViewComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            providers: [
-                Compiler,
-                ResultViewService
-            ],
             imports: [
                 SharedModule
             ]
@@ -30,15 +25,24 @@ describe('ResultViewComponent', () => {
             name: 'Test',
             collection: 'tests',
             layout: Layout.GRID,
-            template: '<span>Hello, World!</span>',
+            templates: {
+                default: '<span>Hello, World!</span>'
+            },
+            templateFunctions: {
+                default: (resource: any) => component.view.templates.default
+            },
             styles: [],
             facets: [],
             filters: [],
+            sort: [],
             _links: {
                 self: {
                     href: ''
                 }
             }
+        };
+        component.resource = {
+            type: []
         };
         fixture.detectChanges();
     });

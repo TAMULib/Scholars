@@ -5,7 +5,8 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { Store, select } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { of, defer } from 'rxjs';
+import { defer, scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 import { map, switchMap, catchError, withLatestFrom } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
@@ -41,7 +42,7 @@ export class LanguageEffects {
         switchMap((language: string) =>
             this.translate.use(language).pipe(
                 map(() => new fromLanguage.SetLanguageSuccessAction({ language })),
-                catchError((error: any) => of(new fromLanguage.SetLanguageFailureAction({ error, language })))
+                catchError((error: any) => scheduled([new fromLanguage.SetLanguageFailureAction({ error, language })], asap))
             )
         )
     );
@@ -52,7 +53,7 @@ export class LanguageEffects {
         switchMap(([action, language]) =>
             this.translate.use(language).pipe(
                 map((r) => new fromLanguage.SetLanguageSuccessAction({ language })),
-                catchError((error: any) => of(new fromLanguage.SetLanguageFailureAction({ error, language })))
+                catchError((error: any) => scheduled([new fromLanguage.SetLanguageFailureAction({ error, language })], asap))
             )
         )
     );
@@ -81,7 +82,7 @@ export class LanguageEffects {
         if (['en'].indexOf(language) < 0) {
             language = environment.language;
         }
-        return of(new fromLanguage.SetDefaultLanguageAction({ language }));
+        return scheduled([new fromLanguage.SetDefaultLanguageAction({ language })], asap);
     });
 
     private getLanguage(): string {

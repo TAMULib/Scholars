@@ -1,5 +1,6 @@
 package edu.tamu.scholars.middleware.view.controller;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.MOCK_VIEW_NAME;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDiscoveryView;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON_UTF8_VALUE;
@@ -33,11 +34,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import edu.tamu.scholars.middleware.auth.model.User;
 import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
-import edu.tamu.scholars.middleware.view.CollectionViewIntegrationTest;
+import edu.tamu.scholars.middleware.view.ResourceViewIntegrationTest;
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
 import edu.tamu.scholars.middleware.view.model.repo.DiscoveryViewRepo;
 
-public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<DiscoveryView, DiscoveryViewRepo> {
+public class DiscoveryViewControllerTest extends ResourceViewIntegrationTest<DiscoveryView, DiscoveryViewRepo> {
 
     private static final ConstraintDescriptionsHelper describeDiscoveryView = new ConstraintDescriptionsHelper(DiscoveryView.class);
 
@@ -49,30 +50,32 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
                 document(
                     "discoveryViews/create",
                     requestFields(
-                        describeDiscoveryView.withField("name", "The name of the discovery view."),
-                        // describeDiscoveryView.withField("collection", "The collection of the discovery view."),
+                        describeDiscoveryView.withField("name", "The name of the Discovery View."),
+                        // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                        fieldWithPath("collection").description("The collection of the discovery view."),
-                        describeDiscoveryView.withField("layout", "The layout of the discovery view."),
-                        describeDiscoveryView.withField("template", "The result template of the discovery view."),
-                        describeDiscoveryView.withField("styles", "An array of result style strings of the discovery view."),
+                        fieldWithPath("collection").description("The collection of the Discovery View."),
+                        describeDiscoveryView.withField("layout", "The layout of the Discovery View."),
+                        describeDiscoveryView.withSubsection("templates", "The result templates of the Discovery View."),
+                        describeDiscoveryView.withField("styles", "An array of result style strings of the Discovery View."),
                         describeDiscoveryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
-                        describeDiscoveryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>.")
+                        describeDiscoveryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDiscoveryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>.")
                     ),
                     links(
                         linkWithRel("self").description("Canonical link for this resource."),
-                        linkWithRel("discoveryView").description("The discovery view link for this resource.")
+                        linkWithRel("discoveryView").description("The Discovery View link for this resource.")
                     ),
                     responseFields(
-                        describeDiscoveryView.withField("name", "The name of the discovery view."),
-                        // describeDiscoveryView.withField("collection", "The collection of the discovery view."),
+                        describeDiscoveryView.withField("name", "The name of the Discovery View."),
+                        // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                        fieldWithPath("collection").description("The collection of the discovery view."),
-                        describeDiscoveryView.withField("layout", "The layout of the discovery view."),
-                        describeDiscoveryView.withField("template", "The result template of the discovery view."),
-                        describeDiscoveryView.withField("styles", "An array of result style strings of the discovery view."),
+                        fieldWithPath("collection").description("The collection of the Discovery View."),
+                        describeDiscoveryView.withField("layout", "The layout of the Discovery View."),
+                        describeDiscoveryView.withSubsection("templates", "The result templates of the Discovery View."),
+                        describeDiscoveryView.withField("styles", "An array of result style strings of the Discovery View."),
                         describeDiscoveryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                         describeDiscoveryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDiscoveryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                         subsectionWithPath("_links").description("<<resources-discovery-views-list-links, Links>> to other resources.")
                     )
                 )
@@ -95,13 +98,14 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
                     requestFields(
                         describeDiscoveryView.withField("id", "The Discovery View id."),
                         describeDiscoveryView.withField("name", "The name of the Discovery View."),
-                        // describeDiscoveryView.withField("collection", "The collection of the discovery view."),
+                        // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                        fieldWithPath("collection").description("The collection of the discovery view."),
-                        describeDiscoveryView.withField("layout", "The layout of the discovery view."),
-                        describeDiscoveryView.withField("template", "The result template of the discovery view."),
-                        describeDiscoveryView.withField("styles", "An array of result style strings of the discovery view."),
+                        fieldWithPath("collection").description("The collection of the Discovery View."),
+                        describeDiscoveryView.withField("layout", "The layout of the Discovery View."),
+                        describeDiscoveryView.withSubsection("templates", "The result templates of the Discovery View."),
+                        describeDiscoveryView.withField("styles", "An array of result style strings of the Discovery View."),
                         describeDiscoveryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
+                        describeDiscoveryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                         describeDiscoveryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>.")
                     ),
                     links(
@@ -110,14 +114,15 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
                     ),
                     responseFields(
                         describeDiscoveryView.withField("name", "The name of the Discovery View."),
-                        // describeDiscoveryView.withField("collection", "The collection of the discovery view."),
+                        // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                        fieldWithPath("collection").description("The collection of the discovery view."),
-                        describeDiscoveryView.withField("layout", "The layout of the discovery view."),
-                        describeDiscoveryView.withField("template", "The result template of the discovery view."),
-                        describeDiscoveryView.withField("styles", "An array of result style strings of the discovery view."),
+                        fieldWithPath("collection").description("The collection of the Discovery View."),
+                        describeDiscoveryView.withField("layout", "The layout of the Discovery View."),
+                        describeDiscoveryView.withSubsection("templates", "The result templates of the Discovery View."),
+                        describeDiscoveryView.withField("styles", "An array of result style strings of the Discovery View."),
                         describeDiscoveryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                         describeDiscoveryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDiscoveryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                         subsectionWithPath("_links").description("<<resources-discovery-views-list-links, Links>> to other resources.")
                     )
                 )
@@ -128,7 +133,7 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testPatchTheme() throws JsonProcessingException, Exception {
         performCreateDiscoveryView();
-        DiscoveryView discoveryView = viewRepo.findByName("People").get();
+        DiscoveryView discoveryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
 
         // @formatter:off
         mockMvc.perform(
@@ -150,12 +155,13 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
                                 describeDiscoveryView.withParameter("name", "The name of the Discovery View.").optional(),
                                 // describeDiscoveryView.withParameter("collection", "The collection of the Discovery View.").optional(),
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                                parameterWithName("collection").description("The collection of the discovery view.").optional(),
-                                describeDiscoveryView.withParameter("layout", "The layout of the discovery view.").optional(),
-                                describeDiscoveryView.withParameter("template", "The result template of the discovery view.").optional(),
-                                describeDiscoveryView.withParameter("styles", "An array of result style strings of the discovery view.").optional(),
+                                parameterWithName("collection").description("The collection of the Discovery View.").optional(),
+                                describeDiscoveryView.withParameter("layout", "The layout of the Discovery View.").optional(),
+                                describeDiscoveryView.withParameter("templates", "The result templates of the Discovery View.").optional(),
+                                describeDiscoveryView.withParameter("styles", "An array of result style strings of the Discovery View.").optional(),
                                 describeDiscoveryView.withParameter("facets", "An array of <<resources-facets, Facet resources>>.").optional(),
-                                describeDiscoveryView.withParameter("filters", "An array of <<resources-filters, Filters resources>>.").optional()
+                                describeDiscoveryView.withParameter("filters", "An array of <<resources-filters, Filters resources>>.").optional(),
+                                describeDiscoveryView.withParameter("sort", "An array of <<resources-sort, Sort resources>>.").optional()
                             ),
                             links(
                                 linkWithRel("self").description("Canonical link for this resource."),
@@ -165,12 +171,13 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
                                 describeDiscoveryView.withField("name", "The name of the Discovery View."),
                                 // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                                fieldWithPath("collection").description("The collection of the discovery view."),
-                                describeDiscoveryView.withField("layout", "The layout of the discovery view."),
-                                describeDiscoveryView.withField("template", "The result template of the discovery view."),
-                                describeDiscoveryView.withField("styles", "An array of result style strings of the discovery view."),
+                                fieldWithPath("collection").description("The collection of the Discovery View."),
+                                describeDiscoveryView.withField("layout", "The layout of the Discovery View."),
+                                describeDiscoveryView.withSubsection("templates", "The result templates of the Discovery View."),
+                                describeDiscoveryView.withField("styles", "An array of result style strings of the Discovery View."),
                                 describeDiscoveryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                                 describeDiscoveryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                                describeDiscoveryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                                 subsectionWithPath("_links").description("<<resources-discovery-views-list-links, Links>> to other resources.")
                             )
                         )
@@ -181,13 +188,13 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testGetDiscoveryView() throws JsonProcessingException, Exception {
         performCreateDiscoveryView();
-        DiscoveryView discoveryView = viewRepo.findByName("People").get();
+        DiscoveryView discoveryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         // @formatter:off
         mockMvc.perform(
             get("/discoveryViews/{id}", discoveryView.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("name", equalTo("People")))
+                .andExpect(jsonPath("name", equalTo(MOCK_VIEW_NAME)))
                 .andDo(
                     document(
                         "discoveryViews/find-by-id",
@@ -200,14 +207,15 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
                         ),
                         responseFields(
                             describeDiscoveryView.withField("name", "The name of the Discovery View."),
-                            // describeDiscoveryView.withField("collection", "The collection of the discovery view."),
+                            // describeDiscoveryView.withField("collection", "The collection of the Discovery View."),
                             // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                            fieldWithPath("collection").description("The collection of the discovery view."),
-                            describeDiscoveryView.withField("layout", "The layout of the discovery view."),
-                            describeDiscoveryView.withField("template", "The result template of the discovery view."),
-                            describeDiscoveryView.withField("styles", "An array of result style strings of the discovery view."),
+                            fieldWithPath("collection").description("The collection of the Discovery View."),
+                            describeDiscoveryView.withField("layout", "The layout of the Discovery View."),
+                            describeDiscoveryView.withSubsection("templates", "The result templates of the Discovery View."),
+                            describeDiscoveryView.withField("styles", "An array of result style strings of the Discovery View."),
                             describeDiscoveryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                             describeDiscoveryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                            describeDiscoveryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                             subsectionWithPath("_links").description("<<resources-discovery-view-list-links, Links>> to other resources.")
                         )
                     )
@@ -227,7 +235,7 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
                 .andExpect(jsonPath("page.totalElements", equalTo(1)))
                 .andExpect(jsonPath("page.totalPages", equalTo(1)))
                 .andExpect(jsonPath("page.number", equalTo(1)))
-                .andExpect(jsonPath("_embedded.discoveryViews[0].name", equalTo("People")))
+                .andExpect(jsonPath("_embedded.discoveryViews[0].name", equalTo(MOCK_VIEW_NAME)))
                 .andDo(
                     document(
                         "discoveryViews/directory",
@@ -253,7 +261,7 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testDeleteTheme() throws JsonProcessingException, Exception {
         performCreateDiscoveryView();
-        DiscoveryView discoveryView = viewRepo.findByName("People").get();
+        DiscoveryView discoveryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         // @formatter:off
         mockMvc.perform(
             delete("/discoveryViews/{id}", discoveryView.getId())
@@ -293,7 +301,7 @@ public class DiscoveryViewControllerTest extends CollectionViewIntegrationTest<D
     }
 
     private ResultActions performUpdateDiscoveryView() throws JsonProcessingException, Exception {
-        DiscoveryView discoveryView = viewRepo.findByName("People").get();
+        DiscoveryView discoveryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         discoveryView.setName("Organizations");
         discoveryView.setCollection("organizations");
 

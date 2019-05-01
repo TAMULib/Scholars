@@ -1,7 +1,8 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-import { Observable, Observer, of } from 'rxjs';
+import { Observable, Observer, scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
@@ -9,6 +10,7 @@ import * as SockJS from 'sockjs-client';
 import { StompSubscription } from '../model/stomp';
 
 import { environment } from '../../../environments/environment';
+
 
 @Injectable({
     providedIn: 'root',
@@ -25,7 +27,7 @@ export class StompService {
 
     public connect(): Observable<any> {
         if (isPlatformServer(this.platformId)) {
-            return of(false);
+            return scheduled([false], asap);
         }
         const socket = new SockJS(environment.service + '/connect');
         this.client = Stomp.over(socket);
@@ -73,7 +75,7 @@ export class StompService {
 
     public disconnect(): Observable<any> {
         if (isPlatformServer(this.platformId)) {
-            return of(false);
+            return scheduled([false], asap);
         }
         return new Observable((observer) => {
             if (this.client !== undefined) {
@@ -91,9 +93,9 @@ export class StompService {
         });
     }
 
-    public subscribe(channel: string, callback: Function): Observable<any> {
+    public subscribe(channel: string, callback: () => {}): Observable<any> {
         if (isPlatformServer(this.platformId)) {
-            return of(false);
+            return scheduled([false], asap);
         }
         return new Observable((observer) => {
             this.pending.set(channel, {
@@ -106,7 +108,7 @@ export class StompService {
     }
 
     public unsubscribe(id: string): Observable<any> {
-        return of(this.client.unsubscribe(id));
+        return scheduled([this.client.unsubscribe(id)], asap);
     }
 
 }

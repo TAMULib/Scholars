@@ -20,6 +20,9 @@ public interface SolrDocumentRepo<D extends AbstractSolrDocument> extends SolrCr
     @RestResource(exported = false)
     public void delete(D document);
 
+    // NOTE: must export at least one named search method in order for custom search links to show in HAL browser
     public List<D> findByType(String type);
+
+    public List<D> findByIdIn(List<String> ids);
 
 }

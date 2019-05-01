@@ -2,8 +2,9 @@ PREFIX tamu: <http://vivo.library.tamu.edu/ontology/TAMU#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?work rdfs:label ?label .
+    ?work rdfs:label ?titleWithId .
 } WHERE {
     <[(${uri})]> tamu:ETDChairOf ?work .
-    ?work rdfs:label ?label .
+    ?work rdfs:label ?title .
+    BIND( CONCAT( STR(?title), REPLACE(STR(?work), "(^.*/)", "::") ) AS ?titleWithId ) .
 }

@@ -3,12 +3,13 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?person rdfs:label ?name .
+    ?person rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?position .
     ?position a vivo:Position .
     ?position vivo:relatedBy ?person .
     ?person a foaf:Person .
-    ?person rdfs:label ?name .
-    FILTER (lang(?name) = '')
+    ?person rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?person), "(^.*/)", "::") ) AS ?labelWithId ) .
+    FILTER (lang(?label) = '')
 }

@@ -2,11 +2,14 @@ import { Injectable, Injector } from '@angular/core';
 import { Params } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
-import { of, combineLatest, defer, Observable } from 'rxjs';
-import { map, switchMap, catchError, withLatestFrom, skipWhile, take, filter } from 'rxjs/operators';
+import { combineLatest, defer, Observable, scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
+import { map, switchMap, catchError, withLatestFrom, skipWhile, take, filter, mergeMap } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
+import { DialogService } from '../../service/dialog.service';
 
 import { AppState } from '../';
 import { StompState } from '../stomp/stomp.reducer';
@@ -14,10 +17,11 @@ import { CustomRouterState } from '../router/router.reducer';
 
 import { AbstractSdrRepo } from '../../model/sdr/repo/abstract-sdr-repo';
 
-import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry } from '../../model/sdr';
-import { SidebarMenu, SidebarSection, SidebarItem } from '../../model/sidebar';
+import { SdrResource, SdrCollection, SdrFacet, SdrFacetEntry, Count } from '../../model/sdr';
+import { SidebarMenu, SidebarSection, SidebarItem, SidebarItemType } from '../../model/sidebar';
+import { SolrDocument } from '../../model/discovery';
 import { SdrRequest, Facetable, Indexable, Direction, Sort, Pageable } from '../../model/request';
-import { OperationKey, FacetSort, Facet, DiscoveryView, DirectoryView } from '../../model/view';
+import { OperationKey, Facet, DiscoveryView, DirectoryView, FacetSort } from '../../model/view';
 
 import { injectable, repos } from '../../model/repos';
 
@@ -40,7 +44,9 @@ export class SdrEffects {
         private actions: Actions,
         private injector: Injector,
         private store: Store<AppState>,
-        private alert: AlertService
+        private alert: AlertService,
+        private dialog: DialogService,
+        private translate: TranslateService
     ) {
         this.repos = new Map<string, AbstractSdrRepo<SdrResource>>();
         this.injectRepos();
@@ -49,65 +55,93 @@ export class SdrEffects {
     // TODO: alerts should be in dialog location if a dialog is opened
 
     @Effect() getAll = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL, ['directoryViews', 'discoveryViews'])),
-        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL)),
+        mergeMap((action: fromSdr.GetAllResourcesAction) => this.repos.get(action.name).getAll().pipe(
+            map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(action.name, { collection })),
+            catchError((response) => scheduled([new fromSdr.GetAllResourcesFailureAction(action.name, { response })], asap))
+        ))
     );
 
     @Effect({ dispatch: false }) getAllSuccess = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, ['directoryViews', 'discoveryViews'])),
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_SUCCESS)),
         switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
         withLatestFrom(this.store.pipe(select(selectStompState))),
         map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
     );
-
 
     @Effect() getAllFailure = this.actions.pipe(
-        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE, ['directoryViews', 'discoveryViews'])),
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ALL_FAILURE)),
         map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
     );
 
-    @Effect() getDirectoryViews = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'directoryViews')),
-        switchMap((action: fromSdr.GetAllResourcesAction) =>
-            this.repos.get(action.name).getAll().pipe(
-                map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(action.name, { collection })),
-                catchError((response) => of(new fromSdr.GetAllResourcesFailureAction(action.name, { response })))
-            )
-        )
+    @Effect() getOne = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ONE)),
+        switchMap((action: fromSdr.GetOneResourceAction) => this.repos.get(action.name).getOne(action.payload.id).pipe(
+            map((document: SolrDocument) => new fromSdr.GetOneResourceSuccessAction(action.name, { document })),
+            catchError((response) => scheduled([new fromSdr.GetOneResourceFailureAction(action.name, { response })], asap))
+        ))
     );
 
-    @Effect({ dispatch: false }) getDirectoryViewsSuccess = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, 'directoryViews')),
-        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
+    @Effect({ dispatch: false }) getOneSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ONE_SUCCESS)),
+        switchMap((action: fromSdr.GetOneResourceSuccessAction) => this.waitForStompConnection(action.name)),
         withLatestFrom(this.store.pipe(select(selectStompState))),
         map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
     );
 
-    @Effect() getDirectoryViewsFailure = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'directoryViews')),
-        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
+    @Effect() getOneFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.GET_ONE_FAILURE)),
+        map((action: fromSdr.GetOneResourceFailureAction) => this.alert.getOneFailureAlert(action.payload))
     );
 
-    @Effect() getDiscoveryViews = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL, 'discoveryViews')),
-        switchMap((action: fromSdr.GetAllResourcesAction) => this.getAllHandler(action.name))
+    @Effect() findByIdIn = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_ID_IN)),
+        mergeMap((action: fromSdr.FindByIdInResourceAction) => this.repos.get(action.name).findByIdIn(action.payload.ids).pipe(
+            map((collection: SdrCollection) => new fromSdr.FindByIdInResourceSuccessAction(action.name, { collection })),
+            catchError((response) => scheduled([new fromSdr.FindByIdInResourceFailureAction(action.name, { response })], asap))
+        ))
     );
 
-    @Effect({ dispatch: false }) getDiscoveryViewsSuccess = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_SUCCESS, 'discoveryViews')),
-        switchMap((action: fromSdr.GetAllResourcesSuccessAction) => this.waitForStompConnection(action.name)),
+    @Effect({ dispatch: false }) findByIdInSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_ID_IN_SUCCESS)),
+        switchMap((action: fromSdr.FindByIdInResourceSuccessAction) => this.waitForStompConnection(action.name)),
         withLatestFrom(this.store.pipe(select(selectStompState))),
         map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
     );
 
-    @Effect() getDiscoveryViewsFailure = this.actions.pipe(
-        ofType(fromSdr.getSdrAction(fromSdr.SdrActionTypes.GET_ALL_FAILURE, 'discoveryViews')),
-        map((action: fromSdr.GetAllResourcesFailureAction) => this.alert.getAllFailureAlert(action.payload))
+    @Effect() gfindByIdInFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_ID_IN_FAILURE)),
+        map((action: fromSdr.FindByIdInResourceFailureAction) => this.alert.findByIdInFailureAlert(action.payload))
+    );
+
+    @Effect() findByTypesIn = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN)),
+        switchMap((action: fromSdr.FindByTypesInResourceAction) => this.repos.get(action.name).findByTypesIn(action.payload.types).pipe(
+            map((document: SolrDocument) => new fromSdr.FindByTypesInResourceSuccessAction(action.name, { document })),
+            catchError((response) => scheduled([new fromSdr.FindByTypesInResourceFailureAction(action.name, { response })], asap))
+        ))
+    );
+
+    @Effect({ dispatch: false }) findByTypesInSuccess = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN_SUCCESS)),
+        switchMap((action: fromSdr.FindByTypesInResourceSuccessAction) => this.waitForStompConnection(action.name)),
+        withLatestFrom(this.store.pipe(select(selectStompState))),
+        map(([combination, stomp]) => this.subscribeToResourceQueue(combination[0], stomp))
+    );
+
+    @Effect() gfindByTypesInFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.FIND_BY_TYPES_IN_FAILURE)),
+        map((action: fromSdr.FindByTypesInResourceFailureAction) => this.alert.findByTypesInFailureAlert(action.payload))
     );
 
     @Effect() page = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.PAGE)),
-        switchMap((action: fromSdr.PageResourcesAction) => this.getAllHandler(action.name))
+        switchMap((action: fromSdr.PageResourcesAction) =>
+            this.repos.get(action.name).page(action.payload.request).pipe(
+                map((collection: SdrCollection) => new fromSdr.PageResourcesSuccessAction(action.name, { collection })),
+                catchError((response) => scheduled([new fromSdr.PageResourcesFailureAction(action.name, { response })], asap))
+            )
+        )
     );
 
     @Effect({ dispatch: false }) pageSuccess = this.actions.pipe(
@@ -127,15 +161,15 @@ export class SdrEffects {
         switchMap((action: fromSdr.SearchResourcesAction) =>
             this.repos.get(action.name).search(action.payload.request).pipe(
                 map((collection: SdrCollection) => new fromSdr.SearchResourcesSuccessAction(action.name, { collection })),
-                catchError((response) => of(new fromSdr.SearchResourcesFailureAction(action.name, { response })))
+                catchError((response) => scheduled([new fromSdr.SearchResourcesFailureAction(action.name, { response })], asap))
             )
         )
     );
 
     @Effect({ dispatch: false }) searchSuccess = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.SEARCH_SUCCESS)),
-        switchMap((action: fromSdr.SearchResourcesSuccessAction) => combineLatest(
-            of(action),
+        switchMap((action: fromSdr.SearchResourcesSuccessAction) => combineLatest([
+            scheduled([action], asap),
             this.store.pipe(select(selectRouterState)),
             this.store.pipe(
                 select(selectAllResources('directoryViews')),
@@ -150,7 +184,7 @@ export class SdrEffects {
                 skipWhile((connected: boolean) => !connected),
                 take(1)
             )
-        )),
+        ])),
         withLatestFrom(this.store),
         map(([combination, store]) => this.searchSuccessHandler(combination[0], combination[1].state, store))
     );
@@ -158,6 +192,19 @@ export class SdrEffects {
     @Effect() searchFailure = this.actions.pipe(
         ofType(...this.buildActions(fromSdr.SdrActionTypes.SEARCH_FAILURE)),
         map((action: fromSdr.SearchResourcesFailureAction) => this.alert.searchFailureAlert(action.payload))
+    );
+
+    @Effect() count = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.COUNT)),
+        mergeMap((action: fromSdr.CountResourcesAction) => this.repos.get(action.name).count(action.payload.request).pipe(
+            map((count: Count) => new fromSdr.CountResourcesSuccessAction(action.name, { count })),
+            catchError((response) => scheduled([new fromSdr.CountResourcesFailureAction(action.name, { response })], asap))
+        ))
+    );
+
+    @Effect() countFailure = this.actions.pipe(
+        ofType(...this.buildActions(fromSdr.SdrActionTypes.COUNT_FAILURE)),
+        map((action: fromSdr.CountResourcesFailureAction) => this.alert.countFailureAlert(action.payload))
     );
 
     @Effect() clearResourceSubscription = this.actions.pipe(
@@ -170,7 +217,7 @@ export class SdrEffects {
         switchMap((action: fromSdr.PostResourceAction) =>
             this.repos.get(action.name).post(action.payload.resource).pipe(
                 map((resource: SdrResource) => new fromSdr.PostResourceSuccessAction(action.name, { resource })),
-                catchError((response) => of(new fromSdr.PostResourceFailureAction(action.name, { response })))
+                catchError((response) => scheduled([new fromSdr.PostResourceFailureAction(action.name, { response })], asap))
             )
         )
     );
@@ -193,7 +240,7 @@ export class SdrEffects {
         switchMap((action: fromSdr.PutResourceAction) =>
             this.repos.get(action.name).put(action.payload.resource).pipe(
                 map((resource: SdrResource) => new fromSdr.PutResourceSuccessAction(action.name, { resource })),
-                catchError((response) => of(new fromSdr.PutResourceFailureAction(action.name, { response })))
+                catchError((response) => scheduled([new fromSdr.PutResourceFailureAction(action.name, { response })], asap))
             )
         )
     );
@@ -216,7 +263,7 @@ export class SdrEffects {
         switchMap((action: fromSdr.PatchResourceAction) =>
             this.repos.get(action.name).patch(action.payload.resource).pipe(
                 map((resource: SdrResource) => new fromSdr.PatchResourceSuccessAction(action.name, { resource })),
-                catchError((response) => of(new fromSdr.PatchResourceFailureAction(action.name, { response })))
+                catchError((response) => scheduled([new fromSdr.PatchResourceFailureAction(action.name, { response })], asap))
             )
         )
     );
@@ -239,7 +286,7 @@ export class SdrEffects {
         switchMap((action: fromSdr.DeleteResourceAction) =>
             this.repos.get(action.name).delete(action.payload.id).pipe(
                 map(() => new fromSdr.DeleteResourceSuccessAction(action.name)),
-                catchError((response) => of(new fromSdr.DeleteResourceFailureAction(action.name, { response })))
+                catchError((response) => scheduled([new fromSdr.DeleteResourceFailureAction(action.name, { response })], asap))
             )
         )
     );
@@ -276,7 +323,10 @@ export class SdrEffects {
         })
     );
 
-    @Effect() initViews = defer(() => of(new fromSdr.GetAllResourcesAction('directoryViews'), new fromSdr.GetAllResourcesAction('discoveryViews')));
+    @Effect() initViews = defer(() => scheduled([
+        new fromSdr.GetAllResourcesAction('directoryViews'),
+        new fromSdr.GetAllResourcesAction('discoveryViews')
+    ], asap));
 
     private injectRepos(): void {
         const injector = Injector.create({
@@ -301,14 +351,14 @@ export class SdrEffects {
     }
 
     private waitForStompConnection(name: string): Observable<[string, boolean]> {
-        return combineLatest(
-            of(name),
+        return combineLatest([
+            scheduled([name], asap),
             this.store.pipe(
                 select(selectIsStompConnected),
                 skipWhile((connected: boolean) => !connected),
                 take(1)
             )
-        );
+        ]);
     }
 
     private subscribeToResourceQueue(name: string, stomp: StompState): void {
@@ -323,13 +373,6 @@ export class SdrEffects {
                 }
             }));
         }
-    }
-
-    private getAllHandler(name: string): Observable<fromSdr.GetAllResourcesSuccessAction | fromSdr.GetAllResourcesFailureAction> {
-        return this.repos.get(name).getAll().pipe(
-            map((collection: SdrCollection) => new fromSdr.GetAllResourcesSuccessAction(name, { collection })),
-            catchError((response) => of(new fromSdr.GetAllResourcesFailureAction(name, { response })))
-        );
     }
 
     private searchSuccessHandler(action: fromSdr.SearchResourcesSuccessAction, routerState: CustomRouterState, store: AppState): void {
@@ -350,20 +393,21 @@ export class SdrEffects {
             };
 
             facets.filter((facet: Facet) => !facet.hidden).forEach((facet: Facet) => {
-
                 for (const sdrFacet of sdrFacets) {
-
                     if (sdrFacet.field === facet.field) {
 
                         const sidebarSection: SidebarSection = {
-                            title: of(facet.name),
+                            title: scheduled([facet.name], asap),
                             items: [],
                             collapsible: true,
-                            collapsed: false
+                            collapsed: facet.collapsed
                         };
 
-                        sdrFacet.entries.forEach((facetEntry: SdrFacetEntry) => {
+                        Object.assign(sdrFacet, {
+                            entries: sdrFacet.entries.sort(this.getFacetSortFunction(facet))
+                        });
 
+                        sdrFacet.entries.slice(0, facet.limit).forEach((facetEntry: SdrFacetEntry) => {
                             let selected = false;
 
                             for (const requestFacet of routerState.queryParams.facets.split(',')) {
@@ -374,28 +418,57 @@ export class SdrEffects {
                             }
 
                             const sidebarItem: SidebarItem = {
-                                label: of(facetEntry.value),
+                                type: SidebarItemType.FACET,
+                                label: scheduled([facetEntry.value], asap),
+                                facet: facet,
                                 selected: selected,
-                                total: facetEntry.count,
+                                parenthetical: facetEntry.count,
                                 route: [],
                                 queryParams: {},
                             };
 
                             sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !selected ? facetEntry.value : undefined;
 
-                            sidebarSection.items.push(sidebarItem);
+                            sidebarItem.queryParams.page = 1;
 
+                            if (selected) {
+                                sidebarSection.collapsed = false;
+                            }
+
+                            sidebarSection.items.push(sidebarItem);
                         });
+
+                        if (sdrFacet.entries.length > facet.limit) {
+                            sidebarSection.items.push({
+                                type: SidebarItemType.ACTION,
+                                action: this.dialog.facetEntriesDialog(facet.name, sdrFacet),
+                                label: this.translate.get('SHARED.SIDEBAR.ACTION.MORE'),
+                                classes: 'font-weight-bold'
+                            });
+                        }
+
                         sidebarMenu.sections.push(sidebarSection);
                         break;
                     }
                 }
             });
-
             this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
         }
-
         this.subscribeToResourceQueue(action.name, store.stomp);
+    }
+
+    private getFacetSortFunction(facet: Facet): (f1: SdrFacetEntry, f2: SdrFacetEntry) => number {
+        const sort = FacetSort.COUNT === FacetSort[facet.sort] ? 'count' : 'value';
+        const direction = Direction.ASC === Direction[facet.direction] ? [1, -1] : [-1, 1];
+        return (f1: SdrFacetEntry, f2: SdrFacetEntry) => {
+            if (f1[sort] > f2[sort]) {
+                return direction[0];
+            }
+            if (f1[sort] < f2[sort]) {
+                return direction[1];
+            }
+            return 0;
+        };
     }
 
     private createSdrRequest(routerState: CustomRouterState): SdrRequest {
@@ -441,11 +514,9 @@ export class SdrEffects {
         const fields: string[] = queryParams.facets !== undefined ? queryParams.facets.split(',') : [];
         fields.forEach((field: string) => {
             const facet: Facetable = { field };
-            ['limit', 'offset', 'sort', 'filter'].forEach((key: string) => {
-                if (queryParams[`${field}.${key}`]) {
-                    facet[key] = key === 'sort' ? FacetSort[queryParams[`${field}.${key}`]] : queryParams[`${field}.${key}`];
-                }
-            });
+            if (queryParams[`${field}.filter`]) {
+                facet.filter = queryParams[`${field}.filter`];
+            }
             facets.push(facet);
         });
         return facets;

@@ -14,7 +14,7 @@ export class RestService {
 
     constructor(
         private http: HttpClient,
-        @Inject(PLATFORM_ID) private platformId: Object,
+        @Inject(PLATFORM_ID) private platformId: string,
         @Inject(REQUEST) private request: any
     ) {
 
@@ -84,7 +84,7 @@ export class RestService {
         if (this.useSession(options)) {
             if (!options.headers) {
                 options.headers = new HttpHeaders({
-                    'cookie': this.request.headers['cookie']
+                    cookie: this.request.headers['cookie']
                 });
             } else {
                 options.headers = (options.headers as HttpHeaders).set('cookie', this.request.headers['cookie']);

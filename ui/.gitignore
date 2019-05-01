@@ -33,3 +33,7 @@ webpack.records.json
 .coveralls.yml
 
 coverage/
+
+# Generated #
+angular.json
+server.ts

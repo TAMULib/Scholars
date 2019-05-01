@@ -1,0 +1,21 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+CONSTRUCT {
+    ?organization rdfs:label ?labelWithId .
+} WHERE {
+    <[(${uri})]> vivo:relatedBy ?relatedBy .
+    ?relatedBy rdf:type vivo:Authorship .
+    ?relatedBy vivo:relates ?author .
+    ?author vivo:relatedBy ?position .
+    ?position a vivo:Position .
+    ?position vivo:relatedBy ?organization .
+    ?organization a foaf:Organization .
+    ?organization rdfs:label ?label .
+    ?organization vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?author), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?labelWithId ) .
+    FILTER(lang(?label) = '' && ?mostSpecificType = vivo:AcademicDepartment)
+}

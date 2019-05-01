@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AlertComponent } from './alert/alert.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { FacetEntriesComponent } from './dialog/facet-entries/facet-entries.component';
 import { GridViewComponent } from './grid-view/grid-view.component';
 import { ListViewComponent } from './list-view/list-view.component';
 import { LoginComponent } from './dialog/login/login.component';
@@ -22,7 +23,10 @@ import { UserEditComponent } from './dialog/user-edit/user-edit.component';
 import { StatsBoxComponent } from './stats-box/stats-box.component';
 
 import { LoaderDirective } from './loader/loader.directive';
-import { SafeHtmlPipe } from './safe-html/safe-html.pipe';
+
+import { SafeHtmlPipe } from './utilities/safe-html.pipe';
+import { FilterPipe } from './utilities/filter.pipe';
+import { FormalizePipe } from './utilities/formalize.pipe';
 
 const MODULES = [
     CommonModule,
@@ -34,12 +38,15 @@ const MODULES = [
 ];
 
 const PIPES = [
+    FilterPipe,
+    FormalizePipe,
     SafeHtmlPipe
 ];
 
 const COMPONENTS = [
     AlertComponent,
     DialogComponent,
+    FacetEntriesComponent,
     GridViewComponent,
     ListViewComponent,
     LoginComponent,
@@ -58,6 +65,7 @@ const DIRECTIVES = [
 ];
 
 const ENTRY_COMPONENTS = [
+    FacetEntriesComponent,
     LoginComponent,
     RegistrationComponent,
     NotificationComponent,

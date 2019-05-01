@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { PLATFORM_ID, Inject, NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
@@ -25,6 +25,11 @@ import * as fromStore from './core/store/root-store.actions';
 
 export const NGRX_STATE = makeStateKey('NGRX_STATE');
 
+export function getBaseHref(document: Document): string {
+    const baseTag = document.querySelector('head > base');
+    return baseTag.getAttribute('href');
+}
+
 @NgModule({
     declarations: [
         AppComponent
@@ -45,6 +50,13 @@ export const NGRX_STATE = makeStateKey('NGRX_STATE');
     ],
     bootstrap: [
         AppComponent
+    ],
+    providers: [
+        {
+            provide: APP_BASE_HREF,
+            useFactory: (getBaseHref),
+            deps: [DOCUMENT]
+        }
     ]
 })
 export class AppModule {

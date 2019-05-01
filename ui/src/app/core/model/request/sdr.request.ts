@@ -1,4 +1,4 @@
-import { OperationKey, FacetSort } from '../view';
+import { OperationKey } from '../view';
 
 export enum Direction {
     ASC = 'asc',
@@ -24,10 +24,7 @@ export interface Indexable {
 
 export interface Facetable {
     readonly field: string;
-    readonly limit?: number;
-    readonly offset?: number;
-    readonly sort?: FacetSort;
-    readonly filter?: string;
+    filter?: string;
 }
 
 export interface SdrRequest {

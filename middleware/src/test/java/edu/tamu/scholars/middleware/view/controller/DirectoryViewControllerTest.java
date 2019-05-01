@@ -1,5 +1,6 @@
 package edu.tamu.scholars.middleware.view.controller;
 
+import static edu.tamu.scholars.middleware.view.ViewTestUtility.MOCK_VIEW_NAME;
 import static edu.tamu.scholars.middleware.view.ViewTestUtility.getMockDirectoryView;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.hateoas.MediaTypes.HAL_JSON_UTF8_VALUE;
@@ -33,11 +34,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import edu.tamu.scholars.middleware.auth.model.User;
 import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
-import edu.tamu.scholars.middleware.view.CollectionViewIntegrationTest;
+import edu.tamu.scholars.middleware.view.ResourceViewIntegrationTest;
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 import edu.tamu.scholars.middleware.view.model.repo.DirectoryViewRepo;
 
-public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<DirectoryView, DirectoryViewRepo> {
+public class DirectoryViewControllerTest extends ResourceViewIntegrationTest<DirectoryView, DirectoryViewRepo> {
 
     private static final ConstraintDescriptionsHelper describeDirectoryView = new ConstraintDescriptionsHelper(DirectoryView.class);
 
@@ -49,32 +50,34 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                 document(
                     "directoryViews/create",
                     requestFields(
-                        describeDirectoryView.withField("name", "The name of the directory view."),
-                        // describeDirectoryView.withField("collection", "The collection of the directory view."),
+                        describeDirectoryView.withField("name", "The name of the Directory View."),
+                        // describeDirectoryView.withField("collection", "The collection of the Directory View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                        fieldWithPath("collection").description("The collection of the directory view."),
-                        describeDirectoryView.withField("layout", "The layout of the directory view."),
-                        describeDirectoryView.withField("template", "The result template of the directory view."),
-                        describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
-                        describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
-                        describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
-                        describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>.")
-                    ),
-                    links(
-                        linkWithRel("self").description("Canonical link for this resource."),
-                        linkWithRel("directoryView").description("The directory view link for this resource.")
-                    ),
-                    responseFields(
-                        describeDirectoryView.withField("name", "The name of the directory view."),
-                        // describeDirectoryView.withField("collection", "The collection of the directory view."),
-                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                        fieldWithPath("collection").description("The collection of the directory view."),
-                        describeDirectoryView.withField("layout", "The layout of the directory view."),
-                        describeDirectoryView.withField("template", "The result template of the directory view."),
-                        describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
+                        fieldWithPath("collection").description("The collection of the Directory View."),
+                        describeDirectoryView.withField("layout", "The layout of the Directory View."),
+                        describeDirectoryView.withSubsection("templates", "The result templates of the Directory View."),
+                        describeDirectoryView.withField("styles", "An array of result style strings of the Directory View."),
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                         describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>.")
+                    ),
+                    links(
+                        linkWithRel("self").description("Canonical link for this resource."),
+                        linkWithRel("directoryView").description("The Directory View link for this resource.")
+                    ),
+                    responseFields(
+                        describeDirectoryView.withField("name", "The name of the Directory View."),
+                        // describeDirectoryView.withField("collection", "The collection of the Directory View."),
+                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
+                        fieldWithPath("collection").description("The collection of the Directory View."),
+                        describeDirectoryView.withField("layout", "The layout of the Directory View."),
+                        describeDirectoryView.withSubsection("templates", "The result templates of the Directory View."),
+                        describeDirectoryView.withField("styles", "An array of result style strings of the Directory View."),
+                        describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
+                        describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
+                        describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                         subsectionWithPath("_links").description("<<resources-directory-views-list-links, Links>> to other resources.")
                     )
                 )
@@ -92,36 +95,38 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                 document(
                     "directoryViews/update",
                     pathParameters(
-                        describeDirectoryView.withParameter("id", "The Discovery View id.")
+                        describeDirectoryView.withParameter("id", "The Directory View id.")
                     ),
                     requestFields(
-                        describeDirectoryView.withField("id", "The Discovery View id."),
-                        describeDirectoryView.withField("name", "The name of the Discovery View."),
-                        // describeDirectoryView.withField("collection", "The collection of the directory view."),
+                        describeDirectoryView.withField("id", "The Directory View id."),
+                        describeDirectoryView.withField("name", "The name of the Directory View."),
+                        // describeDirectoryView.withField("collection", "The collection of the Directory View."),
                         // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                        fieldWithPath("collection").description("The collection of the directory view."),
-                        describeDirectoryView.withField("layout", "The layout of the directory view."),
-                        describeDirectoryView.withField("template", "The result template of the directory view."),
-                        describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
-                        describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
-                        describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
-                        describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>.")
-                    ),
-                    links(
-                        linkWithRel("self").description("Canonical link for this resource."),
-                        linkWithRel("directoryView").description("The Discovery View link for this resource.")
-                    ),
-                    responseFields(
-                        describeDirectoryView.withField("name", "The name of the Discovery View."),
-                        // describeDirectoryView.withField("collection", "The collection of the directory view."),
-                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                        fieldWithPath("collection").description("The collection of the directory view."),
-                        describeDirectoryView.withField("layout", "The layout of the directory view."),
-                        describeDirectoryView.withField("template", "The result template of the directory view."),
-                        describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
+                        fieldWithPath("collection").description("The collection of the Directory View."),
+                        describeDirectoryView.withField("layout", "The layout of the Directory View."),
+                        describeDirectoryView.withSubsection("templates", "The result templates of the Directory View."),
+                        describeDirectoryView.withField("styles", "An array of result style strings of the Directory View."),
                         describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                         describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                         describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>.")
+                    ),
+                    links(
+                        linkWithRel("self").description("Canonical link for this resource."),
+                        linkWithRel("directoryView").description("The Directory View link for this resource.")
+                    ),
+                    responseFields(
+                        describeDirectoryView.withField("name", "The name of the Directory View."),
+                        // describeDirectoryView.withField("collection", "The collection of the Directory View."),
+                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
+                        fieldWithPath("collection").description("The collection of the Directory View."),
+                        describeDirectoryView.withField("layout", "The layout of the Directory View."),
+                        describeDirectoryView.withSubsection("templates", "The result templates of the Directory View."),
+                        describeDirectoryView.withField("styles", "An array of result style strings of the Directory View."),
+                        describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
+                        describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
+                        describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                        describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                         subsectionWithPath("_links").description("<<resources-directory-views-list-links, Links>> to other resources.")
                     )
                 )
@@ -132,7 +137,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testPatchTheme() throws JsonProcessingException, Exception {
         performCreateDirectoryView();
-        DirectoryView directoryView = viewRepo.findByName("People").get();
+        DirectoryView directoryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
 
         // @formatter:off
         mockMvc.perform(
@@ -154,12 +159,13 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                                 describeDirectoryView.withParameter("name", "The name of the Directory View.").optional(),
                                 // describeDirectoryView.withParameter("collection", "The collection of the Directory View.").optional(),
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                                parameterWithName("collection").description("The collection of the directory view.").optional(),
-                                describeDirectoryView.withParameter("layout", "The layout of the directory view.").optional(),
+                                parameterWithName("collection").description("The collection of the Directory View.").optional(),
+                                describeDirectoryView.withParameter("layout", "The layout of the Directory View.").optional(),
                                 describeDirectoryView.withParameter("index", "A <<resources-index, Index resource>>.").optional(),
-                                describeDirectoryView.withParameter("template", "The result template of the directory view.").optional(),
-                                describeDirectoryView.withParameter("styles", "An array of result style strings of the directory view.").optional(),
+                                describeDirectoryView.withParameter("templates", "The result templates of the Directory View.").optional(),
+                                describeDirectoryView.withParameter("styles", "An array of result style strings of the Directory View.").optional(),
                                 describeDirectoryView.withParameter("facets", "An array of <<resources-facets, Facet resources>>.").optional(),
+                                describeDirectoryView.withParameter("sort", "An array of <<resources-sort, Sort resources>>.").optional(),
                                 describeDirectoryView.withParameter("filters", "An array of <<resources-filters, Filters resources>>.").optional()
                             ),
                             links(
@@ -170,13 +176,14 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                                 describeDirectoryView.withField("name", "The name of the Directory View."),
                                 // describeDirectoryView.withField("collection", "The collection of the Directory View."),
                                 // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                                fieldWithPath("collection").description("The collection of the directory view."),
-                                describeDirectoryView.withField("layout", "The layout of the directory view."),
-                                describeDirectoryView.withField("template", "The result template of the directory view."),
-                                describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
+                                fieldWithPath("collection").description("The collection of the Directory View."),
+                                describeDirectoryView.withField("layout", "The layout of the Directory View."),
+                                describeDirectoryView.withSubsection("templates", "The result templates of the Directory View."),
+                                describeDirectoryView.withField("styles", "An array of result style strings of the Directory View."),
                                 describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                                 describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                                 describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                                describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                                 subsectionWithPath("_links").description("<<resources-directory-views-list-links, Links>> to other resources.")
                             )
                         )
@@ -187,13 +194,13 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testGetDirectoryView() throws JsonProcessingException, Exception {
         performCreateDirectoryView();
-        DirectoryView directoryView = viewRepo.findByName("People").get();
+        DirectoryView directoryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         // @formatter:off
         mockMvc.perform(
             get("/directoryViews/{id}", directoryView.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(HAL_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("name", equalTo("People")))
+                .andExpect(jsonPath("name", equalTo(MOCK_VIEW_NAME)))
                 .andDo(
                     document(
                         "directoryViews/find-by-id",
@@ -202,19 +209,20 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                         ),
                         links(
                             linkWithRel("self").description("Canonical link for this resource."),
-                            linkWithRel("directoryView").description("The Discovery View link for this resource.")
+                            linkWithRel("directoryView").description("The Directory View link for this resource.")
                         ),
                         responseFields(
-                            describeDirectoryView.withField("name", "The name of the Discovery View."),
-                            // describeDirectoryView.withField("collection", "The collection of the directory view."),
+                            describeDirectoryView.withField("name", "The name of the Directory View."),
+                            // describeDirectoryView.withField("collection", "The collection of the Directory View."),
                             // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection.description
-                            fieldWithPath("collection").description("The collection of the directory view."),
-                            describeDirectoryView.withField("layout", "The layout of the directory view."),
-                            describeDirectoryView.withField("template", "The result template of the directory view."),
-                            describeDirectoryView.withField("styles", "An array of result style strings of the directory view."),
+                            fieldWithPath("collection").description("The collection of the Directory View."),
+                            describeDirectoryView.withField("layout", "The layout of the Directory View."),
+                            describeDirectoryView.withSubsection("templates", "The result templates of the Directory View."),
+                            describeDirectoryView.withField("styles", "An array of result style strings of the Directory View."),
                             describeDirectoryView.withSubsection("index", "A <<resources-index, Index resource>>."),
                             describeDirectoryView.withSubsection("facets", "An array of <<resources-facets, Facet resources>>."),
                             describeDirectoryView.withSubsection("filters", "An array of <<resources-filters, Filters resources>>."),
+                            describeDirectoryView.withSubsection("sort", "An array of <<resources-sort, Sort resources>>."),
                             subsectionWithPath("_links").description("<<resources-directory-view-list-links, Links>> to other resources.")
                         )
                     )
@@ -234,7 +242,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                 .andExpect(jsonPath("page.totalElements", equalTo(1)))
                 .andExpect(jsonPath("page.totalPages", equalTo(1)))
                 .andExpect(jsonPath("page.number", equalTo(1)))
-                .andExpect(jsonPath("_embedded.directoryViews[0].name", equalTo("People")))
+                .andExpect(jsonPath("_embedded.directoryViews[0].name", equalTo(MOCK_VIEW_NAME)))
                 .andDo(
                     document(
                         "directoryViews/directory",
@@ -248,9 +256,9 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                             linkWithRel("profile").description("The ALPS profile for this resource.")
                         ),
                         responseFields(
-                            subsectionWithPath("_embedded.directoryViews").description("An array of <<resources-directory-views, Discovery View resources>>."),
+                            subsectionWithPath("_embedded.directoryViews").description("An array of <<resources-directory-views, Directory View resources>>."),
                             subsectionWithPath("_links").description("<<resources-directory-view-list-links, Links>> to other resources."),
-                            subsectionWithPath("page").description("Page details for <<resources-directory-views, Discovery View resources>>.")
+                            subsectionWithPath("page").description("Page details for <<resources-directory-views, Directory View resources>>.")
                         )
                     )
                 );
@@ -260,7 +268,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
     @Test
     public void testDeleteTheme() throws JsonProcessingException, Exception {
         performCreateDirectoryView();
-        DirectoryView directoryView = viewRepo.findByName("People").get();
+        DirectoryView directoryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         // @formatter:off
         mockMvc.perform(
             delete("/directoryViews/{id}", directoryView.getId())
@@ -270,7 +278,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
                         document(
                             "directoryViews/delete",
                             pathParameters(
-                                parameterWithName("id").description("The Discovery View id")
+                                parameterWithName("id").description("The Directory View id")
                             )
                         )
                     );
@@ -300,7 +308,7 @@ public class DirectoryViewControllerTest extends CollectionViewIntegrationTest<D
     }
 
     private ResultActions performUpdateDirectoryView() throws JsonProcessingException, Exception {
-        DirectoryView directoryView = viewRepo.findByName("People").get();
+        DirectoryView directoryView = viewRepo.findByName(MOCK_VIEW_NAME).get();
         directoryView.setName("Organizations");
         directoryView.setCollection("organizations");
 

@@ -4,11 +4,11 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
 import { AppState } from '../core/store';
 
-import { DiscoveryView, Filter, Facet } from '../core/model/view';
+import { DiscoveryView, Filter } from '../core/model/view';
 import { SolrDocument } from '../core/model/discovery';
 import { SdrPage, SdrFacet } from '../core/model/sdr';
 import { WindowDimensions } from '../core/store/layout/layout.reducer';
@@ -16,6 +16,8 @@ import { WindowDimensions } from '../core/store/layout/layout.reducer';
 import { selectRouterSearchQuery, selectRouterUrl, selectRouterQueryParamFilters } from '../core/store/router';
 import { selectAllResources, selectResourcesPage, selectResourcesFacets, selectResourceById } from '../core/store/sdr';
 import { selectWindowDimensions } from '../core/store/layout';
+
+import { addFacetsToQueryParams, addFiltersToQueryParams, addSortToQueryParams } from '../shared/utilities/view.utility';
 
 @Component({
     selector: 'scholars-discovery',
@@ -67,13 +69,13 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
             if (params.view) {
                 this.discoveryView = this.store.pipe(
                     select(selectResourceById('discoveryViews', params.view)),
-                    filter((view: DiscoveryView) => view !== undefined)
+                    filter((view: DiscoveryView) => view !== undefined),
+                    tap((view: DiscoveryView) => {
+                        this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(view.collection)));
+                        this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(view.collection)));
+                        this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(view.collection)));
+                    })
                 );
-                this.subscriptions.push(this.discoveryView.subscribe((discoveryView: DiscoveryView) => {
-                    this.documents = this.store.pipe(select(selectAllResources<SolrDocument>(discoveryView.collection)));
-                    this.page = this.store.pipe(select(selectResourcesPage<SolrDocument>(discoveryView.collection)));
-                    this.facets = this.store.pipe(select(selectResourcesFacets<SolrDocument>(discoveryView.collection)));
-                }));
             }
         }));
     }
@@ -96,26 +98,17 @@ export class DiscoveryComponent implements OnDestroy, OnInit {
         return true;
     }
 
-    public getDiscoveryRouteLink(discoveryView: DiscoveryView): string[] {
+    public getDiscoveryRouterLink(discoveryView: DiscoveryView): string[] {
         return ['/discovery', discoveryView.name];
     }
 
     public getDiscoveryQueryParams(discoveryView: DiscoveryView, page: SdrPage, query: string, filters: Filter[] = [], removeFilter: Filter): Params {
         const queryParams: Params = {};
         queryParams.collection = discoveryView.collection;
-        if (discoveryView.facets && discoveryView.facets.length > 0) {
-            let facets = '';
-            discoveryView.facets.forEach((facet: Facet) => {
-                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
-            });
-            queryParams.facets = facets;
-        }
-        if (discoveryView.filters && discoveryView.filters.length > 0) {
-            // tslint:disable-next-line:no-shadowed-variable
-            discoveryView.filters.forEach((filter: Filter) => {
-                queryParams[`${filter.field}.filter`] = filter.value;
-            });
-        }
+        addFacetsToQueryParams(queryParams, discoveryView);
+        addFiltersToQueryParams(queryParams, discoveryView);
+        // NOTE: only first sort is applied to query
+        addSortToQueryParams(queryParams, discoveryView);
         // tslint:disable-next-line:no-shadowed-variable
         filters.filter((filter: Filter) => !this.equals(filter, removeFilter)).forEach((filter: Filter) => {
             queryParams[`${filter.field}.filter`] = filter.value;

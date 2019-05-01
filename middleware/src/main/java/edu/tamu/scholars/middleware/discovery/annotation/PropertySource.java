@@ -14,9 +14,7 @@ public @interface PropertySource {
 
     String template();
 
-    String key();
-
-    String id() default "";
+    String predicate();
 
     // NOTE: extracts identifier from url, after last / or #
     boolean parse() default false;

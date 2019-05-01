@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../core/store';
-import { DirectoryView, Facet, Filter } from '../../core/model/view';
+import { DirectoryView } from '../../core/model/view';
 
 import { selectIsNavigationCollapsed, selectIsSidebarExpanded, selectIsNavigationExpanded } from '../../core/store/layout';
 
@@ -13,7 +13,11 @@ import { selectRouterUrl } from '../../core/store/router';
 import { selectHasMenu } from '../../core/store/sidebar';
 import { selectAllResources } from '../../core/store/sdr';
 
+import { addFacetsToQueryParams, addFiltersToQueryParams } from '../utilities/view.utility';
+
 import * as fromLayout from '../../core/store/layout/layout.actions';
+
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'scholars-navigation',
@@ -21,6 +25,8 @@ import * as fromLayout from '../../core/store/layout/layout.actions';
     styleUrls: ['navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+
+    public vivoEditorUrl: string;
 
     public hasMenu: Observable<boolean>;
 
@@ -35,7 +41,7 @@ export class NavigationComponent implements OnInit {
     public directoryViews: Observable<DirectoryView[]>;
 
     constructor(private store: Store<AppState>) {
-
+        this.vivoEditorUrl = environment.vivoEditorUrl;
     }
 
     ngOnInit() {
@@ -55,24 +61,14 @@ export class NavigationComponent implements OnInit {
         return ['/directory', directoryView.name];
     }
 
-    // NOTE: redundant with getResetQueryParams in DirectoryComponent
     public getDirectoryQueryParams(directoryView: DirectoryView): Params {
         const queryParams: Params = {};
         queryParams.collection = directoryView.collection;
-        queryParams.sort = `${directoryView.index.field},asc`;
         queryParams.index = undefined;
-        if (directoryView.facets && directoryView.facets.length > 0) {
-            let facets = '';
-            directoryView.facets.forEach((facet: Facet) => {
-                facets += facets.length > 0 ? `,${facet.field}` : facet.field;
-            });
-            queryParams.facets = facets;
-        }
-        if (directoryView.filters && directoryView.filters.length > 0) {
-            directoryView.filters.forEach((filter: Filter) => {
-                queryParams[`${filter.field}.filter`] = filter.value;
-            });
-        }
+        addFacetsToQueryParams(queryParams, directoryView);
+        addFiltersToQueryParams(queryParams, directoryView);
+        // NOTE: currently ignoring sort of CollectionView and applying sort asc by index field
+        queryParams.sort = `${directoryView.index.field},asc`;
         return queryParams;
     }
 

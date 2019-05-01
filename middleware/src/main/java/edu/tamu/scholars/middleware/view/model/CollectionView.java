@@ -1,37 +1,35 @@
 package edu.tamu.scholars.middleware.view.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
 
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFacets;
 import edu.tamu.scholars.middleware.view.annotation.ValidCollectionFilters;
-import edu.tamu.scholars.middleware.view.annotation.ValidDiscoveryCollection;
 
 @MappedSuperclass
 @ValidCollectionFacets(message = "{CollectionView.validCollectionFacets}")
 @ValidCollectionFilters(message = "{CollectionView.validCollectionFilters}")
-public abstract class CollectionView extends View {
+public abstract class CollectionView extends ResourceView {
 
     private static final long serialVersionUID = 6875458024293994230L;
-
-    @ValidDiscoveryCollection(message = "{CollectionView.validDiscoveryCollection}")
-    @Column(nullable = false)
-    private String collection;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Layout layout;
 
-    @NotNull
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String template;
+    @ElementCollection
+    @MapKeyColumn(name = "key")
+    @Column(name = "template", columnDefinition = "TEXT")
+    private Map<String, String> templates;
 
     @ElementCollection
     private List<String> styles;
@@ -42,18 +40,16 @@ public abstract class CollectionView extends View {
     @ElementCollection
     private List<Filter> filters;
 
+    @ElementCollection
+    private List<Sort> sort;
+
     public CollectionView() {
         super();
+        templates = new HashMap<String, String>();
+        styles = new ArrayList<String>();
         facets = new ArrayList<Facet>();
         filters = new ArrayList<Filter>();
-    }
-
-    public String getCollection() {
-        return collection;
-    }
-
-    public void setCollection(String collection) {
-        this.collection = collection;
+        sort = new ArrayList<Sort>();
     }
 
     public Layout getLayout() {
@@ -64,12 +60,12 @@ public abstract class CollectionView extends View {
         this.layout = layout;
     }
 
-    public String getTemplate() {
-        return template;
+    public Map<String, String> getTemplates() {
+        return templates;
     }
 
-    public void setTemplate(String template) {
-        this.template = template;
+    public void setTemplates(Map<String, String> templates) {
+        this.templates = templates;
     }
 
     public List<String> getStyles() {
@@ -96,8 +92,12 @@ public abstract class CollectionView extends View {
         this.filters = filters;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+    public List<Sort> getSort() {
+        return sort;
+    }
+
+    public void setSort(List<Sort> sort) {
+        this.sort = sort;
     }
 
 }

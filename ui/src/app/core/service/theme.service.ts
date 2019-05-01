@@ -1,9 +1,10 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { DOCUMENT, isPlatformServer, isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
-import { Observable, of } from 'rxjs';
+import { Observable, scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 
+import { ComputedStyleLoader } from '../computed-style-loader';
 import { RestService } from './rest.service';
 
 import { Theme, Style } from '../model/theme';
@@ -18,10 +19,9 @@ import { environment } from '../../../environments/environment';
 export class ThemeService {
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: string,
-        @Inject(DOCUMENT) private document: Document,
         private sanitizer: DomSanitizer,
-        private restService: RestService
+        private restService: RestService,
+        private styleLoader: ComputedStyleLoader
     ) {
 
     }
@@ -35,7 +35,7 @@ export class ThemeService {
         styles += this.processThemeColors(theme.colors);
         styles += this.processThemeVariants(theme.variants);
         styles += this.processThemeVariables(theme);
-        return of(this.sanitizer.bypassSecurityTrustStyle(styles));
+        return scheduled([this.sanitizer.bypassSecurityTrustStyle(styles)], asap);
     }
 
     private processThemeColors(colors: Style[]): string {
@@ -48,15 +48,7 @@ export class ThemeService {
     }
 
     private processThemeVariants(variants: Style[]): string {
-        let computedStyle;
-
-        if (isPlatformServer(this.platformId)) {
-            computedStyle = this.getPrerenderComputedStyle(this.document);
-        }
-
-        if (isPlatformBrowser(this.platformId)) {
-            computedStyle = getComputedStyle(this.document.body);
-        }
+        const computedStyle = this.styleLoader.getComputedStyle();
 
         const yiqContrastedThreshold = Number(computedStyle.getPropertyValue('--yiq-contrasted-threshold').trim());
         const yiqTextDark = computedStyle.getPropertyValue('--yiq-text-dark').trim();
@@ -194,16 +186,6 @@ export class ThemeService {
             });
         }
         return styles;
-    }
-
-    private getPrerenderComputedStyle(document: Document): any {
-        const head = (document.head as any).serialize();
-        const root = head.match(/:root {([^}]+)}/g)[0];
-        const cssTxt = root.replace(/\/\*(.|\s)*?\*\//g, ' ').replace(/\s+/g, ' ');
-        const style = {}, [, ruleName, rule] = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [, , cssTxt];
-        const properties = rule.split(';').map(o => o.split(':').map(x => x && x.trim()));
-        for (const [property, value] of properties) { if (value) { style[property] = value; } }
-        return { root, ruleName, style, getPropertyValue: (key) => style[key] };
     }
 
 }

@@ -2,7 +2,7 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>
  
 CONSTRUCT {
-    ?publication vivo:dateTime ?dateTime .
+    ?publication vivo:dateTime ?dateTimeWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?authorship .
     ?authorship a vivo:Authorship .
@@ -10,4 +10,5 @@ CONSTRUCT {
     ?publication a obo:IAO_0000030 .
     ?publication ?dateTimeValue ?date .
     ?date vivo:dateTime ?dateTime .
+    BIND( CONCAT( STR(?dateTime), REPLACE(STR(?publication), "(^.*/)", "::") ) AS ?dateTimeWithId ) .
 }

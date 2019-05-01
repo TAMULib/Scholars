@@ -42,7 +42,7 @@ public class HomeTest {
         hero.setFontColor("#ffffff");
         hero.setLinkColor("#000000");
         hero.setLinkHoverColor("#ffc222");
-        hero.setInterval(5000);
+        hero.setSlideInterval(5000);
 
         heroes.add(hero);
 
@@ -58,7 +58,7 @@ public class HomeTest {
         assertEquals("#ffffff", home.getHeroes().get(0).getFontColor());
         assertEquals("#000000", home.getHeroes().get(0).getLinkColor());
         assertEquals("#ffc222", home.getHeroes().get(0).getLinkHoverColor());
-        assertEquals(5000, home.getHeroes().get(0).getInterval());
+        assertEquals(5000, home.getHeroes().get(0).getSlideInterval());
 
         List<Style> homeVairables = new ArrayList<Style>();
         homeVairables.add(new Style("--test", "home"));
