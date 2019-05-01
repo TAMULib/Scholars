@@ -59,7 +59,7 @@
     "@angular/platform-server": "7.2.14",
     "@angular/router": "7.2.14",
     "@angularclass/bootloader": "1.0.1",
-    "@ng-bootstrap/ng-bootstrap": "4.1.1",
+    "@ng-bootstrap/ng-bootstrap": "4.1.2",
     "@ngrx/effects": "7.4.0",
     "@ngrx/entity": "7.4.0",
     "@ngrx/router-store": "7.4.0",
