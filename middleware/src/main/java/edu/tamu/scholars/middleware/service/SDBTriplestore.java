@@ -1,8 +1,6 @@
 package edu.tamu.scholars.middleware.service;
 
 import org.apache.jena.query.Dataset;
-import org.apache.jena.query.DatasetFactory;
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.sdb.SDB;
 import org.apache.jena.sdb.SDBFactory;
 import org.apache.jena.sdb.Store;
@@ -34,9 +32,7 @@ public class SDBTriplestore implements Triplestore {
         StoreDesc storeDesc = new StoreDesc(LayoutType.fetch(triplestoreConfig.getLayoutType()), DatabaseType.fetch(triplestoreConfig.getDatabaseType()));
         SDBConnection conn = new SDBConnection(triplestoreConfig.getDatasourceUrl(), triplestoreConfig.getUsername(), triplestoreConfig.getPassword());
         store = SDBFactory.connectStore(conn, storeDesc);
-        dataset = DatasetFactory.create();
-        Model model = SDBFactory.connectDefaultModel(store);
-        dataset.setDefaultModel(model);
+        dataset = SDBFactory.connectDataset(store);
     }
 
     @Override
