@@ -25,7 +25,7 @@
   {{? it.etdChairOf.length > 5 }}
   <div class="wrapper">
     <input id="toggle" type="checkbox">
-    <label for="toggle" class="badge badge-light font-weight-bold p-2 ml-2 align-self-start" tabindex="0"> </label>
+    <label for="toggle" class="badge badge-light font-weight-bold p-2 ml-2 align-self-start" tabindex="0"><span class="d-none">toggle more</span></label>
     <div id="expand">
       <ul class="list-unstyled ml-2 mr-2 mb-0">
         {{~ it.etdChairOf.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(5, it.etdChairOf.length) :workByStudent}}
