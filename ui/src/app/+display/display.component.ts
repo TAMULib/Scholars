@@ -168,7 +168,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                     });
                                 });
                                 displayView.tabs.push(viewAllTab);
-                                console.log(document);
                             }),
                             map(([displayView]) => displayView)
                         );
