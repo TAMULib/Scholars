@@ -11,8 +11,6 @@ import static org.mockito.Mockito.doReturn;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 import org.assertj.core.util.Files;
 import org.junit.jupiter.api.AfterEach;
@@ -30,9 +28,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.security.core.token.KeyBasedPersistenceTokenService;
 import org.springframework.security.core.token.Token;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -43,7 +39,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.tamu.scholars.middleware.auth.RegistrationIntegrationTest;
 import edu.tamu.scholars.middleware.auth.config.AuthConfig;
-import edu.tamu.scholars.middleware.auth.config.TokenConfig;
 import edu.tamu.scholars.middleware.auth.controller.exception.RegistrationException;
 import edu.tamu.scholars.middleware.auth.controller.request.Registration;
 import edu.tamu.scholars.middleware.auth.model.Role;
@@ -85,29 +80,18 @@ public class RegistrationServiceTest extends RegistrationIntegrationTest {
         }
 
         @Bean
-        public TokenService tokenService() throws NoSuchAlgorithmException {
-            TokenConfig tokenConfig = new TokenConfig();
-            KeyBasedPersistenceTokenService tokenService = new KeyBasedPersistenceTokenService();
-            tokenService.setServerInteger(tokenConfig.getServerInteger());
-            tokenService.setServerSecret(tokenConfig.getServerSecret());
-            tokenService.setPseudoRandomNumberBytes(tokenConfig.getPseudoRandomNumberBytes());
-            tokenService.setSecureRandom(SecureRandom.getInstanceStrong());
-            return tokenService;
-        }
-
-        @Bean
         public MessageSource messageSource() {
             return new ResourceBundleMessageSource();
         }
 
         @Bean
-        public ObjectMapper objectMapper() {
-            return new ObjectMapper();
+        public BCryptPasswordEncoder bCryptPasswordEncoder() {
+            return new BCryptPasswordEncoder();
         }
 
         @Bean
-        public BCryptPasswordEncoder bCryptPasswordEncoder() {
-            return new BCryptPasswordEncoder();
+        public ObjectMapper objectMapper() {
+            return new ObjectMapper();
         }
 
         @Bean
