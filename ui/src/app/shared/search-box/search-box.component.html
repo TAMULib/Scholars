@@ -3,14 +3,16 @@
     <form *ngIf="isBrowserRendered()" (ngSubmit)="onSearch()" novalidate>
       <div [formGroup]="form" class="form-group search-box text-center">
         <ng-container *ngTemplateOutlet="searchLabel"></ng-container>
-        <input type="text" class="form-control" placeholder="Search..." name="query" formControlName="query" [style.box-shadow]="styles?.inputBoxShadow" />
+        <label for="search" class="d-none">Search</label>
+        <input id="search" type="text" class="form-control" placeholder="Search..." name="query" formControlName="query" [style.box-shadow]="styles?.inputBoxShadow" />
       </div>
     </form>
 
     <form *ngIf="isServerRendered()" [action]="getAction()" method="get" novalidate>
       <div [formGroup]="form" class="form-group search-box text-center">
         <ng-container *ngTemplateOutlet="searchLabel"></ng-container>
-        <input type="text" class="form-control" placeholder="Search..." name="query" formControlName="query" [style.box-shadow]="styles?.inputBoxShadow" />
+        <label for="search" class="d-none">Search</label>
+        <input id="search" type="text" class="form-control" placeholder="Search..." name="query" formControlName="query" [style.box-shadow]="styles?.inputBoxShadow" />
         <input type="text" class="form-control invisible" name="collection" formControlName="collection" />
         <input type="text" class="form-control invisible" name="facets" formControlName="facets" />
         <input *ngFor="let filter of view.filters" type="text" class="form-control invisible" [name]="getFilterName(filter)" [formControlName]="getFilterName(filter)" />

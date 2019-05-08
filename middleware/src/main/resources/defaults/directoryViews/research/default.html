@@ -9,17 +9,17 @@
 <div class="d-inline-flex">
   {{? it.doi}}
   <span class="mr-1">
-    <a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a>
+    <a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" alt="doi badge" /></a>
   </span>
   {{?}}
   {{? it.pmcid}}
   <span class="mr-1">
-    <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a>
+    <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" alt="pubmed badge" /></a>
   </span>
   {{?}}
   {{? it.uri}}
   <span class="mr-1">
-    <a href="{{=it.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a>
+    <a href="{{=it.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge" /></a>
   </span>
   {{?}}
 </div>

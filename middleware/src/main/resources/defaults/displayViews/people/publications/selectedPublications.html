@@ -69,13 +69,13 @@
         </div>
         <div class="d-flex">
           {{? publication.doi }}
-          <span class="mr-1"><a href="https://dx.doi.org/{{=publication.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a></span>
+          <span class="mr-1"><a href="https://dx.doi.org/{{=publication.doi}}"><img src="assets/images/doi-badge.jpg" width="100" alt="doi badge" /></a></span>
           {{?}}
           {{? publication.pmcid }}
-          <span class="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=publication.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a></span>
+          <span class="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=publication.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" alt="pubmed badge" /></a></span>
           {{?}}          
           {{? publication.uri }}
-          <span class="mr-1"><a href="{{=publication.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a></span>
+          <span class="mr-1"><a href="{{=publication.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge" /></a></span>
           <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{=publication.uri}}"></span>
           {{?}}
           {{? publication.isbn10 }}
@@ -96,7 +96,7 @@
     {{? it[type].length > 5 }}
     <div class="wrapper">
       <input id="toggle{{=type}}" type="checkbox">
-      <label for="toggle{{=type}}" class="{{=type}} badge badge-light font-weight-bold p-2 ml-2 align-self-start" tabindex="0"> </label>
+      <label for="toggle{{=type}}" class="{{=type}} badge badge-light font-weight-bold p-2 ml-2 align-self-start" tabindex="0"><span class="d-none">toggle more</span></label>
       <div id="expand{{=type}}">
         <ul class="list-unstyled ml-2 mr-2 mb-0">
           {{~ it[type].slice(5, it[type].length) :publication}}
@@ -156,13 +156,13 @@
             </div>
             <div class="d-flex">
               {{? publication.doi }}
-              <span class="mr-1"><a href="https://dx.doi.org/{{=publication.doi}}"><img src="assets/images/doi-badge.jpg" width="100" /></a></span>
+              <span class="mr-1"><a href="https://dx.doi.org/{{=publication.doi}}"><img src="assets/images/doi-badge.jpg" width="100" alt="doi badge" /></a></span>
               {{?}}
               {{? publication.pmcid }}
-              <span class="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=publication.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" /></a></span>
+              <span class="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=publication.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" alt="pubmed badge" /></a></span>
               {{?}}          
               {{? publication.uri }}
-              <span class="mr-1"><a href="{{=publication.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" /></a></span>
+              <span class="mr-1"><a href="{{=publication.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="openaccess badge" /></a></span>
               <span class="altmetric-embed mr-1" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{=publication.uri}}"></span>
               {{?}}
               {{? publication.isbn10 }}
