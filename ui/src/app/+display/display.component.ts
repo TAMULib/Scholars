@@ -88,7 +88,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                             if (document[lazyReference.field] !== undefined) {
                                                 if (document[lazyReference.field] instanceof Array) {
                                                     const ids = document[lazyReference.field].map((property) => property.id);
-                                                    if(ids.length > 0) {
+                                                    if (ids.length > 0) {
                                                         this.store.dispatch(new fromSdr.FindByIdInResourceAction(lazyReference.collection, { ids }));
                                                         const lazyObservable = combineLatest([
                                                             this.store.pipe(
