@@ -435,7 +435,7 @@ public class Document extends AbstractSolrDocument {
     private List<String> participatesIn;
 
     @Indexed(type = "nested_strings")
-    @NestedObject({ @Reference(value = "suppoertedByType", key = "type") })
+    @NestedObject({ @Reference(value = "supportedByType", key = "type") })
     @PropertySource(template = "document/supportedBy", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> supportedBy;
 

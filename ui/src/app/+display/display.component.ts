@@ -88,28 +88,30 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                             if (document[lazyReference.field] !== undefined) {
                                                 if (document[lazyReference.field] instanceof Array) {
                                                     const ids = document[lazyReference.field].map((property) => property.id);
-                                                    this.store.dispatch(new fromSdr.FindByIdInResourceAction(lazyReference.collection, { ids }));
-                                                    const lazyObservable = combineLatest([
-                                                        this.store.pipe(
-                                                            select(selectAllResources(lazyReference.collection)),
-                                                            map((values) => {
-                                                                return {
-                                                                    field: lazyReference.field,
-                                                                    value: values
-                                                                };
-                                                            })
-                                                        ),
-                                                        this.store.pipe(
-                                                            select(selectResourceIsLoading(lazyReference.collection)),
-                                                            filter((isLoading) => {
-                                                                if (isLoading) {
-                                                                    isLoaded[lazyReference.collection] = isLoading;
-                                                                }
-                                                                return !isLoading && isLoaded[lazyReference.collection];
-                                                            })
-                                                        )
-                                                    ]);
-                                                    lazyObservables.push(lazyObservable);
+                                                    if(ids.length > 0) {
+                                                        this.store.dispatch(new fromSdr.FindByIdInResourceAction(lazyReference.collection, { ids }));
+                                                        const lazyObservable = combineLatest([
+                                                            this.store.pipe(
+                                                                select(selectAllResources(lazyReference.collection)),
+                                                                map((values) => {
+                                                                    return {
+                                                                        field: lazyReference.field,
+                                                                        value: values
+                                                                    };
+                                                                })
+                                                            ),
+                                                            this.store.pipe(
+                                                                select(selectResourceIsLoading(lazyReference.collection)),
+                                                                filter((isLoading) => {
+                                                                    if (isLoading) {
+                                                                        isLoaded[lazyReference.collection] = isLoading;
+                                                                    }
+                                                                    return !isLoading && isLoaded[lazyReference.collection];
+                                                                })
+                                                            )
+                                                        ]);
+                                                        lazyObservables.push(lazyObservable);
+                                                    }
                                                 } else {
                                                     const id = document[lazyReference.field].id;
                                                     this.store.dispatch(new fromSdr.GetOneResourceAction(lazyReference.collection, { id }));
