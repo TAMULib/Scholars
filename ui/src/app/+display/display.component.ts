@@ -144,6 +144,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 return combineLatest([scheduled([displayView], asap), combineLatest(lazyObservables)]);
                             }),
                             tap(([displayView, lazyReferences]) => {
+                                console.log(displayView);
                                 lazyReferences.forEach((lazyReference) => {
                                     if (lazyReference[0].field && lazyReference[0].value) {
                                         const property = {};
