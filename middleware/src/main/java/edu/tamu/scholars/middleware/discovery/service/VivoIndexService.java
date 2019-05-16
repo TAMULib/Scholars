@@ -3,7 +3,6 @@ package edu.tamu.scholars.middleware.discovery.service;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.PostConstruct;
@@ -38,7 +37,8 @@ public class VivoIndexService {
     @PostConstruct
     public void indexOnStartup() {
         if (indexOnStartup) {
-            CompletableFuture.runAsync(() -> index());
+            // TODO: run asynchronously with maintaining logging
+            index();
         }
     }
 

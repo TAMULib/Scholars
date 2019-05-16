@@ -306,10 +306,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@ng-bootstrap/ng-bootstrap@4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.1.2.tgz#099aae5256710f5279b8663c4c15098a5a2d7fbc"
-  integrity sha512-1kzxC32I1RgZiGp7O+QmZUJq+ENvov+z1RqfhtnD7zhJll+UdGPs+rPfIQ3jLqd+BgrfkSI+W4krVKAbXp1AKA==
+"@ng-bootstrap/ng-bootstrap@4.1.3":
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.1.3.tgz#9e054b3d7c5fb14d7ca102dd6bf1233a4bcb24bd"
+  integrity sha512-aW6qhBUfKQ0qnqwkZAZT5SmJsT5Bh/mKKO3kZH3MWcIN9gxQ/8/Bva6O+w8IYrbm3Os0+XlRdBXbu/mybYn7yw==
   dependencies:
     tslib "^1.9.0"
 
@@ -482,10 +482,10 @@
   dependencies:
     "@types/jasmine" "*"
 
-"@types/lodash@4.14.125":
-  version "4.14.125"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.125.tgz#b5fa71f3080a2136ba2702c390ffe528ec1e3980"
-  integrity sha512-s29jU/MIOSddXeji0TSZPJjf0agnfJYpWeKlr79BbtXlfuYamGVyCNQA2IRi5/plaQiNSxMmNGdvFbdtMMJ3nw==
+"@types/lodash@4.14.129":
+  version "4.14.129"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.129.tgz#9aaca391db126802482655c48dd79a814488202f"
+  integrity sha512-oYaV0eSlnOacOr7i4X1FFdH8ttSlb57gu3I9MuStIv2CYkISEY84dNHYsC3bF6sNH7qYcu1BtVrCtQ8Q4KPTfQ==
 
 "@types/mime@*":
   version "2.0.0"
@@ -497,10 +497,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
 
-"@types/node@12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.0.tgz#d11813b9c0ff8aaca29f04cbc12817f4c7d656e5"
-  integrity sha512-Jrb/x3HT4PTJp6a4avhmJCDEVrPdqLfl3e8GGMbpkGGdwAV5UGlIs4vVEfsHHfylZVOKZWpOqmqFH8CbfOZ6kg==
+"@types/node@12.0.2":
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.2.tgz#3452a24edf9fea138b48fad4a0a028a683da1e40"
+  integrity sha512-5tabW/i+9mhrfEOUcLDu2xBPsHJ+X5Orqy9FKpale3SjDA17j5AEpYq5vfy3oAeAHGcvANRCO3NV3d2D6q3NiA==
 
 "@types/q@^0.0.32":
   version "0.0.32"

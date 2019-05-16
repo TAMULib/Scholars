@@ -45,7 +45,7 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${middleware.index.batchSize:100000}")
+    @Value("${middleware.index.batchSize:10000}")
     public int indexBatchSize;
 
     @Autowired
@@ -71,7 +71,9 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
                 Stream<Triple> tripleStream = StreamSupport.stream(tripleIterable.spliterator(), true);
                 tripleStream.forEach(triple -> {
                     String subject = triple.getSubject().toString();
-                    // logger.info(String.format("Indexing %s %s", type().getSimpleName(), subject));
+                    if (logger.isDebugEnabled()) {
+                        logger.debug(String.format("Indexing %s %s", type().getSimpleName(), subject));
+                    }
                     try {
                         documents.add(createDocument(subject));
                     } catch (DataAccessResourceFailureException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -85,10 +87,12 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
                             e.printStackTrace();
                         }
                     }
-                    batchCheck(documents);
+                    if (documents.size() == indexBatchSize) {
+                        batchSave(documents);
+                    }
                 });
                 if (documents.size() > 0) {
-                    repo.saveAll(documents);
+                    batchSave(documents);
                 }
             } else {
                 logger.warn(String.format("No %s found!", name()));
@@ -96,11 +100,26 @@ public abstract class AbstractSolrIndexService<D extends AbstractSolrDocument, R
         }
     }
 
-    private synchronized void batchCheck(ConcurrentLinkedDeque<D> documents) {
-        if (documents.size() == indexBatchSize) {
+    private synchronized void batchSave(ConcurrentLinkedDeque<D> documents) {
+        try {
             repo.saveAll(documents);
-            documents.clear();
+        } catch (Exception e1) {
+            logger.warn("Failed to batch save. Attempting individually.");
+            if (logger.isDebugEnabled()) {
+                e1.printStackTrace();
+            }
+            documents.forEach(document -> {
+                try {
+                    repo.save(document);
+                } catch (Exception e2) {
+                    logger.warn(String.format("Failed to save document with id %s", document.getId()));
+                    if (logger.isDebugEnabled()) {
+                        e2.printStackTrace();
+                    }
+                }
+            });
         }
+        documents.clear();
     }
 
     public String name() {

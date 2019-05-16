@@ -185,7 +185,7 @@ public class Person extends AbstractSolrDocument {
     private List<String> attendedEvents;
 
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "person/attendedEventType", predicate = "person.attendedEvent.name", parse = true)
+    @PropertySource(template = "person/attendedEventType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
     private List<String> attendedEventType;
 
     @Indexed(type = "nested_dates")

@@ -25,7 +25,7 @@ middleware:
     cron: 0 0 0 * * SUN
     zone: America/Chicago
     onStartup: true
-    batchSize: 1000000
+    batchSize: 10000
 
 ui:
   url: http://localhost:4200
