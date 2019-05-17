@@ -7,16 +7,14 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-@Target({ FIELD })
-@Retention(RUNTIME)
 @Documented
+@Target(FIELD)
+@Retention(RUNTIME)
 public @interface PropertySource {
 
     String template();
 
-    String key();
-
-    String id() default "";
+    String predicate();
 
     // NOTE: extracts identifier from url, after last / or #
     boolean parse() default false;

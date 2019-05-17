@@ -2,9 +2,10 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
  
 CONSTRUCT {
-    ?date vivo:dateTime ?dateTime .
+    ?date vivo:dateTime ?dateTimeWithId .
 } WHERE {
     <[(${uri})]> vivo:featuredIn ?document .
     ?document ?dateTimeValue ?date .
     ?date vivo:dateTime ?dateTime .
+    BIND( CONCAT( STR(?dateTime), REPLACE(STR(?document), "(^.*/)", "::") ) AS ?dateTimeWithId ) .
 }

@@ -1,3 +1,4 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,6 +8,9 @@ import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
 
 import { AdminComponent } from './admin.component';
+import { DirectoryViewsComponent } from './directory-views/directory-views.component';
+import { DiscoveryViewsComponent } from './discovery-views/discovery-views.component';
+import { DisplayViewsComponent } from './display-views/display-views.component';
 import { ThemesComponent } from './themes/themes.component';
 import { UsersComponent } from './users/users.component';
 
@@ -22,6 +26,9 @@ describe('AdminComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AdminComponent,
+                DirectoryViewsComponent,
+                DiscoveryViewsComponent,
+                DisplayViewsComponent,
                 ThemesComponent,
                 UsersComponent
             ],
@@ -32,6 +39,12 @@ describe('AdminComponent', () => {
                 }),
                 TranslateModule.forRoot(),
                 RouterTestingModule.withRoutes(routes)
+            ],
+            providers: [
+                {
+                    provide: APP_BASE_HREF,
+                    useValue: '/'
+                }
             ],
             schemas: [
                 CUSTOM_ELEMENTS_SCHEMA

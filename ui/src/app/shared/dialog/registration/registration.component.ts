@@ -3,11 +3,12 @@ import { FormBuilder, FormControl, Validators, ValidatorFn, AbstractControl } fr
 import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
 
-import { combineLatest, of, Observable } from 'rxjs';
+import { combineLatest, scheduled, Observable } from 'rxjs';
+import { queue } from 'rxjs/internal/scheduler/queue';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
-import { DialogButtonType, DialogControl } from '../../../core/store/dialog';
+import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
 import { RegistrationRequest } from '../../../core/model/request/registration.request';
 
 import { selectIsSubmittingRegistration, selectIsCompletingRegistration } from '../../../core/store/auth';
@@ -22,7 +23,7 @@ export enum RegistrationStep {
 
 export function confirmPasswordValidator(password: FormControl): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-        return password.value !== control.value ? { 'confirmPassword': { value: control.value } } : null;
+        return password.value !== control.value ? { confirmPassword: { value: control.value } } : null;
     };
 }
 
@@ -115,7 +116,7 @@ export class RegistrationComponent implements OnInit {
                     case 'minlength': return this.translate.get('SHARED.DIALOG.VALIDATION.MIN_LENGTH', { field, min: errors[validation].requiredLength });
                     case 'maxlength': return this.translate.get('SHARED.DIALOG.VALIDATION.MAX_LENGTH', { field, max: errors[validation].requiredLength });
                     case 'confirmPassword': return this.translate.get('SHARED.DIALOG.VALIDATION.CONFIRM_PASSWORD', { field });
-                    default: return of('unknown error');
+                    default: return scheduled(['unknown error'], queue);
                 }
             }
         }
@@ -141,17 +142,17 @@ export class RegistrationComponent implements OnInit {
 
     private isSubmitDisabled(): Observable<boolean> {
         if (this.isSubmit()) {
-            return combineLatest(
-                of(this.dialog.form.invalid),
-                of(this.dialog.form.pristine),
+            return combineLatest([
+                scheduled([this.dialog.form.invalid], queue),
+                scheduled([this.dialog.form.pristine], queue),
                 this.store.pipe(select(selectIsSubmittingRegistration))
-            ).pipe(map(results => results[0] || results[1] || results[2]));
+            ]).pipe(map(results => results[0] || results[1] || results[2]));
         } else if (this.isComplete()) {
-            return combineLatest(
-                of(this.dialog.form.invalid),
-                of(this.dialog.form.pristine),
+            return combineLatest([
+                scheduled([this.dialog.form.invalid], queue),
+                scheduled([this.dialog.form.pristine], queue),
                 this.store.pipe(select(selectIsCompletingRegistration))
-            ).pipe(map(results => results[0] || results[1] || results[2]));
+            ]).pipe(map(results => results[0] || results[1] || results[2]));
         } else {
             throw new Error('Unknown registration step!');
         }

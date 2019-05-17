@@ -1,0 +1,26 @@
+{
+  "id": "nfst01785961",
+  "name": "Legal research and writing",
+  "type": [
+    "Concept"
+  ],
+  "associatedDepartments": [
+    "School of Law::n52ff53af"
+  ],
+  "researchAreaOf": [
+    "Pierce, Tanya::n87070ba0",
+    "Morrison, Angela::ne72b58ac",
+    "Sobol, Neil::n0dc318bc",
+    "Rich, Lisa::n9eff5fdc",
+    "Murphy, John::n2e197d6c",
+    "Pauli, Carol::n18ba7576"
+  ],
+  "researchAreaOfOrganization": [
+    "School of Law::n87070ba0::n52ff53af",
+    "School of Law::ne72b58ac::n52ff53af",
+    "School of Law::n18ba7576::n52ff53af",
+    "School of Law::n2e197d6c::n52ff53af",
+    "School of Law::n9eff5fdc::n52ff53af",
+    "School of Law::n0dc318bc::n52ff53af"
+  ]
+}

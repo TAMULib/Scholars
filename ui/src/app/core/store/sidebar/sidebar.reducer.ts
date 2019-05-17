@@ -1,12 +1,14 @@
 import { SidebarActions, SidebarActionTypes } from './sidebar.actions';
-import { SidebarMenu } from './';
+import { SidebarMenu } from '../../model/sidebar';
 
 export type SidebarState = Readonly<{
     menu: SidebarMenu;
 }>;
 
 export const initialState: SidebarState = {
-    menu: undefined
+    menu: {
+        sections: []
+    }
 };
 
 export function reducer(state = initialState, action: SidebarActions): SidebarState {
@@ -19,11 +21,18 @@ export function reducer(state = initialState, action: SidebarActions): SidebarSt
         case SidebarActionTypes.UNLOAD_SIDEBAR:
             return {
                 ...state,
-                menu: undefined
+                menu: {
+                    sections: []
+                }
             };
+        case SidebarActionTypes.TOGGLE_COLLAPSIBLE_SECTION:
+            const collapsed = state.menu.sections[action.payload.sectionIndex].collapsed;
+            state.menu.sections[action.payload.sectionIndex].collapsed = !collapsed;
+            return state;
         default:
             return state;
     }
 }
 
 export const getMenu = (state: SidebarState) => state.menu;
+export const hasMenu = (state: SidebarState) => state.menu.sections.length > 0;

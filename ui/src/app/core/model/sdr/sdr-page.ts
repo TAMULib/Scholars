@@ -1,9 +1,6 @@
-export interface SdrPageRequest {
-    readonly number: number;
+export interface SdrPage {
     readonly size: number;
-}
-
-export interface SdrPage extends SdrPageRequest {
     readonly totalElements: number;
     readonly totalPages: number;
+    readonly number: number;
 }

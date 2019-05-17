@@ -6,12 +6,10 @@ import { Observable } from 'rxjs';
 import { DialogService } from '../../core/service/dialog.service';
 
 import { AppState } from '../../core/store';
-import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
+import { SdrPage } from '../../core/model/sdr';
 import { User, Role } from '../../core/model/user';
 
-import { selectAllResources, selectReousrcesPage } from '../../core/store/sdr';
-
-import * as fromSdr from '../../core/store/sdr/sdr.actions';
+import { selectAllResources, selectResourcesPage } from '../../core/store/sdr';
 
 @Component({
     selector: 'scholars-users',
@@ -34,7 +32,7 @@ export class UsersComponent implements OnInit {
 
     ngOnInit() {
         this.users = this.store.pipe(select(selectAllResources<User>('users')));
-        this.page = this.store.pipe(select(selectReousrcesPage<User>('users')));
+        this.page = this.store.pipe(select(selectResourcesPage<User>('users')));
     }
 
     public openUserEditDialog(user: User): void {
@@ -43,10 +41,6 @@ export class UsersComponent implements OnInit {
 
     public getRoleValue(role: Role): string {
         return Role[role];
-    }
-
-    public onPageChange(page: SdrPageRequest): void {
-        this.store.dispatch(new fromSdr.PageResourcesAction('users', { page }));
     }
 
 }

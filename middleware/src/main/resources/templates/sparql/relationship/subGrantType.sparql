@@ -4,8 +4,9 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
-    ?subGrant vitro:mostSpecificType ?mostSpecificType .
+    ?subGrant vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> obo:BFO_0000051 ?subGrant ; a vivo:Grant .
     ?subGrant vitro:mostSpecificType ?mostSpecificType ; a vivo:Grant .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?subGrant), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
 }

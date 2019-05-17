@@ -1,0 +1,90 @@
+=== Organizations
+
+==== Directory
+
+This provides a directory listing view of all the organizations present in the system, based on the _request parameters_ as shown.
+
+===== Request Parameters
+include::{snippets}/organizations/directory/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/organizations/directory/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/organizations/directory/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/organizations/directory/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/organizations/directory/curl-request.adoc[]
+
+==== Find By Id
+
+This will find an organization based on the _organization id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific organization as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/organizations/find-by-id/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/organizations/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/organizations/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/organizations/find-by-id/curl-request.adoc[]
+
+==== Find By Id In
+
+This will find a list of organizations based on the _organization ids_ provided as a parameter as shown in *Request Parameters*. The json response will have the specific organizations as shown in the *Sample Response*.
+
+===== Request Parameters
+include::{snippets}/organizations/find-by-id-in/request-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/organizations/find-by-id-in/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/organizations/find-by-id-in/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/organizations/find-by-id-in/curl-request.adoc[]
+
+==== Search
+
+This search will return a json response listing all the organizations, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/organizations/facet-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/organizations/facet-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/organizations/facet-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/organizations/facet-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/organizations/facet-search/curl-request.adoc[]
+
+==== Count
+
+This count will return a json response containing the count, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/organizations/count-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/organizations/count-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/organizations/count-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/organizations/count-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/organizations/count-search/curl-request.adoc[]

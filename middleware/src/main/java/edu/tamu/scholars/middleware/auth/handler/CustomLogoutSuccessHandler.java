@@ -21,7 +21,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        response.setStatus(HttpServletResponse.SC_OK);
+        response.setStatus(HttpServletResponse.SC_RESET_CONTENT);
         response.getWriter().write(messageSource.getMessage("CustomLogoutSuccessHandler.success", new Object[0], LocaleContextHolder.getLocale()));
         response.getWriter().flush();
         response.getWriter().close();

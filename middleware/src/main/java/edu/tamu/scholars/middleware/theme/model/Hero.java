@@ -31,7 +31,7 @@ public class Hero {
     private String linkHoverColor;
 
     @Column
-    private int interval;
+    private int slideInterval;
 
     public Hero() {
         super();
@@ -101,12 +101,12 @@ public class Hero {
         this.linkHoverColor = linkHoverColor;
     }
 
-    public int getInterval() {
-        return interval;
+    public int getSlideInterval() {
+        return slideInterval;
     }
 
-    public void setInterval(int interval) {
-        this.interval = interval;
+    public void setSlideInterval(int slideInterval) {
+        this.slideInterval = slideInterval;
     }
 
 }

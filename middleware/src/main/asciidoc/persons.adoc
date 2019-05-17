@@ -1,0 +1,90 @@
+=== Persons
+
+==== Directory
+
+This provides a directory listing view of all the persons present in the system, based on the _request parameters_ as shown.
+
+===== Request Parameters
+include::{snippets}/persons/directory/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/persons/directory/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/persons/directory/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/persons/directory/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/persons/directory/curl-request.adoc[]
+
+==== Find By Id
+
+This will find a person based on the _person id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific person as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/persons/find-by-id/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/persons/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/persons/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/persons/find-by-id/curl-request.adoc[]
+
+==== Find By Id In
+
+This will find a list of persons based on the _person ids_ provided as a parameter as shown in *Request Parameters*. The json response will have the specific persons as shown in the *Sample Response*.
+
+===== Request Parameters
+include::{snippets}/persons/find-by-id-in/request-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/persons/find-by-id-in/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/persons/find-by-id-in/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/persons/find-by-id-in/curl-request.adoc[]
+
+==== Search
+
+This search will return a json response listing all the persons, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/persons/facet-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/persons/facet-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/persons/facet-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/persons/facet-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/persons/facet-search/curl-request.adoc[]
+
+==== Count
+
+This count will return a json response containing the count, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/persons/count-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/persons/count-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/persons/count-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/persons/count-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/persons/count-search/curl-request.adoc[]

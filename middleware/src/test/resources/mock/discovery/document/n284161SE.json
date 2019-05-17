@@ -1,0 +1,27 @@
+{
+  "id": "n284161SE",
+  "title": "Cascade industrial VSI gives medium voltage-a case study",
+  "type": [
+    "ConferencePaper"
+  ],
+  "authors": [
+    "Enjeti, Prasad::n66ebcf36"
+  ],
+  "authorType": [
+    "FacultyMember::n66ebcf36"
+  ],
+  "authorOrganization": [
+    "Electrical and Computer Engineering::n66ebcf36::n2478ed4a"
+  ],
+  "authorList": [
+    "R. Teodorescu, .., F. Blaabjerg, .., J. K. Pedersen, .., E. Cengelci, .., & P. Enjeti, .."
+  ],
+  "publicationDate": "2000-01-01T00:00:00",
+  "keywords": [
+    "Invertors<br />Igbt H-bridge Modules<br />Igbt Triphase Inverter Modules<br />Mv Motor Winding Connections<br />Cascade Industrial Vsi<br />Computer Simulation<br />Experimental Tests<br />Fault-tolerance<br />High-quality Multistep Voltage<br />Isolated Dc-buses<br />Medium-voltage Adjustable Speed Drives<br />Output Transformer<br />Series Connection<br />Staggered Space Vector Modulation"
+  ],
+  "identifier": "284161SE",
+  "pageStart": "5/1",
+  "pageEnd": "5/4",
+  "abstract": "In this paper, the modularity concept applied to medium-voltage adjustable speed drives (MV-ASD) is addressed. First, the single-phase cascaded (SC) VSI that uses series connection of IGBT H-bridge modules with isolated DC-buses is presented. Next, a novel triphase cascaded (TC) VSI that uses three IGBT triphase inverter modules along with an output transformer to obtain a 3 p.u. multilevel output voltage is introduced. The system yields a high-quality multistep voltage with up to 4 levels and low dv/dt, balanced operation of the inverter modules that supply each a third of the motor kVA. The concept of using TC-VSI is further extended to a new modular motor-modular inverter (MM-MI) system where the MV motor winding connections are reconnected into several three-phase groups, either six-lead or twelve-lead connection according to the voltage height, each powered by a standard triphase IGBT inverter module. Thus a high fault-tolerance is being achieved and the output transformer requirement is eliminated. A staggered space vector modulation (SSVM) technique applicable to triphase cascaded VSI topologies is also demonstrated. Both TC-VSI and MM-MI computer simulations and experimental tests demonstrate the feasibility of the systems"
+}

@@ -9,6 +9,10 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,20 +23,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.token.Token;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import edu.tamu.scholars.middleware.auth.RegistrationIntegrationTest;
 import edu.tamu.scholars.middleware.auth.controller.request.Registration;
 import edu.tamu.scholars.middleware.service.EmailService;
+import edu.tamu.scholars.middleware.utility.ConstraintDescriptionsHelper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ExtendWith(SpringExtension.class)
 public class RegistrationControllerTest extends RegistrationIntegrationTest {
+
+    @TestConfiguration
+    static class RegistrationControllerTestContextConfiguration {
+
+        @Bean
+        public BCryptPasswordEncoder bCryptPasswordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+
+    }
+
+    private static final ConstraintDescriptionsHelper describeRegistration = new ConstraintDescriptionsHelper(Registration.class);
 
     @Autowired
     private MockMvc mockMvc;
@@ -55,7 +75,18 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         mockMvc.perform(post("/registration").contentType(APPLICATION_JSON).content(body))
             .andExpect(status().isOk())
             .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"))
-            .andDo(document("registration/submit"));
+            .andDo(
+                document(
+                    "registration/submit",
+                    requestFields(
+                        describeRegistration.withField("firstName", "The first name of the registered account."),
+                        describeRegistration.withField("lastName", "The last name of the registered account."),
+                        // describeRegistration.withField("email", "The e-mail address of the registered account.")
+                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.auth.annotation.AvailableEmail.description
+                        fieldWithPath("email").description("The e-mail address of the registered account.")
+                    )
+                )
+            );
         // @formatter:on
     }
 
@@ -138,7 +169,14 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         mockMvc.perform(get("/registration").param("key", token.getKey()))
             .andExpect(status().isOk())
             .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com'}"))
-            .andDo(document("registration/confirm"));
+            .andDo(
+                document(
+                    "registration/confirm",
+                    requestParameters(
+                        parameterWithName("key").description("The registration verification key.")
+                    )
+                )
+            );
         // @formatter:on
     }
 
@@ -166,7 +204,20 @@ public class RegistrationControllerTest extends RegistrationIntegrationTest {
         mockMvc.perform(put("/registration").contentType(APPLICATION_JSON).content(body))
             .andExpect(status().isOk())
             .andExpect(content().json("{'firstName':'Bob','lastName':'Boring','email':'bboring@mailinator.com','role':'ROLE_SUPER_ADMIN','active':true,'enabled':true}"))
-            .andDo(document("registration/complete"));
+            .andDo(
+                document(
+                    "registration/complete",
+                    requestFields(
+                        describeRegistration.withField("firstName", "The first name of the registered account."),
+                        describeRegistration.withField("lastName", "The last name of the registered account."),
+                        // describeRegistration.withField("email", "The e-mail address of the registered account."),
+                        // NOTE: Can't find resource for bundle java.util.PropertyResourceBundle, key edu.tamu.scholars.middleware.auth.annotation.AvailableEmail.description
+                        fieldWithPath("email").description("The e-mail address of the registered account."),
+                        describeRegistration.withField("password", "The password for the registered account."),
+                        describeRegistration.withField("confirm", "The password confirmation, which should match the password.")
+                    )
+                )
+            );
         // @formatter:on
     }
 

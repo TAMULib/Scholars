@@ -11,6 +11,7 @@ import { AppState } from '../';
 import { selectLoginRedirect } from '../auth';
 
 import * as fromAuth from '../auth/auth.actions';
+import * as fromDialog from '../dialog/dialog.actions';
 import * as fromRouter from './router.actions';
 
 @Injectable()
@@ -36,6 +37,12 @@ export class RouterEffects {
         }))
     );
 
+    @Effect({ dispatch: false }) navigateByUrl = this.actions.pipe(
+        ofType(fromRouter.RouterActionTypes.LINK),
+        map((action: fromRouter.Link) => action.payload),
+        map(({ url }) => this.router.navigateByUrl(url))
+    );
+
     @Effect({ dispatch: false }) navigateBack = this.actions.pipe(
         ofType(fromRouter.RouterActionTypes.BACK),
         map(() => this.location.back())
@@ -46,12 +53,17 @@ export class RouterEffects {
         map(() => this.location.forward())
     );
 
-    @Effect() navigation = this.actions.pipe(
+    @Effect() redirect = this.actions.pipe(
         ofType(fromRouter.RouterActionTypes.CHANGED),
         withLatestFrom(this.store.pipe(select(selectLoginRedirect))),
-        map(([action, navigation]) => navigation),
-        skipWhile((navigation: fromRouter.RouterNavigation) => navigation === undefined),
+        map(([action, redirect]) => redirect),
+        skipWhile((redirect: fromRouter.RouterNavigation) => redirect === undefined),
         map(() => new fromAuth.UnsetLoginRedirectAction())
+    );
+
+    @Effect() closeDialog = this.actions.pipe(
+        ofType(fromRouter.RouterActionTypes.CHANGED),
+        map(() => new fromDialog.CloseDialogAction())
     );
 
     private listenForRouteChange() {

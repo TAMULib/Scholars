@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AlertLocation, AlertType } from '../store/alert';
+import { AlertLocation, AlertType } from '../model/alert';
 
 import * as fromAlert from '../store/alert/alert.actions';
 import * as fromSdr from '../store/sdr/sdr.actions';
@@ -85,7 +85,31 @@ export class AlertService {
         return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.error, true, 15000);
     }
 
+    public getAllFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
+    public getOneFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
+    public findByIdInFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
+    public findByTypesInFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
     public pageFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
+    public countFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+    }
+
+    public searchFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
         return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
     }
 

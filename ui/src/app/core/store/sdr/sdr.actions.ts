@@ -1,9 +1,28 @@
 import { Action } from '@ngrx/store';
+import { SdrRequest } from '../../model/request';
 
 export enum SdrActionTypes {
+    GET_ALL = 'get all resources',
+    GET_ALL_SUCCESS = 'sucessfully got all resources',
+    GET_ALL_FAILURE = 'failed getting all resources',
     PAGE = 'page resources',
     PAGE_SUCCESS = 'sucessfully paged resources',
     PAGE_FAILURE = 'failed paging resources',
+    SEARCH = 'search resources',
+    SEARCH_SUCCESS = 'sucessfully searched resources',
+    SEARCH_FAILURE = 'failed searching resources',
+    COUNT = 'count resources',
+    COUNT_SUCCESS = 'sucessfully counted resources',
+    COUNT_FAILURE = 'failed counting resources',
+    GET_ONE = 'get one resource by id',
+    GET_ONE_SUCCESS = 'sucessfully got resource by id',
+    GET_ONE_FAILURE = 'failed getting resource by id',
+    FIND_BY_ID_IN = 'find resource by id in',
+    FIND_BY_ID_IN_SUCCESS = 'sucessfully found resource by id in',
+    FIND_BY_ID_IN_FAILURE = 'failed finding resource by id is',
+    FIND_BY_TYPES_IN = 'find resource by types in',
+    FIND_BY_TYPES_IN_SUCCESS = 'sucessfully found resource by types in',
+    FIND_BY_TYPES_IN_FAILURE = 'failed finding resource by types is',
     POST = 'post resource',
     POST_SUCCESS = 'sucessfully posted resource',
     POST_FAILURE = 'failed posting resource',
@@ -23,10 +42,24 @@ export const getSdrAction = (actionType: SdrActionTypes, name: string): string =
     return `[${name}] ${actionType}`;
 };
 
+export class GetAllResourcesAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL, this.name);
+    constructor(public name: string, public payload?: any) { }
+}
+
+export class GetAllResourcesSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class GetAllResourcesFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ALL_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
 
 export class PageResourcesAction implements Action {
     readonly type = getSdrAction(SdrActionTypes.PAGE, this.name);
-    constructor(public name: string, public payload: any) { }
+    constructor(public name: string, public payload: { request: SdrRequest }) { }
 }
 
 export class PageResourcesSuccessAction implements Action {
@@ -36,6 +69,81 @@ export class PageResourcesSuccessAction implements Action {
 
 export class PageResourcesFailureAction implements Action {
     readonly type = getSdrAction(SdrActionTypes.PAGE_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class SearchResourcesAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.SEARCH, this.name);
+    constructor(public name: string, public payload: { request: SdrRequest }) { }
+}
+
+export class SearchResourcesSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.SEARCH_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class SearchResourcesFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.SEARCH_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class CountResourcesAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT, this.name);
+    constructor(public name: string, public payload: { request: SdrRequest }) { }
+}
+
+export class CountResourcesSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class CountResourcesFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.COUNT_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class GetOneResourceAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ONE, this.name);
+    constructor(public name: string, public payload: { id: number }) { }
+}
+
+export class GetOneResourceSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ONE_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class GetOneResourceFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.GET_ONE_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByIdInResourceAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN, this.name);
+    constructor(public name: string, public payload: { ids: string[] }) { }
+}
+
+export class FindByIdInResourceSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByIdInResourceFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_ID_IN_FAILURE, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByTypesInResourceAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN, this.name);
+    constructor(public name: string, public payload: { types: string[] }) { }
+}
+
+export class FindByTypesInResourceSuccessAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN_SUCCESS, this.name);
+    constructor(public name: string, public payload: any) { }
+}
+
+export class FindByTypesInResourceFailureAction implements Action {
+    readonly type = getSdrAction(SdrActionTypes.FIND_BY_TYPES_IN_FAILURE, this.name);
     constructor(public name: string, public payload: any) { }
 }
 
@@ -105,9 +213,27 @@ export class ClearResourcesAction implements Action {
 }
 
 export type SdrActions =
+    GetAllResourcesAction |
+    GetAllResourcesSuccessAction |
+    GetAllResourcesFailureAction |
     PageResourcesAction |
     PageResourcesSuccessAction |
     PageResourcesFailureAction |
+    SearchResourcesAction |
+    SearchResourcesSuccessAction |
+    SearchResourcesFailureAction |
+    CountResourcesAction |
+    CountResourcesSuccessAction |
+    CountResourcesFailureAction |
+    GetOneResourceAction |
+    GetOneResourceSuccessAction |
+    GetOneResourceFailureAction |
+    FindByIdInResourceAction |
+    FindByIdInResourceSuccessAction |
+    FindByIdInResourceFailureAction |
+    FindByTypesInResourceAction |
+    FindByTypesInResourceSuccessAction |
+    FindByTypesInResourceFailureAction |
     PostResourceAction |
     PostResourceSuccessAction |
     PostResourceFailureAction |

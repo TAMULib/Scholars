@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { SafeStyle } from '@angular/platform-browser';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { of, defer } from 'rxjs';
+import { defer, scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
@@ -28,7 +29,7 @@ export class ThemeEffects {
         switchMap(() =>
             this.themeService.getActiveTheme().pipe(
                 map((theme: Theme) => new fromTheme.LoadActiveThemeSuccessAction({ theme })),
-                catchError((response) => of(new fromTheme.LoadActiveThemeFailureAction({ response })))
+                catchError((response) => scheduled([new fromTheme.LoadActiveThemeFailureAction({ response })], asap))
             )
         )
     );
@@ -39,7 +40,7 @@ export class ThemeEffects {
         switchMap((theme: Theme) =>
             this.themeService.applyActiveTheme(theme).pipe(
                 map((style: SafeStyle) => new fromTheme.ApplyActiveThemeSuccessAction({ style })),
-                catchError((error) => of(new fromTheme.ApplyActiveThemeFailureAction({ error })))
+                catchError((error) => scheduled([new fromTheme.ApplyActiveThemeFailureAction({ error })], asap))
             )
         )
     );
@@ -55,7 +56,7 @@ export class ThemeEffects {
     );
 
     @Effect() init = defer(() => {
-        return of(new fromTheme.LoadActiveThemeAction());
+        return scheduled([new fromTheme.LoadActiveThemeAction()], asap);
     });
 
 }

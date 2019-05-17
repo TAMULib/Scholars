@@ -1,0 +1,12 @@
+== Logout
+
+This endpoint allows the authenticated user to log out.
+
+=== Sample Request
+include::{snippets}/logout/http-request.adoc[]
+
+=== Sample Response
+include::{snippets}/logout/http-response.adoc[]
+
+=== CURL Sample
+include::{snippets}/logout/curl-request.adoc[]

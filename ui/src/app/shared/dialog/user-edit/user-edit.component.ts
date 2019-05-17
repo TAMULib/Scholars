@@ -3,14 +3,15 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
 
-import { combineLatest, of, Observable } from 'rxjs';
+import { combineLatest, scheduled, Observable } from 'rxjs';
+import { queue } from 'rxjs/internal/scheduler/queue';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../core/store';
-import { DialogButtonType, DialogControl } from '../../../core/store/dialog';
+import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
 import { Role, User } from '../../../core/model/user';
 
-import { selectReousrceIsUpdating } from '../../../core/store/sdr';
+import { selectResourceIsUpdating } from '../../../core/store/sdr';
 
 import * as fromDialog from '../../../core/store/dialog/dialog.actions';
 import * as fromSdr from '../../../core/store/sdr/sdr.actions';
@@ -65,7 +66,7 @@ export class UserEditComponent implements OnInit {
                 type: DialogButtonType.OUTLINE_WARNING,
                 label: this.translate.get('SHARED.DIALOG.USER_EDIT.CANCEL'),
                 action: () => this.store.dispatch(new fromDialog.CloseDialogAction()),
-                disabled: () => this.store.pipe(select(selectReousrceIsUpdating<User>('users')))
+                disabled: () => this.store.pipe(select(selectResourceIsUpdating<User>('users')))
             },
             submit: {
                 type: DialogButtonType.OUTLINE_PRIMARY,
@@ -74,11 +75,11 @@ export class UserEditComponent implements OnInit {
                     // TODO: come up with strategy to strip off disabled properies during patch, requires HATEOS self links
                     resource: Object.assign(this.user, this.dialog.form.value)
                 })),
-                disabled: () => combineLatest(
-                    of(this.dialog.form.invalid),
-                    of(this.dialog.form.pristine),
-                    this.store.pipe(select(selectReousrceIsUpdating<User>('users')))
-                ).pipe(map(results => results[0] || results[1] || results[2]))
+                disabled: () => combineLatest([
+                    scheduled([this.dialog.form.invalid], queue),
+                    scheduled([this.dialog.form.pristine], queue),
+                    this.store.pipe(select(selectResourceIsUpdating<User>('users')))
+                ]).pipe(map(results => results[0] || results[1] || results[2]))
             }
         };
     }
@@ -104,7 +105,7 @@ export class UserEditComponent implements OnInit {
                 switch (validation) {
                     case 'required': return this.translate.get('SHARED.DIALOG.VALIDATION.REQUIRED', { field });
                     case 'email': return this.translate.get('SHARED.DIALOG.VALIDATION.EMAIL', { field });
-                    default: return of('unknown error');
+                    default: return scheduled(['unknown error'], queue);
                 }
             }
         }

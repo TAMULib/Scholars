@@ -27,7 +27,19 @@ public class WebSocketSecurityConfig extends AbstractSecurityWebSocketMessageBro
 
             .simpTypeMatchers(CONNECT, UNSUBSCRIBE, DISCONNECT)
                 .permitAll()
-            .simpSubscribeDestMatchers("/queue/public", "/queue/themes")
+            .simpSubscribeDestMatchers(
+                    "/queue/public",
+                    "/queue/themes",
+                    "/queue/directoryViews",
+                    "/queue/discoveryViews",
+                    "/queue/displayViews",
+                    "/queue/concepts",
+                    "/queue/documents",
+                    "/queue/organizations",
+                    "/queue/persons",
+                    "/queue/processes",
+                    "/queue/relationships"
+                )
                 .permitAll()
             .simpSubscribeDestMatchers("/user/queue/users")
                 .hasRole("USER")

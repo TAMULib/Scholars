@@ -1,6 +1,6 @@
-<div class="stats-box link" (click)="onNavigate()">
+<div class="stats-box link d-flex flex-column" *ngIf="directoryView | async; let directoryView" [routerLink]="getRouterLink(directoryView)" [queryParams]="getQueryParams(directoryView)">
   <div class="stats-box-value text-center">
-    <span>{{value}}</span>
+    <span>{{format(count | async)}}</span>
   </div>
   <div class="stats-box-title text-center">
     <span>{{label}}</span>

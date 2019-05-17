@@ -1,0 +1,12 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+
+CONSTRUCT {
+    ?contributor rdfs:label ?labelWithId .
+} WHERE {
+    <[(${uri})]> vivo:relates ?relates ; a vivo:Grant .
+    ?relates obo:RO_0000052 ?contributor ; a vivo:CoPrincipalInvestigatorRole .
+    ?contributor rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?contributor), "(^.*/)", "::") ) AS ?labelWithId ) .
+}

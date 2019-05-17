@@ -1,0 +1,11 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?subjectArea vitro:mostSpecificType ?mostSpecificTypeWithId .
+} WHERE {
+    <[(${uri})]> vivo:hasSubjectArea ?subjectArea ; a vivo:Grant .
+    ?subjectArea vitro:mostSpecificType ?mostSpecificType ; a skos:Concept .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?subjectArea), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
+}

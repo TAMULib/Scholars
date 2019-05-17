@@ -1,0 +1,17 @@
+<scholars-dialog [dialog]="dialog">
+  <table class="table table-striped table-hover">
+    <tbody>
+      <tr *ngFor="let entry of getFacetEntryPage()">
+        <td scope="row">
+          <a [routerLink]="routerLink" [queryParams]="getQueryParams(facet, entry)" queryParamsHandling="merge">
+            <span>
+              <span>{{entry.value}}</span>
+            </span>
+          </a>
+          <span> ({{entry.count}})</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination [collectionSize]="facet.entries.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
+</scholars-dialog>

@@ -3,7 +3,8 @@ import { PLATFORM_ID, Inject, Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, scheduled } from 'rxjs';
+import { asap } from 'rxjs/internal/scheduler/asap';
 import { filter, map, switchMap } from 'rxjs/operators';
 
 import { AlertService } from '../service/alert.service';
@@ -39,7 +40,7 @@ export class AuthGuard implements CanActivate {
     }
 
     private requiresAuthorization(roles: Role[]): Observable<boolean> {
-        return roles ? of(true) : of(false);
+        return roles ? scheduled([true], asap) : scheduled([false], asap);
     }
 
     private isAuthorized(url: string, roles: Role[]): Observable<boolean> {
@@ -57,7 +58,7 @@ export class AuthGuard implements CanActivate {
                     }
                     return authorized;
                 })
-            ) : of(false))
+            ) : scheduled([false], asap))
         );
     }
 

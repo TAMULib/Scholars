@@ -1,0 +1,13 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ 
+CONSTRUCT {
+    ?training rdfs:label ?nameWithIds .
+} WHERE {
+    <[(${uri})]> obo:RO_0000056 ?training .
+    ?training obo:RO_0000057 ?organization .
+    ?organization a foaf:Organization .
+    ?organization rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?training), "(^.*/)", "::"), REPLACE(STR(?organization), "(^.*/)", "::") ) AS ?nameWithIds ) .
+}

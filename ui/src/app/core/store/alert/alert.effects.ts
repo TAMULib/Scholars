@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { AppState } from '../';
 
-import { Alert } from './';
+import { Alert } from '../../model/alert';
 
 import * as fromAlert from '../alert/alert.actions';
 

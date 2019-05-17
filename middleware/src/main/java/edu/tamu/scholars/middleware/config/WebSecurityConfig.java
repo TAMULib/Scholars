@@ -47,9 +47,6 @@ import edu.tamu.scholars.middleware.auth.handler.CustomLogoutSuccessHandler;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${ui.url:http://localhost:4200}")
-    private String uiUrl;
-
     @Value("${spring.profiles.active:default}")
     private String profile;
 
@@ -60,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private boolean halBrowserAuthorized;
 
     @Autowired
-    private TokenConfig tokenConfig;
+    private MiddlewareConfig config;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -87,6 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public TokenService tokenService() throws NoSuchAlgorithmException {
         KeyBasedPersistenceTokenService tokenService = new KeyBasedPersistenceTokenService();
+        TokenConfig tokenConfig = config.getAuth().getToken();
         tokenService.setServerInteger(tokenConfig.getServerInteger());
         tokenService.setServerSecret(tokenConfig.getServerSecret());
         tokenService.setPseudoRandomNumberBytes(tokenConfig.getPseudoRandomNumberBytes());
@@ -98,7 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Arrays.asList(uiUrl));
+        configuration.setAllowedOrigins(config.getAllowedOrigins());
         configuration.setAllowedMethods(Arrays.asList("GET", "DELETE", "PUT", "POST", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Origin", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -141,19 +139,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/connect/**")
                     .permitAll()
 
-                .antMatchers(PATCH, "/users/{id}")
+                .antMatchers(PATCH,
+                        "/directoryViews/{id}",
+                        "/discoveryViews/{id}",
+                        "/displayViews/{id}",
+                        "/themes/{id}",
+                        "/users/{id}"
+                    )
                     .hasRole("ADMIN")
 
-                .antMatchers(POST, "/themes/{id}")
-                    .hasRole("ADMIN")
                 .antMatchers(POST, "/registration")
                     .permitAll()
+                .antMatchers(POST,
+                        "/directoryViews/{id}",
+                        "/discoveryViews/{id}",
+                        "/displayViews/{id}",
+                        "/themes/{id}"
+                    )
+                    .hasRole("ADMIN")
                 .antMatchers(POST, "/users/{id}")
                     .denyAll()
 
                 .antMatchers(PUT, "/registration")
                     .permitAll()
-                .antMatchers(PUT, "/themes/{id}")
+                .antMatchers(PUT,
+                        "/directoryViews/{id}",
+                        "/discoveryViews/{id}",
+                        "/displayViews/{id}",
+                        "/themes/{id}"
+                    )
                     .hasRole("ADMIN")
                 .antMatchers(PUT, "/users/{id}")
                     .denyAll()
@@ -162,18 +176,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api",
                         "/registration",
                         "/themes/search/active",
-                        "/concepts", "/concepts/search/facet", "/concepts/{id}",
-                        "/documents", "/documents/search/facet", "/documents/{id}",
-                        "/organizations", "/organizations/search/facet", "/organizations/{id}",
-                        "/persons", "/persons/search/facet", "/persons/{id}",
-                        "/processes", "/processes/search/facet", "/processes/{id}",
-                        "/relationships", "/relationships/search/facet", "/relationships/{id}"
+                        "/directoryViews", "/directoryViews/{id}",
+                        "/discoveryViews", "/discoveryViews/{id}",
+                        "/displayViews", "/displayViews/{id}", "/displayViews/search/findByTypesIn",
+                        "/concepts", "/concepts/{id}", "/concepts/search/findByIdIn", "/concepts/search/facet", "/concepts/search/count",
+                        "/documents", "/documents/{id}", "/documents/search/findByIdIn", "/documents/search/facet", "/documents/search/count",
+                        "/organizations", "/organizations/{id}", "/organizations/search/findByIdIn", "/organizations/search/facet", "/organizations/search/count",
+                        "/persons", "/persons/{id}", "/persons/search/findByIdIn", "/persons/search/facet", "/persons/search/count",
+                        "/processes", "/processes/{id}", "/processes/search/findByIdIn", "/processes/search/facet", "/processes/search/count",
+                        "/relationships", "/relationships/{id}", "/relationships/search/findByIdIn", "/relationships/search/facet", "/relationships/search/count"
                     )
                     .permitAll()
-                .antMatchers(GET, "/users", "/users/{id}", "/themes", "/themes/{id}")
+                .antMatchers(GET,
+                        "/users",
+                        "/users/{id}",
+                        "/themes",
+                        "/themes/{id}"
+                    )
                     .hasRole("ADMIN")
 
-                .antMatchers(DELETE, "/themes/{id}")
+                .antMatchers(DELETE,
+                        "/directoryViews/{id}",
+                        "/discoveryViews/{id}",
+                        "/displayViews/{id}",
+                        "/themes/{id}"
+                    )
                     .hasRole("ADMIN")
                 .antMatchers(DELETE, "/users/{id}")
                     .hasRole("SUPER_ADMIN")

@@ -1,62 +1,108 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
+import { Params } from '@angular/router';
 
-import { Subscription, Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
-import { SdrPage, SdrPageRequest } from '../../core/model/sdr';
+import { Observable } from 'rxjs';
+
+import { AppState } from '../../core/store';
+
+import { SdrPage } from '../../core/model/sdr';
+import { WindowDimensions } from '../../core/store/layout/layout.reducer';
+
+import { selectWindowDimensions } from '../../core/store/layout';
 
 @Component({
     selector: 'scholars-pagination',
     templateUrl: 'pagination.component.html',
     styleUrls: ['pagination.component.scss']
 })
-export class PaginationComponent implements OnInit, OnDestroy {
+export class PaginationComponent implements OnInit {
 
-    @Input() page: Observable<SdrPage>;
+    @Input()
+    public page: Observable<SdrPage>;
 
-    @Output() pageChange = new EventEmitter<SdrPageRequest>();
+    @Input()
+    public size: 'sm' | 'lg';
 
+    @Input()
     public pageSizeOptions = [10, 25, 50, 100];
 
-    private subscriptions: Subscription[];
+    public windowDimensions: Observable<WindowDimensions>;
 
-    constructor(
-        public config: NgbPaginationConfig,
-        private route: ActivatedRoute,
-        private router: Router
-    ) {
-        this.subscriptions = [];
+    constructor(private store: Store<AppState>) {
+
     }
 
     ngOnInit() {
-        this.config.maxSize = 5;
-        this.config.rotate = true;
-        this.config.ellipses = true;
-        this.config.boundaryLinks = true;
-        this.subscriptions.push(this.route.queryParams.subscribe((params: Params) => {
-            const pageNumber = params.page !== undefined ? params.page : 1;
-            const pageSize = params.size !== undefined ? params.size : 10;
-            this.pageChange.emit({
-                number: pageNumber,
-                size: pageSize
-            });
-        }));
+        this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
     }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach((subscription: Subscription) => {
-            subscription.unsubscribe();
-        });
+    public getPages(page: SdrPage, windowDimensions: WindowDimensions): number[] {
+
+        let pages: number[] = [];
+
+        const maxSize = windowDimensions.width < 576 ? 1 : windowDimensions.width < 768 ? 3 : 5;
+
+        for (let i = 1; i <= page.totalPages; i++) {
+            pages.push(i);
+        }
+
+        // apply this.maxSize if necessary
+        if (maxSize > 0 && page.totalPages > maxSize) {
+            let start = 0;
+            let end = page.totalPages;
+
+            const leftOffset = Math.floor(maxSize / 2);
+            const rightOffset = maxSize % 2 === 0 ? leftOffset - 1 : leftOffset;
+
+            if (page.number <= leftOffset) {
+                // very beginning, no rotation -> [0..this.maxSize]
+                end = maxSize;
+            } else if (page.totalPages - page.number < leftOffset) {
+                // very end, no rotation -> [len-this.maxSize..len]
+                start = page.totalPages - maxSize;
+            } else {
+                // rotate
+                start = page.number - leftOffset - 1;
+                end = page.number + rightOffset;
+            }
+
+            pages = pages.slice(start, end);
+
+            if (start > 0) {
+                if (start > 1) {
+                    pages.unshift(-1);
+                }
+                pages.unshift(1);
+            }
+            if (end < page.totalPages) {
+                if (end < (page.totalPages - 1)) {
+                    pages.push(-1);
+                }
+                pages.push(page.totalPages);
+            }
+        }
+
+        return pages;
     }
 
-    public onPageChange(page): void {
-        const urlTree = this.router.createUrlTree([], {
-            queryParams: { page: page.number, size: page.size },
-            queryParamsHandling: 'merge',
-            preserveFragment: true
-        });
-        this.router.navigateByUrl(urlTree);
+    public hasPrevious(pageNumber: number): boolean { return pageNumber > 1; }
+
+    public hasNext(pageNumber: number, totalPages: number): boolean { return pageNumber < totalPages; }
+
+    public nextDisabled(pageNumber: number, totalPages: number): boolean { return !this.hasNext(pageNumber, totalPages); }
+
+    public previousDisabled(pageNumber: number): boolean { return !this.hasPrevious(pageNumber); }
+
+    public isEllipsis(pageNumber: number): boolean { return pageNumber === -1; }
+
+    public getRouterLink(): string[] {
+        return [];
+    }
+
+    public getQueryParams(page: number, size: number): Params {
+        return { page, size };
     }
 
 }

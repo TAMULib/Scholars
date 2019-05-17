@@ -1,0 +1,90 @@
+=== Processes
+
+==== Directory
+
+This provides a directory listing view of all the processes present in the system, based on the _request parameters_ as shown.
+
+===== Request Parameters
+include::{snippets}/processes/directory/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/processes/directory/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/processes/directory/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/processes/directory/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/processes/directory/curl-request.adoc[]
+
+==== Find By Id
+
+This will find a process based on the _process id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific process as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/processes/find-by-id/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/processes/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/processes/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/processes/find-by-id/curl-request.adoc[]
+
+==== Find By Id In
+
+This will find a list of processes based on the _process ids_ provided as a parameter as shown in *Request Parameters*. The json response will have the specific processes as shown in the *Sample Response*.
+
+===== Request Parameters
+include::{snippets}/processes/find-by-id-in/request-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/processes/find-by-id-in/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/processes/find-by-id-in/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/processes/find-by-id-in/curl-request.adoc[]
+
+==== Search
+
+This search will return a json response listing all the processes, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/processes/facet-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/processes/facet-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/processes/facet-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/processes/facet-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/processes/facet-search/curl-request.adoc[]
+
+==== Count
+
+This count will return a json response containing the count, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/processes/count-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/processes/count-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/processes/count-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/processes/count-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/processes/count-search/curl-request.adoc[]

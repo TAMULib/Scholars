@@ -1,0 +1,18 @@
+== Login
+
+This endpoint allows the registered user to log in using his/her username and password.
+
+=== Request Parameters
+include::{snippets}/login/request-parameters.adoc[]
+
+=== Response Fields
+include::{snippets}/login/response-fields.adoc[]
+
+=== Sample Request
+include::{snippets}/login/http-request.adoc[]
+
+=== Sample Response
+include::{snippets}/login/http-response.adoc[]
+
+=== CURL Sample
+include::{snippets}/login/curl-request.adoc[]

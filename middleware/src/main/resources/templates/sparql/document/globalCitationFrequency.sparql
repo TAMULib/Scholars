@@ -2,8 +2,9 @@ PREFIX c4o: <http://purl.org/spar/c4o/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?globalCitationFrequency rdfs:label ?label .
+    ?globalCitationFrequency rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> c4o:hasGlobalCitationFrequency ?globalCitationFrequency .
     ?globalCitationFrequency rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?globalCitationFrequency), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

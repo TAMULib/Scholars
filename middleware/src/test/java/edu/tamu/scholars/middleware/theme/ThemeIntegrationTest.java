@@ -38,7 +38,7 @@ public abstract class ThemeIntegrationTest extends UserIntegrationTest {
         hero.setFontColor("#ffffff");
         hero.setLinkColor("#000000");
         hero.setLinkHoverColor("#ffc222");
-        hero.setInterval(5000);
+        hero.setSlideInterval(5000);
 
         heroes.add(hero);
 

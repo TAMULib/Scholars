@@ -7,7 +7,7 @@ import { skipWhile } from 'rxjs/operators';
 import { AppState } from '../../core/store';
 import { Navbar } from '../../core/model/theme/navbar';
 
-import { selectIsNavbarCollapsed } from '../../core/store/layout';
+import { selectIsNavbarCollapsed, selectIsNavbarExpanded } from '../../core/store/layout';
 import { selectActiveThemeHeaderNavbar } from '../../core/store/theme';
 
 import * as fromLayout from '../../core/store/layout/layout.actions';
@@ -21,6 +21,8 @@ export class NavbarComponent implements OnInit {
 
     public isNavbarCollapsed: Observable<boolean>;
 
+    public isNavbarExpanded: Observable<boolean>;
+
     public navbar: Observable<Navbar>;
 
     constructor(private store: Store<AppState>) {
@@ -29,6 +31,7 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.isNavbarCollapsed = this.store.pipe(select(selectIsNavbarCollapsed));
+        this.isNavbarExpanded = this.store.pipe(select(selectIsNavbarExpanded));
         this.navbar = this.store.pipe(
             select(selectActiveThemeHeaderNavbar),
             skipWhile((navbar: Navbar) => navbar === undefined)

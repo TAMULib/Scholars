@@ -1,4 +1,8 @@
 middleware:
+  load-defaults: true
+  update-defaults: true
+  allowed-origins:
+  - http://localhost:4200
   auth:
     password:
       duration: 180
@@ -18,8 +22,10 @@ middleware:
     request-timeout: 30000
     socket-timeout: 60000
   index:
-    fixedDelay: 86400000
-    initialDelay: 2500
+    cron: 0 0 0 * * SUN
+    zone: America/Chicago
+    onStartup: true
+    batchSize: 10000
 
 ui:
   url: http://localhost:4200
@@ -33,8 +39,8 @@ vivo:
   sparql-query-endpoint: /api/sparqlQuery
   triplestore:
     type: TDB
-    directory:
-    datasourceUrl: jdbc:mysql://localhost/vivo
+    directory: triplestore
+    datasourceUrl: jdbc:mysql://localhost/vivo?useLegacyDatetimeCode=false&serverTimezone=America/Chicago
     username:
     password:
 
@@ -53,6 +59,8 @@ logging:
 
 server:
   port: 9000
+  servlet:
+    context-path:
 
 spring:
   data:
@@ -63,6 +71,12 @@ spring:
       return-body-on-update: true
     solr:
       host: http://localhost:8983/solr
+      operator: AND
+      parser: edismax
+    # NOTE: this does not work yet, https://jira.spring.io/browse/DATAREST-1290
+    web:
+      pageable:
+        oneIndexedParameters: true
   main:
     allow-bean-definition-overriding: false
   messages:
@@ -73,7 +87,7 @@ spring:
     add-properties: false
     restart:
       enabled: false
-      exclude: src/main/resources,target
+      exclude: target
   h2:
     console:
       enabled: false
@@ -93,8 +107,6 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
-        hbm2ddl:
-          import_files: import/import-themes.sql
         show_sql: false
     show-sql: false
   mail:
@@ -114,7 +126,6 @@ spring:
     #        required: true
   profiles:
     active: default
-    include: organization,person,document,concept,relationship,process
   session:
     store-type: jdbc
     jdbc:

@@ -1,23 +1,18 @@
 package edu.tamu.scholars.middleware.theme.model.repo;
 
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.stereotype.Repository;
 
+import edu.tamu.scholars.middleware.model.repo.NamedRepo;
 import edu.tamu.scholars.middleware.theme.model.Theme;
 
-@Repository
-public interface ThemeRepo extends JpaRepository<Theme, Long> {
+@RepositoryRestResource
+public interface ThemeRepo extends NamedRepo<Theme> {
 
     @RestResource(path = "active", rel = "active")
     public Theme findByActiveTrue();
-
-    @RestResource(exported = false)
-    public Optional<Theme> findByName(String name);
 
     @RestResource(exported = false)
     @Modifying(clearAutomatically = true, flushAutomatically = true)
