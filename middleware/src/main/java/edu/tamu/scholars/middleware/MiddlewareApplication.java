@@ -65,6 +65,9 @@ import edu.tamu.scholars.middleware.auth.config.AuthConfig;
 import edu.tamu.scholars.middleware.auth.config.PasswordConfig;
 import edu.tamu.scholars.middleware.config.MiddlewareConfig;
 import edu.tamu.scholars.middleware.discovery.annotation.CollectionSource;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedMultiValuedProperty;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject;
+import edu.tamu.scholars.middleware.discovery.annotation.NestedObject.Reference;
 import edu.tamu.scholars.middleware.discovery.annotation.PropertySource;
 
 @EnableScheduling
@@ -274,6 +277,14 @@ public class MiddlewareApplication {
                         if (propertySource != null) {
                             annotations.add(toObjectNode(propertySource));
                         }
+                        NestedMultiValuedProperty nestedMultiValuedProperty = beanProperty.getAnnotation(NestedMultiValuedProperty.class);
+                        if (nestedMultiValuedProperty != null) {
+                            annotations.add(toObjectNode(nestedMultiValuedProperty));
+                        }
+                        NestedObject nestedObject = beanProperty.getAnnotation(NestedObject.class);
+                        if (nestedObject != null) {
+                            annotations.add(toObjectNode(nestedObject));
+                        }
                     }
 
                     public List<ObjectNode> getAnnotations() {
@@ -297,6 +308,14 @@ public class MiddlewareApplication {
                         PropertySource propertySource = beanProperty.getAnnotation(PropertySource.class);
                         if (propertySource != null) {
                             annotations.add(toObjectNode(propertySource));
+                        }
+                        NestedMultiValuedProperty nestedMultiValuedProperty = beanProperty.getAnnotation(NestedMultiValuedProperty.class);
+                        if (nestedMultiValuedProperty != null) {
+                            annotations.add(toObjectNode(nestedMultiValuedProperty));
+                        }
+                        NestedObject nestedObject = beanProperty.getAnnotation(NestedObject.class);
+                        if (nestedObject != null) {
+                            annotations.add(toObjectNode(nestedObject));
                         }
                     }
 
@@ -342,14 +361,31 @@ public class MiddlewareApplication {
                 if (!propertySource.template().isEmpty()) {
                     properties.put("template", propertySource.template());
                 }
-                if (!propertySource.key().isEmpty()) {
-                    properties.put("key", propertySource.key());
-                }
-                if (!propertySource.id().isEmpty()) {
-                    properties.put("id", propertySource.id());
+                if (!propertySource.predicate().isEmpty()) {
+                    properties.put("predicate", propertySource.predicate());
                 }
                 properties.put("parse", propertySource.parse());
                 properties.put("unique", propertySource.unique());
+                return node;
+            }
+
+            public ObjectNode toObjectNode(NestedMultiValuedProperty nestedMultiValuedProperty) {
+                ObjectNode node = mapper.createObjectNode();
+                node.put("type", nestedMultiValuedProperty.annotationType().getName());
+                return node;
+            }
+
+            public ObjectNode toObjectNode(NestedObject nestedObject) {
+                ObjectNode node = mapper.createObjectNode();
+                node.put("type", nestedObject.annotationType().getName());
+                ObjectNode properties = node.putObject("properties");
+                ArrayNode references = properties.putArray("value");
+                for (Reference ref : nestedObject.value()) {
+                    ObjectNode refObj = references.addObject();
+                    refObj.put("value", ref.value());
+                    refObj.put("key", ref.key());
+                }
+                properties.put("root", nestedObject.root());
                 return node;
             }
 
@@ -389,8 +425,8 @@ public class MiddlewareApplication {
             ObjectNode node = mapper.createObjectNode();
             node.put("type", collectionSource.annotationType().getName());
             ObjectNode properties = node.putObject("properties");
-            if (!collectionSource.key().isEmpty()) {
-                properties.put("key", collectionSource.key());
+            if (!collectionSource.predicate().isEmpty()) {
+                properties.put("predicate", collectionSource.predicate());
             }
             return node;
         }
@@ -416,30 +452,32 @@ public class MiddlewareApplication {
                             try {
                                 JClass annotationClass = new JCodeModel().ref(Class.forName(annotationType));
                                 JAnnotationUse annotationUse = clazz.annotate(annotationClass);
-                                annotation.get("properties").fields().forEachRemaining(pEntry -> {
-                                    if (pEntry.getValue().isArray()) {
-                                        JAnnotationArrayMember arrayMember = annotationUse.paramArray(pEntry.getKey());
-                                        for (final JsonNode value : pEntry.getValue()) {
+                                if (annotation.get("properties") != null) {
+                                    annotation.get("properties").fields().forEachRemaining(pEntry -> {
+                                        if (pEntry.getValue().isArray()) {
+                                            JAnnotationArrayMember arrayMember = annotationUse.paramArray(pEntry.getKey());
+                                            for (final JsonNode value : pEntry.getValue()) {
+                                                if (value.isTextual()) {
+                                                    arrayMember.param(value.asText());
+                                                } else if (value.isBoolean()) {
+                                                    arrayMember.param(value.asBoolean());
+                                                } else if (value.isInt()) {
+                                                    arrayMember.param(value.asInt());
+                                                }
+                                            }
+                                        } else {
+                                            String key = pEntry.getKey();
+                                            JsonNode value = pEntry.getValue();
                                             if (value.isTextual()) {
-                                                arrayMember.param(value.asText());
+                                                annotationUse.param(key, value.asText());
                                             } else if (value.isBoolean()) {
-                                                arrayMember.param(value.asBoolean());
+                                                annotationUse.param(key, value.asBoolean());
                                             } else if (value.isInt()) {
-                                                arrayMember.param(value.asInt());
+                                                annotationUse.param(key, value.asInt());
                                             }
                                         }
-                                    } else {
-                                        String key = pEntry.getKey();
-                                        JsonNode value = pEntry.getValue();
-                                        if (value.isTextual()) {
-                                            annotationUse.param(key, value.asText());
-                                        } else if (value.isBoolean()) {
-                                            annotationUse.param(key, value.asBoolean());
-                                        } else if (value.isInt()) {
-                                            annotationUse.param(key, value.asInt());
-                                        }
-                                    }
-                                });
+                                    });
+                                }
                             } catch (ClassNotFoundException e) {
                                 throw new RuntimeException(e);
                             }
@@ -460,30 +498,37 @@ public class MiddlewareApplication {
                         try {
                             JClass annotationClass = new JCodeModel().ref(Class.forName(annotationType));
                             JAnnotationUse annotationUse = field.annotate(annotationClass);
-                            annotation.get("properties").fields().forEachRemaining(pEntry -> {
-                                if (pEntry.getValue().isArray()) {
-                                    JAnnotationArrayMember arrayMember = annotationUse.paramArray(pEntry.getKey());
-                                    for (final JsonNode value : pEntry.getValue()) {
+                            if (annotation.get("properties") != null) {
+                                annotation.get("properties").fields().forEachRemaining(pEntry -> {
+                                    if (pEntry.getValue().isArray()) {
+                                        JAnnotationArrayMember arrayMember = annotationUse.paramArray(pEntry.getKey());
+                                        for (final JsonNode value : pEntry.getValue()) {
+                                            if (value.isTextual()) {
+                                                arrayMember.param(value.asText());
+                                            } else if (value.isBoolean()) {
+                                                arrayMember.param(value.asBoolean());
+                                            } else if (value.isInt()) {
+                                                arrayMember.param(value.asInt());
+                                            } else if(value.isObject()) {
+                                                JAnnotationUse refAnnotationUse = arrayMember.annotate(Reference.class);
+                                                value.fields().forEachRemaining(vEntry -> {
+                                                    refAnnotationUse.param(vEntry.getKey(), vEntry.getValue().asText());
+                                                });
+                                            }
+                                        }
+                                    } else {
+                                        String key = pEntry.getKey();
+                                        JsonNode value = pEntry.getValue();
                                         if (value.isTextual()) {
-                                            arrayMember.param(value.asText());
+                                            annotationUse.param(key, value.asText());
                                         } else if (value.isBoolean()) {
-                                            arrayMember.param(value.asBoolean());
+                                            annotationUse.param(key, value.asBoolean());
                                         } else if (value.isInt()) {
-                                            arrayMember.param(value.asInt());
+                                            annotationUse.param(key, value.asInt());
                                         }
                                     }
-                                } else {
-                                    String key = pEntry.getKey();
-                                    JsonNode value = pEntry.getValue();
-                                    if (value.isTextual()) {
-                                        annotationUse.param(key, value.asText());
-                                    } else if (value.isBoolean()) {
-                                        annotationUse.param(key, value.asBoolean());
-                                    } else if (value.isInt()) {
-                                        annotationUse.param(key, value.asInt());
-                                    }
-                                }
-                            });
+                                });
+                            }
                         } catch (ClassNotFoundException e) {
                             throw new RuntimeException(e);
                         }
