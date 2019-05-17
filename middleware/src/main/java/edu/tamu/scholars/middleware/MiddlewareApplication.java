@@ -287,6 +287,7 @@ public class MiddlewareApplication {
                         }
                     }
 
+                    @SuppressWarnings("unused")
                     public List<ObjectNode> getAnnotations() {
                         return annotations;
                     }
@@ -319,6 +320,7 @@ public class MiddlewareApplication {
                         }
                     }
 
+                    @SuppressWarnings("unused")
                     public List<ObjectNode> getAnnotations() {
                         return annotations;
                     }
@@ -509,7 +511,7 @@ public class MiddlewareApplication {
                                                 arrayMember.param(value.asBoolean());
                                             } else if (value.isInt()) {
                                                 arrayMember.param(value.asInt());
-                                            } else if(value.isObject()) {
+                                            } else if (value.isObject()) {
                                                 JAnnotationUse refAnnotationUse = arrayMember.annotate(Reference.class);
                                                 value.fields().forEachRemaining(vEntry -> {
                                                     refAnnotationUse.param(vEntry.getKey(), vEntry.getValue().asText());

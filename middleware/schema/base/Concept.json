@@ -1,0 +1,105 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:edu:tamu:scholars:middleware:discovery:model:Concept",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "image" : {
+      "type" : "string"
+    },
+    "thumbnail" : {
+      "type" : "string"
+    },
+    "websites" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "websiteUrl" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "associatedDepartments" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "researchAreaOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "researchAreaOfTitle" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "researchAreaOfOrganization" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "broaderConcepts" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "broaderConceptType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "narrowerConcepts" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "narrowerConceptType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "relatedConcepts" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "relatedConceptType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "sameAs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "modTime" : {
+      "type" : "string"
+    }
+  }
+}

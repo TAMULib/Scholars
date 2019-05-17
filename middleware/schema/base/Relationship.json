@@ -1,0 +1,288 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:edu:tamu:scholars:middleware:discovery:model:Relationship",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "title" : {
+      "type" : "string"
+    },
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "image" : {
+      "type" : "string"
+    },
+    "thumbnail" : {
+      "type" : "string"
+    },
+    "description" : {
+      "type" : "string"
+    },
+    "receiptOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "receiptOfType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardOrHonorFor" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardOrHonorForType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardConferredBy" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardConferredByType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardConferredByPreferredLabel" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardedBy" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardedByType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardedByPreferredLabel" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "grantSubcontractedThrough" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "grantSubcontractedThroughType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "administeredBy" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "administeredByType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "geographicFocus" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "geographicFocusType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "subGrant" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "subGrantType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "subGrantOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "subGrantOfType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "providesFundingFor" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "providesFundingForType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "totalAwardAmount" : {
+      "type" : "string"
+    },
+    "directCosts" : {
+      "type" : "string"
+    },
+    "sponsorAwardId" : {
+      "type" : "string"
+    },
+    "localAwardId" : {
+      "type" : "string"
+    },
+    "contributors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "contributorType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "principalInvestigators" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "coPrincipalInvestigators" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "supportedPublicationOrOtherWork" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "supportedPublicationOrOtherWorkType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "dateTimeIntervalStart" : {
+      "type" : "string"
+    },
+    "dateTimeIntervalEnd" : {
+      "type" : "string"
+    },
+    "subjectAreas" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "subjectAreaType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "yearAwarded" : {
+      "type" : "string"
+    },
+    "sameAs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "inheresIn" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "inheresInType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "specifiedOutputOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "specifiedOutputOfType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "outputOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "outputOfType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "participatesIn" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "participatesInType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "modTime" : {
+      "type" : "string"
+    },
+    "abstract" : {
+      "type" : "string"
+    }
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:edu:tamu:scholars:middleware:discovery:model:Process",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "title" : {
+      "type" : "string"
+    },
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "image" : {
+      "type" : "string"
+    },
+    "thumbnail" : {
+      "type" : "string"
+    },
+    "websites" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "websiteUrl" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "description" : {
+      "type" : "string"
+    },
+    "offeredBy" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "offeredByType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "dateTimeIntervalStart" : {
+      "type" : "string"
+    },
+    "dateTimeIntervalEnd" : {
+      "type" : "string"
+    },
+    "occursWithinEvent" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "includesEvent" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "inEventSeries" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "participants" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "participantRole" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "subjectAreas" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasPrerequisite" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasPrerequisiteType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "prerequisiteFor" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "prerequisiteForType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "credits" : {
+      "type" : "string"
+    },
+    "geographicFocus" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "geographicFocusType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "outputPublicationOrOtherWork" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "outputPublicationOrOtherWorkType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "relatedDocuments" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "relatedDocumentType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "contactInformation" : {
+      "type" : "string"
+    },
+    "heldInFacility" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "heldInGeographicLocation" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasOutput" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasOutputType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasParticipant" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasParticipantType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "sameAs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "modTime" : {
+      "type" : "string"
+    }
+  }
+}

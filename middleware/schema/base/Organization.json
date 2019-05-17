@@ -1,0 +1,420 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:edu:tamu:scholars:middleware:discovery:model:Organization",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "image" : {
+      "type" : "string"
+    },
+    "thumbnail" : {
+      "type" : "string"
+    },
+    "websites" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "websiteUrl" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "overview" : {
+      "type" : "string"
+    },
+    "degrees" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "abbreviation" : {
+      "type" : "string"
+    },
+    "date" : {
+      "type" : "string"
+    },
+    "sponsorsAwardOrHonor" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "sponsorsAwardOrHonorDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardOrHonorGiven" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardOrHonorGivenDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardOrHonorReceived" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardOrHonorReceivedDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "keywords" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "organizationForTraining" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "people" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "peopleType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "peopleTitle" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasSubOrganizations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "organizationWithin" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "leadOrganizationOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasCollaboratingOrganizationOrGroup" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasAffiliatedOrganizations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "memberOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "clinicalActivities" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "convenerOfEvents" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "convenerOfEventDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "attendedEvents" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "attendedEventDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "publications" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "selectedPublicationType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "selectedPublicationDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "publisherOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "publisherOfType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "publisherOfDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "presentations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "presentationEvent" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "presentationDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "featuredIn" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "featuredInType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "featuredInDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "assigneeForPatent" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "assigneeForPatentDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "translatorOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "translatorOfType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "translatorOfDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardsGrant" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "awardsGrantDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "administersGrant" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "administersGrantDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "subcontractsGrant" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "subcontractsGrantDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "performsHumanStudy" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "contractOrProviderForService" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "outreachAndCommunityServiceActivities" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "hasEquipment" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "courses" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "orgId" : {
+      "type" : "string"
+    },
+    "sameAs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "phone" : {
+      "type" : "string"
+    },
+    "fax" : {
+      "type" : "string"
+    },
+    "emailAddress" : {
+      "type" : "string"
+    },
+    "streetAddress" : {
+      "type" : "string"
+    },
+    "locality" : {
+      "type" : "string"
+    },
+    "region" : {
+      "type" : "string"
+    },
+    "postalCode" : {
+      "type" : "string"
+    },
+    "country" : {
+      "type" : "string"
+    },
+    "geographicLocation" : {
+      "type" : "string"
+    },
+    "locatedAtFacilities" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "predecessorOrganizations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "successorOrganizations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "governingAuthorityFor" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "affiliatedResearchAreas" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "modTime" : {
+      "type" : "string"
+    }
+  }
+}

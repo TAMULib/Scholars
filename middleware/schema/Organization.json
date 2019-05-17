@@ -1,0 +1,2123 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:edu:tamu:scholars:middleware:discovery:model:Organization",
+  "additionalProperties" : {
+    "type" : "object",
+    "annotations" : [ {
+      "type" : "org.springframework.data.solr.core.mapping.SolrDocument",
+      "properties" : {
+        "collection" : "organizations"
+      }
+    }, {
+      "type" : "edu.tamu.scholars.middleware.discovery.annotation.CollectionSource",
+      "properties" : {
+        "predicate" : "http://xmlns.com/foaf/0.1/Organization"
+      }
+    } ]
+  },
+  "properties" : {
+    "id" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "required" : false
+        }
+      } ]
+    },
+    "name" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "sorting_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/name",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/type",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType",
+          "parse" : true,
+          "unique" : false
+        }
+      } ]
+    },
+    "image" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/image",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "thumbnail" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/thumbnail",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/public#directDownloadUrl",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "websites" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/website",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "websiteUrl",
+            "key" : "url"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "websiteUrl" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/websiteUrl",
+          "predicate" : "http://www.w3.org/2006/vcard/ns#url",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "overview" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/overview",
+          "predicate" : "http://vivoweb.org/ontology/core#overview",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "degrees" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/offersDegree",
+          "predicate" : "organization.offersDegree",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "abbreviation" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/abbreviation",
+          "predicate" : "http://vivoweb.org/ontology/core#abbreviation",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "date" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "pdate",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/date",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "sponsorsAwardOrHonor" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/sponsorsAwardOrHonor",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "sponsorsAwardOrHonorDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "sponsorsAwardOrHonorDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/sponsorsAwardOrHonorDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "awardOrHonorGiven" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/awardOrHonorGiven",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "awardOrHonorGivenDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "awardOrHonorGivenDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/awardOrHonorGivenDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "awardOrHonorReceived" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/awardOrHonorReceived",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "awardOrHonorReceivedDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "awardOrHonorReceivedDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/awardOrHonorReceivedDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "keywords" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "delimited_strings",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/keyword",
+          "predicate" : "http://vivoweb.org/ontology/core#freetextKeyword",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "organizationForTraining" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/organizationForTraining",
+          "predicate" : "http://vivoweb.org/ontology/core#majorField",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "people" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/people",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "peopleType",
+            "key" : "type"
+          }, {
+            "value" : "peopleTitle",
+            "key" : "title"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "peopleType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/peopleType",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType",
+          "parse" : true,
+          "unique" : false
+        }
+      } ]
+    },
+    "peopleTitle" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/peopleTitle",
+          "predicate" : "http://vivoweb.org/ontology/core#hrJobTitle",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "hasSubOrganizations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/hasSubOrganization",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "organizationWithin" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/organizationWithin",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "leadOrganizationOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/leadOrganizationOf",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "hasCollaboratingOrganizationOrGroup" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/hasCollaboratingOrganizationOrGroup",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "hasAffiliatedOrganizations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/hasAffiliatedOrganization",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "memberOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/memberOf",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "clinicalActivities" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/clinicalActivity",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "convenerOfEvents" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/convenerOfEvent",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "convenerOfEventDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "convenerOfEventDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/convenerOfEventDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "attendedEvents" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/attendedEvent",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "attendedEventDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "attendedEventDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/attendedEventDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "publications" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/selectedPublication",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "selectedPublicationType",
+            "key" : "type"
+          }, {
+            "value" : "selectedPublicationDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "selectedPublicationType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/selectedPublicationType",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType",
+          "parse" : true,
+          "unique" : false
+        }
+      } ]
+    },
+    "selectedPublicationDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/selectedPublicationDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "publisherOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/publisherOf",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : true
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "publisherOfType",
+            "key" : "type"
+          }, {
+            "value" : "publisherOfDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "publisherOfType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/publisherOfType",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType",
+          "parse" : true,
+          "unique" : false
+        }
+      } ]
+    },
+    "publisherOfDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/publisherOfDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "presentations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/presentation",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "presentationEvent",
+            "key" : "event"
+          }, {
+            "value" : "presentationDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "presentationEvent" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/presentationEvent",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "presentationDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/presentationDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "featuredIn" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/featuredIn",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "featuredInType",
+            "key" : "type"
+          }, {
+            "value" : "featuredInDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "featuredInType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/featuredInType",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType",
+          "parse" : true,
+          "unique" : false
+        }
+      } ]
+    },
+    "featuredInDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/featuredInDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "assigneeForPatent" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/assigneeForPatent",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "assigneeForPatentDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "assigneeForPatentDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/assigneeForPatentDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "translatorOf" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/translatorOf",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "translatorOfType",
+            "key" : "type"
+          }, {
+            "value" : "translatorOfDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "translatorOfType" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/translatorOfType",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType",
+          "parse" : true,
+          "unique" : false
+        }
+      } ]
+    },
+    "translatorOfDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/translatorOfDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "awardsGrant" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/awardsGrant",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "awardsGrantDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "awardsGrantDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/awardsGrantDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "administersGrant" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/administersGrant",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "administersGrantDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "administersGrantDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/administersGrantDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "subcontractsGrant" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/subcontractsGrant",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ {
+            "value" : "subcontractsGrantDate",
+            "key" : "date"
+          } ],
+          "root" : true
+        }
+      } ]
+    },
+    "subcontractsGrantDate" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_dates",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/subcontractsGrantDate",
+          "predicate" : "http://vivoweb.org/ontology/core#dateTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "performsHumanStudy" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/performsHumanStudy",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "contractOrProviderForService" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/contractOrProviderForService",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "outreachAndCommunityServiceActivities" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/outreachAndCommunityServiceActivity",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "hasEquipment" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/hasEquipment",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "courses" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/offersCourse",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "orgId" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/orgId",
+          "predicate" : "http://vivo.library.tamu.edu/ontology/TAMU#OrgID",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "sameAs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/sameAs",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "phone" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/phone",
+          "predicate" : "http://www.w3.org/2006/vcard/ns#telephone",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "fax" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/fax",
+          "predicate" : "http://www.w3.org/2006/vcard/ns#fax",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "emailAddress" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/emailAddress",
+          "predicate" : "http://www.w3.org/2006/vcard/ns#email",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "streetAddress" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/streetAddress",
+          "predicate" : "organization.streetAddress",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "locality" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/locality",
+          "predicate" : "organization.locality",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "region" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/region",
+          "predicate" : "organization.region",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "postalCode" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/postalCode",
+          "predicate" : "organization.postalCode",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "country" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/country",
+          "predicate" : "organization.country",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "geographicLocation" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "whole_string",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/geographicLocation",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    },
+    "locatedAtFacilities" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/locatedAtFacility",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "predecessorOrganizations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/predecessorOrganization",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "successorOrganizations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/successorOrganization",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "governingAuthorityFor" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/governingAuthorityFor",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "affiliatedResearchAreas" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "nested_strings",
+          "copyTo" : [ "_text_" ],
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/affiliatedResearchArea",
+          "predicate" : "http://www.w3.org/2000/01/rdf-schema#label",
+          "parse" : false,
+          "unique" : true
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.NestedObject",
+        "properties" : {
+          "value" : [ ],
+          "root" : true
+        }
+      } ]
+    },
+    "modTime" : {
+      "type" : "string",
+      "annotations" : [ {
+        "type" : "org.springframework.data.solr.core.mapping.Indexed",
+        "properties" : {
+          "readonly" : false,
+          "stored" : true,
+          "searchable" : true,
+          "type" : "pdate",
+          "required" : false
+        }
+      }, {
+        "type" : "edu.tamu.scholars.middleware.discovery.annotation.PropertySource",
+        "properties" : {
+          "template" : "organization/modTime",
+          "predicate" : "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime",
+          "parse" : false,
+          "unique" : false
+        }
+      } ]
+    }
+  }
+}
