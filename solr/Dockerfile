@@ -1,4 +1,4 @@
-FROM solr:latest
+FROM solr:7.7.1
 
 WORKDIR /opt/solr/server/solr/
 ADD . /opt/solr/server/solr/
