@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 import { RestService } from '../../../service/rest.service';
 import { SdrRepo } from './sdr-repo';
@@ -11,6 +11,7 @@ import { SdrResource } from '../sdr-resource';
 import { SdrCollection } from '../sdr-collection';
 
 import { environment } from '../../../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -52,9 +53,38 @@ export abstract class AbstractSdrRepo<R extends SdrResource> implements SdrRepo<
     }
 
     public findByIdIn(ids: string[]): Observable<SdrCollection> {
-        return this.restService.get<SdrCollection>(`${environment.service}/${this.path()}/search/findByIdIn?ids=${ids.join(',')}`, {
-            withCredentials: true
+        const chunkSize = 100;
+        const batches = ids.map((e, i) => i % chunkSize === 0 ? ids.slice(i, i + chunkSize) : null).filter((e) => e);
+        const observables: Observable<SdrCollection>[] = [];
+        batches.forEach((batch) => {
+            observables.push(this.restService.get<SdrCollection>(`${environment.service}/${this.path()}/search/findByIdIn?ids=${batch.join(',')}`, {
+                withCredentials: true
+            }));
         });
+        return forkJoin(observables).pipe(
+            map((collection) => {
+                const response = {
+                    _embedded: {
+                        documents: []
+                    },
+                    _links: {
+                        self: {
+                            href: `${environment.service}/${this.path()}/search/findByIdIn?ids=${ids.join(',')}`
+                        }
+                    },
+                    page: {
+                        size: ids.length,
+                        totalElements: ids.length,
+                        totalPages: 1,
+                        number: 1
+                    }
+                };
+                collection.forEach((result) => {
+                    response._embedded.documents = response._embedded.documents.concat(result._embedded.documents);
+                });
+                return response;
+            })
+        );
     }
 
     public findByTypesIn(types: string[]): Observable<R> {
