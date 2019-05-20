@@ -74,7 +74,7 @@
     "compression": "1.7.4",
     "core-js": "2.6.5",
     "dot": "1.1.2",
-    "express": "4.16.4",
+    "express": "4.17.0",
     "font-awesome": "4.7.0",
     "jquery": "3.4.1",
     "lodash": "4.17.11",
