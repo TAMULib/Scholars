@@ -76,7 +76,6 @@
     "dot": "1.1.2",
     "express": "4.17.0",
     "font-awesome": "4.7.0",
-    "handlebars": "^4.1.2",
     "jquery": "3.4.1",
     "lodash": "4.17.11",
     "net": "1.0.2",
