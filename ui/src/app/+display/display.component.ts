@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
@@ -26,7 +26,8 @@ import * as fromMetadata from '../core/store/metadata/metadata.actions';
 @Component({
     selector: 'scholars-display',
     templateUrl: 'display.component.html',
-    styleUrls: ['display.component.scss']
+    styleUrls: ['display.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayComponent implements OnDestroy, OnInit {
 
@@ -144,7 +145,17 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 return combineLatest([scheduled([displayView], asap), combineLatest(lazyObservables)]);
                             }),
                             tap(([displayView, lazyReferences]) => {
-                                console.log(displayView);
+                                Object.assign(document, {
+                                    enableBadges: () => {
+                                        if (isPlatformBrowser(this.platformId)) {
+                                            setTimeout(() => {
+                                                window['_altmetric_embed_init']();
+                                                window['__dimensions_embed'].addBadges();
+                                            }, 1000);
+                                        }
+                                    }
+                                });
+                                console.log(document);
                                 lazyReferences.forEach((lazyReference) => {
                                     if (lazyReference[0].field && lazyReference[0].value) {
                                         const property = {};
@@ -178,17 +189,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
                 );
             }
         }));
-    }
-
-    public openTab(tabName: string): void {
-        if (tabName === 'Publications') {
-            if (isPlatformBrowser(this.platformId)) {
-                setTimeout(() => {
-                    window['_altmetric_embed_init']();
-                    window['__dimensions_embed'].addBadges();
-                }, 1000);
-            }
-        }
     }
 
     public showMainContent(displayView: DisplayView): boolean {

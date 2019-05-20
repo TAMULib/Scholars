@@ -19,7 +19,7 @@
         <ngb-tabset [type]="getTabsetType(windowDimensions | async)" [orientation]="getTabOrientation(windowDimensions | async)">
           <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [id]="tab.name">
             <ng-template ngbTabTitle>
-              <label (click)="openTab(tab.name)">{{tab.name}}</label>
+              <label>{{tab.name}}</label>
             </ng-template>
             <ng-template ngbTabContent>
               <div class="ml-3 mr-3 mt-3 card" *ngFor="let section of getSectionsToShow(tab.sections, document);">
