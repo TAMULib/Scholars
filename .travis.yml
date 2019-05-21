@@ -43,7 +43,7 @@ deploy:
   keep-history: false
   target-branch: gh-pages
   github_token: "$GITHUB_TOKEN"
-  local_dir: "./target/generated-docs"
+  local_dir: "./middleware/target/generated-docs"
   on:
     branch: sprint5-staging
     condition: $TRAVIS_JOB_NAME = "Middleware Tests"
