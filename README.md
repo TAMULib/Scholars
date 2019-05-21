@@ -25,4 +25,4 @@ TAMULib Scholars currently harvest directly from VIVO’s triple store and for e
 - [UI Documentation](https://github.com/TAMULib/Scholars/blob/master/ui/README.md)
 - [API Documentation](https://tamulib.github.io/Scholars)
 
-Please feel free to file any issues concerning Scholars to the issues section of the repository. Any questions concerning cap can be directed to [helpdesk@library.tamu.edu]()
+Please feel free to file any issues concerning TAMU Scholars to the issues section of the repository. Any questions concerning cap can be directed to [helpdesk@library.tamu.edu]()
