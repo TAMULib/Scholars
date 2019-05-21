@@ -1,6 +1,3 @@
-notifications:
-  webhooks: https://coveralls.io/webhook
-
 env:
   global:
     - COVERALLS_PARALLEL=true
@@ -38,3 +35,21 @@ matrix:
       - yarn test:ci
     after_success:
       - yarn test:report
+
+# Deploy Github pages after success of Middleware Tests.
+deploy:
+  provider: pages
+  skip_cleanup: true
+  keep-history: false
+  target-branch: gh-pages
+  github_token: "$GITHUB_TOKEN"
+  local_dir: "./target/generated-docs"
+  on:
+    branch: sprint5-staging
+    condition: $TRAVIS_JOB_NAME = "Middleware Tests"
+
+# Send final notification to coveralls after all jobs have been completed.
+notifications:
+  webhooks:
+    urls:
+      - https://coveralls.io/webhook
