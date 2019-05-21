@@ -23,16 +23,6 @@
     </ul>
   </div>
   {{?}}
-  {{? it.researchAreas }}
-  <div class="mt-1">
-    <span class="label">Research Areas:</span>
-  </div>
-  <div class="comma-seperated ml-1">
-    {{~it.researchAreas :researchArea}}
-    <span><a href="display/concepts/{{=researchArea.id}}">{{=researchArea.label}}</a></span>
-    {{~}}
-  </div>
-  {{?}}
 </div>
 <style>
   .label {

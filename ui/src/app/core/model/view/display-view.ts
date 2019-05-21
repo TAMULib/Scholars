@@ -1,5 +1,10 @@
 import { View } from './';
 
+export enum Side {
+    LEFT = 'LEFT',
+    RIGHT = 'RIGHT'
+}
+
 export interface LazyReference {
     readonly field: string;
     readonly collection: string;
@@ -26,6 +31,9 @@ export interface DisplayView extends View {
     leftScanTemplateFunction?: (document: any) => string;
     readonly rightScanTemplate: string;
     rightScanTemplateFunction?: (document: any) => string;
+    readonly asideTemplate: string;
+    asideTemplateFunction?: (document: any) => string;
+    readonly asideLocation: Side;
     readonly metaTemplates: any;
     metaTemplateFunctions?: any;
     readonly tabs: DisplayTabView[];

@@ -74,6 +74,9 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         if (view.rightScanTemplate && view.rightScanTemplate.length > 0) {
             view.rightScanTemplateFunction = doT.template(view.rightScanTemplate);
         }
+        if (view.asideTemplate && view.asideTemplate.length > 0) {
+            view.asideTemplateFunction = doT.template(view.asideTemplate);
+        }
         view.tabs.forEach(tab => {
             tab.sections.forEach(section => {
                 section.templateFunction = getTemplateFunction(section.template);

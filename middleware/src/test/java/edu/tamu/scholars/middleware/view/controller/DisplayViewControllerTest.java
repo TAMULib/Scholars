@@ -56,6 +56,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
+                        describeDisplayView.withField("asideTemplate", "The aside template of the Display View."),
+                        describeDisplayView.withField("asideLocation", "The aside location [LEFT,RIGHT] of the Display View."),
                         describeDisplayView.withSubsection("metaTemplates", "The meta tag templates of the Display View."),
                         describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>.")
                     ),
@@ -69,6 +71,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
+                        describeDisplayView.withField("asideTemplate", "The aside template of the Display View."),
+                        describeDisplayView.withField("asideLocation", "The aside location [LEFT,RIGHT] of the Display View."),
                         describeDisplayView.withSubsection("metaTemplates", "The meta tag templates of the Display View."),
                         describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                         subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
@@ -97,6 +101,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
+                        describeDisplayView.withField("asideTemplate", "The aside template of the Display View."),
+                        describeDisplayView.withField("asideLocation", "The aside location [LEFT,RIGHT] of the Display View."),
                         describeDisplayView.withSubsection("metaTemplates", "The meta tag templates of the Display View."),
                         describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>.")
                     ),
@@ -110,6 +116,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                         describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                         describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                         describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
+                        describeDisplayView.withField("asideTemplate", "The aside template of the Display View."),
+                        describeDisplayView.withField("asideLocation", "The aside location [LEFT,RIGHT] of the Display View."),
                         describeDisplayView.withSubsection("metaTemplates", "The meta tag templates of the Display View."),
                         describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                         subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
@@ -145,6 +153,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                                 describeDisplayView.withParameter("mainContentTemplate", "The main content template of the Display View.").optional(),
                                 describeDisplayView.withParameter("leftScanTemplate", "The left scan template of the Display View.").optional(),
                                 describeDisplayView.withParameter("rightScanTemplate", "The right scan template of the Display View.").optional(),
+                                describeDisplayView.withParameter("asideTemplate", "The aside template of the Display View.").optional(),
+                                describeDisplayView.withParameter("asideLocation", "The aside location [LEFT,RIGHT] of the Display View.").optional(),
                                 describeDisplayView.withParameter("metaTemplates", "The meta tag templates of the Display View.").optional(),
                                 describeDisplayView.withParameter("tabs", "An array of <<resources-display-tabs, Display tab view resources>>.").optional()
                             ),
@@ -158,6 +168,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                                 describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                                 describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                                 describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
+                                describeDisplayView.withField("asideTemplate", "The aside template of the Display View."),
+                                describeDisplayView.withField("asideLocation", "The aside location [LEFT,RIGHT] of the Display View."),
                                 describeDisplayView.withSubsection("metaTemplates", "The meta tag templates of the Display View."),
                                 describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                                 subsectionWithPath("_links").description("<<resources-display-views-list-links, Links>> to other resources.")
@@ -193,6 +205,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                             describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                             describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
+                            describeDisplayView.withField("asideTemplate", "The aside template of the Display View."),
+                            describeDisplayView.withField("asideLocation", "The aside location [LEFT,RIGHT] of the Display View."),
                             describeDisplayView.withSubsection("metaTemplates", "The meta tag templates of the Display View."),
                             describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                             subsectionWithPath("_links").description("<<resources-display-view-list-links, Links>> to other resources.")
@@ -227,6 +241,8 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                             describeDisplayView.withField("mainContentTemplate", "The main content template of the Display View."),
                             describeDisplayView.withField("leftScanTemplate", "The left scan template of the Display View."),
                             describeDisplayView.withField("rightScanTemplate", "The right scan template of the Display View."),
+                            describeDisplayView.withField("asideTemplate", "The aside template of the Display View."),
+                            describeDisplayView.withField("asideLocation", "The aside location [LEFT,RIGHT] of the Display View."),
                             describeDisplayView.withSubsection("metaTemplates", "The meta tag templates of the Display View."),
                             describeDisplayView.withSubsection("tabs", "An array of <<resources-display-tabs, Display tab view resources>>."),
                             subsectionWithPath("_links").description("<<resources-display-view-list-links, Links>> to other resources.")

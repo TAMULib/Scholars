@@ -22,6 +22,7 @@ import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
+import { Side } from '../core/model/view/display-view';
 
 @Component({
     selector: 'scholars-display',
@@ -201,6 +202,18 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     public showRightScan(displayView: DisplayView): boolean {
         return displayView.rightScanTemplate && displayView.rightScanTemplate.length > 0;
+    }
+
+    public showAsideLeft(displayView: DisplayView): boolean {
+        return this.showAside(displayView) && displayView.asideLocation === Side.LEFT;
+    }
+
+    public showAsideRight(displayView: DisplayView): boolean {
+        return this.showAside(displayView) && displayView.asideLocation === Side.RIGHT;
+    }
+
+    public showAside(displayView: DisplayView): boolean {
+        return displayView.asideTemplate && displayView.asideTemplate.length > 0;
     }
 
     public getMainContentColSize(displayView: DisplayView): number {

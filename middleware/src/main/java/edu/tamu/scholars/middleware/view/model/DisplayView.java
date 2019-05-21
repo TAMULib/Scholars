@@ -1,5 +1,7 @@
 package edu.tamu.scholars.middleware.view.model;
 
+import static javax.persistence.EnumType.STRING;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
@@ -34,6 +37,13 @@ public class DisplayView extends View {
     @Column(columnDefinition = "TEXT")
     private String rightScanTemplate;
 
+    @Column(columnDefinition = "TEXT")
+    private String asideTemplate;
+
+    @Enumerated(STRING)
+    @Column(nullable = false)
+    private Side asideLocation;
+
     @ElementCollection
     @MapKeyColumn(name = "name")
     @Column(name = "meta_template", columnDefinition = "TEXT")
@@ -48,6 +58,7 @@ public class DisplayView extends View {
         types = new ArrayList<String>();
         metaTemplates = new HashMap<String, String>();
         tabs = new ArrayList<DisplayTabView>();
+        asideLocation = Side.RIGHT;
     }
 
     public List<String> getTypes() {
@@ -80,6 +91,22 @@ public class DisplayView extends View {
 
     public void setRightScanTemplate(String rightScanTemplate) {
         this.rightScanTemplate = rightScanTemplate;
+    }
+
+    public String getAsideTemplate() {
+        return asideTemplate;
+    }
+
+    public void setAsideTemplate(String asideTemplate) {
+        this.asideTemplate = asideTemplate;
+    }
+
+    public Side getAsideLocation() {
+        return asideLocation;
+    }
+
+    public void setAsideLocation(Side asideLocation) {
+        this.asideLocation = asideLocation;
     }
 
     public Map<String, String> getMetaTemplates() {
