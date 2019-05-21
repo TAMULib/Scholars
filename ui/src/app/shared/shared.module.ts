@@ -21,14 +21,15 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StatsBoxComponent } from './stats-box/stats-box.component';
 import { TwitterComponent } from './twitter/twitter.component';
+import { YouTubeComponent } from './youtube/youtube.component';
 import { UserEditComponent } from './dialog/user-edit/user-edit.component';
 
 import { LoaderDirective } from './loader/loader.directive';
 
-import { SafeHtmlPipe } from './utilities/safe-html.pipe';
 import { FilterPipe } from './utilities/filter.pipe';
 import { FormalizePipe } from './utilities/formalize.pipe';
-
+import { SafeHtmlPipe } from './utilities/safe-html.pipe';
+import { SafeUrlPipe } from './utilities/safe-url.pipe';
 
 const MODULES = [
     CommonModule,
@@ -42,7 +43,8 @@ const MODULES = [
 const PIPES = [
     FilterPipe,
     FormalizePipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    SafeUrlPipe
 ];
 
 const COMPONENTS = [
@@ -60,7 +62,8 @@ const COMPONENTS = [
     SearchBoxComponent,
     SidebarComponent,
     StatsBoxComponent,
-    TwitterComponent
+    TwitterComponent,
+    YouTubeComponent
 ];
 
 const DIRECTIVES = [

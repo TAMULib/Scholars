@@ -9,10 +9,10 @@
 </div>
 <div class="document container" *ngIf="document | async; let document">
   <div *ngIf="displayView | async; let displayView" class="row">
-    <div *ngIf="showAsideLeft(displayView)" class="d-none d-lg-block col-lg-2 p-0">
+    <div *ngIf="showAsideLeft(displayView)" class="d-none d-lg-block col-lg-3 p-0">
       <ng-container *ngTemplateOutlet="aside"></ng-container>
     </div>
-    <div [ngClass]="{ 'col-lg-10': showAside(displayView), 'col-lg-12': !showAside(displayView) }">
+    <div [ngClass]="{ 'col-lg-9': showAside(displayView), 'col-lg-12': !showAside(displayView) }">
       <div class="row mt-2">
         <div *ngIf="showLeftScan(displayView)" class="col-md-{{ getLeftScanColSize(displayView) }}" [innerHtml]="displayView.leftScanTemplateFunction(document) | safeHtml"></div>
         <div *ngIf="showMainContent(displayView)" class="col-md-{{ getMainContentColSize(displayView) }}" [innerHtml]="displayView.mainContentTemplateFunction(document) | safeHtml"></div>
@@ -39,12 +39,13 @@
         </div>
       </div>
     </div>
-    <div *ngIf="showAsideRight(displayView)" class="d-none d-lg-block col-lg-2 p-0">
+    <div *ngIf="showAsideRight(displayView)" class="d-none d-lg-block col-lg-3 p-0">
       <ng-container *ngTemplateOutlet="aside"></ng-container>
     </div>
     <ng-template #aside>
       <div [innerHtml]="displayView.asideTemplateFunction(document) | safeHtml"></div>
       <scholars-twitter *ngIf="document.twitter" [id]="document.twitter"></scholars-twitter>
+      <scholars-youtube *ngIf="document.youtube" [url]="document.youtube"></scholars-youtube>
     </ng-template>
   </div>
 </div>
