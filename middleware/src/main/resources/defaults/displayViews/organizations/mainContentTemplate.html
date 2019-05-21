@@ -5,7 +5,7 @@
   <span class="h3 lead font-weight-normal text-nowrap text-secondary">
     <span class="ml-1">|</span>
     <span class="pipe-seperated">
-      {{~it.type :type}}
+      {{~it.formalType :type}}
       <span>{{=type}}</span>
       {{~}}
     </span>
@@ -26,7 +26,7 @@
       <div class="more badge badge-light" tabindex="0">...more</div>
       <div class="area comma-seperated">
         {{~it.affiliatedResearchAreas.slice(10, it.affiliatedResearchAreas.length) :affiliatedResearchArea}}
- 	    <span><a href="display/concepts/{{=affiliatedResearchArea.id}}">{{=affiliatedResearchArea.label}}</a></span>
+        <span><a href="display/concepts/{{=affiliatedResearchArea.id}}">{{=affiliatedResearchArea.label}}</a></span>
         {{~}}
       </div>
       {{?}}
@@ -56,13 +56,13 @@
   .comma-seperated span:last-child:after {
     content: "";
   }
-  
+
   .more {
     display: inline;
   }
 
   .area {
-  	opacity: 0;
+    opacity: 0;
     visibility: hidden;
     position: absolute;
     margin-left: -5px;
@@ -80,10 +80,9 @@
     visibility: visible;
   }
 
-  .more:hover ~ .area {
+  .more:hover~.area {
     z-index: 10;
     opacity: 1;
     visibility: visible;
   }
-
 </style>

@@ -17,7 +17,7 @@
       <span class="badge badge-light p-2 mr-2 mb-2" *ngFor="let filter of filters">
         <span *ngIf="showFilter(discoveryView, filter)">
           <span class="mr-1">{{filter.field | formalize}}:</span>
-          <span class="mr-2">{{filter.value}}</span>
+          <span class="mr-2">{{filter.value | formalize}}</span>
           <a class="fa fa-close" [routerLink]="getDiscoveryRouterLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, page | async, query | async, filters, filter)"></a>
         </span>
       </span>

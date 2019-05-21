@@ -11,7 +11,8 @@
   - NonFacultyAcademic
   mainContentTemplate: "defaults/displayViews/people/mainContentTemplate.html"
   leftScanTemplate: "defaults/displayViews/people/leftScanTemplate.html"
-  rightScanTemplate: "defaults/displayViews/people/rightScanTemplate.html"
+  asideTemplate: "defaults/displayViews/people/aside.html"
+  asideLocation: RIGHT
   metaTemplates:
     title: "defaults/displayViews/people/meta/title.txt"
     description: "defaults/displayViews/people/meta/description.txt"

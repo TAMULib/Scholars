@@ -20,6 +20,7 @@ import edu.tamu.scholars.middleware.view.model.Filter;
 import edu.tamu.scholars.middleware.view.model.Index;
 import edu.tamu.scholars.middleware.view.model.Layout;
 import edu.tamu.scholars.middleware.view.model.LazyReference;
+import edu.tamu.scholars.middleware.view.model.Side;
 import edu.tamu.scholars.middleware.view.model.Sort;
 
 public class ViewTestUtility {
@@ -154,6 +155,8 @@ public class ViewTestUtility {
         displayView.setMainContentTemplate("<div>Main</div>");
         displayView.setLeftScanTemplate("<div>Left Scan</div>");
         displayView.setRightScanTemplate("<div>Right Scan</div>");
+        displayView.setAsideTemplate("<div>Aside</div>");
+        displayView.setAsideLocation(Side.RIGHT);
 
         List<String> types = new ArrayList<String>();
         types.add("FacultyMember");

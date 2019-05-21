@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
-import { Observable, Subscription, combineLatest, scheduled } from 'rxjs';
+import { Observable, Subscription, combineLatest, scheduled, BehaviorSubject } from 'rxjs';
 import { asap } from 'rxjs/internal/scheduler/asap';
 import { filter, tap, map, mergeMap } from 'rxjs/operators';
 
@@ -17,6 +17,7 @@ import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
+import { Side } from '../core/model/view/display-view';
 
 import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByTypes, selectResourceIsLoading, selectAllResources } from '../core/store/sdr';
 
@@ -26,7 +27,8 @@ import * as fromMetadata from '../core/store/metadata/metadata.actions';
 @Component({
     selector: 'scholars-display',
     templateUrl: 'display.component.html',
-    styleUrls: ['display.component.scss']
+    styleUrls: ['display.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayComponent implements OnDestroy, OnInit {
 
@@ -38,6 +40,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     public document: Observable<SolrDocument>;
 
+    public selectedTab: BehaviorSubject<string>;
+
     private subscriptions: Subscription[];
 
     constructor(
@@ -46,6 +50,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
         private route: ActivatedRoute
     ) {
         this.subscriptions = [];
+        this.selectedTab = new BehaviorSubject<string>(undefined);
     }
 
     ngOnDestroy() {
@@ -60,6 +65,11 @@ export class DisplayComponent implements OnDestroy, OnInit {
             select(selectDefaultDiscoveryView),
             filter((view: DiscoveryView) => view !== undefined)
         );
+        this.subscriptions.push(this.route.fragment.subscribe((fragment: string) => {
+            if (fragment) {
+                this.selectedTab.next(fragment);
+            }
+        }));
         this.subscriptions.push(this.route.params.subscribe((params: Params) => {
             if (params.collection && params.id) {
                 this.store.dispatch(new fromSdr.GetOneResourceAction(params.collection, { id: params.id }));
@@ -144,7 +154,17 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 return combineLatest([scheduled([displayView], asap), combineLatest(lazyObservables)]);
                             }),
                             tap(([displayView, lazyReferences]) => {
-                                console.log(displayView);
+                                Object.assign(document, {
+                                    enableBadges: () => {
+                                        if (isPlatformBrowser(this.platformId)) {
+                                            setTimeout(() => {
+                                                window['_altmetric_embed_init']();
+                                                window['__dimensions_embed'].addBadges();
+                                            }, 1000);
+                                        }
+                                    }
+                                });
+                                console.log(document);
                                 lazyReferences.forEach((lazyReference) => {
                                     if (lazyReference[0].field && lazyReference[0].value) {
                                         const property = {};
@@ -180,15 +200,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
         }));
     }
 
-    public openTab(tabName: string): void {
-        if (tabName === 'Publications') {
-            if (isPlatformBrowser(this.platformId)) {
-                setTimeout(() => {
-                    window['_altmetric_embed_init']();
-                    window['__dimensions_embed'].addBadges();
-                }, 1000);
-            }
-        }
+    public getSelectedTab(): Observable<string> {
+        return this.selectedTab.asObservable();
     }
 
     public showMainContent(displayView: DisplayView): boolean {
@@ -201,6 +214,18 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     public showRightScan(displayView: DisplayView): boolean {
         return displayView.rightScanTemplate && displayView.rightScanTemplate.length > 0;
+    }
+
+    public showAsideLeft(displayView: DisplayView): boolean {
+        return this.showAside(displayView) && displayView.asideLocation === Side.LEFT;
+    }
+
+    public showAsideRight(displayView: DisplayView): boolean {
+        return this.showAside(displayView) && displayView.asideLocation === Side.RIGHT;
+    }
+
+    public showAside(displayView: DisplayView): boolean {
+        return displayView.asideTemplate && displayView.asideTemplate.length > 0;
     }
 
     public getMainContentColSize(displayView: DisplayView): number {

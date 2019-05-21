@@ -7,6 +7,8 @@ import { ResourceView, CollectionView, DisplayView } from '../../model/view';
 
 import { keys } from '../../model/repos';
 
+import { formalize } from '../../../shared/utilities/formalize.pipe';
+
 import { environment } from '../../../../environments/environment';
 
 import * as doT from 'dot';
@@ -42,12 +44,24 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
 };
 
 export const getSdrReducer = <R extends SdrResource>(name: string) => {
+    const formalizeTypes = (resource: any) => {
+        for (const property in resource) {
+            if (resource.hasOwnProperty(property)) {
+                if (property === 'type' && Array.isArray(resource[property])) {
+                    resource.formalType = resource.type.map(type => formalize(type));
+                } else if (typeof resource[property] === 'object') {
+                    formalizeTypes(resource[property]);
+                }
+            }
+        }
+    };
     const getTemplateFunction = (template: string) => (resource: any) => {
         if (resource.uri !== undefined) {
             resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
         }
         resource.vivoUrl = environment.vivoUrl;
         const templateFunction = doT.template(template);
+        formalizeTypes(resource);
         return templateFunction(resource);
     };
     const getResourceViewTemplateFunction = (view: ResourceView, template: string) => (resource: any) => {
@@ -74,6 +88,9 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         if (view.rightScanTemplate && view.rightScanTemplate.length > 0) {
             view.rightScanTemplateFunction = doT.template(view.rightScanTemplate);
         }
+        if (view.asideTemplate && view.asideTemplate.length > 0) {
+            view.asideTemplateFunction = doT.template(view.asideTemplate);
+        }
         view.tabs.forEach(tab => {
             tab.sections.forEach(section => {
                 section.templateFunction = getTemplateFunction(section.template);
@@ -92,14 +109,10 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         switch (key) {
             case 'directoryViews':
             case 'discoveryViews':
-                resources.forEach(view => {
-                    augmentCollectionViewTemplates(view);
-                });
+                resources.forEach(view => augmentCollectionViewTemplates(view));
                 break;
             case 'displayViews':
-                resources.forEach(view => {
-                    augmentDisplayViewTemplates(view);
-                });
+                resources.forEach(view => augmentDisplayViewTemplates(view));
                 break;
         }
         return resources;

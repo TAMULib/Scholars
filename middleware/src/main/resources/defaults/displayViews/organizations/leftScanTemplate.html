@@ -1,12 +1,10 @@
-<div>
-  <div class="ml-4 mb-4">
-    {{? it.image}}
-    <img class="organization" src="https://scholars.library.tamu.edu/vivo{{=it.image}}" height="150" width="150" alt="{{=it.name}} image">
-    {{?}}
-    {{? !it.image}}
-    <img class="organization" src="https://via.placeholder.com/150" height="150" width="150" alt="default avatar image">
-    {{?}}
-  </div>
+<div class="text-center mb-2">
+  {{? it.image}}
+  <img class="organization" src="https://scholars.library.tamu.edu/vivo{{=it.image}}" height="150" width="150" alt="{{=it.name}} image">
+  {{?}}
+  {{? !it.image}}
+  <img class="organization" src="https://via.placeholder.com/150" height="150" width="150" alt="default avatar image">
+  {{?}}
 </div>
 <style>
   img.organization {

@@ -4,7 +4,7 @@
     {{~ it.people.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(0, 5) :person}}
     <li class="mb-2">
       <div class="person comma-seperated">
-        <span><a href="display/persons/{{=person.id}}">{{=person.label}}</a></span>
+        <span><a href="display/persons/{{=person.id}}#View All">{{=person.label}}</a></span>
         <span>{{=person.title}}</span>
       </div>
     </li>
@@ -19,7 +19,7 @@
         {{~ it.people.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0)).slice(5, it.people.length) :person}}
         <li class="mb-2">
           <div class="person comma-seperated">
-            <span><a href="display/persons/{{=person.id}}">{{=person.label}}</a></span>
+            <span><a href="display/persons/{{=person.id}}#View All">{{=person.label}}</a></span>
             <span>{{=person.title}}</span>
           </div>
         </li>
@@ -56,6 +56,7 @@
     display: flex;
     flex-direction: column-reverse;
   }
+
   #expand {
     height: 0px;
     overflow: hidden;

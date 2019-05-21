@@ -9,7 +9,7 @@
     <a href="display/{{=it.collection}}/{{=it.id}}">No title available ({{=it.id}})</a>
     {{?}}
   </span>
-  <span class="badge badge-light">{{=it.type}}</span>
+  <span class="badge badge-light">{{=it.formalType}}</span>
 </div>
 <div>
   <div>
@@ -37,7 +37,7 @@
       {{~it.authors :author}}
       <li>
         <div class="comma-seperated">
-          <span><a href="display/persons/{{=author.id}}">{{=author.label}}</a></span>
+          <span><a href="display/persons/{{=author.id}}#View All">{{=author.label}}</a></span>
           {{~author.organizations :organization}}
           <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
           {{~}}
