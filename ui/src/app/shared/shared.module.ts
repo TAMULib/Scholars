@@ -19,14 +19,16 @@ import { ResultViewComponent } from './result-view/result-view.component';
 import { RegistrationComponent } from './dialog/registration/registration.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { UserEditComponent } from './dialog/user-edit/user-edit.component';
 import { StatsBoxComponent } from './stats-box/stats-box.component';
+import { TwitterComponent } from './twitter/twitter.component';
+import { UserEditComponent } from './dialog/user-edit/user-edit.component';
 
 import { LoaderDirective } from './loader/loader.directive';
 
 import { SafeHtmlPipe } from './utilities/safe-html.pipe';
 import { FilterPipe } from './utilities/filter.pipe';
 import { FormalizePipe } from './utilities/formalize.pipe';
+
 
 const MODULES = [
     CommonModule,
@@ -57,7 +59,8 @@ const COMPONENTS = [
     ResultViewComponent,
     SearchBoxComponent,
     SidebarComponent,
-    StatsBoxComponent
+    StatsBoxComponent,
+    TwitterComponent
 ];
 
 const DIRECTIVES = [

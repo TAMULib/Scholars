@@ -44,6 +44,7 @@
     </div>
     <ng-template #aside>
       <div [innerHtml]="displayView.asideTemplateFunction(document) | safeHtml"></div>
+      <scholars-twitter *ngIf="document.twitter" [id]="document.twitter"></scholars-twitter>
     </ng-template>
   </div>
 </div>
