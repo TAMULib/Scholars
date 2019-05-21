@@ -11,5 +11,9 @@ export const environment = {
     stompDebug: false,
     service: 'http://localhost:9000',
     vivoUrl: 'https://scholars.library.tamu.edu/vivo',
-    vivoEditorUrl: 'https://scholars.library.tamu.edu/vivo_editor'
+    vivoEditorUrl: 'https://scholars.library.tamu.edu/vivo_editor',
+    formalize: {
+        otherUniversity: 'ExternalOrganization',
+        GreyLiterature: 'InstitutionalRepositoryDocument'
+    }
 };

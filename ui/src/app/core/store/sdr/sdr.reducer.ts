@@ -44,15 +44,24 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
 };
 
 export const getSdrReducer = <R extends SdrResource>(name: string) => {
+    const formalizeTypes = (resource: any) => {
+        for (const property in resource) {
+            if (resource.hasOwnProperty(property)) {
+                if (property === 'type' && Array.isArray(resource[property])) {
+                    resource.formalType = resource.type.map(type => formalize(type));
+                } else if (typeof resource[property] === 'object') {
+                    formalizeTypes(resource[property]);
+                }
+            }
+        }
+    };
     const getTemplateFunction = (template: string) => (resource: any) => {
         if (resource.uri !== undefined) {
             resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
         }
-        if (resource.type) {
-            resource.formalType = resource.type.map(type => formalize(type));
-        }
         resource.vivoUrl = environment.vivoUrl;
         const templateFunction = doT.template(template);
+        formalizeTypes(resource);
         return templateFunction(resource);
     };
     const getResourceViewTemplateFunction = (view: ResourceView, template: string) => (resource: any) => {
