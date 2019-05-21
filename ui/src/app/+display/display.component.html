@@ -23,8 +23,11 @@
       </div>
       <div class="row mt-4 mb-4">
         <div class="col-12">
-          <ngb-tabset [type]="getTabsetType(windowDimensions | async)" [orientation]="getTabOrientation(windowDimensions | async)">
-            <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [id]="tab.name" [title]="tab.name">
+          <ngb-tabset [type]="getTabsetType(windowDimensions | async)" [orientation]="getTabOrientation(windowDimensions | async)" [activeId]="getSelectedTab() | async">
+            <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [id]="tab.name">
+              <ng-template ngbTabTitle>
+                <a [routerLink]="['.']" [fragment]="tab.name">{{tab.name}}</a>
+              </ng-template>
               <ng-template ngbTabContent>
                 <div class="ml-3 mr-3 mt-3 card" *ngFor="let section of getSectionsToShow(tab.sections, document);">
                   <div class="card-header font-weight-bold text-primary text-capitalize">{{section.name}} {{last}}</div>

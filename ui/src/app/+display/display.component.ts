@@ -5,7 +5,7 @@ import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
-import { Observable, Subscription, combineLatest, scheduled } from 'rxjs';
+import { Observable, Subscription, combineLatest, scheduled, BehaviorSubject } from 'rxjs';
 import { asap } from 'rxjs/internal/scheduler/asap';
 import { filter, tap, map, mergeMap } from 'rxjs/operators';
 
@@ -17,12 +17,12 @@ import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
+import { Side } from '../core/model/view/display-view';
 
 import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByTypes, selectResourceIsLoading, selectAllResources } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
-import { Side } from '../core/model/view/display-view';
 
 @Component({
     selector: 'scholars-display',
@@ -40,6 +40,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     public document: Observable<SolrDocument>;
 
+    public selectedTab: BehaviorSubject<string>;
+
     private subscriptions: Subscription[];
 
     constructor(
@@ -48,6 +50,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
         private route: ActivatedRoute
     ) {
         this.subscriptions = [];
+        this.selectedTab = new BehaviorSubject<string>(undefined);
     }
 
     ngOnDestroy() {
@@ -62,6 +65,11 @@ export class DisplayComponent implements OnDestroy, OnInit {
             select(selectDefaultDiscoveryView),
             filter((view: DiscoveryView) => view !== undefined)
         );
+        this.subscriptions.push(this.route.fragment.subscribe((fragment: string) => {
+            if (fragment) {
+                this.selectedTab.next(fragment);
+            }
+        }));
         this.subscriptions.push(this.route.params.subscribe((params: Params) => {
             if (params.collection && params.id) {
                 this.store.dispatch(new fromSdr.GetOneResourceAction(params.collection, { id: params.id }));
@@ -190,6 +198,10 @@ export class DisplayComponent implements OnDestroy, OnInit {
                 );
             }
         }));
+    }
+
+    public getSelectedTab(): Observable<string> {
+        return this.selectedTab.asObservable();
     }
 
     public showMainContent(displayView: DisplayView): boolean {
