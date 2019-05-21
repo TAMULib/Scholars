@@ -7,6 +7,8 @@ import { ResourceView, CollectionView, DisplayView } from '../../model/view';
 
 import { keys } from '../../model/repos';
 
+import { formalize } from '../../../shared/utilities/formalize.pipe';
+
 import { environment } from '../../../../environments/environment';
 
 import * as doT from 'dot';
@@ -45,6 +47,9 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
     const getTemplateFunction = (template: string) => (resource: any) => {
         if (resource.uri !== undefined) {
             resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
+        }
+        if (resource.type) {
+            resource.formalType = resource.type.map(type => formalize(type));
         }
         resource.vivoUrl = environment.vivoUrl;
         const templateFunction = doT.template(template);
@@ -95,14 +100,10 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         switch (key) {
             case 'directoryViews':
             case 'discoveryViews':
-                resources.forEach(view => {
-                    augmentCollectionViewTemplates(view);
-                });
+                resources.forEach(view => augmentCollectionViewTemplates(view));
                 break;
             case 'displayViews':
-                resources.forEach(view => {
-                    augmentDisplayViewTemplates(view);
-                });
+                resources.forEach(view => augmentDisplayViewTemplates(view));
                 break;
         }
         return resources;

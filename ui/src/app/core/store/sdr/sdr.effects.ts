@@ -25,6 +25,8 @@ import { OperationKey, Facet, DiscoveryView, DirectoryView, FacetSort } from '..
 
 import { injectable, repos } from '../../model/repos';
 
+import { formalize } from '../../../shared/utilities/formalize.pipe';
+
 import { selectAllResources } from './';
 import { selectRouterState } from '../router';
 import { selectIsStompConnected, selectStompState } from '../stomp';
@@ -419,7 +421,7 @@ export class SdrEffects {
 
                             const sidebarItem: SidebarItem = {
                                 type: SidebarItemType.FACET,
-                                label: scheduled([facetEntry.value], asap),
+                                label: scheduled([formalize(facetEntry.value)], asap),
                                 facet: facet,
                                 selected: selected,
                                 parenthetical: facetEntry.count,
