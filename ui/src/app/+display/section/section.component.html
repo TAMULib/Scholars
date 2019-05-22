@@ -1,0 +1,7 @@
+<div class="card-header font-weight-bold text-primary text-capitalize">{{section.name}}</div>
+<div class="card-body">
+  <div [innerHtml]="section.templateFunction(document) | safeHtml"></div>
+  <div *ngFor="let subsection of section.subsections">
+    <scholars-subsection [subsection]="subsection" [document]="document"></scholars-subsection>
+  </div>
+</div>

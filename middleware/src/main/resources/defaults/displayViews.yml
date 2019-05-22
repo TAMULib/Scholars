@@ -102,6 +102,103 @@
       lazyReferences:
       - field: publications
         collection: documents
+      subsections:
+      - name: Academic Articles
+        field: publications
+        filters:
+        - field: type
+          value: AcademicArticle
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/academicArticle.html"
+      - name: Books
+        field: publications
+        filters:
+        - field: type
+          value: Book
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/book.html"
+      - name: Chapters
+        field: publications
+        filters:
+        - field: type
+          value: Chapter
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/chapter.html"
+      - name: Institutional Repository Documents
+        field: publications
+        filters:
+        - field: type
+          value: GreyLiterature
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/greyLiterature.html"
+      - name: Conference Papers
+        field: publications
+        filters:
+        - field: type
+          value: ConferencePaper
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/conferencePaper.html"
+      - name: Patents
+        field: publications
+        filters:
+        - field: type
+          value: Patent
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/patent.html"
+      - name: Thesis
+        field: publications
+        filters:
+        - field: type
+          value: Thesis
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/thesis.html"
+      - name: Working Papers
+        field: publications
+        filters:
+        - field: type
+          value: WorkingPaper
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/workingPaper.html"
     - name: collection or series editor for
       hidden: false
       template: "defaults/displayViews/people/publications/collectionOrSeriesEditorFor.html"

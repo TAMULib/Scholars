@@ -8,12 +8,18 @@ import { SharedModule } from '../shared/shared.module';
 import { CustomMissingTranslationHandler } from '../core/handler/custom-missing-translation.handler';
 
 import { DisplayComponent } from './display.component';
+import { TabComponent } from './tab/tab.component';
+import { SectionComponent } from './section/section.component';
+import { SubsectionComponent } from './subsection/subsection.component';
 
 import { routes } from './display.routes';
 
 @NgModule({
     declarations: [
-        DisplayComponent
+        DisplayComponent,
+        TabComponent,
+        SectionComponent,
+        SubsectionComponent
     ],
     imports: [
         CommonModule,

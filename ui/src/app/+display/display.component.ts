@@ -1,5 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
@@ -24,6 +23,19 @@ import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByType
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
 
+const hasRequiredFields = (requiredFields: string[], document: SolrDocument): boolean => {
+    for (const requiredField of requiredFields) {
+        if (document[requiredField] === undefined) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const sectionsToShow = (sections: DisplayTabSectionView[], document: SolrDocument): DisplayTabSectionView[] => {
+    return sections.filter((section: DisplayTabSectionView) => !section.hidden && hasRequiredFields(section.requiredFields, document));
+};
+
 @Component({
     selector: 'scholars-display',
     templateUrl: 'display.component.html',
@@ -45,7 +57,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
     private subscriptions: Subscription[];
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: string,
         private store: Store<AppState>,
         private route: ActivatedRoute
     ) {
@@ -154,16 +165,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 return combineLatest([scheduled([displayView], asap), combineLatest(lazyObservables)]);
                             }),
                             tap(([displayView, lazyReferences]) => {
-                                Object.assign(document, {
-                                    enableBadges: () => {
-                                        if (isPlatformBrowser(this.platformId)) {
-                                            setTimeout(() => {
-                                                window['_altmetric_embed_init']();
-                                                window['__dimensions_embed'].addBadges();
-                                            }, 1000);
-                                        }
-                                    }
-                                });
+                                console.log(displayView);
                                 console.log(document);
                                 lazyReferences.forEach((lazyReference) => {
                                     if (lazyReference[0].field && lazyReference[0].value) {
@@ -252,7 +254,7 @@ export class DisplayComponent implements OnDestroy, OnInit {
     }
 
     public getSectionsToShow(sections: DisplayTabSectionView[], document: SolrDocument): DisplayTabSectionView[] {
-        return sections.filter((section: DisplayTabSectionView) => !section.hidden && this.documentHasRequiredFields(section.requiredFields, document));
+        return sectionsToShow(sections, document);
     }
 
     public getTabsetType(windowDimensions: WindowDimensions): string {
@@ -274,15 +276,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
             }
         }
         return metaTags;
-    }
-
-    private documentHasRequiredFields(requiredFields: string[], document: SolrDocument): boolean {
-        for (const requiredField of requiredFields) {
-            if (document[requiredField] === undefined) {
-                return false;
-            }
-        }
-        return true;
     }
 
 }
