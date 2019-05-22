@@ -16,7 +16,7 @@ This replacement front end is based on <a href="https://lucene.apache.org/solr/"
 <li>100% Search Engine Optimization.  IE:  A person / crawler does not need JavaScript enabled for page rendering.  Server side, and Client side rendering if needed.</li>
 </ul>
 
-TAMULib Scholars currently harvest directly from VIVO’s triple store and for each high level model in VIVO there is a Solr collection and each of its document properties are populated from parsing response of a SparQL query in which isolates the desired value. We are using Spring Apache Solr with explicit Java models representing a Solr document and utilize the provided implementation of a CRUD repository of the Solr documents.  At runtime each Solr collection can be initiated and re-indexed if needed to dynamically pick up new fields added to VIVO’s triple store.
+TAMU Scholars currently harvest directly from VIVO’s triple store and for each high level model in VIVO there is a Solr collection and each of its document properties are populated from parsing response of a SparQL query in which isolates the desired value. We are using Spring Apache Solr with explicit Java models representing a Solr document and utilize the provided implementation of a CRUD repository of the Solr documents.  At runtime each Solr collection can be initiated and re-indexed if needed to dynamically pick up new fields added to VIVO’s triple store.
 
 ### Developer Documentation
 
@@ -25,4 +25,4 @@ TAMULib Scholars currently harvest directly from VIVO’s triple store and for e
 - [UI Documentation](https://github.com/TAMULib/Scholars/blob/master/ui/README.md)
 - [API Documentation](https://tamulib.github.io/Scholars)
 
-Please feel free to file any issues concerning TAMU Scholars to the issues section of the repository. Any questions concerning cap can be directed to [helpdesk@library.tamu.edu]()
+Please feel free to file any issues concerning TAMU Scholars to the issues section of the repository. Any questions concerning TAMU Scholars can be directed to [helpdesk@library.tamu.edu]()
