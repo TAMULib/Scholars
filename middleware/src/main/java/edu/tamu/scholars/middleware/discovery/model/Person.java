@@ -635,7 +635,7 @@ public class Person extends AbstractSolrDocument {
     private String researcherId;
 
     @Indexed(type = "whole_string")
-    @PropertySource(template = "person/twitter", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#twitterId")
+    @PropertySource(template = "person/twitter", predicate = "http://vivo.library.tamu.edu/ontology/TAMU#twitterID")
     private String twitter;
 
     @Indexed(type = "whole_string")
