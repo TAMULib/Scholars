@@ -7,7 +7,6 @@ export const environment = {
     production: true,
     language: 'en',
     hmr: false,
-    hasStoreDevTools: false,
     stompDebug: false,
     service: 'http://localhost:9000',
     vivoUrl: 'https://scholars.library.tamu.edu/vivo',

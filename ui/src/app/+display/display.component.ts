@@ -39,8 +39,7 @@ export const sectionsToShow = (sections: DisplayTabSectionView[], document: Solr
 @Component({
     selector: 'scholars-display',
     templateUrl: 'display.component.html',
-    styleUrls: ['display.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['display.component.scss']
 })
 export class DisplayComponent implements OnDestroy, OnInit {
 
@@ -165,8 +164,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 return combineLatest([scheduled([displayView], asap), combineLatest(lazyObservables)]);
                             }),
                             tap(([displayView, lazyReferences]) => {
-                                console.log(displayView);
-                                console.log(document);
                                 lazyReferences.forEach((lazyReference) => {
                                     if (lazyReference[0].field && lazyReference[0].value) {
                                         const property = {};
