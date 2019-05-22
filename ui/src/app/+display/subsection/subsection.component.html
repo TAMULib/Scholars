@@ -1,0 +1,21 @@
+<div *ngIf="getSubsectionCollection(document[subsection.field], subsection.filters) as resources">
+  <div class="mb-3" *ngIf="resources.length > 0">
+    <span class="font-weight-bold">{{subsection.name}}<span class="badge badge-light ml-2">{{resources.length}}</span></span>
+    <ul class="list-group">
+      <li class="list-group-item border-0" *ngFor="let resource of getSubsectionResources(resources, subsection.sort) | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+        <div [innerHtml]="subsection.templateFunction(resource) | safeHtml"></div>
+      </li>
+    </ul>
+    <div class="pagination-controls m-4" *ngIf="resources.length > pageSizeOptions[0]">
+      <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="resources.length" [maxSize]="maxSize" [rotate]="rotate" [ellipses]="ellipses" [boundaryLinks]="boundaryLinks" (pageChange)="onPageChange()" attr.aria-label="{{subsection.name}} pagination"></ngb-pagination>
+      <div class="page-control-divider"></div>
+      <div ngbDropdown class="d-inline-block" placement="bottom-right">
+        <button class="btn btn-outline-secondary" ngbDropdownToggle>{{pageSize}}</button>
+        <div ngbDropdownMenu>
+          <button ngbDropdownItem *ngFor="let pageSizeOption of pageSizeOptions" (click)="onPageSizeSelect(pageSizeOption)">{{pageSizeOption}}</button>
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>

@@ -24,4 +24,9 @@ body {
   a:hover {
     color: var(--link-color-hover);
   }
+
+  .__dimensions_badge_embed__ {
+    display: inline-block;
+    margin-top: -2px !important;
+  }
 }

@@ -1,4 +1,5 @@
 import { View } from './';
+import { Filter, Sort } from './collection-view';
 
 export enum Side {
     LEFT = 'LEFT',
@@ -10,12 +11,23 @@ export interface LazyReference {
     readonly collection: string;
 }
 
+export interface Subsection {
+    readonly name: string;
+    readonly field: string;
+    readonly filters: Filter[];
+    readonly sort: Sort[];
+    readonly template: string;
+    readonly pageSize: number;
+    templateFunction?: (document: any) => string;
+}
+
 export interface DisplayTabSectionView extends View {
     readonly hidden: boolean;
     readonly template: string;
     templateFunction?: (document: any) => string;
     readonly requiredFields: string[];
     readonly lazyReferences: LazyReference[];
+    readonly subsections: Subsection[];
 }
 
 export interface DisplayTabView extends View {

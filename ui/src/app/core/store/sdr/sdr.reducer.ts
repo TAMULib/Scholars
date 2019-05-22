@@ -94,6 +94,9 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         view.tabs.forEach(tab => {
             tab.sections.forEach(section => {
                 section.templateFunction = getTemplateFunction(section.template);
+                section.subsections.forEach(subsection => {
+                    subsection.templateFunction = getTemplateFunction(subsection.template);
+                });
             });
         });
         view.metaTemplateFunctions = {};

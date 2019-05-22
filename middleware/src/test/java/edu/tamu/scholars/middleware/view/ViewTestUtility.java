@@ -11,6 +11,7 @@ import org.springframework.data.solr.core.query.FacetOptions;
 
 import edu.tamu.scholars.middleware.view.model.DirectoryView;
 import edu.tamu.scholars.middleware.view.model.DiscoveryView;
+import edu.tamu.scholars.middleware.view.model.DisplayTabSectionSubsectionView;
 import edu.tamu.scholars.middleware.view.model.DisplayTabSectionView;
 import edu.tamu.scholars.middleware.view.model.DisplayTabView;
 import edu.tamu.scholars.middleware.view.model.DisplayView;
@@ -201,6 +202,36 @@ public class ViewTestUtility {
         lazyReferences.add(lazyReference);
 
         section.setLazyReferences(lazyReferences);
+
+        DisplayTabSectionSubsectionView subsection = new DisplayTabSectionSubsectionView();
+
+        subsection.setName("Test");
+        subsection.setField("publications");
+
+        Filter filter = new Filter();
+        filter.setField("type");
+        filter.setValue("Test");
+
+        List<Filter> filters = new ArrayList<Filter>();
+        filters.add(filter);
+
+        subsection.setFilters(filters);
+
+        Sort sort = new Sort();
+        sort.setField("date");
+        sort.setDirection(Direction.DESC);
+
+        List<Sort> sorting = new ArrayList<Sort>();
+        sorting.add(sort);
+
+        subsection.setSort(sorting);
+
+        subsection.setTemplate("<div>Subsection</div>");
+
+        List<DisplayTabSectionSubsectionView> subsections = new ArrayList<DisplayTabSectionSubsectionView>();
+        subsections.add(subsection);
+
+        section.setSubsections(subsections);
 
         sections.add(section);
 
