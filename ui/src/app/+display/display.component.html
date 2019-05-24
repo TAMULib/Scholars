@@ -23,16 +23,12 @@
       </div>
       <div class="row mt-4 mb-4">
         <div class="col-12">
-          <ngb-tabset [type]="getTabsetType(windowDimensions | async)" [orientation]="getTabOrientation(windowDimensions | async)" [activeId]="getSelectedTab() | async">
-            <ngb-tab *ngFor="let tab of getTabsToShow(displayView.tabs, document)" [id]="tab.name">
-              <ng-template ngbTabTitle>
-                <a [routerLink]="['.']" [fragment]="tab.name">{{tab.name}}</a>
-              </ng-template>
-              <ng-template ngbTabContent>
-                <scholars-tab [tab]="tab" [document]="document"></scholars-tab>
-              </ng-template>
-            </ngb-tab>
-          </ngb-tabset>
+          <ul class="nav" [ngClass]="{ 'nav-tabs': !isMobile(windowDimensions | async), 'flex-column nav-pills': isMobile(windowDimensions | async) }">
+            <li class="nav-item" *ngFor="let tab of getTabsToShow(displayView.tabs, document)">
+              <a class="nav-link" [routerLink]="getDisplayViewTabRoute(displayView, tab)" [routerLinkActive]="['active']">{{tab.name}}</a>
+            </li>
+          </ul>
+          <router-outlet></router-outlet>
         </div>
       </div>
     </div>

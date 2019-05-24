@@ -2,16 +2,17 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, Input, AfterViewInit, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
+import { Subscription } from 'rxjs';
+
 import { Direction } from '../../core/model/request';
 import { Filter, Sort } from '../../core/model/view';
 import { SolrDocument } from '../../core/model/discovery';
 import { Subsection } from '../../core/model/view/display-view';
 
 import { AppState } from '../../core/store';
+import { WindowDimensions } from '../../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../../core/store/layout';
-import { Subscription } from 'rxjs';
-import { WindowDimensions } from '../../core/store/layout/layout.reducer';
 
 @Component({
     selector: 'scholars-subsection',

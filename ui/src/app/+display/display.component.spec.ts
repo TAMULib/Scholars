@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
 
 import { DisplayComponent } from './display.component';
+import { TabComponent } from './tab/tab.component';
 
 import { routes } from './display.routes';
 
@@ -20,7 +21,8 @@ describe('DisplayComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                DisplayComponent
+                DisplayComponent,
+                TabComponent
             ],
             imports: [
                 SharedModule,

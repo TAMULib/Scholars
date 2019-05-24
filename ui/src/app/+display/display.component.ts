@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, Params, Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationStart } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
 
-import { Observable, Subscription, combineLatest, scheduled, BehaviorSubject } from 'rxjs';
+import { Observable, Subscription, combineLatest, scheduled } from 'rxjs';
 import { asap } from 'rxjs/internal/scheduler/asap';
 import { filter, tap, map, mergeMap } from 'rxjs/operators';
 
@@ -52,8 +52,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     public document: Observable<SolrDocument>;
 
-    public selectedTab: BehaviorSubject<string>;
-
     private subscriptions: Subscription[];
 
     constructor(
@@ -63,7 +61,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
         private changeDetRef: ChangeDetectorRef
     ) {
         this.subscriptions = [];
-        this.selectedTab = new BehaviorSubject<string>(undefined);
     }
 
     ngOnDestroy() {
@@ -78,11 +75,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
             select(selectDefaultDiscoveryView),
             filter((view: DiscoveryView) => view !== undefined)
         );
-        this.subscriptions.push(this.route.fragment.subscribe((fragment: string) => {
-            if (fragment) {
-                this.selectedTab.next(fragment);
-            }
-        }));
         this.subscriptions.push(this.router.events.pipe(
             filter(event => event instanceof NavigationStart)
         ).subscribe(() => {
@@ -102,6 +94,22 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                     this.store.dispatch(new fromSdr.FindByTypesInResourceAction('displayViews', {
                                         types: document.type
                                     }));
+                                } else if (displayView && !isLoading) {
+                                    if (this.route.children.length === 0) {
+                                        let tabName = 'View All';
+                                        if (displayView.name !== 'People') {
+                                            for (const tab of this.getTabsToShow(displayView.tabs, document)) {
+                                                if (!tab.hidden) {
+                                                    tabName = tab.name;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        this.router.navigate([displayView.name, tabName], {
+                                            relativeTo: this.route,
+                                            replaceUrl: true
+                                        });
+                                    }
                                 }
                             }),
                             filter(([displayView]) => displayView !== undefined),
@@ -207,8 +215,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
         }));
     }
 
-    public getSelectedTab(): Observable<string> {
-        return this.selectedTab.asObservable();
+    public getDisplayViewTabRoute(displayView: DisplayView, tab: DisplayTabView): string[] {
+        return [displayView.name, tab.name];
     }
 
     public showMainContent(displayView: DisplayView): boolean {
@@ -262,12 +270,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
         return sectionsToShow(sections, document);
     }
 
-    public getTabsetType(windowDimensions: WindowDimensions): string {
-        return windowDimensions.width > 767 ? 'tabs' : 'pills';
-    }
-
-    public getTabOrientation(windowDimensions: WindowDimensions): string {
-        return windowDimensions.width > 767 ? 'horizontal' : 'vertical';
+    public isMobile(windowDimensions: WindowDimensions): boolean {
+        return windowDimensions.width < 768;
     }
 
     private buildDisplayMetaTags(displayView: DisplayView, document: SolrDocument): MetaDefinition[] {

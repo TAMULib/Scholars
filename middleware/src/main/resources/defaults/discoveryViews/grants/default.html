@@ -4,22 +4,22 @@
 <div>
   <div>
     {{#dateTimeIntervalStart}}
-      {{#dateTimeIntervalEnd}}
-        <span class="label">Date:</span>
-        <span>{{dateTimeIntervalStart}}</span>
-        <span>-</span>
-        <span>{{dateTimeIntervalEnd}}</span>
-      {{/dateTimeIntervalEnd}}
-      {{^dateTimeIntervalEnd}}
-        <span class="label">Date:</span>
-        <span>{{dateTimeIntervalStart}}</span>
-      {{/dateTimeIntervalEnd}}
+    {{#dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    <span>{{dateTimeIntervalStart}}</span>
+    <span>-</span>
+    <span>{{dateTimeIntervalEnd}}</span>
+    {{/dateTimeIntervalEnd}}
+    {{^dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    <span>{{dateTimeIntervalStart}}</span>
+    {{/dateTimeIntervalEnd}}
     {{/dateTimeIntervalStart}}
     {{^dateTimeIntervalStart}}
-      {{#dateTimeIntervalEnd}}
-        <span class="label">Date:</span>
-        <span>{{dateTimeIntervalEnd}}</span>
-      {{/dateTimeIntervalEnd}}
+    {{#dateTimeIntervalEnd}}
+    <span class="label">Date:</span>
+    <span>{{dateTimeIntervalEnd}}</span>
+    {{/dateTimeIntervalEnd}}
     {{/dateTimeIntervalStart}}
   </div>
   {{#awardedBy.length}}
@@ -41,7 +41,7 @@
   <div>
     <ul>
       {{#principalInvestigators}}
-      <li><span><a href="display/persons/{{id}}#View All">{{label}}</a></span></li>
+      <li><span><a href="display/persons/{{id}}">{{label}}</a></span></li>
       {{/principalInvestigators}}
     </ul>
   </div>
@@ -53,7 +53,7 @@
   <div>
     <ul>
       {{#coPrincipalInvestigators}}
-      <li><span><a href="display/persons/{{id}}#View All">{{label}}</a></span></li>
+      <li><span><a href="display/persons/{{id}}">{{label}}</a></span></li>
       {{/coPrincipalInvestigators}}
     </ul>
   </div>
