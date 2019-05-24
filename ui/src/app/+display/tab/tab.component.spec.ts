@@ -3,7 +3,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 
 import { scheduled } from 'rxjs';
@@ -31,7 +30,6 @@ describe('TabComponent', () => {
                 StoreModule.forRoot(reducers, {
                     metaReducers
                 }),
-                TranslateModule.forRoot(),
                 RouterTestingModule.withRoutes(routes[0].children)
             ],
             providers: [

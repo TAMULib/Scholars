@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
         );
     }
 
-    @HostListener('click', ['$event'])
+    @HostListener('mousedown', ['$event'])
     public clickEvent(event): void {
         if (this.isPlatformBrowser) {
             const target = this.findLinkTarget(event.target, 1);

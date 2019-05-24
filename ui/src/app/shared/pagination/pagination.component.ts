@@ -26,6 +26,9 @@ export class PaginationComponent implements OnInit {
     public size: 'sm' | 'lg';
 
     @Input()
+    public queryPrefix: string;
+
+    @Input()
     public pageSizeOptions = [10, 25, 50, 100];
 
     public windowDimensions: Observable<WindowDimensions>;
@@ -102,7 +105,10 @@ export class PaginationComponent implements OnInit {
     }
 
     public getQueryParams(page: number, size: number): Params {
-        return { page, size };
+        const params: Params = {};
+        params[this.queryPrefix && this.queryPrefix.length > 0 ? `${this.queryPrefix}.page` : 'page'] = page;
+        params[this.queryPrefix && this.queryPrefix.length > 0 ? `${this.queryPrefix}.size` : 'size'] = size;
+        return params;
     }
 
 }
