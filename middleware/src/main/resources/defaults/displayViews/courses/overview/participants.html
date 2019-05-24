@@ -1,12 +1,12 @@
 <ul>
-  {{~ it.participants :participant}}
+  {{#participants}}
   <li>
     <div class="comma-seperated">
-      <span><a href="display/persons/{{=participant.id}}#View All">{{=participant.label}}</a></span>
-      <!-- <span>{{=participant.role}}</span> -->
+      <span><a href="display/persons/{{id}}#View All">{{label}}</a></span>
+      <span>{{role}}</span>
     </div>
   </li>
-  {{~}}
+  {{/participants}}
 </ul>
 <style>
   .comma-seperated span:after {

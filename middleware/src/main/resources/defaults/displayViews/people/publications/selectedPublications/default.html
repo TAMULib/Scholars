@@ -9,29 +9,6 @@
   <span><em>{{publicationVenue.label}}</em>. </span>
   {{/publicationVenue}}
 
-  {{#editorList}}
-  <span>{{editorList}} (Eds.),</span>
-  {{/editorList}}
-  <span>{{bookTitle}}.</span>
-
-  {{#pageStart}}
-  {{#pageEnd}}
-  <span>(pp. {{pageStart}}-{{pageEnd}}).</span>
-  {{/pageEnd}}
-  {{^pageEnd}}
-  <span>(pp. {{pageStart}}).</span>
-  {{/pageEnd}}
-  {{/pageStart}}
-  {{^pageStart}}
-  {{#pageEnd}}
-  <span>(pp. {{pageEnd}}).</span>
-  {{/pageEnd}}
-  {{/pageStart}}
-
-  {{#publisher}}
-  <span>{{publisher.label}}.</span>
-  {{/publisher}}
-
   {{#volume}}
   {{#issue}}
   <span>{{volume}}({{issue}}), </span>
@@ -45,7 +22,6 @@
   <span>({{issue}}), </span>
   {{/issue}}
   {{/volume}}
-
 
 </div>
 <div>

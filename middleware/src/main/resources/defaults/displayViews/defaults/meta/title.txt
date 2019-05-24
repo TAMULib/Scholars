@@ -1,6 +1,8 @@
-{{? it.name }}
-{{=it.name}}
-{{?}}
-{{? it.title && !it.name }}
-{{=it.title}}
-{{?}}
+{{#name}}
+{{name}}
+{{/name}}
+{{^name}}
+  {{#title}}
+  {{title}}
+  {{/title}}
+{{/name}}

@@ -1,7 +1,7 @@
 <ul>
-  {{~ it.awardedBy :awardedBy}}
+  {{#awardedBy}}
   <li>
-    <span><a href="display/organizations/{{=awardedBy.id}}">{{=awardedBy.label}}</a></span>
+    <span><a href="display/organizations/{{id}}">{{label}}</a></span>
   </li>
-  {{~}}
+  {{/awardedBy}}
 </ul>

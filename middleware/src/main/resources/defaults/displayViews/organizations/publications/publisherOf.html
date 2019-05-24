@@ -1,15 +1,13 @@
 <ul>
-  {{~ it.publisherOf :publisherOf}}
+  {{#publisherOf}}
   <li>
     <div class="comma-seperated">
-      <span><a href="display/documents/{{=publisherOf.id}}">{{=publisherOf.label}}</a></span>
-      <span>{{=publisherOf.formalType}}</span>
-      {{ publisherOf.dateYear = new Date(publisherOf.date).getFullYear(); { }}
-      <span>{{=publisherOf.dateYear}}</span>
-      {{ } }}
+      <span><a href="display/documents/{{id}}">{{label}}</a></span>
+      <span>{{formalType}}</span>
+      <span>{{date}}</span>
     </div>
   </li>
-  {{~}}
+  {{/publisherOf}}
 </ul>
 <style>
   .comma-seperated span:after {

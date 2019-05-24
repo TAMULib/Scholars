@@ -1,15 +1,15 @@
-<span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
+<span><a href="display/{{collection}}/{{id}}">{{title}}</a></span>
 <!-- TODO: ensure participants have role Instructor -->
-{{? it.participants }}
+{{#participants.length}}
 <div>
   <span class="label">Instructors:</span>
   <ul>
-    {{~it.participants :participant}}
-    <li><span><a href="display/concepts/{{=participant.id}}">{{=participant.label}}</a></span></li>
-    {{~}}
+    {{#participants}}
+    <li><span><a href="display/concepts/{{this.id}}">{{this.label}}</a></span></li>
+    {{/participants}}
   </ul>
 </div>
-{{?}}
+{{/participants.length}}
 <style>
   .label {
     font-weight: 550;

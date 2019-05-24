@@ -1,22 +1,22 @@
 <div>
   <span class="h3">
-    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a>
+    <a href="display/{{collection}}/{{id}}">{{name}}</a>
   </span>
   <span class="h3 lead font-weight-normal text-nowrap text-secondary">
     <span class="ml-1">|</span>
-    <span class="ml-1">{{=it.formalType}}</span>
-    <span class="ml-1"><a href="{{=it.vivoUrl}}/individual/{{=it.id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
+    <span class="ml-1">{{formalType}}</span>
+    <span class="ml-1"><a href="{{vivoUrl}}/individual/{{id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
   </span>
-  {{? it.associatedDepartments }}
+  {{#associatedDepartments.length}}
   <div class="mt-1">
     <span class="label">Associated Departments:</span>
   </div>
   <div class="comma-seperated ml-1">
-    {{~it.associatedDepartments :associatedDepartment}}
-    <span><a href="display/organizations/{{=associatedDepartment.id}}">{{=associatedDepartment.label}}</a></span>
-    {{~}}
+    {{#associatedDepartments}}
+    <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+    {{/associatedDepartments}}
   </div>
-  {{?}}
+  {{/associatedDepartments.length}}
 </div>
 <style>
   .label {

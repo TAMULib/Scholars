@@ -1,1 +1,1 @@
-{{~it.affiliatedResearchAreas :researchArea:index}}{{=researchArea.label}}{{? index < it.affiliatedResearchAreas.length - 1 }}, {{?}}{{~}}
+{{#affiliatedResearchAreas}}{{label}}, {{/affiliatedResearchAreas}}

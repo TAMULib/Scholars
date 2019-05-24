@@ -11,7 +11,7 @@ import { formalize } from '../../../shared/utilities/formalize.pipe';
 
 import { environment } from '../../../../environments/environment';
 
-import * as doT from 'dot';
+import { render, parse } from 'mustache';
 
 export interface SdrState<R extends SdrResource> extends EntityState<R> {
     page: SdrPage;
@@ -56,54 +56,53 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         }
     };
     const getTemplateFunction = (template: string) => (resource: any) => {
-        if (resource.uri !== undefined) {
-            resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
+        if (template && template.length > 0) {
+            if (resource.uri !== undefined) {
+                resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
+            }
+            resource.vivoUrl = environment.vivoUrl;
+            formalizeTypes(resource);
+            return render(template, resource);
         }
-        resource.vivoUrl = environment.vivoUrl;
-        const templateFunction = doT.template(template);
-        formalizeTypes(resource);
-        return templateFunction(resource);
+        return '';
     };
-    const getResourceViewTemplateFunction = (view: ResourceView, template: string) => (resource: any) => {
-        resource.collection = view.collection;
-        const templateFunction = getTemplateFunction(template);
-        return templateFunction(resource);
+    const getParsedTemplateFunction = (template: string) => {
+        parse(template);
+        return getTemplateFunction(template);
+    };
+    const getParsedResourceViewTemplateFunction = (view: ResourceView, template: string) => {
+        parse(template);
+        return (resource: any) => {
+            resource.collection = view.collection;
+            const templateFunction = getTemplateFunction(template);
+            return templateFunction(resource);
+        };
     };
     const augmentCollectionViewTemplates = (view: CollectionView) => {
         view.templateFunctions = {};
         for (const k in view.templates) {
             if (view.templates.hasOwnProperty(k)) {
-                const template = view.templates[k];
-                view.templateFunctions[k] = getResourceViewTemplateFunction(view, template);
+                view.templateFunctions[k] = getParsedResourceViewTemplateFunction(view, view.templates[k]);
             }
         }
     };
     const augmentDisplayViewTemplates = (view: DisplayView) => {
-        if (view.mainContentTemplate && view.mainContentTemplate.length > 0) {
-            view.mainContentTemplateFunction = doT.template(view.mainContentTemplate);
-        }
-        if (view.leftScanTemplate && view.leftScanTemplate.length > 0) {
-            view.leftScanTemplateFunction = doT.template(view.leftScanTemplate);
-        }
-        if (view.rightScanTemplate && view.rightScanTemplate.length > 0) {
-            view.rightScanTemplateFunction = doT.template(view.rightScanTemplate);
-        }
-        if (view.asideTemplate && view.asideTemplate.length > 0) {
-            view.asideTemplateFunction = doT.template(view.asideTemplate);
-        }
+        view.mainContentTemplateFunction = getParsedTemplateFunction(view.mainContentTemplate);
+        view.leftScanTemplateFunction = getParsedTemplateFunction(view.leftScanTemplate);
+        view.rightScanTemplateFunction = getParsedTemplateFunction(view.rightScanTemplate);
+        view.asideTemplateFunction = getParsedTemplateFunction(view.asideTemplate);
         view.tabs.forEach(tab => {
             tab.sections.forEach(section => {
-                section.templateFunction = getTemplateFunction(section.template);
+                section.templateFunction = getParsedTemplateFunction(section.template);
                 section.subsections.forEach(subsection => {
-                    subsection.templateFunction = getTemplateFunction(subsection.template);
+                    subsection.templateFunction = getParsedTemplateFunction(subsection.template);
                 });
             });
         });
         view.metaTemplateFunctions = {};
         for (const k in view.metaTemplates) {
             if (view.metaTemplates.hasOwnProperty(k)) {
-                const template = view.metaTemplates[k];
-                view.metaTemplateFunctions[k] = getTemplateFunction(template);
+                view.metaTemplateFunctions[k] = getParsedTemplateFunction(view.metaTemplates[k]);
             }
         }
     };
@@ -112,10 +111,10 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
         switch (key) {
             case 'directoryViews':
             case 'discoveryViews':
-                resources.forEach(view => augmentCollectionViewTemplates(view));
+                resources.forEach(resource => augmentCollectionViewTemplates(resource));
                 break;
             case 'displayViews':
-                resources.forEach(view => augmentDisplayViewTemplates(view));
+                resources.forEach(resource => augmentDisplayViewTemplates(resource));
                 break;
         }
         return resources;

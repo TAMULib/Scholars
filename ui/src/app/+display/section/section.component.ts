@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { DisplayTabSectionView } from '../../core/model/view';
 import { SolrDocument } from '../../core/model/discovery';
@@ -6,7 +6,8 @@ import { SolrDocument } from '../../core/model/discovery';
 @Component({
     selector: 'scholars-section',
     templateUrl: './section.component.html',
-    styleUrls: ['./section.component.scss']
+    styleUrls: ['./section.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SectionComponent {
 

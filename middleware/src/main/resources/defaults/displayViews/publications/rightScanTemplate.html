@@ -1,8 +1,10 @@
 <div class="d-flex h-100 justify-content-center align-items-center">
-  {{? it.uri}}
-  <span class="altmetric-embed mr-1" data-badge-type='donut' data-hide-no-mentions="true" data-badge-popover="left" data-handle="{{=it.uri}}"></span>
-  {{?}}
-  {{? it.doi && !it.uri}}
-  <span class="altmetric-embed mr-1" data-badge-type='donut' data-hide-no-mentions="true" data-badge-popover="left" data-doi="{{=it.doi}}"></span>
-  {{?}}
+  {{#uri}}
+  <span class="altmetric-embed mr-1" data-badge-type='donut' data-hide-no-mentions="true" data-badge-popover="left" data-handle="{{uri}}"></span>
+  {{/uri}}
+  {{^uri}}
+    {{#doi}}
+    <span class="altmetric-embed mr-1" data-badge-type='donut' data-hide-no-mentions="true" data-badge-popover="left" data-doi="{{doi}}"></span>
+    {{/doi}}
+  {{/uri}}
 </div>

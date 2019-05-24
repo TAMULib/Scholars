@@ -428,11 +428,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/dot@1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@types/dot/-/dot-1.1.3.tgz#8eccaa9b74ff47d05d847449ab2f0fe4ae939909"
-  integrity sha512-5YUo/cBLGv/U784JjBExlHhjM3PvUDjGY4DvPjL0FolKU/kMe4v3k+of9NNFdq/vAmjFApirIwgcOcZgG7zEJQ==
-
 "@types/events@*":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
@@ -486,6 +481,11 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.0.tgz#5a7306e367c539b9f6543499de8dd519fac37a8b"
   integrity sha512-A2TAGbTFdBw9azHbpVd+/FkdW2T6msN1uct1O9bH3vTerEHKZhTXJUQXy+hNq1B0RagfU8U+KBdqiZpxjhOUQA==
+
+"@types/mustache@0.8.32":
+  version "0.8.32"
+  resolved "https://registry.yarnpkg.com/@types/mustache/-/mustache-0.8.32.tgz#7db3b81f2bf450bd38805f596d20eca97c4ed595"
+  integrity sha512-RTVWV485OOf4+nO2+feurk0chzHkSjkjALiejpHltyuMf/13fGymbbNNFrSKdSSUg1TIwzszXdWsVirxgqYiFA==
 
 "@types/node@*":
   version "10.12.18"
@@ -2388,11 +2388,6 @@ domino@^2.1.0:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/domino/-/domino-2.1.3.tgz#0ca1ad02cbd316ebe2e99e0ac9fb0010407d4601"
   integrity sha512-EwjTbUv1Q/RLQOdn9k7ClHutrQcWGsfXaRQNOnM/KgK4xDBoLFEcIRFuBSxAx13Vfa63X029gXYrNFrSy+DOSg==
-
-dot@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/dot/-/dot-1.1.2.tgz#c7377019fc4e550798928b2b9afeb66abfa1f2f9"
-  integrity sha1-xzdwGfxOVQeYkosrmv62ar+h8vk=
 
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.6.1"
@@ -4829,6 +4824,11 @@ multicast-dns@^6.0.1:
   dependencies:
     dns-packet "^1.3.1"
     thunky "^1.0.2"
+
+mustache@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mustache/-/mustache-3.0.1.tgz#873855f23aa8a95b150fb96d9836edbc5a1d248a"
+  integrity sha512-jFI/4UVRsRYdUbuDTKT7KzfOp7FiD5WzYmmwNwXyUVypC0xjoTL78Fqc0jHUPIvvGD+6DQSPHIt1NE7D1ArsqA==
 
 mute-stream@0.0.7:
   version "0.0.7"

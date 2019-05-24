@@ -1,28 +1,28 @@
 <div>
   <span class="h3">
-    <a href="display/persons/{{=it.id}}#View All">{{=it.name}}</a>
+    <a href="display/persons/{{id}}#View All">{{name}}</a>
   </span>
-  <span class="ml-1"><a href="{{=it.vivoUrl}}/individual/{{=it.id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
+  <span class="ml-1"><a href="{{vivoUrl}}/individual/{{id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
   <div class="mt-1">
-    <h5>{{=it.preferredTitle}}</h5>
+    <h5>{{preferredTitle}}</h5>
   </div>
-  {{? it.positions }}
+  {{#positions.length}}
   <div>
     <span class="label">Positions:</span>
     <ul class="list-unstyled ml-1">
-      {{~it.positions :position}}
+      {{#positions}}
       <li>
         <div class="comma-seperated">
-          <span>{{=position.label}}</span>
-          {{~position.organizations :organization}}
-          <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
-          {{~}}
+          <span>{{label}}</span>
+          {{#organizations}}
+          <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+          {{/organizations}}
         </div>
       </li>
-      {{~}}
+      {{/positions}}
     </ul>
   </div>
-  {{?}}
+  {{/positions.length}}
 </div>
 <style>
   .label {

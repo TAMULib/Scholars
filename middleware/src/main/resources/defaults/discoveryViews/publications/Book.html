@@ -1,57 +1,53 @@
 <div class="d-flex flex-nowrap justify-content-between mb-1">
   <span>
-    {{? it.title}}
-    {{ it.unescapedTitle = it.title.replace(/\\/g, ""); { }}
-    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.unescapedTitle}}</a>
-    {{ } }}
-    {{?}}
-    {{? !it.title}}
-    <a href="display/{{=it.collection}}/{{=it.id}}">No title available ({{=it.id}})</a>
-    {{?}}
+    {{#title}}
+    <a href="display/{{collection}}/{{id}}">{{title}}</a>
+    {{/title}}
+    {{^title}}
+    <a href="display/{{collection}}/{{id}}">No title available ({{id}})</a>
+    {{/title}}
   </span>
-  <span class="badge badge-light">{{=it.formalType}}</span>
+  <span class="badge badge-light">{{formalType}}</span>
 </div>
 <div>
   <div>
     <span class="label">Publication Date:</span>
-    {{ it.publicationDateYear = new Date(it.publicationDate).getFullYear(); { }}
-    <span>{{=it.publicationDateYear}}</span>
-    {{ } }}
+    <span>{{publicationDate}}</span>
   </div>
-  {{? it.publisher }}
+  {{#publisher}}
   <div>
     <span class="label">Publisher:</span>
-    <span><a href="display/organizations/{{=it.publisher.id}}">{{=it.publisher.label}}</a></span>
+    <span><a href="display/organizations/{{publisher.id}}">{{publisher.label}}</a></span>
   </div>
-  {{?}}
-  {{? it.authors }}
+  {{/publisher}}
+  {{#authors.length}}
   <div>
     <span class="label">TAMU Faculty Authors (Claimed):</span>
     <ul>
-      {{~it.authors :author}}
+      {{#authors}}
       <li>
         <div class="comma-seperated">
-          <span><a href="display/persons/{{=author.id}}#View All">{{=author.label}}</a></span>
-          {{~author.organizations :organization}}
-          <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
-          {{~}}
+          <span><a href="display/persons/{{id}}#View All">{{label}}</a></span>
+          {{#organizations}}
+          <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+          {{/organizations}}
         </div>
       </li>
-      {{~}}
+      {{/authors}}
     </ul>
   </div>
-  {{?}}
+  {{/authors.length}}
 </div>
 <div class="d-flex">
-  {{? it.doi}}
-  <span clsas="mr-1"><a href="https://dx.doi.org/{{=it.doi}}"><img src="assets/images/doi-badge.jpg" width="100" alt="doi badge" /></a></span>
-  {{?}}
-  {{? it.pmcid}}
-  <span clsas="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{=it.pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" alt="pubmed badge" /></a></span>
-  {{?}}
-  {{? it.uri}}
-  <span clsas="mr-1"><a href="{{=it.uri}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge" /></a></span>
-  {{?}}
+  {{#doi}}
+  <span clsas="mr-1"><a href="https://dx.doi.org/{{doi}}"><img src="assets/images/doi-badge.jpg" width="100" alt="doi badge"></a></span>
+  {{/doi}}
+  {{#pmcid}}
+  <span clsas="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" alt="pubmed badge"></a></span>
+  {{/pmcid}}
+  {{#uri}}
+  <span clsas="mr-1"><a href="{{uri}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge"></a></span>
+  {{/uri}}
 </div>
 <style>
   .label {

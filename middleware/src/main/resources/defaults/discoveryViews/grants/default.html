@@ -1,67 +1,63 @@
 <div class="d-flex">
-  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
+  <span><a href="display/{{collection}}/{{id}}">{{title}}</a></span>
 </div>
 <div>
   <div>
-    {{? it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
-    <span class="label">Date:</span>
-    {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
-    <span>{{=it.dateTimeIntervalStart}}</span>
-    {{ } }}
-    <span>-</span>
-    {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
-    <span>{{=it.dateTimeIntervalEnd}}</span>
-    {{ } }}
-    {{?}}
-    {{? it.dateTimeIntervalStart && !it.dateTimeIntervalEnd }}
-    <span class="label">Date:</span>
-    {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
-    <span>{{=it.dateTimeIntervalStart}}</span>
-    {{ } }}
-    {{?}}
-    {{? !it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
-    <span class="label">Date:</span>
-    {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
-    <span>{{=it.dateTimeIntervalEnd}}</span>
-    {{ } }}
-    {{?}}
+    {{#dateTimeIntervalStart}}
+      {{#dateTimeIntervalEnd}}
+        <span class="label">Date:</span>
+        <span>{{dateTimeIntervalStart}}</span>
+        <span>-</span>
+        <span>{{dateTimeIntervalEnd}}</span>
+      {{/dateTimeIntervalEnd}}
+      {{^dateTimeIntervalEnd}}
+        <span class="label">Date:</span>
+        <span>{{dateTimeIntervalStart}}</span>
+      {{/dateTimeIntervalEnd}}
+    {{/dateTimeIntervalStart}}
+    {{^dateTimeIntervalStart}}
+      {{#dateTimeIntervalEnd}}
+        <span class="label">Date:</span>
+        <span>{{dateTimeIntervalEnd}}</span>
+      {{/dateTimeIntervalEnd}}
+    {{/dateTimeIntervalStart}}
   </div>
-  {{? it.awardedBy }}
+  {{#awardedBy.length}}
   <div>
     <span class="label">Awarded By:</span>
   </div>
   <div>
     <ul>
-      {{~it.awardedBy :awardedBy}}
-      <li><span><a href="display/organizations/{{=awardedBy.id}}">{{=awardedBy.label}}</a></span></li>
-      {{~}}
+      {{#awardedBy}}
+      <li><span><a href="display/organizations/{{id}}">{{label}}</a></span></li>
+      {{/awardedBy}}
     </ul>
   </div>
-  {{?}}
-  {{? it.principalInvestigators }}
+  {{/awardedBy.length}}
+  {{#principalInvestigators.length}}
   <div>
     <span class="label">Principal Investigators:</span>
   </div>
   <div>
     <ul>
-      {{~it.principalInvestigators :principalInvestigator}}
-      <li><span><a href="display/persons/{{=principalInvestigator.id}}#View All">{{=principalInvestigator.label}}</a></span></li>
-      {{~}}
+      {{#principalInvestigators}}
+      <li><span><a href="display/persons/{{id}}#View All">{{label}}</a></span></li>
+      {{/principalInvestigators}}
     </ul>
   </div>
-  {{?}}
-  {{? it.coPrincipalInvestigators}}
+  {{/principalInvestigators.length}}
+  {{#coPrincipalInvestigators.length}}
   <div>
     <span class="label">Co-Principal Investigators:</span>
   </div>
   <div>
     <ul>
-      {{~it.coPrincipalInvestigators :coPrincipalInvestigator}}
-      <li><span><a href="display/persons/{{=coPrincipalInvestigator.id}}#View All">{{=coPrincipalInvestigator.label}}</a></span></li>
-      {{~}}
+      {{#coPrincipalInvestigators}}
+      <li><span><a href="display/persons/{{id}}#View All">{{label}}</a></span></li>
+      {{/coPrincipalInvestigators}}
     </ul>
   </div>
-  {{?}}
+  {{/coPrincipalInvestigators.length}}
 </div>
 <style>
   .label {

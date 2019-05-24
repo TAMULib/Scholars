@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, Input, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, Input, AfterViewInit, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { Direction } from '../../core/model/request';
@@ -16,7 +16,8 @@ import { WindowDimensions } from '../../core/store/layout/layout.reducer';
 @Component({
     selector: 'scholars-subsection',
     templateUrl: './subsection.component.html',
-    styleUrls: ['./subsection.component.scss']
+    styleUrls: ['./subsection.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubsectionComponent implements AfterViewInit, OnInit, OnDestroy {
 

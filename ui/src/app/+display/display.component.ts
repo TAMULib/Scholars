@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Params, Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
@@ -39,7 +39,8 @@ export const sectionsToShow = (sections: DisplayTabSectionView[], document: Solr
 @Component({
     selector: 'scholars-display',
     templateUrl: 'display.component.html',
-    styleUrls: ['display.component.scss']
+    styleUrls: ['display.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayComponent implements OnDestroy, OnInit {
 
@@ -57,7 +58,9 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     constructor(
         private store: Store<AppState>,
-        private route: ActivatedRoute
+        private router: Router,
+        private route: ActivatedRoute,
+        private changeDetRef: ChangeDetectorRef
     ) {
         this.subscriptions = [];
         this.selectedTab = new BehaviorSubject<string>(undefined);
@@ -79,6 +82,11 @@ export class DisplayComponent implements OnDestroy, OnInit {
             if (fragment) {
                 this.selectedTab.next(fragment);
             }
+        }));
+        this.subscriptions.push(this.router.events.pipe(
+            filter(event => event instanceof NavigationStart)
+        ).subscribe(() => {
+            this.changeDetRef.markForCheck();
         }));
         this.subscriptions.push(this.route.params.subscribe((params: Params) => {
             if (params.collection && params.id) {

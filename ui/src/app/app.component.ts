@@ -44,12 +44,15 @@ export class AppComponent implements OnInit {
 
     @HostListener('click', ['$event'])
     public clickEvent(event): void {
-        if (this.isPlatformBrowser && event.target.href && event.target.href.indexOf(event.target.baseURI) >= 0) {
-            const path = event.target.href.replace(event.target.baseURI, '');
-            if (path.length > 0 && path.indexOf('mailto:') < 0 && path.indexOf('tel:') < 0) {
-                event.preventDefault();
-                event.stopPropagation();
-                this.store.dispatch(new fromRouter.Link({ url: path }));
+        if (this.isPlatformBrowser) {
+            const target = this.findLinkTarget(event.target, 1);
+            if (target.href && target.href.indexOf(target.baseURI) >= 0) {
+                const path = target.href.replace(target.baseURI, '');
+                if (path.length > 0 && path.indexOf('mailto:') < 0 && path.indexOf('tel:') < 0) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.store.dispatch(new fromRouter.Link({ url: path }));
+                }
             }
         }
     }
@@ -64,6 +67,10 @@ export class AppComponent implements OnInit {
 
     private dispatchResizeWindowAction(windowDimensions: WindowDimensions): void {
         this.store.dispatch(new fromLayout.ResizeWindowAction({ windowDimensions }));
+    }
+
+    private findLinkTarget(target: any, depth: number): any {
+        return target.href ? target : depth < 3 ? this.findLinkTarget(target.parentElement, ++depth) : target;
     }
 
 }

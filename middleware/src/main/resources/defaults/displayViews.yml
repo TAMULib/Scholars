@@ -114,7 +114,7 @@
         - field: publicationDate
           direction: DESC
           date: true
-        template: "defaults/displayViews/people/publications/selectedPublications/academicArticle.html"
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
       - name: Books
         field: publications
         filters:
@@ -150,7 +150,7 @@
         - field: publicationDate
           direction: DESC
           date: true
-        template: "defaults/displayViews/people/publications/selectedPublications/greyLiterature.html"
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
       - name: Conference Papers
         field: publications
         filters:
@@ -162,7 +162,7 @@
         - field: publicationDate
           direction: DESC
           date: true
-        template: "defaults/displayViews/people/publications/selectedPublications/conferencePaper.html"
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
       - name: Patents
         field: publications
         filters:
@@ -174,7 +174,7 @@
         - field: publicationDate
           direction: DESC
           date: true
-        template: "defaults/displayViews/people/publications/selectedPublications/patent.html"
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
       - name: Thesis
         field: publications
         filters:
@@ -186,7 +186,7 @@
         - field: publicationDate
           direction: DESC
           date: true
-        template: "defaults/displayViews/people/publications/selectedPublications/thesis.html"
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
       - name: Working Papers
         field: publications
         filters:
@@ -198,7 +198,7 @@
         - field: publicationDate
           direction: DESC
           date: true
-        template: "defaults/displayViews/people/publications/selectedPublications/workingPaper.html"
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
     - name: collection or series editor for
       hidden: false
       template: "defaults/displayViews/people/publications/collectionOrSeriesEditorFor.html"

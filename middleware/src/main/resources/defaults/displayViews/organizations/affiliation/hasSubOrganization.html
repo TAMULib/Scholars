@@ -1,7 +1,7 @@
 <ul class="list-unstyled">
-  {{~it.hasSubOrganizations :organization}}
+  {{#hasSubOrganizations}}
   <li>
-    <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
+    <span><a href="display/organizations/{{id}}">{{label}}</a></span>
   </li>
-  {{~}}
+  {{/hasSubOrganizations}}
 </ul>

@@ -421,7 +421,7 @@ export class SdrEffects {
 
                             const sidebarItem: SidebarItem = {
                                 type: SidebarItemType.FACET,
-                                label: scheduled([formalize(facetEntry.value)], asap),
+                                label: scheduled([facet.field === 'type' ? formalize(facetEntry.value) : facetEntry.value], asap),
                                 facet: facet,
                                 selected: selected,
                                 parenthetical: facetEntry.count,

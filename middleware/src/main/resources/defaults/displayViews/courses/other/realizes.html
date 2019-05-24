@@ -1,10 +1,8 @@
 <div>
-{{? it.participant }}
-{{~ it.participant :participant}}
+{{#participants}}
 <div class="mb-1">
-	<span class="mr-1"><a href="display/processes/{{=participant.id}}">{{=participant.label}}</a>,</span>
-	<span>{{=participant.role}}</span>
+  <span class="mr-1"><a href="display/processes/{{id}}">{{label}}</a>,</span>
+  <span>{{role}}</span>
 </div>
-{{~}}
-{{?}}
+{{/participants}}
 </div>

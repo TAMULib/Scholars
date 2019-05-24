@@ -1,20 +1,20 @@
 <div class="d-flex">
   <div class="mr-4">
     <div>
-      {{? it.thumbnail}}
-      <img src="https://scholars.library.tamu.edu/vivo{{=it.thumbnail}}" class="rounded-circle" height="60" width="60" alt="{{=it.name}} thumbnail image">
-      {{?}}
-      {{? !it.thumbnail}}
-      <img src="assets/images/default-avatar.png" class="rounded-circle" height="60" width="60" alt="default avatar thumbnail image">
-      {{?}}
+      {{#thumbnail}}
+      <img src="https://scholars.library.tamu.edu/vivo{{thumbnail}}" class="rounded-circle" height="60" width="60" alt="{{name}} thumbnail image" />
+      {{/thumbnail}}
+      {{^thumbnail}}
+      <img src="assets/images/default-avatar.png" class="rounded-circle" height="60" width="60" alt="default avatar thumbnail image" />
+      {{/thumbnail}}
     </div>
   </div>
   <div class="align-self-center">
     <div>
-      <span><a href="display/persons/{{=it.id}}#View All">{{=it.name}}</a></span>
+      <span><a href="display/persons/{{id}}#View All">{{name}}</a></span>
     </div>
     <div>
-      <span>{{=it.preferredTitle}}</span>
+      <span>{{preferredTitle}}</span>
     </div>
   </div>
 </div>

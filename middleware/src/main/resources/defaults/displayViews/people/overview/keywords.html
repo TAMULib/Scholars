@@ -1,7 +1,7 @@
 <ul>
-  {{~ it.keywords :keyword}}
+  {{#keywords}}
   <li>
-    <span>{{=keyword}}</span>
+    <span>{{.}}</span>
   </li>
-  {{~}}
+  {{/keywords}}
 </ul>

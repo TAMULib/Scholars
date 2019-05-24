@@ -1,1 +1,1 @@
-{{=it.name}}{{? it.organizationWithin }} - {{~it.organizationWithin :organization:index}}{{=organization.label}}{{? index < it.organizationWithin.length - 1 }}, {{?}}{{~}};{{?}} {{? it.geographicLocation}} - {{=it.geographicLocation.label}}{{?}}
+{{name}}{{#organizationWithin.length}} - {{#organizationWithin}}{{label}}, {{/organizationWithin}};{{/organizationWithin.length}} {{#geographicLocation}} - {{label}}{{/geographicLocation}}

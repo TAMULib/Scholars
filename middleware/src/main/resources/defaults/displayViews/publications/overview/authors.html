@@ -1,7 +1,7 @@
 <ul class="list-unstyled">
-  {{~ it.authors :author}}
+  {{#authors}}
   <li>
-    <span><a href="display/persons/{{=author.id}}#View All">{{=author.label}}</a></span>
+    <span><a href="display/persons/{{id}}#View All">{{label}}</a></span>
   </li>
-  {{~}}
+  {{/authors}}
 </ul>

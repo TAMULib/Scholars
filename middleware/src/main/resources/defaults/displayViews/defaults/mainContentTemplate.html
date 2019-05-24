@@ -1,15 +1,17 @@
 <div>
   <span class="h3">
-    {{? it.title }}
-    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a>
-    {{?}}
-    {{? it.name }}
-    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a>
-    {{?}}
+    {{#title}}
+    <a href="display/{{collection}}/{{id}}">{{title}}</a>
+    {{/title}}
+    {{^title}}
+      {{#name}}
+      <a href="display/{{collection}}/{{id}}">{{name}}</a>
+      {{/name}}
+    {{/title}}
   </span>
   <span class="h3 lead font-weight-normal text-nowrap text-secondary">
     <span class="ml-1">|</span>
-    <span class="ml-1">{{=it.formalType}}</span>
-    <span class="ml-1"><a href="{{=it.vivoUrl}}/individual/{{=it.id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
+    <span class="ml-1">{{formalType}}</span>
+    <span class="ml-1"><a href="{{vivoUrl}}/individual/{{id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
   </span>
 </div>
