@@ -531,7 +531,8 @@
   - University
   mainContentTemplate: "defaults/displayViews/organizations/mainContentTemplate.html"
   leftScanTemplate: "defaults/displayViews/organizations/leftScanTemplate.html"
-  rightScanTemplate: "defaults/displayViews/organizations/rightScanTemplate.html"
+  asideTemplate: "defaults/displayViews/organizations/aside.html"
+  asideLocation: RIGHT
   metaTemplates:
     title: "defaults/displayViews/organizations/meta/title.txt"
     description: "defaults/displayViews/organizations/meta/description.txt"

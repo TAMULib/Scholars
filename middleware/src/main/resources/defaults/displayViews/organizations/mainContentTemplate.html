@@ -12,27 +12,7 @@
     <span class="ml-1"><a href="{{vivoUrl}}/individual/{{id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
   </span>
 </div>
-<div>
-  {{#affiliatedResearchAreas.length}}
-  <div class="mt-1">
-    <span class="label">Research Areas:</span>
-  </div>
-  <div class="ml-1">
-    <div class="comma-seperated">
-      {{#affiliatedResearchAreas}}
-      <span><a href="display/concepts/{{id}}">{{label}}</a></span>
-      {{/affiliatedResearchAreas}}
-    </div>
-  </div>
-  {{/affiliatedResearchAreas.length}}
-</div>
-
 <style>
-  .label {
-    font-weight: 550;
-    margin-right: 2px;
-  }
-
   .pipe-seperated span:after {
     content: " | ";
   }
