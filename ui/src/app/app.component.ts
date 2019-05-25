@@ -42,16 +42,16 @@ export class AppComponent implements OnInit {
         );
     }
 
-    @HostListener('mousedown', ['$event'])
+    @HostListener('click', ['$event'])
     public clickEvent(event): void {
         if (this.isPlatformBrowser) {
             const target = this.findLinkTarget(event.target, 1);
             if (target.href && target.href.indexOf(target.baseURI) >= 0) {
                 const path = target.href.replace(target.baseURI, '');
-                if (path.length > 0 && path.indexOf('mailto:') < 0 && path.indexOf('tel:') < 0) {
+                if (path.length > 0 && !path.startsWith('mailto:') && !path.startsWith('tel:')) {
+                    this.store.dispatch(new fromRouter.Link({ url: path }));
                     event.preventDefault();
                     event.stopPropagation();
-                    this.store.dispatch(new fromRouter.Link({ url: path }));
                 }
             }
         }
