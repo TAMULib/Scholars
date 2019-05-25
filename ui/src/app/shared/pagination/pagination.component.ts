@@ -31,6 +31,9 @@ export class PaginationComponent implements OnInit {
     @Input()
     public pageSizeOptions = [10, 25, 50, 100];
 
+    @Input()
+    public pageSizeOptionsType: 'list' | 'dropdown' = 'dropdown';
+
     public windowDimensions: Observable<WindowDimensions>;
 
     constructor(
@@ -103,7 +106,6 @@ export class PaginationComponent implements OnInit {
     public previousDisabled(pageNumber: number): boolean { return !this.hasPrevious(pageNumber); }
 
     public isEllipsis(pageNumber: number): boolean { return pageNumber === -1; }
-
 
     public buildUrl(page: number, size: number): string {
         const params: Params = {};

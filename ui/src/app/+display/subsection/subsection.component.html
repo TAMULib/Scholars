@@ -1,12 +1,14 @@
 <div *ngIf="page | async">
-  <scholars-pagination *ngIf="getResources() | async as resources" [page]="page" [pageSizeOptions]="pageSizeOptions" [queryPrefix]="subsection.name">
-    <div class="mb-3" *ngIf="resources.length > 0">
-      <span class="font-weight-bold">{{subsection.name}}<span class="badge badge-light ml-2">{{resources.length}}</span></span>
-      <ul class="list-group">
-        <li class="list-group-item border-0" *ngFor="let resource of getResourcesPage(resources, subsection.sort, page | async)">
-          <div [innerHtml]="subsection.templateFunction(resource) | safeHtml"></div>
-        </li>
-      </ul>
-    </div>
-  </scholars-pagination>
+  <div *ngIf="getResources() | async as resources">
+    <scholars-pagination *ngIf="resources.length > 0" [page]="page" [pageSizeOptions]="pageSizeOptions" [queryPrefix]="subsection.name">
+      <div class="mb-3">
+        <span class="font-weight-bold">{{subsection.name}}<span class="badge badge-light ml-2">{{resources.length}}</span></span>
+        <ul class="list-group">
+          <li class="list-group-item border-0" *ngFor="let resource of getResourcesPage(resources, subsection.sort, page | async)">
+            <div [innerHtml]="subsection.templateFunction(resource) | safeHtml"></div>
+          </li>
+        </ul>
+      </div>
+    </scholars-pagination>
+  </div>
 </div>

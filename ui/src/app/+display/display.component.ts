@@ -71,15 +71,15 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     ngOnInit() {
         this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
-        this.discoveryView = this.store.pipe(
-            select(selectDefaultDiscoveryView),
-            filter((view: DiscoveryView) => view !== undefined)
-        );
         this.subscriptions.push(this.router.events.pipe(
             filter(event => event instanceof NavigationStart)
         ).subscribe(() => {
             this.changeDetRef.markForCheck();
         }));
+        this.discoveryView = this.store.pipe(
+            select(selectDefaultDiscoveryView),
+            filter((view: DiscoveryView) => view !== undefined)
+        );
         this.subscriptions.push(this.route.params.subscribe((params: Params) => {
             if (params.collection && params.id) {
                 this.store.dispatch(new fromSdr.GetOneResourceAction(params.collection, { id: params.id }));

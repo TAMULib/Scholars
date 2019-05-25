@@ -1,9 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, Input, AfterViewInit, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, Inject, PLATFORM_ID, Input, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Params, Router, NavigationStart } from '@angular/router';
 
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 import { Direction } from '../../core/model/request';
 import { Filter, Sort } from '../../core/model/view';
@@ -14,8 +14,7 @@ import { SdrPage } from '../../core/model/sdr';
 @Component({
     selector: 'scholars-subsection',
     templateUrl: './subsection.component.html',
-    styleUrls: ['./subsection.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./subsection.component.scss']
 })
 export class SubsectionComponent implements AfterViewInit, OnInit, OnDestroy {
 
@@ -35,6 +34,7 @@ export class SubsectionComponent implements AfterViewInit, OnInit, OnDestroy {
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: string,
+        private router: Router,
         private route: ActivatedRoute
     ) {
         this.resources = new BehaviorSubject<any[]>([]);
@@ -46,18 +46,22 @@ export class SubsectionComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.subscriptions.push(this.router.events.pipe(
+            filter(event => event instanceof NavigationStart)
+        ).subscribe(() => {
+            this.loadBadges();
+        }));
         const resources = this.getSubsectionCollection(this.document[this.subsection.field], this.subsection.filters);
         this.page = this.route.queryParams.pipe(
             map((params: Params) => {
                 const pageSize = params[`${this.subsection.name}.size`] ? Number(params[`${this.subsection.name}.size`]) : this.subsection.pageSize;
                 const pageNumber = params[`${this.subsection.name}.page`] ? Number(params[`${this.subsection.name}.page`]) : 1;
-                const page: SdrPage = {
+                return {
                     size: pageSize,
                     totalElements: this.resources.getValue().length,
                     totalPages: Math.ceil(this.resources.getValue().length / this.subsection.pageSize),
                     number: pageNumber,
                 };
-                return page;
             })
         );
         this.resources.next(resources);
@@ -87,6 +91,7 @@ export class SubsectionComponent implements AfterViewInit, OnInit, OnDestroy {
 
     private loadBadges(): void {
         if (isPlatformBrowser(this.platformId)) {
+            console.log('load badges');
             setTimeout(() => {
                 window['_altmetric_embed_init']();
                 window['__dimensions_embed'].addBadges();

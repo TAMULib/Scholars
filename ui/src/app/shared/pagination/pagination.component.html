@@ -1,7 +1,7 @@
 <div class="pt-2 w-100" *ngIf="page | async; let page">
   <ng-content></ng-content>
-  <div class="pagination-controls form-group mt-3" *ngIf="page.totalElements > page.size">
-    <ul [class]="'pagination' + (size ? ' pagination-' + size : '')">
+  <div class="pagination-controls form-group mt-3">
+    <ul [class]="'pagination' + (size ? ' pagination-' + size : '')" *ngIf="page.totalElements > page.size">
       <li class="page-item" [class.disabled]="previousDisabled(page.number)">
         <a attr.aria-label="{{ 'SHARED.PAGINATION.FIRST' | translate }}" class="page-link" href="{{buildUrl(1, page.size)}}" [attr.tabindex]="(hasPrevious(page.number) ? null : '-1')">
           <span aria-hidden="true">&laquo;&laquo;</span>
@@ -33,13 +33,21 @@
       </li>
     </ul>
     <div class="page-control-divider"></div>
-    <ul [class]="'pagination' + (size ? ' pagination-' + size : '')">
-      <li *ngFor="let pageSizeOption of pageSizeOptions" class="page-item" [class.active]="pageSizeOption === page.size">
-        <a *ngIf="!isEllipsis(pageNumber)" attr.aria-label="{{ 'SHARED.PAGINATION.PAGE_SIZE' | translate:{ size: pageSizeOption } }}" class="page-link" href="{{buildUrl(1, pageSizeOption)}}">
-          <span>{{ pageSizeOption }}</span>
-          <span *ngIf="page.size === pageSizeOption" class="sr-only">(current)</span>
-        </a>
-      </li>
-    </ul>
+    <div [ngSwitch]="pageSizeOptionsType" *ngIf="page.totalElements > pageSizeOptions[0]">
+      <ul [class]="'pagination' + (size ? ' pagination-' + size : '')" *ngSwitchCase="'list'">
+        <li *ngFor="let pageSizeOption of pageSizeOptions" class="page-item" [class.active]="pageSizeOption === page.size">
+          <a *ngIf="!isEllipsis(pageNumber)" attr.aria-label="{{ 'SHARED.PAGINATION.PAGE_SIZE' | translate:{ size: pageSizeOption } }}" class="page-link" href="{{buildUrl(1, pageSizeOption)}}">
+            <span>{{ pageSizeOption }}</span>
+            <span *ngIf="page.size === pageSizeOption" class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+      <div ngbDropdown class="d-inline-block" placement="bottom-right" *ngSwitchCase="'dropdown'">
+        <button class="btn btn-outline-secondary" ngbDropdownToggle>{{page.size}}</button>
+        <div ngbDropdownMenu>
+          <a ngbDropdownItem class="btn" *ngFor="let pageSizeOption of pageSizeOptions" href="{{buildUrl(page.number, pageSizeOption)}}">{{pageSizeOption}}</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

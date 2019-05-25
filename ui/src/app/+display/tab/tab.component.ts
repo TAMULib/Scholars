@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Params, ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Params, ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
 import { Observable, Subscription, combineLatest } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 import { DisplayTabView, DisplayTabSectionView } from '../../core/model/view';
 import { SolrDocument } from '../../core/model/discovery';
@@ -16,8 +15,7 @@ import { sectionsToShow } from '../display.component';
 @Component({
     selector: 'scholars-tab',
     templateUrl: './tab.component.html',
-    styleUrls: ['./tab.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./tab.component.scss']
 })
 export class TabComponent implements OnDestroy, OnInit {
 
@@ -29,19 +27,12 @@ export class TabComponent implements OnDestroy, OnInit {
 
     constructor(
         private store: Store<AppState>,
-        private router: Router,
-        private route: ActivatedRoute,
-        private changeDetRef: ChangeDetectorRef
+        private route: ActivatedRoute
     ) {
         this.subscriptions = [];
     }
 
     ngOnInit() {
-        this.subscriptions.push(this.router.events.pipe(
-            filter(event => event instanceof NavigationStart)
-        ).subscribe(() => {
-            this.changeDetRef.markForCheck();
-        }));
         this.subscriptions.push(combineLatest([
             this.route.parent.params,
             this.route.params
