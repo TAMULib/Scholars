@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
@@ -37,6 +38,7 @@ export class PaginationComponent implements OnInit {
     public windowDimensions: Observable<WindowDimensions>;
 
     constructor(
+        @Inject(APP_BASE_HREF) private baseHref: string,
         private store: Store<AppState>,
         private router: Router,
         private route: ActivatedRoute
@@ -116,7 +118,8 @@ export class PaginationComponent implements OnInit {
             queryParams: params,
             queryParamsHandling: 'merge'
         });
-        return this.router.serializeUrl(urlTree);
+        const path = this.router.serializeUrl(urlTree);
+        return `${this.baseHref}${path.substring(1)}`;
     }
 
 }
