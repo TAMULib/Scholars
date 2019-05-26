@@ -86,7 +86,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     public getCarouselBackgroundImage(hero: Hero): any {
         this.config.interval = hero.interval;
         this.searchStyles.next({
-            labelColor: hero.fontColor,
+            label: {
+                margin: '0px 0px 30px 0px',
+                color: hero.fontColor
+            },
             inputBoxShadow: 'inset 1px 1px 0px 0px #bbb'
         });
         return {

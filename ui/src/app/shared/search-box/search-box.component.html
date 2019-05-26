@@ -21,7 +21,7 @@
     </form>
 
     <ng-template #searchLabel>
-      <span class="search-label d-inline-block" [style.color]="styles?.labelColor">{{ 'SHARED.SEARCH_BOX.LABEL' | translate:{organization: (organization | async)} }}</span>
+      <span class="search-label d-inline-block" [ngStyle]="styles?.label">{{ 'SHARED.SEARCH_BOX.LABEL' | translate:{organization: (organization | async)} }}</span>
       <span class="fa fa-search form-control-feedback"></span>
     </ng-template>
   </div>
