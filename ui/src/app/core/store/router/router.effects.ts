@@ -20,7 +20,7 @@ export class RouterEffects {
     constructor(
         private actions: Actions,
         private router: Router,
-        private activatedRoute: ActivatedRoute,
+        private route: ActivatedRoute,
         private location: Location,
         private store: Store<AppState>
     ) {
@@ -31,7 +31,7 @@ export class RouterEffects {
         ofType(fromRouter.RouterActionTypes.GO),
         map((action: fromRouter.Go) => action.payload),
         map(({ path, query: queryParams, extras }) => this.router.navigate(path, {
-            relativeTo: this.activatedRoute,
+            relativeTo: this.route,
             queryParams,
             ...extras
         }))

@@ -30,7 +30,7 @@ export class AlertService {
     }
 
     public loginFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.DIALOG, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.DIALOG, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public submitRegistrationSuccessAlert(): fromAlert.AddAlertAction {
@@ -38,7 +38,7 @@ export class AlertService {
     }
 
     public submitRegistrationFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.DIALOG, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.DIALOG, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public confirmRegistrationSuccessAlert(): fromAlert.AddAlertAction {
@@ -46,7 +46,7 @@ export class AlertService {
     }
 
     public confirmRegistrationFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public completeRegistrationSuccessAlert(): fromAlert.AddAlertAction {
@@ -54,7 +54,7 @@ export class AlertService {
     }
 
     public completeRegistrationFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.DIALOG, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.DIALOG, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public unauthorizedAlert(): fromAlert.AddAlertAction {
@@ -78,7 +78,7 @@ export class AlertService {
     }
 
     public loadActiveThemeFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public applyActiveThemeFailureAlert(payload: { error: string }): fromAlert.AddAlertAction {
@@ -86,31 +86,31 @@ export class AlertService {
     }
 
     public getAllFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public getOneFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public findByIdInFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public findByTypesInFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public pageFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public countFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public searchFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public postSuccessAlert(action: fromSdr.PostResourceSuccessAction): fromAlert.AddAlertAction {
@@ -118,7 +118,7 @@ export class AlertService {
     }
 
     public postFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public putSuccessAlert(action: fromSdr.PutResourceSuccessAction): fromAlert.AddAlertAction {
@@ -126,7 +126,7 @@ export class AlertService {
     }
 
     public putFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public patchSuccessAlert(action: fromSdr.PatchResourceSuccessAction): fromAlert.AddAlertAction {
@@ -134,7 +134,7 @@ export class AlertService {
     }
 
     public patchFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public deleteSuccessAlert(action: fromSdr.DeleteResourceSuccessAction): fromAlert.AddAlertAction {
@@ -142,7 +142,7 @@ export class AlertService {
     }
 
     public deleteFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.MAIN, AlertType.DANGER, payload.response.error, true, 15000);
+        return this.alert(AlertLocation.MAIN, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
     }
 
     public alert(location: AlertLocation, type: AlertType, message: string, dismissible: boolean, timer?: number): fromAlert.AddAlertAction {

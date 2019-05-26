@@ -29,7 +29,7 @@
                 <a [routerLink]="item.route" [queryParams]="item.queryParams" queryParamsHandling="merge">
                   <span>
                     <span *ngIf="item.selected" class="fa fa-close mr-2"></span>
-                    <span>{{item.label | async | date:'yyyy' }}</span>
+                    <span>{{item.label | async | date:'yyyy'}}</span>
                   </span>
                 </a>
                 <span class="badge badge-light" *ngIf="item.parenthetical">{{item.parenthetical}}</span>

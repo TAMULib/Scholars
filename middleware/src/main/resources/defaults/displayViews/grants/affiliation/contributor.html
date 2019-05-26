@@ -1,12 +1,13 @@
+{{#if contributors}}
 <ul>
-  {{~ it.contributors :contributor}}
+  {{#each contributors}}
   <li>
     <div class="comma-seperated">
-      <span><a href="display/persons/{{=contributor.id}}#View All">{{=contributor.label}}</a></span>
-      <!-- <span>{{=contributor.formalType}}</span> -->
+      <span><a href="display/persons/{{id}}">{{label}}</a></span>
+      <span>{{type}}</span>
     </div>
   </li>
-  {{~}}
+  {{/each}}
 </ul>
 <style>
   .comma-seperated span:after {
@@ -17,3 +18,4 @@
     content: "";
   }
 </style>
+{{/if}}

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
@@ -22,7 +22,8 @@ import { addFacetsToQueryParams, addFiltersToQueryParams, addSortToQueryParams }
 @Component({
     selector: 'scholars-discovery',
     templateUrl: 'discovery.component.html',
-    styleUrls: ['discovery.component.scss']
+    styleUrls: ['discovery.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DiscoveryComponent implements OnDestroy, OnInit {
 

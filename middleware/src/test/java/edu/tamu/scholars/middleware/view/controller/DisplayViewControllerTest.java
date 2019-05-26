@@ -227,7 +227,7 @@ public class DisplayViewControllerTest extends ResourceViewIntegrationTest<Displ
                 .andExpect(jsonPath("name", equalTo(MOCK_VIEW_NAME)))
                 .andDo(
                     document(
-                        "displayViews/find-by-type-in",
+                        "displayViews/find-by-types-in",
                         requestParameters(
                             parameterWithName("types").description("The types the display view is for.")
                         ),

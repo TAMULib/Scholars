@@ -9,27 +9,6 @@
   <span><em>{{publicationVenue.label}}</em>. </span>
   {{/if}}
 
-  {{#if editorList}}
-  <span>{{editorList}} (Eds.),</span>
-  {{/if}}
-  <span>{{bookTitle}}.</span>
-
-  {{#if pageStart}}
-  {{#if pageEnd}}
-  <span>(pp. {{pageStart}}-{{pageEnd}}).</span>
-  {{else}}
-  <span>(pp. {{pageStart}}).</span>
-  {{/if}}
-  {{else}}
-  {{#if pageEnd}}
-  <span>(pp. {{pageEnd}}).</span>
-  {{/if}}
-  {{/if}}
-
-  {{#publisher}}
-  <span>{{publisher.label}}.</span>
-  {{/publisher}}
-
   {{#if volume}}
   {{#if issue}}
   <span>{{volume}}({{issue}}), </span>

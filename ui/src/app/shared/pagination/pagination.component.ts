@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Params } from '@angular/router';
+import { Params, Router, ActivatedRoute } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
@@ -26,11 +26,21 @@ export class PaginationComponent implements OnInit {
     public size: 'sm' | 'lg';
 
     @Input()
+    public queryPrefix: string;
+
+    @Input()
     public pageSizeOptions = [10, 25, 50, 100];
+
+    @Input()
+    public pageSizeOptionsType: 'list' | 'dropdown' = 'dropdown';
 
     public windowDimensions: Observable<WindowDimensions>;
 
-    constructor(private store: Store<AppState>) {
+    constructor(
+        private store: Store<AppState>,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {
 
     }
 
@@ -97,12 +107,16 @@ export class PaginationComponent implements OnInit {
 
     public isEllipsis(pageNumber: number): boolean { return pageNumber === -1; }
 
-    public getRouterLink(): string[] {
-        return [];
-    }
-
-    public getQueryParams(page: number, size: number): Params {
-        return { page, size };
+    public buildUrl(page: number, size: number): string {
+        const params: Params = {};
+        params[this.queryPrefix && this.queryPrefix.length > 0 ? `${this.queryPrefix}.page` : 'page'] = page;
+        params[this.queryPrefix && this.queryPrefix.length > 0 ? `${this.queryPrefix}.size` : 'size'] = size;
+        const urlTree = this.router.createUrlTree(['.'], {
+            relativeTo: this.route,
+            queryParams: params,
+            queryParamsHandling: 'merge'
+        });
+        return this.router.serializeUrl(urlTree);
     }
 
 }

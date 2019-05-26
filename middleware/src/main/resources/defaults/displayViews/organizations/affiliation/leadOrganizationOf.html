@@ -1,7 +1,9 @@
+{{#if leadOrganizationOf}}
 <ul class="list-unstyled">
-  {{~ it.leadOrganizationOf :organization}}
+  {{#each leadOrganizationOf}}
   <li>
-    <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
+    <span><a href="display/organizations/{{id}}">{{label}}</a></span>
   </li>
-  {{~}}
+  {{/each}}
 </ul>
+{{/if}}

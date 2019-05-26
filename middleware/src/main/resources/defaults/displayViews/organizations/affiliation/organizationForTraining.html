@@ -1,5 +1,7 @@
-{{~ it.organizationForTraining :organization}}
+{{#if organizationForTraining}}
+{{#each organizationForTraining}}
 <div class="mb-1">
-  <span class="mr-1"><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
+  <span class="mr-1">{{label}}</span>
 </div>
-{{~}}
+{{/each}}
+{{/if}}

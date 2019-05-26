@@ -1,7 +1,9 @@
+{{#if keywords}}
 <ul>
-  {{~ it.keywords :keyword}}
+  {{#each keywords}}
   <li>
-    <span>{{=keyword}}</span>
+    <span>{{this}}</span>
   </li>
-  {{~}}
+  {{/each}}
 </ul>
+{{/if}}
