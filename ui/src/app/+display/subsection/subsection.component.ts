@@ -91,7 +91,6 @@ export class SubsectionComponent implements AfterViewInit, OnInit, OnDestroy {
 
     private loadBadges(): void {
         if (isPlatformBrowser(this.platformId)) {
-            console.log('load badges');
             setTimeout(() => {
                 window['_altmetric_embed_init']();
                 window['__dimensions_embed'].addBadges();
