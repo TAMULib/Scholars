@@ -18,7 +18,7 @@
       @media (min-width: 768px) { padding-top: 50px; }
       @media (min-width: 992px) { padding-top: 100px; }
       .water-mark {
-          height: 150px;
+          height: 175px;
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center center;
@@ -26,8 +26,10 @@
           font-size: 20px;
           color: var(--hero-color);
       }
+      .home-stats {
+        margin: 25px 0px 75px 0px;
+      }
       .home-info {
-        margin-top: 100px;
         p {
           line-height: 1em;
           font-size: 12px;
@@ -41,11 +43,6 @@
           }
         }
       }
-    }
-  }
-  .home-content {
-    .home-stats {
-      margin-bottom: 120px;
     }
   }
 }

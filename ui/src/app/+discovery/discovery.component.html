@@ -9,10 +9,10 @@
 </div>
 <scholars-sidebar>
   <div class="container mt-2" *ngIf="discoveryView | async; let discoveryView">
-    <h4 class="text-primary">
+    <span class="h4 text-primary">
       <span class="mr-2">Search results for:</span>
       <span>{{query | async}}</span>
-    </h4>
+    </span>
     <div class="applied-filters mt-2" *ngIf="filters | async; let filters">
       <span class="badge badge-light p-2 mr-2 mb-2" *ngFor="let filter of filters">
         <span *ngIf="showFilter(discoveryView, filter)">

@@ -1,6 +1,8 @@
 ---
 
 - name: Default
+  types:
+  - Default
   mainContentTemplate: "defaults/displayViews/defaults/mainContentTemplate.html"
   metaTemplates:
     title: "defaults/displayViews/defaults/meta/title.txt"

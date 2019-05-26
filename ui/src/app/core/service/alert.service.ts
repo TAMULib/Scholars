@@ -30,7 +30,7 @@ export class AlertService {
     }
 
     public loginFailureAlert(payload: { response: any }): fromAlert.AddAlertAction {
-        return this.alert(AlertLocation.DIALOG, AlertType.DANGER, `(${payload.response.status}) ${payload.response.message}`, true, 15000);
+        return this.alert(AlertLocation.DIALOG, AlertType.DANGER, payload.response.error, true, 15000);
     }
 
     public submitRegistrationSuccessAlert(): fromAlert.AddAlertAction {

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Params } from '@angular/router';
+import { Params, Router, NavigationStart } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { scheduled } from 'rxjs';
+import { scheduled, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { queue } from 'rxjs/internal/scheduler/queue';
 
 import { AppState } from '../../../core/store';
@@ -18,7 +19,7 @@ import * as fromDialog from '../../../core/store/dialog/dialog.actions';
     templateUrl: './facet-entries.component.html',
     styleUrls: ['./facet-entries.component.scss']
 })
-export class FacetEntriesComponent implements OnInit {
+export class FacetEntriesComponent implements OnDestroy, OnInit {
 
     @Input() facet: Facet;
 
@@ -32,14 +33,28 @@ export class FacetEntriesComponent implements OnInit {
 
     public dialog: DialogControl;
 
-    constructor(
-        private translate: TranslateService,
-        private store: Store<AppState>
-    ) {
+    private subscriptions: Subscription[];
 
+    constructor(
+        private router: Router,
+        private store: Store<AppState>,
+        private translate: TranslateService
+    ) {
+        this.subscriptions = [];
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach((subscription: Subscription) => {
+            subscription.unsubscribe();
+        });
     }
 
     ngOnInit() {
+        this.subscriptions.push(this.router.events.pipe(
+            filter(event => event instanceof NavigationStart)
+        ).subscribe(() => {
+            this.store.dispatch(new fromDialog.CloseDialogAction());
+        }));
         this.dialog = {
             title: scheduled([this.facet.name], queue),
             close: {

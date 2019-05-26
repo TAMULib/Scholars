@@ -61,11 +61,6 @@ export class RouterEffects {
         map(() => new fromAuth.UnsetLoginRedirectAction())
     );
 
-    @Effect() closeDialog = this.actions.pipe(
-        ofType(fromRouter.RouterActionTypes.CHANGED),
-        map(() => new fromDialog.CloseDialogAction())
-    );
-
     private listenForRouteChange() {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)

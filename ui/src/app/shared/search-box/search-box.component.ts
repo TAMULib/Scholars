@@ -17,7 +17,10 @@ import { selectRouterSearchQuery } from '../../core/store/router';
 import { addFacetsToQueryParams, addFiltersToQueryParams, addSortToQueryParams } from '../utilities/view.utility';
 
 export interface SearchBoxStyles {
-    labelColor: string;
+    label: {
+        margin: string;
+        color: string;
+    };
     inputBoxShadow: string;
 }
 
@@ -31,7 +34,10 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     @Input() view: DiscoveryView;
 
     @Input() styles: SearchBoxStyles = {
-        labelColor: '#4d4d4d',
+        label: {
+            margin: '0px 0px 5x 0px',
+            color: '#4d4d4d'
+        },
         inputBoxShadow: '1px 1px 0px 0px #bbb'
     };
 
