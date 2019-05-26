@@ -1,6 +1,6 @@
 <form novalidate>
   <div class="modal-header">
-    <h4 class="modal-title text-primary" id="modal-basic-title">{{dialog.title | async}}</h4>
+    <span class="h4 modal-title text-primary" id="modal-basic-title">{{dialog.title | async}}</span>
     <button *ngIf="dialog.close" type="button" class="close text-primary" aria-label="Close" (click)="dialog.close.action()" [disabled]="dialog.close.disabled() | async">
       <span aria-hidden="true">&times;</span>
     </button>

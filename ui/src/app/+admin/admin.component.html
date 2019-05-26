@@ -9,7 +9,7 @@
 </div>
 
 <div class="container mt-2">
-  <h2 class="text-primary">{{ 'SHARED.SIDEBAR.ADMINISTRATION.TITLE' | translate }}</h2>
+  <span class="h2 text-primary">{{ 'SHARED.SIDEBAR.ADMINISTRATION.TITLE' | translate }}</span>
   <ul role="tablist" class="list-unstyled mt-3 nav" [ngClass]="{ 'nav-tabs nav-fill': showTabs(windowDimensions | async), 'nav-pills flex-column': !showTabs(windowDimensions | async) }">
     <li class="nav-item" *ngFor="let tab of tabs">
       <a class="nav-link" [routerLink]="tab.route" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ tab.translateKey | translate }}</a>
