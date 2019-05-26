@@ -1,7 +1,9 @@
+{{#if organizationWithin}}
 <ul class="list-unstyled">
-  {{#organizationWithin}}
+  {{#each organizationWithin}}
   <li>
     <span><a href="display/organizations/{{id}}">{{label}}</a></span>
   </li>
-  {{/organizationWithin}}
+  {{/each}}
 </ul>
+{{/if}}

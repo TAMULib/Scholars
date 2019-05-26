@@ -1,16 +1,16 @@
 <div class="aside">
 
-  {{#researchAreas.length}}
+  {{#if researchAreas}}
   <div class="d-block d-lg-none mt-2 mb-2">
     <div><span class="label">Research Areas:</span></div>
     <div class="comma-seperated ml-1">
-      {{#researchAreas}}
+      {{#each researchAreas}}
       <span><a href="display/concepts/{{id}}">{{label}}</a></span>
-      {{/researchAreas}}
-    </div>    
+      {{/each}}
+    </div>
     <hr />
   </div>
-  {{/researchAreas.length}}
+  {{/if}}
 
   <div>
     <div class="text-nowrap">
@@ -42,19 +42,19 @@
     </div>
   </div>
 
-  {{#websites.length}}
+  {{#if websites}}
   <div>
     <hr />
     <span class="label">Websites</span>
     <ul class="list-unstyled ml-1">
-      {{#websites}}
+      {{#each websites}}
       <li><span><a href="{{url}}">{{label}}</a></span></li>
-      {{/websites}}
+      {{/each}}
     </ul>
   </div>
-  {{/websites.length}}
+  {{/if}}
 
-  {{#orcidId}}
+  {{#if orcidId}}
   <div>
     <hr />
     <div>
@@ -64,21 +64,21 @@
       <span><a href="https://orcid.org/{{orcidId}}">{{orcidId}}</a></span>
     </div>
   </div>
-  {{/orcidId}}
+  {{/if}}
 
-  {{#researchAreas.length}}
+  {{#if researchAreas}}
   <div class="d-none d-lg-block">
     <hr />
     <div class="mt-1">
       <span class="label">Research Areas:</span>
     </div>
     <div class="comma-seperated ml-1">
-      {{#researchAreas}}
+      {{#each researchAreas}}
       <span><a href="display/concepts/{{id}}">{{label}}</a></span>
-      {{/researchAreas}}
+      {{/each}}
     </div>
   </div>
-  {{/researchAreas.length}}
+  {{/if}}
 
 </div>
 <style>

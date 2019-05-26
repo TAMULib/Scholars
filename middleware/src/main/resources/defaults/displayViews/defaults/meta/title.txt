@@ -1,8 +1,7 @@
-{{#name}}
+{{#if name}}
 {{name}}
-{{/name}}
-{{^name}}
-  {{#title}}
+{{else}}
+  {{#if title}}
   {{title}}
-  {{/title}}
-{{/name}}
+  {{/if}}
+{{/if}}

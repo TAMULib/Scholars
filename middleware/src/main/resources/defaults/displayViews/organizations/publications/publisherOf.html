@@ -1,13 +1,14 @@
+{{#if publisherOf}}
 <ul>
-  {{#publisherOf}}
+  {{#each publisherOf}}
   <li>
     <div class="comma-seperated">
       <span><a href="display/documents/{{id}}">{{label}}</a></span>
-      <span>{{formalType}}</span>
-      <span>{{date}}</span>
+      <span>{{formalize type}}</span>
+      <span>{{toYear date}}</span>
     </div>
   </li>
-  {{/publisherOf}}
+  {{/each}}
 </ul>
 <style>
   .comma-seperated span:after {
@@ -18,3 +19,4 @@
     content: "";
   }
 </style>
+{{/if}}

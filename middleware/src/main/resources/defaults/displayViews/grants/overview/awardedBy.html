@@ -1,7 +1,9 @@
+{{#if awardedBy}}
 <ul>
-  {{#awardedBy}}
+  {{#each awardedBy}}
   <li>
     <span><a href="display/organizations/{{id}}">{{label}}</a></span>
   </li>
-  {{/awardedBy}}
+  {{/each}}
 </ul>
+{{/if}}

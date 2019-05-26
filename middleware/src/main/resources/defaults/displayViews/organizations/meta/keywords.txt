@@ -1,1 +1,1 @@
-{{#affiliatedResearchAreas}}{{label}}, {{/affiliatedResearchAreas}}
+{{#if affiliatedResearchAreas}}{{#each affiliatedResearchAreas}}{{label}}, {{/each}}{{/if}}

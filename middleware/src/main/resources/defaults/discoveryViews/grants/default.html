@@ -3,61 +3,59 @@
 </div>
 <div>
   <div>
-    {{#dateTimeIntervalStart}}
-    {{#dateTimeIntervalEnd}}
+    {{#if dateTimeIntervalStart}}
+    {{#if dateTimeIntervalEnd}}
     <span class="label">Date:</span>
-    <span>{{dateTimeIntervalStart}}</span>
+    <span>{{toYear dateTimeIntervalStart}}</span>
     <span>-</span>
-    <span>{{dateTimeIntervalEnd}}</span>
-    {{/dateTimeIntervalEnd}}
-    {{^dateTimeIntervalEnd}}
+    <span>{{toYear dateTimeIntervalEnd}}</span>
+    {{else}}
     <span class="label">Date:</span>
-    <span>{{dateTimeIntervalStart}}</span>
-    {{/dateTimeIntervalEnd}}
-    {{/dateTimeIntervalStart}}
-    {{^dateTimeIntervalStart}}
-    {{#dateTimeIntervalEnd}}
+    <span>{{toYear dateTimeIntervalStart}}</span>
+    {{/if}}
+    {{else}}
+    {{#if dateTimeIntervalEnd}}
     <span class="label">Date:</span>
-    <span>{{dateTimeIntervalEnd}}</span>
-    {{/dateTimeIntervalEnd}}
-    {{/dateTimeIntervalStart}}
+    <span>{{toYear dateTimeIntervalEnd}}</span>
+    {{/if}}
+    {{/if}}
   </div>
-  {{#awardedBy.length}}
+  {{#if awardedBy}}
   <div>
     <span class="label">Awarded By:</span>
   </div>
   <div>
     <ul>
-      {{#awardedBy}}
+      {{#each awardedBy}}
       <li><span><a href="display/organizations/{{id}}">{{label}}</a></span></li>
-      {{/awardedBy}}
+      {{/each}}
     </ul>
   </div>
-  {{/awardedBy.length}}
-  {{#principalInvestigators.length}}
+  {{/if}}
+  {{#if principalInvestigators}}
   <div>
     <span class="label">Principal Investigators:</span>
   </div>
   <div>
     <ul>
-      {{#principalInvestigators}}
+      {{#each principalInvestigators}}
       <li><span><a href="display/persons/{{id}}">{{label}}</a></span></li>
-      {{/principalInvestigators}}
+      {{/each}}
     </ul>
   </div>
-  {{/principalInvestigators.length}}
-  {{#coPrincipalInvestigators.length}}
+  {{/if}}
+  {{#if coPrincipalInvestigators}}
   <div>
     <span class="label">Co-Principal Investigators:</span>
   </div>
   <div>
     <ul>
-      {{#coPrincipalInvestigators}}
+      {{#each coPrincipalInvestigators}}
       <li><span><a href="display/persons/{{id}}">{{label}}</a></span></li>
-      {{/coPrincipalInvestigators}}
+      {{/each}}
     </ul>
   </div>
-  {{/coPrincipalInvestigators.length}}
+  {{/if}}
 </div>
 <style>
   .label {

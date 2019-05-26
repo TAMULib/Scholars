@@ -1,1 +1,1 @@
-{{#researchAreas}}{{label}}, {{/researchAreas}}
+{{#if researchAreas}}{{#each researchAreas}}{{label}}{{#if @last}}{{else}}, {{/if}}{{/each}}{{/if}}

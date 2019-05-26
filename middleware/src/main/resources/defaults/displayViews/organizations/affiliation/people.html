@@ -1,14 +1,14 @@
-{{#people.length}}
+{{#if people}}
 <div class="mb-2">
   <ul class="list-unstyled ml-2 mr-2 mb-0">
-    {{#people}}
+    {{#each people}}
     <li class="mb-2">
       <div class="person comma-seperated">
         <span><a href="display/persons/{{id}}">{{label}}</a></span>
         <span>{{title}}</span>
       </div>
     </li>
-    {{/people}}
+    {{/each}}
   </ul>
 </div>
 <style>
@@ -20,4 +20,4 @@
     content: "";
   }
 </style>
-{{/people.length}}
+{{/if}}

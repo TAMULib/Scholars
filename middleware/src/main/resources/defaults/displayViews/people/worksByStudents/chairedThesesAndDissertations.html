@@ -1,11 +1,26 @@
-{{#etdChairOf.length}}
+{{#if etdChairOf}}
 <div class="mb-2">
   <ul class="list-unstyled ml-2 mr-2 mb-0">
-    {{#etdChairOf}}
+    {{#each etdChairOf}}
     <li class="mb-2">
-       <span>{{label}}</span>
+       {{#workByStudent this}}
+       <div class="work">
+        <span>{{this.one}}</span>
+        <span><u><a href="display/documents/{{this.id}}">{{this.two}}</a></u></span>
+        {{#if this.degree }}
+        <div>
+          {{#ifEquals this.degree "Master's Thesis." }}
+          <img src="assets/images/masters.png">
+          {{/ifEquals}}
+          {{#ifEquals this.degree "Doctoral Dissertation." }}
+          <img src="assets/images/doctoral.png">
+          {{/ifEquals}}
+        </div>
+        {{/if}}
+      </div>
+      {{/workByStudent}}
     </li>
-    {{/etdChairOf}}
+    {{/each}}
   </ul>
 </div>
-{{/etdChairOf.length}}
+{{/if}}

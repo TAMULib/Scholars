@@ -1,34 +1,33 @@
 <div class="d-flex">
   <div class="mr-4">
     <div>
-      {{#thumbnail}}
+      {{#if thumbnail}}
       <img src="https://scholars.library.tamu.edu/vivo{{thumbnail}}" class="rounded-circle" height="60" width="60" alt="{{name}} thumbnail image" />
-      {{/thumbnail}}
-      {{^thumbnail}}
+      {{else}}
       <img src="assets/images/default-avatar.png" class="rounded-circle" height="60" width="60" alt="default avatar thumbnail image" />
-      {{/thumbnail}}
+      {{/if}}
     </div>
   </div>
   <div class="align-self-center">
     <div class="name"><a href="display/persons/{{id}}">{{name}}</a></div>
     <div class="mt-1"><span>{{preferredTitle}}</span></div>
-    {{#positions}}
+    {{#each positions}}
     <div class="comma-seperated">
-      {{#organizations}}
+      {{#each organizations}}
       <span><a href="display/organizations/{{id}}">{{label}}</a></span>
-      {{/organizations}}
+      {{/each}}
     </div>
-    {{/positions}}
-    {{#researchAreas.length}}
+    {{/each}}
+    {{#if researchAreas}}
     <div class="mt-1">
       <span>Research Areas</span>
     </div>
     <div class="comma-seperated">
-      {{#researchAreas}}
+      {{#each researchAreas}}
       <span><a href="display/concepts/{{id}}">{{label}}</a></span>
-      {{/researchAreas}}
+      {{/each}}
     </div>
-    {{/researchAreas.length}}
+    {{/if}}
   </div>
 </div>
 <style>

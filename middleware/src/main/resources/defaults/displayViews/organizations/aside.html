@@ -12,31 +12,31 @@
     <span class="ml-1"><a href="https://scholars.library.tamu.edu/vivo/vis/map-of-science/{{id}}">Map of Science</a></span>
   </div>
 
-  {{#affiliatedResearchAreas.length}}
+  {{#if affiliatedResearchAreas}}
   <div class="d-block d-lg-none mt-2 mb-2">
     <div><span class="label">Research Areas:</span></div>
     <div class="comma-seperated ml-1">
-      {{#affiliatedResearchAreas}}
+      {{#each affiliatedResearchAreas}}
       <span><a href="display/concepts/{{id}}">{{label}}</a></span>
-      {{/affiliatedResearchAreas}}
+      {{/each}}
     </div>    
     <hr />
   </div>
-  {{/affiliatedResearchAreas.length}}
+  {{/if}}
 
-  {{#affiliatedResearchAreas.length}}
+  {{#if affiliatedResearchAreas}}
   <div class="d-none d-lg-block">
     <hr />
     <div class="mt-1">
       <span class="label">Research Areas:</span>
     </div>
     <div class="comma-seperated ml-1">
-      {{#affiliatedResearchAreas}}
+      {{#each affiliatedResearchAreas}}
       <span><a href="display/concepts/{{id}}">{{label}}</a></span>
-      {{/affiliatedResearchAreas}}
+      {{/each}}
     </div>
   </div>
-  {{/affiliatedResearchAreas.length}}
+  {{/if}}
 
 </div>
 <style>

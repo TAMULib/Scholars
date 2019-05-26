@@ -1,15 +1,15 @@
 <span><a href="display/{{collection}}/{{id}}">{{title}}</a></span>
-<!-- TODO: ensure participants have role Instructor -->
-{{#participants.length}}
+
+{{#if participants}}
 <div>
   <span class="label">Instructors:</span>
   <ul>
-    {{#participants}}
+    {{#each participants}}
     <li><span><a href="display/persons/{{id}}">{{label}}</a></span></li>
-    {{/participants}}
+    {{/each}}
   </ul>
 </div>
-{{/participants.length}}
+{{/if}}
 <style>
   .label {
     font-weight: 550;

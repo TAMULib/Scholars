@@ -1,1 +1,1 @@
-{{name}}{{#organizationWithin.length}} - {{#organizationWithin}}{{label}}, {{/organizationWithin}};{{/organizationWithin.length}} {{#geographicLocation}} - {{label}}{{/geographicLocation}}
+{{name}}{{#if organizationWithin}} - {{#each organizationWithin}}{{label}}{{#if @last}}{{else}}, {{/if}}{{/each}};{{/if}} {{#if geographicLocation}} - {{label}}{{/if}}

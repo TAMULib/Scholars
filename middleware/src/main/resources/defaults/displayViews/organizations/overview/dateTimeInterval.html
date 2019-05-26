@@ -1,17 +1,15 @@
 <div>
-  {{#dateTimeIntervalStart}}
-    {{#dateTimeIntervalEnd}}
-    <span>{{dateTimeIntervalStart}}</span>
-    <span>-</span>
-    <span>{{dateTimeIntervalEnd}}</span>
-    {{/dateTimeIntervalEnd}}
-    {{^dateTimeIntervalEnd}}
-    <span>{{dateTimeIntervalStart}}</span>
-    {{/dateTimeIntervalEnd}}
-  {{/dateTimeIntervalStart}}
-  {{^dateTimeIntervalStart}}
-    {{#dateTimeIntervalEnd}}
-    <span>{{dateTimeIntervalEnd}}</span>
-    {{/dateTimeIntervalEnd}}
-  {{/dateTimeIntervalStart}}
+  {{#if dateTimeIntervalStart}}
+  {{#if dateTimeIntervalEnd}}
+  <span>{{toYear dateTimeIntervalStart}}</span>
+  <span>-</span>
+  <span>{{toYear dateTimeIntervalEnd}}</span>
+  {{else}}
+  <span>{{toYear dateTimeIntervalStart}}</span>
+  {{/if}}
+  {{else}}
+  {{#if dateTimeIntervalEnd}}
+  <span>{{toYear dateTimeIntervalEnd}}</span>
+  {{/if}}
+  {{/if}}
 </div>

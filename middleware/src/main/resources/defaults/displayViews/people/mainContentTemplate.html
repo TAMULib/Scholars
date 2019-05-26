@@ -6,23 +6,23 @@
   <div class="mt-1">
     <h5>{{preferredTitle}}</h5>
   </div>
-  {{#positions.length}}
+  {{#if positions}}
   <div>
     <span class="label">Positions:</span>
     <ul class="list-unstyled ml-1">
-      {{#positions}}
+      {{#each positions}}
       <li>
         <div class="comma-seperated">
           <span>{{label}}</span>
-          {{#organizations}}
+          {{#each organizations}}
           <span><a href="display/organizations/{{id}}">{{label}}</a></span>
-          {{/organizations}}
+          {{/each}}
         </div>
       </li>
-      {{/positions}}
+      {{/each}}
     </ul>
   </div>
-  {{/positions.length}}
+  {{/if}}
 </div>
 <style>
   .label {

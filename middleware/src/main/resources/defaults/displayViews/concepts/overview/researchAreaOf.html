@@ -1,14 +1,15 @@
+{{#if researchAreaOf}}
 <ul class="list-unstyled">
-  {{#researchAreaOf}}
+  {{#each researchAreaOf}}
   <li>
     <div class="comma-seperated">
       <span><a href="display/persons/{{id}}">{{label}}</a></span>
-      {{#organizations}}
+      {{#each organizations}}
       <span><a href="display/organizations/{{id}}">{{label}}</a></span>
-      {{/organizations}}
+      {{/each}}
     </div>
   </li>
-  {{/researchAreaOf}}
+  {{/each}}
 </ul>
 <style>
   .comma-seperated span:after {
@@ -19,3 +20,4 @@
     content: "";
   }
 </style>
+{{/if}}

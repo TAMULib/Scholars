@@ -5,9 +5,9 @@
   <span class="h3 lead font-weight-normal text-nowrap text-secondary">
     <span class="ml-1">|</span>
     <span class="pipe-seperated">
-      {{#formalType}}
-      <span>{{.}}</span>
-      {{/formalType}}
+      {{#type}}
+      <span>{{formalize .}}</span>
+      {{/type}}
     </span>
     <span class="ml-1"><a href="{{vivoUrl}}/individual/{{id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
   </span>

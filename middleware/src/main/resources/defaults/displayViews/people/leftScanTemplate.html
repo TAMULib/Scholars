@@ -1,10 +1,9 @@
 <div class="text-center mb-2">
-  {{#image}}
+  {{#if image}}
   <img class="avatar" src="https://scholars.library.tamu.edu/vivo{{image}}" height="150" width="150" alt="{{name}} image">
-  {{/image}}
-  {{^image}}
+  {{else}}
   <img class="avatar" src="https://via.placeholder.com/150" height="150" width="150" alt="default avatar image">
-  {{/image}}
+  {{/if}}
 </div>
 <style>
   img.avatar {

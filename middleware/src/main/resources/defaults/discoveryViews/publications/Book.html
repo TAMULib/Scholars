@@ -1,53 +1,52 @@
 <div class="d-flex flex-nowrap justify-content-between mb-1">
   <span>
-    {{#title}}
+    {{#if title}}
     <a href="display/{{collection}}/{{id}}">{{title}}</a>
-    {{/title}}
-    {{^title}}
+    {{else}}
     <a href="display/{{collection}}/{{id}}">No title available ({{id}})</a>
-    {{/title}}
+    {{/if}}
   </span>
-  <span class="badge badge-light">{{formalType}}</span>
+  <span class="badge badge-light">{{formalize type}}</span>
 </div>
 <div>
   <div>
     <span class="label">Publication Date:</span>
-    <span>{{publicationDate}}</span>
+    <span>{{toYear publicationDate}}</span>
   </div>
-  {{#publisher}}
+  {{#if publisher}}
   <div>
     <span class="label">Publisher:</span>
     <span><a href="display/organizations/{{publisher.id}}">{{publisher.label}}</a></span>
   </div>
-  {{/publisher}}
-  {{#authors.length}}
+  {{/if}}
+  {{#if authors}}
   <div>
     <span class="label">TAMU Faculty Authors (Claimed):</span>
     <ul>
-      {{#authors}}
+      {{#each authors}}
       <li>
         <div class="comma-seperated">
           <span><a href="display/persons/{{id}}">{{label}}</a></span>
-          {{#organizations}}
+          {{#each organizations}}
           <span><a href="display/organizations/{{id}}">{{label}}</a></span>
-          {{/organizations}}
+          {{/each}}
         </div>
       </li>
-      {{/authors}}
+      {{/each}}
     </ul>
   </div>
-  {{/authors.length}}
+  {{/if}}
 </div>
 <div class="d-flex">
-  {{#doi}}
+  {{#if doi}}
   <span clsas="mr-1"><a href="https://dx.doi.org/{{doi}}"><img src="assets/images/doi-badge.jpg" width="100" alt="doi badge"></a></span>
-  {{/doi}}
-  {{#pmcid}}
+  {{/if}}
+  {{#if pmcid}}
   <span clsas="mr-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" alt="pubmed badge"></a></span>
-  {{/pmcid}}
-  {{#uri}}
+  {{/if}}
+  {{#if uri}}
   <span clsas="mr-1"><a href="{{uri}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge"></a></span>
-  {{/uri}}
+  {{/if}}
 </div>
 <style>
   .label {

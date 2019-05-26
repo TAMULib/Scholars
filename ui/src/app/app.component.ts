@@ -12,6 +12,8 @@ import { WindowDimensions } from './core/store/layout/layout.reducer';
 
 import { selectStyle } from './core/store/theme';
 
+import { initializeTemplateHelpers } from './shared/utilities/template.utility';
+
 import * as fromLayout from './core/store/layout/layout.actions';
 import * as fromRouter from './core/store/router/router.actions';
 
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit {
         @Inject(PLATFORM_ID) platformId: string,
         private store: Store<AppState>
     ) {
+        initializeTemplateHelpers();
         this.isPlatformBrowser = isPlatformBrowser(platformId);
     }
 

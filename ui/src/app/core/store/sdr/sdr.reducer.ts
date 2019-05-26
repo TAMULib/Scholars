@@ -3,15 +3,9 @@ import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { SdrActionTypes, SdrActions, getSdrAction } from './sdr.actions';
 import { SdrResource, SdrPage, SdrCollectionLinks, SdrFacet } from '../../model/sdr';
 
-import { ResourceView, CollectionView, DisplayView } from '../../model/view';
-
 import { keys } from '../../model/repos';
 
-import { formalize } from '../../../shared/utilities/formalize.pipe';
-
-import { environment } from '../../../../environments/environment';
-
-import { render, parse } from 'mustache';
+import { augmentCollectionViewTemplates, augmentDisplayViewTemplates } from '../../../shared/utilities/template.utility';
 
 export interface SdrState<R extends SdrResource> extends EntityState<R> {
     page: SdrPage;
@@ -44,77 +38,15 @@ export const getSdrInitialState = <R extends SdrResource>(key: string) => {
 };
 
 export const getSdrReducer = <R extends SdrResource>(name: string) => {
-    const formalizeTypes = (resource: any) => {
-        for (const property in resource) {
-            if (resource.hasOwnProperty(property)) {
-                if (property === 'type' && Array.isArray(resource[property])) {
-                    resource.formalType = resource.type.map(type => formalize(type));
-                } else if (typeof resource[property] === 'object') {
-                    formalizeTypes(resource[property]);
-                }
-            }
-        }
-    };
-    const getTemplateFunction = (template: string) => (resource: any) => {
-        if (template && template.length > 0) {
-            if (resource.uri !== undefined) {
-                resource.uri = resource.uri[0].replace('http://hdl.handle.net/', '');
-            }
-            resource.vivoUrl = environment.vivoUrl;
-            formalizeTypes(resource);
-            return render(template, resource);
-        }
-        return '';
-    };
-    const getParsedTemplateFunction = (template: string) => {
-        parse(template);
-        return getTemplateFunction(template);
-    };
-    const getParsedResourceViewTemplateFunction = (view: ResourceView, template: string) => {
-        parse(template);
-        return (resource: any) => {
-            resource.collection = view.collection;
-            const templateFunction = getTemplateFunction(template);
-            return templateFunction(resource);
-        };
-    };
-    const augmentCollectionViewTemplates = (view: CollectionView) => {
-        view.templateFunctions = {};
-        for (const k in view.templates) {
-            if (view.templates.hasOwnProperty(k)) {
-                view.templateFunctions[k] = getParsedResourceViewTemplateFunction(view, view.templates[k]);
-            }
-        }
-    };
-    const augmentDisplayViewTemplates = (view: DisplayView) => {
-        view.mainContentTemplateFunction = getParsedTemplateFunction(view.mainContentTemplate);
-        view.leftScanTemplateFunction = getParsedTemplateFunction(view.leftScanTemplate);
-        view.rightScanTemplateFunction = getParsedTemplateFunction(view.rightScanTemplate);
-        view.asideTemplateFunction = getParsedTemplateFunction(view.asideTemplate);
-        view.tabs.forEach(tab => {
-            tab.sections.forEach(section => {
-                section.templateFunction = getParsedTemplateFunction(section.template);
-                section.subsections.forEach(subsection => {
-                    subsection.templateFunction = getParsedTemplateFunction(subsection.template);
-                });
-            });
-        });
-        view.metaTemplateFunctions = {};
-        for (const k in view.metaTemplates) {
-            if (view.metaTemplates.hasOwnProperty(k)) {
-                view.metaTemplateFunctions[k] = getParsedTemplateFunction(view.metaTemplates[k]);
-            }
-        }
-    };
     const getResources = (action: SdrActions, key: string): R[] => {
         const resources = action.payload.collection._embedded !== undefined ? action.payload.collection._embedded[key] : [];
         switch (key) {
             case 'directoryViews':
             case 'discoveryViews':
-                resources.forEach(resource => augmentCollectionViewTemplates(resource));
+                resources.forEach(view => augmentCollectionViewTemplates(view));
                 break;
             case 'displayViews':
-                resources.forEach(resource => augmentDisplayViewTemplates(resource));
+                resources.forEach(view => augmentDisplayViewTemplates(view));
                 break;
         }
         return resources;
@@ -215,7 +147,7 @@ export const getSdrReducer = <R extends SdrResource>(name: string) => {
             case getSdrAction(SdrActionTypes.POST_SUCCESS, name):
             case getSdrAction(SdrActionTypes.PATCH_SUCCESS, name):
             case getSdrAction(SdrActionTypes.DELETE_SUCCESS, name):
-                // NOTE: entity in page is updated via broadcast
+                // NOTE: entities in store will be updated via broadcast
                 return {
                     ...state,
                     updating: false

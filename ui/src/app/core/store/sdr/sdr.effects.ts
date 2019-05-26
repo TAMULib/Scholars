@@ -454,6 +454,7 @@ export class SdrEffects {
                     }
                 }
             });
+
             this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
         }
         this.subscribeToResourceQueue(action.name, store.stomp);

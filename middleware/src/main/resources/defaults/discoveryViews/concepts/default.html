@@ -1,1 +1,7 @@
-<span><a href="display/{{collection}}/{{id}}">{{name}}</a></span>
+<span>
+  {{#if name}}
+  <a href="display/{{collection}}/{{id}}">{{name}}</a>
+  {{else}}
+  <a href="display/{{collection}}/{{id}}">No title available ({{id}})</a>
+  {{/if}}
+</span>

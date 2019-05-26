@@ -1,1 +1,1 @@
-{{#keywords}}{{keywords}}{{/keywords}}
+{{#if keywords}}{{keywords}}{{/if}}

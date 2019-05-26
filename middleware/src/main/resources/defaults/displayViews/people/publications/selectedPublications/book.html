@@ -1,51 +1,50 @@
 <div>
   <span>{{authorList}}</span>
-  <span>({{publicationDate}}).</span>
+  <span>({{toYear publicationDate}}).</span>
   <span>
     <a href="display/documents/{{id}}"><u>{{title}}</u>.</a>
   </span>
 
-  {{#publicationVenue}}
+  {{#if publicationVenue}}
   <span><em>{{publicationVenue.label}}</em>. </span>
-  {{/publicationVenue}}
+  {{/if}}
 
-  {{#publisher}}
+  {{#if publisher}}
   <span>{{publisher.label}}.</span>
-  {{/publisher}}
+  {{/if}}
 
-  {{#volume}}
-  {{#issue}}
+  {{#if volume}}
+  {{#if issue}}
   <span>{{volume}}({{issue}}), </span>
-  {{/issue}}
-  {{^issue}}
+  {{else}}
   <span>{{volume}}, </span>
-  {{/issue}}
-  {{/volume}}
-  {{^volume}}
-  {{#issue}}
+  {{/if}}
+  {{else}}
+  {{#if issue}}
   <span>({{issue}}), </span>
-  {{/issue}}
-  {{/volume}}
+  {{/if}}
+  {{/if}}
 
 </div>
 <div>
-  {{#doi}}
+  {{#if doi}}
   <span class="m-1"><a href="https://dx.doi.org/{{doi}}"><img src="assets/images/doi-badge.jpg" width="100" alt="doi badge" /></a></span>
-  {{/doi}}
-  {{#pmcid}}
+  {{/if}}
+  {{#if pmcid}}
   <span class="m-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" alt="pubmed badge" /></a></span>
-  {{/pmcid}}
-  {{#uri}}
+  {{/if}}
+  {{#if uri}}
   <span class="m-1"><a href="{{uri}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge" /></a></span>
-  <span class="altmetric-embed m-1" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{uri}}"></span>
-  {{/uri}}
-  {{#isbn10}}
-  <span class="altmetric-embed m-1" data-hide-no-mentions="true" data-badge-popover="top" data-isbn="{{isbn10}}"></span>
-  {{/isbn10}}
-  {{#doi}}
-  {{^uri}}
+  <span class="altmetric-embed m-1" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{replace uri 'http://hdl.handle.net/' ''}}"></span>
+  {{else}}
+  {{#if doi}}
   <span class="altmetric-embed m-1" data-hide-no-mentions="true" data-badge-popover="top" data-doi="{{doi}}"></span>
-  {{/uri}}
+  {{/if}}
+  {{/if}}
+  {{#if isbn10}}
+  <span class="altmetric-embed m-1" data-hide-no-mentions="true" data-badge-popover="top" data-isbn="{{isbn10}}"></span>
+  {{/if}}
+  {{#if doi}}
   <span class="__dimensions_badge_embed__ m-1" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-top" data-doi="{{doi}}"></span>
-  {{/doi}}
+  {{/if}}
 </div>

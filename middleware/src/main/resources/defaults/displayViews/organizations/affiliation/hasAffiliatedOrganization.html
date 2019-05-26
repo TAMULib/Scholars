@@ -1,7 +1,9 @@
+{{#if hasAffiliatedOrganizations}}
 <ul class="list-unstyled">
-  {{#hasAffiliatedOrganizations}}
+  {{#each hasAffiliatedOrganizations}}
   <li>
     <span><a href="display/organizations/{{id}}">{{label}}</a></span>
   </li>
-  {{/hasAffiliatedOrganizations}}
+  {{/each}}
 </ul>
+{{/if}}

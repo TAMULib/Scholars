@@ -1,7 +1,9 @@
+{{#if keywords}}
 <ul class="list-unstyled">
-  {{#keywords}}
+  {{#each keywords}}
   <li>
-    <span>{{.}}</span>
+    <span>{{this}}</span>
   </li>
-  {{/keywords}}
+  {{/each}}
 </ul>
+{{/if}}

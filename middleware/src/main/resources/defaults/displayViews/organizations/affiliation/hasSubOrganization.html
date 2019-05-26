@@ -1,7 +1,9 @@
+{{#if hasSubOrganizations}}
 <ul class="list-unstyled">
-  {{#hasSubOrganizations}}
+  {{#each hasSubOrganizations}}
   <li>
     <span><a href="display/organizations/{{id}}">{{label}}</a></span>
   </li>
-  {{/hasSubOrganizations}}
+  {{/each}}
 </ul>
+{{/if}}
