@@ -8,6 +8,7 @@ import { queue } from 'rxjs/internal/scheduler/queue';
 
 import { AppState } from '../../../core/store';
 import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
+import { Facet } from '../../../core/model/view';
 import { SdrFacet } from '../../../core/model/sdr';
 
 import * as fromDialog from '../../../core/store/dialog/dialog.actions';
@@ -19,9 +20,9 @@ import * as fromDialog from '../../../core/store/dialog/dialog.actions';
 })
 export class FacetEntriesComponent implements OnInit {
 
-    @Input() name: string;
+    @Input() facet: Facet;
 
-    @Input() facet: SdrFacet;
+    @Input() sdrFacet: SdrFacet;
 
     public page = 2;
 
@@ -40,7 +41,7 @@ export class FacetEntriesComponent implements OnInit {
 
     ngOnInit() {
         this.dialog = {
-            title: scheduled([this.name], queue),
+            title: scheduled([this.facet.name], queue),
             close: {
                 type: DialogButtonType.OUTLINE_WARNING,
                 label: this.translate.get('SHARED.DIALOG.FACET_ENTRIES.CANCEL'),
@@ -52,7 +53,7 @@ export class FacetEntriesComponent implements OnInit {
 
     public getFacetEntryPage(): any[] {
         const start = (this.page - 1) * this.size;
-        return this.facet.entries.slice(start, start + this.size);
+        return this.sdrFacet.entries.slice(start, start + this.size);
     }
 
     public getQueryParams(facet: SdrFacet, entry: any): Params {

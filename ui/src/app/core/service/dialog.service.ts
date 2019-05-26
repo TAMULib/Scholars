@@ -13,6 +13,7 @@ import { RegistrationRequest } from '../model/request';
 import { SdrFacet } from '../model/sdr';
 
 import * as fromDialog from '../../core/store/dialog/dialog.actions';
+import { FacetType, Facet } from '../model/view';
 
 @Injectable({
     providedIn: 'root',
@@ -76,12 +77,12 @@ export class DialogService {
         });
     }
 
-    public facetEntriesDialog(name: string, facet: SdrFacet): fromDialog.OpenDialogAction {
+    public facetEntriesDialog(facet: Facet, sdrFacet: SdrFacet): fromDialog.OpenDialogAction {
         return new fromDialog.OpenDialogAction({
             dialog: {
                 ref: {
                     component: FacetEntriesComponent,
-                    inputs: { name, facet }
+                    inputs: { facet, sdrFacet }
                 },
                 options: this.options(this.translate.instant('SHARED.DIALOG.FACET_ENTRIES.ARIA_LABELLED_BY', { name }))
             }

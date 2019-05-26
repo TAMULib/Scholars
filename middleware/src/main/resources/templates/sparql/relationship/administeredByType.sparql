@@ -1,3 +1,4 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
@@ -5,6 +6,6 @@ CONSTRUCT {
     ?relates vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
     <[(${uri})]> vivo:relates ?relates ; a vivo:Grant .
-    ?relates vitro:mostSpecificType ?mostSpecificType ; a vivo:AdministratorRole .
+    ?relates vitro:mostSpecificType ?mostSpecificType ; a foaf:Organization .
     BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?relates), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
 }
