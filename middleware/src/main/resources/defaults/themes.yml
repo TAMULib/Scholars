@@ -145,7 +145,7 @@
   - key: "--accent"
     value: "#ffc222"
   - key: "--link-color"
-    value: "#007bff"
+    value: "#2B5D7D"
   - key: "--link-color-hover"
     value: "#0056b3"
   - key: "--navigation-background-color"
