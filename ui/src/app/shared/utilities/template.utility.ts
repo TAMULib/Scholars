@@ -8,19 +8,17 @@ import { environment } from '../../../environments/environment';
 
 const cache: Map<number, any> = new Map<number, any>();
 
-const replace = (value, arg1, arg2) => value.replace(arg1, arg2);
-
 const initializeTemplateHelpers = () => {
     registerHelper('formalize', (value: string | string[]) => formalize(value));
-    registerHelper('replace', (value: string, a: string, b: string) => {
+    registerHelper('replace', (value: string, arg1: string, arg2: string) => {
         if (Array.isArray(value)) {
             const values = [];
             for (const entry of value) {
-                values.push(entry.replace(a, b));
+                values.push(entry.replace(arg1, arg2));
             }
             return values;
         }
-        return value.replace(a, b);
+        return value.replace(arg1, arg2);
     });
     registerHelper('ifEquals', (arg1, arg2, options) => (arg1 === arg2) ? options.fn(this) : options.inverse(this));
     registerHelper('toYear', (value: string) => value !== undefined ? new Date(value).getFullYear() : value);
