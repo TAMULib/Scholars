@@ -8,6 +8,8 @@ import { SharedModule } from '../../shared.module';
 import { FacetEntriesComponent } from './facet-entries.component';
 
 import { metaReducers, reducers } from '../../../core/store';
+import { FacetType, FacetSort } from '../../../core/model/view';
+import { Direction } from '../../../core/model/request';
 
 describe('FacetEntriesComponent', () => {
     let component: FacetEntriesComponent;
@@ -29,9 +31,18 @@ describe('FacetEntriesComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(FacetEntriesComponent);
         component = fixture.componentInstance;
-        component.name = 'Test';
         component.facet = {
-            field: undefined,
+            name: 'Test',
+            field: 'test',
+            type: FacetType.STRING,
+            sort: FacetSort.COUNT,
+            direction: Direction.ASC,
+            limit: 10,
+            hidden: false,
+            collapsed: false
+        };
+        component.sdrFacet = {
+            field: 'test',
             entries: []
         };
         fixture.detectChanges();
