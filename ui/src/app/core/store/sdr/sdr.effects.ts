@@ -443,7 +443,7 @@ export class SdrEffects {
                         if (sdrFacet.entries.length > facet.limit) {
                             sidebarSection.items.push({
                                 type: SidebarItemType.ACTION,
-                                action: this.dialog.facetEntriesDialog(facet.name, sdrFacet),
+                                action: this.dialog.facetEntriesDialog(facet, sdrFacet),
                                 label: this.translate.get('SHARED.SIDEBAR.ACTION.MORE'),
                                 classes: 'font-weight-bold'
                             });
