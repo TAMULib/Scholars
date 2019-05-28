@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e446450d72d34e4381b81113db6924e0)](https://app.codacy.com/app/wwelling/Scholars?utm_source=github.com&utm_medium=referral&utm_content=TAMULib/Scholars&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/TAMULib/Scholars.svg?branch=master)](https://travis-ci.org/TAMULib/Scholars)
 [![Coverage Status](https://coveralls.io/repos/github/TAMULib/Scholars/badge.svg)](https://coveralls.io/github/TAMULib/Scholars)
 
