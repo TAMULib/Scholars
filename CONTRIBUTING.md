@@ -2,11 +2,11 @@
 
 Though TAMU Scholars is developed and maintained by Texas A&M University Libraries, we welcome community contributions. Involvement in TAMU Scholars can take many forms:
 
-#### Using TAMU Scholars:
+## Using TAMU Scholars
 
 Deploying TAMU Scholars and trying it out at your own institution is itself a way of contributing to the development process. For more information on deployment strategies please see the [relevant documentation](https://github.com/TAMULib/Scholars/blob/master/README.md).
 
-#### Filing Issues:
+## Filing Issues
 
 Once you are using TAMU Scholars the creation of new issues through Github is a major method of contribution towards TAMU Scholars development. Issues can be motivated by the discovery of a bug in the software, or by the desire to see either new features added to cap or existing features behaving differently.
 
@@ -32,7 +32,7 @@ These three categories of issue can be submitted using the following template:
 
 Once an issue has been filed it will be curated by a TAMU Scholars developer and receive the appropriate labeling.
 
-#### Creating Pull Requests:
+## Creating Pull Requests
 
 Community code and documentation contributions are welcome, and should take the form of a Github Pull Request (PR). Each PR will need to be reviewed by a TAMU Scholars developer. A review will result in the PR being accepted and merged, a descriptive request for changes, or the PR being closed along with a detailed explanation.
 
@@ -64,6 +64,6 @@ In addition to a well formatted PR we would also appreciate granular commits wit
 
 If your commits do not conform to these recommendations you might consider rebasing your PR. Instructions for how this might work can be found [here](https://help.github.com/articles/about-git-rebase/).
 
-#### Good Luck!
+### Good Luck
 
 We look forward to seeing your contributions. If you have any additional questions please contact the TAMU Scholars developers at [helpdesk@library.tamu.edu](<>).

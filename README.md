@@ -20,7 +20,7 @@ This replacement front end is based on <a href="https://lucene.apache.org/solr/"
 
 TAMU Scholars currently harvest directly from VIVO’s triple store and for each high level model in VIVO there is a Solr collection and each of its document properties are populated from parsing response of a SparQL query in which isolates the desired value. We are using Spring Apache Solr with explicit Java models representing a Solr document and utilize the provided implementation of a CRUD repository of the Solr documents.  At runtime each Solr collection can be initiated and re-indexed if needed to dynamically pick up new fields added to VIVO’s triple store.
 
-### Developer Documentation
+## Developer Documentation
 
 -   [Contributors Documentation](https://github.com/TAMULib/Scholars/blob/master/CONTRIBUTING.md)
 -   [Middleware Documentation](https://github.com/TAMULib/Scholars/blob/master/middleware/README.md)
