@@ -77,7 +77,7 @@
     sort: INDEX
     direction: ASC
     limit: 10
-    collapsed: true
+    collapsed: false
     hidden: false
   filters: []
   sort: []

@@ -27,7 +27,7 @@ public class MiddlewareApplication {
     }
 
     @PostConstruct
-    private void initializePropertyConstants() {
+    protected void initializePropertyConstants() {
         AuthConfig auth = middlewareConfig.getAuth();
         PasswordConfig password = auth.getPassword();
         PASSWORD_DURATION_IN_DAYS = password.getDuration();

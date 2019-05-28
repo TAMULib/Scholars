@@ -412,32 +412,34 @@ export class SdrEffects {
                         sdrFacet.entries.slice(0, facet.limit).forEach((facetEntry: SdrFacetEntry) => {
                             let selected = false;
 
-                            for (const requestFacet of routerState.queryParams.facets.split(',')) {
-                                if (routerState.queryParams[`${requestFacet}.filter`] === facetEntry.value) {
-                                    selected = true;
-                                    break;
+                            if (facetEntry.value.length > 0) {
+                                for (const requestFacet of routerState.queryParams.facets.split(',')) {
+                                    if (routerState.queryParams[`${requestFacet}.filter`] === facetEntry.value) {
+                                        selected = true;
+                                        break;
+                                    }
                                 }
+
+                                const sidebarItem: SidebarItem = {
+                                    type: SidebarItemType.FACET,
+                                    label: scheduled([facet.field === 'type' ? formalize(facetEntry.value) : facetEntry.value], asap),
+                                    facet: facet,
+                                    selected: selected,
+                                    parenthetical: facetEntry.count,
+                                    route: [],
+                                    queryParams: {},
+                                };
+
+                                sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !selected ? facetEntry.value : undefined;
+
+                                sidebarItem.queryParams.page = 1;
+
+                                if (selected) {
+                                    sidebarSection.collapsed = false;
+                                }
+
+                                sidebarSection.items.push(sidebarItem);
                             }
-
-                            const sidebarItem: SidebarItem = {
-                                type: SidebarItemType.FACET,
-                                label: scheduled([facet.field === 'type' ? formalize(facetEntry.value) : facetEntry.value], asap),
-                                facet: facet,
-                                selected: selected,
-                                parenthetical: facetEntry.count,
-                                route: [],
-                                queryParams: {},
-                            };
-
-                            sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !selected ? facetEntry.value : undefined;
-
-                            sidebarItem.queryParams.page = 1;
-
-                            if (selected) {
-                                sidebarSection.collapsed = false;
-                            }
-
-                            sidebarSection.items.push(sidebarItem);
                         });
 
                         if (sdrFacet.entries.length > facet.limit) {

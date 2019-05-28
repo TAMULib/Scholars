@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 
+import { SharedModule } from '../../shared/shared.module';
+
 import { BannerComponent } from './banner.component';
 
 import { metaReducers, reducers } from '../../core/store';
@@ -17,6 +19,7 @@ describe('BannerComponent', () => {
                 BannerComponent
             ],
             imports: [
+                SharedModule,
                 StoreModule.forRoot(reducers, {
                     metaReducers
                 }),

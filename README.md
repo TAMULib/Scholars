@@ -10,6 +10,7 @@ Texas A&M University has been using <a href="https://wiki.duraspace.org/display/
 </p>
 
 This replacement front end is based on <a href="https://lucene.apache.org/solr/">Solr</a>, <a href="https://spring.io/projects/spring-data-solr">Spring Data</a>, and <a href="https://angular.io/guide/universal">Angular Universal</a>.  The basic goals of this front end are:
+
 <ul>
 <li>Align the technology stack as much as possible with the existing VIVO stack to assist with ease of implementation by others if they choose especially smaller libraries.</li>
 <li>Read only UI.  NO updating back to the triple store.</li>
@@ -20,9 +21,9 @@ TAMU Scholars currently harvest directly from VIVO’s triple store and for each
 
 ### Developer Documentation
 
-- [Contributors Documentation](https://github.com/TAMULib/Scholars/blob/master/CONTRIBUTING.md)
-- [Middleware Documentation](https://github.com/TAMULib/Scholars/blob/master/middleware/README.md)
-- [UI Documentation](https://github.com/TAMULib/Scholars/blob/master/ui/README.md)
-- [API Documentation](https://tamulib.github.io/Scholars)
+-   [Contributors Documentation](https://github.com/TAMULib/Scholars/blob/master/CONTRIBUTING.md)
+-   [Middleware Documentation](https://github.com/TAMULib/Scholars/blob/master/middleware/README.md)
+-   [UI Documentation](https://github.com/TAMULib/Scholars/blob/master/ui/README.md)
+-   [API Documentation](https://tamulib.github.io/Scholars)
 
-Please feel free to file any issues concerning TAMU Scholars to the issues section of the repository. Any questions concerning TAMU Scholars can be directed to [helpdesk@library.tamu.edu]()
+Please feel free to file any issues concerning TAMU Scholars to the issues section of the repository. Any questions concerning TAMU Scholars can be directed to [helpdesk@library.tamu.edu](<>)

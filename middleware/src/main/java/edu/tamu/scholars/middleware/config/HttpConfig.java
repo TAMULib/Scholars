@@ -15,10 +15,6 @@ public class HttpConfig {
 
     private int socketTimeout = 60000;
 
-    public HttpConfig() {
-
-    }
-
     public int getTimeout() {
         return timeout;
     }
