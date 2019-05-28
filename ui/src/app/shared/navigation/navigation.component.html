@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-light">
   <div class="container">
     <a class="navbar-brand d-sm-none ml-2 menu-action" (click)="toggleSidebar()">{{ ((hasMenu | async) ? ((isSidebarExpanded | async) ? 'SHARED.SIDEBAR.BACK' : 'SHARED.SIDEBAR.MENU') : '') | translate }}</a>
-    <button class="navbar-toggler" type="button" (click)="toggleNavigation()" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" (click)="toggleNavigation()" data-target="#navigation" aria-controls="navigation" aria-expanded="false" attr.aria-label="{{ 'SHARED.NAVIGATION.TOGGLE' | translate }}">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div [ngbCollapse]="isNavigationCollapsed | async" class="collapse navbar-collapse" [ngClass]="{'expand': (isNavigationExpanded | async)}" id="navigation">

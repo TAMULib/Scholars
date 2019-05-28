@@ -50,6 +50,14 @@
   "DISCOVERY": {
     "TITLE": "Discovery"
   },
+  "HEADER": {
+    "BANNER": {
+      "LOGO_ALT": "Scholars at Texas A&M University logo"
+    },
+    "NAVBAR": {
+      "LOGO_ALT": "TAMU Libraries logo"
+    }
+  },
   "FOOTER": {
     "ADMINISTRATION": "Administration",
     "REGISTRATION": "Sign Up",
@@ -124,6 +132,7 @@
       }
     },
     "NAVIGATION": {
+      "TOGGLE": "Toggle navigation",
       "EDIT_PROFILE": "Edit my profile",
       "HOME": "Home",
       "ABOUT": "About"
