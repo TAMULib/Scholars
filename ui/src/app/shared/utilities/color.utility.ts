@@ -1,158 +1,153 @@
-const nameToHex = (name: string): string => {
-    let hex;
-    switch (name) {
-        case 'aliceblue': hex = '#f0f8ff'; break;
-        case 'antiquewhite': hex = '#faebd7'; break;
-        case 'aqua': hex = '#00ffff'; break;
-        case 'aquamarine': hex = '#7fffd4'; break;
-        case 'azure': hex = '#f0ffff'; break;
-        case 'beige': hex = '#f5f5dc'; break;
-        case 'bisque': hex = '#ffe4c4'; break;
-        case 'black': hex = '#000000'; break;
-        case 'blanchedalmond': hex = '#ffebcd'; break;
-        case 'blue': hex = '#0000ff'; break;
-        case 'blueviolet': hex = '#8a2be2'; break;
-        case 'brown': hex = '#a52a2a'; break;
-        case 'burlywood': hex = '#deb887'; break;
-        case 'cadetblue': hex = '#5f9ea0'; break;
-        case 'chartreuse': hex = '#7fff00'; break;
-        case 'chocolate': hex = '#d2691e'; break;
-        case 'coral': hex = '#ff7f50'; break;
-        case 'cornflowerblue': hex = '#6495ed'; break;
-        case 'cornsilk': hex = '#fff8dc'; break;
-        case 'crimson': hex = '#dc143c'; break;
-        case 'cyan': hex = '#00ffff'; break;
-        case 'darkblue': hex = '#00008b'; break;
-        case 'darkcyan': hex = '#008b8b'; break;
-        case 'darkgoldenrod': hex = '#b8860b'; break;
-        case 'darkgray': hex = '#a9a9a9'; break;
-        case 'darkgreen': hex = '#006400'; break;
-        case 'darkgrey': hex = '#a9a9a9'; break;
-        case 'darkkhaki': hex = '#bdb76b'; break;
-        case 'darkmagenta': hex = '#8b008b'; break;
-        case 'darkolivegreen': hex = '#556b2f'; break;
-        case 'darkorange': hex = '#ff8c00'; break;
-        case 'darkorchid': hex = '#9932cc'; break;
-        case 'darkred': hex = '#8b0000'; break;
-        case 'darksalmon': hex = '#e9967a'; break;
-        case 'darkseagreen': hex = '#8fbc8f'; break;
-        case 'darkslateblue': hex = '#483d8b'; break;
-        case 'darkslategray': hex = '#2f4f4f'; break;
-        case 'darkslategrey': hex = '#2f4f4f'; break;
-        case 'darkturquoise': hex = '#00ced1'; break;
-        case 'darkviolet': hex = '#9400d3'; break;
-        case 'deeppink': hex = '#ff1493'; break;
-        case 'deepskyblue': hex = '#00bfff'; break;
-        case 'dimgray': hex = '#696969'; break;
-        case 'dimgrey': hex = '#696969'; break;
-        case 'dodgerblue': hex = '#1e90ff'; break;
-        case 'firebrick': hex = '#b22222'; break;
-        case 'floralwhite': hex = '#fffaf0'; break;
-        case 'forestgreen': hex = '#228b22'; break;
-        case 'fuchsia': hex = '#ff00ff'; break;
-        case 'gainsboro': hex = '#dcdcdc'; break;
-        case 'ghostwhite': hex = '#f8f8ff'; break;
-        case 'gold': hex = '#ffd700'; break;
-        case 'goldenrod': hex = '#daa520'; break;
-        case 'gray': hex = '#808080'; break;
-        case 'green': hex = '#008000'; break;
-        case 'greenyellow': hex = '#adff2f'; break;
-        case 'grey': hex = '#808080'; break;
-        case 'honeydew': hex = '#f0fff0'; break;
-        case 'hotpink': hex = '#ff69b4'; break;
-        case 'indianred': hex = '#cd5c5c'; break;
-        case 'indigo': hex = '#4b0082'; break;
-        case 'ivory': hex = '#fffff0'; break;
-        case 'khaki': hex = '#f0e68c'; break;
-        case 'lavender': hex = '#e6e6fa'; break;
-        case 'lavenderblush': hex = '#fff0f5'; break;
-        case 'lawngreen': hex = '#7cfc00'; break;
-        case 'lemonchiffon': hex = '#fffacd'; break;
-        case 'lightblue': hex = '#add8e6'; break;
-        case 'lightcoral': hex = '#f08080'; break;
-        case 'lightcyan': hex = '#e0ffff'; break;
-        case 'lightgoldenrodyellow': hex = '#fafad2'; break;
-        case 'lightgray': hex = '#d3d3d3'; break;
-        case 'lightgreen': hex = '#90ee90'; break;
-        case 'lightgrey': hex = '#d3d3d3'; break;
-        case 'lightpink': hex = '#ffb6c1'; break;
-        case 'lightsalmon': hex = '#ffa07a'; break;
-        case 'lightseagreen': hex = '#20b2aa'; break;
-        case 'lightskyblue': hex = '#87cefa'; break;
-        case 'lightslategray': hex = '#778899'; break;
-        case 'lightslategrey': hex = '#778899'; break;
-        case 'lightsteelblue': hex = '#b0c4de'; break;
-        case 'lightyellow': hex = '#ffffe0'; break;
-        case 'lime': hex = '#00ff00'; break;
-        case 'limegreen': hex = '#32cd32'; break;
-        case 'linen': hex = '#faf0e6'; break;
-        case 'magenta': hex = '#ff00ff'; break;
-        case 'maroon': hex = '#800000'; break;
-        case 'mediumaquamarine': hex = '#66cdaa'; break;
-        case 'mediumblue': hex = '#0000cd'; break;
-        case 'mediumorchid': hex = '#ba55d3'; break;
-        case 'mediumpurple': hex = '#9370db'; break;
-        case 'mediumseagreen': hex = '#3cb371'; break;
-        case 'mediumslateblue': hex = '#7b68ee'; break;
-        case 'mediumspringgreen': hex = '#00fa9a'; break;
-        case 'mediumturquoise': hex = '#48d1cc'; break;
-        case 'mediumvioletred': hex = '#c71585'; break;
-        case 'midnightblue': hex = '#191970'; break;
-        case 'mintcream': hex = '#f5fffa'; break;
-        case 'mistyrose': hex = '#ffe4e1'; break;
-        case 'moccasin': hex = '#ffe4b5'; break;
-        case 'navajowhite': hex = '#ffdead'; break;
-        case 'navy': hex = '#000080'; break;
-        case 'oldlace': hex = '#fdf5e6'; break;
-        case 'olive': hex = '#808000'; break;
-        case 'olivedrab': hex = '#6b8e23'; break;
-        case 'orange': hex = '#ffa500'; break;
-        case 'orangered': hex = '#ff4500'; break;
-        case 'orchid': hex = '#da70d6'; break;
-        case 'palegoldenrod': hex = '#eee8aa'; break;
-        case 'palegreen': hex = '#98fb98'; break;
-        case 'paleturquoise': hex = '#afeeee'; break;
-        case 'palevioletred': hex = '#db7093'; break;
-        case 'papayawhip': hex = '#ffefd5'; break;
-        case 'peachpuff': hex = '#ffdab9'; break;
-        case 'peru': hex = '#cd853f'; break;
-        case 'pink': hex = '#ffc0cb'; break;
-        case 'plum': hex = '#dda0dd'; break;
-        case 'powderblue': hex = '#b0e0e6'; break;
-        case 'purple': hex = '#800080'; break;
-        case 'rebeccapurple': hex = '#663399'; break;
-        case 'red': hex = '#ff0000'; break;
-        case 'rosybrown': hex = '#bc8f8f'; break;
-        case 'royalblue': hex = '#4169e1'; break;
-        case 'saddlebrown': hex = '#8b4513'; break;
-        case 'salmon': hex = '#fa8072'; break;
-        case 'sandybrown': hex = '#f4a460'; break;
-        case 'seagreen': hex = '#2e8b57'; break;
-        case 'seashell': hex = '#fff5ee'; break;
-        case 'sienna': hex = '#a0522d'; break;
-        case 'silver': hex = '#c0c0c0'; break;
-        case 'skyblue': hex = '#87ceeb'; break;
-        case 'slateblue': hex = '#6a5acd'; break;
-        case 'slategray': hex = '#708090'; break;
-        case 'slategrey': hex = '#708090'; break;
-        case 'snow': hex = '#fffafa'; break;
-        case 'springgreen': hex = '#00ff7f'; break;
-        case 'steelblue': hex = '#4682b4'; break;
-        case 'tan': hex = '#d2b48c'; break;
-        case 'teal': hex = '#008080'; break;
-        case 'thistle': hex = '#d8bfd8'; break;
-        case 'tomato': hex = '#ff6347'; break;
-        case 'turquoise': hex = '#40e0d0'; break;
-        case 'violet': hex = '#ee82ee'; break;
-        case 'wheat': hex = '#f5deb3'; break;
-        case 'white': hex = '#ffffff'; break;
-        case 'whitesmoke': hex = '#f5f5f5'; break;
-        case 'yellow': hex = '#ffff00'; break;
-        case 'yellowgreen': hex = '#9acd32'; break;
-        default: hex = '#000000'; break;
-    }
-    return hex;
-};
+const nameToHex: Map<string, string> = new Map<string, string>([
+    ['aliceblue', '#f0f8ff'],
+    ['antiquewhite', '#faebd7'],
+    ['aqua', '#00ffff'],
+    ['aquamarine', '#7fffd4'],
+    ['azure', '#f0ffff'],
+    ['beige', '#f5f5dc'],
+    ['bisque', '#ffe4c4'],
+    ['black', '#000000'],
+    ['blanchedalmond', '#ffebcd'],
+    ['blue', '#0000ff'],
+    ['blueviolet', '#8a2be2'],
+    ['brown', '#a52a2a'],
+    ['burlywood', '#deb887'],
+    ['cadetblue', '#5f9ea0'],
+    ['chartreuse', '#7fff00'],
+    ['chocolate', '#d2691e'],
+    ['coral', '#ff7f50'],
+    ['cornflowerblue', '#6495ed'],
+    ['cornsilk', '#fff8dc'],
+    ['crimson', '#dc143c'],
+    ['cyan', '#00ffff'],
+    ['darkblue', '#00008b'],
+    ['darkcyan', '#008b8b'],
+    ['darkgoldenrod', '#b8860b'],
+    ['darkgray', '#a9a9a9'],
+    ['darkgreen', '#006400'],
+    ['darkgrey', '#a9a9a9'],
+    ['darkkhaki', '#bdb76b'],
+    ['darkmagenta', '#8b008b'],
+    ['darkolivegreen', '#556b2f'],
+    ['darkorange', '#ff8c00'],
+    ['darkorchid', '#9932cc'],
+    ['darkred', '#8b0000'],
+    ['darksalmon', '#e9967a'],
+    ['darkseagreen', '#8fbc8f'],
+    ['darkslateblue', '#483d8b'],
+    ['darkslategray', '#2f4f4f'],
+    ['darkslategrey', '#2f4f4f'],
+    ['darkturquoise', '#00ced1'],
+    ['darkviolet', '#9400d3'],
+    ['deeppink', '#ff1493'],
+    ['deepskyblue', '#00bfff'],
+    ['dimgray', '#696969'],
+    ['dimgrey', '#696969'],
+    ['dodgerblue', '#1e90ff'],
+    ['firebrick', '#b22222'],
+    ['floralwhite', '#fffaf0'],
+    ['forestgreen', '#228b22'],
+    ['fuchsia', '#ff00ff'],
+    ['gainsboro', '#dcdcdc'],
+    ['ghostwhite', '#f8f8ff'],
+    ['gold', '#ffd700'],
+    ['goldenrod', '#daa520'],
+    ['gray', '#808080'],
+    ['green', '#008000'],
+    ['greenyellow', '#adff2f'],
+    ['grey', '#808080'],
+    ['honeydew', '#f0fff0'],
+    ['hotpink', '#ff69b4'],
+    ['indianred', '#cd5c5c'],
+    ['indigo', '#4b0082'],
+    ['ivory', '#fffff0'],
+    ['khaki', '#f0e68c'],
+    ['lavender', '#e6e6fa'],
+    ['lavenderblush', '#fff0f5'],
+    ['lawngreen', '#7cfc00'],
+    ['lemonchiffon', '#fffacd'],
+    ['lightblue', '#add8e6'],
+    ['lightcoral', '#f08080'],
+    ['lightcyan', '#e0ffff'],
+    ['lightgoldenrodyellow', '#fafad2'],
+    ['lightgray', '#d3d3d3'],
+    ['lightgreen', '#90ee90'],
+    ['lightgrey', '#d3d3d3'],
+    ['lightpink', '#ffb6c1'],
+    ['lightsalmon', '#ffa07a'],
+    ['lightseagreen', '#20b2aa'],
+    ['lightskyblue', '#87cefa'],
+    ['lightslategray', '#778899'],
+    ['lightslategrey', '#778899'],
+    ['lightsteelblue', '#b0c4de'],
+    ['lightyellow', '#ffffe0'],
+    ['lime', '#00ff00'],
+    ['limegreen', '#32cd32'],
+    ['linen', '#faf0e6'],
+    ['magenta', '#ff00ff'],
+    ['maroon', '#800000'],
+    ['mediumaquamarine', '#66cdaa'],
+    ['mediumblue', '#0000cd'],
+    ['mediumorchid', '#ba55d3'],
+    ['mediumpurple', '#9370db'],
+    ['mediumseagreen', '#3cb371'],
+    ['mediumslateblue', '#7b68ee'],
+    ['mediumspringgreen', '#00fa9a'],
+    ['mediumturquoise', '#48d1cc'],
+    ['mediumvioletred', '#c71585'],
+    ['midnightblue', '#191970'],
+    ['mintcream', '#f5fffa'],
+    ['mistyrose', '#ffe4e1'],
+    ['moccasin', '#ffe4b5'],
+    ['navajowhite', '#ffdead'],
+    ['navy', '#000080'],
+    ['oldlace', '#fdf5e6'],
+    ['olive', '#808000'],
+    ['olivedrab', '#6b8e23'],
+    ['orange', '#ffa500'],
+    ['orangered', '#ff4500'],
+    ['orchid', '#da70d6'],
+    ['palegoldenrod', '#eee8aa'],
+    ['palegreen', '#98fb98'],
+    ['paleturquoise', '#afeeee'],
+    ['palevioletred', '#db7093'],
+    ['papayawhip', '#ffefd5'],
+    ['peachpuff', '#ffdab9'],
+    ['peru', '#cd853f'],
+    ['pink', '#ffc0cb'],
+    ['plum', '#dda0dd'],
+    ['powderblue', '#b0e0e6'],
+    ['purple', '#800080'],
+    ['rebeccapurple', '#663399'],
+    ['red', '#ff0000'],
+    ['rosybrown', '#bc8f8f'],
+    ['royalblue', '#4169e1'],
+    ['saddlebrown', '#8b4513'],
+    ['salmon', '#fa8072'],
+    ['sandybrown', '#f4a460'],
+    ['seagreen', '#2e8b57'],
+    ['seashell', '#fff5ee'],
+    ['sienna', '#a0522d'],
+    ['silver', '#c0c0c0'],
+    ['skyblue', '#87ceeb'],
+    ['slateblue', '#6a5acd'],
+    ['slategray', '#708090'],
+    ['slategrey', '#708090'],
+    ['snow', '#fffafa'],
+    ['springgreen', '#00ff7f'],
+    ['steelblue', '#4682b4'],
+    ['tan', '#d2b48c'],
+    ['teal', '#008080'],
+    ['thistle', '#d8bfd8'],
+    ['tomato', '#ff6347'],
+    ['turquoise', '#40e0d0'],
+    ['violet', '#ee82ee'],
+    ['wheat', '#f5deb3'],
+    ['white', '#ffffff'],
+    ['whitesmoke', '#f5f5f5'],
+    ['yellow', '#ffff00'],
+    ['yellowgreen', '#9acd32']
+]);
 
 const expandHexShorthand = (hex: string): string => {
     // expand shorthand form (e.g. "03f") to full form (e.g. "0033ff")
@@ -173,7 +168,7 @@ const normalizeColor = (color: string): string => {
     color = color.trim();
     if (color.charAt(0) !== '#') {
         if (color.indexOf('rgb') !== 0) {
-            color = nameToHex(color);
+            color = nameToHex.get(color);
         } else {
             color = colorToHex(color);
         }
