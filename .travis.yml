@@ -45,7 +45,7 @@ deploy:
   github_token: "$GITHUB_TOKEN"
   local_dir: "./middleware/target/generated-docs"
   on:
-    branch: sprint5-staging
+    branch: master
     condition: $TRAVIS_JOB_NAME = "Middleware Tests"
 
 # Send final notification to coveralls after all jobs have been completed.
