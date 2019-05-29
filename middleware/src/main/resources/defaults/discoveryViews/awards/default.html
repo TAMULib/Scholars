@@ -1,1 +1,27 @@
-<span><a href="display/{{collection}}/{{id}}">{{title}}</a></span>
+<div class="d-flex">
+	<a href="display/{{collection}}/{{id}}">{{title}}</a>
+</div>
+<div>
+	{{#if awardOrHonorFor}}
+	<div>
+		<span class="label">Recipient:</span>
+		{{#each awardOrHonorFor}}
+			{{this.label}}
+		{{/each}}
+	</div>
+	{{/if}}
+	{{#if awardConferredBy}}
+	<div>
+		<span class="label">Conferred By:</span>
+		{{#each awardConferredBy}}
+			{{this.label}}
+		{{/each}}
+	</div>
+	{{/if}}
+</div>
+<style>
+  .label {
+    font-weight: 550;
+    margin-right: 2px;
+  }
+</style>
