@@ -30,6 +30,18 @@ const initializeTemplateHelpers = () => {
         workByStudent.degree = parts[3];
         return options.fn(workByStudent);
     });
+    registerHelper('showPositionForPreferredTitle', (positions, preferredTitle, options) => {
+        var positionsCount = positions.length;
+        let organizationForTitle;
+        for (var i=0;i<positionsCount;i++) {
+            var position = positions[i];
+            if (position.label === preferredTitle) {
+                organizationForTitle = position.organizations[0];
+                break;
+            }
+        }
+        return options.fn(organizationForTitle);
+    });
 };
 
 const hashCode = (value) => {
