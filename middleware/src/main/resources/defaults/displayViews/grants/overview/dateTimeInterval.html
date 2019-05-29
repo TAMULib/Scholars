@@ -1,21 +1,15 @@
 <div>
-  {{? it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
-  {{ it.dateTimeIntervalStartYear = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
-  <span>{{=it.dateTimeIntervalStartYear}}</span>
-  {{ } }}
+  {{#if dateTimeIntervalStart}}
+  {{#if dateTimeIntervalEnd}}
+  <span>{{toYear dateTimeIntervalStart}}</span>
   <span>-</span>
-  {{ it.dateTimeIntervalEndYear = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
-  <span>{{=it.dateTimeIntervalEndYear}}</span>
-  {{ } }}
-  {{?}}
-  {{? it.dateTimeIntervalStart && !it.dateTimeIntervalEnd }}
-  {{ it.dateTimeIntervalStartYear = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
-  <span>{{=it.dateTimeIntervalStartYear}}</span>
-  {{ } }}
-  {{?}}
-  {{? !it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
-  {{ it.dateTimeIntervalEndYear = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
-  <span>{{=it.dateTimeIntervalEndYear}}</span>
-  {{ } }}
-  {{?}}
+  <span>{{toYear dateTimeIntervalEnd}}</span>
+  {{else}}
+  <span>{{toYear dateTimeIntervalStart}}</span>
+  {{/if}}
+  {{else}}
+  {{#if dateTimeIntervalEnd}}
+  <span>{{toYear dateTimeIntervalEnd}}</span>
+  {{/if}}
+  {{/if}}
 </div>

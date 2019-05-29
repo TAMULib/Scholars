@@ -11,10 +11,6 @@ public class MailConfig {
 
     private String replyTo = "scholarsdiscovery@gmail.com";
 
-    public MailConfig() {
-
-    }
-
     public String getFrom() {
         return from;
     }

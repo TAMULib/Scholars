@@ -29,7 +29,8 @@
             ],
             "scripts": [
               "src/assets/scripts/badge.js",
-              "src/assets/scripts/embed.js"
+              "src/assets/scripts/embed.js",
+              "src/assets/scripts/widget.js"
             ],
             "styles": [
               "src/styles.scss"
@@ -97,7 +98,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "src/assets/scripts/badge.js",
-              "src/assets/scripts/embed.js"
+              "src/assets/scripts/embed.js",
+              "src/assets/scripts/widget.js"
             ],
             "styles": [
               "src/styles.scss"

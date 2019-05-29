@@ -1,6 +1,7 @@
-{{? it.name }}
-{{=it.name}}
-{{?}}
-{{? it.title && !it.name }}
-{{=it.title}}
-{{?}}
+{{#if name}}
+{{name}}
+{{else}}
+  {{#if title}}
+  {{title}}
+  {{/if}}
+{{/if}}

@@ -25,6 +25,8 @@ import { OperationKey, Facet, DiscoveryView, DirectoryView, FacetSort } from '..
 
 import { injectable, repos } from '../../model/repos';
 
+import { formalize } from '../../../shared/utilities/formalize.pipe';
+
 import { selectAllResources } from './';
 import { selectRouterState } from '../router';
 import { selectIsStompConnected, selectStompState } from '../stomp';
@@ -410,38 +412,40 @@ export class SdrEffects {
                         sdrFacet.entries.slice(0, facet.limit).forEach((facetEntry: SdrFacetEntry) => {
                             let selected = false;
 
-                            for (const requestFacet of routerState.queryParams.facets.split(',')) {
-                                if (routerState.queryParams[`${requestFacet}.filter`] === facetEntry.value) {
-                                    selected = true;
-                                    break;
+                            if (facetEntry.value.length > 0) {
+                                for (const requestFacet of routerState.queryParams.facets.split(',')) {
+                                    if (routerState.queryParams[`${requestFacet}.filter`] === facetEntry.value) {
+                                        selected = true;
+                                        break;
+                                    }
                                 }
+
+                                const sidebarItem: SidebarItem = {
+                                    type: SidebarItemType.FACET,
+                                    label: scheduled([facet.field === 'type' ? formalize(facetEntry.value) : facetEntry.value], asap),
+                                    facet: facet,
+                                    selected: selected,
+                                    parenthetical: facetEntry.count,
+                                    route: [],
+                                    queryParams: {},
+                                };
+
+                                sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !selected ? facetEntry.value : undefined;
+
+                                sidebarItem.queryParams.page = 1;
+
+                                if (selected) {
+                                    sidebarSection.collapsed = false;
+                                }
+
+                                sidebarSection.items.push(sidebarItem);
                             }
-
-                            const sidebarItem: SidebarItem = {
-                                type: SidebarItemType.FACET,
-                                label: scheduled([facetEntry.value], asap),
-                                facet: facet,
-                                selected: selected,
-                                parenthetical: facetEntry.count,
-                                route: [],
-                                queryParams: {},
-                            };
-
-                            sidebarItem.queryParams[`${sdrFacet.field}.filter`] = !selected ? facetEntry.value : undefined;
-
-                            sidebarItem.queryParams.page = 1;
-
-                            if (selected) {
-                                sidebarSection.collapsed = false;
-                            }
-
-                            sidebarSection.items.push(sidebarItem);
                         });
 
                         if (sdrFacet.entries.length > facet.limit) {
                             sidebarSection.items.push({
                                 type: SidebarItemType.ACTION,
-                                action: this.dialog.facetEntriesDialog(facet.name, sdrFacet),
+                                action: this.dialog.facetEntriesDialog(facet, sdrFacet),
                                 label: this.translate.get('SHARED.SIDEBAR.ACTION.MORE'),
                                 classes: 'font-weight-bold'
                             });
@@ -452,6 +456,7 @@ export class SdrEffects {
                     }
                 }
             });
+
             this.store.dispatch(new fromSidebar.LoadSidebarAction({ menu: sidebarMenu }));
         }
         this.subscribeToResourceQueue(action.name, store.stomp);

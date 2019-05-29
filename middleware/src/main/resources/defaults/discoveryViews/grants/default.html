@@ -1,67 +1,61 @@
 <div class="d-flex">
-  <span><a href="display/{{=it.collection}}/{{=it.id}}">{{=it.title}}</a></span>
+  <span><a href="display/{{collection}}/{{id}}">{{title}}</a></span>
 </div>
 <div>
   <div>
-    {{? it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
+    {{#if dateTimeIntervalStart}}
+    {{#if dateTimeIntervalEnd}}
     <span class="label">Date:</span>
-    {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
-    <span>{{=it.dateTimeIntervalStart}}</span>
-    {{ } }}
+    <span>{{toYear dateTimeIntervalStart}}</span>
     <span>-</span>
-    {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
-    <span>{{=it.dateTimeIntervalEnd}}</span>
-    {{ } }}
-    {{?}}
-    {{? it.dateTimeIntervalStart && !it.dateTimeIntervalEnd }}
+    <span>{{toYear dateTimeIntervalEnd}}</span>
+    {{else}}
     <span class="label">Date:</span>
-    {{ it.dateTimeIntervalStart = new Date(it.dateTimeIntervalStart).getFullYear(); { }}
-    <span>{{=it.dateTimeIntervalStart}}</span>
-    {{ } }}
-    {{?}}
-    {{? !it.dateTimeIntervalStart && it.dateTimeIntervalEnd }}
+    <span>{{toYear dateTimeIntervalStart}}</span>
+    {{/if}}
+    {{else}}
+    {{#if dateTimeIntervalEnd}}
     <span class="label">Date:</span>
-    {{ it.dateTimeIntervalEnd = new Date(it.dateTimeIntervalEnd).getFullYear(); { }}
-    <span>{{=it.dateTimeIntervalEnd}}</span>
-    {{ } }}
-    {{?}}
+    <span>{{toYear dateTimeIntervalEnd}}</span>
+    {{/if}}
+    {{/if}}
   </div>
-  {{? it.awardedBy }}
+  {{#if awardedBy}}
   <div>
     <span class="label">Awarded By:</span>
   </div>
   <div>
     <ul>
-      {{~it.awardedBy :awardedBy}}
-      <li><span><a href="display/organizations/{{=awardedBy.id}}">{{=awardedBy.label}}</a></span></li>
-      {{~}}
+      {{#each awardedBy}}
+      <li><span><a href="display/organizations/{{id}}">{{label}}</a></span></li>
+      {{/each}}
     </ul>
   </div>
-  {{?}}
-  {{? it.principalInvestigators }}
+  {{/if}}
+  {{#if principalInvestigators}}
   <div>
     <span class="label">Principal Investigators:</span>
   </div>
   <div>
     <ul>
-      {{~it.principalInvestigators :principalInvestigator}}
-      <li><span><a href="display/persons/{{=principalInvestigator.id}}">{{=principalInvestigator.label}}</a></span></li>
-      {{~}}
+      {{#each principalInvestigators}}
+      <li><span><a href="display/persons/{{id}}">{{label}}</a></span></li>
+      {{/each}}
     </ul>
   </div>
-  {{?}}
-  {{? it.coPrincipalInvestigators}}
+  {{/if}}
+  {{#if coPrincipalInvestigators}}
   <div>
     <span class="label">Co-Principal Investigators:</span>
   </div>
   <div>
     <ul>
-      {{~it.coPrincipalInvestigators :coPrincipalInvestigator}}
-      <li><span><a href="display/persons/{{=coPrincipalInvestigator.id}}">{{=coPrincipalInvestigator.label}}</a></span></li>
-      {{~}}
+      {{#each coPrincipalInvestigators}}
+      <li><span><a href="display/persons/{{id}}">{{label}}</a></span></li>
+      {{/each}}
     </ul>
   </div>
-  {{?}}
+  {{/if}}
 </div>
 <style>
   .label {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
@@ -20,7 +20,8 @@ import { addFacetsToQueryParams, addFiltersToQueryParams } from '../shared/utili
 @Component({
     selector: 'scholars-directory',
     templateUrl: 'directory.component.html',
-    styleUrls: ['directory.component.scss']
+    styleUrls: ['directory.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DirectoryComponent implements OnDestroy, OnInit {
 

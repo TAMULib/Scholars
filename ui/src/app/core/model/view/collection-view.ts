@@ -19,6 +19,7 @@ export enum FacetSort {
 export interface Sort {
     readonly field: string;
     readonly direction: Direction;
+    readonly date: boolean;
 }
 
 export interface Facet {

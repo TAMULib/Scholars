@@ -17,8 +17,11 @@ public class Sort {
     @Enumerated(EnumType.STRING)
     private Direction direction;
 
-    public Sort() {
+    @Column(nullable = false)
+    private boolean date;
 
+    public Sort() {
+        date = false;
     }
 
     public String getField() {
@@ -35,6 +38,14 @@ public class Sort {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public boolean isDate() {
+        return date;
+    }
+
+    public void setDate(boolean date) {
+        this.date = date;
     }
 
 }

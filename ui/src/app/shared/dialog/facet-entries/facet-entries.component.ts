@@ -1,13 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Params } from '@angular/router';
+import { Params, Router, NavigationStart } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { scheduled } from 'rxjs';
+import { scheduled, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { queue } from 'rxjs/internal/scheduler/queue';
 
 import { AppState } from '../../../core/store';
 import { DialogButtonType, DialogControl } from '../../../core/model/dialog';
+import { Facet } from '../../../core/model/view';
 import { SdrFacet } from '../../../core/model/sdr';
 
 import * as fromDialog from '../../../core/store/dialog/dialog.actions';
@@ -17,11 +19,11 @@ import * as fromDialog from '../../../core/store/dialog/dialog.actions';
     templateUrl: './facet-entries.component.html',
     styleUrls: ['./facet-entries.component.scss']
 })
-export class FacetEntriesComponent implements OnInit {
+export class FacetEntriesComponent implements OnDestroy, OnInit {
 
-    @Input() name: string;
+    @Input() facet: Facet;
 
-    @Input() facet: SdrFacet;
+    @Input() sdrFacet: SdrFacet;
 
     public page = 2;
 
@@ -31,16 +33,30 @@ export class FacetEntriesComponent implements OnInit {
 
     public dialog: DialogControl;
 
-    constructor(
-        private translate: TranslateService,
-        private store: Store<AppState>
-    ) {
+    private subscriptions: Subscription[];
 
+    constructor(
+        private router: Router,
+        private store: Store<AppState>,
+        private translate: TranslateService
+    ) {
+        this.subscriptions = [];
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach((subscription: Subscription) => {
+            subscription.unsubscribe();
+        });
     }
 
     ngOnInit() {
+        this.subscriptions.push(this.router.events.pipe(
+            filter(event => event instanceof NavigationStart)
+        ).subscribe(() => {
+            this.store.dispatch(new fromDialog.CloseDialogAction());
+        }));
         this.dialog = {
-            title: scheduled([this.name], queue),
+            title: scheduled([this.facet.name], queue),
             close: {
                 type: DialogButtonType.OUTLINE_WARNING,
                 label: this.translate.get('SHARED.DIALOG.FACET_ENTRIES.CANCEL'),
@@ -52,7 +68,7 @@ export class FacetEntriesComponent implements OnInit {
 
     public getFacetEntryPage(): any[] {
         const start = (this.page - 1) * this.size;
-        return this.facet.entries.slice(start, start + this.size);
+        return this.sdrFacet.entries.slice(start, start + this.size);
     }
 
     public getQueryParams(facet: SdrFacet, entry: any): Params {

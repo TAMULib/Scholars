@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark" *ngIf="navbar | async; let navbar">
   <div class="container">
     <a class="navbar-brand" href="{{navbar.brandUri}}">
-      <img *ngIf="navbar.logoUri" src="{{navbar.logoUri}}" alt="{{navbar.brandText}}">
+      <img *ngIf="navbar.logoUri" src="{{navbar.logoUri}}" alt="{{ 'HEADER.NAVBAR.LOGO_ALT' | translate }}">
       <span class="brand-title">{{navbar.brandText}}</span>
     </a>
     <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">

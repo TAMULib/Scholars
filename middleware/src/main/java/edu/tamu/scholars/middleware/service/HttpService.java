@@ -44,7 +44,7 @@ public class HttpService {
     private static CloseableHttpClient httpClient;
 
     @PostConstruct
-    private void init() throws URISyntaxException {
+    protected void init() throws URISyntaxException {
         // @formatter:off
         RequestConfig config = RequestConfig.custom()
             .setConnectTimeout(httpConfig.getTimeout())
@@ -63,7 +63,7 @@ public class HttpService {
     }
 
     @PreDestroy
-    private void shutdown() throws IOException {
+    protected void shutdown() throws IOException {
         httpClient.close();
         connectionManager.close();
         connectionManager.shutdown();

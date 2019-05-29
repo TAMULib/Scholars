@@ -1,16 +1,20 @@
 <scholars-pagination [page]="page">
-  <h3 class="text-primary">{{ 'ADMIN.DISPLAY_VIEWS.TITLE' | translate }}</h3>
+  <span class="h3 text-primary">{{ 'ADMIN.DISPLAY_VIEWS.TITLE' | translate }}</span>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th scope="col">{{ 'ADMIN.DISPLAY_VIEWS.NAME' | translate }}</th>
-        <th scope="col">{{ 'ADMIN.DISPLAY_VIEWS.COLLECTION' | translate }}</th>
+        <th scope="col">{{ 'ADMIN.DISPLAY_VIEWS.TYPES' | translate }}</th>
       </tr>
     </thead>
     <tbody *ngIf="displayViews | async; let displayViews">
       <tr *ngFor="let displayView of displayViews">
         <td scope="row">{{displayView.name}}</td>
-        <td scope="row">{{displayView.collection}}</td>
+        <td scope="row">
+          <ul class="list-unstyled">
+            <li *ngFor="let type of displayView.types"><span>{{type}}</span></li>
+          </ul>
+        </td>
       </tr>
     </tbody>
   </table>

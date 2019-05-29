@@ -1,38 +1,28 @@
 <div>
   <span class="h3">
-    <a href="display/{{=it.collection}}/{{=it.id}}">{{=it.name}}</a>
+    <a href="display/persons/{{id}}">{{name}}</a>
   </span>
-  <span class="ml-1"><a href="{{=it.vivoUrl}}/individual/{{=it.id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
+  <span class="ml-1"><a href="{{vivoUrl}}/individual/{{id}}"><i class="fa fa-link"><span class="d-none">individual record</span></i></a></span>
   <div class="mt-1">
-    <h5>{{=it.preferredTitle}}</h5>
+    <span class="h5">{{preferredTitle}}</span>
   </div>
-  {{? it.positions }}
+  {{#if positions}}
   <div>
     <span class="label">Positions:</span>
     <ul class="list-unstyled ml-1">
-      {{~it.positions :position}}
+      {{#each positions}}
       <li>
         <div class="comma-seperated">
-          <span>{{=position.label}}</span>
-          {{~position.organizations :organization}}
-          <span><a href="display/organizations/{{=organization.id}}">{{=organization.label}}</a></span>
-          {{~}}
+          <span>{{label}}</span>
+          {{#each organizations}}
+          <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+          {{/each}}
         </div>
       </li>
-      {{~}}
+      {{/each}}
     </ul>
   </div>
-  {{?}}
-  {{? it.researchAreas }}
-  <div class="mt-1">
-    <span class="label">Research Areas:</span>
-  </div>
-  <div class="comma-seperated ml-1">
-    {{~it.researchAreas :researchArea}}
-    <span><a href="display/concepts/{{=researchArea.id}}">{{=researchArea.label}}</a></span>
-    {{~}}
-  </div>
-  {{?}}
+  {{/if}}
 </div>
 <style>
   .label {

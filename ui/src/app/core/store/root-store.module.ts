@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, NavigationActionTiming } from '@ngrx/router-store';
 
 import { CustomRouterStateSerializer } from './router/router.reducer';
 
@@ -31,7 +31,9 @@ import { environment } from '../../../environments/environment';
         StoreModule.forRoot(reducerToken, {
             metaReducers
         }),
-        StoreRouterConnectingModule,
+        StoreRouterConnectingModule.forRoot({
+            serializer: CustomRouterStateSerializer
+        }),
         EffectsModule.forRoot([
             RootStoreEffects,
             RouterEffects,
@@ -46,12 +48,12 @@ import { environment } from '../../../environments/environment';
             AuthEffects,
             AlertEffects
         ]),
-        !environment.production && environment.hasStoreDevTools ? StoreDevtoolsModule.instrument({
+        StoreDevtoolsModule.instrument({
             maxAge: 25,
-        }) : []
+            logOnly: environment.production
+        })
     ],
     providers: [
-        { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
         reducerProvider
     ]
 })

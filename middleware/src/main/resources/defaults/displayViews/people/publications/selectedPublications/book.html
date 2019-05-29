@@ -1,0 +1,50 @@
+<div>
+  <span>{{authorList}}</span>
+  <span>({{toYear publicationDate}}).</span>
+  <span>
+    <a href="display/documents/{{id}}"><u>{{title}}</u>.</a>
+  </span>
+
+  {{#if publicationVenue}}
+  <span><em>{{publicationVenue.label}}</em>. </span>
+  {{/if}}
+
+  {{#if publisher}}
+  <span>{{publisher.label}}.</span>
+  {{/if}}
+
+  {{#if volume}}
+  {{#if issue}}
+  <span>{{volume}}({{issue}}), </span>
+  {{else}}
+  <span>{{volume}}, </span>
+  {{/if}}
+  {{else}}
+  {{#if issue}}
+  <span>({{issue}}), </span>
+  {{/if}}
+  {{/if}}
+
+</div>
+<div>
+  {{#if doi}}
+  <span class="m-1"><a href="https://dx.doi.org/{{doi}}"><img src="assets/images/doi-badge.jpg" width="100" alt="doi badge" /></a></span>
+  {{/if}}
+  {{#if pmcid}}
+  <span class="m-1"><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{pmcid}}"><img src="assets/images/pubmed-badge.jpg" width="100" alt="pubmed badge" /></a></span>
+  {{/if}}
+  {{#if uri}}
+  <span class="m-1"><a href="{{uri}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge" /></a></span>
+  <span class="altmetric-embed m-1" data-hide-no-mentions="true" data-badge-popover="top" data-handle="{{replace uri 'http://hdl.handle.net/' ''}}"></span>
+  {{else}}
+  {{#if doi}}
+  <span class="altmetric-embed m-1" data-hide-no-mentions="true" data-badge-popover="top" data-doi="{{doi}}"></span>
+  {{/if}}
+  {{/if}}
+  {{#if isbn10}}
+  <span class="altmetric-embed m-1" data-hide-no-mentions="true" data-badge-popover="top" data-isbn="{{isbn10}}"></span>
+  {{/if}}
+  {{#if doi}}
+  <span class="__dimensions_badge_embed__ m-1" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-top" data-doi="{{doi}}"></span>
+  {{/if}}
+</div>

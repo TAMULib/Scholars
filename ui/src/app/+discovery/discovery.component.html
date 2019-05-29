@@ -9,15 +9,15 @@
 </div>
 <scholars-sidebar>
   <div class="container mt-2" *ngIf="discoveryView | async; let discoveryView">
-    <h4 class="text-primary">
+    <span class="h4 text-primary">
       <span class="mr-2">Search results for:</span>
       <span>{{query | async}}</span>
-    </h4>
+    </span>
     <div class="applied-filters mt-2" *ngIf="filters | async; let filters">
       <span class="badge badge-light p-2 mr-2 mb-2" *ngFor="let filter of filters">
         <span *ngIf="showFilter(discoveryView, filter)">
           <span class="mr-1">{{filter.field | formalize}}:</span>
-          <span class="mr-2">{{filter.value}}</span>
+          <span class="mr-2">{{filter.value | formalize}}</span>
           <a class="fa fa-close" [routerLink]="getDiscoveryRouterLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, page | async, query | async, filters, filter)"></a>
         </span>
       </span>
@@ -27,7 +27,7 @@
         <a class="nav-link" [routerLink]="getDiscoveryRouterLink(discoveryView)" [queryParams]="getDiscoveryQueryParams(discoveryView, page | async, query | async)" [class.active]="isActive(discoveryView, url | async)">{{ discoveryView.name }}</a>
       </li>
     </ul>
-    <scholars-pagination *ngIf="documents | async; let documents" [page]="page" [ngSwitch]="discoveryView.layout">
+    <scholars-pagination *ngIf="documents | async; let documents" [page]="page" [ngSwitch]="discoveryView.layout" [pageSizeOptionsType]="'list'">
       <scholars-grid-view *ngSwitchCase="'GRID'" [view]="discoveryView" [resources]="documents"></scholars-grid-view>
       <scholars-list-view *ngSwitchCase="'LIST'" [view]="discoveryView" [resources]="documents"></scholars-list-view>
     </scholars-pagination>

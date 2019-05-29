@@ -1,6 +1,5 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, OnDestroy, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Params, Router, NavigationStart } from '@angular/router';
 import { MetaDefinition } from '@angular/platform-browser';
 
 import { Store, select } from '@ngrx/store';
@@ -17,16 +16,31 @@ import { WindowDimensions } from '../core/store/layout/layout.reducer';
 
 import { selectWindowDimensions } from '../core/store/layout';
 import { SolrDocument } from '../core/model/discovery';
+import { Side } from '../core/model/view/display-view';
 
 import { selectResourceById, selectDefaultDiscoveryView, selectDisplayViewByTypes, selectResourceIsLoading, selectAllResources } from '../core/store/sdr';
 
 import * as fromSdr from '../core/store/sdr/sdr.actions';
 import * as fromMetadata from '../core/store/metadata/metadata.actions';
 
+const hasRequiredFields = (requiredFields: string[], document: SolrDocument): boolean => {
+    for (const requiredField of requiredFields) {
+        if (document[requiredField] === undefined) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const sectionsToShow = (sections: DisplayTabSectionView[], document: SolrDocument): DisplayTabSectionView[] => {
+    return sections.filter((section: DisplayTabSectionView) => !section.hidden && hasRequiredFields(section.requiredFields, document));
+};
+
 @Component({
     selector: 'scholars-display',
     templateUrl: 'display.component.html',
-    styleUrls: ['display.component.scss']
+    styleUrls: ['display.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayComponent implements OnDestroy, OnInit {
 
@@ -41,9 +55,10 @@ export class DisplayComponent implements OnDestroy, OnInit {
     private subscriptions: Subscription[];
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: string,
         private store: Store<AppState>,
-        private route: ActivatedRoute
+        private router: Router,
+        private route: ActivatedRoute,
+        private changeDetRef: ChangeDetectorRef
     ) {
         this.subscriptions = [];
     }
@@ -56,6 +71,11 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     ngOnInit() {
         this.windowDimensions = this.store.pipe(select(selectWindowDimensions));
+        this.subscriptions.push(this.router.events.pipe(
+            filter(event => event instanceof NavigationStart)
+        ).subscribe(() => {
+            this.changeDetRef.markForCheck();
+        }));
         this.discoveryView = this.store.pipe(
             select(selectDefaultDiscoveryView),
             filter((view: DiscoveryView) => view !== undefined)
@@ -74,6 +94,22 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                     this.store.dispatch(new fromSdr.FindByTypesInResourceAction('displayViews', {
                                         types: document.type
                                     }));
+                                } else if (displayView && !isLoading) {
+                                    if (this.route.children.length === 0) {
+                                        let tabName = 'View All';
+                                        if (displayView.name !== 'People') {
+                                            for (const tab of this.getTabsToShow(displayView.tabs, document)) {
+                                                if (!tab.hidden) {
+                                                    tabName = tab.name;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        this.router.navigate([displayView.name, tabName], {
+                                            relativeTo: this.route,
+                                            replaceUrl: true
+                                        });
+                                    }
                                 }
                             }),
                             filter(([displayView]) => displayView !== undefined),
@@ -144,7 +180,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
                                 return combineLatest([scheduled([displayView], asap), combineLatest(lazyObservables)]);
                             }),
                             tap(([displayView, lazyReferences]) => {
-                                console.log(displayView);
                                 lazyReferences.forEach((lazyReference) => {
                                     if (lazyReference[0].field && lazyReference[0].value) {
                                         const property = {};
@@ -180,15 +215,8 @@ export class DisplayComponent implements OnDestroy, OnInit {
         }));
     }
 
-    public openTab(tabName: string): void {
-        if (tabName === 'Publications') {
-            if (isPlatformBrowser(this.platformId)) {
-                setTimeout(() => {
-                    window['_altmetric_embed_init']();
-                    window['__dimensions_embed'].addBadges();
-                }, 1000);
-            }
-        }
+    public getDisplayViewTabRoute(displayView: DisplayView, tab: DisplayTabView): string[] {
+        return [displayView.name, tab.name];
     }
 
     public showMainContent(displayView: DisplayView): boolean {
@@ -201,6 +229,18 @@ export class DisplayComponent implements OnDestroy, OnInit {
 
     public showRightScan(displayView: DisplayView): boolean {
         return displayView.rightScanTemplate && displayView.rightScanTemplate.length > 0;
+    }
+
+    public showAsideLeft(displayView: DisplayView): boolean {
+        return this.showAside(displayView) && displayView.asideLocation === Side.LEFT;
+    }
+
+    public showAsideRight(displayView: DisplayView): boolean {
+        return this.showAside(displayView) && displayView.asideLocation === Side.RIGHT;
+    }
+
+    public showAside(displayView: DisplayView): boolean {
+        return displayView.asideTemplate && displayView.asideTemplate.length > 0;
     }
 
     public getMainContentColSize(displayView: DisplayView): number {
@@ -227,15 +267,11 @@ export class DisplayComponent implements OnDestroy, OnInit {
     }
 
     public getSectionsToShow(sections: DisplayTabSectionView[], document: SolrDocument): DisplayTabSectionView[] {
-        return sections.filter((section: DisplayTabSectionView) => !section.hidden && this.documentHasRequiredFields(section.requiredFields, document));
+        return sectionsToShow(sections, document);
     }
 
-    public getTabsetType(windowDimensions: WindowDimensions): string {
-        return windowDimensions.width > 767 ? 'tabs' : 'pills';
-    }
-
-    public getTabOrientation(windowDimensions: WindowDimensions): string {
-        return windowDimensions.width > 767 ? 'horizontal' : 'vertical';
+    public isMobile(windowDimensions: WindowDimensions): boolean {
+        return windowDimensions.width < 768;
     }
 
     private buildDisplayMetaTags(displayView: DisplayView, document: SolrDocument): MetaDefinition[] {
@@ -249,15 +285,6 @@ export class DisplayComponent implements OnDestroy, OnInit {
             }
         }
         return metaTags;
-    }
-
-    private documentHasRequiredFields(requiredFields: string[], document: SolrDocument): boolean {
-        for (const requiredField of requiredFields) {
-            if (document[requiredField] === undefined) {
-                return false;
-            }
-        }
-        return true;
     }
 
 }

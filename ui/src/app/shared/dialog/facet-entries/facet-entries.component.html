@@ -2,16 +2,26 @@
   <table class="table table-striped table-hover">
     <tbody>
       <tr *ngFor="let entry of getFacetEntryPage()">
-        <td scope="row">
-          <a [routerLink]="routerLink" [queryParams]="getQueryParams(facet, entry)" queryParamsHandling="merge">
-            <span>
-              <span>{{entry.value}}</span>
-            </span>
-          </a>
-          <span> ({{entry.count}})</span>
+        <td scope="row" [ngSwitch]="facet.type">
+          <span *ngSwitchCase="'STRING'">
+            <a [routerLink]="routerLink" [queryParams]="getQueryParams(sdrFacet, entry)" queryParamsHandling="merge">
+              <span>
+                <span>{{entry.value}}</span>
+              </span>
+            </a>
+            <span> ({{entry.count}})</span>
+          </span>
+          <span *ngSwitchCase="'DATE_YEAR'">
+            <a [routerLink]="routerLink" [queryParams]="getQueryParams(sdrFacet, entry)" queryParamsHandling="merge">
+              <span>
+                <span>{{entry.value | date:'yyyy'}}</span>
+              </span>
+            </a>
+            <span> ({{entry.count}})</span>
+          </span>
         </td>
       </tr>
     </tbody>
   </table>
-  <ngb-pagination [collectionSize]="facet.entries.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
+  <ngb-pagination [collectionSize]="sdrFacet.entries.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
 </scholars-dialog>

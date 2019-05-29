@@ -77,10 +77,10 @@ include::{snippets}/displayViews/find-by-id/curl-request.adoc[]
 
 ==== Find by types in
 
-A user can find a display view by providing _displayView types_ as a path parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the display view object as shown in the *Sample Response*.
+A user can find a display view by providing _displayView types_ as a request parameter. This returns a json response displaying the  *HttpStatus.OK(200)*  message along with the display view object as shown in the *Sample Response*.
 
-===== Path Parameters
-include::{snippets}/displayViews/find-by-types-in/path-parameters.adoc[]
+===== Request Parameters
+include::{snippets}/displayViews/find-by-types-in/request-parameters.adoc[]
 
 ===== Response Fields
 include::{snippets}/displayViews/find-by-types-in/response-fields.adoc[]

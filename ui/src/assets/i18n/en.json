@@ -15,7 +15,7 @@
     "DISPLAY_VIEWS": {
       "TITLE": "Display Views",
       "NAME": "Name",
-      "COLLECTION": "Collection"
+      "TYPES": "Types"
     },
     "THEMES": {
       "TITLE": "Themes",
@@ -49,6 +49,14 @@
   },
   "DISCOVERY": {
     "TITLE": "Discovery"
+  },
+  "HEADER": {
+    "BANNER": {
+      "LOGO_ALT": "Scholars at Texas A&M University logo"
+    },
+    "NAVBAR": {
+      "LOGO_ALT": "TAMU Libraries logo"
+    }
   },
   "FOOTER": {
     "ADMINISTRATION": "Administration",
@@ -124,6 +132,7 @@
       }
     },
     "NAVIGATION": {
+      "TOGGLE": "Toggle navigation",
       "EDIT_PROFILE": "Edit my profile",
       "HOME": "Home",
       "ABOUT": "About"

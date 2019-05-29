@@ -1,0 +1,7 @@
+<div *ngIf="tab | async; let tab" class="tab-content">
+  <div *ngIf="document | async; let document" class="tab-pane active">
+    <div class="ml-3 mr-3 mt-3 card" *ngFor="let section of getSectionsToShow(tab.sections, document)">
+      <scholars-section [section]="section" [document]="document"></scholars-section>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 <div class="banner">
   <div class="container" *ngIf="banner | async; let banner">
     <a [routerLink]="['/']">
-      <img *ngIf="banner.imageUri" src="{{banner.imageUri}}" alt="{{banner.altText}}">
-      <span *ngIf="!banner.imageUri" class="h1">{{banner.altText}}</span>
+      <img *ngIf="banner.imageUri" src="{{banner.imageUri}}" alt="{{ 'HEADER.BANNER.LOGO_ALT' | translate }}">
+      <h1 hidden="!banner.imageUri" class="font-weight-bold text-white">{{banner.altText}}</h1>
     </a>
   </div>
 </div>

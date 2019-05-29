@@ -12,6 +12,8 @@ import { WindowDimensions } from './core/store/layout/layout.reducer';
 
 import { selectStyle } from './core/store/theme';
 
+import { initializeTemplateHelpers } from './shared/utilities/template.utility';
+
 import * as fromLayout from './core/store/layout/layout.actions';
 import * as fromRouter from './core/store/router/router.actions';
 
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit {
         @Inject(PLATFORM_ID) platformId: string,
         private store: Store<AppState>
     ) {
+        initializeTemplateHelpers();
         this.isPlatformBrowser = isPlatformBrowser(platformId);
     }
 
@@ -44,12 +47,15 @@ export class AppComponent implements OnInit {
 
     @HostListener('click', ['$event'])
     public clickEvent(event): void {
-        if (this.isPlatformBrowser && event.target.href && event.target.href.indexOf(event.target.baseURI) >= 0) {
-            const path = event.target.href.replace(event.target.baseURI, '');
-            if (path.length > 0 && path.indexOf('mailto:') < 0 && path.indexOf('tel:') < 0) {
-                this.store.dispatch(new fromRouter.Link({ url: path }));
-                event.preventDefault();
-                event.stopPropagation();
+        if (this.isPlatformBrowser) {
+            const target = this.findLinkTarget(event.target, 1);
+            if (target.href && target.href.indexOf(target.baseURI) >= 0) {
+                const path = target.href.replace(target.baseURI, '');
+                if (path.length > 0 && !path.startsWith('mailto:') && !path.startsWith('tel:')) {
+                    this.store.dispatch(new fromRouter.Link({ url: path }));
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
             }
         }
     }
@@ -64,6 +70,10 @@ export class AppComponent implements OnInit {
 
     private dispatchResizeWindowAction(windowDimensions: WindowDimensions): void {
         this.store.dispatch(new fromLayout.ResizeWindowAction({ windowDimensions }));
+    }
+
+    private findLinkTarget(target: any, depth: number): any {
+        return target.href ? target : depth < 3 ? this.findLinkTarget(target.parentElement, ++depth) : target;
     }
 
 }

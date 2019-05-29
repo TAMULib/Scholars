@@ -9,7 +9,7 @@
     - imageUri: assets/images/academic-aerial.jpg
       imageAlt: Texas A&M Acedemic Building
       watermarkImageUri: assets/images/vector-world-map.png
-      watermarkText: worldwide collaboration
+      watermarkText: worldwide research
       baseText: Thank you for visiting Scolars@TAMU (Beta Release). We have worked to
         create the first version of your profile and continue to explore additional
         data sources to enhance your profile. We request your participation to update
@@ -145,7 +145,7 @@
   - key: "--accent"
     value: "#ffc222"
   - key: "--link-color"
-    value: "#007bff"
+    value: "#2B5D7D"
   - key: "--link-color-hover"
     value: "#0056b3"
   - key: "--navigation-background-color"

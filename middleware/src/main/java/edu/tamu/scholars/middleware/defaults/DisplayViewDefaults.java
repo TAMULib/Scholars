@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import edu.tamu.scholars.middleware.view.model.DisplayTabSectionView;
 import edu.tamu.scholars.middleware.view.model.DisplayTabView;
 import edu.tamu.scholars.middleware.view.model.DisplayView;
+import edu.tamu.scholars.middleware.view.model.DisplayTabSectionSubsectionView;
 import edu.tamu.scholars.middleware.view.model.repo.DisplayViewRepo;
 
 @Service
@@ -55,11 +56,23 @@ public class DisplayViewDefaults extends AbstractDefaults<DisplayView, DisplayVi
                     logger.warn(String.format(IO_EXCEPTION_MESSAGE, view.getRightScanTemplate()));
                 }
             }
+            if (view.getAsideTemplate() != null && view.getAsideTemplate().length() > 0) {
+                try {
+                    view.setAsideTemplate(getTemplate(view.getAsideTemplate()));
+                } catch (IOException e) {
+                    logger.warn(String.format(IO_EXCEPTION_MESSAGE, view.getAsideTemplate()));
+                }
+            }
             if (view.getTabs() != null) {
                 for (DisplayTabView tabView : view.getTabs()) {
                     if (tabView.getSections() != null) {
                         for (DisplayTabSectionView section : tabView.getSections()) {
                             section.setTemplate(getTemplate(section.getTemplate()));
+                            if (section.getSubsections() != null) {
+                                for (DisplayTabSectionSubsectionView subsection : section.getSubsections()) {
+                                    subsection.setTemplate(getTemplate(subsection.getTemplate()));
+                                }
+                            }
                         }
                     }
                 }

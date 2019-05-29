@@ -1,6 +1,8 @@
 ---
 
 - name: Default
+  types:
+  - Default
   mainContentTemplate: "defaults/displayViews/defaults/mainContentTemplate.html"
   metaTemplates:
     title: "defaults/displayViews/defaults/meta/title.txt"
@@ -11,7 +13,8 @@
   - NonFacultyAcademic
   mainContentTemplate: "defaults/displayViews/people/mainContentTemplate.html"
   leftScanTemplate: "defaults/displayViews/people/leftScanTemplate.html"
-  rightScanTemplate: "defaults/displayViews/people/rightScanTemplate.html"
+  asideTemplate: "defaults/displayViews/people/aside.html"
+  asideLocation: RIGHT
   metaTemplates:
     title: "defaults/displayViews/people/meta/title.txt"
     description: "defaults/displayViews/people/meta/description.txt"
@@ -101,6 +104,103 @@
       lazyReferences:
       - field: publications
         collection: documents
+      subsections:
+      - name: Academic Articles
+        field: publications
+        filters:
+        - field: type
+          value: AcademicArticle
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
+      - name: Books
+        field: publications
+        filters:
+        - field: type
+          value: Book
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/book.html"
+      - name: Chapters
+        field: publications
+        filters:
+        - field: type
+          value: Chapter
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/chapter.html"
+      - name: Institutional Repository Documents
+        field: publications
+        filters:
+        - field: type
+          value: GreyLiterature
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
+      - name: Conference Papers
+        field: publications
+        filters:
+        - field: type
+          value: ConferencePaper
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
+      - name: Patents
+        field: publications
+        filters:
+        - field: type
+          value: Patent
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
+      - name: Thesis
+        field: publications
+        filters:
+        - field: type
+          value: Thesis
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
+      - name: Working Papers
+        field: publications
+        filters:
+        - field: type
+          value: WorkingPaper
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/people/publications/selectedPublications/default.html"
     - name: collection or series editor for
       hidden: false
       template: "defaults/displayViews/people/publications/collectionOrSeriesEditorFor.html"
@@ -433,7 +533,8 @@
   - University
   mainContentTemplate: "defaults/displayViews/organizations/mainContentTemplate.html"
   leftScanTemplate: "defaults/displayViews/organizations/leftScanTemplate.html"
-  rightScanTemplate: "defaults/displayViews/organizations/rightScanTemplate.html"
+  asideTemplate: "defaults/displayViews/organizations/aside.html"
+  asideLocation: RIGHT
   metaTemplates:
     title: "defaults/displayViews/organizations/meta/title.txt"
     description: "defaults/displayViews/organizations/meta/description.txt"
