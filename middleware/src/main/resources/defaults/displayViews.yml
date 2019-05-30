@@ -141,11 +141,11 @@
           direction: DESC
           date: true
         template: "defaults/displayViews/people/publications/selectedPublications/chapter.html"
-      - name: Institutional Repository Documents
+      - name: Conference Papers
         field: publications
         filters:
         - field: type
-          value: GreyLiterature
+          value: ConferencePaper
         sort:
         - field: title
           direction: ASC
@@ -153,11 +153,11 @@
           direction: DESC
           date: true
         template: "defaults/displayViews/people/publications/selectedPublications/default.html"
-      - name: Conference Papers
+      - name: Institutional Repository Documents
         field: publications
         filters:
         - field: type
-          value: ConferencePaper
+          value: GreyLiterature
         sort:
         - field: title
           direction: ASC
