@@ -45,7 +45,7 @@
       <div ngbDropdown class="d-inline-block" placement="bottom-right" *ngSwitchCase="'dropdown'">
         <button class="btn btn-outline-secondary" ngbDropdownToggle>{{page.size}}</button>
         <div ngbDropdownMenu>
-          <a ngbDropdownItem class="btn" *ngFor="let pageSizeOption of pageSizeOptions" href="{{buildUrl(page.number, pageSizeOption)}}">{{pageSizeOption}}</a>
+          <a ngbDropdownItem class="btn" *ngFor="let pageSizeOption of pageSizeOptions" href="{{buildUrl(1, pageSizeOption)}}">{{pageSizeOption}}</a>
         </div>
       </div>
     </div>
