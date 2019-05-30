@@ -42,6 +42,24 @@ const initializeTemplateHelpers = () => {
         }
         return options.fn(organizationForTitle);
     });
+    registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
+        function positionSorter(labelCheck) {
+            return function (a,b) {
+                       if (a.label === labelCheck) {
+                           return -1;
+                       } else if (b.label === labelCheck) {
+                           return 1;
+                       }
+                       return 0;
+                   }
+        }
+        positions = positions.sort(positionSorter(hrJobTitle));
+        let out = '';
+        for (let i in positions) {
+            out += options.fn(positions[i]);
+        }
+        return out;
+    });
 };
 
 const hashCode = (value) => {
