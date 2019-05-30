@@ -16,6 +16,9 @@
           <span>{{label}}</span>
           {{#each organizations}}
           <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+            {{#each parent}}
+            <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+            {{/each}}
           {{/each}}
         </div>
       </li>
