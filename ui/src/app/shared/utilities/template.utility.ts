@@ -31,10 +31,10 @@ const initializeTemplateHelpers = () => {
         return options.fn(workByStudent);
     });
     registerHelper('showPositionForPreferredTitle', (positions, preferredTitle, options) => {
-        var positionsCount = positions.length;
+        const positionsCount = positions.length;
         let organizationForTitle;
-        for (var i=0;i<positionsCount;i++) {
-            var position = positions[i];
+        for (let i = 0; i < positionsCount; i++) {
+            const position = positions[i];
             if (position.label === preferredTitle) {
                 organizationForTitle = position.organizations[0];
                 break;
@@ -44,19 +44,21 @@ const initializeTemplateHelpers = () => {
     });
     registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
         function positionSorter(labelCheck) {
-            return function (a,b) {
+            return (a, b) => {
                        if (a.label === labelCheck) {
                            return -1;
                        } else if (b.label === labelCheck) {
                            return 1;
                        }
                        return 0;
-                   }
+                   };
         }
         positions = positions.sort(positionSorter(hrJobTitle));
         let out = '';
-        for (let i in positions) {
-            out += options.fn(positions[i]);
+        for (const i in positions) {
+            if (positions.hasOwnProperty(i)) {
+                out += options.fn(positions[i]);
+            }
         }
         return out;
     });
