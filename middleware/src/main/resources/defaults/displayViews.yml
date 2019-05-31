@@ -647,6 +647,43 @@
       lazyReferences:
       - field: publications
         collection: documents
+      subsections:
+      - name: Academic Articles
+        field: publications
+        filters:
+        - field: type
+          value: AcademicArticle
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/organizations/publications/selectedPublications/default.html"
+      - name: Books
+        field: publications
+        filters:
+        - field: type
+          value: Book
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/organizations/publications/selectedPublications/book.html"
+      - name: Chapters
+        field: publications
+        filters:
+        - field: type
+          value: Chapter
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/organizations/publications/selectedPublications/chapter.html"
     - name: publisher of
       hidden: false
       template: "defaults/displayViews/organizations/publications/publisherOf.html"
