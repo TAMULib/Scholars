@@ -8,6 +8,29 @@
   </span>
   <span class="badge badge-light">{{formalize type}}</span>
 </div>
+<div>
+  <div>
+    <span class="label">Publication Date:</span>
+    <span>{{toYear publicationDate}}</span>
+  </div>
+  {{#if authors}}
+  <div>
+    <span class="label">TAMU Faculty Authors (Claimed):</span>
+    <ul>
+      {{#each authors}}
+      <li>
+        <div class="comma-seperated">
+          <span><a href="display/persons/{{id}}">{{label}}</a></span>
+          {{#each organizations}}
+          <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+          {{/each}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+</div>
 <div class="d-inline-flex">
   {{#if doi}}
   <span class="mr-1">
@@ -26,6 +49,19 @@
   {{/if}}
 </div>
 <style>
+  .label {
+    font-weight: 550;
+    margin-right: 2px;
+  }
+
+  .comma-seperated span:after {
+    content: ", ";
+  }
+
+  .comma-seperated span:last-child:after {
+    content: "";
+  }
+
   .badge {
     height: 18px;
   }

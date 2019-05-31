@@ -30,6 +30,38 @@ const initializeTemplateHelpers = () => {
         workByStudent.degree = parts[3];
         return options.fn(workByStudent);
     });
+    registerHelper('showPositionForPreferredTitle', (positions, preferredTitle, options) => {
+        const positionsCount = positions.length;
+        let organizationForTitle;
+        for (let i = 0; i < positionsCount; i++) {
+            const position = positions[i];
+            if (position.label === preferredTitle) {
+                organizationForTitle = position.organizations[0];
+                break;
+            }
+        }
+        return options.fn(organizationForTitle);
+    });
+    registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
+        function positionSorter(labelCheck) {
+            return (a, b) => {
+                       if (a.label === labelCheck) {
+                           return -1;
+                       } else if (b.label === labelCheck) {
+                           return 1;
+                       }
+                       return 0;
+                   };
+        }
+        positions = positions.sort(positionSorter(hrJobTitle));
+        let out = '';
+        for (const i in positions) {
+            if (positions.hasOwnProperty(i)) {
+                out += options.fn(positions[i]);
+            }
+        }
+        return out;
+    });
 };
 
 const hashCode = (value) => {

@@ -10,16 +10,19 @@
   <div>
     <span class="label">Positions:</span>
     <ul class="list-unstyled ml-1">
-      {{#each positions}}
+      {{#eachSortedPosition positions hrJobTitle}}
       <li>
         <div class="comma-seperated">
           <span>{{label}}</span>
           {{#each organizations}}
           <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+            {{#each parent}}
+            <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+            {{/each}}
           {{/each}}
         </div>
       </li>
-      {{/each}}
+      {{/eachSortedPosition}}
     </ul>
   </div>
   {{/if}}

@@ -14,6 +14,9 @@
     </div>
     <div>
       <span>{{preferredTitle}}</span>
+      {{#showPositionForPreferredTitle positions preferredTitle}}
+      <span><a href="display/organizations/{{id}}">{{label}}</a></span>
+      {{/showPositionForPreferredTitle}}
     </div>
   </div>
 </div>
