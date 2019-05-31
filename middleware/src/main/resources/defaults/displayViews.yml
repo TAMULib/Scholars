@@ -768,12 +768,12 @@
       hidden: false
       template: "defaults/displayViews/organizations/contact/predecessorOrganization.html"
       requiredFields:
-      - predecessorOrganization
+      - predecessorOrganizations
     - name: successor organization
       hidden: false
       template: "defaults/displayViews/organizations/contact/successorOrganization.html"
       requiredFields:
-      - successorOrganization
+      - successorOrganizations
     - name: governing authority for
       hidden: false
       template: "defaults/displayViews/organizations/contact/governingAuthorityFor.html"
