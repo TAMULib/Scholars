@@ -735,9 +735,9 @@
   - name: Service
     hidden: false
     sections:
-    - name: contact or provider for service
+    - name: contract or provider for service
       hidden: false
-      template: "defaults/displayViews/organizations/service/contactOrProviderForService.html"
+      template: "defaults/displayViews/organizations/service/contractOrProviderForService.html"
       requiredFields:
       - contractOrProviderForService
     - name: outreach and community service activities
