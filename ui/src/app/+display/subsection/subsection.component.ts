@@ -85,8 +85,9 @@ export class SubsectionComponent implements AfterViewInit, OnInit, OnDestroy {
                 return asc ? (av > bv) ? 1 : ((bv > av) ? -1 : 0) : (bv > av) ? 1 : ((av > bv) ? -1 : 0);
             });
         }
-        const pageStart = (page.number - 1);
-        return sorted.splice(pageStart, pageStart + page.size);
+        const pageStart = (page.number - 1) * page.size;
+        const pageEnd = pageStart + page.size;
+        return sorted.slice(pageStart, pageEnd);
     }
 
     private loadBadges(): void {
