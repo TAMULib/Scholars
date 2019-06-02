@@ -4,11 +4,11 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-    ?educationalProcess rdfs:label ?nameWithId .
+    ?educationalProcess rdfs:label ?nameWithIds .
 } WHERE {
     <[(${uri})]> obo:RO_0000056 ?educationalProcess .
     ?educationalProcess obo:RO_0000057 ?trainee .
     ?trainee a foaf:Person .
     ?trainee rdfs:label ?name .
-    BIND( CONCAT( STR(?name), REPLACE(STR(?educationalProcess), REPLACE(STR(?trainee), "(^.*/)", "::") ) AS ?nameWithId ) .
+    BIND( CONCAT( STR(?name), REPLACE(STR(?educationalProcess), "(^.*/)", "::"), REPLACE(STR(?trainee), "(^.*/)", "::") ) AS ?nameWithIds ) .
 }
