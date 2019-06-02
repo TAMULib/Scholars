@@ -1,0 +1,13 @@
+PREFIX tamu: <http://vivo.library.tamu.edu/ontology/TAMU#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+
+CONSTRUCT {
+    ?work vcard:url ?urlWithId .
+} WHERE {
+    <[(${uri})]> tamu:ETDChairOf ?work .
+    ?work obo:ARG_2000028 ?contact .
+    ?contact vcard:hasURL ?hasURL .
+    ?hasURL vcard:url ?url .
+    BIND( CONCAT( STR(?url), REPLACE(STR(?work), "(^.*/)", "::") ) AS ?urlWithId ) .
+}

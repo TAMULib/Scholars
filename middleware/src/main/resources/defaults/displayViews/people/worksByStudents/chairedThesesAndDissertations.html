@@ -4,19 +4,17 @@
     {{#each etdChairOf}}
     <li class="mb-2">
        {{#workByStudent this}}
-       <div class="work">
-        <span>{{this.one}}</span>
-        <span><u><a href="display/documents/{{this.id}}">{{this.two}}</a></u></span>
+       <div class="work mb-2">
+        <span>{{this.authorAndDate}}</span>
+        <span><u><a href="display/documents/{{this.id}}">{{this.title}}</a></u></span>
         {{#if this.degree }}
-        <div>
-          {{#ifEquals this.degree "Master's Thesis." }}
-          <img src="assets/images/masters.png">
-          {{/ifEquals}}
-          {{#ifEquals this.degree "Doctoral Dissertation." }}
-          <img src="assets/images/doctoral.png">
-          {{/ifEquals}}
-        </div>
+          <span>({{this.degree}})</span>
         {{/if}}
+        <div>
+          {{#if this.url}}
+  		  <span class="m-1"><a href="{{this.url}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge" /></a></span>
+		  {{/if}}
+        </div>
       </div>
       {{/workByStudent}}
     </li>

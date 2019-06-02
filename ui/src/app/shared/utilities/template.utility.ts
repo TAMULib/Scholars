@@ -25,9 +25,12 @@ const initializeTemplateHelpers = () => {
     registerHelper('toDate', (value: string) => value !== undefined ? new Date(value).toISOString() : value);
     registerHelper('workByStudent', (workByStudent: any, options) => {
         const parts = workByStudent.label.match(/(^.*\)\.) (.*?\.) ([Master's|Doctoral].*\.$)/);
-        workByStudent.one = parts[1];
-        workByStudent.two = parts[2];
+        workByStudent.authorAndDate = parts[1];
+        workByStudent.title = parts[2];
         workByStudent.degree = parts[3];
+        if (workByStudent.degree.endsWith('.')) {
+            workByStudent.degree = workByStudent.degree.substring(0, workByStudent.degree.length - 1);
+        }
         return options.fn(workByStudent);
     });
     registerHelper('showPositionForPreferredTitle', (positions, preferredTitle, options) => {
