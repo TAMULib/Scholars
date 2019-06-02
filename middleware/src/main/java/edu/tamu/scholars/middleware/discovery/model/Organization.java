@@ -92,10 +92,23 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/keyword", predicate = "http://vivoweb.org/ontology/core#freetextKeyword")
     private List<String> keywords;
 
-    @NestedObject
+    @NestedObject({ @Reference(value = "organizationForTrainingTrainee", key = "trainee"), @Reference(value = "organizationForTrainingStartDate", key = "startDate"), @Reference(value = "organizationForTrainingEndDate", key = "endDate") })
     @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/organizationForTraining", predicate = "http://vivoweb.org/ontology/core#majorField")
     private List<String> organizationForTraining;
+
+    @NestedObject
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "organization/organizationForTrainingTrainee", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
+    private List<String> organizationForTrainingTrainee;
+
+    @Indexed(type = "nested_dates")
+    @PropertySource(template = "organization/organizationForTrainingStartDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
+    private List<String> organizationForTrainingStartDate;
+
+    @Indexed(type = "nested_dates")
+    @PropertySource(template = "organization/organizationForTrainingEndDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
+    private List<String> organizationForTrainingEndDate;
 
     @NestedObject({ @Reference(value = "peopleType", key = "type"), @Reference(value = "peopleTitle", key = "title") })
     @Indexed(type = "nested_strings")
@@ -510,6 +523,30 @@ public class Organization extends AbstractSolrDocument {
 
     public void setOrganizationForTraining(List<String> organizationForTraining) {
         this.organizationForTraining = organizationForTraining;
+    }
+
+    public List<String> getOrganizationForTrainingTrainee() {
+        return organizationForTrainingTrainee;
+    }
+
+    public void setOrganizationForTrainingTrainee(List<String> organizationForTrainingTrainee) {
+        this.organizationForTrainingTrainee = organizationForTrainingTrainee;
+    }
+
+    public List<String> getOrganizationForTrainingStartDate() {
+        return organizationForTrainingStartDate;
+    }
+
+    public void setOrganizationForTrainingStartDate(List<String> organizationForTrainingStartDate) {
+        this.organizationForTrainingStartDate = organizationForTrainingStartDate;
+    }
+
+    public List<String> getOrganizationForTrainingEndDate() {
+        return organizationForTrainingEndDate;
+    }
+
+    public void setOrganizationForTrainingEndDate(List<String> organizationForTrainingEndDate) {
+        this.organizationForTrainingEndDate = organizationForTrainingEndDate;
     }
 
     public List<String> getPeople() {
