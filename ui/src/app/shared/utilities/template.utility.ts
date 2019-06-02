@@ -45,13 +45,13 @@ const initializeTemplateHelpers = () => {
     registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
         function positionSorter(labelCheck) {
             return (a, b) => {
-                       if (a.label === labelCheck) {
-                           return -1;
-                       } else if (b.label === labelCheck) {
-                           return 1;
-                       }
-                       return 0;
-                   };
+                if (a.label === labelCheck) {
+                    return -1;
+                } else if (b.label === labelCheck) {
+                    return 1;
+                }
+                return 0;
+            };
         }
         positions = positions.sort(positionSorter(hrJobTitle));
         let out = '';
