@@ -26,20 +26,8 @@
   {{/if}}
   {{/if}}
 
-  {{#publisher}}
+  {{#if publisher}}
   <span>{{publisher.label}}.</span>
-  {{/publisher}}
-
-  {{#if volume}}
-  {{#if issue}}
-  <span>{{volume}}({{issue}}), </span>
-  {{else}}
-  <span>{{volume}}, </span>
-  {{/if}}
-  {{else}}
-  {{#if issue}}
-  <span>({{issue}}), </span>
-  {{/if}}
   {{/if}}
 
 </div>
