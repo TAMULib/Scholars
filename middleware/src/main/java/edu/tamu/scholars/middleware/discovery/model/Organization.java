@@ -50,7 +50,7 @@ public class Organization extends AbstractSolrDocument {
 
     @NestedObject
     @Indexed(type = "nested_strings")
-    @PropertySource(template = "organization/offersDegree", predicate = "organization.offersDegree")
+    @PropertySource(template = "organization/offersDegree", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> degrees;
 
     @Indexed(type = "whole_string", copyTo = "_text_")
@@ -61,14 +61,14 @@ public class Organization extends AbstractSolrDocument {
     @PropertySource(template = "organization/date", predicate = "http://vivoweb.org/ontology/core#dateTime")
     private String date;
 
-    @NestedObject({ @Reference(value = "sponsorsAwardOrHonorDate", key = "date") })
+    @NestedObject({ @Reference(value = "sponsorsAwardOrHonorType", key = "type") })
     @Indexed(type = "nested_strings")
     @PropertySource(template = "organization/sponsorsAwardOrHonor", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> sponsorsAwardOrHonor;
 
-    @Indexed(type = "nested_dates")
-    @PropertySource(template = "organization/sponsorsAwardOrHonorDate", predicate = "http://vivoweb.org/ontology/core#dateTime")
-    private List<String> sponsorsAwardOrHonorDate;
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "organization/sponsorsAwardOrHonorType", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType", parse = true)
+    private List<String> sponsorsAwardOrHonorType;
 
     @NestedObject({ @Reference(value = "awardOrHonorGivenDate", key = "date") })
     @Indexed(type = "nested_strings")
@@ -469,12 +469,12 @@ public class Organization extends AbstractSolrDocument {
         this.sponsorsAwardOrHonor = sponsorsAwardOrHonor;
     }
 
-    public List<String> getSponsorsAwardOrHonorDate() {
-        return sponsorsAwardOrHonorDate;
+    public List<String> getSponsorsAwardOrHonorType() {
+        return sponsorsAwardOrHonorType;
     }
 
-    public void setSponsorsAwardOrHonorDate(List<String> sponsorsAwardOrHonorDate) {
-        this.sponsorsAwardOrHonorDate = sponsorsAwardOrHonorDate;
+    public void setSponsorsAwardOrHonorType(List<String> sponsorsAwardOrHonorType) {
+        this.sponsorsAwardOrHonorType = sponsorsAwardOrHonorType;
     }
 
     public List<String> getAwardOrHonorGiven() {
