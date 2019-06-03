@@ -1,1 +1,26 @@
-<span>Work In Progress </span>
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+  {{#each editorOf}}
+    <li class="mb-2">
+      <span class="label">Title:</span>
+      <a href="display/documents/{{id}}">{{label}}</a>
+    </li>
+    <li class="mb-2">
+      <span class="label">Authors:</span>
+      <span>{{authors}}</span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Type:</span>
+      <span>{{formalize type}}</span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Pages:</span>
+      <span>{{pageStart}} - {{pageEnd}}</span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Date:</span>
+      <span>{{toYear date}}</span>
+    </li>
+  {{/each}}
+  </ul>
+</div>

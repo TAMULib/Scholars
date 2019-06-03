@@ -1,1 +1,14 @@
-<span>Work In Progress </span>
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+  {{#each presentations}}
+    <li class="mb-2">
+      <span class="label">Title:</span>
+      <span>{{label}}</span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Event:</span>
+      <span>{{event}}</span>
+    </li>
+  {{/each}}
+  </ul>
+</div>

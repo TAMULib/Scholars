@@ -258,7 +258,7 @@
       hidden: false
       template: "defaults/displayViews/people/grantsAwards/otherResearchActivities.html"
       requiredFields:
-      - otherResearchActivity
+      - otherResearchActivities
     - name: awards and honors
       hidden: false
       template: "defaults/displayViews/people/grantsAwards/awardsAndHonors.html"
