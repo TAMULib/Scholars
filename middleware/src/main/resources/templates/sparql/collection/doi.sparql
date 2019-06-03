@@ -1,0 +1,7 @@
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+
+CONSTRUCT {
+    <[(${uri})]> bibo:doi ?doi .
+} WHERE {
+    <[(${uri})]> bibo:doi ?doi .
+}

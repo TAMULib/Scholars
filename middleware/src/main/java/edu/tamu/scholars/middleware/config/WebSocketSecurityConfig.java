@@ -33,6 +33,7 @@ public class WebSocketSecurityConfig extends AbstractSecurityWebSocketMessageBro
                     "/queue/directoryViews",
                     "/queue/discoveryViews",
                     "/queue/displayViews",
+                    "/queue/collections",
                     "/queue/concepts",
                     "/queue/documents",
                     "/queue/organizations",

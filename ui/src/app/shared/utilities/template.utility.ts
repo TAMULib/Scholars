@@ -24,10 +24,23 @@ const initializeTemplateHelpers = () => {
     registerHelper('toYear', (value: string) => value !== undefined ? new Date(value).getFullYear() : value);
     registerHelper('toDate', (value: string) => value !== undefined ? new Date(value).toISOString() : value);
     registerHelper('workByStudent', (workByStudent: any, options) => {
-        const parts = workByStudent.label.match(/(^.*\)\.) (.*?\.) ([Master's|Doctoral].*\.$)/);
-        workByStudent.one = parts[1];
-        workByStudent.two = parts[2];
-        workByStudent.degree = parts[3];
+        if (workByStudent.label) {
+            const parts = workByStudent.label.match(/(^.*\)\.) (.*?\.) ([Master's|Doctoral].*\.$)/);
+            if (parts) {
+                if (parts.length > 1) {
+                    workByStudent.authorAndDate = parts[1];
+                }
+                if (parts.length > 2) {
+                    workByStudent.title = parts[2];
+                }
+                if (parts.length > 3) {
+                    workByStudent.degree = parts[3];
+                    if (workByStudent.degree.endsWith('.')) {
+                        workByStudent.degree = workByStudent.degree.substring(0, workByStudent.degree.length - 1);
+                    }
+                }
+            }
+        }
         return options.fn(workByStudent);
     });
     registerHelper('showPositionForPreferredTitle', (positions, preferredTitle, options) => {
@@ -45,13 +58,13 @@ const initializeTemplateHelpers = () => {
     registerHelper('eachSortedPosition', (positions, hrJobTitle, options) => {
         function positionSorter(labelCheck) {
             return (a, b) => {
-                       if (a.label === labelCheck) {
-                           return -1;
-                       } else if (b.label === labelCheck) {
-                           return 1;
-                       }
-                       return 0;
-                   };
+                if (a.label === labelCheck) {
+                    return -1;
+                } else if (b.label === labelCheck) {
+                    return 1;
+                }
+                return 0;
+            };
         }
         positions = positions.sort(positionSorter(hrJobTitle));
         let out = '';

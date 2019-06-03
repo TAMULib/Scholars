@@ -20,6 +20,18 @@
   <span>({{issue}}), </span>
   {{/if}}
   {{/if}}
+  
+  {{#if pageStart}}
+  {{#if pageEnd}}
+  <span>{{pageStart}}-{{pageEnd}}.</span>
+  {{else}}
+  <span>{{pageStart}}.</span>
+  {{/if}}
+  {{else}}
+  {{#if pageEnd}}
+  <span>{{pageEnd}}.</span>
+  {{/if}}
+  {{/if}}
 
 </div>
 <div>

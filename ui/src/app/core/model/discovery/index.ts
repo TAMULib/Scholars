@@ -1,3 +1,4 @@
+export { Collection } from './collection';
 export { Concept } from './concept';
 export { Document } from './document';
 export { Organization } from './organization';

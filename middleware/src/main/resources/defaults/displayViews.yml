@@ -1524,6 +1524,166 @@
       requiredFields:
       - realizes
 
+- name: Collections
+  types:
+  - Journal
+  mainContentTemplate: "defaults/displayViews/collections/mainContentTemplate.html"
+  metaTemplates:
+    title: "defaults/displayViews/collections/meta/title.txt"
+  tabs:
+  - name: Overview
+    hidden: false
+    sections:
+    - name: abstract
+      hidden: false
+      template: "defaults/displayViews/collections/overview/abstract.html"
+      requiredFields:
+      - abstract
+    - name: abbreviation
+      hidden: false
+      template: "defaults/displayViews/collections/overview/abbreviation.html"
+      requiredFields:
+      - abbreviation
+    - name: publication venue for
+      hidden: false
+      template: "defaults/displayViews/collections/overview/publicationVenueFor.html"
+      requiredFields:
+      - publicationVenueFor
+      lazyReferences:
+      - field: publicationVenueFor
+        collection: documents
+      subsections:
+      - name: Publications
+        field: publicationVenueFor
+        sort:
+        - field: title
+          direction: ASC
+        - field: publicationDate
+          direction: DESC
+          date: true
+        template: "defaults/displayViews/collections/overview/publicationVenueFor/default.html"
+    - name: authors
+      hidden: false
+      template: "defaults/displayViews/collections/overview/authors.html"
+      requiredFields:
+      - authors
+    - name: editors
+      hidden: false
+      template: "defaults/displayViews/collections/overview/editors.html"
+      requiredFields:
+      - editors
+    - name: translator
+      hidden: false
+      template: "defaults/displayViews/collections/overview/translator.html"
+      requiredFields:
+      - translators
+    - name: publication date
+      hidden: false
+      template: "defaults/displayViews/collections/overview/publicationDate.html"
+      requiredFields:
+      - publicationDate
+    - name: publisher
+      hidden: false
+      template: "defaults/displayViews/collections/overview/publishers.html"
+      requiredFields:
+      - publisher
+    - name: has subject area
+      hidden: false
+      template: "defaults/displayViews/collections/overview/hasSubjectArea.html"
+      requiredFields:
+      - subjectAreas
+    - name: features
+      hidden: false
+      template: "defaults/displayViews/collections/overview/features.html"
+      requiredFields:
+      - features
+    - name: geographic focus
+      hidden: false
+      template: "defaults/displayViews/collections/overview/geographicFocus.html"
+      requiredFields:
+      - geographicFocus
+    - name: output of process or event
+      hidden: false
+      template: "defaults/displayViews/collections/overview/outputOfProcessOrEvent.html"
+      requiredFields:
+      - outputOfProcessOrEvent
+    - name: keywords
+      hidden: false
+      template: "defaults/displayViews/collections/overview/keywords.html"
+      requiredFields:
+      - keywords
+  - name: Identity
+    hidden: false
+    sections:
+    - name: International Standard Serial Number (ISSN)
+      hidden: false
+      template: "defaults/displayViews/collections/identity/issn.html"
+      requiredFields:
+      - issn
+    - name: Electronic International Standard Serial Number (EISSN)
+      hidden: false
+      template: "defaults/displayViews/collections/identity/eissn.html"
+      requiredFields:
+      - eissn
+    - name: Digital Object Identifier (DOI)
+      hidden: false
+      template: "defaults/displayViews/collections/identity/doi.html"
+      requiredFields:
+      - doi
+    - name: Online Computer Library Center (OCLC) number
+      hidden: false
+      template: "defaults/displayViews/collections/identity/oclcnumber.html"
+      requiredFields:
+      - oclcnumber
+  - name: Other
+    hidden: false
+    sections:
+    - name: is about
+      hidden: false
+      template: "defaults/displayViews/collections/other/isAbout.html"
+      requiredFields:
+      - isAbout
+    - name: is specified output of
+      hidden: false
+      template: "defaults/displayViews/collections/other/isSpecifiedOutputOf.html"
+      requiredFields:
+      - specifiedOutputOf
+    - name: is template
+      hidden: false
+      template: "defaults/displayViews/collections/other/isTemplate.html"
+      requiredFields:
+      - isTemplate
+    - name: mentions
+      hidden: false
+      template: "defaults/displayViews/collections/other/mentions.html"
+      requiredFields:
+      - mention
+    - name: output of
+      hidden: false
+      template: "defaults/displayViews/collections/other/outputOf.html"
+      requiredFields:
+      - outputOf
+    - name: participates in
+      hidden: false
+      template: "defaults/displayViews/collections/other/participatesIn.html"
+      requiredFields:
+      - participatesIn
+    - name: related by
+      hidden: false
+      template: "defaults/displayViews/collections/other/relatedBy.html"
+      requiredFields:
+      - relatedBy
+    - name: supported by
+      hidden: false
+      template: "defaults/displayViews/collections/other/supportedBy.html"
+      requiredFields:
+      - supportedBy
+    - name: date/time value
+      hidden: false
+      template: "defaults/displayViews/collections/other/dateTimeValue.html"
+      requiredFields:
+      - dateTimeValue
+
 - name: Concepts
   types:
   - Concept

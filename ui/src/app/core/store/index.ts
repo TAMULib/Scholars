@@ -3,6 +3,7 @@ import { InjectionToken } from '@angular/core';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
 import {
+  Collection,
   Concept,
   Document,
   Organization,
@@ -44,6 +45,7 @@ export interface AppState {
   sidebar: fromSidebar.SidebarState;
   stomp: fromStomp.StompState;
   theme: fromTheme.ThemeState;
+  collections: fromSdr.SdrState<Collection>;
   concepts: fromSdr.SdrState<Concept>;
   documents: fromSdr.SdrState<Document>;
   organizations: fromSdr.SdrState<Organization>;
@@ -68,6 +70,7 @@ export const reducers: ActionReducerMap<AppState> = {
   sidebar: fromSidebar.reducer,
   stomp: fromStomp.reducer,
   theme: fromTheme.reducer,
+  collections: fromSdr.getSdrReducer<Collection>('collections'),
   concepts: fromSdr.getSdrReducer<Concept>('concepts'),
   documents: fromSdr.getSdrReducer<Document>('documents'),
   organizations: fromSdr.getSdrReducer<Organization>('organizations'),

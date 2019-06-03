@@ -719,10 +719,14 @@ public class Person extends AbstractSolrDocument {
     @PropertySource(template = "person/fax", predicate = "http://www.w3.org/2006/vcard/ns#fax")
     private String fax;
 
-    @NestedObject
+    @NestedObject({ @Reference(value = "etdChairOfURL", key = "url") })
     @Indexed(type = "nested_strings", copyTo = "_text_")
     @PropertySource(template = "person/etdChairOf", predicate = "http://www.w3.org/2000/01/rdf-schema#label")
     private List<String> etdChairOf;
+
+    @Indexed(type = "nested_strings")
+    @PropertySource(template = "person/etdChairOfURL", predicate = "http://www.w3.org/2006/vcard/ns#url")
+    private List<String> etdChairOfURL;
 
     @Indexed(type = "pdate")
     @PropertySource(template = "person/modTime", predicate = "http://vitro.mannlib.cornell.edu/ns/vitro/0.7#modTime")
@@ -2058,6 +2062,14 @@ public class Person extends AbstractSolrDocument {
 
     public void setEtdChairOf(List<String> etdChairOf) {
         this.etdChairOf = etdChairOf;
+    }
+
+    public List<String> getEtdChairOfURL() {
+        return etdChairOfURL;
+    }
+
+    public void setEtdChairOfURL(List<String> etdChairOfURL) {
+        this.etdChairOfURL = etdChairOfURL;
     }
 
     public String getModTime() {

@@ -23,6 +23,7 @@ The data is compiled into a profile that you can edit to best represent your sch
 
 == Discovery
 
+include::collections.adoc[]
 include::concepts.adoc[]
 include::documents.adoc[]
 include::organizations.adoc[]
@@ -41,8 +42,8 @@ include::user.adoc[]
 
 == Administration
 
-include::themes.adoc[]
-include::users.adoc[]
 include::directoryViews.adoc[]
 include::discoveryViews.adoc[]
 include::displayViews.adoc[]
+include::themes.adoc[]
+include::users.adoc[]

@@ -1,0 +1,12 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+
+CONSTRUCT {
+    ?mention vitro:mostSpecificType ?mostSpecificTypeWithId .
+} WHERE {
+    <[(${uri})]> obo:IAO_0000142 ?mention .
+    ?mention vitro:mostSpecificType ?mostSpecificType .
+	BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?mention), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
+    FILTER (?mostSpecificType != vivo:DateTimeValue) .
+}

@@ -1,0 +1,90 @@
+=== Collections
+
+==== Directory
+
+This provides a directory listing view of all the collections present in the system, based on the _request parameters_ as shown.
+
+===== Request Parameters
+include::{snippets}/collections/directory/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/collections/directory/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/collections/directory/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/collections/directory/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/collections/directory/curl-request.adoc[]
+
+==== Find By Id
+
+This will find a concept based on the _concept id_ provided as a parameter as shown in *Path Parameters*. The json response will have the specific concept as shown in the *Sample Response*.
+
+===== Path Parameters
+include::{snippets}/collections/find-by-id/path-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/collections/find-by-id/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/collections/find-by-id/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/collections/find-by-id/curl-request.adoc[]
+
+==== Find By Id In
+
+This will find a list of collections based on the _concept ids_ provided as a parameter as shown in *Request Parameters*. The json response will have the specific collections as shown in the *Sample Response*.
+
+===== Request Parameters
+include::{snippets}/collections/find-by-id-in/request-parameters.adoc[]
+
+===== Sample Request
+include::{snippets}/collections/find-by-id-in/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/collections/find-by-id-in/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/collections/find-by-id-in/curl-request.adoc[]
+
+==== Search
+
+This search will return a json response listing all the collections, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/collections/facet-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/collections/facet-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/collections/facet-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/collections/facet-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/collections/facet-search/curl-request.adoc[]
+
+==== Count
+
+This count will return a json response containing the count, based on the query parameters as shown in *Request Parameters*.
+
+===== Request Parameters
+include::{snippets}/collections/count-search/request-parameters.adoc[]
+
+===== Response Fields
+include::{snippets}/collections/count-search/response-fields.adoc[]
+
+===== Sample Request
+include::{snippets}/collections/count-search/http-request.adoc[]
+
+===== Sample Response
+include::{snippets}/collections/count-search/http-response.adoc[]
+
+===== CURL Sample
+include::{snippets}/collections/count-search/curl-request.adoc[]

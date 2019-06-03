@@ -5,7 +5,7 @@ CONSTRUCT {
     ?award rdfs:label ?labelWithId .
 } WHERE {
     <[(${uri})]> vivo:relatedBy ?award .
-    ?award a vivo:Award .
+    ?award a vivo:AwardReceipt .
     ?award rdfs:label ?label .
     BIND( CONCAT( STR(?label), REPLACE(STR(?award), "(^.*/)", "::") ) AS ?labelWithId ) .
 }

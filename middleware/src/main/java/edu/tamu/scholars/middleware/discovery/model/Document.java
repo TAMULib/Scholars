@@ -291,7 +291,7 @@ public class Document extends AbstractSolrDocument {
 
     @Indexed(type = "whole_strings")
     @PropertySource(template = "document/uri", predicate = "http://purl.org/ontology/bibo/uri")
-    private List<String> uri;
+    private String uri;
 
     @Indexed(type = "nested_strings")
     @NestedObject({ @Reference(value = "citedByType", key = "type") })
@@ -957,11 +957,11 @@ public class Document extends AbstractSolrDocument {
         this.eissn = eissn;
     }
 
-    public List<String> getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(List<String> uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 

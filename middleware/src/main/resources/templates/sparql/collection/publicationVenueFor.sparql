@@ -1,0 +1,10 @@
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?publicationVenueFor rdfs:label ?labelWithId .
+} WHERE {
+    <[(${uri})]> vivo:publicationVenueFor ?publicationVenueFor .
+    ?publicationVenueFor rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?publicationVenueFor), "(^.*/)", "::") ) AS ?labelWithId ) .
+}
