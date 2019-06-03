@@ -1,0 +1,7 @@
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+CONSTRUCT {
+    <[(${uri})]> vitro:mostSpecificType ?mostSpecificType .
+} WHERE {
+    <[(${uri})]> vitro:mostSpecificType ?mostSpecificType .
+}

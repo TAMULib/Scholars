@@ -1,0 +1,10 @@
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?translator rdfs:label ?labelWithId .
+} WHERE {
+    <[(${uri})]> bibo:translator ?translator .
+    ?translator rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?translator), "(^.*/)", "::") ) AS ?labelWithId ) .
+}

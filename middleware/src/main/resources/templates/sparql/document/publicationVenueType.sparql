@@ -4,7 +4,7 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 CONSTRUCT {
     ?publicationVenue vitro:mostSpecificType ?mostSpecificTypeWithId .
 } WHERE {
-    <[(${uri})]> vivo:hasPublicationVenue ?publicationVenue .
-    ?publicationVenue vitro:mostSpecificType ?mostSpecificType .
-    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?publicationVenue), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
+    <[(${uri})]> vivo:hasPublicationVenue ?hasPublicationVenue .
+    ?hasPublicationVenue vitro:mostSpecificType ?mostSpecificType .
+    BIND( CONCAT( STR(?mostSpecificType), REPLACE(STR(?hasPublicationVenue), "(^.*/)", "::") ) AS ?mostSpecificTypeWithId ) .
 }
