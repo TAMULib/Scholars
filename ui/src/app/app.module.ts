@@ -39,7 +39,7 @@ export function getBaseHref(document: Document): string {
         TransferHttpCacheModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+        RouterModule.forRoot(routes, { initialNavigation: 'enabled', anchorScrolling: 'enabled' }),
         TranslateModule.forRoot(),
         CoreModule.forRoot(),
         NgbModule,
