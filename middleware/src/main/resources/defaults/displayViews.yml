@@ -75,9 +75,16 @@
     sections:
     - name: education and training
       hidden: false
-      template: "defaults/displayViews/people/academicBackground/educationAndTraining.html"
+      template: "defaults/displayViews/people/academicBackground/default.html"
       requiredFields:
       - educationAndTraining
+      subsections:
+      - name: Education And Training
+        field: educationAndTraining
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/people/academicBackground/educationAndTraining.html"
     - name: credentials
       hidden: false
       template: "defaults/displayViews/people/academicBackground/credentials.html"
@@ -208,9 +215,16 @@
       - collectionOrSeriesEditorFor
     - name: editor of
       hidden: false
-      template: "defaults/displayViews/people/publications/editorOf.html"
+      template: "defaults/displayViews/people/publications/default.html"
       requiredFields:
       - editorOf
+      subsections:
+      - name: Editor Of
+        field: editorOf
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/people/publications/editorOf.html"
     - name: presentations
       hidden: false
       template: "defaults/displayViews/people/publications/presentations.html"
@@ -274,9 +288,16 @@
       - teachingOverview
     - name: teaching activities
       hidden: false
-      template: "defaults/displayViews/people/recentCourses/teachingActivities.html"
+      template: "defaults/displayViews/people/recentCourses/default.html"
       requiredFields:
       - teachingActivities
+      subsections:
+      - name: Activities
+        field: teachingActivities
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/people/recentCourses/teachingActivities.html"
     - name: advisees
       hidden: false
       template: "defaults/displayViews/people/recentCourses/advisees.html"

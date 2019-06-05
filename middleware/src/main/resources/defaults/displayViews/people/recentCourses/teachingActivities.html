@@ -1,14 +1,4 @@
-{{#if teachingActivities}}
-<div class="mb-2">
-  <ul class="list-unstyled ml-2 mr-2 mb-0">
-    {{#each teachingActivities}}
-    <li class="mb-2">
-      <div class="course">
-        <span class="mr-2"><a href="display/processes/{{id}}">{{label}}</a></span>
-        <span>{{role}}</span>
-      </div>
-    </li>
-    {{/each}}
-  </ul>
+<div class="course">
+  <span class="mr-2"><a href="display/processes/{{id}}">{{label}}</a></span>
+  <span>{{role}}</span>
 </div>
-{{/if}}

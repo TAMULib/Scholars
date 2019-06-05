@@ -1,11 +1,5 @@
-{{#if educationAndTraining}}
-<ul class="list-unstyled">
-  {{#each educationAndTraining}}
-  <li class="mb-1">
-    <span class="mr-1">{{abbreviation}} in {{field}},</span>
-    <span class="mr-1"><a href="display/organizations/{{organization.id}}">{{organization.label}}</a></span>
-    <span class="badge badge-light">{{toYear date}}</span>
-  </li>
-  {{/each}}
-</ul>
-{{/if}}
+<div class="mb-1">
+  <span class="mr-1">{{abbreviation}} in {{field}},</span>
+  <span class="mr-1"><a href="display/organizations/{{organization.id}}">{{organization.label}}</a></span>
+  <span class="badge badge-light">{{toYear date}}</span>
+</div>
