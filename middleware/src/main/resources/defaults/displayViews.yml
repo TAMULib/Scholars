@@ -287,9 +287,16 @@
     sections:
     - name: chaired theses and dissertations
       hidden: false
-      template: "defaults/displayViews/people/worksByStudents/chairedThesesAndDissertations.html"
+      template: "defaults/displayViews/people/worksByStudents/default.html"
       requiredFields:
       - etdChairOf
+      subsections:
+      - name: Documents
+        field: etdChairOf
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/people/worksByStudents/chairedThesesAndDissertations.html"
   - name: Service
     hidden: false
     sections:
@@ -588,9 +595,16 @@
       - organizationForTraining
     - name: people
       hidden: false
-      template: "defaults/displayViews/organizations/affiliation/people.html"
+      template: "defaults/displayViews/organizations/affiliation/default.html"
       requiredFields:
       - people
+      subsections:
+      - name: People
+        field: people
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/organizations/affiliation/people.html"
     - name: has sub-organization
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/hasSubOrganization.html"

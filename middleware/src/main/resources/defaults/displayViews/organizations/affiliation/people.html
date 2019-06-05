@@ -1,15 +1,6 @@
-{{#if people}}
-<div class="mb-2">
-  <ul class="list-unstyled ml-2 mr-2 mb-0">
-    {{#each people}}
-    <li class="mb-2">
-      <div class="person comma-seperated">
-        <span><a href="display/persons/{{id}}">{{label}}</a></span>
-        <span>{{title}}</span>
-      </div>
-    </li>
-    {{/each}}
-  </ul>
+<div class="person comma-seperated">
+  <span><a href="display/persons/{{id}}">{{label}}</a></span>
+  <span>{{title}}</span>
 </div>
 <style>
   .comma-seperated span:after {
@@ -20,4 +11,3 @@
     content: "";
   }
 </style>
-{{/if}}
