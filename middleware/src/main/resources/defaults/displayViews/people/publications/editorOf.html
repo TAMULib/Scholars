@@ -13,7 +13,14 @@
   </li>
   <li class="mb-2">
     <span class="label">Pages:</span>
-    <span>{{pageStart}} - {{pageEnd}}</span>
+    <span>
+    {{#if pageStart}}
+      {{pageStart}}
+    {{/if}}
+    {{#if pageEnd}}
+       - {{pageEnd}}
+    {{/if}}
+    </span>
   </li>
   <li class="mb-2">
     <span class="label">Date:</span>
