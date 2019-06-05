@@ -75,7 +75,7 @@
     sections:
     - name: education and training
       hidden: false
-      template: "defaults/displayViews/people/academicBackground/default.html"
+      template: "defaults/displayViews/people/academicBackground/educationAndTraining.html"
       requiredFields:
       - educationAndTraining
       subsections:
@@ -84,7 +84,7 @@
         sort:
         - field: label
           direction: ASC
-        template: "defaults/displayViews/people/academicBackground/educationAndTraining.html"
+        template: "defaults/displayViews/people/academicBackground/educationAndTraining/default.html"
     - name: credentials
       hidden: false
       template: "defaults/displayViews/people/academicBackground/credentials.html"
@@ -215,7 +215,7 @@
       - collectionOrSeriesEditorFor
     - name: editor of
       hidden: false
-      template: "defaults/displayViews/people/publications/default.html"
+      template: "defaults/displayViews/people/publications/editorOf.html"
       requiredFields:
       - editorOf
       subsections:
@@ -224,7 +224,7 @@
         sort:
         - field: label
           direction: ASC
-        template: "defaults/displayViews/people/publications/editorOf.html"
+        template: "defaults/displayViews/people/publications/editorOf/default.html"
     - name: presentations
       hidden: false
       template: "defaults/displayViews/people/publications/presentations.html"
@@ -288,7 +288,7 @@
       - teachingOverview
     - name: teaching activities
       hidden: false
-      template: "defaults/displayViews/people/recentCourses/default.html"
+      template: "defaults/displayViews/people/recentCourses/teachingActivities.html"
       requiredFields:
       - teachingActivities
       subsections:
@@ -297,7 +297,7 @@
         sort:
         - field: label
           direction: ASC
-        template: "defaults/displayViews/people/recentCourses/teachingActivities.html"
+        template: "defaults/displayViews/people/recentCourses/teachingActivities/default.html"
     - name: advisees
       hidden: false
       template: "defaults/displayViews/people/recentCourses/advisees.html"
@@ -308,7 +308,7 @@
     sections:
     - name: chaired theses and dissertations
       hidden: false
-      template: "defaults/displayViews/people/worksByStudents/default.html"
+      template: "defaults/displayViews/people/worksByStudents/chairedThesesAndDissertations.html"
       requiredFields:
       - etdChairOf
       subsections:
@@ -317,7 +317,7 @@
         sort:
         - field: label
           direction: ASC
-        template: "defaults/displayViews/people/worksByStudents/chairedThesesAndDissertations.html"
+        template: "defaults/displayViews/people/worksByStudents/chairedThesesAndDissertations/default.html"
   - name: Service
     hidden: false
     sections:
@@ -616,7 +616,7 @@
       - organizationForTraining
     - name: people
       hidden: false
-      template: "defaults/displayViews/organizations/affiliation/default.html"
+      template: "defaults/displayViews/organizations/affiliation/people.html"
       requiredFields:
       - people
       subsections:
@@ -625,7 +625,7 @@
         sort:
         - field: label
           direction: ASC
-        template: "defaults/displayViews/organizations/affiliation/people.html"
+        template: "defaults/displayViews/organizations/affiliation/people/default.html"
     - name: has sub-organization
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/hasSubOrganization.html"
