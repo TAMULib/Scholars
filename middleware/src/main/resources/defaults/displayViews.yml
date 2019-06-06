@@ -78,6 +78,13 @@
       template: "defaults/displayViews/people/academicBackground/educationAndTraining.html"
       requiredFields:
       - educationAndTraining
+      subsections:
+      - name: Education And Training
+        field: educationAndTraining
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/people/academicBackground/educationAndTraining/default.html"
     - name: credentials
       hidden: false
       template: "defaults/displayViews/people/academicBackground/credentials.html"
@@ -211,6 +218,13 @@
       template: "defaults/displayViews/people/publications/editorOf.html"
       requiredFields:
       - editorOf
+      subsections:
+      - name: Editor Of
+        field: editorOf
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/people/publications/editorOf/default.html"
     - name: presentations
       hidden: false
       template: "defaults/displayViews/people/publications/presentations.html"
@@ -258,7 +272,7 @@
       hidden: false
       template: "defaults/displayViews/people/grantsAwards/otherResearchActivities.html"
       requiredFields:
-      - otherResearchActivity
+      - otherResearchActivities
     - name: awards and honors
       hidden: false
       template: "defaults/displayViews/people/grantsAwards/awardsAndHonors.html"
@@ -277,6 +291,13 @@
       template: "defaults/displayViews/people/recentCourses/teachingActivities.html"
       requiredFields:
       - teachingActivities
+      subsections:
+      - name: Activities
+        field: teachingActivities
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/people/recentCourses/teachingActivities/default.html"
     - name: advisees
       hidden: false
       template: "defaults/displayViews/people/recentCourses/advisees.html"
@@ -290,6 +311,13 @@
       template: "defaults/displayViews/people/worksByStudents/chairedThesesAndDissertations.html"
       requiredFields:
       - etdChairOf
+      subsections:
+      - name: Documents
+        field: etdChairOf
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/people/worksByStudents/chairedThesesAndDissertations/default.html"
   - name: Service
     hidden: false
     sections:
@@ -591,6 +619,13 @@
       template: "defaults/displayViews/organizations/affiliation/people.html"
       requiredFields:
       - people
+      subsections:
+      - name: People
+        field: people
+        sort:
+        - field: label
+          direction: ASC
+        template: "defaults/displayViews/organizations/affiliation/people/default.html"
     - name: has sub-organization
       hidden: false
       template: "defaults/displayViews/organizations/affiliation/hasSubOrganization.html"

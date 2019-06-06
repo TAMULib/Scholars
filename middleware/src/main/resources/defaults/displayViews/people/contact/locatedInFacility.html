@@ -1,1 +1,19 @@
-<span>Work In Progress</span>
+<div>
+  <ul class="list-unstyled m1-1">
+  {{#each locatedInFacility}}
+     <li>
+        <div class="comma-separated">
+          <span>{{this}}</span>
+        </div>
+      </li>
+  {{/each}}
+  </ul>
+</div>
+<style>
+  .comma-separated span:after {
+    content: ", ";
+  }
+  .comma-separated span:last-child:after {
+    content: "";
+  }
+</style>

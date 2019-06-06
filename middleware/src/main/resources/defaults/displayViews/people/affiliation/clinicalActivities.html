@@ -1,1 +1,22 @@
-<span>Work In Progress</span>
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+  {{#each clinicalActivities}}
+    <li class="mb-2">
+      <span class="label">Activity:</span>
+      <span>{{label}}</span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Type:</span>
+      <span>{{formalize type}}</span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Role:</span>
+      <span>{{formalize role}}</span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Date/time Interval:</span>
+      <span>{{toYear startDate}} - {{toYear endDate}}</span>
+    </li>
+  {{/each}}
+  </ul>
+</div>

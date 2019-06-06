@@ -1,1 +1,18 @@
-<span>Work In Progress</span>
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+  {{#each memberOf}}
+    <li class="mb-2">
+      <span class="label">Title:</span>
+      <span>{{label}}</span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Organization:</span>
+      <span><a href="display/organizations/{{organization.id}}">{{organization.label}}</a></span>
+    </li>
+    <li class="mb-2">
+      <span class="label">Date/time Interval:</span>
+      <span>{{toYear startDate}} - {{toYear endDate}}</span>
+    </li>
+  {{/each}}
+  </ul>
+</div>

@@ -1,1 +1,10 @@
-<span>Work In Progress</span>
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+  {{#each awardsAndHonors}}
+    <li class="mb-2">
+      <a href="display/relationships/{{id}}">{{label}}</a>
+      <span class="badge badge-light">{{toYear date}}</span>
+    </li>
+  {{/each}}
+  </ul>
+</div>
