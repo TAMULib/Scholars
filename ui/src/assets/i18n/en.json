@@ -145,7 +145,8 @@
       "PAGE_SIZE": "Page Size {{size}}"
     },
     "SEARCH_BOX": {
-      "LABEL": "Find Research at {{organization}}"
+      "LABEL": "Find Research at {{organization}}",
+      "SEARCH_TIPS": "Search Tips"
     },
     "SIDEBAR": {
       "ADMINISTRATION": {

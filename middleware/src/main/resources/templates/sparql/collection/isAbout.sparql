@@ -1,0 +1,10 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+    ?isAbout rdfs:label ?labelWithId .
+} WHERE {
+    <[(${uri})]> obo:IAO_0000136 ?isAbout .
+    ?isAbout rdfs:label ?label .
+    BIND( CONCAT( STR(?label), REPLACE(STR(?isAbout), "(^.*/)", "::") ) AS ?labelWithId ) .
+}

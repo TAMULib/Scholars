@@ -5,6 +5,9 @@
         <ng-container *ngTemplateOutlet="searchLabel"></ng-container>
         <label for="search" class="d-none">Search</label>
         <input id="search" type="text" class="form-control" placeholder="Search..." name="query" formControlName="query" [style.box-shadow]="styles?.inputBoxShadow" />
+        <small id="searchTipsLink" class="d-block text-muted text-right">
+          <a [routerLink]="['/about']" fragment="searchTips">{{ 'SHARED.SEARCH_BOX.SEARCH_TIPS' | translate }}</a>
+        </small>
       </div>
     </form>
 
@@ -17,6 +20,9 @@
         <input type="text" class="form-control invisible" name="facets" formControlName="facets" />
         <input *ngFor="let filter of view.filters" type="text" class="form-control invisible" [name]="getFilterName(filter)" [formControlName]="getFilterName(filter)" />
         <input type="submit" class="d-none" />
+        <small id="searchTipsLink" class="d-block text-muted text-right">
+          <a [routerLink]="['/about']" fragment="searchTips">{{ 'SHARED.SEARCH_BOX.SEARCH_TIPS' | translate }}</a>
+        </small>
       </div>
     </form>
 

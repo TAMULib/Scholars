@@ -1,0 +1,14 @@
+{{#workByStudent this}}
+<div class="work mb-2">
+  <span>{{authorAndDate}}</span>
+  <span><u><a href="display/documents/{{id}}">{{title}}</a></u></span>
+  {{#if degree }}
+    <span>({{degree}})</span>
+  {{/if}}
+  <div>
+    {{#if url}}
+  <span class="m-1"><a href="{{this.url}}"><img src="assets/images/open-access-badge.jpg" width="100" alt="open access badge" /></a></span>
+{{/if}}
+  </div>
+</div>
+{{/workByStudent}}

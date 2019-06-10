@@ -1,1 +1,10 @@
-<span>Work In Progress</span>
+<div class="mb-2">
+  <ul class="list-unstyled ml-2 mr-2 mb-0">
+  {{#each contactOrProvidorForService}}
+    <li class="mb-2">
+      <span>{{label}}</span>
+      <span>{{formalize type}}</span>
+    </li>
+  {{/each}}
+  </ul>
+</div>
